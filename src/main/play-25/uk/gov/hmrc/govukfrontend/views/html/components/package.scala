@@ -16,7 +16,7 @@
 
 package uk.gov.hmrc.govukfrontend.views.html
 
-import uk.gov.hmrc.govukfrontend.views.components.{Aliases, Utils}
+import uk.gov.hmrc.govukfrontend.views.{Aliases, Utils}
 import uk.gov.hmrc.govukfrontend.views.html.components.backLink_Scope0.backLink
 import uk.gov.hmrc.govukfrontend.views.html.components.button_Scope0.button
 import uk.gov.hmrc.govukfrontend.views.html.components.errorSummary_Scope0.errorSummary
@@ -31,7 +31,7 @@ import uk.gov.hmrc.govukfrontend.views.html.components.tag_Scope0.tag
 
 package object components extends Utils with Aliases {
 
-  lazy val Backlink = new backLink()
+  lazy val BackLink = new backLink()
 
   lazy val Button = new button()
 

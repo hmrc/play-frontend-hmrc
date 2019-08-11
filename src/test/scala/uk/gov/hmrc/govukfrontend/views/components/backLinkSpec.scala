@@ -34,14 +34,14 @@ class backLinkSpec
     "fail to render if the required fields are not included" in {
       val caught =
         intercept[IllegalArgumentException] {
-          Backlink.apply(href = "")(Text("Example"))
+          BackLink.apply(href = "")(Text("Example"))
         }
 
       caught.getMessage shouldBe "requirement failed"
     }
 
     "render the default example with an anchor, href and text correctly" in {
-      val rendered  = Backlink.apply(href = "#")(Empty).body
+      val rendered  = BackLink.apply(href = "#")(Empty).body
       val component = Jsoup.parse(rendered).select(".govuk-back-link")
 
       component.first.tagName shouldBe "a"
@@ -50,7 +50,7 @@ class backLinkSpec
     }
 
     "render classes correctly" in {
-      val rendered = Backlink
+      val rendered = BackLink
         .apply(href = "#", classes = "app-back-link--custom-class")(HtmlContent("<b>Back</b>"))
         .body
       val component = Jsoup.parse(rendered).select(".govuk-back-link")
@@ -59,35 +59,35 @@ class backLinkSpec
     }
 
     "render custom text correctly" in {
-      val rendered  = Backlink.apply(href = "#")(Text("Home")).body
+      val rendered  = BackLink.apply(href = "#")(Text("Home")).body
       val component = Jsoup.parse(rendered).select(".govuk-back-link")
 
       component.html shouldBe "Home"
     }
 
     "render escaped html when passed as text" in {
-      val rendered  = Backlink.apply(href = "#")(Text("<b>Home</b>")).body
+      val rendered  = BackLink.apply(href = "#")(Text("<b>Home</b>")).body
       val component = Jsoup.parse(rendered).select(".govuk-back-link")
 
       component.html shouldBe "&lt;b&gt;Home&lt;/b&gt;"
     }
 
     "render html correctly" in {
-      val rendered  = Backlink.apply(href = "#")(HtmlContent("<b>Back</b>")).body
+      val rendered  = BackLink.apply(href = "#")(HtmlContent("<b>Back</b>")).body
       val component = Jsoup.parse(rendered).select(".govuk-back-link")
 
       component.html shouldBe "<b>Back</b>"
     }
 
     "render default text correctly" in {
-      val rendered  = Backlink.apply(href = "#")(Empty).body
+      val rendered  = BackLink.apply(href = "#")(Empty).body
       val component = Jsoup.parse(rendered).select(".govuk-back-link")
 
       component.html shouldBe "Back"
     }
 
     "render attributes correctly" in {
-      val rendered = Backlink
+      val rendered = BackLink
         .apply(href = "#", attributes = Map("data-test" -> "attribute", "aria-label" -> "Back to home"))(
           HtmlContent("Back"))
         .body
@@ -118,7 +118,7 @@ object backLinkSpec {
   )(
     (contents, href, classes, attributes) =>
       tagger[HtmlStringTag][String](
-        Backlink
+        BackLink
           .apply(href, classes, attributes)(contents)
           .body))
 }

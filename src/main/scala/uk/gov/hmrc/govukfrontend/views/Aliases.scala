@@ -14,9 +14,7 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.govukfrontend
-package views
-package components
+package uk.gov.hmrc.govukfrontend.views
 
 trait Aliases {
   type Contents = viewmodels.common.Contents

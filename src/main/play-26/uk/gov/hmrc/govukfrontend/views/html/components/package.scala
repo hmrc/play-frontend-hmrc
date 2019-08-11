@@ -16,12 +16,12 @@
 
 package uk.gov.hmrc.govukfrontend.views.html
 
-import uk.gov.hmrc.govukfrontend.views.components.{Aliases, Utils}
+import uk.gov.hmrc.govukfrontend.views.{Aliases, Utils}
 
 package object components extends Utils with Aliases {
 
   @deprecated("Use DI")
-  lazy val Backlink = new backLink()
+  lazy val BackLink = new backLink()
 
   @deprecated("Use DI")
   lazy val Button = new button()
