@@ -41,14 +41,6 @@ class labelSpec
 }
 
 object labelSpec {
-  case class Params(
-    contents: Contents              = Empty,
-    forAttr: Option[String]         = None,
-    isPageHeading: Boolean          = false,
-    classes: String                 = "",
-    attributes: Map[String, String] = Map.empty
-  )
-
   import RenderHtmlSpec._
 
   implicit val reads: Reads[HtmlString] = (

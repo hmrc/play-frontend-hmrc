@@ -49,12 +49,6 @@ class tagSpec
 }
 
 object tagSpec {
-  case class Params(
-    contents: Contents              = Empty,
-    classes: String                 = "",
-    attributes: Map[String, String] = Map.empty
-  )
-
   import RenderHtmlSpec._
 
   implicit val reads: Reads[HtmlString] = (

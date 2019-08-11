@@ -100,14 +100,6 @@ class backLinkSpec
 }
 
 object backLinkSpec {
-
-  case class Params(
-    contents: Contents = Empty,
-    href: String,
-    classes: String                 = "",
-    attributes: Map[String, String] = Map.empty
-  )
-
   import RenderHtmlSpec._
 
   implicit val reads: Reads[HtmlString] = (

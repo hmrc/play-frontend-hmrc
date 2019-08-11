@@ -17,8 +17,8 @@
 package uk.gov.hmrc.govukfrontend.views.components
 
 import org.jsoup.Jsoup
-import play.api.libs.json.{Json, Reads}
-import play.twirl.api.Html
+import play.api.libs.functional.syntax._
+import play.api.libs.json._
 import uk.gov.hmrc.govukfrontend.views.components.skipLinkSpec.reads
 import uk.gov.hmrc.govukfrontend.views.html.components._
 
@@ -32,7 +32,7 @@ class skipLinkSpec
 
   "skipLink" should {
     "render href" in {
-      val skipLinkHtml = SkipLink.apply(href = "#custom")()
+      val skipLinkHtml = SkipLink.apply(href = "#custom")(Empty)
 
       val component = Jsoup.parse(skipLinkHtml.body).select(".govuk-skip-link")
 
@@ -44,25 +44,17 @@ class skipLinkSpec
 }
 
 object skipLinkSpec {
-  case class Params(
-    text: Option[String] = None,
-    html: Option[Html]   = None,
-    href: String,
-    classes: Option[String]         = None,
-    attributes: Map[String, String] = Map.empty
-  )
-
   import RenderHtmlSpec._
 
-  implicit val reads: Reads[HtmlString] =
-    Json
-      .using[Json.WithDefaultValues]
-      .reads[Params]
-      .map {
-        case Params(text, html, href, classes, attributes) =>
-          tagger[HtmlStringTag][String](
-            SkipLink
-              .apply(text, href, classes, attributes)(html)
-              .body)
-      }
+  implicit val reads: Reads[HtmlString] = (
+    readsContents and
+      (__ \ "href").read[String] and
+      (__ \ "classes").readWithDefault[String]("") and
+      (__ \ "attributes").readWithDefault[Map[String, String]](Map.empty)
+  )(
+    (contents, href, classes, attributes) =>
+      tagger[HtmlStringTag][String](
+        SkipLink
+          .apply(href, classes, attributes)(contents)
+          .body))
 }

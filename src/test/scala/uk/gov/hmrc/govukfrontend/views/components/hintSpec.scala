@@ -30,7 +30,6 @@ class hintSpec
     )
 
 object hintSpec {
-
   import RenderHtmlSpec._
 
   implicit val reads: Reads[HtmlString] = (

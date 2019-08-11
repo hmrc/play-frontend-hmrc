@@ -21,7 +21,8 @@
 @contents match {
   case NonEmptyHtml(_) | NonEmptyText(_) => {
       @defining(
-          Html(s"""
+          Html(
+          s"""
             <label class="${s"govuk-label $classes".trim}"
                ${if (attributes.nonEmpty) toAttributes(attributes) else HtmlFormat.empty}
                ${forAttr.getOrElse("")}>
@@ -34,7 +35,7 @@
                     @labelHtml
                   }
                 }
-      }
-  case _ => {}
   }
+  case _ => {}
+}
 

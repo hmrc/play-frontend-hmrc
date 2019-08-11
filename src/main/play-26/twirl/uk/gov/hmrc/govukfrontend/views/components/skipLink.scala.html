@@ -16,9 +16,8 @@
 
 @this()
 
-@(text: Option[String] = None,
-        href: String,
-        classes: Option[String] = None,
-        attributes: Map[String, String] = Map.empty)(html: Option[Html] = None)
+@(href: String,
+  classes: String = "",
+  attributes: Map[String, String] = Map.empty)(contents: Contents)
 @require(href.nonEmpty)
-<a href="@if(href.nonEmpty) {@href} else {#content}" class="govuk-skip-link@if(classes.isDefined) { @classes}" @if(attributes.nonEmpty) { @toAttributes(attributes)}>@if(html.isDefined) {@html} else {@text}</a>
+<a href="@{"#content".?:(href)}" class="@{"govuk-skip-link" addClasses classes}" @if(attributes.nonEmpty) { @toAttributes(attributes)}>@contents.asHtml</a>

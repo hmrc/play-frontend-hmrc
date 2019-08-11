@@ -56,7 +56,6 @@ class phaseBannerSpec
 }
 
 object phaseBannerSpec {
-
   import RenderHtmlSpec._
 
   implicit val readsTagParams: Reads[TagParams] = (

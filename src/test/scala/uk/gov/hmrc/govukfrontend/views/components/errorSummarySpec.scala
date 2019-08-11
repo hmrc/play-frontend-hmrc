@@ -24,14 +24,6 @@ import uk.gov.hmrc.govukfrontend.views.html.components._
 class errorSummarySpec extends RenderHtmlSpec(Seq("error-summary-default"))
 
 object errorSummarySpec {
-  case class Params(
-    title: Contents                 = Empty,
-    description: Contents           = Empty,
-    errorList: Seq[ErrorLink]       = Nil,
-    classes: String                 = "",
-    attributes: Map[String, String] = Map.empty
-  )
-
   import RenderHtmlSpec._
 
   implicit val reads: Reads[HtmlString] = (

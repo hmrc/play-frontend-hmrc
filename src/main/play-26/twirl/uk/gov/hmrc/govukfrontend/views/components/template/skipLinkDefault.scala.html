@@ -15,8 +15,9 @@
  *@
 
 @import uk.gov.hmrc.govukfrontend.views.html.components.skipLink
+@import uk.gov.hmrc.govukfrontend.views.html.components.HtmlContent
 
-@this(_skipLink: skipLink)
+@this(skipLink1: skipLink)
 
 @()
-@_skipLink(href = "#main-content")(Some(Html("Skip to main content")))
+@skipLink1(href = "#main-content")(HtmlContent("Skip to main content"))

@@ -58,18 +58,6 @@ class buttonSpec
 }
 
 object buttonSpec {
-  case class Params(
-    contents: Contents              = Empty,
-    element: Option[String]         = None,
-    name: Option[String]            = None,
-    inputType: Option[String]       = None,
-    value: Option[String]           = None,
-    disabled: Boolean               = false,
-    href: Option[String]            = None,
-    classes: String                 = "",
-    attributes: Map[String, String] = Map.empty,
-    preventDoubleClick: Boolean     = false)
-
   import RenderHtmlSpec._
 
   implicit val reads: Reads[HtmlString] = (
