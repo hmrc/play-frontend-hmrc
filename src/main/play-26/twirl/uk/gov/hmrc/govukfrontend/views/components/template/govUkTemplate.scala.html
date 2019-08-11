@@ -1,0 +1,76 @@
+@*
+ * Copyright 2019 HM Revenue & Customs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *@
+
+@import uk.gov.hmrc.govukfrontend.controllers._
+@import uk.gov.hmrc.govukfrontend.views.html.components._
+@import uk.gov.hmrc.govukfrontend.views.html.components.template._
+
+@this(headerTemplate: header, footerTemplate: footer, skipLinkTemplate: skipLink)
+
+@*FIXME use i18n support from Play instead of passing the language*@
+@(
+  htmlLang: Option[String],
+  htmlClasses: Option[String] = None,
+  themeColour: Option[String] = None,
+  bodyClasses: Option[String] = None,
+  pageTitle: Option[String] = None,
+  headIcons: Html = new headIconsDefault()(),
+  headBlock: Option[Html] = None,
+  bodyStart: Option[Html] = None,
+  skipLinkBlock: Html = new skipLinkDefault(skipLinkTemplate)(),
+  headerBlock: Html = headerTemplate(),
+  footerBlock: Html = footerTemplate(),
+  bodyEndBlock: Option[Html] = None,
+  mainClasses: Option[String] = None,
+  beforeContentBlock: Option[Html] = None)(contentBlock: Html)
+<!DOCTYPE html>
+<html lang="@if(htmlLang.isDefined) {@htmlLang} else {en}" class="govuk-template @htmlClasses">
+  <head>
+    <meta charset="utf-8" />
+    <title>@if(pageTitle.isDefined) {@pageTitle} else {GOV.UK - The best place to find government services and information}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta name="theme-color" content="@if(themeColour.isDefined) {@themeColour} else {#0b0c0c}" /> @* Hardcoded value of $govuk-black *@
+    @* Ensure that older IE versions always render with the correct rendering engine *@
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    @headIcons
+
+    @headBlock
+    @* The default og:image is added below head so that scrapers see any custom metatags first, and this is just a fallback *@
+    @* image url needs to be absolute e.g. http://wwww.domain.com/.../govuk-opengraph-image.png *@
+    <meta property="og:image" content="@routes.Assets.versioned("images/govuk-opengraph-image.png")">
+  </head>
+  <body class="govuk-template__body @bodyClasses">
+    <script>document.body.className = ((document.body.className) ? document.body.className + ' js-enabled' : 'js-enabled');</script>
+    @bodyStart
+
+    @skipLinkBlock
+
+    @headerBlock
+
+    <div class="govuk-width-container">
+      @beforeContentBlock
+      <main class="govuk-main-wrapper @mainClasses" id="main-content" role="main">
+      @contentBlock
+      </main>
+    </div>
+
+    @footerBlock
+
+    @bodyEndBlock
+  </body>
+</html>
+

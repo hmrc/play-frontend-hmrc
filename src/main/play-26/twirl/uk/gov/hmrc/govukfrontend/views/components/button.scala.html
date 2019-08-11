@@ -1,0 +1,55 @@
+@*
+ * Copyright 2019 HM Revenue & Customs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *@
+
+@this()
+
+@(element: Option[String] = None,
+  name: Option[String] = None,
+  inputType: Option[String] = None,
+  value: Option[String] = None,
+  disabled: Boolean = false,
+  href: Option[String] = None,
+  classes: String = "",
+  attributes: Map[String, String] = Map.empty,
+  preventDoubleClick: Boolean = false)(contents: Contents)
+@require(if (element.isDefined && element.get.toLowerCase() == "input") contents.isInstanceOf[Text] else true)
+@elem = @{
+  if(element.isDefined) {
+    element.get.toLowerCase()
+  } else {
+    if(href.isDefined) "a" else "button"
+  }
+}
+
+@commonAttributes = {
+  class="@{"govuk-button" addClasses classes}@if(disabled) { govuk-button--disabled}"@if(attributes.nonEmpty) { @toAttributes(attributes)}
+}
+
+@buttonAttributes = {
+  @if(name.isDefined) { name="@name"} type="@if(inputType.isDefined) {@inputType} else {submit}"@if(disabled) { disabled="disabled" aria-disabled="true"}@if(preventDoubleClick) { data-prevent-double-click="true"}
+}
+
+@if(elem == "a") {
+  <a href="@{"#".?:(href)}" role="button" draggable="false" @commonAttributes>
+    @contents.asHtml
+  </a>
+} else if(elem == "button") {
+    <button @if(value.isDefined) {value="@value"}@buttonAttributes @commonAttributes>
+      @contents.asHtml
+    </button>
+} else if(elem == "input") {
+    <input value="@contents.asInstanceOf[Text].value"@buttonAttributes @commonAttributes>
+}

@@ -1,0 +1,33 @@
+@*
+ * Copyright 2019 HM Revenue & Customs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *@
+
+@this(tag1: tag)
+
+@(tagParams: Option[TagParams] = None,
+  classes: String = "",
+  attributes: Map[String, String] = Map.empty)(contents: Contents = Empty)
+<div class="@{"govuk-phase-banner" addClasses classes}" @if(attributes.nonEmpty) { @toAttributes(attributes)}>
+    <p class="govuk-phase-banner__content">@defining(tagParams.getOrElse(TagParams())) { tagParams1 =>@tag1(
+        "govuk-phase-banner__content__tag " addClasses tagParams1.classes)(tagParams1.contents)
+        }
+        <span class="govuk-phase-banner__text">
+            @contents.asHtml
+        </span>
+    </p>
+</div>
+
+
+

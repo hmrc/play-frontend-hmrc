@@ -1,7 +1,8 @@
 
 # play-frontend-govuk
 
-This is a placeholder README.md for a new repository
+This library implements components of the [govuk-frontend](https://github.com/alphagov/govuk-frontend/) library as 
+documented in the [GOV.UK Design System](https://design-system.service.gov.uk/components/).
 
 ### License
 
