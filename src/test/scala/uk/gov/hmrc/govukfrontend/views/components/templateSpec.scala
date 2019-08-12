@@ -24,7 +24,7 @@ class templateSpec extends WordSpec with Matchers {
   "template rendered with default values" should {
     "not have whitespeace before the doctype" in {
       val templateHtml =
-        GovUkTemplate
+        GovukTemplate
           .apply(htmlLang = None, htmlClasses = None, themeColour = None, bodyClasses = None)(HtmlFormat.empty)
       val component = templateHtml.body
       component.charAt(0) shouldBe '<'

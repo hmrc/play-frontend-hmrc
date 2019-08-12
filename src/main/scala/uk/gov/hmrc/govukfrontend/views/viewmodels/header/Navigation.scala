@@ -19,6 +19,6 @@ package uk.gov.hmrc.govukfrontend.views.viewmodels.header
 case class Navigation(
   text: Option[String]            = None,
   href: Option[String]            = None,
-  active: Option[Boolean]         = None,
+  active: Boolean                 = false,
   attributes: Map[String, String] = Map.empty
 )

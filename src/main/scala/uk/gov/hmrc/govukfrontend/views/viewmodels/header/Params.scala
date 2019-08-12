@@ -17,14 +17,14 @@
 package uk.gov.hmrc.govukfrontend.views.viewmodels.header
 
 case class Params(
-  homepageUrl: Option[String]       = None,
-  assetsPath: Option[String]        = None,
-  productName: Option[String]       = None,
-  serviceName: Option[String]       = None,
-  serviceUrl: Option[String]        = None,
-  navigation: Seq[Navigation]       = Nil,
-  navigationClasses: Option[String] = None,
-  containerClasses: Option[String]  = None,
-  classes: Option[String]           = None,
-  attributes: Map[String, String]   = Map.empty
+  homepageUrl: Option[String]     = None,
+  assetsPath: Option[String]      = None,
+  productName: Option[String]     = None,
+  serviceName: Option[String]     = None,
+  serviceUrl: Option[String]      = None,
+  navigation: Seq[Navigation]     = Nil,
+  navigationClasses: String       = "",
+  containerClasses: String        = "",
+  classes: String                 = "",
+  attributes: Map[String, String] = Map.empty
 )

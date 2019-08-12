@@ -16,12 +16,16 @@
 
 @this()
 
-@(params: FooterParams = FooterParams())
-<footer class="govuk-footer @params.classes" role="contentinfo" @toAttributes(params.attributes)>
-  <div class="govuk-width-container @params.containerClasses">
-    @if(params.navigation.nonEmpty) {
+@(meta: Option[FooterMeta]               = None,
+  navigation: Seq[FooterNavigation]      = Nil,
+  containerClasses: String         = "",
+  classes: String                  = "",
+  attributes: Map[String, String]  = Map.empty)
+<footer class="govuk-footer @classes" role="contentinfo" @if(attributes.nonEmpty) {@toAttributes(attributes)}>
+  <div class="govuk-width-container @containerClasses">
+    @if(navigation.nonEmpty) {
       <div class="govuk-footer__navigation">
-        @for(nav <- params.navigation) {
+        @for(nav <- navigation) {
           <div class="govuk-footer__section">
             <h2 class="govuk-footer__heading govuk-heading-m">@nav.title</h2>
             @if(nav.items.nonEmpty) {
@@ -44,11 +48,11 @@
     }
     <div class="govuk-footer__meta">
       <div class="govuk-footer__meta-item govuk-footer__meta-item--grow">
-        @if(params.meta.isDefined) {
-          @if(params.meta.get.items.nonEmpty) {
+        @if(meta.isDefined) {
+          @if(meta.get.items.nonEmpty) {
             <h2 class="govuk-visually-hidden">Support links</h2>
             <ul class="govuk-footer__inline-list">
-              @for(item <- params.meta.get.items) {
+              @for(item <- meta.get.items) {
                 <li class="govuk-footer__inline-list-item">
                   <a class="govuk-footer__link" href="@item.href"@if(item.attributes.nonEmpty) { @toAttributes(item.attributes)}>
                     @item.text.get
@@ -57,9 +61,9 @@
               }
             </ul>
           }
-          @if(params.meta.get.contents.nonEmpty) {
+          @if(meta.get.contents.nonEmpty) {
             <div class="govuk-footer__meta-custom">
-              @params.meta.get.contents.asHtml
+              @meta.get.contents.asHtml
             </div>
           }
         }

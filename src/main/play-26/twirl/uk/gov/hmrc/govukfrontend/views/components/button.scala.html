@@ -46,10 +46,14 @@
   <a href="@{"#".?:(href)}" role="button" draggable="false" @commonAttributes>
     @contents.asHtml
   </a>
-} else if(elem == "button") {
+} else {
+  @if(elem == "button") {
     <button @if(value.isDefined) {value="@value"}@buttonAttributes @commonAttributes>
       @contents.asHtml
     </button>
-} else if(elem == "input") {
-    <input value="@contents.asInstanceOf[Text].value"@buttonAttributes @commonAttributes>
+  } else {
+    @if(elem == "input") {
+      <input value="@contents.asInstanceOf[Text].value"@buttonAttributes @commonAttributes>
+    }
+  }
 }

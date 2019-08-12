@@ -14,8 +14,6 @@
  * limitations under the License.
  *@
 
-@import play.twirl.api.StringInterpolation
-
 @this()
 
 @(forAttr: Option[String] = None,
@@ -25,13 +23,14 @@
 @contents match {
   case NonEmptyHtml(_) | NonEmptyText(_) => {
       @defining(
-          html"""
+          Html(
+          s"""
             <label class="${s"govuk-label $classes".trim}"
                ${if (attributes.nonEmpty) toAttributes(attributes) else HtmlFormat.empty}
-               $forAttr>
+               ${forAttr.getOrElse("")}>
                ${contents.asHtml}
             </label>
-          """) { labelHtml =>
+          """)) { labelHtml =>
                   @if(isPageHeading) {
                     <h1 class="govuk-label-wrapper"> @labelHtml </h1>
                   } else {

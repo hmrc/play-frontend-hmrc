@@ -16,7 +16,7 @@
 
 @(params: HeaderParams = HeaderParams())
 <header class="govuk-header @params.classes" role="banner" data-module="header" @if(params.attributes.nonEmpty) {@toAttributes(params.attributes)}>
-  <div class="govuk-header__container@if(params.containerClasses.isDefined) { @params.containerClasses} else { govuk-width-container}">
+  <div class="govuk-header__container@if(params.containerClasses.nonEmpty) { @params.containerClasses} else { govuk-width-container}">
 
     <div class="govuk-header__logo">
       <a href="@if(params.homepageUrl.isDefined) {@params.homepageUrl} else {/}" class="govuk-header__link govuk-header__link--homepage">
@@ -82,7 +82,7 @@
               <ul id="navigation" class="govuk-header__navigation @params.navigationClasses" aria-label="Top Level Navigation">
                 @for(item <- params.navigation) {
                   @if(item.href.isDefined && item.text.isDefined) {
-                    <li class="govuk-header__navigation-item@if(item.active.isDefined && item.active.get) { govuk-header__navigation-item--active}">
+                    <li class="govuk-header__navigation-item@if(item.active) { govuk-header__navigation-item--active}">
                       <a class="govuk-header__link" href="@item.href" @if(item.attributes.nonEmpty) {@toAttributes(item.attributes)}>
                         @item.text.get
                       </a>

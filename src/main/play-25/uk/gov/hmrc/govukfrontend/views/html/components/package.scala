@@ -22,6 +22,7 @@ import uk.gov.hmrc.govukfrontend.views.html.components.button_Scope0.button
 import uk.gov.hmrc.govukfrontend.views.html.components.errorSummary_Scope0.errorSummary
 import uk.gov.hmrc.govukfrontend.views.html.components.fieldset_Scope0.fieldset
 import uk.gov.hmrc.govukfrontend.views.html.components.footer_Scope0.footer
+import uk.gov.hmrc.govukfrontend.views.html.components.govukTemplate_Scope0.govukTemplate_Scope1.govukTemplate
 import uk.gov.hmrc.govukfrontend.views.html.components.header_Scope0.header
 import uk.gov.hmrc.govukfrontend.views.html.components.hint_Scope0.hint
 import uk.gov.hmrc.govukfrontend.views.html.components.label_Scope0.label
@@ -53,5 +54,5 @@ package object components extends Utils with Aliases {
 
   lazy val SkipLink = new skipLink()
 
-  lazy val GovUkTemplate = new template.govUkTemplate_Scope0.govUkTemplate_Scope1.govUkTemplate()
+  lazy val GovukTemplate = new govukTemplate()
 }

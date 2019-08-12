@@ -14,13 +14,13 @@
  * limitations under the License.
  *@
 
-@this(tag1: tag)
+@this(tag: tag)
 
 @(tagParams: Option[TagParams] = None,
   classes: String = "",
   attributes: Map[String, String] = Map.empty)(contents: Contents = Empty)
 <div class="@{"govuk-phase-banner" addClasses classes}" @if(attributes.nonEmpty) { @toAttributes(attributes)}>
-    <p class="govuk-phase-banner__content">@defining(tagParams.getOrElse(TagParams())) { tagParams1 =>@tag1(
+    <p class="govuk-phase-banner__content">@defining(tagParams.getOrElse(TagParams())) { tagParams1 =>@tag(
         "govuk-phase-banner__content__tag " addClasses tagParams1.classes)(tagParams1.contents)
         }
         <span class="govuk-phase-banner__text">

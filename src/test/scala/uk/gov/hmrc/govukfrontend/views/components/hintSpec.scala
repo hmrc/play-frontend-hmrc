@@ -38,5 +38,5 @@ object hintSpec {
       (__ \ "classes").readWithDefault[String]("") and
       (__ \ "attributes").readWithDefault[Map[String, String]](Map.empty)
   )((contents, id, classes, attributes) =>
-    tagger[HtmlStringTag][String](Hint.apply(contents, id, classes, attributes).body))
+    tagger[HtmlStringTag][String](Hint.apply(id, classes, attributes)(contents).body))
 }

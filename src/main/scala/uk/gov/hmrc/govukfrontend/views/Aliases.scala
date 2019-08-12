@@ -31,9 +31,6 @@ trait Aliases {
 
   val NonEmptyText = viewmodels.common.NonEmptyText
 
-  type FooterParams = viewmodels.footer.Params
-  val FooterParams = viewmodels.footer.Params
-
   type FooterNavigation = viewmodels.footer.Navigation
   val FooterNavigation = viewmodels.footer.Navigation
 

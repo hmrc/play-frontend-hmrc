@@ -54,5 +54,5 @@ package object components extends Utils with Aliases {
   lazy val SkipLink = new skipLink()
 
   @deprecated("Use DI")
-  lazy val GovUkTemplate = new template.govUkTemplate(Header, Footer, SkipLink)
+  lazy val GovukTemplate = new govukTemplate(Header, Footer, SkipLink)
 }

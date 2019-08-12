@@ -15,10 +15,6 @@
  *@
 
 @import uk.gov.hmrc.govukfrontend.controllers._
-@import uk.gov.hmrc.govukfrontend.views.html.components._
-@import uk.gov.hmrc.govukfrontend.views.html.components.template._
-
-@this(headerTemplate: header, footerTemplate: footer, skipLinkTemplate: skipLink)
 
 @*FIXME use i18n support from Play instead of passing the language*@
 @(
@@ -27,16 +23,15 @@
   themeColour: Option[String] = None,
   bodyClasses: Option[String] = None,
   pageTitle: Option[String] = None,
-  headIcons: Html = new headIconsDefault()(),
+  headIcons: Option[Html] = None,
   headBlock: Option[Html] = None,
   bodyStart: Option[Html] = None,
-  skipLinkBlock: Html = new skipLinkDefault(skipLinkTemplate)(),
-  headerBlock: Html = headerTemplate(),
-  footerBlock: Html = footerTemplate(),
+  skipLinkBlock: Option[Html] = None,
+  headerBlock: Html = header(),
+  footerBlock: Html = footer(),
   bodyEndBlock: Option[Html] = None,
   mainClasses: Option[String] = None,
-  beforeContentBlock: Option[Html] = None)(contentBlock: Html)
-<!DOCTYPE html>
+  beforeContentBlock: Option[Html] = None)(contentBlock: Html)<!DOCTYPE html>
 <html lang="@if(htmlLang.isDefined) {@htmlLang} else {en}" class="govuk-template @htmlClasses">
   <head>
     <meta charset="utf-8" />
@@ -46,7 +41,14 @@
     @* Ensure that older IE versions always render with the correct rendering engine *@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
-    @headIcons
+    @headIcons.getOrElse {
+      <link rel="shortcut icon" sizes="16x16 32x32 48x48" href="@routes.Assets.versioned("images/favicon.ico")" type="image/x-icon" />
+      <link rel="mask-icon" href="@routes.Assets.versioned("images/govuk-mask-icon.svg")" color="{{ themeColor | default('#0b0c0c') }}"> @* Hardcoded value of $govuk-black *@
+      <link rel="apple-touch-icon" sizes="180x180" href="@routes.Assets.versioned("images/govuk-apple-touch-icon-180x180.png")">
+      <link rel="apple-touch-icon" sizes="167x167" href="@routes.Assets.versioned("images/govuk-apple-touch-icon-167x167.png")">
+      <link rel="apple-touch-icon" sizes="152x152" href="@routes.Assets.versioned("images/govuk-apple-touch-icon-152x152.png")">
+      <link rel="apple-touch-icon" href="@routes.Assets.versioned("images/govuk-apple-touch-icon.png")">
+    }
 
     @headBlock
     @* The default og:image is added below head so that scrapers see any custom metatags first, and this is just a fallback *@
@@ -57,7 +59,9 @@
     <script>document.body.className = ((document.body.className) ? document.body.className + ' js-enabled' : 'js-enabled');</script>
     @bodyStart
 
-    @skipLinkBlock
+    @skipLinkBlock.getOrElse {
+        @skipLink(href = "#main-content")(HtmlContent("Skip to main content"))
+    }
 
     @headerBlock
 
