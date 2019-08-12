@@ -19,6 +19,7 @@ package uk.gov.hmrc.govukfrontend.views.html
 import uk.gov.hmrc.govukfrontend.views.{Aliases, Utils}
 import uk.gov.hmrc.govukfrontend.views.html.components.backLink_Scope0.backLink
 import uk.gov.hmrc.govukfrontend.views.html.components.button_Scope0.button
+import uk.gov.hmrc.govukfrontend.views.html.components.errorMessage_Scope0.errorMessage
 import uk.gov.hmrc.govukfrontend.views.html.components.errorSummary_Scope0.errorSummary
 import uk.gov.hmrc.govukfrontend.views.html.components.fieldset_Scope0.fieldset
 import uk.gov.hmrc.govukfrontend.views.html.components.footer_Scope0.footer
@@ -53,6 +54,8 @@ package object components extends Utils with Aliases {
   lazy val PhaseBanner = new phaseBanner()
 
   lazy val SkipLink = new skipLink()
+
+  lazy val ErrorMessage = new errorMessage()
 
   lazy val GovukTemplate = new govukTemplate()
 }
