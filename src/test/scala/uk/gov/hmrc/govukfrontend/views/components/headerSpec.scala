@@ -16,7 +16,6 @@
 
 package uk.gov.hmrc.govukfrontend.views.components
 
-import org.jsoup.Jsoup
 import play.api.libs.json._
 import uk.gov.hmrc.govukfrontend.views.html.components._
 
@@ -35,8 +34,7 @@ class headerSpec
 
   "header" should {
     "have a role of banner" in {
-      val headerHtml = Header(HeaderParams())
-      val component  = Jsoup.parse(headerHtml.body).select(".govuk-header")
+      val component = Header(HeaderParams()).select(".govuk-header")
       component.attr("role") shouldBe "banner"
     }
   }

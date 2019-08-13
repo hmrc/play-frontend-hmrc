@@ -16,9 +16,8 @@
 
 package uk.gov.hmrc.govukfrontend.views.components
 
-import org.jsoup.Jsoup
-import play.api.libs.json._
 import play.api.libs.functional.syntax._
+import play.api.libs.json._
 import uk.gov.hmrc.govukfrontend.views.html.components._
 
 class buttonSpec
@@ -43,8 +42,7 @@ class buttonSpec
 
   "button element" should {
     "render the default example" in {
-      val rendered  = Button.apply()(Text("Save and continue")).body
-      val component = Jsoup.parse(rendered).select(".govuk-button")
+      val component = Button.apply()(Text("Save and continue")).select(".govuk-button")
 
       component.first.tagName shouldBe "button"
       component.text          should include("Save and continue")

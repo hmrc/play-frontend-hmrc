@@ -16,7 +16,6 @@
 
 package uk.gov.hmrc.govukfrontend.views.components
 
-import org.jsoup.Jsoup
 import play.api.libs.functional.syntax._
 import play.api.libs.json._
 import uk.gov.hmrc.govukfrontend.views.html.components._
@@ -30,17 +29,10 @@ class tagSpec
     ) {
   "tag" should {
     "render the default example with strong element and text" in {
-      val tagHtml = Tag.apply()(HtmlContent("alpha"))
+      val component = Tag.apply()(HtmlContent("alpha")).select(".govuk-tag")
 
-      val component = Jsoup.parse(tagHtml.body).select(".govuk-tag")
-
-      val tagName = component.first().tagName()
-
-      tagName shouldBe "strong"
-
-      val text = component.first().text()
-
-      text shouldBe "alpha"
+      component.first().tagName() shouldBe "strong"
+      component.first().text()    shouldBe "alpha"
     }
   }
 

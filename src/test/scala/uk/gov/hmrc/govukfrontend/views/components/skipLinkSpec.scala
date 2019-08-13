@@ -16,7 +16,6 @@
 
 package uk.gov.hmrc.govukfrontend.views.components
 
-import org.jsoup.Jsoup
 import play.api.libs.functional.syntax._
 import play.api.libs.json._
 import uk.gov.hmrc.govukfrontend.views.html.components._
@@ -31,13 +30,9 @@ class skipLinkSpec
 
   "skipLink" should {
     "render href" in {
-      val skipLinkHtml = SkipLink.apply(href = "#custom")(Empty)
+      val component = SkipLink.apply(href = "#custom")(Empty).select(".govuk-skip-link")
 
-      val component = Jsoup.parse(skipLinkHtml.body).select(".govuk-skip-link")
-
-      val attribute = component.first().attr("href")
-
-      attribute shouldBe "#custom"
+      component.first().attr("href") shouldBe "#custom"
     }
   }
 

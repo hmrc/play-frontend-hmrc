@@ -18,14 +18,9 @@ package uk.gov.hmrc.govukfrontend
 package views
 package components
 
-import com.googlecode.htmlcompressor.compressor.HtmlCompressor
-import org.jsoup.parser.Parser
 import org.scalatest.{Matchers, WordSpec}
-import play.api.libs.json._
-import play.twirl.api.HtmlFormat
-import scala.io.Source
 
-abstract class RenderHtmlSpec(exampleNames: Seq[String]) extends WordSpec with Matchers with RenderHtmlSpecHelper {
+abstract class RenderHtmlSpec(exampleNames: Seq[String]) extends WordSpec with Matchers with FixturesRenderer {
   exampleNames foreach { exampleName =>
     s"$exampleName" should {
       "render the same html as the nunjucks renderer" in {
@@ -37,49 +32,4 @@ abstract class RenderHtmlSpec(exampleNames: Seq[String]) extends WordSpec with M
       }
     }
   }
-}
-
-trait HtmlStringTag
-
-trait RenderHtmlSpecHelper extends ReadsHelpers {
-  type HtmlString = String @@ HtmlStringTag
-
-  implicit def reads: Reads[HtmlString]
-
-  object HtmlString {
-    def apply(html: HtmlFormat.Appendable): HtmlString =
-      tagger[HtmlStringTag][String](html.body)
-  }
-
-  private lazy val compressor = new HtmlCompressor()
-
-  def parseAndCompressHtml(html: String): String =
-    compressor.compress(Parser.unescapeEntities(html, false))
-
-  def twirlHtml(exampleName: String): Either[String, HtmlString] = {
-    val inputJson = readInputJson(exampleName)
-
-    Json.parse(inputJson).validate[HtmlString] match {
-      case JsSuccess(htmlString, _) => Right(htmlString)
-      case e: JsError               => Left(s"failed to validate params: $e")
-    }
-  }
-
-  def nunjucksHtml(exampleName: String): String =
-    readOutputFile(exampleName)
-
-  private val govukFrontendVersion = "2.11.0"
-
-  private def readOutputFile(exampleName: String): String =
-    readFileAsString("output.html", exampleName)
-
-  private def readInputJson(exampleName: String): String =
-    readFileAsString("input.json", exampleName)
-
-  private def readFileAsString(fileName: String, exampleName: String): String =
-    Source
-      .fromInputStream(
-        getClass.getResourceAsStream(s"/fixtures/test-fixtures-$govukFrontendVersion/$exampleName/$fileName"))
-      .getLines
-      .mkString("\n")
 }

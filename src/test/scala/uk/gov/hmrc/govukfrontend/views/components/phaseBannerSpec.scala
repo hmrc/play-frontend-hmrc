@@ -16,7 +16,6 @@
 
 package uk.gov.hmrc.govukfrontend.views.components
 
-import org.jsoup.Jsoup
 import play.api.libs.functional.syntax._
 import play.api.libs.json._
 import uk.gov.hmrc.govukfrontend.views.html.components._
@@ -33,21 +32,17 @@ class phaseBannerSpec
     "allow additional classes to be added to the component" in {
       val classesString = "a-class another-class"
       val classes       = classesString.split("""\s+""")
+      val div           = PhaseBanner.apply(classes = classesString)().select("div").first()
 
-      val bannerHtml = PhaseBanner.apply(classes = classesString)()
-
-      val div = Jsoup.parse(bannerHtml.body).select("div").first()
-
-      val classNames = div.classNames().asScala
-
-      classNames should contain allElementsOf classes
+      div.classNames().asScala should contain allElementsOf classes
     }
 
     "render banner text" in {
-      val bannerHtml =
-        PhaseBanner.apply()(HtmlContent("This is a new service – your feedback will help us to improve it."))
-
-      val text = Jsoup.parse(bannerHtml.body).select(".govuk-phase-banner__text").first().text()
+      val text = PhaseBanner
+        .apply()(HtmlContent("This is a new service – your feedback will help us to improve it."))
+        .select(".govuk-phase-banner__text")
+        .first()
+        .text()
 
       text shouldBe "This is a new service – your feedback will help us to improve it."
     }

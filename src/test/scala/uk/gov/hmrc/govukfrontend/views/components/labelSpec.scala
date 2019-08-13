@@ -16,7 +16,6 @@
 
 package uk.gov.hmrc.govukfrontend.views.components
 
-import org.jsoup.Jsoup
 import play.api.libs.functional.syntax._
 import play.api.libs.json._
 import uk.gov.hmrc.govukfrontend.views.html.components._
@@ -31,8 +30,7 @@ class labelSpec
     ) {
   "label" should {
     "not output anything if no html or text is provided" in {
-      val rendered  = Label.apply()(Empty).body
-      val component = Jsoup.parse(rendered).select(".govuk-label")
+      val component = Label.apply()(Empty).select(".govuk-label")
 
       component.size() shouldBe 0
     }

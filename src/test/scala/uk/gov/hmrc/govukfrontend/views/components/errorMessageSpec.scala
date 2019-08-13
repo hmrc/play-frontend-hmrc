@@ -16,7 +16,6 @@
 
 package uk.gov.hmrc.govukfrontend.views.components
 
-import org.jsoup.Jsoup
 import play.api.libs.functional.syntax._
 import play.api.libs.json._
 import uk.gov.hmrc.govukfrontend.views.html.components._
@@ -24,46 +23,46 @@ import uk.gov.hmrc.govukfrontend.views.html.components._
 class errorMessageSpec extends RenderHtmlSpec(Seq("error-message-default")) {
   "errorMessage" should {
     "allow additional classes to be specified" in {
-      val errorMessageHtml = ErrorMessage.apply(classes = "custom-class")(Empty).body
-      val component        = Jsoup.parse(errorMessageHtml).select(".govuk-error-message")
+      val component = ErrorMessage.apply(classes = "custom-class")(Empty).select(".govuk-error-message")
       assert(component.hasClass("custom-class"))
     }
 
     "allow text to be passed whilst escaping HTML entities" in {
-      val errorMessageHtml = ErrorMessage.apply()(Text("Unexpected > in body")).body
-      val contents         = Jsoup.parse(errorMessageHtml).select(".govuk-error-message").html.trim
+      val contents = ErrorMessage.apply()(Text("Unexpected > in body")).select(".govuk-error-message").html.trim
       contents should include("Unexpected &gt; in body")
     }
 
     "allow summary HTML to be passed unescaped" in {
-      val errorMessageHtml = ErrorMessage.apply()(HtmlContent("Unexpected <b>bold text</b> in body copy")).body
-      val contents         = Jsoup.parse(errorMessageHtml).select(".govuk-error-message").html.trim
+      val contents = ErrorMessage
+        .apply()(HtmlContent("Unexpected <b>bold text</b> in body copy"))
+        .select(".govuk-error-message")
+        .html
+        .trim
       contents should include("Unexpected <b>bold text</b> in body copy")
     }
 
     "allow additional attributes to be specified" in {
-      val errorMessageHtml =
-        ErrorMessage.apply(attributes = Map("data-test" -> "attribute", "id" -> "my-error-message"))(Empty).body
-      val component = Jsoup.parse(errorMessageHtml).select(".govuk-error-message")
+      val component = ErrorMessage
+        .apply(attributes = Map("data-test" -> "attribute", "id" -> "my-error-message"))(Empty)
+        .select(".govuk-error-message")
       component.attr("data-test") shouldBe "attribute"
       component.attr("id")        shouldBe "my-error-message"
     }
 
     "include a visually hidden 'Error' prefix by default" in {
-      val errorMessageHtml = ErrorMessage.apply()(Text("Enter your full name")).body
-      val component        = Jsoup.parse(errorMessageHtml).select(".govuk-error-message")
+      val component = ErrorMessage.apply()(Text("Enter your full name")).select(".govuk-error-message")
       component.text.trim shouldBe "Error: Enter your full name"
     }
 
     "allow the visually hidden prefix to be customised" in {
-      val errorMessageHtml = ErrorMessage.apply(visuallyHiddenText = "Gwall")(Text("Rhowch eich enw llawn")).body
-      val component        = Jsoup.parse(errorMessageHtml).select(".govuk-error-message")
+      val component =
+        ErrorMessage.apply(visuallyHiddenText = "Gwall")(Text("Rhowch eich enw llawn")).select(".govuk-error-message")
       component.text.trim shouldBe "Gwall: Rhowch eich enw llawn"
     }
 
     "allow the visually hidden prefix to be removed" in {
-      val errorMessageHtml = ErrorMessage.apply(showHiddenText = false)(Text("There is an error on line 42")).body
-      val component        = Jsoup.parse(errorMessageHtml).select(".govuk-error-message")
+      val component =
+        ErrorMessage.apply(showHiddenText = false)(Text("There is an error on line 42")).select(".govuk-error-message")
       component.text.trim shouldBe "There is an error on line 42"
     }
   }

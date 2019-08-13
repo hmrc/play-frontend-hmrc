@@ -16,7 +16,6 @@
 
 package uk.gov.hmrc.govukfrontend.views.components
 
-import org.jsoup.Jsoup
 import play.api.libs.functional.syntax._
 import play.api.libs.json._
 import uk.gov.hmrc.govukfrontend.views.html.components._
@@ -39,8 +38,7 @@ class backLinkSpec
     }
 
     "render the default example with an anchor, href and text correctly" in {
-      val rendered  = BackLink.apply(href = "#")(Empty).body
-      val component = Jsoup.parse(rendered).select(".govuk-back-link")
+      val component = BackLink.apply(href = "#")(Empty).select(".govuk-back-link")
 
       component.first.tagName shouldBe "a"
       component.attr("href")  shouldBe "#"
@@ -48,48 +46,43 @@ class backLinkSpec
     }
 
     "render classes correctly" in {
-      val rendered = BackLink
+      val component = BackLink
         .apply(href = "#", classes = "app-back-link--custom-class")(HtmlContent("<b>Back</b>"))
-        .body
-      val component = Jsoup.parse(rendered).select(".govuk-back-link")
+        .select(".govuk-back-link")
 
       assert(component.hasClass("app-back-link--custom-class"))
     }
 
     "render custom text correctly" in {
-      val rendered  = BackLink.apply(href = "#")(Text("Home")).body
-      val component = Jsoup.parse(rendered).select(".govuk-back-link")
+      val component = BackLink.apply(href = "#")(Text("Home")).select(".govuk-back-link")
 
       component.html shouldBe "Home"
     }
 
     "render escaped html when passed as text" in {
-      val rendered  = BackLink.apply(href = "#")(Text("<b>Home</b>")).body
-      val component = Jsoup.parse(rendered).select(".govuk-back-link")
+      val component = BackLink.apply(href = "#")(Text("<b>Home</b>")).select(".govuk-back-link")
 
       component.html shouldBe "&lt;b&gt;Home&lt;/b&gt;"
     }
 
     "render html correctly" in {
-      val rendered  = BackLink.apply(href = "#")(HtmlContent("<b>Back</b>")).body
-      val component = Jsoup.parse(rendered).select(".govuk-back-link")
+      val component = BackLink.apply(href = "#")(HtmlContent("<b>Back</b>")).select(".govuk-back-link")
 
       component.html shouldBe "<b>Back</b>"
     }
 
     "render default text correctly" in {
-      val rendered  = BackLink.apply(href = "#")(Empty).body
-      val component = Jsoup.parse(rendered).select(".govuk-back-link")
+      val component = BackLink.apply(href = "#")(Empty).select(".govuk-back-link")
 
       component.html shouldBe "Back"
     }
 
     "render attributes correctly" in {
-      val rendered = BackLink
-        .apply(href = "#", attributes = Map("data-test" -> "attribute", "aria-label" -> "Back to home"))(
-          HtmlContent("Back"))
-        .body
-      val component = Jsoup.parse(rendered).select(".govuk-back-link")
+      val component =
+        BackLink
+          .apply(href = "#", attributes = Map("data-test" -> "attribute", "aria-label" -> "Back to home"))(
+            HtmlContent("Back"))
+          .select(".govuk-back-link")
 
       component.attr("data-test")  shouldBe "attribute"
       component.attr("aria-label") shouldBe "Back to home"
