@@ -19,7 +19,6 @@ package uk.gov.hmrc.govukfrontend.views.components
 import org.jsoup.Jsoup
 import play.api.libs.json._
 import play.api.libs.functional.syntax._
-import uk.gov.hmrc.govukfrontend.views.components.buttonSpec.reads
 import uk.gov.hmrc.govukfrontend.views.html.components._
 
 class buttonSpec
@@ -52,15 +51,9 @@ class buttonSpec
     }
 
     "render with attributes" in pending
-
   }
 
-}
-
-object buttonSpec {
-  import RenderHtmlSpec._
-
-  implicit val reads: Reads[HtmlString] = (
+  override implicit val reads: Reads[HtmlString] = (
     readsContents and
       (__ \ "element").readNullable[String] and
       (__ \ "name").readNullable[String] and

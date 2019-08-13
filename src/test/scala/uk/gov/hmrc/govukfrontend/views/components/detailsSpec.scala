@@ -16,42 +16,29 @@
 
 package uk.gov.hmrc.govukfrontend.views.components
 
-import org.jsoup.Jsoup
 import play.api.libs.functional.syntax._
 import play.api.libs.json._
 import uk.gov.hmrc.govukfrontend.views.html.components._
 
-class tagSpec
+class detailsSpec
     extends RenderHtmlSpec(
       Seq(
-        "tag-default",
-        "tag-inactive"
+        "details-default",
+        "details-expanded",
+        "details-with-html"
       )
     ) {
-  "tag" should {
-    "render the default example with strong element and text" in {
-      val tagHtml = Tag.apply()(HtmlContent("alpha"))
-
-      val component = Jsoup.parse(tagHtml.body).select(".govuk-tag")
-
-      val tagName = component.first().tagName()
-
-      tagName shouldBe "strong"
-
-      val text = component.first().text()
-
-      text shouldBe "alpha"
-    }
-  }
-
   override implicit val reads: Reads[HtmlString] = (
-    readsContents and
-      (__ \ "classes").readWithDefault[String]("") and
-      (__ \ "attributes").readWithDefault[Map[String, String]](Map.empty)
+    readsHtmlOrText("summaryHtml", "summaryText") and
+      readsContents and
+      (__ \ "id").readNullable[String] and
+      (__ \ "open").readWithDefault[Boolean](false) and
+      readsClasses and
+      readsAttributes
   )(
-    (contents, classes, attributes) =>
+    (summary, contents, id, open, classes, attributes) =>
       tagger[HtmlStringTag][String](
-        Tag
-          .apply(classes, attributes)(contents)
+        Details
+          .apply(id, open, classes, attributes)(summary)(contents)
           .body))
 }

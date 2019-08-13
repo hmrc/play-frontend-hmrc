@@ -17,13 +17,11 @@
 package uk.gov.hmrc.govukfrontend.views.components
 
 import org.jsoup.Jsoup
-import play.api.libs.json._
 import play.api.libs.functional.syntax._
-import uk.gov.hmrc.govukfrontend.views.components.errorMessageSpec.reads
+import play.api.libs.json._
 import uk.gov.hmrc.govukfrontend.views.html.components._
 
 class errorMessageSpec extends RenderHtmlSpec(Seq("error-message-default")) {
-
   "errorMessage" should {
     "allow additional classes to be specified" in {
       val errorMessageHtml = ErrorMessage.apply(classes = "custom-class")(Empty).body
@@ -69,12 +67,8 @@ class errorMessageSpec extends RenderHtmlSpec(Seq("error-message-default")) {
       component.text.trim shouldBe "There is an error on line 42"
     }
   }
-}
 
-object errorMessageSpec {
-  import RenderHtmlSpec._
-
-  implicit val reads: Reads[HtmlString] = (
+  override implicit val reads: Reads[HtmlString] = (
     readsContents and
       (__ \ "id").readNullable[String] and
       (__ \ "classes").readWithDefault[String]("") and

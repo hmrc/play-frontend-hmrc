@@ -17,7 +17,7 @@
 @this()
 
 @(classes: String = "",
-  attributes: Map[String, String] = Map.empty)(contents: Contents)<strong class="@{"govuk-tag" addClasses classes}"
+  attributes: Map[String, String] = Map.empty)(contents: Contents)<strong class="@{"govuk-tag" +++ classes}"
   @if(attributes.nonEmpty) {
     @toAttributes(attributes)
   }>

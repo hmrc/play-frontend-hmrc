@@ -16,12 +16,10 @@
 
 @this()
 
-@(title: Contents,
-  description: Contents,
-  errorList: Seq[ErrorLink] = Nil,
+@(errorList: Seq[ErrorLink] = Nil,
   classes: String = "",
-  attributes: Map[String, String] = Map.empty)
-<div class="@{"govuk-error-summary" addClasses classes}" aria-labelledby="error-summary-title" role="alert" tabindex="-1"@if(attributes.nonEmpty) { @toAttributes(attributes)} data-module="error-summary">
+  attributes: Map[String, String] = Map.empty)(title: Contents)(description: Contents)
+<div class="@{"govuk-error-summary" +++ classes}" aria-labelledby="error-summary-title" role="alert" tabindex="-1"@if(attributes.nonEmpty) { @toAttributes(attributes)} data-module="error-summary">
   <h2 class="govuk-error-summary__title" id="error-summary-title">
     @title.asHtml
   </h2>

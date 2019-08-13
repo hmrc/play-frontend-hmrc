@@ -21,7 +21,7 @@
   attributes: Map[String, String] = Map.empty,
   visuallyHiddenText: String = "Error",
   showHiddenText: Boolean = true)(contents: Contents)
-<span @if(id.isDefined) {id="@id"} class="@{"govuk-error-message" addClasses classes}" @if(attributes.nonEmpty) {@toAttributes(attributes)}>
+<span @if(id.isDefined) {id="@id"} class="@{"govuk-error-message" +++ classes}" @if(attributes.nonEmpty) {@toAttributes(attributes)}>
  @if(showHiddenText) {<span class="govuk-visually-hidden">@visuallyHiddenText:</span>}
  @contents.asHtml
 </span>

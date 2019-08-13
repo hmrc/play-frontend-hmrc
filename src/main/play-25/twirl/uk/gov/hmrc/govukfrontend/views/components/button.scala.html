@@ -33,7 +33,7 @@
 }
 
 @commonAttributes = {
-  class="@{"govuk-button" addClasses classes}@if(disabled) { govuk-button--disabled}"@if(attributes.nonEmpty) { @toAttributes(attributes)}
+  class="@{"govuk-button" +++ classes}@if(disabled) { govuk-button--disabled}"@if(attributes.nonEmpty) { @toAttributes(attributes)}
 }
 
 @buttonAttributes = {

@@ -14,14 +14,15 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.govukfrontend.views
+package uk.gov.hmrc.govukfrontend
+package views
 
 package object components {
-  val tagger = uk.gov.hmrc.govukfrontend.tagger
+  val tagger = views.tagger
 
-  type Tagged[U] = uk.gov.hmrc.govukfrontend.tagger.Tagged[U]
+  type Tagged[U] = views.tagger.Tagged[U]
 
-  type @@[+T, U] = uk.gov.hmrc.govukfrontend.tagger.@@[T, U]
+  type @@[+T, U] = views.tagger.@@[T, U]
 
-  type Tagger[U] = uk.gov.hmrc.govukfrontend.tagger.Tagged[U]
+  type Tagger[U] = views.tagger.Tagged[U]
 }

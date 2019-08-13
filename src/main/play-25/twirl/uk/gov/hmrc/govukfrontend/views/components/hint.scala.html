@@ -17,6 +17,6 @@
 @(id: Option[String] = None,
   classes: String = "",
   attributes: Map[String, String] = Map.empty)(contents: Contents)
-<span@if(id.isDefined) { id="@id"} class="@{"govuk-hint" addClasses classes}"@if(attributes.nonEmpty) { @toAttributes(attributes)}>
+<span@if(id.isDefined) { id="@id"} class="@{"govuk-hint" +++ classes}"@if(attributes.nonEmpty) { @toAttributes(attributes)}>
   @contents.asHtml
 </span>

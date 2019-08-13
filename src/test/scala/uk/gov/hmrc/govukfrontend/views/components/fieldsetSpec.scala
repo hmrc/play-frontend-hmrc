@@ -18,7 +18,6 @@ package uk.gov.hmrc.govukfrontend.views.components
 
 import play.api.libs.json._
 import play.twirl.api.{Html, HtmlFormat}
-import uk.gov.hmrc.govukfrontend.views.components.fieldsetSpec.reads
 import uk.gov.hmrc.govukfrontend.views.html.components._
 
 class fieldsetSpec
@@ -27,9 +26,8 @@ class fieldsetSpec
         "fieldset-default",
         "fieldset-as-page-heading"
       )
-    )
+    ) {
 
-object fieldsetSpec {
   case class Params(
     describedBy: Option[String]     = None,
     legend: Option[Legend]          = None,
@@ -38,9 +36,7 @@ object fieldsetSpec {
     html: Html                      = HtmlFormat.empty
   )
 
-  import RenderHtmlSpec._
-
-  implicit val reads: Reads[HtmlString] =
+  override implicit val reads: Reads[HtmlString] =
     Json
       .using[Json.WithDefaultValues]
       .reads[Params]
@@ -51,5 +47,4 @@ object fieldsetSpec {
               .apply(describedBy, legend, classes, attributes)(html)
               .body)
       }
-
 }

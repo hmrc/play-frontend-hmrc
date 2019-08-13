@@ -21,7 +21,7 @@ import play.twirl.api.Html
 
 trait Utils {
   implicit class AddClassAttributes(existingClass: String) {
-    def addClasses(classes: String): String =
+    def +++(classes: String): String =
       if (classes.isEmpty) existingClass else s"$existingClass $classes"
   }
 

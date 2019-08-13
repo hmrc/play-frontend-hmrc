@@ -19,7 +19,6 @@ package uk.gov.hmrc.govukfrontend.views.components
 import org.jsoup.Jsoup
 import play.api.libs.functional.syntax._
 import play.api.libs.json._
-import uk.gov.hmrc.govukfrontend.views.components.backLinkSpec.reads
 import uk.gov.hmrc.govukfrontend.views.html.components._
 
 class backLinkSpec
@@ -29,7 +28,6 @@ class backLinkSpec
         "back-link-with-custom-text"
       )
     ) {
-
   "backLink" should {
     "fail to render if the required fields are not included" in {
       val caught =
@@ -97,12 +95,8 @@ class backLinkSpec
       component.attr("aria-label") shouldBe "Back to home"
     }
   }
-}
 
-object backLinkSpec {
-  import RenderHtmlSpec._
-
-  implicit val reads: Reads[HtmlString] = (
+  override implicit val reads: Reads[HtmlString] = (
     readsContents and
       (__ \ "href").read[String] and
       (__ \ "classes").readWithDefault[String]("") and
@@ -113,4 +107,5 @@ object backLinkSpec {
         BackLink
           .apply(href, classes, attributes)(contents)
           .body))
+
 }

@@ -17,9 +17,8 @@
 package uk.gov.hmrc.govukfrontend.views.components
 
 import org.jsoup.Jsoup
-import play.api.libs.json._
 import play.api.libs.functional.syntax._
-import uk.gov.hmrc.govukfrontend.views.components.labelSpec.reads
+import play.api.libs.json._
 import uk.gov.hmrc.govukfrontend.views.html.components._
 
 class labelSpec
@@ -38,12 +37,8 @@ class labelSpec
       component.size() shouldBe 0
     }
   }
-}
 
-object labelSpec {
-  import RenderHtmlSpec._
-
-  implicit val reads: Reads[HtmlString] = (
+  override implicit val reads: Reads[HtmlString] = (
     readsContents and
       (__ \ "forAttr").readNullable[String] and
       (__ \ "isPageHeading").readWithDefault[Boolean](false) and

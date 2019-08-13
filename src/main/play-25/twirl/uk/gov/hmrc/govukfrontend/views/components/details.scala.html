@@ -14,10 +14,17 @@
  * limitations under the License.
  *@
 
-@(classes: String = "",
-  attributes: Map[String, String] = Map.empty)(contents: Contents)<strong class="@{"govuk-tag" +++ classes}"
-  @if(attributes.nonEmpty) {
-    @toAttributes(attributes)
-  }>
-  @contents.asHtml
-</strong>
+@(id: Option[String],
+  open: Boolean = false,
+  classes: String = "",
+  attributes: Map[String, String] = Map.empty)(summary: Contents)(contents: Contents)
+<details @if(id.isDefined) {id="@id"} class="@{"govuk-details" +++ classes}" @if(attributes.nonEmpty) {@toAttributes(attributes)}@if(open) {open}>
+  <summary class="govuk-details__summary">
+    <span class="govuk-details__summary-text">
+      @summary.asHtml
+    </span>
+  </summary>
+  <div class="govuk-details__text">
+    @contents.asHtml
+  </div>
+</details>

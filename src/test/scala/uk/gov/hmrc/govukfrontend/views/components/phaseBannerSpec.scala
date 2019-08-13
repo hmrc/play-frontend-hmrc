@@ -19,16 +19,15 @@ package uk.gov.hmrc.govukfrontend.views.components
 import org.jsoup.Jsoup
 import play.api.libs.functional.syntax._
 import play.api.libs.json._
-import uk.gov.hmrc.govukfrontend.views.components.phaseBannerSpec.reads
 import uk.gov.hmrc.govukfrontend.views.html.components._
 import scala.collection.JavaConverters._
 
 class phaseBannerSpec
-  extends RenderHtmlSpec(
-    Seq(
-      "phase-banner-default"
-    )
-  ) {
+    extends RenderHtmlSpec(
+      Seq(
+        "phase-banner-default"
+      )
+    ) {
 
   "phaseBanner" should {
     "allow additional classes to be added to the component" in {
@@ -53,23 +52,19 @@ class phaseBannerSpec
       text shouldBe "This is a new service – your feedback will help us to improve it."
     }
   }
-}
-
-object phaseBannerSpec {
-  import RenderHtmlSpec._
 
   implicit val readsTagParams: Reads[TagParams] = (
     readsContents and
       (__ \ "classes").readWithDefault[String]("") and
       (__ \ "attributes").readWithDefault[Map[String, String]](Map.empty)
-    )(TagParams.apply _)
+  )(TagParams.apply _)
 
-  implicit val reads: Reads[HtmlString] = (
+  override implicit val reads: Reads[HtmlString] = (
     readsContents and
       (__ \ "tag").readNullable[TagParams] and
       (__ \ "classes").readWithDefault[String]("") and
       (__ \ "attributes").readWithDefault[Map[String, String]](Map.empty)
-    )(
+  )(
     (contents, tag, classes, attributes) =>
       tagger[HtmlStringTag][String](
         PhaseBanner

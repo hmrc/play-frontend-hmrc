@@ -17,8 +17,7 @@
 package uk.gov.hmrc.govukfrontend.views.components
 
 import org.jsoup.Jsoup
-import play.api.libs.json.{Json, Reads}
-import uk.gov.hmrc.govukfrontend.views.components.headerSpec.reads
+import play.api.libs.json._
 import uk.gov.hmrc.govukfrontend.views.html.components._
 
 class headerSpec
@@ -41,13 +40,8 @@ class headerSpec
       component.attr("role") shouldBe "banner"
     }
   }
-}
 
-object headerSpec {
-
-  import RenderHtmlSpec._
-
-  implicit val reads: Reads[HtmlString] =
+  override implicit val reads: Reads[HtmlString] =
     Json
       .using[Json.WithDefaultValues]
       .reads[HeaderParams]

@@ -18,25 +18,12 @@ package uk.gov.hmrc.govukfrontend.views.components
 
 import play.api.libs.functional.syntax._
 import play.api.libs.json._
-import uk.gov.hmrc.govukfrontend.views.components.errorSummarySpec.reads
 import uk.gov.hmrc.govukfrontend.views.html.components._
 
-class errorSummarySpec extends RenderHtmlSpec(Seq("error-summary-default"))
-
-object errorSummarySpec {
-  import RenderHtmlSpec._
-
-  implicit val reads: Reads[HtmlString] = (
-    (__ \ "titleHtml")
-      .read[String]
-      .map(HtmlContent(_))
-      .widen[Contents]
-      .orElse((__ \ "titleText").read[String].map(Text).widen[Contents]) and
-      (__ \ "descriptionHtml")
-        .read[String]
-        .map(HtmlContent(_))
-        .widen[Contents]
-        .orElse((__ \ "descriptionText").read[String].map(Text).widen[Contents]) and
+class errorSummarySpec extends RenderHtmlSpec(Seq("error-summary-default")) {
+  override implicit val reads: Reads[HtmlString] = (
+    readsHtmlOrText("titleHtml", "titleText") and
+      readsHtmlOrText("descriptionHtml", "descriptionText") and
       (__ \ "errorList").readWithDefault[Seq[ErrorLink]](Nil) and
       (__ \ "classes").readWithDefault[String]("") and
       (__ \ "attributes").readWithDefault[Map[String, String]](Map.empty)
@@ -44,6 +31,6 @@ object errorSummarySpec {
     (title, description, errorList, classes, attributes) =>
       tagger[HtmlStringTag][String](
         ErrorSummary
-          .apply(title, description, errorList, classes, attributes)
+          .apply(errorList, classes, attributes)(title)(description)
           .body))
 }

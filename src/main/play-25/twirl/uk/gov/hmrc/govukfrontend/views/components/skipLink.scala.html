@@ -18,4 +18,4 @@
   classes: String = "",
   attributes: Map[String, String] = Map.empty)(contents: Contents)
 @require(href.nonEmpty)
-<a href="@{"#content".?:(href)}" class="@{"govuk-skip-link" addClasses classes}" @if(attributes.nonEmpty) { @toAttributes(attributes)}>@contents.asHtml</a>
+<a href="@{"#content".?:(href)}" class="@{"govuk-skip-link" +++ classes}" @if(attributes.nonEmpty) { @toAttributes(attributes)}>@contents.asHtml</a>

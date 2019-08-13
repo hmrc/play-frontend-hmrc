@@ -1,4 +1,4 @@
-@*
+/*
  * Copyright 2019 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,12 +12,18 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- *@
+ */
 
-@(classes: String = "",
-  attributes: Map[String, String] = Map.empty)(contents: Contents)<strong class="@{"govuk-tag" +++ classes}"
-  @if(attributes.nonEmpty) {
-    @toAttributes(attributes)
-  }>
-  @contents.asHtml
-</strong>
+package uk.gov.hmrc.govukfrontend.views
+
+// from shapeless https://github.com/milessabin/shapeless/blob/master/core/src/main/scala/shapeless/typeoperators.scala#L25-L34
+object tagger {
+  def apply[U] = new Tagger[U]
+
+  trait Tagged[U]
+  type @@[+T, U] = T with Tagged[U]
+
+  class Tagger[U] {
+    def apply[T](t: T): T @@ U = t.asInstanceOf[T @@ U]
+  }
+}

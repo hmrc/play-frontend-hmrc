@@ -19,7 +19,6 @@ package uk.gov.hmrc.govukfrontend.views.components
 import org.jsoup.Jsoup
 import play.api.libs.functional.syntax._
 import play.api.libs.json._
-import uk.gov.hmrc.govukfrontend.views.components.footerSpec.reads
 import uk.gov.hmrc.govukfrontend.views.html.components._
 
 class footerSpec
@@ -107,12 +106,8 @@ class footerSpec
       navLink.attr("data-attribute-2") shouldBe "my-attribute-2"
     }
   }
-}
 
-object footerSpec {
-  import RenderHtmlSpec._
-
-  implicit val reads: Reads[HtmlString] = (
+  override implicit val reads: Reads[HtmlString] = (
     (__ \ "meta").readNullable[FooterMeta] and
       (__ \ "navigation").readWithDefault[Seq[FooterNavigation]](Nil) and
       (__ \ "containerClasses").readWithDefault[String]("") and
