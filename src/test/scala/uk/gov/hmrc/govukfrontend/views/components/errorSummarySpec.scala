@@ -27,10 +27,6 @@ class errorSummarySpec extends RenderHtmlSpec(Seq("error-summary-default")) {
       (__ \ "errorList").readWithDefault[Seq[ErrorLink]](Nil) and
       (__ \ "classes").readWithDefault[String]("") and
       (__ \ "attributes").readWithDefault[Map[String, String]](Map.empty)
-  )(
-    (title, description, errorList, classes, attributes) =>
-      tagger[HtmlStringTag][String](
-        ErrorSummary
-          .apply(errorList, classes, attributes)(title)(description)
-          .body))
+  )((title, description, errorList, classes, attributes) =>
+    HtmlString(ErrorSummary.apply(errorList, classes, attributes)(title)(description)))
 }

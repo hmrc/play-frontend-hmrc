@@ -82,9 +82,5 @@ trait ReadsHelpers {
 
   implicit val readsHeaderNavigation: Reads[HeaderNavigation] =
     Json.using[Json.WithDefaultValues].reads[HeaderNavigation]
-
-  val readsClasses: Reads[String] = (__ \ "classes").readWithDefault[String]("")
-
-  val readsAttributes: Reads[Map[String, String]] = (__ \ "attributes").readWithDefault[Map[String, String]](Map.empty)
 }
 

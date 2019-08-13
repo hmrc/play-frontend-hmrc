@@ -42,9 +42,6 @@ class fieldsetSpec
       .reads[Params]
       .map {
         case Params(describedBy, legend, classes, attributes, html) =>
-          tagger[HtmlStringTag][String](
-            Fieldset
-              .apply(describedBy, legend, classes, attributes)(html)
-              .body)
+          HtmlString(Fieldset.apply(describedBy, legend, classes, attributes)(html))
       }
 }

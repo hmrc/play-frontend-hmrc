@@ -46,10 +46,5 @@ class skipLinkSpec
       (__ \ "href").read[String] and
       (__ \ "classes").readWithDefault[String]("") and
       (__ \ "attributes").readWithDefault[Map[String, String]](Map.empty)
-  )(
-    (contents, href, classes, attributes) =>
-      tagger[HtmlStringTag][String](
-        SkipLink
-          .apply(href, classes, attributes)(contents)
-          .body))
+  )((contents, href, classes, attributes) => HtmlString(SkipLink.apply(href, classes, attributes)(contents)))
 }

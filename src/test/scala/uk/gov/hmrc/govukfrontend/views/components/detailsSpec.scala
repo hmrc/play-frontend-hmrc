@@ -16,8 +16,11 @@
 
 package uk.gov.hmrc.govukfrontend.views.components
 
+import org.jsoup.nodes.Document
+import org.jsoup.{Jsoup, nodes}
 import play.api.libs.functional.syntax._
 import play.api.libs.json._
+import play.twirl.api.HtmlFormat
 import uk.gov.hmrc.govukfrontend.views.html.components._
 
 class detailsSpec
@@ -28,17 +31,28 @@ class detailsSpec
         "details-with-html"
       )
     ) {
+
+  "details" should {
+    "allow text to be passed whilst escaping HTML entities" in {
+      val rendered = Details.apply()(Empty)(Text("More about the greater than symbol (>)")).body
+      val details  = Jsoup.parse(rendered).select(".govuk-details__text").html.trim
+      details shouldBe "More about the greater than symbol (&gt;)"
+    }
+
+    "allow HTML to be passed un-escaped" ignore { // TODO fix failing test
+      val rendered = Details.apply()(Empty)(HtmlContent("More about <b>bold text</b>")).body
+      val details = Jsoup.parse(rendered).select(".govuk-details__text").html.trim
+      details shouldBe "More about <b>bold text</b>"
+    }
+  }
+
   override implicit val reads: Reads[HtmlString] = (
     readsHtmlOrText("summaryHtml", "summaryText") and
       readsContents and
       (__ \ "id").readNullable[String] and
       (__ \ "open").readWithDefault[Boolean](false) and
-      readsClasses and
-      readsAttributes
-  )(
-    (summary, contents, id, open, classes, attributes) =>
-      tagger[HtmlStringTag][String](
-        Details
-          .apply(id, open, classes, attributes)(summary)(contents)
-          .body))
+      (__ \ "classes").readWithDefault[String]("") and
+      (__ \ "attributes").readWithDefault[Map[String, String]](Map.empty)
+  )((summary, contents, id, open, classes, attributes) =>
+    HtmlString(Details.apply(id, open, classes, attributes)(summary)(contents)))
 }

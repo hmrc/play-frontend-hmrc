@@ -32,6 +32,5 @@ class hintSpec
       (__ \ "id").readNullable[String] and
       (__ \ "classes").readWithDefault[String]("") and
       (__ \ "attributes").readWithDefault[Map[String, String]](Map.empty)
-  )((contents, id, classes, attributes) =>
-    tagger[HtmlStringTag][String](Hint.apply(id, classes, attributes)(contents).body))
+  )((contents, id, classes, attributes) => HtmlString(Hint.apply(id, classes, attributes)(contents)))
 }

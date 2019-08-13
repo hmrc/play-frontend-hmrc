@@ -44,10 +44,6 @@ class labelSpec
       (__ \ "isPageHeading").readWithDefault[Boolean](false) and
       (__ \ "classes").readWithDefault[String]("") and
       (__ \ "attributes").readWithDefault[Map[String, String]](Map.empty)
-  )(
-    (contents, forAttr, isPageHeading, classes, attributes) =>
-      tagger[HtmlStringTag][String](
-        Label
-          .apply(forAttr, isPageHeading, classes, attributes)(contents)
-          .body))
+  )((contents, forAttr, isPageHeading, classes, attributes) =>
+    HtmlString(Label.apply(forAttr, isPageHeading, classes, attributes)(contents)))
 }

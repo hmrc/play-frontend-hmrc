@@ -74,10 +74,6 @@ class errorMessageSpec extends RenderHtmlSpec(Seq("error-message-default")) {
       (__ \ "classes").readWithDefault[String]("") and
       (__ \ "attributes").readWithDefault[Map[String, String]](Map.empty) and
       (__ \ "visuallyHiddenText").readWithDefault[String]("Error")
-  )(
-    (contents, id, classes, attributes, visuallyHiddenText) =>
-      tagger[HtmlStringTag][String](
-        ErrorMessage
-          .apply(id, classes, attributes, visuallyHiddenText)(contents)
-          .body))
+  )((contents, id, classes, attributes, visuallyHiddenText) =>
+    HtmlString(ErrorMessage.apply(id, classes, attributes, visuallyHiddenText)(contents)))
 }

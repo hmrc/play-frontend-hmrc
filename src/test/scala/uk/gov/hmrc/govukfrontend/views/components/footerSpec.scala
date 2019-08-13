@@ -113,10 +113,6 @@ class footerSpec
       (__ \ "containerClasses").readWithDefault[String]("") and
       (__ \ "classes").readWithDefault[String]("") and
       (__ \ "attributes").readWithDefault[Map[String, String]](Map.empty)
-  )(
-    (meta, navigation, containerClasses, classes, attributes) =>
-      tagger[HtmlStringTag][String](
-        Footer
-          .apply(meta, navigation, containerClasses, classes, attributes)
-          .body))
+  )((meta, navigation, containerClasses, classes, attributes) =>
+    HtmlString(Footer.apply(meta, navigation, containerClasses, classes, attributes)))
 }

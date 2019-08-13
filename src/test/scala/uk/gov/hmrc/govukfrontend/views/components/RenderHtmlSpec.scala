@@ -22,6 +22,7 @@ import com.googlecode.htmlcompressor.compressor.HtmlCompressor
 import org.jsoup.parser.Parser
 import org.scalatest.{Matchers, WordSpec}
 import play.api.libs.json._
+import play.twirl.api.HtmlFormat
 import scala.io.Source
 
 abstract class RenderHtmlSpec(exampleNames: Seq[String]) extends WordSpec with Matchers with RenderHtmlSpecHelper {
@@ -44,6 +45,11 @@ trait RenderHtmlSpecHelper extends ReadsHelpers {
   type HtmlString = String @@ HtmlStringTag
 
   implicit def reads: Reads[HtmlString]
+
+  object HtmlString {
+    def apply(html: HtmlFormat.Appendable): HtmlString =
+      tagger[HtmlStringTag][String](html.body)
+  }
 
   private lazy val compressor = new HtmlCompressor()
 

@@ -64,10 +64,5 @@ class phaseBannerSpec
       (__ \ "tag").readNullable[TagParams] and
       (__ \ "classes").readWithDefault[String]("") and
       (__ \ "attributes").readWithDefault[Map[String, String]](Map.empty)
-  )(
-    (contents, tag, classes, attributes) =>
-      tagger[HtmlStringTag][String](
-        PhaseBanner
-          .apply(tag, classes, attributes)(contents)
-          .body))
+  )((contents, tag, classes, attributes) => HtmlString(PhaseBanner.apply(tag, classes, attributes)(contents)))
 }

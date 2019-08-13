@@ -101,11 +101,6 @@ class backLinkSpec
       (__ \ "href").read[String] and
       (__ \ "classes").readWithDefault[String]("") and
       (__ \ "attributes").readWithDefault[Map[String, String]](Map.empty)
-  )(
-    (contents, href, classes, attributes) =>
-      tagger[HtmlStringTag][String](
-        BackLink
-          .apply(href, classes, attributes)(contents)
-          .body))
+  )((contents, href, classes, attributes) => HtmlString(BackLink.apply(href, classes, attributes)(contents)))
 
 }

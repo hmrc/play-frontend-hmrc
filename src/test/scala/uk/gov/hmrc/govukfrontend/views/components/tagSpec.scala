@@ -48,10 +48,5 @@ class tagSpec
     readsContents and
       (__ \ "classes").readWithDefault[String]("") and
       (__ \ "attributes").readWithDefault[Map[String, String]](Map.empty)
-  )(
-    (contents, classes, attributes) =>
-      tagger[HtmlStringTag][String](
-        Tag
-          .apply(classes, attributes)(contents)
-          .body))
+  )((contents, classes, attributes) => HtmlString(Tag.apply(classes, attributes)(contents)))
 }

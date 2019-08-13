@@ -46,9 +46,6 @@ class headerSpec
       .using[Json.WithDefaultValues]
       .reads[HeaderParams]
       .map { params =>
-        tagger[HtmlStringTag][String](
-          Header
-            .apply(params)
-            .body)
+        HtmlString(Header.apply(params))
       }
 }
