@@ -19,7 +19,7 @@
   containerClasses: String = "",
   classes: String = "",
   attributes: Map[String, String] = Map.empty)
-<footer class="govuk-footer @classes" role="contentinfo" @if(attributes.nonEmpty) {@toAttributes(attributes)}>
+<footer class="govuk-footer @classes" role="contentinfo"@toAttributes(attributes)>
   <div class="govuk-width-container @containerClasses">
     @if(navigation.nonEmpty) {
       <div class="govuk-footer__navigation">
@@ -27,12 +27,12 @@
           <div class="govuk-footer__section">
             <h2 class="govuk-footer__heading govuk-heading-m">@nav.title</h2>
             @if(nav.items.nonEmpty) {
-              <ul class="govuk-footer__list @if(nav.columns.isDefined && nav.columns.get > 0) { govuk-footer__list--columns-@nav.columns}">
+              <ul class="govuk-footer__list @if(nav.columns.exists(_ > 0)) { govuk-footer__list--columns-@nav.columns}">
                 @for(item <- nav.items) {
                   @if(item.href.isDefined && item.text.isDefined) {
                     <li class="govuk-footer__list-item">
-                      <a class="govuk-footer__link" href="@item.href"@if(item.attributes.nonEmpty) { @toAttributes(item.attributes)}>
-                        @item.text.get
+                      <a class="govuk-footer__link" href="@item.href"@toAttributes(item.attributes)>
+                        @item.text
                       </a>
                     </li>
                   }
@@ -46,22 +46,22 @@
     }
     <div class="govuk-footer__meta">
       <div class="govuk-footer__meta-item govuk-footer__meta-item--grow">
-        @if(meta.isDefined) {
-          @if(meta.get.items.nonEmpty) {
+        @meta.map { meta =>
+          @if(meta.items.nonEmpty) {
             <h2 class="govuk-visually-hidden">Support links</h2>
             <ul class="govuk-footer__inline-list">
-              @for(item <- meta.get.items) {
+              @for(item <- meta.items) {
                 <li class="govuk-footer__inline-list-item">
-                  <a class="govuk-footer__link" href="@item.href"@if(item.attributes.nonEmpty) { @toAttributes(item.attributes)}>
-                    @item.text.get
+                  <a class="govuk-footer__link" href="@item.href"@toAttributes(item.attributes)>
+                    @item.text
                   </a>
                 </li>
               }
             </ul>
           }
-          @if(meta.get.contents.nonEmpty) {
+          @if(meta.contents.nonEmpty) {
             <div class="govuk-footer__meta-custom">
-              @meta.get.contents.asHtml
+              @meta.contents.asHtml
             </div>
           }
         }

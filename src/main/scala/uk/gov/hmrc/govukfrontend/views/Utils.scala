@@ -17,19 +17,25 @@
 package uk.gov.hmrc.govukfrontend.views
 
 import play.api.templates.PlayMagic.toHtmlArgs
-import play.twirl.api.Html
+import play.twirl.api.{Html, HtmlFormat}
 
 trait Utils {
-  implicit class AddClassAttributes(existingClass: String) {
-    def +++(classes: String): String =
-      if (classes.isEmpty) existingClass else s"$existingClass $classes"
+  implicit class RichHtml(html: Html) {
+    def padLeft(padCount: Int = 1, padding: String = " "): Html = {
+      val padStr = " " * (if (html.body.isEmpty) 0 else padCount)
+      HtmlFormat.fill(collection.immutable.Seq(Html(padStr), html))
+    }
   }
-  
-  def toAttributes(args: Map[String, String]): Html =
-    toHtmlArgs(keysToSymbols(args))
 
-  private def keysToSymbols(args: Map[String, String]): Map[Symbol, String] =
-    args.map { case (k, v) => Symbol(k) -> v }
+  // FIXME: check if we need to escape classes like [[toHtmlArgs]] does for attribute values
+  // https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html
+  def toClasses(firstClass: String, rest: String*): String =
+    rest.foldLeft(firstClass)((acc, curr) => if (curr.isEmpty) acc else s"$acc $curr")
+
+  def toAttributes(attributes: Map[String, String], padCount: Int = 1): Html = {
+    val htmlArgs = toHtmlArgs(attributes.map { case (k, v) => Symbol(k) -> v })
+    htmlArgs.padLeft(if (attributes.nonEmpty) padCount else 0)
+  }
 }
 
 object Utils extends Utils

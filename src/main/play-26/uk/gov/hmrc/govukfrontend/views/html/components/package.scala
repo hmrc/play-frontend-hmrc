@@ -60,5 +60,8 @@ package object components extends Utils with Aliases {
   lazy val Details = new details()
 
   @deprecated("Use DI")
+  lazy val Radios = new radios(ErrorMessage, Fieldset, Hint, Label)
+
+  @deprecated("Use DI")
   lazy val GovukTemplate = new govukTemplate(Header, Footer, SkipLink)
 }

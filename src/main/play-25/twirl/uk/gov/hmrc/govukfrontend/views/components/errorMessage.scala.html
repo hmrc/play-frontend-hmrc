@@ -17,9 +17,11 @@
 @(id: Option[String] = None,
   classes: String = "",
   attributes: Map[String, String] = Map.empty,
-  visuallyHiddenText: String = "Error",
-  showHiddenText: Boolean = true)(contents: Contents)
-<span @if(id.isDefined) {id="@id"} class="@{"govuk-error-message" +++ classes}" @if(attributes.nonEmpty) {@toAttributes(attributes)}>
- @if(showHiddenText) {<span class="govuk-visually-hidden">@visuallyHiddenText:</span>}
+  visuallyHiddenText: VisuallyHiddenText = ShowText("Error"))(contents: Contents)
+<span @id.map {id => id="@id"} class="@toClasses("govuk-error-message", classes)"@toAttributes(attributes)>
+ @visuallyHiddenText match {
+   case ShowText(text) => {<span class="govuk-visually-hidden">@text:</span>}
+   case HideText => {}
+ }
  @contents.asHtml
 </span>

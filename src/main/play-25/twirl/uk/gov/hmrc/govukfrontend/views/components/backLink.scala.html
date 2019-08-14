@@ -18,7 +18,7 @@
   classes: String = "",
   attributes: Map[String, String] = Map.empty)(contents: Contents)
 @require(href.nonEmpty)
-<a href="@{"#".?:(href)}" class="@{"govuk-back-link" +++ classes}" @if(attributes.nonEmpty) {@toAttributes(attributes)}>@contents match {
+<a href="@{"#".?:(href)}" class="@toClasses("govuk-back-link", classes)"@toAttributes(attributes)>@contents match {
   case NonEmptyHtml(html) => {@html}
   case NonEmptyText(text) => {@text}
   case _ => {Back}

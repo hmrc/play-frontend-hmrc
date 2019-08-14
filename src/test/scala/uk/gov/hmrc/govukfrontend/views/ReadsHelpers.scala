@@ -21,7 +21,9 @@ import play.api.libs.json._
 import play.twirl.api.Html
 import uk.gov.hmrc.govukfrontend.views.html.components._
 
-
+/**
+  * Reads used in all test fixtures go here
+  */
 trait ReadsHelpers {
   // FIXME: To remove. Coming soon in Play 2.7.x https://www.playframework.com/documentation/2.7.x/api/scala/play/api/libs/json/Format.html#widen[B%3E:A]:play.api.libs.json.Reads[B]
   implicit class RichReads[A](r: Reads[A]) {
@@ -42,12 +44,14 @@ trait ReadsHelpers {
     (__ \ textField).read[String].map(Text)
 
   implicit val readsContents: Reads[Contents] =
-    readsHtmlContent().widen[Contents]
+    readsHtmlContent()
+      .widen[Contents]
       .orElse(readsText().widen[Contents])
       .orElse(Reads.pure[Contents](Empty))
 
   def readsHtmlOrText(htmlField: String, textField: String): Reads[Contents] =
-   readsHtmlContent(htmlField).widen[Contents]
+    readsHtmlContent(htmlField)
+      .widen[Contents]
       .orElse(readsText(textField).widen[Contents])
 
   implicit val readsErrorLink: Reads[ErrorLink] = (
@@ -78,5 +82,73 @@ trait ReadsHelpers {
 
   implicit val readsHeaderNavigation: Reads[HeaderNavigation] =
     Json.using[Json.WithDefaultValues].reads[HeaderNavigation]
-}
 
+  implicit val readsTagParams: Reads[TagParams] = (
+    readsContents and
+      (__ \ "classes").readWithDefault[String]("") and
+      (__ \ "attributes").readWithDefault[Map[String, String]](Map.empty)
+  )(TagParams.apply _)
+
+  implicit val readsFieldsetParams: Reads[FieldsetParams] =
+    Json.using[Json.WithDefaultValues].reads[FieldsetParams]
+
+  implicit val readsHintParams: Reads[HintParams] = (
+    (__ \ "id").readNullable[String] and
+      (__ \ "classes").readWithDefault[String]("") and
+      (__ \ "attributes").readWithDefault[Map[String, String]](Map.empty) and
+      readsContents
+  )(HintParams.apply _)
+
+  implicit val readsVisuallyHiddenText: Reads[VisuallyHiddenText] =
+    ((__ \ "visuallyHiddenText").readWithDefault[String]("Error").map(Left(_): Either[String, Boolean]) |
+      (__ \ "visuallyHiddenText").readWithDefault[Boolean](true).map(Right(_): Either[String, Boolean]))
+      .map(toVisuallyHiddenText)
+
+  // Converts the ambiguously typed visuallyHiddenText argument from govuk-frontend to the correct type
+  // When visuallyHiddenText is a falsy value (we consider only "" or 'false') means we want to hide the text
+  private def toVisuallyHiddenText(x: Either[String, Boolean]): VisuallyHiddenText =
+    x match {
+      case Left("")     => HideText
+      case Left(text)   => ShowText(text)
+      case Right(false) => HideText
+      case Right(true) =>
+        throw new IllegalArgumentException(
+          """
+            |The original govuk-frontend implementation
+            |will show 'true' as the hidden text when visuallyHiddenText is 'true'.
+            |Raise a bug with govuk-frontend as this is likely to not be the intended behaviour.
+            |""".stripMargin
+        )
+    }
+
+  implicit val readsErrorMessageParams: Reads[ErrorMessageParams] = (
+    (__ \ "classes").readWithDefault[String]("") and
+      (__ \ "attributes").readWithDefault[Map[String, String]](Map.empty) and
+      readsVisuallyHiddenText and
+      readsContents
+  )(ErrorMessageParams.apply _)
+
+  implicit val readsLabelParams: Reads[LabelParams] = (
+    (__ \ "classes").readWithDefault[String]("") and
+      (__ \ "attributes").readWithDefault[Map[String, String]](Map.empty)
+  )(LabelParams.apply _)
+
+  case class Conditional(html: String)
+  object Conditional {
+    implicit val readsConditional = Json.reads[Conditional]
+  }
+
+  implicit val readsRadioItem: Reads[RadioItem] = (
+    readsContents and
+      (__ \ "id").readNullable[String] and
+      (__ \ "value").readNullable[String] and
+      (__ \ "label").readNullable[LabelParams] and
+      (__ \ "hint").readNullable[HintParams] and
+      (__ \ "divider").readNullable[String] and
+      (__ \ "checked").readWithDefault[Boolean](false) and
+      (__ \ "conditional").readNullable[Conditional].map(_.map(conditional => Html(conditional.html))) and
+      (__ \ "disabled").readWithDefault[Boolean](false) and
+      (__ \ "attributes").readWithDefault[Map[String, String]](Map.empty)
+  )(RadioItem.apply _)
+
+}

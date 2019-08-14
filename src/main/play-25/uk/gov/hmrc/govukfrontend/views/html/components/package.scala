@@ -25,10 +25,11 @@ import uk.gov.hmrc.govukfrontend.views.html.components.errorSummary_Scope0.error
 import uk.gov.hmrc.govukfrontend.views.html.components.fieldset_Scope0.fieldset
 import uk.gov.hmrc.govukfrontend.views.html.components.footer_Scope0.footer
 import uk.gov.hmrc.govukfrontend.views.html.components.govukTemplate_Scope0.govukTemplate_Scope1.govukTemplate
-import uk.gov.hmrc.govukfrontend.views.html.components.header_Scope0.header
+import uk.gov.hmrc.govukfrontend.views.html.components.header_Scope0.header_Scope1.header
 import uk.gov.hmrc.govukfrontend.views.html.components.hint_Scope0.hint
 import uk.gov.hmrc.govukfrontend.views.html.components.label_Scope0.label
 import uk.gov.hmrc.govukfrontend.views.html.components.phaseBanner_Scope0.phaseBanner
+import uk.gov.hmrc.govukfrontend.views.html.components.radios_Scope0.radios
 import uk.gov.hmrc.govukfrontend.views.html.components.skipLink_Scope0.skipLink
 import uk.gov.hmrc.govukfrontend.views.html.components.tag_Scope0.tag
 
@@ -59,6 +60,8 @@ package object components extends Utils with Aliases {
   lazy val ErrorMessage = new errorMessage()
 
   lazy val Details = new details()
+
+  lazy val Radios = new radios()
 
   lazy val GovukTemplate = new govukTemplate()
 }

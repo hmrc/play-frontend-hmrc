@@ -21,6 +21,7 @@ import play.api.libs.json._
 import uk.gov.hmrc.govukfrontend.views.html.components._
 
 class errorSummarySpec extends RenderHtmlSpec(Seq("error-summary-default")) {
+
   override implicit val reads: Reads[HtmlString] = (
     readsHtmlOrText("titleHtml", "titleText") and
       readsHtmlOrText("descriptionHtml", "descriptionText") and

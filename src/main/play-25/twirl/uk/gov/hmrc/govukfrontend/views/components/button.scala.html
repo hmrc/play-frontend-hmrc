@@ -23,21 +23,15 @@
   classes: String = "",
   attributes: Map[String, String] = Map.empty,
   preventDoubleClick: Boolean = false)(contents: Contents)
-@require(if (element.isDefined && element.get.toLowerCase() == "input") contents.isInstanceOf[Text] else true)
-@elem = @{
-  if (element.isDefined) {
-    element.get.toLowerCase()
-  } else {
-    if (href.isDefined) "a" else "button"
-  }
-}
+@require(!element.exists(_.toLowerCase == "input") || contents.isInstanceOf[Text])
+@elem = @{ element.fold(href.fold("button")(_ => "a"))(_.toLowerCase) }
 
 @commonAttributes = {
-  class="@{"govuk-button" +++ classes}@if(disabled) { govuk-button--disabled}"@if(attributes.nonEmpty) { @toAttributes(attributes)}
+  class="@toClasses("govuk-button", classes, "govuk-button--disabled".when(disabled))"@toAttributes(attributes)
 }
 
 @buttonAttributes = {
-  @if(name.isDefined) { name="@name"} type="@{"submit".?:(inputType)}"@if(disabled) { disabled="disabled" aria-disabled="true"}@if(preventDoubleClick) { data-prevent-double-click="true"}
+  @name.map {name => name="@name"} type="@{"submit".?:(inputType)}"@if(disabled) { disabled="disabled" aria-disabled="true"}@if(preventDoubleClick) { data-prevent-double-click="true"}
 }
 
 @if(elem == "a") {
@@ -46,7 +40,7 @@
   </a>
 } else {
   @if(elem == "button") {
-    <button @if(value.isDefined) {value="@value"}@buttonAttributes @commonAttributes>
+    <button @value.map {value => value="@value"}@buttonAttributes @commonAttributes>
       @contents.asHtml
     </button>
   } else {

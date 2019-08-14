@@ -56,13 +56,17 @@ class errorMessageSpec extends RenderHtmlSpec(Seq("error-message-default")) {
 
     "allow the visually hidden prefix to be customised" in {
       val component =
-        ErrorMessage.apply(visuallyHiddenText = "Gwall")(Text("Rhowch eich enw llawn")).select(".govuk-error-message")
+        ErrorMessage
+          .apply(visuallyHiddenText = ShowText("Gwall"))(Text("Rhowch eich enw llawn"))
+          .select(".govuk-error-message")
       component.text.trim shouldBe "Gwall: Rhowch eich enw llawn"
     }
 
     "allow the visually hidden prefix to be removed" in {
       val component =
-        ErrorMessage.apply(showHiddenText = false)(Text("There is an error on line 42")).select(".govuk-error-message")
+        ErrorMessage
+          .apply(visuallyHiddenText = HideText)(Text("There is an error on line 42"))
+          .select(".govuk-error-message")
       component.text.trim shouldBe "There is an error on line 42"
     }
   }
@@ -72,7 +76,8 @@ class errorMessageSpec extends RenderHtmlSpec(Seq("error-message-default")) {
       (__ \ "id").readNullable[String] and
       (__ \ "classes").readWithDefault[String]("") and
       (__ \ "attributes").readWithDefault[Map[String, String]](Map.empty) and
-      (__ \ "visuallyHiddenText").readWithDefault[String]("Error")
+      readsVisuallyHiddenText
   )((contents, id, classes, attributes, visuallyHiddenText) =>
     HtmlString(ErrorMessage.apply(id, classes, attributes, visuallyHiddenText)(contents)))
+
 }

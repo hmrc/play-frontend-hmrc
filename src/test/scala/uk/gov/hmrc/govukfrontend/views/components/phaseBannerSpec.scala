@@ -48,12 +48,6 @@ class phaseBannerSpec
     }
   }
 
-  implicit val readsTagParams: Reads[TagParams] = (
-    readsContents and
-      (__ \ "classes").readWithDefault[String]("") and
-      (__ \ "attributes").readWithDefault[Map[String, String]](Map.empty)
-  )(TagParams.apply _)
-
   override implicit val reads: Reads[HtmlString] = (
     readsContents and
       (__ \ "tag").readNullable[TagParams] and

@@ -1,0 +1,96 @@
+@*
+ * Copyright 2019 HM Revenue & Customs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *@
+
+@this(errorMessage: errorMessage, fieldset: fieldset, hint: hint, label: label)
+
+@(fieldsetParams: Option[FieldsetParams],
+  hintParams: Option[HintParams],
+  errorMessageParams: Option[ErrorMessageParams],
+  formGroupClasses: String = "",
+  idPrefix: Option[String] = None,
+  name: String,
+  items: Seq[RadioItem],
+  classes: String = "",
+  attributes: Map[String, String] = Map.empty)
+@defining(
+    if (idPrefix.exists(_.nonEmpty)) idPrefix.get else name,
+    StringBuilder.newBuilder,
+    StringBuilder.newBuilder,
+    StringBuilder.newBuilder,
+    items.exists(_.conditionalHtml.exists(_.body.nonEmpty))
+    ) { case (idPrefix, describedBy, hintId, errorId, isConditional) =>
+@defining {
+  @hintParams.map { h =>
+      @{
+        hintId ++= idPrefix + "-hint"
+        describedBy ++= (if(describedBy.nonEmpty) s" ${hintId.toString}" else hintId.toString)
+        hint(Some(hintId.toString), h.classes, h.attributes)(h.contents)
+      }
+  }
+  @errorMessageParams.map { e =>
+      @{
+        errorId ++= idPrefix + "-error"
+        describedBy ++= (if (describedBy.nonEmpty) " " + errorId.toString else errorId.toString)
+        errorMessage(Some(errorId.toString), e.classes, e.attributes, e.visuallyHiddenText)(e.contents)
+      }
+  }
+  <div class="@toClasses("govuk-radios", classes, "govuk-radios--conditional".when(isConditional))"@toAttributes(attributes)@if(isConditional) { data-module="radios"}>
+  @for((item, index) <- items.zip(Stream from 1)) {
+    @defining(item.id.getOrElse(s"$idPrefix-$index")) { id =>
+    @defining(s"conditional-$id") { conditionalId =>
+      @item.divider match {
+          case Some(divider) => {<div class="govuk-radios__divider">@divider</div>}
+          case None => {
+            @defining(item.hint.exists(_.contents.nonEmpty)) { hasHint =>
+            @defining(s"$id-item-hint") { itemHintId =>
+            @defining {
+              @if(item.checked) { checked}
+              @if(item.disabled) { disabled}
+              @item.conditionalHtml.map {_ => data-aria-controls="@conditionalId"}
+              @if(hasHint) {aria-describedby="@itemHintId"}
+            } { inputAttrs =>
+                <div class="govuk-radios__item">
+                  <input class="govuk-radios__input" id="@id" name="@name" type="radio" value="@item.value"@inputAttrs@toAttributes(item.attributes)>
+                    @label(
+                      forAttr = Some(id),
+                      classes = toClasses("govuk-radios__label", item.label.map(_.classes).getOrElse("")),
+                      attributes = item.label.map(_.attributes).getOrElse(Map.empty))(item.contents)
+                    @if(hasHint) {
+                      @hint(
+                        id = Some(itemHintId),
+                        classes = "govuk-radios__hint",
+                        attributes = item.hint.map(_.attributes).getOrElse(Map.empty))(item.hint.map(_.contents).getOrElse(Empty))
+                    }
+                </div>
+                @item.conditionalHtml.map { conditionalHtml =>
+                  <div class="@toClasses("govuk-radios__conditional", "govuk-radios__conditional--hidden".when(!item.checked))" id="@conditionalId">
+                    @conditionalHtml
+                  </div>
+                }
+              }}}
+          }
+      }
+    }}
+  }
+  </div>
+} { innerHtml =>
+    <div class="@toClasses("govuk-form-group", errorMessageParams.fold("")(_ => "govuk-form-group--error"), formGroupClasses)">
+      @fieldsetParams.fold(innerHtml) { fieldsetParams =>
+          @fieldset(if (describedBy.nonEmpty) Some(describedBy.toString) else None, fieldsetParams.legend, fieldsetParams.classes, fieldsetParams.attributes)(innerHtml)
+      }
+    </div>
+  }
+}
