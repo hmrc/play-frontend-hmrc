@@ -16,7 +16,7 @@ addSbtPlugin("uk.gov.hmrc" % "sbt-auto-build" % "1.15.0")
 addSbtPlugin("uk.gov.hmrc" % "sbt-git-versioning" % "1.17.0")
 
 val twirlPluginVersion =
-  if (PlayCrossCompilation.playVersion == Play26)  "1.3.15" else "1.1.1"
+  if (PlayCrossCompilation.playVersion == Play26) "1.3.15" else "1.1.1"
 
 addSbtPlugin("com.typesafe.sbt" % "sbt-twirl" % twirlPluginVersion)
 

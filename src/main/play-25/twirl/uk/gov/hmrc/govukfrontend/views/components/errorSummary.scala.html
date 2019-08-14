@@ -28,15 +28,15 @@
     </p>
     }
     <ul class="govuk-list govuk-error-summary__list">
-    @for(item <- errorList) {
-      <li>
-      @if(item.href.isDefined) {
-        <a href="@item.href"@if(item.attributes.nonEmpty) { @toAttributes(item.attributes)}>@item.contents.asHtml</a>
-      } else {
-        @item.contents.asHtml
+      @for(item <- errorList) {
+        <li>
+          @if(item.href.isDefined) {
+            <a href="@item.href"@if(item.attributes.nonEmpty) { @toAttributes(item.attributes)}>@item.contents.asHtml</a>
+          } else {
+            @item.contents.asHtml
+          }
+        </li>
       }
-      </li>
-    }
     </ul>
   </div>
 </div>
