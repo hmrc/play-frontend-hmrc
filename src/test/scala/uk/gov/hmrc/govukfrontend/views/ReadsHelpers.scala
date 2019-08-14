@@ -14,16 +14,16 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.govukfrontend.views.components
+package uk.gov.hmrc.govukfrontend.views
 
-import play.api.libs.json._
 import play.api.libs.functional.syntax._
+import play.api.libs.json._
 import play.twirl.api.Html
 import uk.gov.hmrc.govukfrontend.views.html.components._
 
 
 trait ReadsHelpers {
-  // TODO: coming soon in Play 2.7.x https://www.playframework.com/documentation/2.7.x/api/scala/play/api/libs/json/Format.html#widen[B%3E:A]:play.api.libs.json.Reads[B]
+  // FIXME: To remove. Coming soon in Play 2.7.x https://www.playframework.com/documentation/2.7.x/api/scala/play/api/libs/json/Format.html#widen[B%3E:A]:play.api.libs.json.Reads[B]
   implicit class RichReads[A](r: Reads[A]) {
     def widen[B >: A]: Reads[B] = Reads[B] { r.reads }
   }
@@ -35,24 +35,20 @@ trait ReadsHelpers {
     }
   }
 
-  implicit val readsHtmlContent: Reads[HtmlContent] =
-    (__ \ "html").read[String].map(HtmlContent(_))
+  def readsHtmlContent(htmlField: String = "html"): Reads[HtmlContent] =
+    (__ \ htmlField).read[String].map(HtmlContent(_))
 
-  implicit val readsText: Reads[Text] =
-    (__ \ "text").read[String].map(Text)
+  def readsText(textField: String = "text"): Reads[Text] =
+    (__ \ textField).read[String].map(Text)
 
   implicit val readsContents: Reads[Contents] =
-    readsHtmlContent
-      .widen[Contents]
-      .orElse(readsText.widen[Contents])
+    readsHtmlContent().widen[Contents]
+      .orElse(readsText().widen[Contents])
       .orElse(Reads.pure[Contents](Empty))
 
   def readsHtmlOrText(htmlField: String, textField: String): Reads[Contents] =
-    (__ \ htmlField)
-      .read[String]
-      .map(HtmlContent(_))
-      .widen[Contents]
-      .orElse((__ \ textField).read[String].map(Text).widen[Contents])
+   readsHtmlContent(htmlField).widen[Contents]
+      .orElse(readsText(textField).widen[Contents])
 
   implicit val readsErrorLink: Reads[ErrorLink] = (
     (__ \ "href").readNullable[String] and

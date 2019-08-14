@@ -14,13 +14,12 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.govukfrontend.views.components
+package uk.gov.hmrc.govukfrontend.views
 
 import play.api.libs.json.{JsError, JsSuccess, Json, Reads}
 import play.twirl.api.HtmlFormat
+import uk.gov.hmrc.govukfrontend.views.components.@@
 import scala.io.Source
-
-trait HtmlStringTag
 
 trait FixturesRenderer extends ReadsHelpers with JsoupHelpers {
   type HtmlString = String @@ HtmlStringTag
@@ -59,4 +58,3 @@ trait FixturesRenderer extends ReadsHelpers with JsoupHelpers {
       .getLines
       .mkString("\n")
 }
-

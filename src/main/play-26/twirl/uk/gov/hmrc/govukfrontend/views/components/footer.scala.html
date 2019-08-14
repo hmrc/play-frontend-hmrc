@@ -16,11 +16,11 @@
 
 @this()
 
-@(meta: Option[FooterMeta]               = None,
-  navigation: Seq[FooterNavigation]      = Nil,
-  containerClasses: String         = "",
-  classes: String                  = "",
-  attributes: Map[String, String]  = Map.empty)
+@(meta: Option[FooterMeta] = None,
+  navigation: Seq[FooterNavigation] = Nil,
+  containerClasses: String = "",
+  classes: String = "",
+  attributes: Map[String, String] = Map.empty)
 <footer class="govuk-footer @classes" role="contentinfo" @if(attributes.nonEmpty) {@toAttributes(attributes)}>
   <div class="govuk-width-container @containerClasses">
     @if(navigation.nonEmpty) {

@@ -16,20 +16,4 @@
 
 package uk.gov.hmrc.govukfrontend.views
 
-import play.api.templates.PlayMagic.toHtmlArgs
-import play.twirl.api.Html
-
-trait Utils {
-  implicit class AddClassAttributes(existingClass: String) {
-    def +++(classes: String): String =
-      if (classes.isEmpty) existingClass else s"$existingClass $classes"
-  }
-  
-  def toAttributes(args: Map[String, String]): Html =
-    toHtmlArgs(keysToSymbols(args))
-
-  private def keysToSymbols(args: Map[String, String]): Map[Symbol, String] =
-    args.map { case (k, v) => Symbol(k) -> v }
-}
-
-object Utils extends Utils
+trait HtmlStringTag

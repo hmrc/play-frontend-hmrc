@@ -25,10 +25,10 @@
   preventDoubleClick: Boolean = false)(contents: Contents)
 @require(if (element.isDefined && element.get.toLowerCase() == "input") contents.isInstanceOf[Text] else true)
 @elem = @{
-  if(element.isDefined) {
+  if (element.isDefined) {
     element.get.toLowerCase()
   } else {
-    if(href.isDefined) "a" else "button"
+    if (href.isDefined) "a" else "button"
   }
 }
 
@@ -37,7 +37,7 @@
 }
 
 @buttonAttributes = {
-  @if(name.isDefined) { name="@name"} type="@if(inputType.isDefined) {@inputType} else {submit}"@if(disabled) { disabled="disabled" aria-disabled="true"}@if(preventDoubleClick) { data-prevent-double-click="true"}
+  @if(name.isDefined) { name="@name"} type="@{"submit".?:(inputType)}"@if(disabled) { disabled="disabled" aria-disabled="true"}@if(preventDoubleClick) { data-prevent-double-click="true"}
 }
 
 @if(elem == "a") {

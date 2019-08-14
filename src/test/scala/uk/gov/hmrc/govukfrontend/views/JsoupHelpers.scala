@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.govukfrontend.views.components
+package uk.gov.hmrc.govukfrontend.views
 
 import com.googlecode.htmlcompressor.compressor.HtmlCompressor
 import org.jsoup.Jsoup
