@@ -54,6 +54,28 @@ trait Aliases {
 
   type Legend = viewmodels.fieldset.Legend
   val Legend = viewmodels.fieldset.Legend
+
+  type ErrorMessageParams = viewmodels.radios.ErrorMessageParams
+  val ErrorMessageParams = viewmodels.radios.ErrorMessageParams
+
+  type FieldsetParams = viewmodels.radios.FieldsetParams
+  val FieldsetParams = viewmodels.radios.FieldsetParams
+
+  type HintParams = viewmodels.radios.HintParams
+  val HintParams = viewmodels.radios.HintParams
+
+  type LabelParams = viewmodels.radios.LabelParams
+  val LabelParams = viewmodels.radios.LabelParams
+
+  type RadioItem = viewmodels.radios.RadioItem
+  val RadioItem = viewmodels.radios.RadioItem
+
+  type VisuallyHiddenText = viewmodels.errormessage.VisuallyHiddenText
+
+  type ShowText = viewmodels.errormessage.ShowText
+  val ShowText = viewmodels.errormessage.ShowText
+
+  val HideText = viewmodels.errormessage.HideText
 }
 
 object Aliases extends Aliases

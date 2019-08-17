@@ -18,14 +18,17 @@
   legend: Option[Legend] = None,
   classes: String = "",
   attributes: Map[String, String] = Map.empty)(html: Html = HtmlFormat.empty)
-<fieldset class="@{"govuk-fieldset" +++ classes}"@if(describedBy.isDefined) { aria-describedby="@describedBy"}@if(attributes.nonEmpty) { @toAttributes(attributes)}>
-  @if(legend.isDefined && legend.get.contents.nonEmpty) {
-  <legend class="@{"govuk-fieldset__legend" +++ legend.get.classes}">
-  @if(legend.get.isPageHeading) {
-    <h1 class="govuk-fieldset__heading">
-      @legend.get.contents.asHtml
-    </h1>
-  } else {@legend.get.contents.asHtml}
-  </legend>
-  }@html
+@describedBySnippet = { @describedBy.map {describedBy => aria-describedby="@describedBy"} }
+
+<fieldset class="@toClasses("govuk-fieldset", classes)"@describedBySnippet@toAttributes(attributes)>
+  @legend.map { legend =>
+    <legend class="@toClasses("govuk-fieldset__legend", legend.classes)">
+      @if(legend.isPageHeading) {
+        <h1 class="govuk-fieldset__heading">
+          @legend.contents.asHtml
+        </h1>
+      } else {@legend.contents.asHtml}
+    </legend>
+  }
+  @html
 </fieldset>

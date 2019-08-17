@@ -1,4 +1,4 @@
-@*
+/*
  * Copyright 2019 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,13 +12,16 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- *@
+ */
 
-@this()
+package uk.gov.hmrc.govukfrontend.views.viewmodels
+package radios
 
-@(id: Option[String] = None,
-  classes: String = "",
-  attributes: Map[String, String] = Map.empty)(contents: Contents)
-<span@id.map {id => id="@id"} class="@toClasses("govuk-hint", classes)"@toAttributes(attributes)>
-  @contents.asHtml
-</span>
+import fieldset.Legend
+
+case class FieldsetParams(
+  describedBy: Option[String]     = None,
+  legend: Option[Legend]          = None,
+  classes: String                 = "",
+  attributes: Map[String, String] = Map.empty
+)

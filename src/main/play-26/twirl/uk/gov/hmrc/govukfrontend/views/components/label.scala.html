@@ -22,21 +22,15 @@
   attributes: Map[String, String] = Map.empty)(contents: Contents)
 @contents match {
   case NonEmptyHtml(_) | NonEmptyText(_) => {
-      @defining(
-          Html(
-          s"""
-            <label class="${s"govuk-label $classes".trim}"
-               ${if (attributes.nonEmpty) toAttributes(attributes) else HtmlFormat.empty}
-               ${forAttr.getOrElse("")}>
-               ${contents.asHtml}
-            </label>
-          """)) { labelHtml =>
-                  @if(isPageHeading) {
-                    <h1 class="govuk-label-wrapper"> @labelHtml </h1>
-                  } else {
-                    @labelHtml
-                  }
-                }
+      @defining {
+        <label class="@toClasses("govuk-label", classes)"@toAttributes(attributes)@forAttr.map {forAttr => for="@forAttr"}>
+          @contents.asHtml
+        </label>
+      } { labelHtml =>
+          @if(isPageHeading) {
+            <h1 class="govuk-label-wrapper"> @labelHtml </h1>
+          } else { @labelHtml }
+        }
   }
   case _ => {}
 }
