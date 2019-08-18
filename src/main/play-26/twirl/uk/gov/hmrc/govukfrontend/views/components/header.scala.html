@@ -73,30 +73,36 @@
         }
       </a>
     </div>
-    @if(params.serviceName.isDefined || params.navigation.nonEmpty) {
+    @(params.serviceName, params.navigation) match {
+      case (Some(_), _) | (_, Seq(_, _*)) => {
         <div class="govuk-header__content">
-        @params.serviceName.map { serviceName =>
-          <a href="@params.serviceUrl" class="govuk-header__link govuk-header__link--service-name">
-            @serviceName
-          </a>
-        }
-        @if(params.navigation.nonEmpty) {
-            <button type="button" role="button" class="govuk-header__menu-button js-header-toggle" aria-controls="navigation" aria-label="Show or hide Top Level Navigation">Menu</button>
-            <nav>
-              <ul id="navigation" class="govuk-header__navigation @params.navigationClasses" aria-label="Top Level Navigation">
-                @for(item <- params.navigation) {
-                  @if(item.href.isDefined && item.text.isDefined) {
-                    <li class="govuk-header__navigation-item@if(item.active) { govuk-header__navigation-item--active}">
-                      <a class="govuk-header__link" href="@item.href"@toAttributes(item.attributes)>
-                        @item.text
-                      </a>
-                    </li>
+            @params.serviceName.map { serviceName =>
+              <a href="@params.serviceUrl" class="govuk-header__link govuk-header__link--service-name">
+                @serviceName
+              </a>
+            }
+            @if(params.navigation.nonEmpty) {
+              <button type="button" role="button" class="govuk-header__menu-button js-header-toggle" aria-controls="navigation" aria-label="Show or hide Top Level Navigation">Menu</button>
+              <nav>
+                <ul id="navigation" class="govuk-header__navigation @params.navigationClasses" aria-label="Top Level Navigation">
+                  @for(item <- params.navigation) {
+                    @(item.href, item.text) match {
+                      case (Some(NonEmptyString(itemHref)), Some(NonEmptyString(itemText))) => {
+                        <li class="govuk-header__navigation-item@if(item.active) { govuk-header__navigation-item--active}">
+                          <a class="govuk-header__link" href="@itemHref"@toAttributes(item.attributes)>
+                            @itemText
+                          </a>
+                        </li>
+                      }
+                      case _ => {}
+                    }
                   }
-                }
-              </ul>
-            </nav>
-        }
+                </ul>
+              </nav>
+            }
         </div>
+      }
+      case _ => {}
     }
   </div>
 </header>

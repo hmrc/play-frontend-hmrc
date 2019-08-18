@@ -36,6 +36,11 @@ trait Utils {
     val htmlArgs = toHtmlArgs(attributes.map { case (k, v) => Symbol(k) -> v })
     htmlArgs.padLeft(if (attributes.nonEmpty) padCount else 0)
   }
+
+  object NonEmptyString {
+    def unapply(s: String): Option[String] =
+      if (s != null && s.trim.nonEmpty) Some(s) else None
+  } 
 }
 
 object Utils extends Utils
