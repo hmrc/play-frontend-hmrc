@@ -37,22 +37,20 @@ trait ReadsHelpers {
     }
   }
 
-  def readsHtmlContent(htmlField: String = "html"): Reads[HtmlContent] =
-    (__ \ htmlField).read[String].map(HtmlContent(_))
-
-  def readsText(textField: String = "text"): Reads[Text] =
-    (__ \ textField).read[String].map(Text)
-
   implicit val readsContents: Reads[Contents] =
-    readsHtmlContent()
-      .widen[Contents]
-      .orElse(readsText().widen[Contents])
-      .orElse(Reads.pure[Contents](Empty))
+    readsHtmlOrText("html", "text")
 
   def readsHtmlOrText(htmlField: String, textField: String): Reads[Contents] =
     readsHtmlContent(htmlField)
       .widen[Contents]
       .orElse(readsText(textField).widen[Contents])
+      .orElse(Reads.pure[Contents](Empty))
+
+  def readsHtmlContent(htmlField: String = "html"): Reads[HtmlContent] =
+    (__ \ htmlField).read[String].map(HtmlContent(_))
+
+  def readsText(textField: String = "text"): Reads[Text] =
+    (__ \ textField).read[String].map(Text)
 
   implicit val readsErrorLink: Reads[ErrorLink] = (
     (__ \ "href").readNullable[String] and
@@ -99,13 +97,16 @@ trait ReadsHelpers {
       readsContents
   )(HintParams.apply _)
 
+  // FIXME: Hacky Reads to deal with incorrect implementation of govuk-frontend 'error-message' component. Raise PR to fix it.
+  // Converts the ambiguously typed visuallyHiddenText argument from govuk-frontend to the correct type.
+  // The original govuk-frontend implementation will show 'true' as the hidden text when visuallyHiddenText is 'true'.
+  // [[https://github.com/alphagov/govuk-frontend/blob/v2.11.0/src/components/error-message/template.test.js#L82]]
+  // When visuallyHiddenText is a falsy value (we consider only "" or 'false') means we want to hide the text
   implicit val readsVisuallyHiddenText: Reads[VisuallyHiddenText] =
     ((__ \ "visuallyHiddenText").readWithDefault[String]("Error").map(Left(_): Either[String, Boolean]) |
       (__ \ "visuallyHiddenText").readWithDefault[Boolean](true).map(Right(_): Either[String, Boolean]))
       .map(toVisuallyHiddenText)
 
-  // Converts the ambiguously typed visuallyHiddenText argument from govuk-frontend to the correct type
-  // When visuallyHiddenText is a falsy value (we consider only "" or 'false') means we want to hide the text
   private def toVisuallyHiddenText(x: Either[String, Boolean]): VisuallyHiddenText =
     x match {
       case Left("")     => HideText
@@ -114,9 +115,7 @@ trait ReadsHelpers {
       case Right(true) =>
         throw new IllegalArgumentException(
           """
-            |The original govuk-frontend implementation
-            |will show 'true' as the hidden text when visuallyHiddenText is 'true'.
-            |Raise a bug with govuk-frontend as this is likely to not be the intended behaviour.
+            |Passed boolean 'true' as the visually hidden text which is not the likely intended behaviour.
             |""".stripMargin
         )
     }
