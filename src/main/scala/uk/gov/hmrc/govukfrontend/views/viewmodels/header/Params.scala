@@ -18,7 +18,7 @@ package uk.gov.hmrc.govukfrontend.views.viewmodels.header
 
 case class Params(
   homepageUrl: Option[String]     = None,
-  assetsPath: Option[String]      = None,
+  assetsPath: Option[String]      = None, //FIXME remove since we are using Play's reverse routes to reference assets
   productName: Option[String]     = None,
   serviceName: Option[String]     = None,
   serviceUrl: Option[String]      = None,

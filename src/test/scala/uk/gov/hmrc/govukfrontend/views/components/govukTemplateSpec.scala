@@ -20,7 +20,7 @@ import org.scalatest.{Matchers, WordSpec}
 import play.twirl.api.HtmlFormat
 import uk.gov.hmrc.govukfrontend.views.html.components._
 
-class templateSpec extends WordSpec with Matchers {
+class govukTemplateSpec extends WordSpec with Matchers {
   "template rendered with default values" should {
     "not have whitespeace before the doctype" in {
       val templateHtml =
