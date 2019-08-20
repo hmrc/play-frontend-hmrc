@@ -21,47 +21,62 @@ import uk.gov.hmrc.govukfrontend.views.{Aliases, Utils}
 package object components extends Utils with Aliases {
 
   @deprecated("Use DI")
+  type BackLink = backLink
   lazy val BackLink = new backLink()
 
   @deprecated("Use DI")
+  type Button = button
   lazy val Button = new button()
 
   @deprecated("Use DI")
+  type ErrorSummary = errorSummary
   lazy val ErrorSummary = new errorSummary()
 
   @deprecated("Use DI")
+  type Fieldset = fieldset
   lazy val Fieldset = new fieldset()
 
   @deprecated("Use DI")
+  type Footer = footer
   lazy val Footer = new footer()
 
   @deprecated("Use DI")
+  type Header = header
   lazy val Header = new header()
 
   @deprecated("Use DI")
+  type Hint = hint
   lazy val Hint = new hint()
 
   @deprecated("Use DI")
+  type Label = label
   lazy val Label = new label()
 
   @deprecated("Use DI")
+  type Tag = tag
   lazy val Tag = new tag()
 
   @deprecated("Use DI")
+  type PhaseBanner = phaseBanner
   lazy val PhaseBanner = new phaseBanner(Tag)
 
   @deprecated("Use DI")
+  type SkipLink = skipLink
   lazy val SkipLink = new skipLink()
 
   @deprecated("Use DI")
+  type ErrorMessage = errorMessage
   lazy val ErrorMessage = new errorMessage()
 
   @deprecated("Use DI")
+  type Details = details
   lazy val Details = new details()
 
   @deprecated("Use DI")
+  type Radios = radios
   lazy val Radios = new radios(ErrorMessage, Fieldset, Hint, Label)
 
   @deprecated("Use DI")
+  type GovukTemplate = govukTemplate
   lazy val GovukTemplate = new govukTemplate(Header, Footer, SkipLink)
 }
