@@ -14,10 +14,7 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.govukfrontend.views.viewmodels
-package radios
-
-import fieldset.Legend
+package uk.gov.hmrc.govukfrontend.views.viewmodels.fieldset
 
 case class FieldsetParams(
   describedBy: Option[String]     = None,

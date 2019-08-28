@@ -23,33 +23,56 @@
   items: Seq[RadioItem],
   classes: String = "",
   attributes: Map[String, String] = Map.empty)
-@defining(
-    if (idPrefix.exists(_.nonEmpty)) idPrefix.get else name,
-    StringBuilder.newBuilder,
-    StringBuilder.newBuilder,
-    StringBuilder.newBuilder,
-    items.exists(_.conditionalHtml.exists(_.body.nonEmpty))
-    ) { case (idPrefix, describedBy, hintId, errorId, isConditional) =>
-@defining {
-  @hintParams.map { h =>
-      @{
-        hintId ++= idPrefix + "-hint"
-        describedBy ++= (if(describedBy.nonEmpty) s" ${hintId.toString}" else hintId.toString)
-        hint(Some(hintId.toString), h.classes, h.attributes)(h.contents)
-      }
+@defining(innerHtmlSnippet) { case (describedBy, innerHtml) =>
+  <div class="@toClasses("govuk-form-group", errorMessageParams.fold("")(_ => "govuk-form-group--error"), formGroupClasses)">
+    @fieldsetParams.fold(innerHtml) { fieldsetParams =>
+        @fieldset(
+          describedBy = if (describedBy.nonEmpty) Some(describedBy) else None,
+          legend = fieldsetParams.legend,
+          classes = fieldsetParams.classes,
+          attributes = fieldsetParams.attributes)(innerHtml)
+    }
+  </div>
+}
+
+@idPrefixStr = @{if (idPrefix.exists(_.nonEmpty)) idPrefix.get else name}
+
+@isConditional = @{items.exists(_.conditionalHtml.exists(_.body.nonEmpty))}
+
+@hintSnippet = @{
+  hintParams.fold(("", HtmlFormat.empty)) { hintParams =>
+    val hintId = idPrefixStr + "-hint"
+    val describedBy = hintId
+    val hintHtml =
+      hint(
+        id = Some(hintId),
+        classes = hintParams.classes,
+        attributes = hintParams.attributes)(hintParams.contents)
+    (describedBy, hintHtml)
   }
-  @errorMessageParams.map { e =>
-      @{
-        errorId ++= idPrefix + "-error"
-        describedBy ++= (if (describedBy.nonEmpty) " " + errorId.toString else errorId.toString)
-        errorMessage(Some(errorId.toString), e.classes, e.attributes, e.visuallyHiddenText)(e.contents)
-      }
+}
+
+@hintAndErrorMessageSnippet(describedBy: String, hintHtml: Html = HtmlFormat.empty) = @{
+  errorMessageParams.fold((describedBy, hintHtml)) { errorMessageParams =>
+    val errorId = idPrefixStr + "-error"
+    val descBy = if (describedBy.nonEmpty) s"$describedBy $errorId" else errorId
+    val errorMessageHtml =
+      errorMessage(
+        id = Some(errorId),
+        classes = errorMessageParams.classes,
+        attributes = errorMessageParams.attributes,
+        visuallyHiddenText = errorMessageParams.visuallyHiddenText
+      )(errorMessageParams.contents)
+    (descBy, HtmlFormat.fill(collection.immutable.Seq(hintHtml, errorMessageHtml)))
   }
+}
+
+@divSnippet = {
   <div class="@toClasses("govuk-radios", classes, "govuk-radios--conditional".when(isConditional))"@toAttributes(attributes)@if(isConditional) { data-module="radios"}>
   @for((item, index) <- items.zip(Stream from 1)) {
-    @defining(item.id.getOrElse(s"$idPrefix-$index")) { id =>
-    @defining(s"conditional-$id") { conditionalId =>
-      @item.divider match {
+      @defining(item.id.getOrElse(s"$idPrefixStr-$index")) { id =>
+      @defining(s"conditional-$id") { conditionalId =>
+        @item.divider match {
           case Some(divider) => {<div class="govuk-radios__divider">@divider</div>}
           case None => {
             @defining(item.hint.exists(_.contents.nonEmpty)) { hasHint =>
@@ -75,20 +98,19 @@
                 </div>
                 @item.conditionalHtml.map { conditionalHtml =>
                   <div class="@toClasses("govuk-radios__conditional", "govuk-radios__conditional--hidden".when(!item.checked))" id="@conditionalId">
-                    @conditionalHtml
+                  @conditionalHtml
                   </div>
                 }
-              }}}
+            }}}
           }
-      }
-    }}
+        }
+      }}
   }
   </div>
-} { innerHtml =>
-    <div class="@toClasses("govuk-form-group", errorMessageParams.fold("")(_ => "govuk-form-group--error"), formGroupClasses)">
-      @fieldsetParams.fold(innerHtml) { fieldsetParams =>
-          @fieldset(if (describedBy.nonEmpty) Some(describedBy.toString) else None, fieldsetParams.legend, fieldsetParams.classes, fieldsetParams.attributes)(innerHtml)
-      }
-    </div>
-  }
+}
+
+@innerHtmlSnippet = @{
+  val (descBy, hintHtml) = hintSnippet
+  val (descBy1, hintAndErrorMessageHtml) = hintAndErrorMessageSnippet(descBy, hintHtml)
+  (descBy1, HtmlFormat.fill(collection.immutable.Seq(hintAndErrorMessageHtml, divSnippet)))
 }

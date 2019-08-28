@@ -15,14 +15,13 @@
  */
 
 package uk.gov.hmrc.govukfrontend.views.viewmodels
-package radios
+package hint
 
 import common.Contents
-import errormessage.{ShowText, VisuallyHiddenText}
 
-case class ErrorMessageParams(
-  classes: String                        = "",
-  attributes: Map[String, String]        = Map.empty,
-  visuallyHiddenText: VisuallyHiddenText = ShowText("Error"),
+case class HintParams(
+  id: Option[String]              = None,
+  classes: String                 = "",
+  attributes: Map[String, String] = Map.empty,
   contents: Contents
 )

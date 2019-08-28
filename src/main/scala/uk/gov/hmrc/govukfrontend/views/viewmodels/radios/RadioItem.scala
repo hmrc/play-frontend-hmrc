@@ -18,6 +18,8 @@ package uk.gov.hmrc.govukfrontend.views.viewmodels
 package radios
 
 import common.Contents
+import hint.HintParams
+import label.LabelParams
 import play.twirl.api.Html
 
 case class RadioItem(

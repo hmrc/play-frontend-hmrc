@@ -13,7 +13,7 @@ lazy val root = Project(libName, file("."))
     majorVersion := 0,
     scalaVersion := "2.11.12",
     crossScalaVersions := List("2.11.12", "2.12.8"),
-    libraryDependencies ++= appDependencies,
+    libraryDependencies ++= libDependencies,
     dependencyOverrides ++= overrides,
     resolvers :=
       Seq(
@@ -24,7 +24,7 @@ lazy val root = Project(libName, file("."))
     PlayCrossCompilation.playCrossCompilationSettings,
     makePublicallyAvailableOnBintray := true,
     unmanagedSourceDirectories in sbt.Compile += baseDirectory.value / "src/main/twirl",
-    (sourceDirectories in(Compile, TwirlKeys.compileTemplates)) += {
+    (sourceDirectories in (Compile, TwirlKeys.compileTemplates)) += {
       val twirlDir =
         if (PlayCrossCompilation.playVersion == Play25) {
           "src/main/play-25/twirl"
@@ -34,7 +34,7 @@ lazy val root = Project(libName, file("."))
       baseDirectory.value / twirlDir
     },
     parallelExecution in sbt.Test := false,
-    playMonitoredFiles ++= (sourceDirectories in(Compile, TwirlKeys.compileTemplates)).value,
+    playMonitoredFiles ++= (sourceDirectories in (Compile, TwirlKeys.compileTemplates)).value,
     routesGenerator := {
       if (playVersion == Play25) StaticRoutesGenerator
       else InjectedRoutesGenerator
@@ -43,29 +43,39 @@ lazy val root = Project(libName, file("."))
     unmanagedResourceDirectories in Test ++= Seq(baseDirectory(_ / "target/web/public/test").value)
   )
 
-lazy val appDependencies: Seq[ModuleID] = dependencies(
+lazy val libDependencies: Seq[ModuleID] = dependencies(
   shared = {
-
     import PlayCrossCompilation.playRevision
 
     val compile = Seq(
-      "com.typesafe.play" %% "play" % playRevision,
+      "com.typesafe.play" %% "play"            % playRevision,
       "com.typesafe.play" %% "filters-helpers" % playRevision,
-      "org.joda" % "joda-convert" % "2.0.2",
-      "org.webjars.npm" % "govuk-frontend" % "2.11.0"
+      "org.joda"          % "joda-convert"     % "2.0.2",
+      "org.webjars.npm"   % "govuk-frontend"   % "2.11.0"
     )
 
     val test = Seq(
-      "org.scalatest" %% "scalatest" % "3.0.5",
-      "org.pegdown" % "pegdown" % "1.6.0",
-      "org.jsoup" % "jsoup" % "1.11.3",
-      "com.typesafe.play" %% "play-test" % playRevision,
-      "org.scalacheck" %% "scalacheck" % "1.14.0",
-      "com.googlecode.htmlcompressor" % "htmlcompressor" % "1.5.2",
-      "org.scalatestplus.play" %% "scalatestplus-play" % "3.0.0"
+      "org.scalatest"                 %% "scalatest"     % "3.0.5",
+      "org.pegdown"                   % "pegdown"        % "1.6.0",
+      "org.jsoup"                     % "jsoup"          % "1.11.3",
+      "com.typesafe.play"             %% "play-test"     % playRevision,
+      "org.scalacheck"                %% "scalacheck"    % "1.14.0",
+      "com.googlecode.htmlcompressor" % "htmlcompressor" % "1.5.2"
     ).map(_ % Test)
 
     compile ++ test
+  },
+  play25 = {
+    val test = Seq(
+      "org.scalatestplus.play" %% "scalatestplus-play" % "2.0.1"
+    ).map(_ % Test)
+    test
+  },
+  play26 = {
+    val test = Seq(
+      "org.scalatestplus.play" %% "scalatestplus-play" % "3.1.2"
+    )
+    test
   }
 )
 

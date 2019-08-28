@@ -15,13 +15,12 @@
  */
 
 package uk.gov.hmrc.govukfrontend.views.viewmodels
-package radios
+package tag
 
-import common.Contents
+import common.{Contents, Empty}
 
-case class HintParams(
-  id: Option[String]              = None,
+case class TagParams(
+  contents: Contents              = Empty,
   classes: String                 = "",
-  attributes: Map[String, String] = Map.empty,
-  contents: Contents
+  attributes: Map[String, String] = Map.empty
 )
