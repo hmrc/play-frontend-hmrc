@@ -19,24 +19,26 @@
 @(errorList: Seq[ErrorLink] = Nil,
   classes: String = "",
   attributes: Map[String, String] = Map.empty)(title: Contents)(description: Contents = Empty)
-<div class="@toClasses("govuk-error-summary", classes)" aria-labelledby="error-summary-title" role="alert" tabindex="-1"@toAttributes(attributes) data-module="error-summary">
-  <h2 class="govuk-error-summary__title" id="error-summary-title">
-    @title.asHtml
-  </h2>
-  <div class="govuk-error-summary__body">
-    @if(description.nonEmpty) {
-    <p>
-      @description.asHtml
-    </p>
-    }
-    <ul class="govuk-list govuk-error-summary__list">
-      @for(item <- errorList) {
-        <li>
-          @item.href.fold(item.contents.asHtml) { itemHref =>
-            <a href="@itemHref"@toAttributes(item.attributes)>@item.contents.asHtml</a>
-          }
-        </li>
+@if(errorList.nonEmpty) {
+  <div class="@toClasses("govuk-error-summary", classes)" aria-labelledby="error-summary-title" role="alert" tabindex="-1"@toAttributes(attributes) data-module="error-summary">
+    <h2 class="govuk-error-summary__title" id="error-summary-title">
+      @title.asHtml
+    </h2>
+    <div class="govuk-error-summary__body">
+      @if(description.nonEmpty) {
+      <p>
+        @description.asHtml
+      </p>
       }
-    </ul>
+      <ul class="govuk-list govuk-error-summary__list">
+        @for(item <- errorList) {
+          <li>
+            @item.href.fold(item.contents.asHtml) { itemHref =>
+              <a href="@itemHref"@toAttributes(item.attributes)>@item.contents.asHtml</a>
+            }
+          </li>
+        }
+      </ul>
+    </div>
   </div>
-</div>
+}
