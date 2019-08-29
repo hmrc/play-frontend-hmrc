@@ -14,7 +14,7 @@
  * limitations under the License.
  *@
 
-@import uk.gov.hmrc.govukfrontend.controllers._
+@import uk.gov.hmrc.govukfrontend.controllers.routes
 
 @this()
 
@@ -60,7 +60,7 @@
 
             In other browsers <image> is synonymous for the <img> tag and will be
             interpreted as such, displaying the fallback image. *@
-            <image src="@routes.Assets.versioned("images/govuk-logotype-crown.png")" class="govuk-header__logotype-crown-fallback-image"></image>
+            <image src="@routes.Assets.at("images/govuk-logotype-crown.png")" class="govuk-header__logotype-crown-fallback-image"></image>
           </svg>
           <span class="govuk-header__logotype-text">
             GOV.UK

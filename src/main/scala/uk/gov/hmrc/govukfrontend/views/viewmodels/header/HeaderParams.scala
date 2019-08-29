@@ -14,20 +14,17 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.govukfrontend.views.components
+package uk.gov.hmrc.govukfrontend.views.viewmodels.header
 
-import org.scalatest.{Matchers, WordSpec}
-import play.twirl.api.HtmlFormat
-import uk.gov.hmrc.govukfrontend.views.html.components._
-
-class templateSpec extends WordSpec with Matchers {
-  "template rendered with default values" should {
-    "not have whitespeace before the doctype" in {
-      val templateHtml =
-        GovukTemplate
-          .apply(htmlLang = None, htmlClasses = None, themeColour = None, bodyClasses = None)(HtmlFormat.empty)
-      val component = templateHtml.body
-      component.charAt(0) shouldBe '<'
-    }
-  }
-}
+case class HeaderParams(
+  homepageUrl: Option[String]     = None,
+  assetsPath: Option[String]      = None, //FIXME remove since we are using Play's reverse routes to reference assets
+  productName: Option[String]     = None,
+  serviceName: Option[String]     = None,
+  serviceUrl: Option[String]      = None,
+  navigation: Seq[Navigation]     = Nil,
+  navigationClasses: String       = "",
+  containerClasses: String        = "",
+  classes: String                 = "",
+  attributes: Map[String, String] = Map.empty
+)

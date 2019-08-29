@@ -128,8 +128,11 @@ trait ReadsHelpers {
   )(ErrorMessageParams.apply _)
 
   implicit val readsLabelParams: Reads[LabelParams] = (
-    (__ \ "classes").readWithDefault[String]("") and
-      (__ \ "attributes").readWithDefault[Map[String, String]](Map.empty)
+    (__ \ "for").readNullable[String] and
+      (__ \ "isPageHeading").readWithDefault[Boolean](false) and
+      (__ \ "classes").readWithDefault[String]("") and
+      (__ \ "attributes").readWithDefault[Map[String, String]](Map.empty) and
+      readsContents
   )(LabelParams.apply _)
 
   case class Conditional(html: String)

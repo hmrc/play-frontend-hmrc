@@ -13,7 +13,7 @@ lazy val root = Project(libName, file("."))
     majorVersion := 0,
     scalaVersion := "2.11.12",
     crossScalaVersions := List("2.11.12", "2.12.8"),
-    libraryDependencies ++= appDependencies,
+    libraryDependencies ++= libDependencies,
     dependencyOverrides ++= overrides,
     resolvers :=
       Seq(
@@ -24,6 +24,7 @@ lazy val root = Project(libName, file("."))
     PlayCrossCompilation.playCrossCompilationSettings,
     makePublicallyAvailableOnBintray := true,
     unmanagedSourceDirectories in sbt.Compile += baseDirectory.value / "src/main/twirl",
+    unmanagedSourceDirectories in sbt.Test += baseDirectory.value / "src/test/twirl",
     (sourceDirectories in (Compile, TwirlKeys.compileTemplates)) += {
       val twirlDir =
         if (PlayCrossCompilation.playVersion == Play25) {
@@ -39,12 +40,12 @@ lazy val root = Project(libName, file("."))
       if (playVersion == Play25) StaticRoutesGenerator
       else InjectedRoutesGenerator
     },
-    HeaderKey.excludes += "fixtures/*/*/*.html"
+    HeaderKey.excludes += "fixtures/*/*/*.html",
+    unmanagedResourceDirectories in Test ++= Seq(baseDirectory(_ / "target/web/public/test").value)
   )
 
-lazy val appDependencies: Seq[ModuleID] = dependencies(
+lazy val libDependencies: Seq[ModuleID] = dependencies(
   shared = {
-
     import PlayCrossCompilation.playRevision
 
     val compile = Seq(
@@ -64,6 +65,18 @@ lazy val appDependencies: Seq[ModuleID] = dependencies(
     ).map(_ % Test)
 
     compile ++ test
+  },
+  play25 = {
+    val test = Seq(
+      "org.scalatestplus.play" %% "scalatestplus-play" % "2.0.1"
+    ).map(_ % Test)
+    test
+  },
+  play26 = {
+    val test = Seq(
+      "org.scalatestplus.play" %% "scalatestplus-play" % "3.1.2"
+    )
+    test
   }
 )
 

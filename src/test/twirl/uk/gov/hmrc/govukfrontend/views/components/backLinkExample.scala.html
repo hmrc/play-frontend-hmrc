@@ -1,0 +1,12 @@
+
+@()
+@BackLink(href = "#")(HtmlContent(content))
+
+    @* if this HTML snippet is inlined on the call to HtmlContent the Twirl compiler will not be able to cast it as Html
+    so a good pattern to follow is to define HTML snippets as reusable code blocks or in '@defining' constructs.
+    see:
+    - https://groups.google.com/forum/#!msg/play-framework/JTlcTZlq-HY/7hSLt-SxwAoJ
+    - https://stackoverflow.com/questions/18947324/call-play2-template-with-variable-arguments-of-type-html
+    *@
+
+@content = {<p>a paragraph</p>}

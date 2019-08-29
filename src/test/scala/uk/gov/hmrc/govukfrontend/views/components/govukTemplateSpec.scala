@@ -14,14 +14,20 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.govukfrontend.views.viewmodels
-package radios
+package uk.gov.hmrc.govukfrontend.views.components
 
-import fieldset.Legend
+import org.scalatest.{Matchers, WordSpec}
+import play.twirl.api.HtmlFormat
+import uk.gov.hmrc.govukfrontend.views.html.components._
 
-case class FieldsetParams(
-  describedBy: Option[String]     = None,
-  legend: Option[Legend]          = None,
-  classes: String                 = "",
-  attributes: Map[String, String] = Map.empty
-)
+class govukTemplateSpec extends WordSpec with Matchers {
+  "template rendered with default values" should {
+    "not have whitespeace before the doctype" in {
+      val templateHtml =
+        GovukTemplate
+          .apply(htmlLang = None, htmlClasses = None, themeColour = None, bodyClasses = None)(HtmlFormat.empty)
+      val component = templateHtml.body
+      component.charAt(0) shouldBe '<'
+    }
+  }
+}

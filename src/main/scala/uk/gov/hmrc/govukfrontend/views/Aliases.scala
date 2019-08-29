@@ -40,14 +40,14 @@ trait Aliases {
   type FooterItem = viewmodels.footer.Item
   val FooterItem = viewmodels.footer.Item
 
-  type HeaderParams = viewmodels.header.Params
-  val HeaderParams = viewmodels.header.Params
+  type HeaderParams = viewmodels.header.HeaderParams
+  val HeaderParams = viewmodels.header.HeaderParams
 
   type HeaderNavigation = viewmodels.header.Navigation
   val HeaderNavigation = viewmodels.header.Navigation
 
-  type TagParams = viewmodels.tag.Params
-  val TagParams = viewmodels.tag.Params
+  type TagParams = viewmodels.tag.TagParams
+  val TagParams = viewmodels.tag.TagParams
 
   type ErrorLink = viewmodels.errorsummary.ErrorLink
   val ErrorLink = viewmodels.errorsummary.ErrorLink
@@ -55,17 +55,14 @@ trait Aliases {
   type Legend = viewmodels.fieldset.Legend
   val Legend = viewmodels.fieldset.Legend
 
-  type ErrorMessageParams = viewmodels.radios.ErrorMessageParams
-  val ErrorMessageParams = viewmodels.radios.ErrorMessageParams
+  type FieldsetParams = viewmodels.fieldset.FieldsetParams
+  val FieldsetParams = viewmodels.fieldset.FieldsetParams
 
-  type FieldsetParams = viewmodels.radios.FieldsetParams
-  val FieldsetParams = viewmodels.radios.FieldsetParams
+  type HintParams = viewmodels.hint.HintParams
+  val HintParams = viewmodels.hint.HintParams
 
-  type HintParams = viewmodels.radios.HintParams
-  val HintParams = viewmodels.radios.HintParams
-
-  type LabelParams = viewmodels.radios.LabelParams
-  val LabelParams = viewmodels.radios.LabelParams
+  type LabelParams = viewmodels.label.LabelParams
+  val LabelParams = viewmodels.label.LabelParams
 
   type RadioItem = viewmodels.radios.RadioItem
   val RadioItem = viewmodels.radios.RadioItem
@@ -76,6 +73,10 @@ trait Aliases {
   val ShowText = viewmodels.errormessage.ShowText
 
   val HideText = viewmodels.errormessage.HideText
+
+  type ErrorMessageParams = viewmodels.errormessage.ErrorMessageParams
+  val ErrorMessageParams = viewmodels.errormessage.ErrorMessageParams
+
 }
 
 object Aliases extends Aliases

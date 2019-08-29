@@ -48,5 +48,7 @@ package object components extends Utils with Aliases {
 
   lazy val Radios = radios
 
+  lazy val FileUpload = fileUpload
+
   lazy val GovukTemplate = govukTemplate
 }

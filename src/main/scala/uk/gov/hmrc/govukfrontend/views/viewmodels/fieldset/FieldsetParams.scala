@@ -14,13 +14,11 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.govukfrontend.views.viewmodels
-package tag
+package uk.gov.hmrc.govukfrontend.views.viewmodels.fieldset
 
-import common.{Contents, Empty}
-
-case class Params(
-  contents: Contents              = Empty,
+case class FieldsetParams(
+  describedBy: Option[String]     = None,
+  legend: Option[Legend]          = None,
   classes: String                 = "",
   attributes: Map[String, String] = Map.empty
 )

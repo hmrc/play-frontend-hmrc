@@ -14,9 +14,15 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.govukfrontend.views.viewmodels.radios
+package uk.gov.hmrc.govukfrontend.views.viewmodels
+package label
+
+import common.{Contents, Empty}
 
 case class LabelParams(
+  forAttr: Option[String] = None,
+  isPageHeading: Boolean = false,
   classes: String                 = "",
-  attributes: Map[String, String] = Map.empty
+  attributes: Map[String, String] = Map.empty,
+  contents: Contents = Empty
 )
