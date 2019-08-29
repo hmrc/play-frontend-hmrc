@@ -16,7 +16,7 @@
 
 @(errorList: Seq[ErrorLink] = Nil,
   classes: String = "",
-  attributes: Map[String, String] = Map.empty)(title: Contents)(description: Contents)
+  attributes: Map[String, String] = Map.empty)(title: Contents)(description: Contents = Empty)
 <div class="@toClasses("govuk-error-summary", classes)" aria-labelledby="error-summary-title" role="alert" tabindex="-1"@toAttributes(attributes) data-module="error-summary">
   <h2 class="govuk-error-summary__title" id="error-summary-title">
     @title.asHtml
