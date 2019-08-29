@@ -24,6 +24,7 @@ lazy val root = Project(libName, file("."))
     PlayCrossCompilation.playCrossCompilationSettings,
     makePublicallyAvailableOnBintray := true,
     unmanagedSourceDirectories in sbt.Compile += baseDirectory.value / "src/main/twirl",
+    unmanagedSourceDirectories in sbt.Test += baseDirectory.value / "src/test/twirl",
     (sourceDirectories in (Compile, TwirlKeys.compileTemplates)) += {
       val twirlDir =
         if (PlayCrossCompilation.playVersion == Play25) {
