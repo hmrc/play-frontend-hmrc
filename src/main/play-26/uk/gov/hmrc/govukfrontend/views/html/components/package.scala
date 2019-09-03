@@ -80,6 +80,10 @@ package object components extends Utils with Aliases {
   @deprecated("Use DI")
   lazy val FileUpload = new fileUpload(ErrorMessage, Hint, Label)
 
+  type Input = input
+  @deprecated("Use DI")
+  lazy val Input = new input(ErrorMessage, Hint, Label)
+
   type GovukTemplate = govukTemplate
   @deprecated("Use DI")
   lazy val GovukTemplate = new govukTemplate(Header, Footer, SkipLink)

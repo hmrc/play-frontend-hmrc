@@ -14,14 +14,19 @@
  * limitations under the License.
  *@
 
-@(name: String,
-  id: String,
+@import scala.util.matching.Regex
+
+@(id: String,
+  name: String,
+  inputType: String = "text",
   value: Option[String] = None,
   labelParams: LabelParams,
   hintParams: Option[HintParams] = None,
   errorMessageParams: Option[ErrorMessageParams] = None,
   formGroupClasses: String = "",
   classes: String = "",
+  autocomplete: Option[String] = None,
+  pattern: Option[Regex] = None,
   attributes: Map[String, String] = Map.empty)
 @require(name.nonEmpty && id.nonEmpty)
 <div class="@toClasses("govuk-form-group", errorMessageParams.fold("")(_ => "govuk-form-group--error"), formGroupClasses)">
@@ -74,9 +79,12 @@
 
 @inputSnippet(describedBy: String) = {
   @defining {
-    id="@id" name="@name" type="file"@value.map { value => value="@value" }@if(describedBy.nonEmpty) { aria-describedby="@describedBy"}@toAttributes(attributes)
+    id="@id" name="@name" type="@inputType"@value.map { value => value="@value" }@if(describedBy.nonEmpty) { aria-describedby="@describedBy"}
   } { attrs =>
-      <input class="@toClasses("govuk-file-upload", classes, errorMessageParams.fold("")(_ => "govuk-file-upload--error"))" @attrs>
-  }
+  @defining {
+    @autocomplete.map { autocomplete => autocomplete="@autocomplete"}@pattern.map { pattern => pattern="@pattern"}@toAttributes(attributes)
+  } { otherAttrs =>
+      <input class="@toClasses("govuk-input", classes, errorMessageParams.fold("")(_ => "govuk-input--error"))" @attrs@otherAttrs>
+  }}
 }
 

@@ -76,7 +76,7 @@
 
 @inputSnippet(describedBy: String) = {
   @defining {
-        id="@id" name="@name" type="file"@value.map { value => value="@value" }@if(describedBy.nonEmpty) { aria-describedby="@describedBy"}@toAttributes(attributes)
+    id="@id" name="@name" type="file"@value.map { value => value="@value" }@if(describedBy.nonEmpty) { aria-describedby="@describedBy"}@toAttributes(attributes)
   } { attrs =>
       <input class="@toClasses("govuk-file-upload", classes, errorMessageParams.fold("")(_ => "govuk-file-upload--error"))" @attrs>
   }
