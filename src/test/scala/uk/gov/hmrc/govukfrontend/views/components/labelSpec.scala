@@ -37,11 +37,10 @@ class labelSpec
   }
 
   override implicit val reads: Reads[HtmlString] = (
-    readsContents and
-      (__ \ "forAttr").readNullable[String] and
+    (__ \ "forAttr").readNullable[String] and
       (__ \ "isPageHeading").readWithDefault[Boolean](false) and
       (__ \ "classes").readWithDefault[String]("") and
-      (__ \ "attributes").readWithDefault[Map[String, String]](Map.empty)
-  )((contents, forAttr, isPageHeading, classes, attributes) =>
-    HtmlString(Label.apply(forAttr, isPageHeading, classes, attributes)(contents)))
+      (__ \ "attributes").readWithDefault[Map[String, String]](Map.empty) and
+      readsContents
+  )(Label.apply(_, _, _, _)(_)).map(HtmlString(_))
 }

@@ -49,9 +49,9 @@ class phaseBannerSpec
   }
 
   override implicit val reads: Reads[HtmlString] = (
-    readsContents and
-      (__ \ "tag").readNullable[TagParams] and
+    (__ \ "tag").readNullable[TagParams] and
       (__ \ "classes").readWithDefault[String]("") and
-      (__ \ "attributes").readWithDefault[Map[String, String]](Map.empty)
-  )((contents, tag, classes, attributes) => HtmlString(PhaseBanner.apply(tag, classes, attributes)(contents)))
+      (__ \ "attributes").readWithDefault[Map[String, String]](Map.empty) and
+      readsContents
+  )(PhaseBanner.apply(_, _, _)(_)).map(HtmlString(_))
 }

@@ -52,8 +52,7 @@ class buttonSpec
   }
 
   override implicit val reads: Reads[HtmlString] = (
-    readsContents and
-      (__ \ "element").readNullable[String] and
+    (__ \ "element").readNullable[String] and
       (__ \ "name").readNullable[String] and
       (__ \ "input").readNullable[String] and
       (__ \ "value").readNullable[String] and
@@ -61,8 +60,7 @@ class buttonSpec
       (__ \ "href").readNullable[String] and
       (__ \ "classes").readWithDefault[String]("") and
       (__ \ "attributes").readWithDefault[Map[String, String]](Map.empty) and
-      (__ \ "preventDoubleClick").readWithDefault[Boolean](false)
-  )((contents, element, name, inputType, value, disabled, href, classes, attributes, preventDoubleClick) =>
-    HtmlString(
-      Button.apply(element, name, inputType, value, disabled, href, classes, attributes, preventDoubleClick)(contents)))
+      (__ \ "preventDoubleClick").readWithDefault[Boolean](false) and
+      readsContents
+  )(Button.apply(_, _, _, _, _, _, _, _, _)(_)).map(HtmlString(_))
 }

@@ -30,13 +30,6 @@ trait ReadsHelpers {
     def widen[B >: A]: Reads[B] = Reads[B] { r.reads }
   }
 
-  implicit val readsHtml: Reads[Html] = new Reads[Html] {
-    override def reads(json: JsValue): JsResult[Html] = json match {
-      case JsString(html) => JsSuccess(Html(html))
-      case _              => JsError("error.expected.string")
-    }
-  }
-
   implicit val readsContents: Reads[Contents] =
     readsHtmlOrText("html", "text")
 

@@ -72,12 +72,11 @@ class errorMessageSpec extends RenderHtmlSpec(Seq("error-message-default")) {
   }
 
   override implicit val reads: Reads[HtmlString] = (
-    readsContents and
-      (__ \ "id").readNullable[String] and
+    (__ \ "id").readNullable[String] and
       (__ \ "classes").readWithDefault[String]("") and
       (__ \ "attributes").readWithDefault[Map[String, String]](Map.empty) and
-      readsVisuallyHiddenText
-  )((contents, id, classes, attributes, visuallyHiddenText) =>
-    HtmlString(ErrorMessage.apply(id, classes, attributes, visuallyHiddenText)(contents)))
+      readsVisuallyHiddenText and
+      readsContents
+  )(ErrorMessage.apply(_, _, _, _)(_)).map(HtmlString(_))
 
 }

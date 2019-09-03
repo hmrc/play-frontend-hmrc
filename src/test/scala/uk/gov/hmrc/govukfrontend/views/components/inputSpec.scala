@@ -58,7 +58,5 @@ class inputSpec
       (__ \ "autocomplete").readNullable[String] and
       (__ \ "pattern").readNullable[String].map(_.map(new Regex(_))) and
       (__ \ "attributes").readWithDefault[Map[String, String]](Map.empty)
-  )((id, name, inputType, value, labelParams, hintParams, errorMessageParams, formGroupClasses, classes, autocomplete, pattern, attributes) =>
-    HtmlString(Input
-      .apply(id, name, inputType, value, labelParams, hintParams, errorMessageParams, formGroupClasses, classes, autocomplete, pattern, attributes)))
+  )(Input.apply _).map(HtmlString(_))
 }

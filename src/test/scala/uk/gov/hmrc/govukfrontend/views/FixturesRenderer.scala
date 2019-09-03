@@ -22,6 +22,7 @@ import uk.gov.hmrc.govukfrontend.views.components.@@
 import scala.io.Source
 
 trait FixturesRenderer extends ReadsHelpers with JsoupHelpers {
+  // Define our own tagged String type so we don't clash with play-json's [[Reads[String]]]
   type HtmlString = String @@ HtmlStringTag
 
   implicit def reads: Reads[HtmlString]
@@ -43,6 +44,7 @@ trait FixturesRenderer extends ReadsHelpers with JsoupHelpers {
   def nunjucksHtml(exampleName: String): String =
     readOutputFile(exampleName)
 
+  // FIXME: Move this to config
   private val govukFrontendVersion = "2.11.0"
 
   private def readOutputFile(exampleName: String): String =
@@ -57,4 +59,8 @@ trait FixturesRenderer extends ReadsHelpers with JsoupHelpers {
         getClass.getResourceAsStream(s"/fixtures/test-fixtures-$govukFrontendVersion/$exampleName/$fileName"))
       .getLines
       .mkString("\n")
+
+  // TODO: Function to traverse the examples path to fetch all examples for a given component
+  def exampleNames(component: String): Seq[String] = ???
+
 }

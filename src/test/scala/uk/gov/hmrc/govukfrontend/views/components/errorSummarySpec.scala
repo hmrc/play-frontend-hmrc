@@ -23,11 +23,10 @@ import uk.gov.hmrc.govukfrontend.views.html.components._
 class errorSummarySpec extends RenderHtmlSpec(Seq("error-summary-default")) {
 
   override implicit val reads: Reads[HtmlString] = (
-    readsHtmlOrText("titleHtml", "titleText") and
-      readsHtmlOrText("descriptionHtml", "descriptionText") and
-      (__ \ "errorList").readWithDefault[Seq[ErrorLink]](Nil) and
+    (__ \ "errorList").readWithDefault[Seq[ErrorLink]](Nil) and
       (__ \ "classes").readWithDefault[String]("") and
-      (__ \ "attributes").readWithDefault[Map[String, String]](Map.empty)
-  )((title, description, errorList, classes, attributes) =>
-    HtmlString(ErrorSummary.apply(errorList, classes, attributes)(title)(description)))
+      (__ \ "attributes").readWithDefault[Map[String, String]](Map.empty) and
+      readsHtmlOrText("titleHtml", "titleText") and
+      readsHtmlOrText("descriptionHtml", "descriptionText")
+  )(ErrorSummary.apply(_, _, _)(_)(_)).map(HtmlString(_))
 }

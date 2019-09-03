@@ -33,7 +33,7 @@ class fieldsetSpec
     legend: Option[Legend]          = None,
     classes: String                 = "",
     attributes: Map[String, String] = Map.empty,
-    html: Html                      = HtmlFormat.empty
+    html: String                    = ""
   )
 
   override implicit val reads: Reads[HtmlString] =
@@ -42,6 +42,6 @@ class fieldsetSpec
       .reads[Params]
       .map {
         case Params(describedBy, legend, classes, attributes, html) =>
-          HtmlString(Fieldset.apply(describedBy, legend, classes, attributes)(html))
+          HtmlString(Fieldset.apply(describedBy, legend, classes, attributes)(Html(html)))
       }
 }

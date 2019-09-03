@@ -28,9 +28,9 @@ class hintSpec
       )
     ) {
   override implicit val reads: Reads[HtmlString] = (
-    readsContents and
-      (__ \ "id").readNullable[String] and
+    (__ \ "id").readNullable[String] and
       (__ \ "classes").readWithDefault[String]("") and
-      (__ \ "attributes").readWithDefault[Map[String, String]](Map.empty)
-  )((contents, id, classes, attributes) => HtmlString(Hint.apply(id, classes, attributes)(contents)))
+      (__ \ "attributes").readWithDefault[Map[String, String]](Map.empty) and
+      readsContents
+  )(Hint.apply(_, _, _)(_)).map(HtmlString(_))
 }

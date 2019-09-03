@@ -106,6 +106,5 @@ class footerSpec
       (__ \ "containerClasses").readWithDefault[String]("") and
       (__ \ "classes").readWithDefault[String]("") and
       (__ \ "attributes").readWithDefault[Map[String, String]](Map.empty)
-  )((meta, navigation, containerClasses, classes, attributes) =>
-    HtmlString(Footer.apply(meta, navigation, containerClasses, classes, attributes)))
+  )(Footer.apply _).map(HtmlString(_))
 }

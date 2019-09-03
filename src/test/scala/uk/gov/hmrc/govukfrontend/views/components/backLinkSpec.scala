@@ -90,10 +90,10 @@ class backLinkSpec
   }
 
   override implicit val reads: Reads[HtmlString] = (
-    readsContents and
       (__ \ "href").read[String] and
       (__ \ "classes").readWithDefault[String]("") and
-      (__ \ "attributes").readWithDefault[Map[String, String]](Map.empty)
-  )((contents, href, classes, attributes) => HtmlString(BackLink.apply(href, classes, attributes)(contents)))
+      (__ \ "attributes").readWithDefault[Map[String, String]](Map.empty) and
+        readsContents
+  )(BackLink.apply(_, _, _)(_)).map(HtmlString(_))
 
 }

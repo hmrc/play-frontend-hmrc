@@ -46,7 +46,5 @@ class fileUploadSpec
       (__ \ "formGroup").readNullable[FormGroup].map(_.map(formGroup => formGroup.classes).getOrElse("")) and
       (__ \ "classes").readWithDefault[String]("") and
       (__ \ "attributes").readWithDefault[Map[String, String]](Map.empty)
-  )((name, id, value, labelParams, hintParams, errorMessageParams, formGroupClasses, classes, attributes) =>
-    HtmlString(FileUpload
-      .apply(name, id, value, labelParams, hintParams, errorMessageParams, formGroupClasses, classes, attributes)))
+  )(FileUpload.apply _).map(HtmlString(_))
 }

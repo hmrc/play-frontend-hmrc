@@ -93,12 +93,11 @@ class detailsSpec
   }
 
   override implicit val reads: Reads[HtmlString] = (
-    readsHtmlOrText("summaryHtml", "summaryText") and
-      readsContents and
-      (__ \ "id").readNullable[String] and
+    (__ \ "id").readNullable[String] and
       (__ \ "open").readWithDefault[Boolean](false) and
       (__ \ "classes").readWithDefault[String]("") and
-      (__ \ "attributes").readWithDefault[Map[String, String]](Map.empty)
-  )((summary, contents, id, open, classes, attributes) =>
-    HtmlString(Details.apply(id, open, classes, attributes)(summary)(contents)))
+      (__ \ "attributes").readWithDefault[Map[String, String]](Map.empty) and
+      readsHtmlOrText("summaryHtml", "summaryText") and
+      readsContents
+  )(Details.apply(_, _, _, _)(_)(_)).map(HtmlString(_))
 }

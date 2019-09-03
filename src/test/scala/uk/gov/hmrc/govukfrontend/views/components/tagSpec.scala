@@ -37,8 +37,8 @@ class tagSpec
   }
 
   override implicit val reads: Reads[HtmlString] = (
-    readsContents and
-      (__ \ "classes").readWithDefault[String]("") and
-      (__ \ "attributes").readWithDefault[Map[String, String]](Map.empty)
-  )((contents, classes, attributes) => HtmlString(Tag.apply(classes, attributes)(contents)))
+    (__ \ "classes").readWithDefault[String]("") and
+      (__ \ "attributes").readWithDefault[Map[String, String]](Map.empty) and
+      readsContents
+  )(Tag.apply(_, _)(_)).map(HtmlString(_))
 }

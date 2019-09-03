@@ -40,7 +40,7 @@ trait Utils {
   object NonEmptyString {
     def unapply(s: String): Option[String] =
       if (s != null && s.trim.nonEmpty) Some(s) else None
-  } 
+  }
 }
 
 object Utils extends Utils

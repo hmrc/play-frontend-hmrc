@@ -63,17 +63,5 @@ class radiosSpec
       (__ \ "items").read[Seq[RadioItem]] and
       (__ \ "classes").readWithDefault[String]("") and
       (__ \ "attributes").readWithDefault[Map[String, String]](Map.empty)
-  )(
-    (fieldsetParams, hintParams, errorMessageParams, formGroupClasses, idPrefix, name, items, classes, attributes) =>
-      HtmlString(
-        Radios.apply(
-          fieldsetParams,
-          hintParams,
-          errorMessageParams,
-          formGroupClasses,
-          idPrefix,
-          name,
-          items,
-          classes,
-          attributes)))
+  )(Radios.apply _).map(HtmlString(_))
 }
