@@ -18,15 +18,16 @@ package uk.gov.hmrc.govukfrontend.views.components
 
 import play.api.libs.functional.syntax._
 import play.api.libs.json._
+import play.twirl.api.Html
 import uk.gov.hmrc.govukfrontend.views.html.components._
 
 class errorSummarySpec extends RenderHtmlSpec(Seq("error-summary-default")) {
 
-  override implicit val reads: Reads[HtmlString] = (
+  override implicit val reads: Reads[Html] = (
     (__ \ "errorList").readWithDefault[Seq[ErrorLink]](Nil) and
       (__ \ "classes").readWithDefault[String]("") and
       (__ \ "attributes").readWithDefault[Map[String, String]](Map.empty) and
       readsHtmlOrText("titleHtml", "titleText") and
       readsHtmlOrText("descriptionHtml", "descriptionText")
-  )(ErrorSummary.apply(_, _, _)(_)(_)).map(HtmlString(_))
+  )(ErrorSummary.apply(_, _, _)(_)(_))
 }

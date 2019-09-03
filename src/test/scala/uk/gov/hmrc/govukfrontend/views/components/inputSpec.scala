@@ -18,6 +18,7 @@ package uk.gov.hmrc.govukfrontend.views.components
 
 import play.api.libs.functional.syntax._
 import play.api.libs.json._
+import play.twirl.api.Html
 import uk.gov.hmrc.govukfrontend.views.html.components._
 import scala.util.matching.Regex
 
@@ -45,7 +46,7 @@ class inputSpec
     implicit val readsFormGroup = Json.reads[FormGroup]
   }
 
-  override implicit val reads: Reads[HtmlString] = (
+  override implicit val reads: Reads[Html] = (
     (__ \ "id").read[String] and
       (__ \ "name").read[String] and
       (__ \ "type").readWithDefault[String]("text") and
@@ -58,5 +59,5 @@ class inputSpec
       (__ \ "autocomplete").readNullable[String] and
       (__ \ "pattern").readNullable[String].map(_.map(new Regex(_))) and
       (__ \ "attributes").readWithDefault[Map[String, String]](Map.empty)
-  )(Input.apply _).map(HtmlString(_))
+  )(Input.apply _)
 }

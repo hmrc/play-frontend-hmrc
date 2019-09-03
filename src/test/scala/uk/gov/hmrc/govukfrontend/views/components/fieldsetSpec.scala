@@ -36,12 +36,12 @@ class fieldsetSpec
     html: String                    = ""
   )
 
-  override implicit val reads: Reads[HtmlString] =
+  override implicit val reads: Reads[Html] =
     Json
       .using[Json.WithDefaultValues]
       .reads[Params]
       .map {
         case Params(describedBy, legend, classes, attributes, html) =>
-          HtmlString(Fieldset.apply(describedBy, legend, classes, attributes)(Html(html)))
+          Fieldset.apply(describedBy, legend, classes, attributes)(Html(html))
       }
 }

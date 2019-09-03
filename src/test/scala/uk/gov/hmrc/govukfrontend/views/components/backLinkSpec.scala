@@ -18,6 +18,7 @@ package uk.gov.hmrc.govukfrontend.views.components
 
 import play.api.libs.functional.syntax._
 import play.api.libs.json._
+import play.twirl.api.Html
 import uk.gov.hmrc.govukfrontend.views.html.components._
 
 class backLinkSpec
@@ -89,11 +90,11 @@ class backLinkSpec
     }
   }
 
-  override implicit val reads: Reads[HtmlString] = (
-      (__ \ "href").read[String] and
+  override implicit val reads: Reads[Html] = (
+    (__ \ "href").read[String] and
       (__ \ "classes").readWithDefault[String]("") and
       (__ \ "attributes").readWithDefault[Map[String, String]](Map.empty) and
-        readsContents
-  )(BackLink.apply(_, _, _)(_)).map(HtmlString(_))
+      readsContents
+  )(BackLink.apply(_, _, _)(_))
 
 }

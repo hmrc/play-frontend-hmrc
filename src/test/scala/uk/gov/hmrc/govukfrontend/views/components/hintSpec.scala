@@ -18,6 +18,7 @@ package uk.gov.hmrc.govukfrontend.views.components
 
 import play.api.libs.functional.syntax._
 import play.api.libs.json._
+import play.twirl.api.Html
 import uk.gov.hmrc.govukfrontend.views.html.components._
 
 class hintSpec
@@ -27,10 +28,10 @@ class hintSpec
         "hint-with-html"
       )
     ) {
-  override implicit val reads: Reads[HtmlString] = (
+  override implicit val reads: Reads[Html] = (
     (__ \ "id").readNullable[String] and
       (__ \ "classes").readWithDefault[String]("") and
       (__ \ "attributes").readWithDefault[Map[String, String]](Map.empty) and
       readsContents
-  )(Hint.apply(_, _, _)(_)).map(HtmlString(_))
+  )(Hint.apply(_, _, _)(_))
 }

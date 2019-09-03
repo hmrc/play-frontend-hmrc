@@ -18,6 +18,7 @@ package uk.gov.hmrc.govukfrontend.views.components
 
 import play.api.libs.functional.syntax._
 import play.api.libs.json._
+import play.twirl.api.Html
 import uk.gov.hmrc.govukfrontend.views.html.components._
 
 class fileUploadSpec
@@ -36,7 +37,7 @@ class fileUploadSpec
     implicit val readsFormGroup = Json.reads[FormGroup]
   }
 
-  override implicit val reads: Reads[HtmlString] = (
+  override implicit val reads: Reads[Html] = (
     (__ \ "name").read[String] and
       (__ \ "id").read[String] and
       (__ \ "value").readNullable[String] and
@@ -46,5 +47,5 @@ class fileUploadSpec
       (__ \ "formGroup").readNullable[FormGroup].map(_.map(formGroup => formGroup.classes).getOrElse("")) and
       (__ \ "classes").readWithDefault[String]("") and
       (__ \ "attributes").readWithDefault[Map[String, String]](Map.empty)
-  )(FileUpload.apply _).map(HtmlString(_))
+  )(FileUpload.apply _)
 }

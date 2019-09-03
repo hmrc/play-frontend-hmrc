@@ -17,27 +17,19 @@
 package uk.gov.hmrc.govukfrontend.views
 
 import play.api.libs.json.{JsError, JsSuccess, Json, Reads}
-import play.twirl.api.HtmlFormat
-import uk.gov.hmrc.govukfrontend.views.components.@@
+import play.twirl.api.Html
 import scala.io.Source
 
 trait FixturesRenderer extends ReadsHelpers with JsoupHelpers {
-  // Define our own tagged String type so we don't clash with play-json's [[Reads[String]]]
-  type HtmlString = String @@ HtmlStringTag
 
-  implicit def reads: Reads[HtmlString]
+  implicit def reads: Reads[Html]
 
-  object HtmlString {
-    def apply(html: HtmlFormat.Appendable): HtmlString =
-      tagger[HtmlStringTag][String](html.body)
-  }
-
-  def twirlHtml(exampleName: String): Either[String, HtmlString] = {
+  def twirlHtml(exampleName: String): Either[String, String] = {
     val inputJson = readInputJson(exampleName)
 
-    Json.parse(inputJson).validate[HtmlString] match {
-      case JsSuccess(htmlString, _) => Right(htmlString)
-      case e: JsError               => Left(s"failed to validate params: $e")
+    Json.parse(inputJson).validate[Html] match {
+      case JsSuccess(html, _) => Right(html.body)
+      case e: JsError         => Left(s"failed to validate params: $e")
     }
   }
 

@@ -18,6 +18,7 @@ package uk.gov.hmrc.govukfrontend.views.components
 
 import play.api.libs.functional.syntax._
 import play.api.libs.json._
+import play.twirl.api.Html
 import uk.gov.hmrc.govukfrontend.views.html.components._
 
 class footerSpec
@@ -100,11 +101,11 @@ class footerSpec
     }
   }
 
-  override implicit val reads: Reads[HtmlString] = (
+  override implicit val reads: Reads[Html] = (
     (__ \ "meta").readNullable[FooterMeta] and
       (__ \ "navigation").readWithDefault[Seq[FooterNavigation]](Nil) and
       (__ \ "containerClasses").readWithDefault[String]("") and
       (__ \ "classes").readWithDefault[String]("") and
       (__ \ "attributes").readWithDefault[Map[String, String]](Map.empty)
-  )(Footer.apply _).map(HtmlString(_))
+  )(Footer.apply _)
 }

@@ -18,6 +18,7 @@ package uk.gov.hmrc.govukfrontend.views.components
 
 import play.api.libs.functional.syntax._
 import play.api.libs.json._
+import play.twirl.api.Html
 import uk.gov.hmrc.govukfrontend.views.html.components._
 import scala.collection.JavaConverters._
 
@@ -48,10 +49,10 @@ class phaseBannerSpec
     }
   }
 
-  override implicit val reads: Reads[HtmlString] = (
+  override implicit val reads: Reads[Html] = (
     (__ \ "tag").readNullable[TagParams] and
       (__ \ "classes").readWithDefault[String]("") and
       (__ \ "attributes").readWithDefault[Map[String, String]](Map.empty) and
       readsContents
-  )(PhaseBanner.apply(_, _, _)(_)).map(HtmlString(_))
+  )(PhaseBanner.apply(_, _, _)(_))
 }

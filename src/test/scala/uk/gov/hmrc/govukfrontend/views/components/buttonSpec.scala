@@ -18,6 +18,7 @@ package uk.gov.hmrc.govukfrontend.views.components
 
 import play.api.libs.functional.syntax._
 import play.api.libs.json._
+import play.twirl.api.Html
 import uk.gov.hmrc.govukfrontend.views.html.components._
 
 class buttonSpec
@@ -51,7 +52,7 @@ class buttonSpec
     "render with attributes" in pending
   }
 
-  override implicit val reads: Reads[HtmlString] = (
+  override implicit val reads: Reads[Html] = (
     (__ \ "element").readNullable[String] and
       (__ \ "name").readNullable[String] and
       (__ \ "input").readNullable[String] and
@@ -62,5 +63,5 @@ class buttonSpec
       (__ \ "attributes").readWithDefault[Map[String, String]](Map.empty) and
       (__ \ "preventDoubleClick").readWithDefault[Boolean](false) and
       readsContents
-  )(Button.apply(_, _, _, _, _, _, _, _, _)(_)).map(HtmlString(_))
+  )(Button.apply(_, _, _, _, _, _, _, _, _)(_))
 }

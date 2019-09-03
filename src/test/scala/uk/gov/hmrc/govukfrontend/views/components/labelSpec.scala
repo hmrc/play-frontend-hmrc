@@ -18,6 +18,7 @@ package uk.gov.hmrc.govukfrontend.views.components
 
 import play.api.libs.functional.syntax._
 import play.api.libs.json._
+import play.twirl.api.Html
 import uk.gov.hmrc.govukfrontend.views.html.components._
 
 class labelSpec
@@ -36,11 +37,11 @@ class labelSpec
     }
   }
 
-  override implicit val reads: Reads[HtmlString] = (
+  override implicit val reads: Reads[Html] = (
     (__ \ "forAttr").readNullable[String] and
       (__ \ "isPageHeading").readWithDefault[Boolean](false) and
       (__ \ "classes").readWithDefault[String]("") and
       (__ \ "attributes").readWithDefault[Map[String, String]](Map.empty) and
       readsContents
-  )(Label.apply(_, _, _, _)(_)).map(HtmlString(_))
+  )(Label.apply(_, _, _, _)(_))
 }

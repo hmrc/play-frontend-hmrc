@@ -17,6 +17,7 @@
 package uk.gov.hmrc.govukfrontend.views.components
 
 import play.api.libs.json._
+import play.twirl.api.Html
 import uk.gov.hmrc.govukfrontend.views.html.components._
 
 class headerSpec
@@ -39,11 +40,9 @@ class headerSpec
     }
   }
 
-  override implicit val reads: Reads[HtmlString] =
+  override implicit val reads: Reads[Html] =
     Json
       .using[Json.WithDefaultValues]
       .reads[HeaderParams]
-      .map { params =>
-        HtmlString(Header.apply(params))
-      }
+      .map(Header.apply)
 }
