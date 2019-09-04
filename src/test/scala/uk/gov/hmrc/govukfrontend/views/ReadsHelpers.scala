@@ -129,6 +129,7 @@ trait ReadsHelpers {
   )(LabelParams.apply _)
 
   case class Conditional(html: String)
+
   object Conditional {
     implicit val readsConditional = Json.reads[Conditional]
   }

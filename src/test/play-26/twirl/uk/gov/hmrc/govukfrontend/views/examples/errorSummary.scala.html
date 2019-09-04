@@ -1,0 +1,16 @@
+@import uk.gov.hmrc.govukfrontend.views.html.components._
+
+@this()
+
+@()
+@ErrorSummary(
+  errorList =
+    Seq(
+      ErrorLink(
+        href = Some("#passport-issued-error"),
+        contents = Text("The date your passport was issued must be in the past")
+      ),
+      ErrorLink(
+        href = Some("#postcode-error"),
+        contents = Text("Enter a postcode, like AA1 1AA")
+      )))(title = Text("There is a problem"))()

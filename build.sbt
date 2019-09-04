@@ -34,6 +34,15 @@ lazy val root = Project(libName, file("."))
         }
       baseDirectory.value / twirlDir
     },
+    (sourceDirectories in (Test, TwirlKeys.compileTemplates)) += {
+      val twirlDir =
+        if (PlayCrossCompilation.playVersion == Play25) {
+          "src/test/play-25/twirl"
+        } else {
+          "src/test/play-26/twirl"
+        }
+      baseDirectory.value / twirlDir
+    },
     parallelExecution in sbt.Test := false,
     playMonitoredFiles ++= (sourceDirectories in (Compile, TwirlKeys.compileTemplates)).value,
     routesGenerator := {
