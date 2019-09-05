@@ -14,8 +14,10 @@
  * limitations under the License.
  *@
 
+@import uk.gov.hmrc.govukfrontend.controllers
+
 @this()
 
 @()
-<script src='@controllers.routes.Assets.versioned("lib/govuk-frontend/all.js")'></script>
+<script src='@controllers.routes.Assets.at("lib/govuk-frontend/all.js")'></script>
 <script>window.GOVUKFrontend.initAll();</script>
