@@ -84,6 +84,10 @@ package object components extends Utils with Aliases {
   @deprecated("Use DI")
   lazy val Input = new input(ErrorMessage, Hint, Label)
 
+  type SummaryList = summaryList
+  @deprecated("Use DI")
+  lazy val SummaryList = new summaryList()
+
   type GovukTemplate = govukTemplate
   @deprecated("Use DI")
   lazy val GovukTemplate = new govukTemplate(Header, Footer, SkipLink)

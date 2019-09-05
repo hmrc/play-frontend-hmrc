@@ -52,5 +52,7 @@ package object components extends Utils with Aliases {
 
   lazy val Input = input
 
+  lazy val SummaryList = summaryList
+
   lazy val GovukTemplate = govukTemplate
 }

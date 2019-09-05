@@ -30,6 +30,21 @@ trait ReadsHelpers {
     def widen[B >: A]: Reads[B] = Reads[B] { r.reads }
   }
 
+  /**
+    * Parse fields with unknown type to [[String]]
+    *
+    * @param jsPath
+    */
+  implicit class RichJsPath(jsPath: JsPath) {
+    def readsJsValueToString: Reads[String] =
+      jsPath
+        .read[JsValue]
+        .map {
+          case JsString(s) => s
+          case x           => Json.stringify(x)
+        }
+  }
+
   implicit val readsContents: Reads[Contents] =
     readsHtmlOrText("html", "text")
 
@@ -40,10 +55,10 @@ trait ReadsHelpers {
       .orElse(Reads.pure[Contents](Empty))
 
   def readsHtmlContent(htmlField: String = "html"): Reads[HtmlContent] =
-    (__ \ htmlField).read[String].map(HtmlContent(_))
+    (__ \ htmlField).readsJsValueToString.map(HtmlContent(_))
 
   def readsText(textField: String = "text"): Reads[Text] =
-    (__ \ textField).read[String].map(Text)
+    (__ \ textField).readsJsValueToString.map(Text)
 
   implicit val readsErrorLink: Reads[ErrorLink] = (
     (__ \ "href").readNullable[String] and
@@ -147,4 +162,33 @@ trait ReadsHelpers {
       (__ \ "attributes").readWithDefault[Map[String, String]](Map.empty)
   )(RadioItem.apply _)
 
+  case class FormGroup(classes: String)
+
+  object FormGroup {
+    implicit val readsFormGroup = Json.reads[FormGroup]
+  }
+
+  implicit val readsKey: Reads[Key] = (
+    readsContents and
+      (__ \ "classes").readWithDefault[String]("")
+  )(Key.apply _)
+
+  implicit val readsValue: Reads[Value] = (
+    readsContents and
+      (__ \ "classes").readWithDefault[String]("")
+  )(Value.apply _)
+
+  implicit val readsActionItem: Reads[ActionItem] = (
+    (__ \ "href").readWithDefault[String]("") and
+      readsContents and
+      (__ \ "visuallyHiddenText").readNullable[String] and
+      (__ \ "classes").readWithDefault[String]("")
+  )(ActionItem.apply _)
+
+  implicit val readsActions: Reads[Actions] =
+    Json.using[Json.WithDefaultValues].reads[Actions]
+
+  implicit val readsRow: Reads[Row] = (
+    Json.using[Json.WithDefaultValues].reads[Row]
+  )
 }
