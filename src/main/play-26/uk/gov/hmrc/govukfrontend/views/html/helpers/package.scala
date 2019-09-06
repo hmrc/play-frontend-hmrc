@@ -17,7 +17,16 @@
 package uk.gov.hmrc.govukfrontend.views.html
 
 package object helpers {
+
   type FormWithCSRF = formWithCSRF
   @deprecated("Use DI")
   lazy val FormWithCSRF = new formWithCSRF
+
+  type Head = head
+  @deprecated("Use DI")
+  lazy val Head = new head
+
+  type Scripts = scripts
+  @deprecated("Use DI")
+  lazy val Scripts = new scripts
 }
