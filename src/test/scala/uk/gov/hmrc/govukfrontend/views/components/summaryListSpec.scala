@@ -21,26 +21,23 @@ import play.api.libs.json._
 import play.twirl.api.Html
 import uk.gov.hmrc.govukfrontend.views.html.components._
 
-class fileUploadSpec
+class summaryListSpec
     extends RenderHtmlSpec(
       Seq(
-        "file-upload-default",
-        "file-upload-with-error-message",
-        "file-upload-with-hint-text",
-        "file-upload-with-label-as-page-heading",
-        "file-upload-with-optional-form-group-classes",
-        "file-upload-with-value-and-attributes"
+        "summary-list-default",
+        "summary-list-check-your-answers",
+        "summary-list-extreme",
+        "summary-list-no-border",
+        "summary-list-no-border-on-last-row",
+        "summary-list-overridden-widths",
+        "summary-list-with-some-actions",
+        "summary-list-without-actions"
       )
     ) {
+
   override implicit val reads: Reads[Html] = (
-    (__ \ "name").read[String] and
-      (__ \ "id").read[String] and
-      (__ \ "value").readNullable[String] and
-      (__ \ "label").read[LabelParams] and
-      (__ \ "hint").readNullable[HintParams] and
-      (__ \ "errorMessage").readNullable[ErrorMessageParams] and
-      (__ \ "formGroup").readNullable[FormGroup].map(_.map(formGroup => formGroup.classes).getOrElse("")) and
+    (__ \ "rows").read[Seq[Row]] and
       (__ \ "classes").readWithDefault[String]("") and
       (__ \ "attributes").readWithDefault[Map[String, String]](Map.empty)
-  )(FileUpload.apply _)
+  )(SummaryList.apply _)
 }

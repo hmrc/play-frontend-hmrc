@@ -77,6 +77,20 @@ trait Aliases {
   type ErrorMessageParams = viewmodels.errormessage.ErrorMessageParams
   val ErrorMessageParams = viewmodels.errormessage.ErrorMessageParams
 
+  type Row = viewmodels.summarylist.Row
+  val Row = viewmodels.summarylist.Row
+
+  type Key = viewmodels.summarylist.Key
+  val Key = viewmodels.summarylist.Key
+
+  type Value = viewmodels.summarylist.Value
+  val Value = viewmodels.summarylist.Value
+
+  type Actions = viewmodels.summarylist.Actions
+  val Actions = viewmodels.summarylist.Actions
+
+  type ActionItem = viewmodels.summarylist.Item
+  val ActionItem = viewmodels.summarylist.Item
 }
 
 object Aliases extends Aliases

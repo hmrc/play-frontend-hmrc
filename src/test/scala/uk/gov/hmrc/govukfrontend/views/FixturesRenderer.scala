@@ -22,6 +22,13 @@ import scala.io.Source
 
 trait FixturesRenderer extends ReadsHelpers with JsoupHelpers {
 
+  /**
+    * Reads for inputs to the example templates included in the test fixtures.
+    * They should be able to parse the inputs as documented in the component's yaml.
+    * ex: [[https://github.com/alphagov/govuk-frontend/blob/master/src/govuk/components/back-link/back-link.yaml]]
+    *
+    * @return [[Html]] of the rendered Twirl template given the parsed inputs
+    */
   implicit def reads: Reads[Html]
 
   def twirlHtml(exampleName: String): Either[String, String] = {
@@ -39,13 +46,13 @@ trait FixturesRenderer extends ReadsHelpers with JsoupHelpers {
   // FIXME: Move this to config
   private val govukFrontendVersion = "2.11.0"
 
-  private def readOutputFile(exampleName: String): String =
+  def readOutputFile(exampleName: String): String =
     readFileAsString("output.html", exampleName)
 
-  private def readInputJson(exampleName: String): String =
+  def readInputJson(exampleName: String): String =
     readFileAsString("input.json", exampleName)
 
-  private def readFileAsString(fileName: String, exampleName: String): String =
+  def readFileAsString(fileName: String, exampleName: String): String =
     Source
       .fromInputStream(
         getClass.getResourceAsStream(s"/fixtures/test-fixtures-$govukFrontendVersion/$exampleName/$fileName"))

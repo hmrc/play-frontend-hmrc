@@ -41,11 +41,6 @@ class inputSpec
         "input-with-width-30-class"
       )
     ) {
-  case class FormGroup(classes: String)
-  object FormGroup {
-    implicit val readsFormGroup = Json.reads[FormGroup]
-  }
-
   override implicit val reads: Reads[Html] = (
     (__ \ "id").read[String] and
       (__ \ "name").read[String] and

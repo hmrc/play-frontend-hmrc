@@ -16,13 +16,23 @@
 
 package uk.gov.hmrc.govukfrontend.views
 
-import org.scalatest.{Matchers, WordSpec}
-import play.api.libs.json.{JsSuccess, Json}
-import uk.gov.hmrc.govukfrontend.views.viewmodels.common.HtmlContent
+import org.scalacheck.Gen
+import org.scalatest.prop.PropertyChecks
+import org.scalatest.{Matchers, OptionValues, WordSpec}
+import play.api.libs.json.{JsNumber, JsString, JsSuccess, Json, _}
+import uk.gov.hmrc.govukfrontend.views.viewmodels.common.{HtmlContent, Text}
 import uk.gov.hmrc.govukfrontend.views.viewmodels.label
 import uk.gov.hmrc.govukfrontend.views.viewmodels.label.LabelParams
+import uk.gov.hmrc.govukfrontend.views.viewmodels.summarylist._
 
-class ReadsHelpersSpec extends WordSpec with Matchers with ReadsHelpers {
+class ReadsHelpersSpec
+    extends WordSpec
+    with Matchers
+    with ReadsHelpers
+    with OptionValues
+    with PropertyChecks
+    with NoShrink {
+
   "readsLabelParams" should {
     "deserialize LabelParams" in {
       val json = Json.parse(
@@ -49,5 +59,71 @@ class ReadsHelpersSpec extends WordSpec with Matchers with ReadsHelpers {
           contents      = HtmlContent("<p>a paragraph</p>")
         ))
     }
+  }
+
+  "reads of Row" should {
+    "deserialize a Row" in {
+      val json = Json.parse(
+        """{
+          |      "key": {
+          |        "text": "Previous application number"
+          |      },
+          |      "value": {
+          |        "text": 502135326
+          |      },
+          |      "actions": {
+          |        "items": [
+          |          {
+          |            "href": "#",
+          |            "text": "Change",
+          |            "visuallyHiddenText": "previous application number"
+          |          }
+          |        ]
+          |      }
+          |    }""".stripMargin
+      )
+
+      json.validate[Row] shouldBe JsSuccess(
+        Row(
+          key   = Key(contents   = Text("Previous application number")),
+          value = Value(contents = Text("502135326")),
+          actions = Some(Actions(items =
+            Seq(Item(href = "#", contents = Text("Change"), visuallyHiddenText = Some("previous application number")))))
+        )
+      )
+    }
+  }
+
+  "readsJsValueToString" should {
+    "deserialize any value as a String" in {
+      import Generators._
+
+      val reads = (__ \ "field").readsJsValueToString
+
+      forAll(genJsValue) { jsValue =>
+        val json = Json.obj("field" -> jsValue)
+
+        json.validate[String](reads).asOpt.value shouldBe (jsValue match {
+          case JsString(s) => s
+          case x           => x.toString
+        })
+      }
+    }
+  }
+
+  object Generators {
+    val genJsString = for {
+      s <- Gen.alphaStr
+    } yield JsString(s)
+
+    val genJsNumber = for {
+      n <- Gen.choose(0, 1000)
+    } yield JsNumber(n)
+
+    val genJsValue =
+      Gen.frequency(
+        (50, genJsString),
+        (50, genJsNumber)
+      )
   }
 }
