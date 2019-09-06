@@ -92,6 +92,10 @@ package object components extends Utils with Aliases {
   @deprecated("Use DI")
   val DateInput = new dateInput(ErrorMessage, Hint, Fieldset, Input)
 
+  type Accordion = accordion
+  @deprecated("Use DI")
+  val Accordion = new accordion()
+
   type GovukTemplate = govukTemplate
   @deprecated("Use DI")
   lazy val GovukTemplate = new govukTemplate(Header, Footer, SkipLink)

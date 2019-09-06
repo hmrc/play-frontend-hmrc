@@ -47,19 +47,19 @@ trait ReadsHelpers {
   }
 
   implicit val readsContents: Reads[Contents] =
-    readsHtmlOrText("html", "text")
+    readsHtmlOrText((__ \ "html"), (__ \ "text"))
 
-  def readsHtmlOrText(htmlField: String, textField: String): Reads[Contents] =
-    readsHtmlContent(htmlField)
+  def readsHtmlOrText(htmlJsPath: JsPath, textJsPath: JsPath): Reads[Contents] =
+    readsHtmlContent(htmlJsPath)
       .widen[Contents]
-      .orElse(readsText(textField).widen[Contents])
+      .orElse(readsText(textJsPath).widen[Contents])
       .orElse(Reads.pure[Contents](Empty))
 
-  def readsHtmlContent(htmlField: String = "html"): Reads[HtmlContent] =
-    (__ \ htmlField).readsJsValueToString.map(HtmlContent(_))
+  def readsHtmlContent(htmlJsPath: JsPath = (__ \ "html")): Reads[HtmlContent] =
+    htmlJsPath.readsJsValueToString.map(HtmlContent(_))
 
-  def readsText(textField: String = "text"): Reads[Text] =
-    (__ \ textField).readsJsValueToString.map(Text)
+  def readsText(textJsPath: JsPath = (__ \ "text")): Reads[Text] =
+    textJsPath.readsJsValueToString.map(Text)
 
   implicit val readsErrorLink: Reads[ErrorLink] = (
     (__ \ "href").readNullable[String] and
@@ -198,4 +198,10 @@ trait ReadsHelpers {
   implicit val readsInputParams: Reads[InputParams] =
     Json.using[Json.WithDefaultValues].reads[InputParams]
 
+  implicit val readsSection: Reads[Section] = (
+    readsHtmlOrText((__ \ "heading" \ "html"), (__ \ "heading" \ "text")) and
+      readsHtmlOrText((__ \ "summary" \ "html"), (__ \ "summary" \ "text")) and
+      readsHtmlOrText((__ \ "content" \ "html"), (__ \ "content" \ "text")) and
+      (__ \ "expanded").readWithDefault[Boolean](false)
+  )(Section.apply _)
 }

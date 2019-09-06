@@ -98,7 +98,7 @@ class detailsSpec
       (__ \ "open").readWithDefault[Boolean](false) and
       (__ \ "classes").readWithDefault[String]("") and
       (__ \ "attributes").readWithDefault[Map[String, String]](Map.empty) and
-      readsHtmlOrText("summaryHtml", "summaryText") and
+      readsHtmlOrText((__ \ "summaryHtml"), (__ \ "summaryText")) and
       readsContents
   )(Details.apply(_, _, _, _)(_)(_))
 }

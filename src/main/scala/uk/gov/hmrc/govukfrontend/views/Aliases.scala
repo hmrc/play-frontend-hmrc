@@ -94,6 +94,9 @@ trait Aliases {
 
   type InputParams = viewmodels.dateinput.InputParams
   val InputParams = viewmodels.dateinput.InputParams
+
+  type Section = viewmodels.accordion.Section
+  val Section = viewmodels.accordion.Section
 }
 
 object Aliases extends Aliases

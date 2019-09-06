@@ -20,6 +20,7 @@ import org.scalacheck.Gen
 import org.scalatest.prop.PropertyChecks
 import org.scalatest.{Matchers, OptionValues, WordSpec}
 import play.api.libs.json.{JsNumber, JsString, JsSuccess, Json, _}
+import uk.gov.hmrc.govukfrontend.views.viewmodels.accordion.Section
 import uk.gov.hmrc.govukfrontend.views.viewmodels.common.{HtmlContent, Text}
 import uk.gov.hmrc.govukfrontend.views.viewmodels.label
 import uk.gov.hmrc.govukfrontend.views.viewmodels.label.LabelParams
@@ -89,6 +90,32 @@ class ReadsHelpersSpec
           value = Value(contents = Text("502135326")),
           actions = Some(Actions(items =
             Seq(Item(href = "#", contents = Text("Change"), visuallyHiddenText = Some("previous application number")))))
+        )
+      )
+    }
+  }
+
+  "reads of Section" should {
+    "deserialize a Section from an Accordion" in {
+      val json = Json.parse(
+        """{
+          |      "heading": {
+          |        "text": "Test"
+          |      },
+          |      "summary": {
+          |        "text": "Additional description"
+          |      },
+          |      "content": {
+          |        "html": "<ul class=\"govuk-list govuk-list--bullet\">\n  <li>Example item 1</li>\n</ul>\n"
+          |      }
+          |    }""".stripMargin
+      )
+
+      json.validate[Section] shouldBe JsSuccess(
+        Section(
+          headingContents = Text("Test"),
+          summaryContents = Text("Additional description"),
+          contents        = HtmlContent("<ul class=\"govuk-list govuk-list--bullet\">\n  <li>Example item 1</li>\n</ul>\n")
         )
       )
     }

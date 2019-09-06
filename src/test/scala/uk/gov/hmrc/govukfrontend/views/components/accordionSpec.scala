@@ -21,13 +21,20 @@ import play.api.libs.json._
 import play.twirl.api.Html
 import uk.gov.hmrc.govukfrontend.views.html.components._
 
-class errorSummarySpec extends RenderHtmlSpec(Seq("error-summary-default")) {
-
+class accordionSpec
+    extends RenderHtmlSpec(
+      Seq(
+        "accordion-default",
+        "accordion-with-additional-descriptions",
+        "accordion-with-all-sections-already-open",
+        "accordion-with-one-section-open"
+      )
+    ) {
   override implicit val reads: Reads[Html] = (
-    (__ \ "errorList").readWithDefault[Seq[ErrorLink]](Nil) and
+    (__ \ "id").read[String] and
+      (__ \ "headingLevel").readWithDefault[Int](2) and
       (__ \ "classes").readWithDefault[String]("") and
       (__ \ "attributes").readWithDefault[Map[String, String]](Map.empty) and
-      readsHtmlOrText((__ \ "titleHtml"), (__ \ "titleText")) and
-      readsHtmlOrText((__ \ "descriptionHtml"), (__ \ "descriptionText"))
-  )(ErrorSummary.apply(_, _, _)(_)(_))
+      (__ \ "items").readWithDefault[Seq[Section]](Nil)
+  )(Accordion.apply _)
 }
