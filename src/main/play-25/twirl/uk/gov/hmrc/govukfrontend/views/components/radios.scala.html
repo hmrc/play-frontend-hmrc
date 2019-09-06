@@ -27,7 +27,7 @@
   <div class="@toClasses("govuk-form-group", errorMessageParams.fold("")(_ => "govuk-form-group--error"), formGroupClasses)">
     @fieldsetParams.fold(innerHtml) { fieldsetParams =>
         @fieldset(
-          describedBy = if (describedBy.nonEmpty) Some(describedBy) else None,
+          describedBy = describedBy.toOption,
           legend = fieldsetParams.legend,
           classes = fieldsetParams.classes,
           attributes = fieldsetParams.attributes)(innerHtml)
@@ -52,10 +52,10 @@
   }
 }
 
-@hintAndErrorMessageSnippet(describedBy: String, hintHtml: Html = HtmlFormat.empty) = @{
-  errorMessageParams.fold((describedBy, hintHtml)) { errorMessageParams =>
+@errorMessageSnippet(describedBy: String) = @{
+  errorMessageParams.fold((describedBy, HtmlFormat.empty)) { errorMessageParams =>
     val errorId = idPrefixStr + "-error"
-    val descBy = if (describedBy.nonEmpty) s"$describedBy $errorId" else errorId
+    val describedBy1 = if (describedBy.nonEmpty) s"$describedBy $errorId" else errorId
     val errorMessageHtml =
       errorMessage(
         id = Some(errorId),
@@ -63,54 +63,54 @@
         attributes = errorMessageParams.attributes,
         visuallyHiddenText = errorMessageParams.visuallyHiddenText
       )(errorMessageParams.contents)
-    (descBy, HtmlFormat.fill(collection.immutable.Seq(hintHtml, errorMessageHtml)))
+    (describedBy1, errorMessageHtml)
   }
 }
 
 @divSnippet = {
   <div class="@toClasses("govuk-radios", classes, "govuk-radios--conditional".when(isConditional))"@toAttributes(attributes)@if(isConditional) { data-module="radios"}>
   @for((item, index) <- items.zip(Stream from 1)) {
-      @defining(item.id.getOrElse(s"$idPrefixStr-$index")) { id =>
-      @defining(s"conditional-$id") { conditionalId =>
-        @item.divider match {
-          case Some(divider) => {<div class="govuk-radios__divider">@divider</div>}
-          case None => {
-            @defining(item.hint.exists(_.contents.nonEmpty)) { hasHint =>
-            @defining(s"$id-item-hint") { itemHintId =>
-            @defining {
-              @if(item.checked) { checked}
-              @if(item.disabled) { disabled}
-              @item.conditionalHtml.map {_ => data-aria-controls="@conditionalId"}
-              @if(hasHint) {aria-describedby="@itemHintId"}
-            } { inputAttrs =>
-                <div class="govuk-radios__item">
-                  <input class="govuk-radios__input" id="@id" name="@name" type="radio" value="@item.value"@inputAttrs@toAttributes(item.attributes)>
-                    @label(
-                      forAttr = Some(id),
-                      classes = toClasses("govuk-radios__label", item.label.map(_.classes).getOrElse("")),
-                      attributes = item.label.map(_.attributes).getOrElse(Map.empty))(item.contents)
-                    @if(hasHint) {
-                      @hint(
-                        id = Some(itemHintId),
-                        classes = "govuk-radios__hint",
-                        attributes = item.hint.map(_.attributes).getOrElse(Map.empty))(item.hint.map(_.contents).getOrElse(Empty))
-                    }
-                </div>
-                @item.conditionalHtml.map { conditionalHtml =>
-                  <div class="@toClasses("govuk-radios__conditional", "govuk-radios__conditional--hidden".when(!item.checked))" id="@conditionalId">
+    @defining(item.id.getOrElse(s"$idPrefixStr-$index")) { id =>
+    @defining(s"conditional-$id") { conditionalId =>
+      @item.divider match {
+        case Some(divider) => {<div class="govuk-radios__divider">@divider</div>}
+        case None => {
+          @defining(item.hint.exists(_.contents.nonEmpty)) { hasHint =>
+          @defining(s"$id-item-hint") { itemHintId =>
+          @defining {
+            @if(item.checked) { checked}
+            @if(item.disabled) { disabled}
+            @item.conditionalHtml.map {_ => data-aria-controls="@conditionalId"}
+            @if(hasHint) {aria-describedby="@itemHintId"}
+          } { inputAttrs =>
+              <div class="govuk-radios__item">
+                <input class="govuk-radios__input" id="@id" name="@name" type="radio" value="@item.value"@inputAttrs@toAttributes(item.attributes)>
+                  @label(
+                    forAttr = Some(id),
+                    classes = toClasses("govuk-radios__label", item.label.map(_.classes).getOrElse("")),
+                    attributes = item.label.map(_.attributes).getOrElse(Map.empty))(item.contents)
+                  @if(hasHint) {
+                    @hint(
+                      id = Some(itemHintId),
+                      classes = "govuk-radios__hint",
+                      attributes = item.hint.map(_.attributes).getOrElse(Map.empty))(item.hint.map(_.contents).getOrElse(Empty))
+                  }
+              </div>
+              @item.conditionalHtml.map { conditionalHtml =>
+                <div class="@toClasses("govuk-radios__conditional", "govuk-radios__conditional--hidden".when(!item.checked))" id="@conditionalId">
                   @conditionalHtml
-                  </div>
-                }
-            }}}
-          }
+                </div>
+              }
+          }}}
         }
-      }}
+      }
+    }}
   }
   </div>
 }
 
 @innerHtmlSnippet = @{
-  val (descBy, hintHtml) = hintSnippet
-  val (descBy1, hintAndErrorMessageHtml) = hintAndErrorMessageSnippet(descBy, hintHtml)
-  (descBy1, HtmlFormat.fill(collection.immutable.Seq(hintAndErrorMessageHtml, divSnippet)))
+  val (describedBy, hintHtml) = hintSnippet
+  val (describedBy1, errorMessageHtml) = errorMessageSnippet(describedBy)
+  (describedBy1, HtmlFormat.fill(collection.immutable.Seq(hintHtml, errorMessageHtml, divSnippet)))
 }

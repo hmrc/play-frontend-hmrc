@@ -27,6 +27,11 @@ trait Utils {
     }
   }
 
+  implicit class RichString(s: String) {
+    def toOption: Option[String] =
+      if (s.nonEmpty) Some(s) else None
+  }
+
   // FIXME: check if we need to escape classes like [[toHtmlArgs]] does for attribute values
   // https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html
   def toClasses(firstClass: String, rest: String*): String =

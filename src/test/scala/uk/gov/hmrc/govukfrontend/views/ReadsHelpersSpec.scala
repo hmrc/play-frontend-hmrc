@@ -112,13 +112,9 @@ class ReadsHelpersSpec
   }
 
   object Generators {
-    val genJsString = for {
-      s <- Gen.alphaStr
-    } yield JsString(s)
+    val genJsString = for (s <- Gen.alphaStr) yield JsString(s)
 
-    val genJsNumber = for {
-      n <- Gen.choose(0, 1000)
-    } yield JsNumber(n)
+    val genJsNumber = for (n <- Gen.choose(0, 1000)) yield JsNumber(n)
 
     val genJsValue =
       Gen.frequency(

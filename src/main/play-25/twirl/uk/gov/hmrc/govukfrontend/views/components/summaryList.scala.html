@@ -32,10 +32,12 @@
             @row.actions.map { actions => @actionLink(actions.items.head) }
           } else {
             <ul class="govuk-summary-list__actions-list">
-              @for(action <- row.actions.map(_.items).getOrElse(Nil)) {
-                <li class="govuk-summary-list__actions-list-item">
-                  @actionLink(action)
-                </li>
+              @row.actions.map { actions =>
+                @for(action <- actions.items) {
+                  <li class="govuk-summary-list__actions-list-item">
+                    @actionLink(action)
+                  </li>
+                }
               }
             </ul>
           }

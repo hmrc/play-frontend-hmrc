@@ -91,6 +91,9 @@ trait Aliases {
 
   type ActionItem = viewmodels.summarylist.Item
   val ActionItem = viewmodels.summarylist.Item
+
+  type InputParams = viewmodels.dateinput.InputParams
+  val InputParams = viewmodels.dateinput.InputParams
 }
 
 object Aliases extends Aliases

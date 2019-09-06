@@ -20,39 +20,30 @@ import play.api.libs.functional.syntax._
 import play.api.libs.json._
 import play.twirl.api.Html
 import uk.gov.hmrc.govukfrontend.views.html.components._
-import scala.util.matching.Regex
 
-class inputSpec
+class dateInputSpec
     extends RenderHtmlSpec(
       Seq(
-        "input-default",
-        "input-with-autocomplete-attribute",
-        "input-with-error-message",
-        "input-with-hint-text",
-        "input-with-label-as-page-heading",
-        "input-with-optional-form-group-classes",
-        "input-with-pattern-attribute",
-        "input-with-width-2-class",
-        "input-with-width-3-class",
-        "input-with-width-4-class",
-        "input-with-width-5-class",
-        "input-with-width-10-class",
-        "input-with-width-20-class",
-        "input-with-width-30-class"
+//        "date-input-default",
+//        "date-input-with-autocomplete-values",
+//        "date-input-with-default-items",
+//        "date-input-with-error-on-day-input",
+//        "date-input-with-error-on-month-input",
+//        "date-input-with-error-on-year-input",
+        "date-input-with-errors"
+//        "date-input-with-input-attributes",
+//        "date-input-with-optional-form-group-classes"
       )
     ) {
   override implicit val reads: Reads[Html] = (
-    (__ \ "id").read[String] and
-      (__ \ "name").read[String] and
-      (__ \ "type").readWithDefault[String]("text") and
-      (__ \ "value").readNullable[String] and
-      (__ \ "label").read[LabelParams] and
+    (__ \ "id").readNullable[String] and
+      (__ \ "namePrefix").readNullable[String] and
+      (__ \ "items").readWithDefault[Seq[InputParams]](Nil) and
       (__ \ "hint").readNullable[HintParams] and
       (__ \ "errorMessage").readNullable[ErrorMessageParams] and
       (__ \ "formGroup").readNullable[FormGroup].map(_.map(formGroup => formGroup.classes).getOrElse("")) and
+      (__ \ "fieldset").readNullable[FieldsetParams] and
       (__ \ "classes").readWithDefault[String]("") and
-      (__ \ "autocomplete").readNullable[String] and
-      (__ \ "pattern").readNullable[Regex] and
       (__ \ "attributes").readWithDefault[Map[String, String]](Map.empty)
-  )(Input.apply _)
+  )(DateInput.apply _)
 }

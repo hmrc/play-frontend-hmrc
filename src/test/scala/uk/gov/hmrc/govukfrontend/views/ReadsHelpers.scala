@@ -20,6 +20,7 @@ import play.api.libs.functional.syntax._
 import play.api.libs.json._
 import play.twirl.api.Html
 import uk.gov.hmrc.govukfrontend.views.html.components._
+import scala.util.matching.Regex
 
 /**
   * Reads used in all test fixtures go here
@@ -106,27 +107,23 @@ trait ReadsHelpers {
   )(HintParams.apply _)
 
   // FIXME: Hacky Reads to deal with incorrect implementation of govuk-frontend 'error-message' component. Raise PR to fix it.
-  // Converts the ambiguously typed visuallyHiddenText argument from govuk-frontend to the correct type.
-  // The original govuk-frontend implementation will show 'true' as the hidden text when visuallyHiddenText is 'true'.
+  // Converts the ambiguously documented visuallyHiddenText parameter from govuk-frontend to the correct type.
+  // The original govuk-frontend implementation will show any truthy value as the hidden text when visuallyHiddenText is set to it.
   // [[https://github.com/alphagov/govuk-frontend/blob/v2.11.0/src/components/error-message/template.test.js#L82]]
-  // When visuallyHiddenText is a falsy value (we consider only "" or 'false') means we want to hide the text
-  implicit val readsVisuallyHiddenText: Reads[VisuallyHiddenText] =
-    ((__ \ "visuallyHiddenText").readWithDefault[String]("Error").map(Left(_): Either[String, Boolean]) |
-      (__ \ "visuallyHiddenText").readWithDefault[Boolean](true).map(Right(_): Either[String, Boolean]))
-      .map(toVisuallyHiddenText)
-
-  private def toVisuallyHiddenText(x: Either[String, Boolean]): VisuallyHiddenText =
-    x match {
-      case Left("")     => HideText
-      case Left(text)   => ShowText(text)
-      case Right(false) => HideText
-      case Right(true) =>
-        throw new IllegalArgumentException(
-          """
-            |Passed boolean 'true' as the visually hidden text which is not the likely intended behaviour.
-            |""".stripMargin
-        )
-    }
+  // When visuallyHiddenText is a falsy value we want to hide the text
+  // If it is not provided we default to "Error"
+  implicit val readsVisuallyHiddenText: Reads[VisuallyHiddenText] = (
+    (__ \ "visuallyHiddenText")
+      .readWithDefault[JsValue](JsString("Error"))
+      .map {
+        case JsNull                => HideText
+        case JsString("")          => HideText
+        case JsString(text)        => ShowText(text)
+        case JsFalse               => HideText
+        case JsNumber(n) if n == 0 => HideText
+        case x                     => ShowText(x.toString) // not intended behaviour but that is how govuk-frontend behaves
+      }
+  )
 
   implicit val readsErrorMessageParams: Reads[ErrorMessageParams] = (
     (__ \ "classes").readWithDefault[String]("") and
@@ -188,7 +185,17 @@ trait ReadsHelpers {
   implicit val readsActions: Reads[Actions] =
     Json.using[Json.WithDefaultValues].reads[Actions]
 
-  implicit val readsRow: Reads[Row] = (
+  implicit val readsRow: Reads[Row] =
     Json.using[Json.WithDefaultValues].reads[Row]
-  )
+
+  implicit val readsRegex: Reads[Regex] = new Reads[Regex] {
+    override def reads(json: JsValue): JsResult[Regex] = json match {
+      case JsString(s) => JsSuccess(new Regex(s))
+      case _           => JsError(JsonValidationError("error.expected.jsstring"))
+    }
+  }
+
+  implicit val readsInputParams: Reads[InputParams] =
+    Json.using[Json.WithDefaultValues].reads[InputParams]
+
 }

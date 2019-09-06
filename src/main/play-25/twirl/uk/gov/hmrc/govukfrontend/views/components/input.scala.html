@@ -35,10 +35,7 @@
     isPageHeading = labelParams.isPageHeading,
     classes = labelParams.classes,
     attributes = labelParams.attributes)(labelParams.contents)
-  @defining(hintSnippet) { case (describedBy, hintHtml) =>
-    @hintHtml
-    @errorMessageAndInputSnippet(describedBy)
-  }
+  @divSnippet
 </div>
 
 @hintSnippet = @{
@@ -58,7 +55,7 @@
 @errorMessageSnippet(describedBy: String) = @{
   errorMessageParams.fold((describedBy, HtmlFormat.empty)) { errorMessageParams =>
     val errorId = s"$id-error"
-    val descBy = if (describedBy.nonEmpty) s"$describedBy $errorId" else errorId
+    val describedBy1 = if (describedBy.nonEmpty) s"$describedBy $errorId" else errorId
     val errorMessageHtml =
      errorMessage(
        id = Some(errorId),
@@ -66,14 +63,7 @@
        attributes = errorMessageParams.attributes,
        visuallyHiddenText = errorMessageParams.visuallyHiddenText
      )(errorMessageParams.contents)
-    (descBy, errorMessageHtml)
-  }
-}
-
-@errorMessageAndInputSnippet(describedBy: String) = {
-  @defining(errorMessageSnippet(describedBy)) { case (descBy, errorMessageHtml) =>
-    @errorMessageHtml
-    @inputSnippet(descBy)
+    (describedBy1, errorMessageHtml)
   }
 }
 
@@ -87,4 +77,13 @@
       <input class="@toClasses("govuk-input", classes, errorMessageParams.fold("")(_ => "govuk-input--error"))" @attrs@otherAttrs>
   }}
 }
+
+@divSnippet = @{
+  val (describedBy, hintHtml) = hintSnippet
+  val (describedBy1, errorMessageHtml) = errorMessageSnippet(describedBy)
+  val inputHtml = inputSnippet(describedBy1)
+  HtmlFormat.fill(collection.immutable.Seq(hintHtml, errorMessageHtml, inputHtml))
+}
+
+
 
