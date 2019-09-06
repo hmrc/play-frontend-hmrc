@@ -24,15 +24,15 @@ import uk.gov.hmrc.govukfrontend.views.html.components._
 class dateInputSpec
     extends RenderHtmlSpec(
       Seq(
-//        "date-input-default",
-//        "date-input-with-autocomplete-values",
-//        "date-input-with-default-items",
-//        "date-input-with-error-on-day-input",
-//        "date-input-with-error-on-month-input",
-//        "date-input-with-error-on-year-input",
-        "date-input-with-errors"
-//        "date-input-with-input-attributes",
-//        "date-input-with-optional-form-group-classes"
+        "date-input-default",
+        "date-input-with-autocomplete-values",
+        "date-input-with-default-items",
+        "date-input-with-error-on-day-input",
+        "date-input-with-error-on-month-input",
+        "date-input-with-error-on-year-input",
+        "date-input-with-errors",
+        "date-input-with-input-attributes",
+        "date-input-with-optional-form-group-classes"
       )
     ) {
   override implicit val reads: Reads[Html] = (
