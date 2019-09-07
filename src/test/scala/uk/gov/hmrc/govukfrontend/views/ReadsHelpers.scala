@@ -140,12 +140,6 @@ trait ReadsHelpers {
       readsContents
   )(LabelParams.apply _)
 
-  case class Conditional(html: String)
-
-  object Conditional {
-    implicit val readsConditional = Json.reads[Conditional]
-  }
-
   implicit val readsRadioItem: Reads[RadioItem] = (
     readsContents and
       (__ \ "id").readNullable[String] and
@@ -154,16 +148,10 @@ trait ReadsHelpers {
       (__ \ "hint").readNullable[HintParams] and
       (__ \ "divider").readNullable[String] and
       (__ \ "checked").readWithDefault[Boolean](false) and
-      (__ \ "conditional").readNullable[Conditional].map(_.map(conditional => Html(conditional.html))) and
+      ((__ \ "conditional" \ "html").readNullable[String].map(_.map(Html(_))).orElse(Reads.pure(None))) and
       (__ \ "disabled").readWithDefault[Boolean](false) and
       (__ \ "attributes").readWithDefault[Map[String, String]](Map.empty)
   )(RadioItem.apply _)
-
-  case class FormGroup(classes: String)
-
-  object FormGroup {
-    implicit val readsFormGroup = Json.reads[FormGroup]
-  }
 
   implicit val readsKey: Reads[Key] = (
     readsContents and
@@ -204,4 +192,7 @@ trait ReadsHelpers {
       readsHtmlOrText((__ \ "content" \ "html"), (__ \ "content" \ "text")) and
       (__ \ "expanded").readWithDefault[Boolean](false)
   )(Section.apply _)
+
+  val readsFormGroupClasses: Reads[String] =
+    (__ \ "formGroup" \ "classes").read[String].orElse(Reads.pure(""))
 }

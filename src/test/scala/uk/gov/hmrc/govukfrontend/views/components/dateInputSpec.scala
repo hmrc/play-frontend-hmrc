@@ -41,7 +41,7 @@ class dateInputSpec
       (__ \ "items").readWithDefault[Seq[InputParams]](Nil) and
       (__ \ "hint").readNullable[HintParams] and
       (__ \ "errorMessage").readNullable[ErrorMessageParams] and
-      (__ \ "formGroup").readNullable[FormGroup].map(_.map(formGroup => formGroup.classes).getOrElse("")) and
+      readsFormGroupClasses and
       (__ \ "fieldset").readNullable[FieldsetParams] and
       (__ \ "classes").readWithDefault[String]("") and
       (__ \ "attributes").readWithDefault[Map[String, String]](Map.empty)

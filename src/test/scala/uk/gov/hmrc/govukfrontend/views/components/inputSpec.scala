@@ -49,7 +49,7 @@ class inputSpec
       (__ \ "label").read[LabelParams] and
       (__ \ "hint").readNullable[HintParams] and
       (__ \ "errorMessage").readNullable[ErrorMessageParams] and
-      (__ \ "formGroup").readNullable[FormGroup].map(_.map(formGroup => formGroup.classes).getOrElse("")) and
+      readsFormGroupClasses and
       (__ \ "classes").readWithDefault[String]("") and
       (__ \ "autocomplete").readNullable[String] and
       (__ \ "pattern").readNullable[Regex] and

@@ -54,7 +54,7 @@ class radiosSpec
     (__ \ "fieldset").readNullable[FieldsetParams] and
       (__ \ "hint").readNullable[HintParams] and
       (__ \ "errorMessage").readNullable[ErrorMessageParams] and
-      (__ \ "formGroup").readNullable[FormGroup].map(_.map(formGroup => formGroup.classes).getOrElse("")) and
+      readsFormGroupClasses and
       (__ \ "idPrefix").readNullable[String] and
       (__ \ "name").read[String] and
       (__ \ "items").read[Seq[RadioItem]] and

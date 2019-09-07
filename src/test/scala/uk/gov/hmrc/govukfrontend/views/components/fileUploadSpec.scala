@@ -39,7 +39,7 @@ class fileUploadSpec
       (__ \ "label").read[LabelParams] and
       (__ \ "hint").readNullable[HintParams] and
       (__ \ "errorMessage").readNullable[ErrorMessageParams] and
-      (__ \ "formGroup").readNullable[FormGroup].map(_.map(formGroup => formGroup.classes).getOrElse("")) and
+      readsFormGroupClasses and
       (__ \ "classes").readWithDefault[String]("") and
       (__ \ "attributes").readWithDefault[Map[String, String]](Map.empty)
   )(FileUpload.apply _)
