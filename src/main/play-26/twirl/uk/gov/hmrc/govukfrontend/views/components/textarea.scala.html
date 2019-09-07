@@ -16,26 +16,20 @@
 
 @this(errorMessage: errorMessage, hint: hint, label: label)
 
-@(name: String,
-  id: String,
+@(id: String,
+  name: String,
+  rows: Int = 5,
   value: Option[String] = None,
   labelParams: LabelParams,
   hintParams: Option[HintParams] = None,
   errorMessageParams: Option[ErrorMessageParams] = None,
   formGroupClasses: String = "",
   classes: String = "",
+  autocomplete: Option[String] = None,
   attributes: Map[String, String] = Map.empty)
 @require(name.nonEmpty && id.nonEmpty)
-<div class="@toClasses("govuk-form-group", errorMessageParams.fold("")(_ => "govuk-form-group--error"), formGroupClasses)">
-  @label(
-    forAttr = Some(id),
-    isPageHeading = labelParams.isPageHeading,
-    classes = labelParams.classes,
-    attributes = labelParams.attributes)(labelParams.contents)
-  @divSnippet
-</div>
+@mainSnippet
 
-@* FIXME extract to common snippets package *@
 @hintSnippet = @{
  hintParams.fold(("", HtmlFormat.empty)) { hintParams =>
    val hintId = s"$id-hint"
@@ -50,7 +44,6 @@
  }
 }
 
-@* FIXME extract to common snippets package *@
 @errorMessageSnippet(describedBy: String) = @{
   errorMessageParams.fold((describedBy, HtmlFormat.empty)) { errorMessageParams =>
     val errorId = s"$id-error"
@@ -66,18 +59,36 @@
   }
 }
 
-@inputSnippet(describedBy: String) = {
+@textareaSnippet(describedBy: String) = {
   @defining {
-    id="@id" name="@name" type="file"@value.map { value => value="@value" }@if(describedBy.nonEmpty) { aria-describedby="@describedBy"}@toAttributes(attributes)
+    @autocomplete.map { autocomplete =>autocomplete="@autocomplete"}
+  } { autocompleteAttr =>
+  @defining {
+    id="@id" name="@name" rows="@rows"@if(describedBy.nonEmpty) { aria-describedby="@describedBy"}@autocompleteAttr @toAttributes(attributes)
   } { attrs =>
-      <input class="@toClasses("govuk-file-upload", classes, errorMessageParams.fold("")(_ => "govuk-file-upload--error"))" @attrs>
-  }
+    <textarea class="@toClasses("govuk-textarea", errorMessageParams.fold("")(_ => "govuk-textarea--error"), classes)" @attrs>@value.map { value =>@HtmlFormat.escape(value)}</textarea>
+  }}
 }
 
-@divSnippet = @{
+@divSnippet(labelHtml: Html, hintHtml: Html, errorMessageHtml: Html, textareaHtml: Html) = {
+  <div class="@toClasses("govuk-form-group", errorMessageParams.fold("")(_ => "govuk-form-group--error"), formGroupClasses)">
+    @labelHtml
+    @hintHtml
+    @errorMessageHtml
+    @textareaHtml
+  </div>
+}
+
+@mainSnippet = @{
   val (describedBy, hintHtml) = hintSnippet
   val (describedBy1, errorMessageHtml) = errorMessageSnippet(describedBy)
-  val inputHtml = inputSnippet(describedBy1)
-  HtmlFormat.fill(collection.immutable.Seq(hintHtml, errorMessageHtml, inputHtml))
+  val labelHtml = label(
+    forAttr = Some(id),
+    isPageHeading = labelParams.isPageHeading,
+    classes = labelParams.classes,
+    attributes = labelParams.attributes)(labelParams.contents)
+  val textareaHtml = textareaSnippet(describedBy1)
+  divSnippet(labelHtml, hintHtml, errorMessageHtml, textareaHtml)
 }
+
 

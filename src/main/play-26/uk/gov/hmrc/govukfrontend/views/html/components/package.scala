@@ -100,6 +100,10 @@ package object components extends Utils with Aliases {
   @deprecated("Use DI")
   val Breadcrumbs = new breadcrumbs()
 
+  type Textarea = textarea
+  @deprecated("Use DI")
+  val Textarea = new textarea(ErrorMessage, Hint, Label)
+
   type GovukTemplate = govukTemplate
   @deprecated("Use DI")
   lazy val GovukTemplate = new govukTemplate(Header, Footer, SkipLink)

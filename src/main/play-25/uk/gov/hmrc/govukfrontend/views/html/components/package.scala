@@ -60,5 +60,7 @@ package object components extends Utils with Aliases {
 
   lazy val Breadcrumbs = breadcrumbs
 
+  lazy val Textarea = textarea
+
   lazy val GovukTemplate = govukTemplate
 }

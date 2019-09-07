@@ -33,6 +33,7 @@
   @divSnippet
 </div>
 
+@* FIXME extract to common snippets package *@
 @hintSnippet = @{
  hintParams.fold(("", HtmlFormat.empty)) { hintParams =>
    val hintId = s"$id-hint"
@@ -47,6 +48,7 @@
  }
 }
 
+@* FIXME extract to common snippets package *@
 @errorMessageSnippet(describedBy: String) = @{
   errorMessageParams.fold((describedBy, HtmlFormat.empty)) { errorMessageParams =>
     val errorId = s"$id-error"
