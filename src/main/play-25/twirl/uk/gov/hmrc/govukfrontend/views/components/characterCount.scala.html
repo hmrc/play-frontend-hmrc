@@ -1,0 +1,56 @@
+@*
+ * Copyright 2019 HM Revenue & Customs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *@
+
+@(id: String,
+  name: String,
+  rows: Int = 5,
+  value: Option[String] = None,
+  maxlength: Option[Int] = None,
+  maxwords: Option[Int] = None,
+  threshold: Option[Int] = None,
+  labelParams: LabelParams,
+  hintParams: Option[HintParams] = None,
+  errorMessageParams: Option[ErrorMessageParams] = None,
+  classes: String = "",
+  attributes: Map[String, String] = Map.empty)
+@require(name.nonEmpty && id.nonEmpty, "name and id should be non-empty")
+@require(maxlength.isDefined || maxwords.isDefined, "maxlength or maxwords should be provided")
+<div class="govuk-character-count" data-module="character-count"@attrs>
+  @textarea(
+    id = id,
+    name = name,
+    // FIXME: uncomment this when upgrading to the latest
+    // govuk-frontend 2.11.0 textarea is not expecting 'describedBy' parameter - fixed in the latest
+    // https://github.com/alphagov/govuk-frontend/blob/master/src/govuk/components/textarea/template.njk#L7
+    // describedBy = "@id-info",
+    rows = rows,
+    value = value,
+    labelParams = labelParams.copy(forAttr = Some(id)),
+    hintParams = hintParams,
+    errorMessageParams = errorMessageParams,
+    classes = toClasses("js-character-count ", errorMessageParams.fold("")(_ => " govuk-textarea--error"), classes),
+    attributes = attributes
+  )
+  <span id="@id-info" class="govuk-hint govuk-character-count__message" aria-live="polite">
+    You can enter up to @maxlength.orElse(maxwords).map {max => @max}@maxwords.map {_ => words}.getOrElse { characters}
+  </span>
+</div>
+
+@attrs = {
+  @maxlength.map { maxlength => data-maxlength="@maxlength"}
+  @threshold.map { threshold => data-threshold="@threshold"}
+  @maxwords.map { maxwords => data-maxwords="@maxwords"}
+}

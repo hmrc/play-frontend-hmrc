@@ -104,6 +104,10 @@ package object components extends Utils with Aliases {
   @deprecated("Use DI")
   val Textarea = new textarea(ErrorMessage, Hint, Label)
 
+  type CharacterCount = characterCount
+  @deprecated("Use DI")
+  val CharacterCount = new characterCount(Textarea)
+
   type GovukTemplate = govukTemplate
   @deprecated("Use DI")
   lazy val GovukTemplate = new govukTemplate(Header, Footer, SkipLink)

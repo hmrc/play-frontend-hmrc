@@ -62,5 +62,7 @@ package object components extends Utils with Aliases {
 
   lazy val Textarea = textarea
 
+  lazy val CharacterCount = characterCount
+
   lazy val GovukTemplate = govukTemplate
 }
