@@ -58,5 +58,7 @@ package object components extends Utils with Aliases {
 
   lazy val Accordion = accordion
 
+  lazy val Breadcrumbs = breadcrumbs
+
   lazy val GovukTemplate = govukTemplate
 }

@@ -96,6 +96,10 @@ package object components extends Utils with Aliases {
   @deprecated("Use DI")
   val Accordion = new accordion()
 
+  type Breadcrumbs = breadcrumbs
+  @deprecated("Use DI")
+  val Breadcrumbs = new breadcrumbs()
+
   type GovukTemplate = govukTemplate
   @deprecated("Use DI")
   lazy val GovukTemplate = new govukTemplate(Header, Footer, SkipLink)

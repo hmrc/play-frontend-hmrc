@@ -97,6 +97,9 @@ trait Aliases {
 
   type Section = viewmodels.accordion.Section
   val Section = viewmodels.accordion.Section
+
+  type BreadcrumbsItem = viewmodels.breadcrumbs.Item
+  val BreadcrumbsItem = viewmodels.breadcrumbs.Item
 }
 
 object Aliases extends Aliases

@@ -195,4 +195,10 @@ trait ReadsHelpers {
 
   val readsFormGroupClasses: Reads[String] =
     (__ \ "formGroup" \ "classes").read[String].orElse(Reads.pure(""))
+
+  implicit val readsBreadcrumbsItem: Reads[BreadcrumbsItem] = (
+    readsContents and
+      (__ \ "href").readNullable[String] and
+      (__ \ "attributes").readWithDefault[Map[String, String]](Map.empty)
+  )(BreadcrumbsItem.apply _)
 }
