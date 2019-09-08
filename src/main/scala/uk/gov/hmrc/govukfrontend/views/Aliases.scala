@@ -100,6 +100,9 @@ trait Aliases {
 
   type BreadcrumbsItem = viewmodels.breadcrumbs.Item
   val BreadcrumbsItem = viewmodels.breadcrumbs.Item
+
+  type CheckboxItem = viewmodels.checkboxes.CheckboxItem
+  val CheckboxItem = viewmodels.checkboxes.CheckboxItem
 }
 
 object Aliases extends Aliases

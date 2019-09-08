@@ -64,5 +64,7 @@ package object components extends Utils with Aliases {
 
   lazy val CharacterCount = characterCount
 
+  lazy val Checkboxes = checkboxes
+
   lazy val GovukTemplate = govukTemplate
 }

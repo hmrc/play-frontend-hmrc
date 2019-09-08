@@ -201,4 +201,17 @@ trait ReadsHelpers {
       (__ \ "href").readNullable[String] and
       (__ \ "attributes").readWithDefault[Map[String, String]](Map.empty)
   )(BreadcrumbsItem.apply _)
+
+  implicit val readsCheckboxItem: Reads[CheckboxItem] = (
+    readsContent and
+      (__ \ "id").readNullable[String] and
+      (__ \ "name").readNullable[String] and
+      (__ \ "value").read[String] and
+      (__ \ "label").readNullable[LabelParams] and
+      (__ \ "hint").readNullable[HintParams] and
+      (__ \ "checked").readWithDefault[Boolean](false) and
+      (__ \ "conditional" \ "html").readNullable[String].map(_.map(Html(_))).orElse(Reads.pure(None)) and
+      (__ \ "disabled").readWithDefault[Boolean](false) and
+      (__ \ "attributes").readWithDefault[Map[String, String]](Map.empty)
+    )(CheckboxItem.apply _)
 }

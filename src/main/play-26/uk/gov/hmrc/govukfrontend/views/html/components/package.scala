@@ -108,6 +108,10 @@ package object components extends Utils with Aliases {
   @deprecated("Use DI")
   val CharacterCount = new characterCount(Textarea)
 
+  type Checkboxes = checkboxes
+  @deprecated("Use DI")
+  val Checkboxes = new checkboxes(ErrorMessage, Fieldset, Hint, Label)
+
   type GovukTemplate = govukTemplate
   @deprecated("Use DI")
   lazy val GovukTemplate = new govukTemplate(Header, Footer, SkipLink)
