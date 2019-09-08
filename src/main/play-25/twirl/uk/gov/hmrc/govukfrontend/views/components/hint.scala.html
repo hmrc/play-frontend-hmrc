@@ -16,7 +16,7 @@
 
 @(id: Option[String] = None,
   classes: String = "",
-  attributes: Map[String, String] = Map.empty)(contents: Contents)
+  attributes: Map[String, String] = Map.empty)(content: Content)
 <span@id.map {id => id="@id"} class="@toClasses("govuk-hint", classes)"@toAttributes(attributes)>
-  @contents.asHtml
+  @content.asHtml
 </span>

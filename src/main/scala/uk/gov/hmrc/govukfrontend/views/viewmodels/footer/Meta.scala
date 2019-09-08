@@ -17,9 +17,9 @@
 package uk.gov.hmrc.govukfrontend.views.viewmodels
 package footer
 
-import common.{Contents, Empty}
+import common.{Content, Empty}
 
 case class Meta(
-  contents: Contents = Empty,
+  content: Content = Empty,
   items: Seq[Item]   = Nil
 )

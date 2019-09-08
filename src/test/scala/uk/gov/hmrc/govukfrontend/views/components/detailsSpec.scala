@@ -99,6 +99,6 @@ class detailsSpec
       (__ \ "classes").readWithDefault[String]("") and
       (__ \ "attributes").readWithDefault[Map[String, String]](Map.empty) and
       readsHtmlOrText((__ \ "summaryHtml"), (__ \ "summaryText")) and
-      readsContents
+      readsContent
   )(Details.apply(_, _, _, _)(_)(_))
 }

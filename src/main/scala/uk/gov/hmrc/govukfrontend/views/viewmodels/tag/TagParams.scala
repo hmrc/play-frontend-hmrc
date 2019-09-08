@@ -17,10 +17,10 @@
 package uk.gov.hmrc.govukfrontend.views.viewmodels
 package tag
 
-import common.{Contents, Empty}
+import common.{Content, Empty}
 
 case class TagParams(
-  contents: Contents              = Empty,
+  content: Content              = Empty,
   classes: String                 = "",
   attributes: Map[String, String] = Map.empty
 )

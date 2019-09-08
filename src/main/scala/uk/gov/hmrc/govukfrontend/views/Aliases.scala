@@ -17,7 +17,7 @@
 package uk.gov.hmrc.govukfrontend.views
 
 trait Aliases {
-  type Contents = viewmodels.common.Contents
+  type Content = viewmodels.common.Content
 
   val Empty = viewmodels.common.Empty
 

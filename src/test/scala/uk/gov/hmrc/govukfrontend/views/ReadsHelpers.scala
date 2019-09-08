@@ -23,7 +23,7 @@ import uk.gov.hmrc.govukfrontend.views.html.components._
 import scala.util.matching.Regex
 
 /**
-  * Reads used in all test fixtures go here
+  * Reads from json inputs for nunjucks templates to view models.
   */
 trait ReadsHelpers {
   // FIXME: To remove. Coming soon in Play 2.7.x https://www.playframework.com/documentation/2.7.x/api/scala/play/api/libs/json/Format.html#widen[B%3E:A]:play.api.libs.json.Reads[B]
@@ -46,29 +46,29 @@ trait ReadsHelpers {
         }
   }
 
-  implicit val readsContents: Reads[Contents] =
+  implicit val readsContent: Reads[Content] =
     readsHtmlOrText((__ \ "html"), (__ \ "text"))
 
-  def readsHtmlOrText(htmlJsPath: JsPath, textJsPath: JsPath): Reads[Contents] =
+  def readsHtmlOrText(htmlJsPath: JsPath, textJsPath: JsPath): Reads[Content] =
     readsHtmlContent(htmlJsPath)
-      .widen[Contents]
-      .orElse(readsText(textJsPath).widen[Contents])
-      .orElse(Reads.pure[Contents](Empty))
+      .widen[Content]
+      .orElse(readsText(textJsPath).widen[Content])
+      .orElse(Reads.pure[Content](Empty))
 
-  def readsHtmlContent(htmlJsPath: JsPath = (__ \ "html")): Reads[HtmlContent] =
-    htmlJsPath.readsJsValueToString.map(HtmlContent(_))
+  def readsHtmlContent(jsPath: JsPath = (__ \ "html")): Reads[HtmlContent] =
+    jsPath.readsJsValueToString.map(HtmlContent(_))
 
-  def readsText(textJsPath: JsPath = (__ \ "text")): Reads[Text] =
-    textJsPath.readsJsValueToString.map(Text)
+  def readsText(jsPath: JsPath = (__ \ "text")): Reads[Text] =
+    jsPath.readsJsValueToString.map(Text)
 
   implicit val readsErrorLink: Reads[ErrorLink] = (
     (__ \ "href").readNullable[String] and
-      readsContents and
+      readsContent and
       (__ \ "attributes").readWithDefault[Map[String, String]](Map.empty)
   )(ErrorLink.apply _)
 
   implicit val readsLegend: Reads[Legend] = (
-    readsContents and
+    readsContent and
       (__ \ "classes").readWithDefault[String]("") and
       (__ \ "isPageHeading").readWithDefault[Boolean](false)
   )(Legend.apply _)
@@ -80,7 +80,7 @@ trait ReadsHelpers {
   )(FooterItem.apply _)
 
   implicit val readsFooterMeta: Reads[FooterMeta] = (
-    readsContents and
+    readsContent and
       (__ \ "items").readWithDefault[Seq[FooterItem]](Nil)
   )(FooterMeta.apply _)
 
@@ -91,7 +91,7 @@ trait ReadsHelpers {
     Json.using[Json.WithDefaultValues].reads[HeaderNavigation]
 
   implicit val readsTagParams: Reads[TagParams] = (
-    readsContents and
+    readsContent and
       (__ \ "classes").readWithDefault[String]("") and
       (__ \ "attributes").readWithDefault[Map[String, String]](Map.empty)
   )(TagParams.apply _)
@@ -103,7 +103,7 @@ trait ReadsHelpers {
     (__ \ "id").readNullable[String] and
       (__ \ "classes").readWithDefault[String]("") and
       (__ \ "attributes").readWithDefault[Map[String, String]](Map.empty) and
-      readsContents
+      readsContent
   )(HintParams.apply _)
 
   // FIXME: Hacky Reads to deal with incorrect implementation of govuk-frontend 'error-message' component. Raise PR to fix it.
@@ -129,7 +129,7 @@ trait ReadsHelpers {
     (__ \ "classes").readWithDefault[String]("") and
       (__ \ "attributes").readWithDefault[Map[String, String]](Map.empty) and
       readsVisuallyHiddenText and
-      readsContents
+      readsContent
   )(ErrorMessageParams.apply _)
 
   implicit val readsLabelParams: Reads[LabelParams] = (
@@ -137,35 +137,35 @@ trait ReadsHelpers {
       (__ \ "isPageHeading").readWithDefault[Boolean](false) and
       (__ \ "classes").readWithDefault[String]("") and
       (__ \ "attributes").readWithDefault[Map[String, String]](Map.empty) and
-      readsContents
+      readsContent
   )(LabelParams.apply _)
 
   implicit val readsRadioItem: Reads[RadioItem] = (
-    readsContents and
+    readsContent and
       (__ \ "id").readNullable[String] and
       (__ \ "value").readNullable[String] and
       (__ \ "label").readNullable[LabelParams] and
       (__ \ "hint").readNullable[HintParams] and
       (__ \ "divider").readNullable[String] and
       (__ \ "checked").readWithDefault[Boolean](false) and
-      ((__ \ "conditional" \ "html").readNullable[String].map(_.map(Html(_))).orElse(Reads.pure(None))) and
+      (__ \ "conditional" \ "html").readNullable[String].map(_.map(Html(_))).orElse(Reads.pure(None)) and
       (__ \ "disabled").readWithDefault[Boolean](false) and
       (__ \ "attributes").readWithDefault[Map[String, String]](Map.empty)
   )(RadioItem.apply _)
 
   implicit val readsKey: Reads[Key] = (
-    readsContents and
+    readsContent and
       (__ \ "classes").readWithDefault[String]("")
   )(Key.apply _)
 
   implicit val readsValue: Reads[Value] = (
-    readsContents and
+    readsContent and
       (__ \ "classes").readWithDefault[String]("")
   )(Value.apply _)
 
   implicit val readsActionItem: Reads[ActionItem] = (
     (__ \ "href").readWithDefault[String]("") and
-      readsContents and
+      readsContent and
       (__ \ "visuallyHiddenText").readNullable[String] and
       (__ \ "classes").readWithDefault[String]("")
   )(ActionItem.apply _)
@@ -197,7 +197,7 @@ trait ReadsHelpers {
     (__ \ "formGroup" \ "classes").read[String].orElse(Reads.pure(""))
 
   implicit val readsBreadcrumbsItem: Reads[BreadcrumbsItem] = (
-    readsContents and
+    readsContent and
       (__ \ "href").readNullable[String] and
       (__ \ "attributes").readWithDefault[Map[String, String]](Map.empty)
   )(BreadcrumbsItem.apply _)

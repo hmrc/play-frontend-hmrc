@@ -57,7 +57,7 @@ class ReadsHelpersSpec
           isPageHeading = true,
           classes       = "class1 class2",
           attributes    = Map("attr1" -> "val1", "attr2" -> "val2"),
-          contents      = HtmlContent("<p>a paragraph</p>")
+          content      = HtmlContent("<p>a paragraph</p>")
         ))
     }
   }
@@ -86,10 +86,10 @@ class ReadsHelpersSpec
 
       json.validate[Row] shouldBe JsSuccess(
         Row(
-          key   = Key(contents   = Text("Previous application number")),
-          value = Value(contents = Text("502135326")),
+          key   = Key(content   = Text("Previous application number")),
+          value = Value(content = Text("502135326")),
           actions = Some(Actions(items =
-            Seq(Item(href = "#", contents = Text("Change"), visuallyHiddenText = Some("previous application number")))))
+            Seq(Item(href = "#", content = Text("Change"), visuallyHiddenText = Some("previous application number")))))
         )
       )
     }
@@ -113,9 +113,9 @@ class ReadsHelpersSpec
 
       json.validate[Section] shouldBe JsSuccess(
         Section(
-          headingContents = Text("Test"),
-          summaryContents = Text("Additional description"),
-          contents        = HtmlContent("<ul class=\"govuk-list govuk-list--bullet\">\n  <li>Example item 1</li>\n</ul>\n")
+          headingContent = Text("Test"),
+          summaryContent = Text("Additional description"),
+          content        = HtmlContent("<ul class=\"govuk-list govuk-list--bullet\">\n  <li>Example item 1</li>\n</ul>\n")
         )
       )
     }

@@ -18,7 +18,7 @@
 
 @(errorList: Seq[ErrorLink] = Nil,
   classes: String = "",
-  attributes: Map[String, String] = Map.empty)(title: Contents)(description: Contents = Empty)
+  attributes: Map[String, String] = Map.empty)(title: Content)(description: Content = Empty)
 @if(errorList.nonEmpty) {
   <div class="@toClasses("govuk-error-summary", classes)" aria-labelledby="error-summary-title" role="alert" tabindex="-1"@toAttributes(attributes) data-module="error-summary">
     <h2 class="govuk-error-summary__title" id="error-summary-title">
@@ -33,8 +33,8 @@
       <ul class="govuk-list govuk-error-summary__list">
         @for(item <- errorList) {
           <li>
-            @item.href.fold(item.contents.asHtml) { itemHref =>
-              <a href="@itemHref"@toAttributes(item.attributes)>@item.contents.asHtml</a>
+            @item.href.fold(item.content.asHtml) { itemHref =>
+              <a href="@itemHref"@toAttributes(item.attributes)>@item.content.asHtml</a>
             }
           </li>
         }

@@ -41,6 +41,6 @@ class skipLinkSpec
     (__ \ "href").read[String] and
       (__ \ "classes").readWithDefault[String]("") and
       (__ \ "attributes").readWithDefault[Map[String, String]](Map.empty) and
-      readsContents
+      readsContent
   )(SkipLink.apply(_, _, _)(_))
 }

@@ -17,10 +17,10 @@
 package uk.gov.hmrc.govukfrontend.views.viewmodels
 package summarylist
 
-import common.{Contents, Empty}
+import common.{Content, Empty}
 
 case class Item(
   href: String,
-  contents: Contents                 = Empty,
+  content: Content                 = Empty,
   visuallyHiddenText: Option[String] = None,
   classes: String                    = "")

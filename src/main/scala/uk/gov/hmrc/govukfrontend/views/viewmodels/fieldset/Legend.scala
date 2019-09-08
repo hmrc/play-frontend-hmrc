@@ -17,10 +17,10 @@
 package uk.gov.hmrc.govukfrontend.views.viewmodels
 package fieldset
 
-import common.{Contents, Empty}
+import common.{Content, Empty}
 
 case class Legend(
-  contents: Contents     = Empty,
+  content: Content     = Empty,
   classes: String        = "",
   isPageHeading: Boolean = false
 )

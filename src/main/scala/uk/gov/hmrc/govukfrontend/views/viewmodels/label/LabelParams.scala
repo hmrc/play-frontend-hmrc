@@ -17,12 +17,12 @@
 package uk.gov.hmrc.govukfrontend.views.viewmodels
 package label
 
-import common.{Contents, Empty}
+import common.{Content, Empty}
 
 case class LabelParams(
   forAttr: Option[String] = None,
   isPageHeading: Boolean = false,
   classes: String                 = "",
   attributes: Map[String, String] = Map.empty,
-  contents: Contents = Empty
+  content: Content = Empty
 )

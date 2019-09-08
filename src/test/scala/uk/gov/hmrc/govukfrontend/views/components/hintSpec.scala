@@ -32,6 +32,6 @@ class hintSpec
     (__ \ "id").readNullable[String] and
       (__ \ "classes").readWithDefault[String]("") and
       (__ \ "attributes").readWithDefault[Map[String, String]](Map.empty) and
-      readsContents
+      readsContent
   )(Hint.apply(_, _, _)(_))
 }

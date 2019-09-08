@@ -58,7 +58,7 @@
       hint(
         id = Some(hintId),
         classes = hintParams.classes,
-        attributes = hintParams.attributes)(hintParams.contents)
+        attributes = hintParams.attributes)(hintParams.content)
     (describedBy, hintHtml)
   }
 }
@@ -73,7 +73,7 @@
         classes = errorMessageParams.classes,
         attributes = errorMessageParams.attributes,
         visuallyHiddenText = errorMessageParams.visuallyHiddenText
-      )(errorMessageParams.contents)
+      )(errorMessageParams.content)
     (describedBy1, errorMessageHtml)
   }
 }
@@ -90,7 +90,7 @@
           labelParams =
             LabelParams(
               classes = "govuk-date-input__label",
-              contents = item.label.map(Text).getOrElse(Text(item.name.capitalize))
+              content = item.label.map(Text).getOrElse(Text(item.name.capitalize))
             ),
           classes = toClasses("govuk-date-input__input", item.classes),
           autocomplete = item.autocomplete,

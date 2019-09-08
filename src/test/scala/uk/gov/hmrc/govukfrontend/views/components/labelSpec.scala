@@ -42,6 +42,6 @@ class labelSpec
       (__ \ "isPageHeading").readWithDefault[Boolean](false) and
       (__ \ "classes").readWithDefault[String]("") and
       (__ \ "attributes").readWithDefault[Map[String, String]](Map.empty) and
-      readsContents
+      readsContent
   )(Label.apply(_, _, _, _)(_))
 }

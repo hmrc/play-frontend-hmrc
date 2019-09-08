@@ -18,7 +18,7 @@ package uk.gov.hmrc.govukfrontend.views.viewmodels.common
 
 import play.twirl.api.{Html, HtmlFormat}
 
-sealed trait Contents {
+sealed trait Content {
   def asHtml: Html
 
   def nonEmpty: Boolean = this match {
@@ -27,11 +27,11 @@ sealed trait Contents {
   }
 }
 
-case object Empty extends Contents {
+case object Empty extends Content {
   override def asHtml: Html = HtmlFormat.empty
 }
 
-final case class HtmlContent(value: Html) extends Contents {
+final case class HtmlContent(value: Html) extends Content {
   override def asHtml: Html = value
 }
 
@@ -45,7 +45,7 @@ object NonEmptyHtml {
     if (htmlContent.value.body.isEmpty) None else Some(htmlContent.value)
 }
 
-final case class Text(value: String) extends Contents {
+final case class Text(value: String) extends Content {
   override def asHtml: Html = HtmlFormat.escape(value)
 }
 

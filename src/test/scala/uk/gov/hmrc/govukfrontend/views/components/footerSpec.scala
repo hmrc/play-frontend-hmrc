@@ -60,7 +60,7 @@ class footerSpec
 
     "render custom meta text" in {
       val component =
-        Footer(meta = Some(FooterMeta(contents = Text("GOV.UK Prototype Kit <strong>v7.0.1</strong>"))))
+        Footer(meta = Some(FooterMeta(content = Text("GOV.UK Prototype Kit <strong>v7.0.1</strong>"))))
           .select(".govuk-footer")
       val custom = component.select(".govuk-footer__meta-custom")
       custom.text() shouldBe "GOV.UK Prototype Kit <strong>v7.0.1</strong>"
@@ -68,7 +68,7 @@ class footerSpec
 
     "render custom meta html" in {
       val component =
-        Footer(meta = Some(FooterMeta(contents = HtmlContent("GOV.UK Prototype Kit <strong>v7.0.1</strong>"))))
+        Footer(meta = Some(FooterMeta(content = HtmlContent("GOV.UK Prototype Kit <strong>v7.0.1</strong>"))))
           .select(".govuk-footer")
       val custom = component.select(".govuk-footer__meta-custom")
       custom.text() shouldBe "GOV.UK Prototype Kit v7.0.1"

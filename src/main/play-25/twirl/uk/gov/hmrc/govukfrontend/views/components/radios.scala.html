@@ -47,7 +47,7 @@
       hint(
         id = Some(hintId),
         classes = hintParams.classes,
-        attributes = hintParams.attributes)(hintParams.contents)
+        attributes = hintParams.attributes)(hintParams.content)
     (describedBy, hintHtml)
   }
 }
@@ -62,7 +62,7 @@
         classes = errorMessageParams.classes,
         attributes = errorMessageParams.attributes,
         visuallyHiddenText = errorMessageParams.visuallyHiddenText
-      )(errorMessageParams.contents)
+      )(errorMessageParams.content)
     (describedBy1, errorMessageHtml)
   }
 }
@@ -75,7 +75,7 @@
       @item.divider match {
         case Some(divider) => {<div class="govuk-radios__divider">@divider</div>}
         case None => {
-          @defining(item.hint.exists(_.contents.nonEmpty)) { hasHint =>
+          @defining(item.hint.exists(_.content.nonEmpty)) { hasHint =>
           @defining(s"$id-item-hint") { itemHintId =>
           @defining {
             @if(item.checked) { checked}
@@ -88,12 +88,12 @@
                   @label(
                     forAttr = Some(id),
                     classes = toClasses("govuk-radios__label", item.label.map(_.classes).getOrElse("")),
-                    attributes = item.label.map(_.attributes).getOrElse(Map.empty))(item.contents)
+                    attributes = item.label.map(_.attributes).getOrElse(Map.empty))(item.content)
                   @if(hasHint) {
                     @hint(
                       id = Some(itemHintId),
                       classes = "govuk-radios__hint",
-                      attributes = item.hint.map(_.attributes).getOrElse(Map.empty))(item.hint.map(_.contents).getOrElse(Empty))
+                      attributes = item.hint.map(_.attributes).getOrElse(Map.empty))(item.hint.map(_.content).getOrElse(Empty))
                   }
               </div>
               @item.conditionalHtml.map { conditionalHtml =>

@@ -17,10 +17,10 @@
 package uk.gov.hmrc.govukfrontend.views.viewmodels
 package errorsummary
 
-import common.{Contents, Empty}
+import common.{Content, Empty}
 
 case class ErrorLink(
   href: Option[String]            = None,
-  contents: Contents              = Empty,
+  content: Content              = Empty,
   attributes: Map[String, String] = Map.empty
 )

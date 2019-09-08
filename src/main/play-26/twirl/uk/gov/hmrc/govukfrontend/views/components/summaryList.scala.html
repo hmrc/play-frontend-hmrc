@@ -23,10 +23,10 @@
   @for(row <- rows) {
     <div class="@toClasses("govuk-summary-list__row", row.classes)">
       <dt class="@toClasses("govuk-summary-list__key", row.key.classes)">
-        @row.key.contents.asHtml
+        @row.key.content.asHtml
       </dt>
       <dd class="@toClasses("govuk-summary-list__value", row.value.classes)">
-        @row.value.contents.asHtml
+        @row.value.content.asHtml
       </dd>
       @if(row.actions.exists(_.items.length > 0)) {
         <dd class="@toClasses("govuk-summary-list__actions", row.actions.map(_.classes).getOrElse(""))">
@@ -55,9 +55,9 @@
 </dl>
 
 @actionLink(action: ActionItem) = {
-  <a class="@toClasses("govuk-link", action.classes)" href="@action.href"> @actionContents(action)</a>
+  <a class="@toClasses("govuk-link", action.classes)" href="@action.href"> @actionContent(action)</a>
 }
 
-@actionContents(action: ActionItem) = {@action.contents.asHtml@action.visuallyHiddenText.map { visuallyHiddenText =><span class="govuk-visually-hidden"> @visuallyHiddenText</span> }}
+@actionContent(action: ActionItem) = {@action.content.asHtml@action.visuallyHiddenText.map { visuallyHiddenText =><span class="govuk-visually-hidden"> @visuallyHiddenText</span> }}
 
 @anyRowHasActions = @{rows.exists(_.actions.exists(_.items.nonEmpty))}

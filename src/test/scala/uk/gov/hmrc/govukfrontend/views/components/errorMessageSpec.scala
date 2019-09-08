@@ -29,17 +29,17 @@ class errorMessageSpec extends RenderHtmlSpec(Seq("error-message-default")) {
     }
 
     "allow text to be passed whilst escaping HTML entities" in {
-      val contents = ErrorMessage.apply()(Text("Unexpected > in body")).select(".govuk-error-message").html.trim
-      contents should include("Unexpected &gt; in body")
+      val content = ErrorMessage.apply()(Text("Unexpected > in body")).select(".govuk-error-message").html.trim
+      content should include("Unexpected &gt; in body")
     }
 
     "allow summary HTML to be passed unescaped" in {
-      val contents = ErrorMessage
+      val content = ErrorMessage
         .apply()(HtmlContent("Unexpected <b>bold text</b> in body copy"))
         .select(".govuk-error-message")
         .html
         .trim
-      contents should include("Unexpected <b>bold text</b> in body copy")
+      content should include("Unexpected <b>bold text</b> in body copy")
     }
 
     "allow additional attributes to be specified" in {
@@ -77,7 +77,7 @@ class errorMessageSpec extends RenderHtmlSpec(Seq("error-message-default")) {
       (__ \ "classes").readWithDefault[String]("") and
       (__ \ "attributes").readWithDefault[Map[String, String]](Map.empty) and
       readsVisuallyHiddenText and
-      readsContents
+      readsContent
   )(ErrorMessage.apply(_, _, _, _)(_))
 
 }

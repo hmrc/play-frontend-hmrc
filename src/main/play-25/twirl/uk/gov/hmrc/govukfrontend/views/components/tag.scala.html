@@ -15,6 +15,6 @@
  *@
 
 @(classes: String = "",
-  attributes: Map[String, String] = Map.empty)(contents: Contents)<strong class="@toClasses("govuk-tag", classes)"@toAttributes(attributes)>
-  @contents.asHtml
+  attributes: Map[String, String] = Map.empty)(content: Content)<strong class="@toClasses("govuk-tag", classes)"@toAttributes(attributes)>
+  @content.asHtml
 </strong>

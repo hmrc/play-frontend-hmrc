@@ -25,17 +25,17 @@
       <div class="govuk-accordion__section-header">
         <h@headingLevel class="govuk-accordion__section-heading">
           <span class="govuk-accordion__section-button" id="@id-heading-@index">
-            @item.headingContents.asHtml
+            @item.headingContent.asHtml
           </span>
         </h@headingLevel>
-        @if(item.summaryContents.nonEmpty) {
+        @if(item.summaryContent.nonEmpty) {
           <div class="govuk-accordion__section-summary govuk-body" id="@id-summary-@index">
-            @item.summaryContents.asHtml
+            @item.summaryContent.asHtml
           </div>
         }
       </div>
       <div id="@id-content-@index" class="govuk-accordion__section-content" aria-labelledby="@id-heading-@index">
-        @item.contents.asHtml
+        @item.content.asHtml
       </div>
     </div>
   }

@@ -17,6 +17,6 @@
 package uk.gov.hmrc.govukfrontend.views.viewmodels
 package summarylist
 
-import common.{Contents, Empty}
+import common.{Content, Empty}
 
-case class Value(contents: Contents = Empty, classes: String = "")
+case class Value(content: Content = Empty, classes: String = "")

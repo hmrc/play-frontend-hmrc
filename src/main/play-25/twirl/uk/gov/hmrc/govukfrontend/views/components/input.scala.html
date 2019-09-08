@@ -34,7 +34,7 @@
     forAttr = Some(id),
     isPageHeading = labelParams.isPageHeading,
     classes = labelParams.classes,
-    attributes = labelParams.attributes)(labelParams.contents)
+    attributes = labelParams.attributes)(labelParams.content)
   @divSnippet
 </div>
 
@@ -47,7 +47,7 @@
      id = Some(hintId),
      classes = hintParams.classes,
      attributes = hintParams.attributes
-   )(hintParams.contents)
+   )(hintParams.content)
   (describedBy, hintHtml)
  }
 }
@@ -62,7 +62,7 @@
        classes = errorMessageParams.classes,
        attributes = errorMessageParams.attributes,
        visuallyHiddenText = errorMessageParams.visuallyHiddenText
-     )(errorMessageParams.contents)
+     )(errorMessageParams.content)
     (describedBy1, errorMessageHtml)
   }
 }

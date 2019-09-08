@@ -17,11 +17,11 @@
 package uk.gov.hmrc.govukfrontend.views.viewmodels
 package accordion
 
-import common.{Contents, Empty}
+import common.{Content, Empty}
 
 case class Section(
-  headingContents: Contents = Empty,
-  summaryContents: Contents = Empty,
-  contents: Contents,
+  headingContent: Content = Empty,
+  summaryContent: Content = Empty,
+  content: Content,
   expanded: Boolean = false
 )

@@ -17,10 +17,10 @@
 package uk.gov.hmrc.govukfrontend.views.viewmodels
 package breadcrumbs
 
-import common.{Contents, Empty}
+import common.{Content, Empty}
 
 case class Item(
-  contents: Contents              = Empty,
+  content: Content              = Empty,
   href: Option[String]            = None,
   attributes: Map[String, String] = Map.empty
 )

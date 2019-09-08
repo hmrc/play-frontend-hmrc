@@ -17,11 +17,11 @@
 package uk.gov.hmrc.govukfrontend.views.viewmodels
 package errormessage
 
-import common.Contents
+import common.Content
 
 case class ErrorMessageParams(
   classes: String                        = "",
   attributes: Map[String, String]        = Map.empty,
   visuallyHiddenText: VisuallyHiddenText = ShowText("Error"),
-  contents: Contents
+  content: Content
 )

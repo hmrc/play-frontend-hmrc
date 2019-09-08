@@ -16,6 +16,6 @@
 
 @(href: String,
   classes: String = "",
-  attributes: Map[String, String] = Map.empty)(contents: Contents)
+  attributes: Map[String, String] = Map.empty)(content: Content)
 @require(href.nonEmpty)
-<a href="@{"#content".?:(href)}" class="@toClasses("govuk-skip-link", classes)"@toAttributes(attributes)>@contents.asHtml</a>
+<a href="@{"#content".?:(href)}" class="@toClasses("govuk-skip-link", classes)"@toAttributes(attributes)>@content.asHtml</a>

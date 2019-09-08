@@ -28,11 +28,11 @@
 @(id: Option[String] = None,
   classes: String = "",
   attributes: Map[String, String] = Map.empty,
-  visuallyHiddenText: VisuallyHiddenText = ShowText("Error"))(contents: Contents)
+  visuallyHiddenText: VisuallyHiddenText = ShowText("Error"))(content: Content)
 <span @id.map {id => id="@id"} class="@toClasses("govuk-error-message", classes)"@toAttributes(attributes)>
  @visuallyHiddenText match {
    case ShowText(text) => {<span class="govuk-visually-hidden">@text:</span>}
    case HideText => {}
  }
- @contents.asHtml
+ @content.asHtml
 </span>

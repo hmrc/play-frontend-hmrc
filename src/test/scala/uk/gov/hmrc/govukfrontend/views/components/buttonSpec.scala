@@ -62,6 +62,6 @@ class buttonSpec
       (__ \ "classes").readWithDefault[String]("") and
       (__ \ "attributes").readWithDefault[Map[String, String]](Map.empty) and
       (__ \ "preventDoubleClick").readWithDefault[Boolean](false) and
-      readsContents
+      readsContent
   )(Button.apply(_, _, _, _, _, _, _, _, _)(_))
 }

@@ -94,7 +94,7 @@ class backLinkSpec
     (__ \ "href").read[String] and
       (__ \ "classes").readWithDefault[String]("") and
       (__ \ "attributes").readWithDefault[Map[String, String]](Map.empty) and
-      readsContents
+      readsContent
   )(BackLink.apply(_, _, _)(_))
 
 }

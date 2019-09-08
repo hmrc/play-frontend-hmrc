@@ -17,7 +17,7 @@
 @(id: Option[String] = None,
   open: Boolean = false,
   classes: String = "",
-  attributes: Map[String, String] = Map.empty)(summary: Contents)(contents: Contents)
+  attributes: Map[String, String] = Map.empty)(summary: Content)(content: Content)
 <details @id.map {id => id="@id"} class="@toClasses("govuk-details", classes)"@toAttributes(attributes) @if(open) {open}>
   <summary class="govuk-details__summary">
     <span class="govuk-details__summary-text">
@@ -25,6 +25,6 @@
     </span>
   </summary>
   <div class="govuk-details__text">
-    @contents.asHtml
+    @content.asHtml
   </div>
 </details>

@@ -25,8 +25,8 @@
   href: Option[String] = None,
   classes: String = "",
   attributes: Map[String, String] = Map.empty,
-  preventDoubleClick: Boolean = false)(contents: Contents)
-@require(!element.exists(_.toLowerCase == "input") || contents.isInstanceOf[Text])
+  preventDoubleClick: Boolean = false)(content: Content)
+@require(!element.exists(_.toLowerCase == "input") || content.isInstanceOf[Text])
 @elem = @{ element.fold(href.fold("button")(_ => "a"))(_.toLowerCase) }
 
 @commonAttributes = {
@@ -39,16 +39,16 @@
 
 @if(elem == "a") {
   <a href="@{"#".?:(href)}" role="button" draggable="false" @commonAttributes>
-    @contents.asHtml
+    @content.asHtml
   </a>
 } else {
   @if(elem == "button") {
     <button @value.map {value => value="@value"}@buttonAttributes @commonAttributes>
-      @contents.asHtml
+      @content.asHtml
     </button>
   } else {
     @if(elem == "input") {
-      <input value="@contents.asInstanceOf[Text].value"@buttonAttributes @commonAttributes>
+      <input value="@content.asInstanceOf[Text].value"@buttonAttributes @commonAttributes>
     }
   }
 }

@@ -17,11 +17,11 @@
 package uk.gov.hmrc.govukfrontend.views.viewmodels
 package hint
 
-import common.Contents
+import common.Content
 
 case class HintParams(
   id: Option[String]              = None,
   classes: String                 = "",
   attributes: Map[String, String] = Map.empty,
-  contents: Contents
+  content: Content
 )

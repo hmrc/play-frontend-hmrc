@@ -7,7 +7,7 @@
   legend =
     Some(
       Legend(
-        contents = Text("What is your address?"),
+        content = Text("What is your address?"),
         classes = "govuk-fieldset__legend--xl",
         isPageHeading = true
       )))(html)
@@ -16,24 +16,24 @@
   @input(
     id = "address-line-1",
     name = "address-line-1",
-    labelParams = LabelParams(contents = HtmlContent("""Building and street <span class="govuk-visually-hidden">line 1 of 2</span>""")))
+    labelParams = LabelParams(content = HtmlContent("""Building and street <span class="govuk-visually-hidden">line 1 of 2</span>""")))
   @input(
     id = "address-line-2",
     name = "address-line-2",
-    labelParams = LabelParams(contents = HtmlContent("""<span class="govuk-visually-hidden">Building and street line 2 of 2</span>""")))
+    labelParams = LabelParams(content = HtmlContent("""<span class="govuk-visually-hidden">Building and street line 2 of 2</span>""")))
   @input(
     id = "address-town",
     name = "address-town",
     classes = "govuk-!-width-two-thirds",
-    labelParams = LabelParams(contents = Text("Town or city")))
+    labelParams = LabelParams(content = Text("Town or city")))
   @input(
     id = "address-county",
     name = "address-county",
     classes = "govuk-!-width-two-thirds",
-    labelParams = LabelParams(contents = Text("County")))
+    labelParams = LabelParams(content = Text("County")))
   @input(
     id = "address-postcode",
     name = "address-postcode",
     classes = "govuk-input--width-10",
-    labelParams = LabelParams(contents = Text("Postcode")))
+    labelParams = LabelParams(content = Text("Postcode")))
 }

@@ -16,13 +16,13 @@
 
 @(tagParams: Option[TagParams] = None,
   classes: String = "",
-  attributes: Map[String, String] = Map.empty)(contents: Contents = Empty)
+  attributes: Map[String, String] = Map.empty)(content: Content = Empty)
 <div class="@toClasses("govuk-phase-banner", classes)"@toAttributes(attributes)>
     <p class="govuk-phase-banner__content">@tagParams.map { tagParams =>@tag(
-        toClasses("govuk-phase-banner__content__tag ", tagParams.classes))(tagParams.contents)
+        toClasses("govuk-phase-banner__content__tag ", tagParams.classes))(tagParams.content)
         }
         <span class="govuk-phase-banner__text">
-            @contents.asHtml
+            @content.asHtml
         </span>
     </p>
 </div>

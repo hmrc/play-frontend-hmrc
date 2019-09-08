@@ -23,9 +23,9 @@
     <legend class="@toClasses("govuk-fieldset__legend", legend.classes)">
       @if(legend.isPageHeading) {
         <h1 class="govuk-fieldset__heading">
-          @legend.contents.asHtml
+          @legend.content.asHtml
         </h1>
-      } else {@legend.contents.asHtml}
+      } else {@legend.content.asHtml}
     </legend>
   }
   @html

@@ -17,12 +17,12 @@
 @(forAttr: Option[String] = None,
   isPageHeading: Boolean = false,
   classes: String = "",
-  attributes: Map[String, String] = Map.empty)(contents: Contents)
-@contents match {
+  attributes: Map[String, String] = Map.empty)(content: Content)
+@content match {
   case NonEmptyHtml(_) | NonEmptyText(_) => {
       @defining {
         <label class="@toClasses("govuk-label", classes)"@toAttributes(attributes)@forAttr.map {forAttr => for="@forAttr"}>
-          @contents.asHtml
+          @content.asHtml
         </label>
       } { labelHtml =>
           @if(isPageHeading) {

@@ -17,13 +17,13 @@
 package uk.gov.hmrc.govukfrontend.views.viewmodels
 package radios
 
-import common.Contents
+import common.Content
 import hint.HintParams
 import label.LabelParams
 import play.twirl.api.Html
 
 case class RadioItem(
-  contents: Contents,
+  content: Content,
   id: Option[String]              = None,
   value: Option[String]           = None,
   label: Option[LabelParams]      = None,
