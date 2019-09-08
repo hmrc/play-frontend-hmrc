@@ -116,6 +116,10 @@ package object components extends Utils with Aliases {
   @deprecated("Use DI")
   val Select = new select(ErrorMessage, Hint, Label)
 
+  type InsetText = insetText
+  @deprecated("Use DI")
+  val InsetText = new insetText()
+
   type GovukTemplate = govukTemplate
   @deprecated("Use DI")
   lazy val GovukTemplate = new govukTemplate(Header, Footer, SkipLink)

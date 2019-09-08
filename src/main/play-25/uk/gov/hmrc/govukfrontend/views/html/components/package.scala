@@ -68,5 +68,7 @@ package object components extends Utils with Aliases {
 
   lazy val Select = select
 
+  lazy val InsetText = insetText
+
   lazy val GovukTemplate = govukTemplate
 }
