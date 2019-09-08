@@ -213,5 +213,13 @@ trait ReadsHelpers {
       (__ \ "conditional" \ "html").readNullable[String].map(_.map(Html(_))).orElse(Reads.pure(None)) and
       (__ \ "disabled").readWithDefault[Boolean](false) and
       (__ \ "attributes").readWithDefault[Map[String, String]](Map.empty)
-    )(CheckboxItem.apply _)
+  )(CheckboxItem.apply _)
+
+  implicit val readsSelectItem: Reads[SelectItem] = (
+    (__ \ "value").readsJsValueToString.map(_.toOption) and
+      (__ \ "text").read[String] and
+      (__ \ "selected").readWithDefault[Boolean](false) and
+      (__ \ "disabled").readWithDefault[Boolean](false) and
+      (__ \ "attributes").readWithDefault[Map[String, String]](Map.empty)
+  )(SelectItem.apply _)
 }

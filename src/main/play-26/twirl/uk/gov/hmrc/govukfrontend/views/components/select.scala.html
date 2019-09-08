@@ -1,0 +1,88 @@
+@*
+ * Copyright 2019 HM Revenue & Customs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *@
+
+@this(errorMessage: errorMessage, hint: hint, label: label)
+
+@(id: String,
+  name: String,
+  items: Seq[SelectItem] = Nil,
+  labelParams: LabelParams,
+  hintParams: Option[HintParams] = None,
+  errorMessageParams: Option[ErrorMessageParams] = None,
+  formGroupClasses: String = "",
+  classes: String = "",
+  attributes: Map[String, String] = Map.empty)
+@require(name.nonEmpty && id.nonEmpty)
+<div class="@toClasses("govuk-form-group", errorMessageParams.fold("")(_ => "govuk-form-group--error"), formGroupClasses)">
+  @label(
+    forAttr = Some(id),
+    isPageHeading = labelParams.isPageHeading,
+    classes = labelParams.classes,
+    attributes = labelParams.attributes
+  )(labelParams.content)
+  @divSnippet
+</div>
+
+@* FIXME extract to common snippets package *@
+@hintSnippet = @{
+ hintParams.fold(("", HtmlFormat.empty)) { hintParams =>
+   val hintId = s"$id-hint"
+   val describedBy = hintId
+   val hintHtml =
+   hint(
+     id = Some(hintId),
+     classes = hintParams.classes,
+     attributes = hintParams.attributes
+   )(hintParams.content)
+  (describedBy, hintHtml)
+ }
+}
+
+@* FIXME extract to common snippets package *@
+@errorMessageSnippet(describedBy: String) = @{
+  errorMessageParams.fold((describedBy, HtmlFormat.empty)) { errorMessageParams =>
+    val errorId = s"$id-error"
+    val describedBy1 = if (describedBy.nonEmpty) s"$describedBy $errorId" else errorId
+    val errorMessageHtml =
+     errorMessage(
+       id = Some(errorId),
+       classes = errorMessageParams.classes,
+       attributes = errorMessageParams.attributes,
+       visuallyHiddenText = errorMessageParams.visuallyHiddenText
+     )(errorMessageParams.content)
+    (describedBy1, errorMessageHtml)
+  }
+}
+
+@selectSnippet(describedBy: String) = {
+  @defining {
+    id="@id" name="@name" @describedBy.toOption.map { describedBy => aria-describedby="@describedBy"}@toAttributes(attributes)
+  } { attrs =>
+      <select class="@toClasses("govuk-select", classes, errorMessageParams.fold("")(_ => "govuk-select--error"))" @attrs>
+        @for(item <- items) {
+          <option value="@item.value"@if(item.selected) { selected}@if(item.disabled) { disabled}@toAttributes(item.attributes)>@HtmlFormat.escape(item.text)</option>
+        }
+      </select>
+  }
+}
+
+@divSnippet = @{
+  val (describedBy, hintHtml) = hintSnippet
+  val (describedBy1, errorMessageHtml) = errorMessageSnippet(describedBy)
+  val selectHtml = selectSnippet(describedBy1)
+  HtmlFormat.fill(collection.immutable.Seq(hintHtml, errorMessageHtml, selectHtml))
+}
+

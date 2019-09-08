@@ -112,6 +112,10 @@ package object components extends Utils with Aliases {
   @deprecated("Use DI")
   val Checkboxes = new checkboxes(ErrorMessage, Fieldset, Hint, Label)
 
+  type Select = select
+  @deprecated("Use DI")
+  val Select = new select(ErrorMessage, Hint, Label)
+
   type GovukTemplate = govukTemplate
   @deprecated("Use DI")
   lazy val GovukTemplate = new govukTemplate(Header, Footer, SkipLink)

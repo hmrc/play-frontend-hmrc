@@ -103,6 +103,9 @@ trait Aliases {
 
   type CheckboxItem = viewmodels.checkboxes.CheckboxItem
   val CheckboxItem = viewmodels.checkboxes.CheckboxItem
+
+  type SelectItem = viewmodels.select.SelectItem
+  val SelectItem = viewmodels.select.SelectItem
 }
 
 object Aliases extends Aliases

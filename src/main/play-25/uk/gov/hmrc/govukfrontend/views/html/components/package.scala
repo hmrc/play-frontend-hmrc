@@ -66,5 +66,7 @@ package object components extends Utils with Aliases {
 
   lazy val Checkboxes = checkboxes
 
+  lazy val Select = select
+
   lazy val GovukTemplate = govukTemplate
 }

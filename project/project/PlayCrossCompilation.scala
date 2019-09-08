@@ -2,7 +2,7 @@
 import uk.gov.hmrc.playcrosscompilation.AbstractPlayCrossCompilation
 import uk.gov.hmrc.playcrosscompilation.PlayVersion._
 
-object PlayCrossCompilation extends AbstractPlayCrossCompilation(defaultPlayVersion = Play26) {
+object PlayCrossCompilation extends AbstractPlayCrossCompilation(defaultPlayVersion = Play25) {
   val playRevision = PlayCrossCompilation.playVersion match {
     case Play25 => "2.5.19"
     case Play26 => "2.6.23"

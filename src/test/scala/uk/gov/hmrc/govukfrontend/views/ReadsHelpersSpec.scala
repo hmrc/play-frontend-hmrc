@@ -57,7 +57,7 @@ class ReadsHelpersSpec
           isPageHeading = true,
           classes       = "class1 class2",
           attributes    = Map("attr1" -> "val1", "attr2" -> "val2"),
-          content      = HtmlContent("<p>a paragraph</p>")
+          content       = HtmlContent("<p>a paragraph</p>")
         ))
     }
   }

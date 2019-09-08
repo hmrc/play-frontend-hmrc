@@ -29,7 +29,7 @@ trait Utils {
 
   implicit class RichString(s: String) {
     def toOption: Option[String] =
-      if (s.nonEmpty) Some(s) else None
+      if (s == null || s.isEmpty) None else Some(s)
   }
 
   // FIXME: check if we need to escape classes like [[toHtmlArgs]] does for attribute values
