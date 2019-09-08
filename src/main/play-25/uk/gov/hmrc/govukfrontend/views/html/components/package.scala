@@ -70,5 +70,7 @@ package object components extends Utils with Aliases {
 
   lazy val InsetText = insetText
 
+  lazy val WarningText = warningText
+
   lazy val GovukTemplate = govukTemplate
 }
