@@ -14,11 +14,15 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.govukfrontend.views.html
-
-import uk.gov.hmrc.govukfrontend.views.{Aliases, Utils}
+package uk.gov.hmrc.govukfrontend.views
+package html
 
 package object components extends Utils with Aliases {
+
+  /**
+    * Top-level implicits for all components
+    */
+  object implicits extends Implicits
 
   type BackLink = backLink
   @deprecated("Use DI")

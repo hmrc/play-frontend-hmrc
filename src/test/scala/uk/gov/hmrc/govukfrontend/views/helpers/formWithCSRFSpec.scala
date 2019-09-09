@@ -17,27 +17,14 @@
 package uk.gov.hmrc.govukfrontend.views.helpers
 
 import org.scalatest.{Matchers, WordSpec}
-import play.api.{Configuration, Environment}
-import play.api.http.HttpConfiguration
-import play.api.i18n.{DefaultLangsProvider, DefaultMessagesApiProvider, Messages}
 import play.api.mvc.Call
-import play.api.test.FakeRequest
 import play.twirl.api.HtmlFormat
 import uk.gov.hmrc.govukfrontend.views.html.helpers._
-import play.api.test.CSRFTokenHelper._
-import uk.gov.hmrc.govukfrontend.views.JsoupHelpers
+import uk.gov.hmrc.govukfrontend.views.{JsoupHelpers, MessagesHelpers}
 
-class formWithCSRFSpec extends WordSpec with Matchers with JsoupHelpers {
+class formWithCSRFSpec extends WordSpec with Matchers with JsoupHelpers with MessagesHelpers with CSRFSpec {
   "formWithCSRF" should {
     "add a CSRF token as a hidden field in the form" in {
-      val conf                        = Configuration.reference
-      val langs                       = new DefaultLangsProvider(conf).get
-      val httpConfiguration           = HttpConfiguration.fromConfiguration(conf, Environment.simple())
-      val messagesApi                 = new DefaultMessagesApiProvider(Environment.simple(), conf, langs, httpConfiguration).get
-      implicit val messages: Messages = messagesApi.preferred(Seq.empty)
-
-      implicit val request = FakeRequest().withCSRFToken
-
       val rendered = FormWithCSRF.apply(Call("GET", "/someUrl"))(HtmlFormat.empty)
 
       rendered.select("input").attr("type") shouldBe "hidden"

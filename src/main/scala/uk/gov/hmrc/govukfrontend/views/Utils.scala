@@ -17,20 +17,10 @@
 package uk.gov.hmrc.govukfrontend.views
 
 import play.api.templates.PlayMagic.toHtmlArgs
-import play.twirl.api.{Html, HtmlFormat}
+import play.twirl.api.Html
+import html.components.implicits._
 
 trait Utils {
-  implicit class RichHtml(html: Html) {
-    def padLeft(padCount: Int = 1, padding: String = " "): Html = {
-      val padStr = " " * (if (html.body.isEmpty) 0 else padCount)
-      HtmlFormat.fill(collection.immutable.Seq(Html(padStr), html))
-    }
-  }
-
-  implicit class RichString(s: String) {
-    def toOption: Option[String] =
-      if (s == null || s.isEmpty) None else Some(s)
-  }
 
   // FIXME: check if we need to escape classes like [[toHtmlArgs]] does for attribute values
   // https://cheatsheetseries.owasp.org/cheatsheets/Cross_Site_Scripting_Prevention_Cheat_Sheet.html

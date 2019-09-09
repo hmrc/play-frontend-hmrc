@@ -109,7 +109,8 @@ lazy val templateImports: Seq[String] = {
     "play.api.mvc._",
     "play.api.data._",
     "play.api.i18n._",
-    "play.api.templates.PlayMagic._"
+    "play.api.templates.PlayMagic._",
+    "uk.gov.hmrc.govukfrontend.views.html.components.implicits._"
   )
 
   val specificImports = PlayCrossCompilation.playVersion match {

@@ -60,18 +60,6 @@ class UtilsSpec extends WordSpec with Matchers with PropertyChecks with NoShrink
     }
   }
 
-  "padLeft" should {
-    "add left padding to non-empty HTML" in {
-      forAll(htmlGen, Gen.chooseNum(0, 5)) { (html, padCount) =>
-        (html, padCount) match {
-          case (HtmlExtractor(""), n)      => html.padLeft(n)              shouldBe HtmlFormat.empty
-          case (HtmlExtractor(content), 0) => html.padLeft(0).body         shouldBe content
-          case (HtmlExtractor(content), n) => html.padLeft(n).body.drop(1) shouldBe html.padLeft(n - 1).body
-        }
-      }
-    }
-  }
-
   object Generators {
     val attrValGen: Gen[(String, String)] = for {
       attr  <- Gen.alphaStr.suchThat(_.trim.nonEmpty)
@@ -82,12 +70,5 @@ class UtilsSpec extends WordSpec with Matchers with PropertyChecks with NoShrink
       sz         <- Gen.choose(0, 10)
       attributes <- Gen.mapOfN[String, String](sz, attrValGen)
     } yield attributes
-
-    val htmlGen: Gen[Html] = Gen.alphaStr.map(Html(_))
-  }
-
-  object HtmlExtractor {
-    def unapply(html: Html): Option[String] =
-      Some(html.body)
   }
 }

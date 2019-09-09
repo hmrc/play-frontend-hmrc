@@ -16,25 +16,32 @@
 
 package uk.gov.hmrc.govukfrontend.views.helpers
 
+import org.scalatest.WordSpec
+import org.scalatestplus.play.OneAppPerTest
 import play.api.Application
+import play.api.mvc.RequestHeader
 import play.api.test.FakeRequest
 import play.filters.csrf.CSRF.Token
 import play.filters.csrf.{CSRFConfigProvider, CSRFFilter}
 
-trait CSRFSpec {
-  def addToken[T](fakeRequest: FakeRequest[T])(implicit app: Application) = {
-    val csrfConfig = app.injector.instanceOf[CSRFConfigProvider].get
-    val csrfFilter = app.injector.instanceOf[CSRFFilter]
-    val token      = csrfFilter.tokenProvider.generateToken
+trait CSRFSpec extends WordSpec with OneAppPerTest {
+  implicit class RichFakeRequest[T](fakeRequest: FakeRequest[T])(implicit app: Application) {
+    def withCSRFToken: RequestHeader = {
+      val csrfConfig = app.injector.instanceOf[CSRFConfigProvider].get
+      val csrfFilter = app.injector.instanceOf[CSRFFilter]
+      val token      = csrfFilter.tokenProvider.generateToken
 
-    fakeRequest
-      .copyFakeRequest(
-        tags =
-          fakeRequest.tags ++
-            Map(
-              Token.NameRequestTag -> csrfConfig.tokenName,
-              Token.RequestTag     -> token
-            ))
-      .withHeaders((csrfConfig.headerName, token))
+      fakeRequest
+        .copyFakeRequest(
+          tags =
+            fakeRequest.tags ++
+              Map(
+                Token.NameRequestTag -> csrfConfig.tokenName,
+                Token.RequestTag     -> token
+              ))
+        .withHeaders((csrfConfig.headerName, token))
+    }
   }
+
+  implicit lazy val request = FakeRequest().withCSRFToken
 }
