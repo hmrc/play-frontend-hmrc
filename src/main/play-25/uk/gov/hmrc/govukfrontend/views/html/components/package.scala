@@ -76,5 +76,7 @@ package object components extends Utils with Aliases {
 
   lazy val WarningText = warningText
 
+  lazy val Panel = panel
+
   lazy val GovukTemplate = govukTemplate
 }

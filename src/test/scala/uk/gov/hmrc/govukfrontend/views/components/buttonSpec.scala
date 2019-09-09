@@ -48,8 +48,6 @@ class buttonSpec
       component.first.tagName shouldBe "button"
       component.text          should include("Save and continue")
     }
-
-    "render with attributes" in pending
   }
 
   override implicit val reads: Reads[Html] = (
