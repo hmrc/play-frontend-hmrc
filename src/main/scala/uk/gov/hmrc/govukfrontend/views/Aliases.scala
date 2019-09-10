@@ -112,6 +112,12 @@ trait Aliases {
 
   type HeadCell = viewmodels.table.HeadCell
   val HeadCell = viewmodels.table.HeadCell
+
+  type TabItem = viewmodels.tabs.TabItem
+  val TabItem = viewmodels.tabs.TabItem
+
+  type TabPanel = viewmodels.tabs.TabPanel
+  val TabPanel = viewmodels.tabs.TabPanel
 }
 
 object Aliases extends Aliases

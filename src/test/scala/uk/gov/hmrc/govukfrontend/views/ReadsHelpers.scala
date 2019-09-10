@@ -241,4 +241,16 @@ trait ReadsHelpers {
       (__ \ "rowspan").readNullable[Int] and
       (__ \ "attributes").readWithDefault[Map[String, String]](Map.empty)
   )(HeadCell.apply _)
+
+  implicit val readsTabPanel: Reads[TabPanel] = (
+    readsContent and
+      (__ \ "attributes").readWithDefault[Map[String, String]](Map.empty)
+  )(TabPanel.apply _)
+
+  implicit val readsTabItem: Reads[TabItem] = (
+    (__ \ "id").readNullable[String] and
+      (__ \ "label").read[String] and
+      (__ \ "attributes").readWithDefault[Map[String, String]](Map.empty) and
+      (__ \ "panel").read[TabPanel]
+  )(TabItem.apply _)
 }

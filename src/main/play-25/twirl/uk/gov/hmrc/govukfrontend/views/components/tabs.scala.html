@@ -1,0 +1,49 @@
+@*
+ * Copyright 2019 HM Revenue & Customs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *@
+
+@(id: Option[String] = None,
+  idPrefix: Option[String] = None,
+  title: String = "Contents",
+  items: Seq[TabItem] = Nil,
+  classes: String = "",
+  attributes: Map[String, String] = Map.empty)
+<div@id.map {id => id="@id"} class="@toClasses("govuk-tabs", classes)"@toAttributes(attributes) data-module="tabs">
+  <h2 class="govuk-tabs__title">
+    @HtmlFormat.escape(title)
+  </h2>
+
+  @if(items.nonEmpty) {
+    <ul class="govuk-tabs__list">
+      @for((item, index) <- items.zip(Stream from 1)) {
+        <li class="govuk-tabs__list-item">
+          <a class="@toClasses("govuk-tabs__tab", "govuk-tabs__tab--selected".when(index == 1))" href="#@itemId(item, index)"@toAttributes(item.attributes)>
+            @HtmlFormat.escape(item.label)
+          </a>
+        </li>
+      }
+    </ul>
+  }
+
+  @for((item, index) <- items.zip(Stream from 1)) {
+    <section class="@toClasses("govuk-tabs__panel", "govuk-tabs__panel--hidden".when(index > 1))" id="@itemId(item, index)"@toAttributes(item.panel.attributes)>
+      @item.panel.content.asHtml
+    </section>
+  }
+</div>
+
+@idPrefixStr = @{ idPrefix.filter(_.nonEmpty).getOrElse("undefined") }
+
+@itemId(item: TabItem, index: Int) = @{ item.id.getOrElse(s"$idPrefixStr-$index") }
