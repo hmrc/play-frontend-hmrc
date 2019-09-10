@@ -77,8 +77,8 @@ trait Aliases {
   type ErrorMessageParams = viewmodels.errormessage.ErrorMessageParams
   val ErrorMessageParams = viewmodels.errormessage.ErrorMessageParams
 
-  type Row = viewmodels.summarylist.Row
-  val Row = viewmodels.summarylist.Row
+  type SummaryListRow = viewmodels.summarylist.Row
+  val SummaryListRow = viewmodels.summarylist.Row
 
   type Key = viewmodels.summarylist.Key
   val Key = viewmodels.summarylist.Key
@@ -106,6 +106,12 @@ trait Aliases {
 
   type SelectItem = viewmodels.select.SelectItem
   val SelectItem = viewmodels.select.SelectItem
+
+  type TableRow = viewmodels.table.Row
+  val TableRow = viewmodels.table.Row
+
+  type HeadCell = viewmodels.table.HeadCell
+  val HeadCell = viewmodels.table.HeadCell
 }
 
 object Aliases extends Aliases

@@ -21,23 +21,21 @@ import play.api.libs.json._
 import play.twirl.api.Html
 import uk.gov.hmrc.govukfrontend.views.html.components._
 
-class summaryListSpec
+class tableSpec
     extends RenderHtmlSpec(
       Seq(
-        "summary-list-default",
-        "summary-list-check-your-answers",
-        "summary-list-extreme",
-        "summary-list-no-border",
-        "summary-list-no-border-on-last-row",
-        "summary-list-overridden-widths",
-        "summary-list-with-some-actions",
-        "summary-list-without-actions"
+        "table-default",
+        "table-table-with-head",
+        "table-table-with-head-and-caption"
       )
     ) {
-
   override implicit val reads: Reads[Html] = (
-    (__ \ "rows").read[Seq[SummaryListRow]] and
+    (__ \ "rows").readWithDefault[Seq[Seq[TableRow]]](Nil) and
+      (__ \ "head").readWithDefault[Seq[HeadCell]](Nil) and
+      (__ \ "caption").readNullable[String] and
+      (__ \ "captionClasses").readWithDefault[String]("") and
+      (__ \ "firstCellIsHeader").readWithDefault[Boolean](false) and
       (__ \ "classes").readWithDefault[String]("") and
       (__ \ "attributes").readWithDefault[Map[String, String]](Map.empty)
-  )(SummaryList.apply _)
+  )(Table.apply _)
 }

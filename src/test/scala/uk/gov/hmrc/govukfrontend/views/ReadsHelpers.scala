@@ -174,8 +174,8 @@ trait ReadsHelpers {
   implicit val readsActions: Reads[Actions] =
     Json.using[Json.WithDefaultValues].reads[Actions]
 
-  implicit val readsRow: Reads[Row] =
-    Json.using[Json.WithDefaultValues].reads[Row]
+  implicit val readsRow: Reads[SummaryListRow] =
+    Json.using[Json.WithDefaultValues].reads[SummaryListRow]
 
   implicit val readsRegex: Reads[Regex] = new Reads[Regex] {
     override def reads(json: JsValue): JsResult[Regex] = json match {
@@ -223,4 +223,22 @@ trait ReadsHelpers {
       (__ \ "disabled").readWithDefault[Boolean](false) and
       (__ \ "attributes").readWithDefault[Map[String, String]](Map.empty)
   )(SelectItem.apply _)
+
+  implicit val readsTableRow: Reads[TableRow] = (
+    readsContent and
+      (__ \ "format").readNullable[String] and
+      (__ \ "classes").readWithDefault[String]("") and
+      (__ \ "colspan").readNullable[Int] and
+      (__ \ "rowspan").readNullable[Int] and
+      (__ \ "attributes").readWithDefault[Map[String, String]](Map.empty)
+  )(TableRow.apply _)
+
+  implicit val readsHeadCell: Reads[HeadCell] = (
+    readsContent and
+      (__ \ "format").readNullable[String] and
+      (__ \ "classes").readWithDefault[String]("") and
+      (__ \ "colspan").readNullable[Int] and
+      (__ \ "rowspan").readNullable[Int] and
+      (__ \ "attributes").readWithDefault[Map[String, String]](Map.empty)
+  )(HeadCell.apply _)
 }

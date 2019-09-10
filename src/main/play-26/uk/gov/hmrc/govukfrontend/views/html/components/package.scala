@@ -132,6 +132,10 @@ package object components extends Utils with Aliases {
   @deprecated("Use DI")
   val Panel = new panel()
 
+  type Table = table
+  @deprecated("Use DI")
+  val Table = new table()
+
   type GovukTemplate = govukTemplate
   @deprecated("Use DI")
   lazy val GovukTemplate = new govukTemplate(Header, Footer, SkipLink)

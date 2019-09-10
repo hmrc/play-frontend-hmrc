@@ -41,7 +41,11 @@ class CrossCompiledTemplatesSpec extends WordSpec with Matchers {
 
     s"Cross-compiled template $templateFile" should {
       s"be in sync with template $otherTemplateFile" in {
-        loadTemplate(File(templateFile.getAbsolutePath)) shouldBe loadTemplate(otherTemplateFile)
+        if (otherTemplateFile.exists) {
+          loadTemplate(File(templateFile.getAbsolutePath)) shouldBe loadTemplate(otherTemplateFile)
+        } else {
+          fail(s"Template $otherTemplateFile not implemented yet")
+        }
       }
     }
 

@@ -1,0 +1,58 @@
+@*
+ * Copyright 2019 HM Revenue & Customs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *@
+
+@(rows: Seq[Seq[TableRow]] = Nil,
+  head: Seq[HeadCell] = Nil,
+  caption: Option[String] = None,
+  captionClasses: String = "",
+  firstCellIsHeader: Boolean = false,
+  classes: String = "",
+  attributes: Map[String, String] = Map.empty)
+<table class="@toClasses("govuk-table", classes)"@toAttributes(attributes)>
+  @caption.map { caption =>
+    <caption class="@toClasses("govuk-table__caption", captionClasses)">@caption</caption>
+  }
+  @if(head.nonEmpty) {
+    <thead class="govuk-table__head">
+     <tr class="govuk-table__row">
+       @for(item <- head) {
+         <th class="@toClasses("govuk-table__header", item.format.fold(""){ itemFormat => s"govuk-table__header--$itemFormat"}, item.classes)"@headItemAttrs(item)>@item.content.asHtml</th>
+       }
+     </tr>
+    </thead>
+  }
+  <tbody class="govuk-table__body">
+    @for(row <- rows) {
+      <tr class="govuk-table__row">
+        @for((cell, index) <- row.zip(Stream from 0)) {
+          @if(index == 0 && firstCellIsHeader) {
+            <th class="govuk-table__header" scope="row">@cell.content.asHtml</th>
+          } else {
+            <td class="@toClasses("govuk-table__cell", cell.format.fold(""){ cellFormat => s"govuk-table__cell--$cellFormat"}, cell.classes)"@cellAttrs(cell)>@cell.content.asHtml</td>
+          }
+        }
+      </tr>
+    }
+  </tbody>
+</table>
+
+@headItemAttrs(item: HeadCell) = {
+  @item.colspan.map { colspan => colspan="@colspan"}@item.rowspan.map { rowspan => rowspan="@rowspan"}@toAttributes(item.attributes) scope="col"
+}
+
+@cellAttrs(cell: TableRow) = {
+  @cell.colspan.map { colspan => colspan="@colspan"}@cell.rowspan.map { rowspan => rowspan="@rowspan"}@toAttributes(cell.attributes)
+}

@@ -78,5 +78,7 @@ package object components extends Utils with Aliases {
 
   lazy val Panel = panel
 
+  lazy val Table = table
+
   lazy val GovukTemplate = govukTemplate
 }
