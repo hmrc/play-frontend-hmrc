@@ -22,12 +22,12 @@ import org.scalatestplus.play.guice.GuiceOneAppPerTest
 import play.api.Application
 import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.mvc._
-import play.api.test.Helpers.{GET => GET_REQUEST, _}
+import play.api.test.Helpers._
 import play.api.test._
 
 class AssetsSpec extends PlaySpec with Results with GuiceOneAppPerTest {
 
-  implicit override def newAppForTest(testData: TestData): Application =
+  override def newAppForTest(testData: TestData): Application =
     new GuiceApplicationBuilder()
       .configure(testData.configMap ++ Map("play.http.router" -> "govuk.Routes"))
       .build()
