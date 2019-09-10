@@ -29,11 +29,24 @@ trait Implicits {
       val padStr = " " * (if (html.body.isEmpty) 0 else padCount)
       HtmlFormat.fill(collection.immutable.Seq(Html(padStr), html))
     }
+
+    def trim: Html =
+      Html(html.toString.trim)
+
+    def ltrim: Html =
+      Html(html.toString.ltrim)
+
+    def rtrim: Html =
+      Html(html.toString.rtrim)
   }
 
   implicit class RichString(s: String) {
     def toOption: Option[String] =
       if (s == null || s.isEmpty) None else Some(s)
+
+    def ltrim = s.replaceAll("^\\s+", "")
+
+    def rtrim = s.replaceAll("\\s+$", "")
   }
 
   implicit class RichFormErrors(errors: Seq[FormError])(implicit messages: Messages) {

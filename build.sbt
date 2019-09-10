@@ -50,7 +50,11 @@ lazy val root = Project(libName, file("."))
       else InjectedRoutesGenerator
     },
     HeaderKey.excludes += "fixtures/*/*/*.html",
-    unmanagedResourceDirectories in Test ++= Seq(baseDirectory(_ / "target/web/public/test").value)
+    unmanagedResourceDirectories in Test ++= Seq(baseDirectory(_ / "target/web/public/test").value),
+    buildInfoKeys ++= Seq[BuildInfoKey](
+      "playVersion" -> PlayCrossCompilation.playVersion,
+      sources in (Compile, TwirlKeys.compileTemplates)
+    )
   )
 
 lazy val libDependencies: Seq[ModuleID] = dependencies(
@@ -70,7 +74,8 @@ lazy val libDependencies: Seq[ModuleID] = dependencies(
       "org.jsoup"                     % "jsoup"          % "1.11.3",
       "com.typesafe.play"             %% "play-test"     % playRevision,
       "org.scalacheck"                %% "scalacheck"    % "1.14.0",
-      "com.googlecode.htmlcompressor" % "htmlcompressor" % "1.5.2"
+      "com.googlecode.htmlcompressor" % "htmlcompressor" % "1.5.2",
+      "com.github.pathikrit"          %% "better-files"  % "3.8.0"
     ).map(_ % Test)
 
     compile ++ test
