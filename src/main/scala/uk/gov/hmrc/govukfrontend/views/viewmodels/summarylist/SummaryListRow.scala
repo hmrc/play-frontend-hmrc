@@ -14,11 +14,12 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.govukfrontend.views.viewmodels.header
+package uk.gov.hmrc.govukfrontend.views.viewmodels
+package summarylist
 
-case class Navigation(
-  text: Option[String]            = None,
-  href: Option[String]            = None,
-  active: Boolean                 = false,
-  attributes: Map[String, String] = Map.empty
+case class SummaryListRow(
+  key: Key,
+  value: Value,
+  classes: String          = "",
+  actions: Option[Actions] = None
 )

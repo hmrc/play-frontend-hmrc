@@ -21,5 +21,5 @@ import common.{Content, Empty}
 
 case class Meta(
   content: Content = Empty,
-  items: Seq[Item]   = Nil
+  items: Seq[FooterItem]   = Nil
 )

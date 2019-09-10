@@ -84,12 +84,12 @@ class ReadsHelpersSpec
           |    }""".stripMargin
       )
 
-      json.validate[Row] shouldBe JsSuccess(
-        Row(
+      json.validate[SummaryListRow] shouldBe JsSuccess(
+        SummaryListRow(
           key   = Key(content   = Text("Previous application number")),
           value = Value(content = Text("502135326")),
           actions = Some(Actions(items =
-            Seq(Item(href = "#", content = Text("Change"), visuallyHiddenText = Some("previous application number")))))
+            Seq(SummaryListItem(href = "#", content = Text("Change"), visuallyHiddenText = Some("previous application number")))))
         )
       )
     }

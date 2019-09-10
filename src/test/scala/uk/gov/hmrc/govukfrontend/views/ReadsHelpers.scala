@@ -80,10 +80,10 @@ trait ReadsHelpers {
       (__ \ "attributes").readWithDefault[Map[String, String]](Map.empty)
   )(FooterItem.apply _)
 
-  implicit val readsFooterMeta: Reads[FooterMeta] = (
+  implicit val readsFooterMeta: Reads[Meta] = (
     readsContent and
       (__ \ "items").readWithDefault[Seq[FooterItem]](Nil)
-  )(FooterMeta.apply _)
+  )(Meta.apply _)
 
   implicit val readsFooterNavigation: Reads[FooterNavigation] =
     Json.using[Json.WithDefaultValues].reads[FooterNavigation]

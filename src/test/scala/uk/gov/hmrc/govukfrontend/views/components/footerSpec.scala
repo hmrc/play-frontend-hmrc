@@ -60,7 +60,7 @@ class footerSpec
 
     "render custom meta text" in {
       val component =
-        Footer(meta = Some(FooterMeta(content = Text("GOV.UK Prototype Kit <strong>v7.0.1</strong>"))))
+        Footer(meta = Some(Meta(content = Text("GOV.UK Prototype Kit <strong>v7.0.1</strong>"))))
           .select(".govuk-footer")
       val custom = component.select(".govuk-footer__meta-custom")
       custom.text() shouldBe "GOV.UK Prototype Kit <strong>v7.0.1</strong>"
@@ -68,7 +68,7 @@ class footerSpec
 
     "render custom meta html" in {
       val component =
-        Footer(meta = Some(FooterMeta(content = HtmlContent("GOV.UK Prototype Kit <strong>v7.0.1</strong>"))))
+        Footer(meta = Some(Meta(content = HtmlContent("GOV.UK Prototype Kit <strong>v7.0.1</strong>"))))
           .select(".govuk-footer")
       val custom = component.select(".govuk-footer__meta-custom")
       custom.text() shouldBe "GOV.UK Prototype Kit v7.0.1"
@@ -82,7 +82,7 @@ class footerSpec
           attributes = Map("data-attribute" -> "my-attribute", "data-attribute-2" -> "my-attribute-2")))
 
       val metaLink =
-        Footer(meta = Some(FooterMeta(items = items))).select(".govuk-footer__meta .govuk-footer__link")
+        Footer(meta = Some(Meta(items = items))).select(".govuk-footer__meta .govuk-footer__link")
       metaLink.attr("data-attribute")   shouldBe "my-attribute"
       metaLink.attr("data-attribute-2") shouldBe "my-attribute-2"
     }
@@ -102,7 +102,7 @@ class footerSpec
   }
 
   override implicit val reads: Reads[Html] = (
-    (__ \ "meta").readNullable[FooterMeta] and
+    (__ \ "meta").readNullable[Meta] and
       (__ \ "navigation").readWithDefault[Seq[FooterNavigation]](Nil) and
       (__ \ "containerClasses").readWithDefault[String]("") and
       (__ \ "classes").readWithDefault[String]("") and

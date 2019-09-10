@@ -14,10 +14,11 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.govukfrontend.views.viewmodels.footer
+package uk.gov.hmrc.govukfrontend.views.viewmodels.header
 
-case class Item(
+case class HeaderNavigation(
   text: Option[String]            = None,
   href: Option[String]            = None,
+  active: Boolean                 = false,
   attributes: Map[String, String] = Map.empty
 )

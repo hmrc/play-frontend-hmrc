@@ -14,10 +14,13 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.govukfrontend.views.viewmodels.footer
+package uk.gov.hmrc.govukfrontend.views.viewmodels
+package breadcrumbs
 
-case class Navigation(
-  title: Option[String] = None,
-  columns: Option[Int]  = None,
-  items: Seq[Item]      = Nil
+import common.{Content, Empty}
+
+case class BreadcrumbsItem(
+  content: Content              = Empty,
+  href: Option[String]            = None,
+  attributes: Map[String, String] = Map.empty
 )

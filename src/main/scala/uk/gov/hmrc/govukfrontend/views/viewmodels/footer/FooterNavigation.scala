@@ -14,12 +14,10 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.govukfrontend.views.viewmodels
-package summarylist
+package uk.gov.hmrc.govukfrontend.views.viewmodels.footer
 
-case class Row(
-  key: Key,
-  value: Value,
-  classes: String          = "",
-  actions: Option[Actions] = None
+case class FooterNavigation(
+  title: Option[String] = None,
+  columns: Option[Int]  = None,
+  items: Seq[FooterItem]      = Nil
 )

@@ -15,12 +15,15 @@
  */
 
 package uk.gov.hmrc.govukfrontend.views.viewmodels
-package summarylist
+package table
 
 import common.{Content, Empty}
 
-case class Item(
-  href: String,
-  content: Content                 = Empty,
-  visuallyHiddenText: Option[String] = None,
-  classes: String                    = "")
+case class TableRow(
+  content: Content                = Empty,
+  format: Option[String]          = None,
+  classes: String                 = "",
+  colspan: Option[Int]            = None,
+  rowspan: Option[Int]            = None,
+  attributes: Map[String, String] = Map.empty
+)

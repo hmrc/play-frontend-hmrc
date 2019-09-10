@@ -22,7 +22,7 @@ case class HeaderParams(
   productName: Option[String]     = None,
   serviceName: Option[String]     = None,
   serviceUrl: Option[String]      = None,
-  navigation: Seq[Navigation]     = Nil,
+  navigation: Seq[HeaderNavigation]     = Nil,
   navigationClasses: String       = "",
   containerClasses: String        = "",
   classes: String                 = "",

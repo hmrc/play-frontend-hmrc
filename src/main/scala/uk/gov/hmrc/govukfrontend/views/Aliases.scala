@@ -31,20 +31,20 @@ trait Aliases {
 
   val NonEmptyText = viewmodels.common.NonEmptyText
 
-  type FooterNavigation = viewmodels.footer.Navigation
-  val FooterNavigation = viewmodels.footer.Navigation
+  type FooterNavigation = viewmodels.footer.FooterNavigation
+  val FooterNavigation = viewmodels.footer.FooterNavigation
 
-  type FooterMeta = viewmodels.footer.Meta
-  val FooterMeta = viewmodels.footer.Meta
+  type Meta = viewmodels.footer.Meta
+  val Meta = viewmodels.footer.Meta
 
-  type FooterItem = viewmodels.footer.Item
-  val FooterItem = viewmodels.footer.Item
+  type FooterItem = viewmodels.footer.FooterItem
+  val FooterItem = viewmodels.footer.FooterItem
 
   type HeaderParams = viewmodels.header.HeaderParams
   val HeaderParams = viewmodels.header.HeaderParams
 
-  type HeaderNavigation = viewmodels.header.Navigation
-  val HeaderNavigation = viewmodels.header.Navigation
+  type HeaderNavigation = viewmodels.header.HeaderNavigation
+  val HeaderNavigation = viewmodels.header.HeaderNavigation
 
   type TagParams = viewmodels.tag.TagParams
   val TagParams = viewmodels.tag.TagParams
@@ -77,8 +77,8 @@ trait Aliases {
   type ErrorMessageParams = viewmodels.errormessage.ErrorMessageParams
   val ErrorMessageParams = viewmodels.errormessage.ErrorMessageParams
 
-  type SummaryListRow = viewmodels.summarylist.Row
-  val SummaryListRow = viewmodels.summarylist.Row
+  type SummaryListRow = viewmodels.summarylist.SummaryListRow
+  val SummaryListRow = viewmodels.summarylist.SummaryListRow
 
   type Key = viewmodels.summarylist.Key
   val Key = viewmodels.summarylist.Key
@@ -89,8 +89,8 @@ trait Aliases {
   type Actions = viewmodels.summarylist.Actions
   val Actions = viewmodels.summarylist.Actions
 
-  type ActionItem = viewmodels.summarylist.Item
-  val ActionItem = viewmodels.summarylist.Item
+  type ActionItem = viewmodels.summarylist.SummaryListItem
+  val ActionItem = viewmodels.summarylist.SummaryListItem
 
   type InputParams = viewmodels.dateinput.InputParams
   val InputParams = viewmodels.dateinput.InputParams
@@ -98,8 +98,8 @@ trait Aliases {
   type Section = viewmodels.accordion.Section
   val Section = viewmodels.accordion.Section
 
-  type BreadcrumbsItem = viewmodels.breadcrumbs.Item
-  val BreadcrumbsItem = viewmodels.breadcrumbs.Item
+  type BreadcrumbsItem = viewmodels.breadcrumbs.BreadcrumbsItem
+  val BreadcrumbsItem = viewmodels.breadcrumbs.BreadcrumbsItem
 
   type CheckboxItem = viewmodels.checkboxes.CheckboxItem
   val CheckboxItem = viewmodels.checkboxes.CheckboxItem
@@ -107,8 +107,8 @@ trait Aliases {
   type SelectItem = viewmodels.select.SelectItem
   val SelectItem = viewmodels.select.SelectItem
 
-  type TableRow = viewmodels.table.Row
-  val TableRow = viewmodels.table.Row
+  type TableRow = viewmodels.table.TableRow
+  val TableRow = viewmodels.table.TableRow
 
   type HeadCell = viewmodels.table.HeadCell
   val HeadCell = viewmodels.table.HeadCell

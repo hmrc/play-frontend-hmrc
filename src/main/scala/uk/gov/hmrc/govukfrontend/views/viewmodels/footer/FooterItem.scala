@@ -14,16 +14,10 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.govukfrontend.views.viewmodels
-package table
+package uk.gov.hmrc.govukfrontend.views.viewmodels.footer
 
-import common.{Content, Empty}
-
-case class Row(
-  content: Content                = Empty,
-  format: Option[String]          = None,
-  classes: String                 = "",
-  colspan: Option[Int]            = None,
-  rowspan: Option[Int]            = None,
+case class FooterItem(
+  text: Option[String]            = None,
+  href: Option[String]            = None,
   attributes: Map[String, String] = Map.empty
 )

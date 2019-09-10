@@ -15,12 +15,12 @@
  */
 
 package uk.gov.hmrc.govukfrontend.views.viewmodels
-package breadcrumbs
+package summarylist
 
 import common.{Content, Empty}
 
-case class Item(
-  content: Content              = Empty,
-  href: Option[String]            = None,
-  attributes: Map[String, String] = Map.empty
-)
+case class SummaryListItem(
+  href: String,
+  content: Content                 = Empty,
+  visuallyHiddenText: Option[String] = None,
+  classes: String                    = "")

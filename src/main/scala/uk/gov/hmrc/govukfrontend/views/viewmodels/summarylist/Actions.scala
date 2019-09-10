@@ -17,4 +17,4 @@
 package uk.gov.hmrc.govukfrontend.views.viewmodels
 package summarylist
 
-case class Actions(classes: String = "", items: Seq[Item] = Nil)
+case class Actions(classes: String = "", items: Seq[SummaryListItem] = Nil)
