@@ -1,6 +1,8 @@
 [
-  "error-summary/default": {
-    uri: "/twirl/uk/gov/hmrc/govukfrontend/views/examples/errorsummary/default.scala.html",
-    htmlChecksum: "7f037e37a574bf2cc7bda564db237fa6"
+  {
+    "error-summary/default": {
+      "uri": "/twirl/uk/gov/hmrc/govukfrontend/views/examples/errorsummary/default.scala.html",
+      "htmlChecksum": "7f037e37a574bf2cc7bda564db237fa6"
+    }
   }
 ]
