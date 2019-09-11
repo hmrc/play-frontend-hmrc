@@ -1,0 +1,6 @@
+[
+  "button/default": {
+    uri: "/twirl/uk/gov/hmrc/govukfrontend/views/examples/button/default.scala.html",
+    htmlChecksum: "49aaff46a990a4c1a3738e4615a9b2cf"
+  }
+]

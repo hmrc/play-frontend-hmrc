@@ -19,7 +19,7 @@ package uk.gov.hmrc.govukfrontend.views.examples
 import org.scalatest.prop.TableDrivenPropertyChecks
 import org.scalatest.{Matchers, WordSpec}
 import uk.gov.hmrc.govukfrontend.views.JsoupHelpers
-import uk.gov.hmrc.govukfrontend.views.html.components.Input
+import uk.gov.hmrc.govukfrontend.views.html.components._
 import uk.gov.hmrc.govukfrontend.views.html.examples._
 
 class ExamplesSpec extends WordSpec with Matchers with JsoupHelpers with TableDrivenPropertyChecks {
@@ -35,19 +35,19 @@ class ExamplesSpec extends WordSpec with Matchers with JsoupHelpers with TableDr
   lazy val testData =
     Table(
       ("Example", "Expected"),
-      (new backLink().apply(), backLinkHtml),
-      (new button().apply(), buttonHtml),
-      (new details().apply(), detailsHtml),
-      (new errorMessage().apply(), errorMessageHtml),
-      (new errorSummary().apply(), errorSummaryHtml),
-      (new fieldset(Input).apply(), fieldsetHtml)
+      (new backlink.default().apply(), backLinkDefaultHtml),
+      (new button.default().apply(), buttonDefaultHtml),
+      (new details.default().apply(), detailsDefaultHtml),
+//      (new errormessage.default(DateInput).apply(), errorMessageDefaultHtml) //FIXME update after upgrading to 3.1.0
+      (new errorsummary.default().apply(), errorSummaryDefaultHtml),
+      (new fieldset.addressGroup(Input).apply(), fieldsetAddressGroupHtml)
     )
 
-  val backLinkHtml = """<a href="#" class="govuk-back-link">Back</a>"""
+  val backLinkDefaultHtml = """<a href="#" class="govuk-back-link">Back</a>"""
 
-  val buttonHtml = """<button type="submit" class="govuk-button"> Save and continue </button>"""
+  val buttonDefaultHtml = """<button type="submit" class="govuk-button"> Save and continue </button>"""
 
-  val detailsHtml =
+  val detailsDefaultHtml =
     """<details class="govuk-details">
                       |  <summary class="govuk-details__summary">
                       |    <span class="govuk-details__summary-text">
@@ -59,11 +59,50 @@ class ExamplesSpec extends WordSpec with Matchers with JsoupHelpers with TableDr
                       |  </div>
                       |</details>""".stripMargin
 
-  val errorMessageHtml = """<span class="govuk-error-message">
-                           |  <span class="govuk-visually-hidden">Gwall:</span> Rhowch eich enw llawn
-                           |</span>""".stripMargin
+  val errorMessageDefaultHtml =
+    """<div class="govuk-form-group govuk-form-group--error">
+    |  <fieldset class="govuk-fieldset" role="group" aria-describedby="passport-issued-hint passport-issued-error">
+    |    <legend class="govuk-fieldset__legend govuk-fieldset__legend--xl">
+    |      <h1 class="govuk-fieldset__heading">
+    |        When was your passport issued?
+    |      </h1>
+    |    </legend>
+    |    <span id="passport-issued-hint" class="govuk-hint">
+    |      For example, 12 11 2007
+    |    </span>
+    |    <span id="passport-issued-error" class="govuk-error-message">
+    |      <span class="govuk-visually-hidden">Error:</span> The date your passport was issued must be in the past
+    |    </span>
+    |    <div class="govuk-date-input" id="passport-issued">
+    |      <div class="govuk-date-input__item">
+    |        <div class="govuk-form-group">
+    |          <label class="govuk-label govuk-date-input__label" for="passport-issued-day">
+    |            Day
+    |          </label>
+    |          <input class="govuk-input govuk-date-input__input govuk-input--width-2 govuk-input--error" id="passport-issued-day" name="passport-issued-day" type="number" value="6" pattern="[0-9]*">
+    |        </div>
+    |      </div>
+    |      <div class="govuk-date-input__item">
+    |        <div class="govuk-form-group">
+    |          <label class="govuk-label govuk-date-input__label" for="passport-issued-month">
+    |            Month
+    |          </label>
+    |          <input class="govuk-input govuk-date-input__input govuk-input--width-2 govuk-input--error" id="passport-issued-month" name="passport-issued-month" type="number" value="3" pattern="[0-9]*">
+    |        </div>
+    |      </div>
+    |      <div class="govuk-date-input__item">
+    |        <div class="govuk-form-group">
+    |          <label class="govuk-label govuk-date-input__label" for="passport-issued-year">
+    |            Year
+    |          </label>
+    |          <input class="govuk-input govuk-date-input__input govuk-input--width-4 govuk-input--error" id="passport-issued-year" name="passport-issued-year" type="number" value="2076" pattern="[0-9]*">
+    |        </div>
+    |      </div>
+    |    </div>
+    |  </fieldset>
+    |</div>""".stripMargin
 
-  val errorSummaryHtml =
+  val errorSummaryDefaultHtml =
     """<div class="govuk-error-summary" aria-labelledby="error-summary-title" role="alert" tabindex="-1" data-module="error-summary">
                            |  <h2 class="govuk-error-summary__title" id="error-summary-title">
                            |    There is a problem
@@ -80,7 +119,7 @@ class ExamplesSpec extends WordSpec with Matchers with JsoupHelpers with TableDr
                            |  </div>
                            |</div>""".stripMargin
 
-  val fieldsetHtml =
+  val fieldsetAddressGroupHtml =
     """<fieldset class="govuk-fieldset">
                        |  <legend class="govuk-fieldset__legend govuk-fieldset__legend--xl">
                        |    <h1 class="govuk-fieldset__heading">
