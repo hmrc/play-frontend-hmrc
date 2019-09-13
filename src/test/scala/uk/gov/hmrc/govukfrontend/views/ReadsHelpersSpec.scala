@@ -16,9 +16,9 @@
 
 package uk.gov.hmrc.govukfrontend.views
 
-import org.scalacheck.Gen
-import org.scalatest.prop.PropertyChecks
+import org.scalacheck.{Gen, ShrinkLowPriority}
 import org.scalatest.{Matchers, OptionValues, WordSpec}
+import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks
 import play.api.libs.json.{JsNumber, JsString, JsSuccess, Json, _}
 import uk.gov.hmrc.govukfrontend.views.viewmodels.accordion.Section
 import uk.gov.hmrc.govukfrontend.views.viewmodels.common.{HtmlContent, Text}
@@ -31,8 +31,8 @@ class ReadsHelpersSpec
     with Matchers
     with ReadsHelpers
     with OptionValues
-    with PropertyChecks
-    with NoShrink {
+    with ScalaCheckPropertyChecks
+    with ShrinkLowPriority {
 
   "readsLabelParams" should {
     "deserialize LabelParams" in {
@@ -88,8 +88,13 @@ class ReadsHelpersSpec
         SummaryListRow(
           key   = Key(content   = Text("Previous application number")),
           value = Value(content = Text("502135326")),
-          actions = Some(Actions(items =
-            Seq(SummaryListItem(href = "#", content = Text("Change"), visuallyHiddenText = Some("previous application number")))))
+          actions = Some(
+            Actions(
+              items = Seq(
+                SummaryListItem(
+                  href               = "#",
+                  content            = Text("Change"),
+                  visuallyHiddenText = Some("previous application number")))))
         )
       )
     }

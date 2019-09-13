@@ -20,18 +20,7 @@ import play.api.libs.json._
 import play.twirl.api.Html
 import uk.gov.hmrc.govukfrontend.views.html.components._
 
-class headerSpec
-    extends RenderHtmlSpec(
-      Seq(
-        "header-default",
-        "header-full-width",
-        "header-full-width-with-navigation",
-        "header-with-large-navigation",
-        "header-with-navigation",
-        "header-with-service-name",
-        "header-with-service-name-and-navigation"
-      )
-    ) {
+class headerSpec extends RenderHtmlSpec("govukHeader") {
 
   "header" should {
     "have a role of banner" in {

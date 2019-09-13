@@ -21,16 +21,7 @@ import play.api.libs.json._
 import play.twirl.api.Html
 import uk.gov.hmrc.govukfrontend.views.html.components._
 
-class breadcrumbsSpec
-    extends RenderHtmlSpec(
-      Seq(
-        "breadcrumbs-default",
-        "breadcrumbs-with-last-breadcrumb-as-current-page",
-        "breadcrumbs-with-multiple-levels",
-        "breadcrumbs-with-one-level",
-        "breadcrumbs-without-the-home-section"
-      )
-    ) {
+class breadcrumbsSpec extends RenderHtmlSpec("govukBreadcrumbs") {
 
   override implicit val reads: Reads[Html] = (
     (__ \ "items").read[Seq[BreadcrumbsItem]] and

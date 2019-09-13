@@ -21,18 +21,7 @@ import play.api.libs.json._
 import play.twirl.api.Html
 import uk.gov.hmrc.govukfrontend.views.html.components._
 
-class textareaSpec
-    extends RenderHtmlSpec(
-      Seq(
-        "textarea-default",
-        "textarea-with-autocomplete-attribute",
-        "textarea-with-custom-rows",
-        "textarea-with-default-value",
-        "textarea-with-error-message",
-        "textarea-with-label-as-page-heading",
-        "textarea-with-optional-form-group-classes"
-      )
-    ) {
+class textareaSpec extends RenderHtmlSpec("govukTextarea") {
   override implicit val reads: Reads[Html] = (
     (__ \ "id").read[String] and
       (__ \ "name").read[String] and

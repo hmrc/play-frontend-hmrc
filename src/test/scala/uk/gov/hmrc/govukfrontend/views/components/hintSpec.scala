@@ -21,13 +21,7 @@ import play.api.libs.json._
 import play.twirl.api.Html
 import uk.gov.hmrc.govukfrontend.views.html.components._
 
-class hintSpec
-    extends RenderHtmlSpec(
-      Seq(
-        "hint-default",
-        "hint-with-html"
-      )
-    ) {
+class hintSpec extends RenderHtmlSpec("govukHint") {
   override implicit val reads: Reads[Html] = (
     (__ \ "id").readNullable[String] and
       (__ \ "classes").readWithDefault[String]("") and

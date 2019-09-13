@@ -17,16 +17,10 @@
 package uk.gov.hmrc.govukfrontend.views.components
 
 import play.api.libs.json._
-import play.twirl.api.{Html, HtmlFormat}
+import play.twirl.api.Html
 import uk.gov.hmrc.govukfrontend.views.html.components._
 
-class fieldsetSpec
-    extends RenderHtmlSpec(
-      Seq(
-        "fieldset-default",
-        "fieldset-as-page-heading"
-      )
-    ) {
+class fieldsetSpec extends RenderHtmlSpec("govukFieldset") {
 
   case class Params(
     describedBy: Option[String]     = None,

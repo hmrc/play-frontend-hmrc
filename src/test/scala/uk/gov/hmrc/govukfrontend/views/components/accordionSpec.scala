@@ -21,15 +21,7 @@ import play.api.libs.json._
 import play.twirl.api.Html
 import uk.gov.hmrc.govukfrontend.views.html.components._
 
-class accordionSpec
-    extends RenderHtmlSpec(
-      Seq(
-        "accordion-default",
-        "accordion-with-additional-descriptions",
-        "accordion-with-all-sections-already-open",
-        "accordion-with-one-section-open"
-      )
-    ) {
+class accordionSpec extends RenderHtmlSpec("govukAccordion") {
   override implicit val reads: Reads[Html] = (
     (__ \ "id").read[String] and
       (__ \ "headingLevel").readWithDefault[Int](2) and

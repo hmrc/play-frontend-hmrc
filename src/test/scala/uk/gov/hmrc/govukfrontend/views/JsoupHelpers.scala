@@ -21,23 +21,24 @@ import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
 import org.jsoup.parser.Parser
 import org.jsoup.select.Elements
-import play.twirl.api.HtmlFormat
+import play.twirl.api.Html
 
 trait JsoupHelpers {
+
+  implicit class RichHtml(html: Html) {
+    def select(cssQuery: String): Elements =
+      parseNoPrettyPrinting(html).select(cssQuery)
+  }
+
   private lazy val compressor = new HtmlCompressor()
 
   def parseAndCompressHtml(html: String): String =
     compressor.compress(Parser.unescapeEntities(html, false))
 
   // otherwise Jsoup inserts linefeed https://stackoverflow.com/questions/12503117/jsoup-line-feed
-  def parseNoPrettyPrinting(html: HtmlFormat.Appendable): Document = {
+  def parseNoPrettyPrinting(html: Html): Document = {
     val doc = Jsoup.parse(html.body)
     doc.outputSettings().prettyPrint(false)
     doc
-  }
-
-  implicit class RichHtmlFormatAppendable(html: HtmlFormat.Appendable) {
-    def select(cssQuery: String): Elements =
-      parseNoPrettyPrinting(html).select(cssQuery)
   }
 }

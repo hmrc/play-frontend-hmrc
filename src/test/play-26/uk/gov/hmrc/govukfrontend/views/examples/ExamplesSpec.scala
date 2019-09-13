@@ -38,7 +38,7 @@ class ExamplesSpec extends WordSpec with Matchers with JsoupHelpers with TableDr
       (new backlink.default().apply(), backLinkDefaultHtml),
       (new button.default().apply(), buttonDefaultHtml),
       (new details.default().apply(), detailsDefaultHtml),
-//      (new errormessage.default(DateInput).apply(), errorMessageDefaultHtml) //FIXME update after upgrading to 3.1.0
+//      (new errormessage.default(DateInput).apply(), errorMessageDefaultHtml) //FIXME update after upgrading to 3.2.0
       (new errorsummary.default().apply(), errorSummaryDefaultHtml),
       (new fieldset.addressGroup(Input).apply(), fieldsetAddressGroupHtml)
     )

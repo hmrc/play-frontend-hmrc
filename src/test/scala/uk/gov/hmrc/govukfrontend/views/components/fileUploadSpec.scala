@@ -21,17 +21,7 @@ import play.api.libs.json._
 import play.twirl.api.Html
 import uk.gov.hmrc.govukfrontend.views.html.components._
 
-class fileUploadSpec
-    extends RenderHtmlSpec(
-      Seq(
-        "file-upload-default",
-        "file-upload-with-error-message",
-        "file-upload-with-hint-text",
-        "file-upload-with-label-as-page-heading",
-        "file-upload-with-optional-form-group-classes",
-        "file-upload-with-value-and-attributes"
-      )
-    ) {
+class fileUploadSpec extends RenderHtmlSpec("govukFileUpload") {
   override implicit val reads: Reads[Html] = (
     (__ \ "name").read[String] and
       (__ \ "id").read[String] and

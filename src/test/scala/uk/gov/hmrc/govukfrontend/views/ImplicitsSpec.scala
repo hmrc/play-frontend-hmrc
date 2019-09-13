@@ -16,16 +16,21 @@
 
 package uk.gov.hmrc.govukfrontend.views
 
+import org.scalacheck.{Gen, ShrinkLowPriority}
 import org.scalatest.{Matchers, WordSpec}
+import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks
 import play.api.data.FormError
-import viewmodels.common.HtmlContent
-import viewmodels.errorsummary.ErrorLink
-import html.components.implicits._
-import org.scalacheck.Gen
-import org.scalatest.prop.PropertyChecks
 import play.twirl.api.{Html, HtmlFormat}
+import uk.gov.hmrc.govukfrontend.views.html.components.implicits._
+import uk.gov.hmrc.govukfrontend.views.viewmodels.common.HtmlContent
+import uk.gov.hmrc.govukfrontend.views.viewmodels.errorsummary.ErrorLink
 
-class ImplicitsSpec extends WordSpec with Matchers with MessagesHelpers with PropertyChecks with NoShrink {
+class ImplicitsSpec
+    extends WordSpec
+    with Matchers
+    with MessagesHelpers
+    with ScalaCheckPropertyChecks
+    with ShrinkLowPriority {
 
   "asErrorLinks" should {
     val errors = Seq(

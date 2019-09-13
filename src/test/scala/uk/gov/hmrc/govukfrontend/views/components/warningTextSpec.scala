@@ -21,12 +21,7 @@ import play.api.libs.json._
 import play.twirl.api.Html
 import uk.gov.hmrc.govukfrontend.views.html.components._
 
-class warningTextSpec
-    extends RenderHtmlSpec(
-      Seq(
-        "warning-text-default"
-      )
-    ) {
+class warningTextSpec extends RenderHtmlSpec("govukWarningText") {
   override implicit val reads: Reads[Html] = (
     (__ \ "iconFallbackText").read[String] and
       (__ \ "classes").readWithDefault[String]("") and

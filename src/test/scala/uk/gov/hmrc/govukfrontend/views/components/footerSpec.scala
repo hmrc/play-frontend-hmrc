@@ -21,18 +21,7 @@ import play.api.libs.json._
 import play.twirl.api.Html
 import uk.gov.hmrc.govukfrontend.views.html.components._
 
-class footerSpec
-    extends RenderHtmlSpec(
-      Seq(
-        "footer-default",
-        "footer-GOV.UK",
-        "footer-with-custom-meta",
-        "footer-with-custom-meta2",
-        "footer-with-meta",
-        "footer-with-meta-links-and-meta-content",
-        "footer-with-navigation"
-      )
-    ) {
+class footerSpec extends RenderHtmlSpec("govukFooter") {
 
   "footer" should {
     "have a role of contentinfo" in {

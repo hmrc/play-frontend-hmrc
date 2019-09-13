@@ -21,25 +21,7 @@ import play.api.libs.json._
 import play.twirl.api.Html
 import uk.gov.hmrc.govukfrontend.views.html.components._
 
-class buttonSpec
-    extends RenderHtmlSpec(
-      Seq(
-        "button-default",
-        "button-disabled",
-        "button-link",
-        "button-link-disabled",
-        "button-start-link",
-        "button-input",
-        "button-input-disabled",
-        "button-prevent-double-click",
-        "button-with-active-state",
-        "button-with-focus-state",
-        "button-Secondary",
-        "button-Secondary-link",
-        "button-Warning",
-        "button-Warning-link"
-      )
-    ) {
+class buttonSpec extends RenderHtmlSpec("govukButton") {
 
   "button element" should {
     "render the default example" in {

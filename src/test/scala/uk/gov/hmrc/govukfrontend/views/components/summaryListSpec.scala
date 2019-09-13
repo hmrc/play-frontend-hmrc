@@ -21,19 +21,7 @@ import play.api.libs.json._
 import play.twirl.api.Html
 import uk.gov.hmrc.govukfrontend.views.html.components._
 
-class summaryListSpec
-    extends RenderHtmlSpec(
-      Seq(
-        "summary-list-default",
-        "summary-list-check-your-answers",
-        "summary-list-extreme",
-        "summary-list-no-border",
-        "summary-list-no-border-on-last-row",
-        "summary-list-overridden-widths",
-        "summary-list-with-some-actions",
-        "summary-list-without-actions"
-      )
-    ) {
+class summaryListSpec extends RenderHtmlSpec("govukSummaryList") {
 
   override implicit val reads: Reads[Html] = (
     (__ \ "rows").read[Seq[SummaryListRow]] and

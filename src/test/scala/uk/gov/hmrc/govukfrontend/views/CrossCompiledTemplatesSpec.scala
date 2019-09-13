@@ -22,22 +22,21 @@ import better.files._
 
 class CrossCompiledTemplatesSpec extends WordSpec with Matchers {
 
-  val playVersion: String = BuildInfo.playVersion match {
+  val playDir: String = BuildInfo.playVersion match {
     case "Play25" => "play-25"
     case "Play26" => "play-26"
     case _        => throw new IllegalArgumentException("Expecting Play25 or Play26")
   }
 
-  val otherPlayVersion: String =
-    BuildInfo.playVersion match {
-      case "Play25" => "play-26"
-      case "Play26" => "play-25"
-      case _        => throw new IllegalArgumentException("Expecting Play25 or Play26")
-    }
+  val otherPlayDir: String = playDir match {
+    case "play-25" => "play-26"
+    case "play-26" => "play-25"
+    case _         => throw new IllegalArgumentException("Expecting play-25 or play-26")
+  }
 
   BuildInfo.twirlCompileTemplates_sources.foreach { templateFile =>
     val otherTemplateFile =
-      File(templateFile.getAbsolutePath.replaceFirst(playVersion, otherPlayVersion))
+      File(templateFile.getAbsolutePath.replaceFirst(playDir, otherPlayDir))
 
     s"Cross-compiled template $templateFile" should {
       s"be in sync with template $otherTemplateFile" in {
@@ -52,8 +51,8 @@ class CrossCompiledTemplatesSpec extends WordSpec with Matchers {
   }
 
   def loadTemplate(templateFile: File): String = {
-    val contents          = templateFile.chars.mkString
-    val templateBeginning = "@\\(".r
+    val contents          = templateFile.contentAsString
+    val templateBeginning = """@\(""".r
     val matchBeginning    = templateBeginning.findFirstMatchIn(contents)
     val start             = matchBeginning.map(_.start).getOrElse(0)
     contents.substring(start)

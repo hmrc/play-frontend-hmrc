@@ -69,7 +69,7 @@ lazy val libDependencies: Seq[ModuleID] = dependencies(
     )
 
     val test = Seq(
-      "org.scalatest"                 %% "scalatest"     % "3.0.5",
+      "org.scalatest"                 %% "scalatest"     % "3.0.8",
       "org.pegdown"                   % "pegdown"        % "1.6.0",
       "org.jsoup"                     % "jsoup"          % "1.11.3",
       "com.typesafe.play"             %% "play-test"     % playRevision,

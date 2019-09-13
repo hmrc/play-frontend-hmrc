@@ -21,16 +21,7 @@ import play.api.libs.json._
 import play.twirl.api.Html
 import uk.gov.hmrc.govukfrontend.views.html.components._
 
-class selectSpec
-    extends RenderHtmlSpec(
-      Seq(
-        "select-default",
-        "select-with-full-width-override",
-        "select-with-hint-text-and-error-message",
-        "select-with-label-as-page-heading",
-        "select-with-optional-form-group-classes"
-      )
-    ) {
+class selectSpec extends RenderHtmlSpec("govukSelect") {
   override implicit val reads: Reads[Html] = (
     (__ \ "id").read[String] and
       (__ \ "name").read[String] and

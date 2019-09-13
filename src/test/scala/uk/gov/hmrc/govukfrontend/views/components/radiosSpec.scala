@@ -21,34 +21,7 @@ import play.api.libs.json._
 import play.twirl.api.Html
 import uk.gov.hmrc.govukfrontend.views.html.components._
 
-class radiosSpec
-    extends RenderHtmlSpec(
-      Seq(
-        "radios-default",
-        "radios-inline",
-        "radios-inline-with-conditional-items",
-        "radios-small",
-        "radios-small-inline",
-        "radios-small-inline-extreme",
-        "radios-small-with-a-divider",
-        "radios-small-with-conditional-reveal",
-        "radios-small-with-disabled",
-        "radios-small-with-error",
-        "radios-small-with-hint",
-        "radios-small-with-long-text",
-        "radios-with-a-divider",
-        "radios-with-a-medium-legend",
-        "radios-with-all-fieldset-attributes",
-        "radios-with-conditional-item-checked",
-        "radios-with-conditional-items",
-        "radios-with-disabled",
-        "radios-with-hints-on-items",
-        "radios-with-legend-as-page-heading",
-        "radios-with-optional-form-group-classes-showing-group-error",
-        "radios-with-very-long-option-text",
-        "radios-without-fieldset"
-      )
-    ) {
+class radiosSpec extends RenderHtmlSpec("govukRadios") {
 
   override implicit val reads: Reads[Html] = (
     (__ \ "fieldset").readNullable[FieldsetParams] and

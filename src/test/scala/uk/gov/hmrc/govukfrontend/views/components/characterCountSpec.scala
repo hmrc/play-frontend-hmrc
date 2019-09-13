@@ -21,19 +21,7 @@ import play.api.libs.json._
 import play.twirl.api.Html
 import uk.gov.hmrc.govukfrontend.views.html.components._
 
-class characterCountSpec
-    extends RenderHtmlSpec(
-      Seq(
-        "character-count-default",
-        "character-count-with-custom-rows",
-        "character-count-with-default-value",
-        "character-count-with-default-value-exceeding-limit",
-        "character-count-with-hint",
-        "character-count-with-label-as-page-heading",
-        "character-count-with-threshold",
-        "character-count-with-word-count"
-      )
-    ) {
+class characterCountSpec extends RenderHtmlSpec("govukCharacterCount") {
   override implicit val reads: Reads[Html] = (
     (__ \ "id").read[String] and
       (__ \ "name").read[String] and

@@ -21,7 +21,7 @@ import play.api.libs.json._
 import play.twirl.api.Html
 import uk.gov.hmrc.govukfrontend.views.html.components._
 
-class errorMessageSpec extends RenderHtmlSpec(Seq("error-message-default")) {
+class errorMessageSpec extends RenderHtmlSpec("govukErrorMessage") {
   "errorMessage" should {
     "allow additional classes to be specified" in {
       val component = ErrorMessage.apply(classes = "custom-class")(Empty).select(".govuk-error-message")

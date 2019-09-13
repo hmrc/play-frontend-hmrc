@@ -21,13 +21,7 @@ import play.api.libs.json._
 import play.twirl.api.Html
 import uk.gov.hmrc.govukfrontend.views.html.components._
 
-class skipLinkSpec
-    extends RenderHtmlSpec(
-      Seq(
-        "skip-link-default",
-        "skip-link-with-focus"
-      )
-    ) {
+class skipLinkSpec extends RenderHtmlSpec("govukSkipLink") {
 
   "skipLink" should {
     "render href" in {

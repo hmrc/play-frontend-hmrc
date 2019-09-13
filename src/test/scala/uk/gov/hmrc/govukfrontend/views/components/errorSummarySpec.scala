@@ -21,7 +21,7 @@ import play.api.libs.json._
 import play.twirl.api.Html
 import uk.gov.hmrc.govukfrontend.views.html.components._
 
-class errorSummarySpec extends RenderHtmlSpec(Seq("error-summary-default")) {
+class errorSummarySpec extends RenderHtmlSpec("govukErrorSummary") {
 
   override implicit val reads: Reads[Html] = (
     (__ \ "errorList").readWithDefault[Seq[ErrorLink]](Nil) and

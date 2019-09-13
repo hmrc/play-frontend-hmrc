@@ -21,33 +21,7 @@ import play.api.libs.json._
 import play.twirl.api.Html
 import uk.gov.hmrc.govukfrontend.views.html.components._
 
-class checkboxesSpec
-    extends RenderHtmlSpec(
-      Seq(
-        "checkboxes-default",
-        "checkboxes-small",
-        "checkboxes-small-with-conditional-reveal",
-        "checkboxes-small-with-disabled",
-        "checkboxes-small-with-error",
-        "checkboxes-small-with-hint",
-        "checkboxes-small-with-long-text",
-        "checkboxes-with-a-medium-legend",
-        "checkboxes-with-all-fieldset-attributes",
-        "checkboxes-with-conditional-item-checked",
-        "checkboxes-with-conditional-items",
-        "checkboxes-with-disabled-item",
-        "checkboxes-with-error-message",
-        "checkboxes-with-error-message-and-hints-on-items",
-        "checkboxes-with-hints-on-items",
-        "checkboxes-with-id-and-name",
-        "checkboxes-with-legend-as-a-page-heading",
-        "checkboxes-with-optional-form-group-classes-showing-group-error",
-        "checkboxes-with-single-option-(and-hint)-set-'aria-describedby'-on-input",
-        "checkboxes-with-single-option-set-'aria-describedby'-on-input",
-        "checkboxes-with-very-long-option-text",
-        "checkboxes-without-fieldset"
-      )
-    ) {
+class checkboxesSpec extends RenderHtmlSpec("govukCheckboxes") {
 
   override implicit val reads: Reads[Html] = (
     (__ \ "fieldset").readNullable[FieldsetParams] and

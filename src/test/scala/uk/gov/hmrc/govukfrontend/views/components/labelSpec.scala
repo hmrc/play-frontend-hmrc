@@ -21,14 +21,7 @@ import play.api.libs.json._
 import play.twirl.api.Html
 import uk.gov.hmrc.govukfrontend.views.html.components._
 
-class labelSpec
-    extends RenderHtmlSpec(
-      Seq(
-        "label-default",
-        "label-as-page-heading",
-        "label-with-bold-text"
-      )
-    ) {
+class labelSpec extends RenderHtmlSpec("govukLabel") {
   "label" should {
     "not output anything if no html or text is provided" in {
       val component = Label.apply()(Empty).select(".govuk-label")

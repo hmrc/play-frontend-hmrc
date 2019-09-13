@@ -21,13 +21,7 @@ import play.api.libs.json._
 import play.twirl.api.Html
 import uk.gov.hmrc.govukfrontend.views.html.components._
 
-class backLinkSpec
-    extends RenderHtmlSpec(
-      Seq(
-        "back-link-default",
-        "back-link-with-custom-text"
-      )
-    ) {
+class backLinkSpec extends RenderHtmlSpec("govukBackLink") {
   "backLink" should {
     "fail to render if the required fields are not included" in {
       val caught =

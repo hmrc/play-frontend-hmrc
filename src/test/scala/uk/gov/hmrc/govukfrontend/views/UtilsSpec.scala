@@ -17,12 +17,12 @@
 package uk.gov.hmrc.govukfrontend.views
 
 import org.scalacheck._
-import org.scalatest.prop.PropertyChecks
 import org.scalatest.{Matchers, WordSpec}
+import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks
 import play.twirl.api.{Html, HtmlFormat}
 import uk.gov.hmrc.govukfrontend.views.Utils._
 
-class UtilsSpec extends WordSpec with Matchers with PropertyChecks with NoShrink {
+class UtilsSpec extends WordSpec with Matchers with ScalaCheckPropertyChecks with ShrinkLowPriority {
 
   import Generators._
 
