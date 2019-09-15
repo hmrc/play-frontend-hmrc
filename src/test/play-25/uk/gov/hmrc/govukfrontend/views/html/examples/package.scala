@@ -1,4 +1,4 @@
-@*
+/*
  * Copyright 2019 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,16 +12,24 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- *@
+ */
 
-@(id: Option[String] = None,
-  classes: String = "",
-  attributes: Map[String, String] = Map.empty,
-  visuallyHiddenText: VisuallyHiddenText = ShowText("Error"))(content: Content)
-<span @id.map {id => id="@id"} class="@toClasses("govuk-error-message", classes)"@toAttributes(attributes)>
- @visuallyHiddenText match {
-   case ShowText(text) => {<span class="govuk-visually-hidden">@text:</span>}
-   case HideText => {}
- }
- @content.asHtml
-</span>
+package uk.gov.hmrc.govukfrontend.views
+package html
+
+import examples._
+import components._
+
+package object examples {
+  lazy val BackLinkDefault = backlink.default
+
+  lazy val ButtonDefault = button.default
+
+  lazy val ErrorSummaryDefault = errorsummary.default
+
+  lazy val FieldsetAddressGroup = fieldset.addressGroup
+
+  //  lazy val ErrorMessage = new errorMessage
+
+  lazy val DetailsDefault = details.default
+}

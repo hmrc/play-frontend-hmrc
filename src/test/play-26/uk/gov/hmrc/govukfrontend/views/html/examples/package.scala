@@ -1,4 +1,4 @@
-@*
+/*
  * Copyright 2019 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,11 +12,24 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- *@
+ */
 
-@(id: Option[String] = None,
-  classes: String = "",
-  attributes: Map[String, String] = Map.empty)(content: Content)
-<span@id.map {id => id="@id"} class="@toClasses("govuk-hint", classes)"@toAttributes(attributes)>
-  @content.asHtml
-</span>
+package uk.gov.hmrc.govukfrontend.views
+package html
+
+import examples._
+import components._
+
+package object examples {
+  lazy val BackLinkDefault = new backlink.default()
+
+  lazy val ButtonDefault = new button.default()
+
+  lazy val ErrorSummaryDefault = new errorsummary.default()
+
+  lazy val FieldsetAddressGroup = new fieldset.addressGroup(Input)
+
+//  lazy val ErrorMessage = new errorMessage()
+
+    lazy val DetailsDefault = new details.default()
+}

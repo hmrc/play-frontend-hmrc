@@ -16,7 +16,7 @@
 
 package uk.gov.hmrc.govukfrontend.views
 
-import org.scalatest.{Matchers, WordSpec}
+import org.scalatest.{Ignore, Matchers, WordSpec}
 import uk.gov.hmrc.BuildInfo
 import better.files._
 
@@ -47,7 +47,32 @@ class CrossCompiledTemplatesSpec extends WordSpec with Matchers {
         }
       }
     }
+  }
 
+  "stripThisDeclaration" should {
+    "strip the @this declaration from a template" in {
+      val templateContents =
+        """
+          |@import somepackage
+          |
+          |@this(aTemplate: ATemplate,
+          |      anotherTemplate: AnotherTemplate)
+          |
+          |@()
+          |<p>A nice paragraph</p>
+          |""".stripMargin
+
+      stripDIDeclaration(templateContents) shouldBe
+        """
+          |@import somepackage
+          |
+          |
+          |
+          |@()
+          |<p>A nice paragraph</p>
+          |""".stripMargin
+
+    }
   }
 
   def loadTemplate(templateFile: File): String = {
@@ -56,6 +81,15 @@ class CrossCompiledTemplatesSpec extends WordSpec with Matchers {
     val matchBeginning    = templateBeginning.findFirstMatchIn(contents)
     val start             = matchBeginning.map(_.start).getOrElse(0)
     contents.substring(start)
+  }
+
+  def stripDIDeclaration(contents: String): String = {
+    val thisDeclarationRegex = """(?s)@this\(.*?\)""".r
+    val optMatch    = thisDeclarationRegex.findFirstMatchIn(contents)
+    optMatch.map { m =>
+      val thisDeclaration = m.group(0)
+      contents.replace(thisDeclaration, "")
+    }.getOrElse(contents)
   }
 
 }

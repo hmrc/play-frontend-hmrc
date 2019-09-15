@@ -2,6 +2,7 @@ import play.sbt.PlayImport.PlayKeys._
 import uk.gov.hmrc.playcrosscompilation.PlayVersion.{Play25, Play26}
 import PlayCrossCompilation.{dependencies, playVersion}
 import de.heikoseeberger.sbtheader.HeaderKey
+import GeneratePlay25Twirl.generatePlay25Templates
 
 val libName = "play-frontend-govuk"
 
@@ -42,6 +43,49 @@ lazy val root = Project(libName, file("."))
           "src/test/play-26/twirl"
         }
       baseDirectory.value / twirlDir
+    },
+    (generatePlay25TemplatesTask in Compile) := {
+      val cachedFun: Set[File] => Set[File] =
+        FileFunction.cached(
+          cacheBaseDirectory = streams.value.cacheDirectory / "compile-generate-play-25-templates-task",
+          inStyle            = FilesInfo.lastModified,
+          outStyle           = FilesInfo.exists) { (in: Set[File]) =>
+          println("Generating Play 2.5 templates")
+          generatePlay25Templates(in)
+        }
+
+      val play26TemplatesDir         = baseDirectory.value / "src/main/play-26/twirl"
+      val play26Templates: Set[File] = (play26TemplatesDir ** ("*.scala.html")).get.toSet
+      cachedFun(play26Templates).toSeq
+    },
+    // FIXME: refactor to remove task implementation duplication
+    (generatePlay25TemplatesTask in Test) := {
+      val cachedFun: Set[File] => Set[File] =
+        FileFunction.cached(
+          cacheBaseDirectory = streams.value.cacheDirectory / "test-generate-play-25-templates-task",
+          inStyle            = FilesInfo.lastModified,
+          outStyle           = FilesInfo.exists) { (in: Set[File]) =>
+          println("Generating Play 2.5 test templates")
+          generatePlay25Templates(in)
+        }
+
+      val play26TemplatesDir         = baseDirectory.value / "src/test/play-26/twirl"
+      val play26Templates: Set[File] = (play26TemplatesDir ** ("*.scala.html")).get.toSet
+      cachedFun(play26Templates).toSeq
+    },
+    (TwirlKeys.compileTemplates in Compile) := {
+      if (PlayCrossCompilation.playVersion == Play25) {
+        ((TwirlKeys.compileTemplates in Compile) dependsOn (generatePlay25TemplatesTask in Compile)).value
+      } else {
+        (TwirlKeys.compileTemplates in Compile).value
+      }
+    },
+    (TwirlKeys.compileTemplates in Test) := {
+      if (PlayCrossCompilation.playVersion == Play25) {
+        ((TwirlKeys.compileTemplates in Test) dependsOn (generatePlay25TemplatesTask in Test)).value
+      } else {
+        (TwirlKeys.compileTemplates in Test).value
+      }
     },
     parallelExecution in sbt.Test := false,
     playMonitoredFiles ++= (sourceDirectories in (Compile, TwirlKeys.compileTemplates)).value,
@@ -132,3 +176,5 @@ lazy val templateImports: Seq[String] = {
 
   allImports ++ specificImports
 }
+
+lazy val generatePlay25TemplatesTask = taskKey[Seq[File]]("Generate Play 2.5 templates")

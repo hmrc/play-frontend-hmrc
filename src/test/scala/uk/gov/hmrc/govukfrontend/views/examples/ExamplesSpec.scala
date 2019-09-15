@@ -19,7 +19,6 @@ package uk.gov.hmrc.govukfrontend.views.examples
 import org.scalatest.prop.TableDrivenPropertyChecks
 import org.scalatest.{Matchers, WordSpec}
 import uk.gov.hmrc.govukfrontend.views.JsoupHelpers
-import uk.gov.hmrc.govukfrontend.views.html.components._
 import uk.gov.hmrc.govukfrontend.views.html.examples._
 
 class ExamplesSpec extends WordSpec with Matchers with JsoupHelpers with TableDrivenPropertyChecks {
@@ -35,12 +34,12 @@ class ExamplesSpec extends WordSpec with Matchers with JsoupHelpers with TableDr
   lazy val testData =
     Table(
       ("Example", "Expected"),
-      (new backlink.default().apply(), backLinkDefaultHtml),
-      (new button.default().apply(), buttonDefaultHtml),
-      (new details.default().apply(), detailsDefaultHtml),
+      (BackLinkDefault.apply(), backLinkDefaultHtml),
+      (ButtonDefault.apply(), buttonDefaultHtml),
+      (DetailsDefault.apply(), detailsDefaultHtml),
 //      (new errormessage.default(DateInput).apply(), errorMessageDefaultHtml) //FIXME update after upgrading to 3.2.0
-      (new errorsummary.default().apply(), errorSummaryDefaultHtml),
-      (new fieldset.addressGroup(Input).apply(), fieldsetAddressGroupHtml)
+      (ErrorSummaryDefault.apply(), errorSummaryDefaultHtml),
+      (FieldsetAddressGroup.apply(), fieldsetAddressGroupHtml)
     )
 
   val backLinkDefaultHtml = """<a href="#" class="govuk-back-link">Back</a>"""
