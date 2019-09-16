@@ -1,0 +1,39 @@
+@import uk.gov.hmrc.govukfrontend.views.html.components._
+
+
+
+@()
+@dateInput(
+  id = Some("passport-issued"),
+  namePrefix = Some("passport-issued"),
+  items = Seq(
+    InputParams(
+      classes = "govuk-input--width-2 govuk-input--error",
+      name = "day",
+      value = Some("6")
+    ),
+    InputParams(
+      classes = "govuk-input--width-2 govuk-input--error",
+      name = "month",
+      value = Some("3")
+    ),
+    InputParams(
+      classes = "govuk-input--width-4 govuk-input--error",
+      name = "year",
+      value = Some("2076")
+    )
+  ),
+  hintParams = Some(HintParams(content = Text("For example, 12 11 2007"))),
+  errorMessageParams = Some(ErrorMessageParams(content = Text("The date your passport was issued must be in the past"))),
+  fieldsetParams = Some(
+    FieldsetParams(
+      legend = Some(
+        Legend(
+          content = Text("When was your passport issued?"),
+          isPageHeading = true,
+          classes = "govuk-fieldset__legend--xl"
+        )
+      )
+    )
+  )
+)

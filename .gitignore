@@ -25,3 +25,4 @@ yarn-debug.log
 yarn-error.log
 src/main/play-25/twirl/**/*.scala.html
 src/test/play-25/twirl/**/*.scala.html
+!src/test/play-25/twirl/uk/gov/hmrc/govukfrontend/views/examples/**/*.scala.html
