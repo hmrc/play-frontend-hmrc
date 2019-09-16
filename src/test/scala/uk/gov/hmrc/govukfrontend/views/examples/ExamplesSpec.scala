@@ -37,86 +37,89 @@ class ExamplesSpec extends WordSpec with Matchers with JsoupHelpers with TableDr
       (BackLinkDefault.apply(), backLinkDefaultHtml),
       (ButtonDefault.apply(), buttonDefaultHtml),
       (DetailsDefault.apply(), detailsDefaultHtml),
-//      (new errormessage.default(DateInput).apply(), errorMessageDefaultHtml) //FIXME update after upgrading to 3.2.0
+      (ErrorMessageDefault.apply(), errorMessageDefaultHtml),
       (ErrorSummaryDefault.apply(), errorSummaryDefaultHtml),
       (FieldsetAddressGroup.apply(), fieldsetAddressGroupHtml)
     )
 
   val backLinkDefaultHtml = """<a href="#" class="govuk-back-link">Back</a>"""
 
-  val buttonDefaultHtml = """<button type="submit" class="govuk-button"> Save and continue </button>"""
+  val buttonDefaultHtml =
+    """<button class="govuk-button" data-module="govuk-button">
+      |  Save and continue
+      |</button>""".stripMargin
 
   val detailsDefaultHtml =
-    """<details class="govuk-details">
-                      |  <summary class="govuk-details__summary">
-                      |    <span class="govuk-details__summary-text">
-                      |      Help with nationality
-                      |    </span>
-                      |  </summary>
-                      |  <div class="govuk-details__text">
-                      |    We need to know your nationality so we can work out which elections you’re entitled to vote in. If you cannot provide your nationality, you’ll have to send copies of identity documents through the post.
-                      |  </div>
-                      |</details>""".stripMargin
+    """<details class="govuk-details" data-module="govuk-details">
+      |  <summary class="govuk-details__summary">
+      |    <span class="govuk-details__summary-text">
+      |      Help with nationality
+      |    </span>
+      |  </summary>
+      |  <div class="govuk-details__text">
+      |    We need to know your nationality so we can work out which elections you’re entitled to vote in. If you cannot provide your nationality, you’ll have to send copies of identity documents through the post.
+      |  </div>
+      |</details>""".stripMargin
 
   val errorMessageDefaultHtml =
     """<div class="govuk-form-group govuk-form-group--error">
-    |  <fieldset class="govuk-fieldset" role="group" aria-describedby="passport-issued-hint passport-issued-error">
-    |    <legend class="govuk-fieldset__legend govuk-fieldset__legend--xl">
-    |      <h1 class="govuk-fieldset__heading">
-    |        When was your passport issued?
-    |      </h1>
-    |    </legend>
-    |    <span id="passport-issued-hint" class="govuk-hint">
-    |      For example, 12 11 2007
-    |    </span>
-    |    <span id="passport-issued-error" class="govuk-error-message">
-    |      <span class="govuk-visually-hidden">Error:</span> The date your passport was issued must be in the past
-    |    </span>
-    |    <div class="govuk-date-input" id="passport-issued">
-    |      <div class="govuk-date-input__item">
-    |        <div class="govuk-form-group">
-    |          <label class="govuk-label govuk-date-input__label" for="passport-issued-day">
-    |            Day
-    |          </label>
-    |          <input class="govuk-input govuk-date-input__input govuk-input--width-2 govuk-input--error" id="passport-issued-day" name="passport-issued-day" type="number" value="6" pattern="[0-9]*">
-    |        </div>
-    |      </div>
-    |      <div class="govuk-date-input__item">
-    |        <div class="govuk-form-group">
-    |          <label class="govuk-label govuk-date-input__label" for="passport-issued-month">
-    |            Month
-    |          </label>
-    |          <input class="govuk-input govuk-date-input__input govuk-input--width-2 govuk-input--error" id="passport-issued-month" name="passport-issued-month" type="number" value="3" pattern="[0-9]*">
-    |        </div>
-    |      </div>
-    |      <div class="govuk-date-input__item">
-    |        <div class="govuk-form-group">
-    |          <label class="govuk-label govuk-date-input__label" for="passport-issued-year">
-    |            Year
-    |          </label>
-    |          <input class="govuk-input govuk-date-input__input govuk-input--width-4 govuk-input--error" id="passport-issued-year" name="passport-issued-year" type="number" value="2076" pattern="[0-9]*">
-    |        </div>
-    |      </div>
-    |    </div>
-    |  </fieldset>
-    |</div>""".stripMargin
+      |  <fieldset class="govuk-fieldset" role="group" aria-describedby="passport-issued-hint passport-issued-error">
+      |    <legend class="govuk-fieldset__legend govuk-fieldset__legend--xl">
+      |      <h1 class="govuk-fieldset__heading">
+      |        When was your passport issued?
+      |      </h1>
+      |    </legend>
+      |    <span id="passport-issued-hint" class="govuk-hint">
+      |      For example, 12 11 2007
+      |    </span>
+      |    <span id="passport-issued-error" class="govuk-error-message">
+      |      <span class="govuk-visually-hidden">Error:</span> The date your passport was issued must be in the past
+      |    </span>
+      |    <div class="govuk-date-input" id="passport-issued">
+      |      <div class="govuk-date-input__item">
+      |        <div class="govuk-form-group">
+      |          <label class="govuk-label govuk-date-input__label" for="passport-issued-day">
+      |            Day
+      |          </label>
+      |          <input class="govuk-input govuk-date-input__input govuk-input--width-2 govuk-input--error" id="passport-issued-day" name="passport-issued-day" type="number" value="6" pattern="[0-9]*">
+      |        </div>
+      |      </div>
+      |      <div class="govuk-date-input__item">
+      |        <div class="govuk-form-group">
+      |          <label class="govuk-label govuk-date-input__label" for="passport-issued-month">
+      |            Month
+      |          </label>
+      |          <input class="govuk-input govuk-date-input__input govuk-input--width-2 govuk-input--error" id="passport-issued-month" name="passport-issued-month" type="number" value="3" pattern="[0-9]*">
+      |        </div>
+      |      </div>
+      |      <div class="govuk-date-input__item">
+      |        <div class="govuk-form-group">
+      |          <label class="govuk-label govuk-date-input__label" for="passport-issued-year">
+      |            Year
+      |          </label>
+      |          <input class="govuk-input govuk-date-input__input govuk-input--width-4 govuk-input--error" id="passport-issued-year" name="passport-issued-year" type="number" value="2076" pattern="[0-9]*">
+      |        </div>
+      |      </div>
+      |    </div>
+      |  </fieldset>
+      |</div>""".stripMargin
 
   val errorSummaryDefaultHtml =
-    """<div class="govuk-error-summary" aria-labelledby="error-summary-title" role="alert" tabindex="-1" data-module="error-summary">
-                           |  <h2 class="govuk-error-summary__title" id="error-summary-title">
-                           |    There is a problem
-                           |  </h2>
-                           |  <div class="govuk-error-summary__body">
-                           |    <ul class="govuk-list govuk-error-summary__list">
-                           |      <li>
-                           |        <a href="#passport-issued-error">The date your passport was issued must be in the past</a>
-                           |      </li>
-                           |      <li>
-                           |        <a href="#postcode-error">Enter a postcode, like AA1 1AA</a>
-                           |      </li>
-                           |    </ul>
-                           |  </div>
-                           |</div>""".stripMargin
+    """<div class="govuk-error-summary" aria-labelledby="error-summary-title" role="alert" tabindex="-1" data-module="govuk-error-summary">
+      |  <h2 class="govuk-error-summary__title" id="error-summary-title">
+      |    There is a problem
+      |  </h2>
+      |  <div class="govuk-error-summary__body">
+      |    <ul class="govuk-list govuk-error-summary__list">
+      |      <li>
+      |        <a href="#passport-issued-error">The date your passport was issued must be in the past</a>
+      |      </li>
+      |      <li>
+      |        <a href="#postcode-error">Enter a postcode, like AA1 1AA</a>
+      |      </li>
+      |    </ul>
+      |  </div>
+      |</div>""".stripMargin
 
   val fieldsetAddressGroupHtml =
     """<fieldset class="govuk-fieldset">

@@ -20,7 +20,7 @@
   classes: String = "",
   attributes: Map[String, String] = Map.empty)(title: Content)(description: Content = Empty)
 @if(errorList.nonEmpty) {
-  <div class="@toClasses("govuk-error-summary", classes)" aria-labelledby="error-summary-title" role="alert" tabindex="-1"@toAttributes(attributes) data-module="error-summary">
+  <div class="@toClasses("govuk-error-summary", classes)" aria-labelledby="error-summary-title" role="alert" tabindex="-1"@toAttributes(attributes) data-module="govuk-error-summary">
     <h2 class="govuk-error-summary__title" id="error-summary-title">
       @title.asHtml
     </h2>

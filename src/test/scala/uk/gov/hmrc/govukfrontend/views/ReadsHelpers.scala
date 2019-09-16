@@ -81,7 +81,8 @@ trait ReadsHelpers {
   )(FooterItem.apply _)
 
   implicit val readsFooterMeta: Reads[Meta] = (
-    readsContent and
+    (__ \ "visuallyHiddenTitle").readNullable[String] and
+      readsContent and
       (__ \ "items").readWithDefault[Seq[FooterItem]](Nil)
   )(Meta.apply _)
 

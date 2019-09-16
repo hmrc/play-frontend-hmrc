@@ -24,7 +24,8 @@ import uk.gov.hmrc.govukfrontend.views.html.components._
 class checkboxesSpec extends RenderHtmlSpec("govukCheckboxes") {
 
   override implicit val reads: Reads[Html] = (
-    (__ \ "fieldset").readNullable[FieldsetParams] and
+    (__ \ "describedBy").readNullable[String] and
+      (__ \ "fieldset").readNullable[FieldsetParams] and
       (__ \ "hint").readNullable[HintParams] and
       (__ \ "errorMessage").readNullable[ErrorMessageParams] and
       readsFormGroupClasses and

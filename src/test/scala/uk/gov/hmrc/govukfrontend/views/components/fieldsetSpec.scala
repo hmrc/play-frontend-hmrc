@@ -26,6 +26,7 @@ class fieldsetSpec extends RenderHtmlSpec("govukFieldset") {
     describedBy: Option[String]     = None,
     legend: Option[Legend]          = None,
     classes: String                 = "",
+    role: Option[String]            = None,
     attributes: Map[String, String] = Map.empty,
     html: String                    = ""
   )
@@ -35,7 +36,7 @@ class fieldsetSpec extends RenderHtmlSpec("govukFieldset") {
       .using[Json.WithDefaultValues]
       .reads[Params]
       .map {
-        case Params(describedBy, legend, classes, attributes, html) =>
-          Fieldset.apply(describedBy, legend, classes, attributes)(Html(html))
+        case Params(describedBy, legend, classes, role, attributes, html) =>
+          Fieldset.apply(describedBy, legend, classes, role, attributes)(Html(html))
       }
 }

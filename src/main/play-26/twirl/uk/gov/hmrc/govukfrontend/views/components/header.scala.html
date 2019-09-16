@@ -19,9 +19,8 @@
 @this()
 
 @(params: HeaderParams = HeaderParams())
-<header class="govuk-header @params.classes" role="banner" data-module="header"@toAttributes(params.attributes)>
+<header class="govuk-header @params.classes" role="banner" data-module="govuk-header"@toAttributes(params.attributes)>
   <div class="@toClasses("govuk-header__container", if (params.containerClasses.nonEmpty) params.containerClasses else "govuk-width-container")">
-
     <div class="govuk-header__logo">
       <a href="@params.homepageUrl.getOrElse{/}" class="govuk-header__link govuk-header__link--homepage">
         <span class="govuk-header__logotype">
@@ -43,7 +42,7 @@
             class="govuk-header__logotype-crown"
             xmlns="http://www.w3.org/2000/svg"
             viewbox="0 0 132 97"
-            height="32"
+            height="30"
             width="36"
           >
             <path
@@ -60,7 +59,7 @@
 
             In other browsers <image> is synonymous for the <img> tag and will be
             interpreted as such, displaying the fallback image. *@
-            <image src="@routes.Assets.at("images/govuk-logotype-crown.png")" class="govuk-header__logotype-crown-fallback-image"></image>
+            <image src="@routes.Assets.at("images/govuk-logotype-crown.png")" xlink:href="" class="govuk-header__logotype-crown-fallback-image" width="36" height="32"></image>
           </svg>
           <span class="govuk-header__logotype-text">
             GOV.UK
@@ -82,7 +81,7 @@
               </a>
             }
             @if(params.navigation.nonEmpty) {
-              <button type="button" role="button" class="govuk-header__menu-button js-header-toggle" aria-controls="navigation" aria-label="Show or hide Top Level Navigation">Menu</button>
+              <button type="button" role="button" class="govuk-header__menu-button govuk-js-header-toggle" aria-controls="navigation" aria-label="Show or hide Top Level Navigation">Menu</button>
               <nav>
                 <ul id="navigation" class="govuk-header__navigation @params.navigationClasses" aria-label="Top Level Navigation">
                   @for(item <- params.navigation) {

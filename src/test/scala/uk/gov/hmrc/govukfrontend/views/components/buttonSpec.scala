@@ -42,6 +42,7 @@ class buttonSpec extends RenderHtmlSpec("govukButton") {
       (__ \ "classes").readWithDefault[String]("") and
       (__ \ "attributes").readWithDefault[Map[String, String]](Map.empty) and
       (__ \ "preventDoubleClick").readWithDefault[Boolean](false) and
+      (__ \ "isStartButton").readWithDefault[Boolean](false) and
       readsContent
-  )(Button.apply(_, _, _, _, _, _, _, _, _)(_))
+  )(Button.apply(_, _, _, _, _, _, _, _, _, _)(_))
 }

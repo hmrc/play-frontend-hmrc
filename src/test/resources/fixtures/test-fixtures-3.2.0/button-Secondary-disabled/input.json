@@ -1,0 +1,6 @@
+{
+  "name": "secondary",
+  "text": "Secondary button disabled",
+  "classes": "govuk-button--secondary",
+  "disabled": true
+}

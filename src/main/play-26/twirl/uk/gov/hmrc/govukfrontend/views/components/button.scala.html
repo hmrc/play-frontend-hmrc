@@ -25,30 +25,59 @@
   href: Option[String] = None,
   classes: String = "",
   attributes: Map[String, String] = Map.empty,
-  preventDoubleClick: Boolean = false)(content: Content)
+  preventDoubleClick: Boolean = false,
+  isStartButton: Boolean = false)(content: Content)
 @require(!element.exists(_.toLowerCase == "input") || content.isInstanceOf[Text])
+@defining(iconHtmlSnippet(classNames)) { case( classNames, iconHtml) =>
+    @if(elem == "a") {
+        <a href="@{"#".?:(href)}" role="button" draggable="false" @commonAttributes(classNames)>
+            @content.asHtml
+            @iconHtml.trim @* TODO: implement Nunjucks indent(m, bool) *@
+        </a>
+    } else {
+        @if(elem == "button") {
+            <button @value.map {value => value="@value"}@inputType.map {inputType => type="@inputType"}@buttonAttributes @commonAttributes(classNames)>
+                @content.asHtml
+                @iconHtml.trim
+            </button>
+        } else {
+            @if(elem == "input") {
+                <input value="@content.asInstanceOf[Text].value" type="@inputTypeAttr.trim"@buttonAttributes @commonAttributes(classNames)>
+            }
+        }
+    }
+}
+
 @elem = @{ element.fold(href.fold("button")(_ => "a"))(_.toLowerCase) }
 
-@commonAttributes = {
-  class="@toClasses("govuk-button", classes, "govuk-button--disabled".when(disabled))"@toAttributes(attributes)
+@commonAttributes(classNames: String) = {
+  class="@classNames" data-module="govuk-button"@toAttributes(attributes)
 }
 
 @buttonAttributes = {
-  @name.map {name => name="@name"} type="@{"submit".?:(inputType)}"@if(disabled) { disabled="disabled" aria-disabled="true"}@if(preventDoubleClick) { data-prevent-double-click="true"}
+  @name.map {name => name="@name"}@if(disabled) { disabled="disabled" aria-disabled="true"}@if(preventDoubleClick) { data-prevent-double-click="true"}
 }
 
-@if(elem == "a") {
-  <a href="@{"#".?:(href)}" role="button" draggable="false" @commonAttributes>
-    @content.asHtml
-  </a>
-} else {
-  @if(elem == "button") {
-    <button @value.map {value => value="@value"}@buttonAttributes @commonAttributes>
-      @content.asHtml
-    </button>
+@classNames = @{ toClasses("govuk-button", classes, "govuk-button--disabled".when(disabled)) }
+
+@iconHtmlSnippet(classNames: String) = @{
+  if(isStartButton) {
+    // The SVG needs `focusable="false"` so that Internet Explorer does not
+    // treat it as an interactive element - without this it will be
+    // 'focusable' when using the keyboard to navigate.
+    (s"$classNames govuk-button--start", svgSnippet)
   } else {
-    @if(elem == "input") {
-      <input value="@content.asInstanceOf[Text].value"@buttonAttributes @commonAttributes>
-    }
+      (classNames, HtmlFormat.empty)
   }
 }
+
+@svgSnippet = {
+  <svg class="govuk-button__start-icon" xmlns="http://www.w3.org/2000/svg" width="17.5" height="19" viewBox="0 0 33 40" role="presentation" focusable="false">
+    <path fill="currentColor" d="M0 0h13l20 20-20 20H0l20-20z"/>
+  </svg>
+}
+
+@inputTypeAttr = {
+ @inputType.map {inputType => @if(inputType.nonEmpty) {@inputType} else {submit}}.getOrElse {submit}
+}
+
