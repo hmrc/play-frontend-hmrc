@@ -31,7 +31,7 @@
     <thead class="govuk-table__head">
      <tr class="govuk-table__row">
        @for(item <- head) {
-         <th class="@toClasses("govuk-table__header", item.format.fold(""){ itemFormat => s"govuk-table__header--$itemFormat"}, item.classes)"@headItemAttrs(item)>@item.content.asHtml</th>
+         <th scope="col" class="@toClasses("govuk-table__header", item.format.fold(""){ itemFormat => s"govuk-table__header--$itemFormat"}, item.classes)"@headItemAttrs(item)>@item.content.asHtml</th>
        }
      </tr>
     </thead>
@@ -41,9 +41,9 @@
       <tr class="govuk-table__row">
         @for((cell, index) <- row.zip(Stream from 0)) {
           @if(index == 0 && firstCellIsHeader) {
-            <th class="govuk-table__header" scope="row">@cell.content.asHtml</th>
+            <th scope="row" class="@toClasses("govuk-table__header", cell.classes)"@commonAttrs(cell)>@cell.content.asHtml</th>
           } else {
-            <td class="@toClasses("govuk-table__cell", cell.format.fold(""){ cellFormat => s"govuk-table__cell--$cellFormat"}, cell.classes)"@cellAttrs(cell)>@cell.content.asHtml</td>
+            <td class="@toClasses("govuk-table__cell", cell.format.fold(""){ cellFormat => s"govuk-table__cell--$cellFormat"}, cell.classes)"@commonAttrs(cell)>@cell.content.asHtml</td>
           }
         }
       </tr>
@@ -52,9 +52,9 @@
 </table>
 
 @headItemAttrs(item: HeadCell) = {
-  @item.colspan.map { colspan => colspan="@colspan"}@item.rowspan.map { rowspan => rowspan="@rowspan"}@toAttributes(item.attributes) scope="col"
+  @item.colspan.map { colspan => colspan="@colspan"}@item.rowspan.map { rowspan => rowspan="@rowspan"}@toAttributes(item.attributes)
 }
 
-@cellAttrs(cell: TableRow) = {
+@commonAttrs(cell: TableRow) = {
   @cell.colspan.map { colspan => colspan="@colspan"}@cell.rowspan.map { rowspan => rowspan="@rowspan"}@toAttributes(cell.attributes)
 }

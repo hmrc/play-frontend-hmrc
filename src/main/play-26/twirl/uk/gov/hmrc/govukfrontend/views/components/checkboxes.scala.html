@@ -16,7 +16,8 @@
 
 @this(errorMessage: errorMessage, fieldset: fieldset, hint: hint, label: label)
 
-@(fieldsetParams: Option[FieldsetParams] = None,
+@(describedBy: Option[String],
+  fieldsetParams: Option[FieldsetParams] = None,
   hintParams: Option[HintParams] = None,
   errorMessageParams: Option[ErrorMessageParams] = None,
   formGroupClasses: String = "",
@@ -45,23 +46,23 @@
 
 @hasFieldset = @{fieldsetParams.isDefined}
 
-@hintSnippet = @{
- hintParams.fold(("", HtmlFormat.empty)) { hintParams =>
-   val hintId = idPrefixStr + "-hint"
-   val describedBy = hintId
-   val hintHtml =
-     hint(
-       id = Some(hintId),
-       classes = hintParams.classes,
-       attributes = hintParams.attributes)(hintParams.content)
-   (describedBy, hintHtml)
- }
+@hintSnippet(describedBy: String) = @{
+  hintParams.fold((describedBy, HtmlFormat.empty)) { hintParams =>
+    val hintId = idPrefixStr + "-hint"
+    val describedBy1 = s"$describedBy $hintId".ltrim
+    val hintHtml =
+      hint(
+        id = Some(hintId),
+        classes = hintParams.classes,
+        attributes = hintParams.attributes)(hintParams.content)
+    (describedBy1, hintHtml)
+  }
 }
 
 @errorMessageSnippet(describedBy: String) = @{
   errorMessageParams.fold((describedBy, HtmlFormat.empty)) { errorMessageParams =>
     val errorId = idPrefixStr + "-error"
-    val describedBy1 = if (describedBy.nonEmpty) s"$describedBy $errorId" else errorId
+    val describedBy1 = s"$describedBy $errorId".ltrim
     val errorMessageHtml =
       errorMessage(
         id = Some(errorId),
@@ -74,7 +75,7 @@
 }
 
 @divSnippet(describedBy: String) = {
-  <div class="@toClasses("govuk-checkboxes", classes)"@toAttributes(attributes)@if(isConditional) { data-module="checkboxes"}>
+  <div class="@toClasses("govuk-checkboxes", classes)"@toAttributes(attributes)@if(isConditional) { data-module="govuk-checkboxes"}>
     @for((item, index) <- items.zip(Stream from 1)) {
       <div class="govuk-checkboxes__item">
         <input class="govuk-checkboxes__input" id="@itemId(item, index)" name="@itemName(item)" type="checkbox" value="@item.value"@inputAttrs(item, index, describedBy)@toAttributes(item.attributes)>
@@ -99,13 +100,20 @@
 }
 
 @innerHtmlSnippet = @{
-  val (describedBy, hintHtml) = hintSnippet
-  val (describedBy1, errorMessageHtml) = errorMessageSnippet(describedBy)
-  val divHtml = divSnippet(describedBy1)
-  (describedBy1, HtmlFormat.fill(collection.immutable.Seq(hintHtml, errorMessageHtml, divHtml)))
+  val describedBy1 = fieldsetParams.fold("")(fieldsetParams => fieldsetParams.describedBy.getOrElse(""))
+  val (describedBy2, hintHtml) = hintSnippet(describedBy1)
+  val (describedBy3, errorMessageHtml) = errorMessageSnippet(describedBy2)
+  val divHtml = divSnippet(describedBy3)
+  (describedBy3, HtmlFormat.fill(collection.immutable.Seq(hintHtml, errorMessageHtml, divHtml)))
 }
 
-@itemId(item: CheckboxItem, index: Int) = @{item.id.getOrElse(s"$idPrefixStr-$index")}
+@itemId(item: CheckboxItem, index: Int) = @{
+  (item.id, index) match {
+    case (Some(id), _) => id
+    case (None, 1) => idPrefixStr
+    case _ => s"$idPrefixStr-$index"
+  }
+}
 
 @conditionalId(item: CheckboxItem, index: Int) = @{s"conditional-${itemId(item, index)}"}
 

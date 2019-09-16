@@ -20,6 +20,7 @@
   name: String,
   rows: Int = 5,
   value: Option[String] = None,
+  describedBy: Option[String] = None,
   labelParams: LabelParams,
   hintParams: Option[HintParams] = None,
   errorMessageParams: Option[ErrorMessageParams] = None,
@@ -30,24 +31,24 @@
 @require(name.nonEmpty && id.nonEmpty)
 @mainSnippet
 
-@hintSnippet = @{
- hintParams.fold(("", HtmlFormat.empty)) { hintParams =>
+@hintSnippet(describedBy: String) = @{
+ hintParams.fold((describedBy, HtmlFormat.empty)) { hintParams =>
    val hintId = s"$id-hint"
-   val describedBy = hintId
+   val describedBy1 = s"$describedBy $hintId".ltrim
    val hintHtml =
    hint(
      id = Some(hintId),
      classes = hintParams.classes,
      attributes = hintParams.attributes
    )(hintParams.content)
-  (describedBy, hintHtml)
+  (describedBy1, hintHtml)
  }
 }
 
 @errorMessageSnippet(describedBy: String) = @{
   errorMessageParams.fold((describedBy, HtmlFormat.empty)) { errorMessageParams =>
     val errorId = s"$id-error"
-    val describedBy1 = if (describedBy.nonEmpty) s"$describedBy $errorId" else errorId
+    val describedBy1 = s"$describedBy $errorId".trim
     val errorMessageHtml =
      errorMessage(
        id = Some(errorId),
@@ -80,14 +81,14 @@
 }
 
 @mainSnippet = @{
-  val (describedBy, hintHtml) = hintSnippet
-  val (describedBy1, errorMessageHtml) = errorMessageSnippet(describedBy)
+  val (describedBy1, hintHtml) = hintSnippet(describedBy.getOrElse(""))
+  val (describedBy2, errorMessageHtml) = errorMessageSnippet(describedBy1)
   val labelHtml = label(
     forAttr = Some(id),
     isPageHeading = labelParams.isPageHeading,
     classes = labelParams.classes,
     attributes = labelParams.attributes)(labelParams.content)
-  val textareaHtml = textareaSnippet(describedBy1)
+  val textareaHtml = textareaSnippet(describedBy2)
   divSnippet(labelHtml, hintHtml, errorMessageHtml, textareaHtml)
 }
 

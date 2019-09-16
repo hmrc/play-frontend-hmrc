@@ -22,7 +22,7 @@
   items: Seq[TabItem] = Nil,
   classes: String = "",
   attributes: Map[String, String] = Map.empty)
-<div@id.map {id => id="@id"} class="@toClasses("govuk-tabs", classes)"@toAttributes(attributes) data-module="tabs">
+<div@id.map {id => id="@id"} class="@toClasses("govuk-tabs", classes)"@toAttributes(attributes) data-module="govuk-tabs">
   <h2 class="govuk-tabs__title">
     @HtmlFormat.escape(title)
   </h2>
@@ -30,8 +30,8 @@
   @if(items.nonEmpty) {
     <ul class="govuk-tabs__list">
       @for((item, index) <- items.zip(Stream from 1)) {
-        <li class="govuk-tabs__list-item">
-          <a class="@toClasses("govuk-tabs__tab", "govuk-tabs__tab--selected".when(index == 1))" href="#@itemId(item, index)"@toAttributes(item.attributes)>
+        <li class="@toClasses("govuk-tabs__list-item", "govuk-tabs__list-item--selected".when(index == 1))">
+          <a class="govuk-tabs__tab" href="#@itemId(item, index)"@toAttributes(item.attributes)>
             @HtmlFormat.escape(item.label)
           </a>
         </li>

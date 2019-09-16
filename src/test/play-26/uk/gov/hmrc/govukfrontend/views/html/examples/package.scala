@@ -29,7 +29,7 @@ package object examples {
 
   lazy val FieldsetAddressGroup = new fieldset.addressGroup(Input)
 
-//  lazy val ErrorMessage = new errorMessage()
+  lazy val ErrorMessageDefault = new errormessage.default(DateInput)
 
     lazy val DetailsDefault = new details.default()
 }

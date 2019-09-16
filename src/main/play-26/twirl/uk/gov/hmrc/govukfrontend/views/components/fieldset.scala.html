@@ -19,8 +19,9 @@
 @(describedBy: Option[String] = None,
   legend: Option[Legend] = None,
   classes: String = "",
+  role: Option[String] = None,
   attributes: Map[String, String] = Map.empty)(html: Html = HtmlFormat.empty)
-<fieldset class="@toClasses("govuk-fieldset", classes)"@describedBySnippet@toAttributes(attributes)>
+<fieldset class="@toClasses("govuk-fieldset", classes)"@role.map {role => role="@role"}@describedBySnippet@toAttributes(attributes)>
   @legend.map { legend =>
     <legend class="@toClasses("govuk-fieldset__legend", legend.classes)">
       @if(legend.isPageHeading) {

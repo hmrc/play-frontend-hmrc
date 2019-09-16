@@ -20,5 +20,6 @@ case class FieldsetParams(
   describedBy: Option[String]     = None,
   legend: Option[Legend]          = None,
   classes: String                 = "",
+  role: Option[String]            = None,
   attributes: Map[String, String] = Map.empty
 )

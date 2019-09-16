@@ -27,6 +27,7 @@ class textareaSpec extends RenderHtmlSpec("govukTextarea") {
       (__ \ "name").read[String] and
       (__ \ "rows").readWithDefault[Int](5) and
       (__ \ "value").readNullable[String] and
+      (__ \ "describedBy").readNullable[String] and
       (__ \ "label").read[LabelParams] and
       (__ \ "hint").readNullable[HintParams] and
       (__ \ "errorMessage").readNullable[ErrorMessageParams] and

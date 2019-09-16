@@ -20,7 +20,7 @@
   classes: String = "",
   attributes: Map[String, String] = Map.empty)(content: Content = Empty)
 <div class="@toClasses("govuk-phase-banner", classes)"@toAttributes(attributes)>
-  <p class="govuk-phase-banner__content">@tagSnippet(tagParams).ltrim
+  <p class="govuk-phase-banner__content">@tagSnippet(tagParams)
     <span class="govuk-phase-banner__text">
       @content.asHtml
     </span>
@@ -29,7 +29,7 @@
 
 @tagSnippet(tagParams: Option[TagParams]) = {
   @tagParams.map { tagParams =>
-    @tag(toClasses("govuk-phase-banner__content__tag ", tagParams.classes))(tagParams.content)}
+    @tag(toClasses("govuk-phase-banner__content__tag", tagParams.classes))(tagParams.content)}
 }
 
 

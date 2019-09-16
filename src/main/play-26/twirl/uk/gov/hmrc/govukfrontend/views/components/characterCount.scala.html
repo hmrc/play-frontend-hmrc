@@ -26,24 +26,23 @@
   labelParams: LabelParams,
   hintParams: Option[HintParams] = None,
   errorMessageParams: Option[ErrorMessageParams] = None,
+  formGroupClasses: String = "",
   classes: String = "",
   attributes: Map[String, String] = Map.empty)
 @require(name.nonEmpty && id.nonEmpty, "name and id should be non-empty")
 @require(maxlength.isDefined || maxwords.isDefined, "maxlength or maxwords should be provided")
-<div class="govuk-character-count" data-module="character-count"@attrs>
+<div class="govuk-character-count" data-module="govuk-character-count"@attrs>
   @textarea(
     id = id,
     name = name,
-    // FIXME: uncomment this when upgrading to the latest
-    // govuk-frontend 2.11.0 textarea is not expecting 'describedBy' parameter - fixed in the latest
-    // https://github.com/alphagov/govuk-frontend/blob/master/src/govuk/components/textarea/template.njk#L7
-    // describedBy = "@id-info",
+    describedBy = Some(s"$id-info"),
     rows = rows,
     value = value,
     labelParams = labelParams.copy(forAttr = Some(id)),
     hintParams = hintParams,
     errorMessageParams = errorMessageParams,
-    classes = toClasses("js-character-count ", errorMessageParams.fold("")(_ => " govuk-textarea--error"), classes),
+    formGroupClasses = formGroupClasses,
+    classes = toClasses("govuk-js-character-count ", errorMessageParams.fold("")(_ => " govuk-textarea--error"), classes),
     attributes = attributes
   )
   <span id="@id-info" class="govuk-hint govuk-character-count__message" aria-live="polite">

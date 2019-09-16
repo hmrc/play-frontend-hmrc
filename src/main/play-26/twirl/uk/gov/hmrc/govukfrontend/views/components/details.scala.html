@@ -20,7 +20,7 @@
   open: Boolean = false,
   classes: String = "",
   attributes: Map[String, String] = Map.empty)(summary: Content)(content: Content)
-<details @id.map {id => id="@id"} class="@toClasses("govuk-details", classes)"@toAttributes(attributes) @if(open) {open}>
+<details @id.map {id => id="@id"} class="@toClasses("govuk-details", classes)" data-module="govuk-details"@toAttributes(attributes) @if(open) {open}>
   <summary class="govuk-details__summary">
     <span class="govuk-details__summary-text">
       @summary.asHtml

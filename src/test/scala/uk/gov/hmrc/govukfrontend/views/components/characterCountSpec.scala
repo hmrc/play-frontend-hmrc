@@ -33,6 +33,7 @@ class characterCountSpec extends RenderHtmlSpec("govukCharacterCount") {
       (__ \ "label").read[LabelParams] and
       (__ \ "hint").readNullable[HintParams] and
       (__ \ "errorMessage").readNullable[ErrorMessageParams] and
+      readsFormGroupClasses and
       (__ \ "classes").readWithDefault[String]("") and
       (__ \ "attributes").readWithDefault[Map[String, String]](Map.empty)
   )(CharacterCount.apply _)

@@ -29,7 +29,7 @@ package object examples {
 
   lazy val FieldsetAddressGroup = fieldset.addressGroup
 
-  //  lazy val ErrorMessage = new errorMessage
+  lazy val ErrorMessageDefault = errormessage.default
 
   lazy val DetailsDefault = details.default
 }

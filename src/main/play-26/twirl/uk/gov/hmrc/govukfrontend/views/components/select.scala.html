@@ -55,7 +55,7 @@
 @errorMessageSnippet(describedBy: String) = @{
   errorMessageParams.fold((describedBy, HtmlFormat.empty)) { errorMessageParams =>
     val errorId = s"$id-error"
-    val describedBy1 = if (describedBy.nonEmpty) s"$describedBy $errorId" else errorId
+    val describedBy1 = s"$describedBy $errorId".ltrim
     val errorMessageHtml =
      errorMessage(
        id = Some(errorId),

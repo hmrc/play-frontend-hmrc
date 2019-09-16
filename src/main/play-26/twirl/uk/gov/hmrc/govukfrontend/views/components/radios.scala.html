@@ -41,23 +41,23 @@
 
 @isConditional = @{items.exists(_.conditionalHtml.exists(_.body.nonEmpty))}
 
-@hintSnippet = @{
-  hintParams.fold(("", HtmlFormat.empty)) { hintParams =>
+@hintSnippet(describedBy: String) = @{
+  hintParams.fold((describedBy, HtmlFormat.empty)) { hintParams =>
     val hintId = idPrefixStr + "-hint"
-    val describedBy = hintId
+    val describedBy1 = s"$describedBy $hintId".ltrim
     val hintHtml =
       hint(
         id = Some(hintId),
         classes = hintParams.classes,
         attributes = hintParams.attributes)(hintParams.content)
-    (describedBy, hintHtml)
+    (describedBy1, hintHtml)
   }
 }
 
 @errorMessageSnippet(describedBy: String) = @{
   errorMessageParams.fold((describedBy, HtmlFormat.empty)) { errorMessageParams =>
     val errorId = idPrefixStr + "-error"
-    val describedBy1 = if (describedBy.nonEmpty) s"$describedBy $errorId" else errorId
+    val describedBy1 = s"$describedBy $errorId".ltrim
     val errorMessageHtml =
       errorMessage(
         id = Some(errorId),
@@ -70,9 +70,9 @@
 }
 
 @divSnippet = {
-  <div class="@toClasses("govuk-radios", classes, "govuk-radios--conditional".when(isConditional))"@toAttributes(attributes)@if(isConditional) { data-module="radios"}>
+  <div class="@toClasses("govuk-radios", classes, "govuk-radios--conditional".when(isConditional))"@toAttributes(attributes)@if(isConditional) { data-module="govuk-radios"}>
   @for((item, index) <- items.zip(Stream from 1)) {
-    @defining(item.id.getOrElse(s"$idPrefixStr-$index")) { id =>
+    @defining(itemId(item, index)) { id =>
     @defining(s"conditional-$id") { conditionalId =>
       @item.divider match {
         case Some(divider) => {<div class="govuk-radios__divider">@divider</div>}
@@ -112,7 +112,16 @@
 }
 
 @innerHtmlSnippet = @{
-  val (describedBy, hintHtml) = hintSnippet
-  val (describedBy1, errorMessageHtml) = errorMessageSnippet(describedBy)
-  (describedBy1, HtmlFormat.fill(collection.immutable.Seq(hintHtml, errorMessageHtml, divSnippet)))
+  val describedBy = fieldsetParams.fold("")(fieldsetParams => fieldsetParams.describedBy.getOrElse(""))
+  val (describedBy1, hintHtml) = hintSnippet(describedBy)
+  val (describedBy2, errorMessageHtml) = errorMessageSnippet(describedBy1)
+  (describedBy2, HtmlFormat.fill(collection.immutable.Seq(hintHtml, errorMessageHtml, divSnippet)))
+}
+
+@itemId(item: RadioItem, index: Int) = @{
+  (item.id, index) match {
+    case (Some(id), _) => id
+    case (None, 1) => idPrefixStr
+    case _ => s"$idPrefixStr-$index"
+  }
 }

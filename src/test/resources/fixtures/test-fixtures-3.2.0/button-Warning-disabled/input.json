@@ -1,0 +1,6 @@
+{
+  "name": "warning",
+  "text": "Warning button disabled",
+  "classes": "govuk-button--warning",
+  "disabled": true
+}
