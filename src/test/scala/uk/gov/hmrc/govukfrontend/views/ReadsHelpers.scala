@@ -185,8 +185,16 @@ trait ReadsHelpers {
     }
   }
 
-  implicit val readsInputParams: Reads[InputParams] =
-    Json.using[Json.WithDefaultValues].reads[InputParams]
+  implicit val readsInputParams: Reads[InputParams] = (
+    (__ \ "id").readNullable[String] and
+      (__ \ "name").read[String] and
+      (__ \ "label").readNullable[String] and
+      (__ \ "value").readNullable[String] and
+      (__ \ "autocomplete").readNullable[String] and
+      (__ \ "pattern").readNullable[Regex] and
+      (__ \ "classes").readWithDefault[String]("") and
+      (__ \ "attributes").readWithDefault[Map[String, String]](Map.empty)
+  )(InputParams.apply _)
 
   implicit val readsSection: Reads[Section] = (
     readsHtmlOrText((__ \ "heading" \ "html"), (__ \ "heading" \ "text")) and

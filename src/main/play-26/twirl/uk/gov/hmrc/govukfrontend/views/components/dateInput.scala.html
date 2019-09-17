@@ -94,7 +94,7 @@
               content = item.label.map(Text).getOrElse(Text(item.name.capitalize))
             ),
           classes = toClasses("govuk-date-input__input", item.classes),
-          autocomplete = item.autocomplete,
+          autoComplete = item.autoComplete,
           pattern = Option(item.pattern.getOrElse("[0-9]*".r)),
           attributes = item.attributes
         )

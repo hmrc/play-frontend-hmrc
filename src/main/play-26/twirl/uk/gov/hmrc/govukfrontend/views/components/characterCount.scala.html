@@ -20,8 +20,8 @@
   name: String,
   rows: Int = 5,
   value: Option[String] = None,
-  maxlength: Option[Int] = None,
-  maxwords: Option[Int] = None,
+  maxLength: Option[Int] = None,
+  maxWords: Option[Int] = None,
   threshold: Option[Int] = None,
   labelParams: LabelParams,
   hintParams: Option[HintParams] = None,
@@ -30,7 +30,7 @@
   classes: String = "",
   attributes: Map[String, String] = Map.empty)
 @require(name.nonEmpty && id.nonEmpty, "name and id should be non-empty")
-@require(maxlength.isDefined || maxwords.isDefined, "maxlength or maxwords should be provided")
+@require(maxLength.isDefined || maxWords.isDefined, "maxLength or maxWords should be provided")
 <div class="govuk-character-count" data-module="govuk-character-count"@attrs>
   @textarea(
     id = id,
@@ -46,12 +46,12 @@
     attributes = attributes
   )
   <span id="@id-info" class="govuk-hint govuk-character-count__message" aria-live="polite">
-    You can enter up to @maxlength.orElse(maxwords).map {max => @max}@maxwords.map {_ => words}.getOrElse { characters}
+    You can enter up to @maxLength.orElse(maxWords).map {max => @max}@maxWords.map {_ => words}.getOrElse { characters}
   </span>
 </div>
 
 @attrs = {
-  @maxlength.map { maxlength => data-maxlength="@maxlength"}
+  @maxLength.map { maxLength => data-maxlength="@maxLength"}
   @threshold.map { threshold => data-threshold="@threshold"}
-  @maxwords.map { maxwords => data-maxwords="@maxwords"}
+  @maxWords.map { maxWords => data-maxwords="@maxWords"}
 }

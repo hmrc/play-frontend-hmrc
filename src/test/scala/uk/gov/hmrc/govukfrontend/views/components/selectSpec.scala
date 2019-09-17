@@ -26,6 +26,7 @@ class selectSpec extends RenderHtmlSpec("govukSelect") {
     (__ \ "id").read[String] and
       (__ \ "name").read[String] and
       (__ \ "items").readWithDefault[Seq[SelectItem]](Nil) and
+      (__ \ "describedBy").readNullable[String] and
       (__ \ "label").read[LabelParams] and
       (__ \ "hint").readNullable[HintParams] and
       (__ \ "errorMessage").readNullable[ErrorMessageParams] and

@@ -21,13 +21,15 @@
 @(id: String,
   name: String,
   inputType: String = "text",
+  inputMode: Option[String] = None,
+  describedBy: Option[String] = None,
   value: Option[String] = None,
   labelParams: LabelParams,
   hintParams: Option[HintParams] = None,
   errorMessageParams: Option[ErrorMessageParams] = None,
   formGroupClasses: String = "",
   classes: String = "",
-  autocomplete: Option[String] = None,
+  autoComplete: Option[String] = None,
   pattern: Option[Regex] = None,
   attributes: Map[String, String] = Map.empty)
 @require(name.nonEmpty && id.nonEmpty)
@@ -40,17 +42,17 @@
   @divSnippet
 </div>
 
-@hintSnippet = @{
- hintParams.fold(("", HtmlFormat.empty)) { hintParams =>
+@hintSnippet(describedBy: String) = @{
+ hintParams.fold((describedBy, HtmlFormat.empty)) { hintParams =>
    val hintId = s"$id-hint"
-   val describedBy = hintId
+   val describedBy1 = s"$describedBy $hintId".ltrim
    val hintHtml =
    hint(
      id = Some(hintId),
      classes = hintParams.classes,
      attributes = hintParams.attributes
    )(hintParams.content)
-  (describedBy, hintHtml)
+  (describedBy1, hintHtml)
  }
 }
 
@@ -74,16 +76,16 @@
     id="@id" name="@name" type="@inputType"@value.map { value => value="@value" }@if(describedBy.nonEmpty) { aria-describedby="@describedBy"}
   } { attrs =>
   @defining {
-    @autocomplete.map { autocomplete => autocomplete="@autocomplete"}@pattern.map { pattern => pattern="@pattern"}@toAttributes(attributes)
+    @autoComplete.map { autoComplete => autocomplete="@autoComplete"}@pattern.map { pattern => pattern="@pattern"}@inputMode.map { inputMode => inputmode="@inputMode"}@toAttributes(attributes)
   } { otherAttrs =>
       <input class="@toClasses("govuk-input", classes, errorMessageParams.fold("")(_ => "govuk-input--error"))" @attrs@otherAttrs>
   }}
 }
 
 @divSnippet = @{
-  val (describedBy, hintHtml) = hintSnippet
-  val (describedBy1, errorMessageHtml) = errorMessageSnippet(describedBy)
-  val inputHtml = inputSnippet(describedBy1)
+  val (describedBy1, hintHtml) = hintSnippet(describedBy.getOrElse(""))
+  val (describedBy2, errorMessageHtml) = errorMessageSnippet(describedBy1)
+  val inputHtml = inputSnippet(describedBy2)
   HtmlFormat.fill(collection.immutable.Seq(hintHtml, errorMessageHtml, inputHtml))
 }
 
