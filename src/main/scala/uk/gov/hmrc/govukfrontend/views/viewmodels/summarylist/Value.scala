@@ -19,4 +19,4 @@ package summarylist
 
 import common.{Content, Empty}
 
-case class Value(content: Content = Empty, classes: String = "")
+final case class Value(content: Content = Empty, classes: String = "")

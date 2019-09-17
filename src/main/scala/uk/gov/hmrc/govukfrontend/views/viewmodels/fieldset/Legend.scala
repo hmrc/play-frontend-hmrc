@@ -19,7 +19,7 @@ package fieldset
 
 import common.{Content, Empty}
 
-case class Legend(
+final case class Legend(
   content: Content     = Empty,
   classes: String        = "",
   isPageHeading: Boolean = false

@@ -19,7 +19,7 @@ package tabs
 
 import common.{Content, Empty}
 
-case class TabPanel(
+final case class TabPanel(
   content: Content                = Empty,
   attributes: Map[String, String] = Map.empty
 )

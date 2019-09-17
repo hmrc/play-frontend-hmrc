@@ -16,7 +16,7 @@
 
 package uk.gov.hmrc.govukfrontend.views.viewmodels.footer
 
-case class FooterItem(
+final case class FooterItem(
   text: Option[String]            = None,
   href: Option[String]            = None,
   attributes: Map[String, String] = Map.empty

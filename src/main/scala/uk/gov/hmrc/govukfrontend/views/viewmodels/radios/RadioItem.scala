@@ -22,7 +22,7 @@ import hint.HintParams
 import label.LabelParams
 import play.twirl.api.Html
 
-case class RadioItem(
+final case class RadioItem(
   content: Content,
   id: Option[String]              = None,
   value: Option[String]           = None,

@@ -17,7 +17,7 @@
 package uk.gov.hmrc.govukfrontend.views.viewmodels
 package summarylist
 
-case class SummaryListRow(
+final case class SummaryListRow(
   key: Key,
   value: Value,
   classes: String          = "",

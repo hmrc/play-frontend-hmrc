@@ -19,7 +19,7 @@ package tag
 
 import common.{Content, Empty}
 
-case class TagParams(
+final case class TagParams(
   content: Content              = Empty,
   classes: String                 = "",
   attributes: Map[String, String] = Map.empty

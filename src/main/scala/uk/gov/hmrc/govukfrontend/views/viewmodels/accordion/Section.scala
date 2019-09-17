@@ -19,7 +19,7 @@ package accordion
 
 import common.{Content, Empty}
 
-case class Section(
+final case class Section(
   headingContent: Content = Empty,
   summaryContent: Content = Empty,
   content: Content,

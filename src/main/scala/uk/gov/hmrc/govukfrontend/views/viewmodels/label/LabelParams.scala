@@ -19,7 +19,7 @@ package label
 
 import common.{Content, Empty}
 
-case class LabelParams(
+final case class LabelParams(
   forAttr: Option[String] = None,
   isPageHeading: Boolean = false,
   classes: String                 = "",

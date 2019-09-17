@@ -22,7 +22,7 @@ import hint.HintParams
 import label.LabelParams
 import play.twirl.api.Html
 
-case class CheckboxItem(
+final case class CheckboxItem(
   content: Content,
   id: Option[String]   = None,
   name: Option[String] = None,

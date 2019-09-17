@@ -19,7 +19,7 @@ package footer
 
 import common.{Content, Empty}
 
-case class Meta(
+final case class Meta(
   visuallyHiddenTitle: Option[String] = None,
   content: Content = Empty,
   items: Seq[FooterItem]   = Nil

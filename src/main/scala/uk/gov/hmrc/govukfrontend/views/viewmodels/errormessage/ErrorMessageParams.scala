@@ -19,7 +19,7 @@ package errormessage
 
 import common.Content
 
-case class ErrorMessageParams(
+final case class ErrorMessageParams(
   classes: String                        = "",
   attributes: Map[String, String]        = Map.empty,
   visuallyHiddenText: VisuallyHiddenText = ShowText("Error"),

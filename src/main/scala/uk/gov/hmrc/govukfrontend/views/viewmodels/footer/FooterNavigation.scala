@@ -16,7 +16,7 @@
 
 package uk.gov.hmrc.govukfrontend.views.viewmodels.footer
 
-case class FooterNavigation(
+final case class FooterNavigation(
   title: Option[String] = None,
   columns: Option[Int]  = None,
   items: Seq[FooterItem]      = Nil

@@ -19,7 +19,7 @@ package errorsummary
 
 import common.{Content, Empty}
 
-case class ErrorLink(
+final case class ErrorLink(
   href: Option[String]            = None,
   content: Content              = Empty,
   attributes: Map[String, String] = Map.empty

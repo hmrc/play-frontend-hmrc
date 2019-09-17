@@ -19,7 +19,7 @@ package hint
 
 import common.Content
 
-case class HintParams(
+final case class HintParams(
   id: Option[String]              = None,
   classes: String                 = "",
   attributes: Map[String, String] = Map.empty,

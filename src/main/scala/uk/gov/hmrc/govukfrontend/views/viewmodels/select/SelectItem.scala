@@ -16,7 +16,7 @@
 
 package uk.gov.hmrc.govukfrontend.views.viewmodels.select
 
-case class SelectItem(
+final case class SelectItem(
   value: Option[String] = None,
   text: String,
   selected: Boolean = false,

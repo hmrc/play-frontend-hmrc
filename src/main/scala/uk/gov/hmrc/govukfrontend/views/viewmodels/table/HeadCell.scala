@@ -19,7 +19,7 @@ package table
 
 import common.{Content, Empty}
 
-case class HeadCell(
+final case class HeadCell(
   content: Content                = Empty,
   format: Option[String]          = None,
   classes: String                 = "",

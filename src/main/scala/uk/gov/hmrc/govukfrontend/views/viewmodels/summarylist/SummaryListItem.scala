@@ -19,7 +19,7 @@ package summarylist
 
 import common.{Content, Empty}
 
-case class SummaryListItem(
+final case class SummaryListItem(
   href: String,
   content: Content                 = Empty,
   visuallyHiddenText: Option[String] = None,

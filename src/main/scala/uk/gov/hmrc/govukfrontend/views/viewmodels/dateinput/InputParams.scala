@@ -19,7 +19,7 @@ package dateinput
 
 import scala.util.matching.Regex
 
-case class InputParams(
+final case class InputParams(
   id: Option[String] = None,
   name: String,
   label: Option[String]           = None,

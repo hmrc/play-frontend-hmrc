@@ -16,7 +16,7 @@
 
 package uk.gov.hmrc.govukfrontend.views.viewmodels.fieldset
 
-case class FieldsetParams(
+final case class FieldsetParams(
   describedBy: Option[String]     = None,
   legend: Option[Legend]          = None,
   classes: String                 = "",

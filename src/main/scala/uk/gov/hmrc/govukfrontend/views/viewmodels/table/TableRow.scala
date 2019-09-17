@@ -19,7 +19,7 @@ package table
 
 import common.{Content, Empty}
 
-case class TableRow(
+final case class TableRow(
   content: Content                = Empty,
   format: Option[String]          = None,
   classes: String                 = "",

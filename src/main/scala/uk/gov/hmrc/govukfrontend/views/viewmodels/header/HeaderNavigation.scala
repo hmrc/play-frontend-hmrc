@@ -16,7 +16,7 @@
 
 package uk.gov.hmrc.govukfrontend.views.viewmodels.header
 
-case class HeaderNavigation(
+final case class HeaderNavigation(
   text: Option[String]            = None,
   href: Option[String]            = None,
   active: Boolean                 = false,

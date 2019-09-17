@@ -16,7 +16,7 @@
 
 package uk.gov.hmrc.govukfrontend.views.viewmodels.tabs
 
-case class TabItem(
+final case class TabItem(
   id: Option[String] = None,
   label: String,
   attributes: Map[String, String] = Map.empty,

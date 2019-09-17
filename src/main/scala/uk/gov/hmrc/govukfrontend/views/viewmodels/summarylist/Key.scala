@@ -19,4 +19,4 @@ package summarylist
 
 import common.{Content, Empty}
 
-case class Key(content: Content = Empty, classes: String = "")
+final case class Key(content: Content = Empty, classes: String = "")
