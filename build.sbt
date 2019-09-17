@@ -73,20 +73,10 @@ lazy val root = Project(libName, file("."))
       val play26Templates: Set[File] = (play26TemplatesDir ** ("*.scala.html")).get.toSet
       cachedFun(play26Templates).toSeq
     },
-    (TwirlKeys.compileTemplates in Compile) := {
-      if (PlayCrossCompilation.playVersion == Play25) {
-        ((TwirlKeys.compileTemplates in Compile) dependsOn (generatePlay25TemplatesTask in Compile)).value
-      } else {
-        (TwirlKeys.compileTemplates in Compile).value
-      }
-    },
-    (TwirlKeys.compileTemplates in Test) := {
-      if (PlayCrossCompilation.playVersion == Play25) {
-        ((TwirlKeys.compileTemplates in Test) dependsOn (generatePlay25TemplatesTask in Test)).value
-      } else {
-        (TwirlKeys.compileTemplates in Test).value
-      }
-    },
+    (TwirlKeys.compileTemplates in Compile) :=
+      ((TwirlKeys.compileTemplates in Compile) dependsOn (generatePlay25TemplatesTask in Compile)).value,
+    (TwirlKeys.compileTemplates in Test) :=
+      ((TwirlKeys.compileTemplates in Test) dependsOn (generatePlay25TemplatesTask in Test)).value,
     parallelExecution in sbt.Test := false,
     playMonitoredFiles ++= (sourceDirectories in (Compile, TwirlKeys.compileTemplates)).value,
     routesGenerator := {
