@@ -24,7 +24,8 @@ import uk.gov.hmrc.govukfrontend.views.html.examples._
 class ExamplesSpec extends WordSpec with Matchers with JsoupHelpers with TableDrivenPropertyChecks {
 
   "Examples" should {
-    "render as expected" in {
+    "render as expected and manifest checksum should match" in {
+
       forAll(testData) { (example, expected) =>
         parseAndCompressHtml(example.body) shouldBe parseAndCompressHtml(expected)
       }
@@ -123,47 +124,47 @@ class ExamplesSpec extends WordSpec with Matchers with JsoupHelpers with TableDr
 
   val fieldsetAddressGroupHtml =
     """<fieldset class="govuk-fieldset">
-                       |  <legend class="govuk-fieldset__legend govuk-fieldset__legend--xl">
-                       |    <h1 class="govuk-fieldset__heading">
-                       |      What is your address?
-                       |    </h1>
-                       |  </legend>
-                       |
-                       |  <div class="govuk-form-group">
-                       |    <label class="govuk-label" for="address-line-1">
-                       |      Building and street <span class="govuk-visually-hidden">line 1 of 2</span>
-                       |    </label>
-                       |    <input class="govuk-input" id="address-line-1" name="address-line-1" type="text">
-                       |  </div>
-                       |
-                       |  <div class="govuk-form-group">
-                       |    <label class="govuk-label" for="address-line-2">
-                       |      <span class="govuk-visually-hidden">Building and street line 2 of 2</span>
-                       |    </label>
-                       |    <input class="govuk-input" id="address-line-2" name="address-line-2" type="text">
-                       |  </div>
-                       |
-                       |  <div class="govuk-form-group">
-                       |    <label class="govuk-label" for="address-town">
-                       |      Town or city
-                       |    </label>
-                       |    <input class="govuk-input govuk-!-width-two-thirds" id="address-town" name="address-town" type="text">
-                       |  </div>
-                       |
-                       |  <div class="govuk-form-group">
-                       |    <label class="govuk-label" for="address-county">
-                       |      County
-                       |    </label>
-                       |    <input class="govuk-input govuk-!-width-two-thirds" id="address-county" name="address-county" type="text">
-                       |  </div>
-                       |
-                       |  <div class="govuk-form-group">
-                       |    <label class="govuk-label" for="address-postcode">
-                       |      Postcode
-                       |    </label>
-                       |    <input class="govuk-input govuk-input--width-10" id="address-postcode" name="address-postcode" type="text">
-                       |  </div>
-                       |
-                       |</fieldset>""".stripMargin
+      |  <legend class="govuk-fieldset__legend govuk-fieldset__legend--xl">
+      |    <h1 class="govuk-fieldset__heading">
+      |      What is your address?
+      |    </h1>
+      |  </legend>
+      |
+      |  <div class="govuk-form-group">
+      |    <label class="govuk-label" for="address-line-1">
+      |      Building and street <span class="govuk-visually-hidden">line 1 of 2</span>
+      |    </label>
+      |    <input class="govuk-input" id="address-line-1" name="address-line-1" type="text">
+      |  </div>
+      |
+      |  <div class="govuk-form-group">
+      |    <label class="govuk-label" for="address-line-2">
+      |      <span class="govuk-visually-hidden">Building and street line 2 of 2</span>
+      |    </label>
+      |    <input class="govuk-input" id="address-line-2" name="address-line-2" type="text">
+      |  </div>
+      |
+      |  <div class="govuk-form-group">
+      |    <label class="govuk-label" for="address-town">
+      |      Town or city
+      |    </label>
+      |    <input class="govuk-input govuk-!-width-two-thirds" id="address-town" name="address-town" type="text">
+      |  </div>
+      |
+      |  <div class="govuk-form-group">
+      |    <label class="govuk-label" for="address-county">
+      |      County
+      |    </label>
+      |    <input class="govuk-input govuk-!-width-two-thirds" id="address-county" name="address-county" type="text">
+      |  </div>
+      |
+      |  <div class="govuk-form-group">
+      |    <label class="govuk-label" for="address-postcode">
+      |      Postcode
+      |    </label>
+      |    <input class="govuk-input govuk-input--width-10" id="address-postcode" name="address-postcode" type="text">
+      |  </div>
+      |
+      |</fieldset>""".stripMargin
 
 }
