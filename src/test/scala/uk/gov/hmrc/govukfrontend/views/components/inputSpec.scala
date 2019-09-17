@@ -27,6 +27,8 @@ class inputSpec extends RenderHtmlSpec("govukInput") {
     (__ \ "id").read[String] and
       (__ \ "name").read[String] and
       (__ \ "type").readWithDefault[String]("text") and
+      (__ \ "inputmode").readNullable[String] and
+      (__ \ "describedBy").readNullable[String] and
       (__ \ "value").readNullable[String] and
       (__ \ "label").read[LabelParams] and
       (__ \ "hint").readNullable[HintParams] and
