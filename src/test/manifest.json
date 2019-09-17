@@ -1,0 +1,80 @@
+[
+  {
+    "id": "backlink/default",
+    "versions": {
+      "play25": {
+        "uri": "play-25/twirl/uk/gov/hmrc/govukfrontend/views/examples/backlink/default.scala.html",
+        "htmlChecksum": "92a90dcac078d2b1e28d5309cd5508f2"
+      },
+      "play26": {
+        "uri": "play-26/twirl/uk/gov/hmrc/govukfrontend/views/examples/backlink/default.scala.html",
+        "htmlChecksum": "92a90dcac078d2b1e28d5309cd5508f2"
+      }
+    }
+  },
+  {
+    "id": "button/default",
+    "versions": {
+      "play25": {
+        "uri": "play-25/twirl/uk/gov/hmrc/govukfrontend/views/examples/button/default.scala.html",
+        "htmlChecksum": "31948c7be8ee1d42f4d535ab9b1770ee"
+      },
+      "play26": {
+        "uri": "play-26/twirl/uk/gov/hmrc/govukfrontend/views/examples/button/default.scala.html",
+        "htmlChecksum": "31948c7be8ee1d42f4d535ab9b1770ee"
+      }
+    }
+  },
+  {
+    "id": "details/default",
+    "versions": {
+      "play25": {
+        "uri": "play-25/twirl/uk/gov/hmrc/govukfrontend/views/examples/details/default.scala.html",
+        "htmlChecksum": "d2d8500ed4477d0d6a8d971bb25250d4"
+      },
+      "play26": {
+        "uri": "play-26/twirl/uk/gov/hmrc/govukfrontend/views/examples/details/default.scala.html",
+        "htmlChecksum": "d2d8500ed4477d0d6a8d971bb25250d4"
+      }
+    }
+  },
+  {
+    "id": "errormessage/default",
+    "versions": {
+      "play25": {
+        "uri": "play-25/twirl/uk/gov/hmrc/govukfrontend/views/examples/errormessage/default.scala.html",
+        "htmlChecksum": "10b35385b4272e9a4a18bcc3794c24bc"
+      },
+      "play26": {
+        "uri": "play-26/twirl/uk/gov/hmrc/govukfrontend/views/examples/errormessage/default.scala.html",
+        "htmlChecksum": "10b35385b4272e9a4a18bcc3794c24bc"
+      }
+    }
+  },
+  {
+    "id": "errorsummary/default",
+    "versions": {
+      "play25": {
+        "uri": "play-25/twirl/uk/gov/hmrc/govukfrontend/views/examples/errorsummary/default.scala.html",
+        "htmlChecksum": "b23d0559cb947300248c45521ffcd097"
+      },
+      "play26": {
+        "uri": "play-26/twirl/uk/gov/hmrc/govukfrontend/views/examples/errorsummary/default.scala.html",
+        "htmlChecksum": "b23d0559cb947300248c45521ffcd097"
+      }
+    }
+  },
+  {
+    "id": "fieldset/addressGroup",
+    "versions": {
+      "play25": {
+        "uri": "play-25/twirl/uk/gov/hmrc/govukfrontend/views/examples/fieldset/addressGroup.scala.html",
+        "htmlChecksum": "1f3b0a082cb595ad08edc2578a6352b5"
+      },
+      "play26": {
+        "uri": "play-26/twirl/uk/gov/hmrc/govukfrontend/views/examples/fieldset/addressGroup.scala.html",
+        "htmlChecksum": "1f3b0a082cb595ad08edc2578a6352b5"
+      }
+    }
+  }
+]
