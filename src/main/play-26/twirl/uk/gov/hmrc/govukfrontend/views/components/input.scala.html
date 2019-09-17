@@ -29,7 +29,7 @@
   errorMessageParams: Option[ErrorMessageParams] = None,
   formGroupClasses: String = "",
   classes: String = "",
-  autocomplete: Option[String] = None, //FIXME rename to camel case for consistency
+  autoComplete: Option[String] = None,
   pattern: Option[Regex] = None,
   attributes: Map[String, String] = Map.empty)
 @require(name.nonEmpty && id.nonEmpty)
@@ -76,7 +76,7 @@
     id="@id" name="@name" type="@inputType"@value.map { value => value="@value" }@if(describedBy.nonEmpty) { aria-describedby="@describedBy"}
   } { attrs =>
   @defining {
-    @autocomplete.map { autocomplete => autocomplete="@autocomplete"}@pattern.map { pattern => pattern="@pattern"}@inputMode.map { inputMode => inputmode="@inputMode"}@toAttributes(attributes)
+    @autoComplete.map { autoComplete => autocomplete="@autoComplete"}@pattern.map { pattern => pattern="@pattern"}@inputMode.map { inputMode => inputmode="@inputMode"}@toAttributes(attributes)
   } { otherAttrs =>
       <input class="@toClasses("govuk-input", classes, errorMessageParams.fold("")(_ => "govuk-input--error"))" @attrs@otherAttrs>
   }}
