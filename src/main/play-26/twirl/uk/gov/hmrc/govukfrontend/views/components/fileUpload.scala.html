@@ -19,6 +19,7 @@
 @(name: String,
   id: String,
   value: Option[String] = None,
+  describedBy: Option[String] = None,
   labelParams: LabelParams,
   hintParams: Option[HintParams] = None,
   errorMessageParams: Option[ErrorMessageParams] = None,
@@ -36,17 +37,17 @@
 </div>
 
 @* FIXME extract to common snippets package *@
-@hintSnippet = @{
- hintParams.fold(("", HtmlFormat.empty)) { hintParams =>
+@hintSnippet(describedBy: String) = @{
+ hintParams.fold((describedBy, HtmlFormat.empty)) { hintParams =>
    val hintId = s"$id-hint"
-   val describedBy = hintId
+   val describedBy1 = s"$describedBy $hintId".ltrim
    val hintHtml =
    hint(
      id = Some(hintId),
      classes = hintParams.classes,
      attributes = hintParams.attributes
    )(hintParams.content)
-  (describedBy, hintHtml)
+  (describedBy1, hintHtml)
  }
 }
 
@@ -75,9 +76,9 @@
 }
 
 @divSnippet = @{
-  val (describedBy, hintHtml) = hintSnippet
-  val (describedBy1, errorMessageHtml) = errorMessageSnippet(describedBy)
-  val inputHtml = inputSnippet(describedBy1)
+  val (describedBy1, hintHtml) = hintSnippet(describedBy.getOrElse(""))
+  val (describedBy2, errorMessageHtml) = errorMessageSnippet(describedBy1)
+  val inputHtml = inputSnippet(describedBy2)
   HtmlFormat.fill(collection.immutable.Seq(hintHtml, errorMessageHtml, inputHtml))
 }
 

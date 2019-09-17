@@ -26,6 +26,7 @@ class fileUploadSpec extends RenderHtmlSpec("govukFileUpload") {
     (__ \ "name").read[String] and
       (__ \ "id").read[String] and
       (__ \ "value").readNullable[String] and
+      (__ \ "describedBy").readNullable[String] and
       (__ \ "label").read[LabelParams] and
       (__ \ "hint").readNullable[HintParams] and
       (__ \ "errorMessage").readNullable[ErrorMessageParams] and
