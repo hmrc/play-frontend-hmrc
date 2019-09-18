@@ -1,6 +1,7 @@
-import java.io.PrintWriter
+import java.io.{FileOutputStream, OutputStream, PrintWriter}
 import sbt._
 import scala.io.Source
+import scala.util.Try
 
 object GeneratePlay25Twirl {
 
@@ -32,9 +33,23 @@ object GeneratePlay25Twirl {
       if (!file.getParentFile.exists()) {
         file.getParentFile.mkdirs()
       }
-      val pw       = new PrintWriter(file)
-      pw.write(contents)
-      pw.close() //FIXME safer closing of resources
+
+      safeFilePrint(new FileOutputStream(file)) { pw =>
+        pw.write(contents)
+      }
+
       file
     }
+
+  def safeFilePrint(tf: => OutputStream)(op: PrintWriter => Unit): Try[Unit] = {
+    val os = Try(tf)
+    val write = {
+      val writer  = os.map(f => new PrintWriter(f))
+      val writeOp = writer.map(op)
+      val flushOp = writer.map(_.flush)
+      writeOp.flatMap(_ => flushOp)
+    }
+    val close = os.map(_.close)
+    write.flatMap(_ => close)
+  }
 }
