@@ -17,7 +17,7 @@
 package uk.gov.hmrc.govukfrontend.views
 
 import org.scalatest.{Matchers, OptionValues, WordSpec}
-import uk.gov.hmrc.govukfrontend.views.FixturesRenderer._
+import GovukFrontendDependency._
 
 class FixturesRendererSpec extends WordSpec with Matchers with OptionValues {
 

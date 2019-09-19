@@ -21,12 +21,11 @@ import org.scalatest.{Matchers, WordSpec}
 import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks
 import play.twirl.api.{Html, HtmlFormat}
 import uk.gov.hmrc.govukfrontend.views.Utils._
+import viewmodels.Generators._
 
 class UtilsSpec extends WordSpec with Matchers with ScalaCheckPropertyChecks with ShrinkLowPriority {
 
-  import Generators._
-
-  implicit override val generatorDrivenConfig: UtilsSpec.this.PropertyCheckConfiguration =
+  implicit override val generatorDrivenConfig: PropertyCheckConfiguration =
     PropertyCheckConfiguration(minSuccessful = 50)
 
   "toClasses" should {
@@ -42,7 +41,7 @@ class UtilsSpec extends WordSpec with Matchers with ScalaCheckPropertyChecks wit
 
   "toAttributes" should {
     "generate attributes HTML with the required padding" in {
-      forAll(attrsMapGen, Gen.chooseNum(0, 5)) { (attrsMap, padCount) =>
+      forAll(genAttrsMap, Gen.chooseNum(0, 5)) { (attrsMap, padCount) =>
         (attrsMap.toSeq, padCount) match {
           case (Nil, _) => toAttributes(attrsMap, padCount)                 shouldBe HtmlFormat.empty
           case (_, 0)   => toAttributes(attrsToMap(toAttributes(attrsMap))) shouldBe toAttributes(attrsMap)
@@ -52,23 +51,12 @@ class UtilsSpec extends WordSpec with Matchers with ScalaCheckPropertyChecks wit
     }
 
     def attrsToMap(html: Html): Map[String, String] = {
-      val attrs: List[List[String]] = html.body.trim.split(" ").toList.map(_.split("=").toList)
+      val attrs: List[List[String]] =
+        html.body.trim.split(" ").toList.map(_.split("=").toList)
       attrs.map {
         case attr :: value :: _ => attr -> value.replace("\"", "")
         case x                  => throw new IllegalArgumentException(s"expecting list of 2, instead got: $x")
       }.toMap
     }
-  }
-
-  object Generators {
-    val attrValGen: Gen[(String, String)] = for {
-      attr  <- Gen.alphaStr.suchThat(_.trim.nonEmpty)
-      value <- Gen.alphaStr.suchThat(_.trim.nonEmpty)
-    } yield (attr, value)
-
-    val attrsMapGen: Gen[Map[String, String]] = for {
-      sz         <- Gen.choose(0, 10)
-      attributes <- Gen.mapOfN[String, String](sz, attrValGen)
-    } yield attributes
   }
 }

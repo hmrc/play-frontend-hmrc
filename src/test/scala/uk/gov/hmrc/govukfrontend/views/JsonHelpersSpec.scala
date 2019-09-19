@@ -26,10 +26,10 @@ import uk.gov.hmrc.govukfrontend.views.viewmodels.label
 import uk.gov.hmrc.govukfrontend.views.viewmodels.label.LabelParams
 import uk.gov.hmrc.govukfrontend.views.viewmodels.summarylist._
 
-class ReadsHelpersSpec
+class JsonHelpersSpec
     extends WordSpec
     with Matchers
-    with ReadsHelpers
+    with JsonHelpers
     with OptionValues
     with ScalaCheckPropertyChecks
     with ShrinkLowPriority {
@@ -125,6 +125,7 @@ class ReadsHelpersSpec
       )
     }
   }
+
 
   "readsJsValueToString" should {
     "deserialize any value as a String" in {

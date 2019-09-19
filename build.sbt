@@ -6,9 +6,16 @@ import GeneratePlay25Twirl.generatePlay25Templates
 
 val libName = "play-frontend-govuk"
 
+lazy val playDir =
+  (if (PlayCrossCompilation.playVersion == Play25) "play-25"
+   else "play-26")
+
+lazy val IntegrationTest = config("it") extend Test
+
 lazy val root = Project(libName, file("."))
   .enablePlugins(PlayScala, SbtAutoBuildPlugin, SbtGitVersioning, SbtTwirl, SbtArtifactory)
   .disablePlugins(PlayLayoutPlugin)
+  .configs(IntegrationTest)
   .settings(
     name := libName,
     majorVersion := 0,
@@ -24,26 +31,12 @@ lazy val root = Project(libName, file("."))
     TwirlKeys.templateImports := templateImports,
     PlayCrossCompilation.playCrossCompilationSettings,
     makePublicallyAvailableOnBintray := true,
-    unmanagedSourceDirectories in sbt.Compile += baseDirectory.value / "src/main/twirl",
-    unmanagedSourceDirectories in sbt.Test += baseDirectory.value / "src/test/twirl",
-    (sourceDirectories in (Compile, TwirlKeys.compileTemplates)) += {
-      val twirlDir =
-        if (PlayCrossCompilation.playVersion == Play25) {
-          "src/main/play-25/twirl"
-        } else {
-          "src/main/play-26/twirl"
-        }
-      baseDirectory.value / twirlDir
-    },
-    (sourceDirectories in (Test, TwirlKeys.compileTemplates)) += {
-      val twirlDir =
-        if (PlayCrossCompilation.playVersion == Play25) {
-          "src/test/play-25/twirl"
-        } else {
-          "src/test/play-26/twirl"
-        }
-      baseDirectory.value / twirlDir
-    },
+    unmanagedSourceDirectories in Compile += baseDirectory.value / "src/main/twirl",
+    unmanagedSourceDirectories in Test += baseDirectory.value / "src/test/twirl",
+    (sourceDirectories in (Compile, TwirlKeys.compileTemplates)) +=
+      baseDirectory.value / "src" / "main" / playDir / "twirl",
+    (sourceDirectories in (Test, TwirlKeys.compileTemplates)) +=
+      baseDirectory.value / "src" / "test" / playDir / "twirl",
     (generatePlay25TemplatesTask in Compile) := {
       val cachedFun: Set[File] => Set[File] =
         FileFunction.cached(
@@ -90,6 +83,12 @@ lazy val root = Project(libName, file("."))
       sources in (Compile, TwirlKeys.compileTemplates)
     )
   )
+  .settings(inConfig(IntegrationTest)(itSettings): _*)
+
+lazy val itSettings = Defaults.itSettings ++ Seq(
+  unmanagedSourceDirectories += sourceDirectory.value / playDir,
+  unmanagedResourceDirectories += sourceDirectory.value / playDir / "resources"
+)
 
 lazy val libDependencies: Seq[ModuleID] = dependencies(
   shared = {
@@ -103,13 +102,15 @@ lazy val libDependencies: Seq[ModuleID] = dependencies(
     )
 
     val test = Seq(
-      "org.scalatest"                 %% "scalatest"     % "3.0.8",
-      "org.pegdown"                   % "pegdown"        % "1.6.0",
-      "org.jsoup"                     % "jsoup"          % "1.11.3",
-      "com.typesafe.play"             %% "play-test"     % playRevision,
-      "org.scalacheck"                %% "scalacheck"    % "1.14.0",
-      "com.googlecode.htmlcompressor" % "htmlcompressor" % "1.5.2",
-      "com.github.pathikrit"          %% "better-files"  % "3.8.0"
+      "org.scalatest"                 %% "scalatest"                 % "3.0.8",
+      "org.pegdown"                   % "pegdown"                    % "1.6.0",
+      "org.jsoup"                     % "jsoup"                      % "1.11.3",
+      "com.typesafe.play"             %% "play-test"                 % playRevision,
+      "org.scalacheck"                %% "scalacheck"                % "1.14.1",
+      "com.googlecode.htmlcompressor" % "htmlcompressor"             % "1.5.2",
+      "com.github.pathikrit"          %% "better-files"              % "3.8.0",
+      "com.lihaoyi"                   %% "pprint"                    % "0.5.3",
+      ws
     ).map(_ % Test)
 
     compile ++ test

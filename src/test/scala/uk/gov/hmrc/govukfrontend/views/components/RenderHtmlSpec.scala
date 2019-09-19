@@ -18,20 +18,22 @@ package uk.gov.hmrc.govukfrontend
 package views
 package components
 
-import org.scalatest.{BeforeAndAfterAll, Matchers, TryValues, WordSpec}
+import org.scalatest.{Matchers, TryValues, WordSpec}
 
 abstract class RenderHtmlSpec(govukComponentName: String)
     extends WordSpec
     with Matchers
     with FixturesRenderer
-    with BeforeAndAfterAll
     with TryValues {
 
   exampleNames(govukComponentName).foreach { exampleName =>
     s"$exampleName" should {
       "render the same html as the nunjucks renderer" in {
-        parseAndCompressHtml(twirlHtml(exampleName).success.value) shouldBe parseAndCompressHtml(
-          nunjucksHtml(exampleName).success.value)
+        val twirlOuputHtml = parseAndCompressHtml(twirlHtml(exampleName).success.value)
+
+        val nunJucksOutputHtmlFromFile = parseAndCompressHtml(nunjucksHtml(exampleName).success.value)
+
+        twirlOuputHtml shouldBe nunJucksOutputHtmlFromFile
       }
     }
   }

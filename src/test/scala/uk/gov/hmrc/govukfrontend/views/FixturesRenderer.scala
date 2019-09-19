@@ -17,14 +17,12 @@
 package uk.gov.hmrc.govukfrontend.views
 
 import better.files._
-import play.api.libs.json.{JsError, JsSuccess, Json, Reads}
+import play.api.libs.json._
 import play.twirl.api.Html
-import uk.gov.hmrc.BuildInfo
-import scala.util.matching.Regex
+import uk.gov.hmrc.govukfrontend.views.GovukFrontendDependency._
 import scala.util.{Failure, Success, Try}
 
-trait FixturesRenderer extends ReadsHelpers with JsoupHelpers {
-
+trait FixturesRenderer extends JsonHelpers with JsoupHelpers {
   import FixturesRenderer._
 
   /**
@@ -56,14 +54,9 @@ trait FixturesRenderer extends ReadsHelpers with JsoupHelpers {
     *        fails if the fixtures folder is not defined
     */
   def exampleNames(govukComponentName: String): Seq[String] = {
-    def parseComponentName(json: String): Option[String] = (Json.parse(json) \ "name").asOpt[String]
+    val exampleFolders = getExampleFolders(govukComponentName)
 
-    val componentNameFiles = fixturesDir.listRecursively.filter(_.name == "component.json")
-
-    val matchingFiles =
-      componentNameFiles.filter(file => parseComponentName(file.contentAsString).contains(govukComponentName))
-
-    val examples = matchingFiles.map(_.parent.name).toSeq.distinct
+    val examples = exampleFolders.map(_.name)
 
     if (examples.nonEmpty) examples
     else throw new RuntimeException(s"Couldn't find component named $govukComponentName. Spelling error?")
@@ -72,31 +65,43 @@ trait FixturesRenderer extends ReadsHelpers with JsoupHelpers {
 
 object FixturesRenderer {
 
-  val govukFrontendVersionRegex: Regex = """org\.webjars\.npm:govuk-frontend:(\d+\.\d+\.\d+)""".r
+  def getExampleFolders(govukComponentName: String): Seq[File] = {
+    def parseComponentName(json: String): Option[String] = (Json.parse(json) \ "name").asOpt[String]
 
-  val govukFrontendVersion: String =
-    findFirstMatch(govukFrontendVersionRegex, BuildInfo.libraryDependencies)
-      .getOrElse(throw new RuntimeException("Unable to find the govuk-frontend dependency"))
-      .group(1)
+    val componentNameFiles = fixturesDir.listRecursively.filter(_.name == "component.json")
 
-  lazy val fixturesDir: File = {
-    val dir = s"/fixtures/test-fixtures-$govukFrontendVersion"
-    Try(File(Resource.my.getUrl(dir)))
-      .getOrElse(throw new RuntimeException(s"test fixtures folder not found: $dir"))
+    val matchingFiles =
+      componentNameFiles.filter(file => parseComponentName(file.contentAsString).contains(govukComponentName))
+
+    val folders = matchingFiles.map(_.parent).toSeq.distinct
+
+    folders
   }
 
-  def readOutputFile(exampleName: String): String =
+  def readInputJsonFiles(govukComponentName: String): Seq[(File, JsValue)] = {
+    val exampleFolders = getExampleFolders(govukComponentName)
+
+    val inputJsonFiles: Seq[(File, File)] =
+      exampleFolders.map(
+        folder =>
+          folder -> folder.children
+            .find(_.name == "input.json")
+            .getOrElse(throw new RuntimeException(s"Could not find input json file in folder $folder")))
+
+    inputJsonFiles.map {
+      case (exampleFolder, inputJsonFile) => exampleFolder -> Json.parse(inputJsonFile.contentAsString)
+    }
+  }
+
+  private lazy val fixturesDir: File = {
+    val dir = s"/fixtures/test-fixtures-$govukFrontendVersion"
+    Try(File(Resource.my.getUrl(dir)))
+      .getOrElse(throw new RuntimeException(s"Test fixtures folder not found: $dir"))
+  }
+
+  private def readOutputFile(exampleName: String): String =
     (fixturesDir / exampleName / "output.html").contentAsString
 
-  def readInputJson(exampleName: String): String =
+  private def readInputJson(exampleName: String): String =
     (fixturesDir / exampleName / "input.json").contentAsString
-
-  def findFirstMatch(regex: Regex, xs: Seq[String]): Option[Regex.Match] =
-    for {
-      x <- xs.find {
-            case regex(_*) => true
-            case _         => false
-          }
-      firstMatch <- regex.findFirstMatchIn(x)
-    } yield firstMatch
 }

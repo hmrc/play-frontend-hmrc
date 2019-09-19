@@ -24,9 +24,9 @@ import uk.gov.hmrc.govukfrontend.views.html.components.implicits._
 import scala.util.matching.Regex
 
 /**
-  * Reads from json inputs for nunjucks templates to view models.
+  * Json (de)serialisation of inputs to Nunjucks templates and Twirl view models.
   */
-trait ReadsHelpers {
+trait JsonHelpers {
   // FIXME: To remove. Coming soon in Play 2.7.x https://www.playframework.com/documentation/2.7.x/api/scala/play/api/libs/json/Format.html#widen[B%3E:A]:play.api.libs.json.Reads[B]
   implicit class RichReads[A](r: Reads[A]) {
     def widen[B >: A]: Reads[B] = Reads[B] { r.reads }
@@ -49,6 +49,15 @@ trait ReadsHelpers {
 
   implicit val readsContent: Reads[Content] =
     readsHtmlOrText((__ \ "html"), (__ \ "text"))
+
+  implicit def writesContent(htmlField: String = "html", textField: String = "text"): OWrites[Content] =
+    new OWrites[Content] {
+      override def writes(content: Content): JsObject = content match {
+        case Empty              => Json.obj()
+        case HtmlContent(value) => Json.obj(htmlField -> value.body)
+        case Text(value)        => Json.obj(textField -> value)
+      }
+    }
 
   def readsHtmlOrText(htmlJsPath: JsPath, textJsPath: JsPath): Reads[Content] =
     readsHtmlContent(htmlJsPath)
@@ -263,3 +272,5 @@ trait ReadsHelpers {
       (__ \ "panel").read[TabPanel]
   )(TabItem.apply _)
 }
+
+object JsonHelpers extends  JsonHelpers

@@ -30,6 +30,7 @@ object GeneratePlay25Twirl {
     play26Templates.map { play26Source =>
       val contents = convertToPlay25Template(play26Source)
       val file     = new File(play26Source.getPath.replace("play-26", "play-25"))
+
       if (!file.getParentFile.exists()) {
         file.getParentFile.mkdirs()
       }

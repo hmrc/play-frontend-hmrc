@@ -19,13 +19,14 @@ package uk.gov.hmrc.govukfrontend.views
 import play.api.data.FormError
 import play.api.i18n.Messages
 import play.twirl.api.{Html, HtmlFormat}
-import uk.gov.hmrc.govukfrontend.views.viewmodels.common.Text
+import uk.gov.hmrc.govukfrontend.views.viewmodels.common.{Content, HtmlContent, Text}
 import uk.gov.hmrc.govukfrontend.views.viewmodels.errormessage.ErrorMessageParams
 import uk.gov.hmrc.govukfrontend.views.viewmodels.errorsummary.ErrorLink
 
 trait Implicits {
 
   implicit class RichHtml(html: Html) {
+
     def padLeft(padCount: Int = 1, padding: String = " "): Html = {
       val padStr = " " * (if (html.body.isEmpty) 0 else padCount)
       HtmlFormat.fill(collection.immutable.Seq(Html(padStr), html))
@@ -39,31 +40,106 @@ trait Implicits {
 
     def rtrim: Html =
       Html(html.toString.rtrim)
+
+    /**
+      * Based on the behaviour of [[https://mozilla.github.io/nunjucks/templating.html#indent]]
+      * @param n
+      * @param indentFirstLine
+      */
+    def indent(n: Int, indentFirstLine: Boolean = false): Html =
+      Html(html.toString.indent(n, indentFirstLine))
   }
 
   implicit class RichString(s: String) {
+
     def toOption: Option[String] =
       if (s == null || s.isEmpty) None else Some(s)
 
     def ltrim = s.replaceAll("^\\s+", "")
 
     def rtrim = s.replaceAll("\\s+$", "")
-  }
 
-  implicit class RichFormErrors(formErrors: Seq[FormError])(implicit messages: Messages) {
-
-    def asErrorLinks: Seq[ErrorLink] =
-      formErrors.map { error =>
-        ErrorLink(href = Some(s"#${error.key}"), content = Text(messages(error.message, error.args: _*)))
+    /**
+      * Indent a (multiline) string <code>n</code> spaces.
+      * @param n Number of spaces to indent the string. It can be a negative value, in which case it attempts to unindent
+      *          n spaces, as much as possible until it hits the margin.
+      * @param indentFirstLine
+      * @return
+      */
+    def indent(n: Int, indentFirstLine: Boolean = false): String = {
+      @scala.annotation.tailrec
+      def recurse(m: Int, lines: Seq[String]): Seq[String] = m match {
+        case 0 => lines
+        case m => recurse(math.abs(m) - 1, indent1(math.signum(n), lines))
       }
 
-    def asErrorMessages: Seq[ErrorMessageParams] =
-      formErrors
-        .map(error => ErrorMessageParams(content = Text(messages(error.message, error.args: _*))))
+      val lines         = s.split("\n", -1).toSeq // limit=-1 so if a line ends with \n include the trailing blank line
+      val linesToIndent = if (indentFirstLine) lines else if (lines.length > 1) lines.tail else Nil
+      val indentedLines = recurse(n, linesToIndent)
 
-    def asErrorMessage(messageSelector: String): Option[ErrorMessageParams] =
+      (if (indentFirstLine) indentedLines else (lines.head +: indentedLines)).mkString("\n")
+    }
+
+    private def indent1(signal: Int, lines: Seq[String]) = {
+      def canUnindent: Boolean =
+        lines.forall(_.startsWith(" "))
+
+      if (signal < 0 && canUnindent) {
+        lines.map(_.drop(1))
+      } else if (signal < 0) {
+        lines
+      } else {
+        lines.map(" " + _)
+      }
+    }
+  }
+
+  /**
+    * Extension methods to convert from [[FormError]] to other types used in components to display errors
+    *
+    * @param formErrors
+    * @param messages
+    */
+  implicit class RichFormErrors(formErrors: Seq[FormError])(implicit messages: Messages) {
+
+    def asHtmlErrorLinks: Seq[ErrorLink] =
+      asErrorLinks(HtmlContent.apply)
+
+    def asTextErrorLinks: Seq[ErrorLink] =
+      asErrorLinks(Text.apply)
+
+    private[views] def asErrorLinks(contentConstructor: String => Content): Seq[ErrorLink] =
+      formErrors.map { formError =>
+        ErrorLink(
+          href    = Some(formError.key),
+          content = contentConstructor(messages(formError.message, formError.args: _*)))
+      }
+
+    def asHtmlErrorMessages: Seq[ErrorMessageParams] =
+      asErrorMessages(HtmlContent.apply)
+
+    def asTextErrorMessages: Seq[ErrorMessageParams] =
+      asErrorMessages(Text.apply)
+
+    private[views] def asErrorMessages(contentConstructor: String => Content): Seq[ErrorMessageParams] =
+      formErrors
+        .map { formError =>
+          ErrorMessageParams(content = contentConstructor(messages(formError.message, formError.args: _*)))
+        }
+
+    def asHtmlErrorMessage(messageSelector: String): Option[ErrorMessageParams] =
+      asErrorMessage(HtmlContent.apply, messageSelector)
+
+    def asTextErrorMessage(messageSelector: String): Option[ErrorMessageParams] =
+      asErrorMessage(Text.apply, messageSelector)
+
+    private[views] def asErrorMessage(
+      contentConstructor: String => Content,
+      messageSelector: String): Option[ErrorMessageParams] =
       formErrors
         .find(_.message == messageSelector)
-        .map(error => ErrorMessageParams(content = Text(messages(error.message, error.args: _*))))
+        .map { formError =>
+          ErrorMessageParams(content = contentConstructor(messages(formError.message, formError.args: _*)))
+        }
   }
 }

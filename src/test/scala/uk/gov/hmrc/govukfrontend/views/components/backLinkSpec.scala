@@ -14,7 +14,8 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.govukfrontend.views.components
+package uk.gov.hmrc.govukfrontend.views
+package components
 
 import play.api.libs.functional.syntax._
 import play.api.libs.json._
@@ -22,15 +23,8 @@ import play.twirl.api.Html
 import uk.gov.hmrc.govukfrontend.views.html.components._
 
 class backLinkSpec extends RenderHtmlSpec("govukBackLink") {
-  "backLink" should {
-    "fail to render if the required fields are not included" in {
-      val caught =
-        intercept[IllegalArgumentException] {
-          BackLink.apply(href = "")(Text("Example"))
-        }
 
-      caught.getMessage shouldBe "requirement failed"
-    }
+  "backLink" should {
 
     "render the default example with an anchor, href and text correctly" in {
       val component = BackLink.apply(href = "#")(Empty).select(".govuk-back-link")
@@ -90,5 +84,6 @@ class backLinkSpec extends RenderHtmlSpec("govukBackLink") {
       (__ \ "attributes").readWithDefault[Map[String, String]](Map.empty) and
       readsContent
   )(BackLink.apply(_, _, _)(_))
-
 }
+
+

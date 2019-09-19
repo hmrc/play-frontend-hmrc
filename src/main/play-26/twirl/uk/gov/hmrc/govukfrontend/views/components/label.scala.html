@@ -28,8 +28,8 @@
         </label>
       } { labelHtml =>
           @if(isPageHeading) {
-            <h1 class="govuk-label-wrapper"> @labelHtml </h1>
-          } else { @labelHtml }
+            <h1 class="govuk-label-wrapper">@labelHtml.trim.indent(2) </h1>
+          } else {@labelHtml}
         }
   }
   case _ => {}
