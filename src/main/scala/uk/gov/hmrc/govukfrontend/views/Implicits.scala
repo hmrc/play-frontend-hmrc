@@ -19,8 +19,9 @@ package uk.gov.hmrc.govukfrontend.views
 import play.api.data.FormError
 import play.api.i18n.Messages
 import play.twirl.api.{Html, HtmlFormat}
-import viewmodels.common.HtmlContent
-import viewmodels.errorsummary.ErrorLink
+import uk.gov.hmrc.govukfrontend.views.viewmodels.common.Text
+import uk.gov.hmrc.govukfrontend.views.viewmodels.errormessage.ErrorMessageParams
+import uk.gov.hmrc.govukfrontend.views.viewmodels.errorsummary.ErrorLink
 
 trait Implicits {
 
@@ -49,10 +50,20 @@ trait Implicits {
     def rtrim = s.replaceAll("\\s+$", "")
   }
 
-  implicit class RichFormErrors(errors: Seq[FormError])(implicit messages: Messages) {
+  implicit class RichFormErrors(formErrors: Seq[FormError])(implicit messages: Messages) {
+
     def asErrorLinks: Seq[ErrorLink] =
-      errors.map { error =>
-        ErrorLink(href = Some(error.key), content = HtmlContent(messages(error.message, error.args: _*)))
+      formErrors.map { error =>
+        ErrorLink(href = Some(s"#${error.key}"), content = Text(messages(error.message, error.args: _*)))
       }
+
+    def asErrorMessages: Seq[ErrorMessageParams] =
+      formErrors
+        .map(error => ErrorMessageParams(content = Text(messages(error.message, error.args: _*))))
+
+    def asErrorMessage(messageSelector: String): Option[ErrorMessageParams] =
+      formErrors
+        .find(_.message == messageSelector)
+        .map(error => ErrorMessageParams(content = Text(messages(error.message, error.args: _*))))
   }
 }

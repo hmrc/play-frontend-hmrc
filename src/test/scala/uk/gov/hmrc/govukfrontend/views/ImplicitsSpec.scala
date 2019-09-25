@@ -22,7 +22,8 @@ import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks
 import play.api.data.FormError
 import play.twirl.api.{Html, HtmlFormat}
 import uk.gov.hmrc.govukfrontend.views.html.components.implicits._
-import uk.gov.hmrc.govukfrontend.views.viewmodels.common.HtmlContent
+import uk.gov.hmrc.govukfrontend.views.viewmodels.common.Text
+import uk.gov.hmrc.govukfrontend.views.viewmodels.errormessage.ErrorMessageParams
 import uk.gov.hmrc.govukfrontend.views.viewmodels.errorsummary.ErrorLink
 
 class ImplicitsSpec
@@ -32,19 +33,34 @@ class ImplicitsSpec
     with ScalaCheckPropertyChecks
     with ShrinkLowPriority {
 
-  "asErrorLinks" should {
-    val errors = Seq(
-      FormError(key = "k1", message = "m1"),
-      FormError(key = "k2", message = "m2")
-    )
+  "Form errors" should {
 
-    "convert FormErrors to ErrorLinks" in {
+    val errors =
+      Seq(FormError("field1", "error.invalid"), FormError("field2", "error.missing"))
+
+    "be transformed to error links" in {
+
       errors.asErrorLinks should contain theSameElementsAs (
         Seq(
-          ErrorLink(href = Some(errors(0).key), content = HtmlContent(messages(errors(0).message, errors(0).args: _*))),
-          ErrorLink(href = Some(errors(1).key), content = HtmlContent(messages(errors(1).message, errors(1).args: _*)))
+          ErrorLink(href = Some("#field1"), content  = Text("Invalid input received")),
+          ErrorLink(href = Some(s"#field2"), content = Text("Input missing"))
         )
       )
+    }
+
+    "be transformed to error messages" in {
+
+      errors.asErrorMessages should contain theSameElementsAs (
+        Seq(
+          ErrorMessageParams(content = Text("Invalid input received")),
+          ErrorMessageParams(content = Text("Input missing"))
+        )
+      )
+    }
+
+    "be transformed to error messages matching selection criteria" in {
+
+      errors.asErrorMessage("error.missing").get shouldBe ErrorMessageParams(content = Text("Input missing"))
     }
   }
 

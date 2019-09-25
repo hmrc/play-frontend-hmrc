@@ -21,7 +21,10 @@ import play.api.{Configuration, Environment}
 
 trait MessagesHelpers {
   val messagesApi =
-    new DefaultMessagesApi(Environment.simple(), Configuration.reference, new DefaultLangs(Configuration.reference))
+    new DefaultMessagesApi(Environment.simple(), Configuration.reference, new DefaultLangs(Configuration.reference)) {
+      override val messages: Map[String, Map[String, String]] = Map(
+        "default" -> Map("error.invalid" -> "Invalid input received", "error.missing" -> "Input missing"))
+    }
 
   implicit val messages: Messages = messagesApi.preferred(Seq.empty)
 }
