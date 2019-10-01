@@ -21,7 +21,7 @@ import play.api.libs.json._
 import play.twirl.api.Html
 import uk.gov.hmrc.govukfrontend.views.html.components._
 
-class buttonSpec extends RenderHtmlSpec("govukButton") {
+class buttonSpec extends TemplateUnitSpec("govukButton") {
 
   "button element" should {
     "render the default example" in {

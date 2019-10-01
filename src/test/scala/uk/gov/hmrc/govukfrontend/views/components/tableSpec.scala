@@ -21,7 +21,7 @@ import play.api.libs.json._
 import play.twirl.api.Html
 import uk.gov.hmrc.govukfrontend.views.html.components._
 
-class tableSpec extends RenderHtmlSpec("govukTable") {
+class tableSpec extends TemplateUnitSpec("govukTable") {
   override implicit val reads: Reads[Html] = (
     (__ \ "rows").readWithDefault[Seq[Seq[TableRow]]](Nil) and
       (__ \ "head").readWithDefault[Seq[HeadCell]](Nil) and

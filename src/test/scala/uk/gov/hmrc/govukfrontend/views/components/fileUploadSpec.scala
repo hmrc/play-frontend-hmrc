@@ -21,7 +21,7 @@ import play.api.libs.json._
 import play.twirl.api.Html
 import uk.gov.hmrc.govukfrontend.views.html.components._
 
-class fileUploadSpec extends RenderHtmlSpec("govukFileUpload") {
+class fileUploadSpec extends TemplateUnitSpec("govukFileUpload") {
   override implicit val reads: Reads[Html] = (
     (__ \ "name").read[String] and
       (__ \ "id").read[String] and

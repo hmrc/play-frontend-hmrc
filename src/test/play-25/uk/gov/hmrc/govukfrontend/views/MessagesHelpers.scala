@@ -20,11 +20,15 @@ import play.api.i18n.{DefaultLangs, DefaultMessagesApi, Messages}
 import play.api.{Configuration, Environment}
 
 trait MessagesHelpers {
-  val messagesApi =
+
+  def messagesMap: Map[String, Map[String, String]] = Map.empty
+
+  lazy val messagesApi =
     new DefaultMessagesApi(Environment.simple(), Configuration.reference, new DefaultLangs(Configuration.reference)) {
-      override val messages: Map[String, Map[String, String]] = Map(
-        "default" -> Map("error.invalid" -> "Invalid input received", "error.missing" -> "Input missing"))
+      override protected def loadAllMessages: Map[String, Map[String, String]] =
+        if (messagesMap.isEmpty) super.loadAllMessages else messagesMap
     }
 
-  implicit val messages: Messages = messagesApi.preferred(Seq.empty)
+  implicit lazy val messages: Messages = messagesApi.preferred(Seq.empty)
 }
+

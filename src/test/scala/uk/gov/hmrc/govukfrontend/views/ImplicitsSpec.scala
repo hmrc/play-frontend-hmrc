@@ -35,25 +35,25 @@ class ImplicitsSpec
     extends WordSpec
     with Matchers
     with OptionValues
-    with MessagesHelpers
     with ScalaCheckPropertyChecks
     with ShrinkLowPriority {
 
   import Generators._
 
   implicit override val generatorDrivenConfig: PropertyCheckConfiguration =
-    PropertyCheckConfiguration(minSuccessful = 50)
+    PropertyCheckConfiguration(minSuccessful = 500)
 
   "RichFormErrors" when {
     "asErrorLinks" should {
       "convert FormErrors to ErrorLinks with either text or html" in {
-        forAll(genFormErrors) {
-          case (formErrors, contentConstructor) =>
+        forAll(genFormErrorsAndMessages) {
+          case (formErrors, contentConstructor, messagesStub) =>
+            import messagesStub.messages
             formErrors.asErrorLinks(contentConstructor).zipWithIndex.foreach {
               case (errorLink, i) =>
                 errorLink shouldBe ErrorLink(
-                  href    = Some(formErrors(i).key),
-                  content = contentConstructor(messages(formErrors(i).message, formErrors(i).args: _*)))
+                  href    = Some(s"#${formErrors(i).key}"),
+                  content = contentConstructor(messagesStub.messages(formErrors(i).message, formErrors(i).args: _*)))
             }
         }
       }
@@ -61,12 +61,13 @@ class ImplicitsSpec
 
     "asErrorMessages" should {
       "convert FormErrors to ErrorMessageParams either text or html" in {
-        forAll(genFormErrors) {
-          case (formErrors, contentConstructor) =>
+        forAll(genFormErrorsAndMessages) {
+          case (formErrors, contentConstructor, messagesStub) =>
+            import messagesStub.messages
             formErrors.asErrorMessages(contentConstructor).zipWithIndex.foreach {
               case (errorMessageParams, i) =>
                 errorMessageParams shouldBe ErrorMessageParams(
-                  content = contentConstructor(messages(formErrors(i).message, formErrors(i).args: _*)))
+                  content = contentConstructor(messagesStub.messages(formErrors(i).message, formErrors(i).args: _*)))
             }
         }
       }
@@ -75,21 +76,22 @@ class ImplicitsSpec
     "asErrorMessage" when {
       "finds matching message" should {
         "convert FormErrors to ErrorMessageParams" in {
-          forAll(genFormErrors) {
-            case (formErrors, contentConstructor) =>
+          forAll(genFormErrorsAndMessages) {
+            case (formErrors, contentConstructor, messagesStub) =>
+              import messagesStub.messages
               val i             = Random.nextInt(formErrors.length)
               val randomMessage = formErrors(i).message //select random message
-
               formErrors.asErrorMessage(contentConstructor, randomMessage).value shouldBe ErrorMessageParams(
-                content = contentConstructor(messages(formErrors(i).message, formErrors(i).args: _*)))
+                content = contentConstructor(messagesStub.messages(formErrors(i).message, formErrors(i).args: _*)))
           }
         }
       }
 
       "doesn't find matching message" should {
         "return None" in {
-          forAll(genFormErrors) {
-            case (formErrors, contentConstructor) =>
+          forAll(genFormErrorsAndMessages) {
+            case (formErrors, contentConstructor, messagesStub) =>
+              import messagesStub.messages
               val mismatchingMessage = UUID.randomUUID.toString
               formErrors.asErrorMessage(contentConstructor, mismatchingMessage) shouldBe None
           }
@@ -165,18 +167,32 @@ class ImplicitsSpec
         indentFirstLine <- arbBool.arbitrary
       } yield (str, n, indentFirstLine)
 
-    val genFormError: Gen[FormError] = for {
-      key       <- genNonEmptyAlphaStr
-      nMessages <- Gen.chooseNum(1, 5)
-      messages  <- Gen.listOfN(nMessages, genNonEmptyAlphaStr)
-      nArgs     <- Gen.chooseNum(1, 5)
-      args      <- Gen.listOfN(nArgs, genNonEmptyAlphaStr)
-    } yield FormError(key = key, messages = messages, args = args)
+    val genMessagePair: Gen[(String, String)] = for {
+      errorKey     <- genNonEmptyAlphaStr
+      errorMessage <- genNonEmptyAlphaStr
+    } yield (errorKey, errorMessage)
 
-    val genFormErrors: Gen[(immutable.Seq[FormError], String => Content)] = for {
+    val genMessages: Gen[Map[String, String]] = for {
+      n        <- Gen.chooseNum(1, 5)
+      messages <- Gen.mapOfN(n, genMessagePair)
+    } yield messages
+
+    def genFormError(messageKey: String): Gen[FormError] =
+      for {
+        key   <- genNonEmptyAlphaStr
+        nArgs <- Gen.chooseNum(1, 5)
+        args  <- Gen.listOfN(nArgs, genNonEmptyAlphaStr)
+      } yield FormError(key = s"$key", message = messageKey, args = args)
+
+    val genFormErrorsAndMessages: Gen[(immutable.Seq[FormError], String => Content, MessagesHelpers)] = for {
       contentConstructor <- Gen.oneOf(Gen.const(HtmlContent.apply(_: String)), Gen.const(Text.apply _))
       n                  <- Gen.chooseNum(1, 5)
-      errors             <- Gen.listOfN(n, genFormError).map(_.toSeq)
-    } yield (errors, contentConstructor)
+      generatedMessages  <- genMessages
+      messageKey = generatedMessages.keys.toSeq(Random.nextInt(generatedMessages.size))
+      errors <- Gen.listOfN(n, genFormError(messageKey)).map(_.toSeq)
+    } yield
+      (errors, contentConstructor, new MessagesHelpers {
+        override val messagesMap = Map("default" -> generatedMessages)
+      })
   }
 }

@@ -50,7 +50,7 @@ trait JsonHelpers {
   implicit val readsContent: Reads[Content] =
     readsHtmlOrText((__ \ "html"), (__ \ "text"))
 
-  implicit def writesContent(htmlField: String = "html", textField: String = "text"): OWrites[Content] =
+  def writesContentDef(htmlField: String = "html", textField: String = "text"): OWrites[Content] =
     new OWrites[Content] {
       override def writes(content: Content): JsObject = content match {
         case Empty              => Json.obj()
@@ -58,6 +58,8 @@ trait JsonHelpers {
         case Text(value)        => Json.obj(textField -> value)
       }
     }
+
+  implicit val writesContent: OWrites[Content] = writesContentDef()
 
   def readsHtmlOrText(htmlJsPath: JsPath, textJsPath: JsPath): Reads[Content] =
     readsHtmlContent(htmlJsPath)
@@ -82,6 +84,12 @@ trait JsonHelpers {
       (__ \ "classes").readWithDefault[String]("") and
       (__ \ "isPageHeading").readWithDefault[Boolean](false)
   )(Legend.apply _)
+
+  implicit val writesLegend: OWrites[Legend] = (
+    writesContent and
+      (__ \ "classes").write[String] and
+      (__ \ "isPageHeading").write[Boolean]
+  )(unlift(Legend.unapply))
 
   implicit val readsFooterItem: Reads[FooterItem] = (
     (__ \ "text").readNullable[String] and
@@ -110,6 +118,9 @@ trait JsonHelpers {
   implicit val readsFieldsetParams: Reads[FieldsetParams] =
     Json.using[Json.WithDefaultValues].reads[FieldsetParams]
 
+  implicit val writesFieldsetParams: OWrites[FieldsetParams] =
+    Json.using[Json.WithDefaultValues].writes[FieldsetParams]
+
   implicit val readsHintParams: Reads[HintParams] = (
     (__ \ "id").readNullable[String] and
       (__ \ "classes").readWithDefault[String]("") and
@@ -117,10 +128,17 @@ trait JsonHelpers {
       readsContent
   )(HintParams.apply _)
 
+  implicit val writesHintParams: OWrites[HintParams] = (
+    (__ \ "id").writeNullable[String] and
+      (__ \ "classes").write[String] and
+      (__ \ "attributes").write[Map[String, String]] and
+      writesContent
+  )(unlift(HintParams.unapply))
+
   // FIXME: Hacky Reads to deal with incorrect implementation of govuk-frontend 'error-message' component. Raise PR to fix it.
   // Converts the ambiguously documented visuallyHiddenText parameter from govuk-frontend to the correct type.
   // The original govuk-frontend implementation will show any truthy value as the hidden text when visuallyHiddenText is set to it.
-  // [[https://github.com/alphagov/govuk-frontend/blob/v2.11.0/src/components/error-message/template.test.js#L82]]
+  // [[https://github.com/alphagov/govuk-frontend/blob/v3.2.0/src/govuk/components/error-message/template.test.js#L82]]
   // When visuallyHiddenText is a falsy value we want to hide the text
   // If it is not provided we default to "Error"
   implicit val readsVisuallyHiddenText: Reads[VisuallyHiddenText] = (
@@ -136,12 +154,26 @@ trait JsonHelpers {
       }
   )
 
+  implicit val writesVisuallyHiddenText: OWrites[VisuallyHiddenText] = new OWrites[VisuallyHiddenText] {
+    override def writes(visuallyHiddenText: VisuallyHiddenText): JsObject = visuallyHiddenText match {
+      case ShowText(text) => Json.obj("visuallyHiddenText" -> text)
+      case HideText       => Json.obj("visuallyHiddenText" -> false)
+    }
+  }
+
   implicit val readsErrorMessageParams: Reads[ErrorMessageParams] = (
     (__ \ "classes").readWithDefault[String]("") and
       (__ \ "attributes").readWithDefault[Map[String, String]](Map.empty) and
       readsVisuallyHiddenText and
       readsContent
   )(ErrorMessageParams.apply _)
+
+  implicit val writesErrorMessageParams: OWrites[ErrorMessageParams] = (
+    (__ \ "classes").write[String] and
+      (__ \ "attributes").write[Map[String, String]] and
+      writesVisuallyHiddenText and
+      writesContent
+  )(unlift(ErrorMessageParams.unapply))
 
   implicit val readsLabelParams: Reads[LabelParams] = (
     (__ \ "for").readNullable[String] and
@@ -150,6 +182,14 @@ trait JsonHelpers {
       (__ \ "attributes").readWithDefault[Map[String, String]](Map.empty) and
       readsContent
   )(LabelParams.apply _)
+
+  implicit val writesLabelParams: OWrites[LabelParams] = (
+    (__ \ "for").writeNullable[String] and
+      (__ \ "isPageHeading").write[Boolean] and
+      (__ \ "classes").write[String] and
+      (__ \ "attributes").write[Map[String, String]] and
+      writesContent
+  )(unlift(LabelParams.unapply))
 
   implicit val readsRadioItem: Reads[RadioItem] = (
     readsContent and
@@ -215,6 +255,11 @@ trait JsonHelpers {
   val readsFormGroupClasses: Reads[String] =
     (__ \ "formGroup" \ "classes").read[String].orElse(Reads.pure(""))
 
+  val writesFormGroupClasses: OWrites[String] = new OWrites[String] {
+    override def writes(classes: String): JsObject =
+      Json.obj("formGroup" -> Json.obj("classes" -> classes))
+  }
+
   implicit val readsBreadcrumbsItem: Reads[BreadcrumbsItem] = (
     readsContent and
       (__ \ "href").readNullable[String] and
@@ -233,6 +278,19 @@ trait JsonHelpers {
       (__ \ "disabled").readWithDefault[Boolean](false) and
       (__ \ "attributes").readWithDefault[Map[String, String]](Map.empty)
   )(CheckboxItem.apply _)
+
+  implicit val writesCheckboxItem: OWrites[CheckboxItem] = (
+    writesContent and
+      (__ \ "id").writeNullable[String] and
+      (__ \ "name").writeNullable[String] and
+      (__ \ "value").write[String] and
+      (__ \ "label").writeNullable[LabelParams] and
+      (__ \ "hint").writeNullable[HintParams] and
+      (__ \ "checked").write[Boolean] and
+      (__ \ "conditional" \ "html").writeNullable[String].contramap((html: Option[Html]) => html.map(_.body)) and
+      (__ \ "disabled").write[Boolean] and
+      (__ \ "attributes").write[Map[String, String]]
+  )(unlift(CheckboxItem.unapply))
 
   implicit val readsSelectItem: Reads[SelectItem] = (
     (__ \ "value").readsJsValueToString.map(_.toOption) and
@@ -273,4 +331,4 @@ trait JsonHelpers {
   )(TabItem.apply _)
 }
 
-object JsonHelpers extends  JsonHelpers
+object JsonHelpers extends JsonHelpers

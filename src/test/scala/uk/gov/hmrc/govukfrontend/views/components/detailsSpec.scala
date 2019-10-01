@@ -21,7 +21,7 @@ import play.api.libs.json._
 import play.twirl.api.Html
 import uk.gov.hmrc.govukfrontend.views.html.components._
 
-class detailsSpec extends RenderHtmlSpec("govukDetails") {
+class detailsSpec extends TemplateUnitSpec("govukDetails") {
 
   "details" should {
     "allow text to be passed whilst escaping HTML entities" in {

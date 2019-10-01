@@ -120,8 +120,8 @@
 
 @itemId(item: RadioItem, index: Int) = @{
   (item.id, index) match {
-    case (Some(id), _) => id
-    case (None, 1) => idPrefixStr
+    case (Some(NonEmptyString(id)), _) => id
+    case (Some(_) | None, 1) => idPrefixStr
     case _ => s"$idPrefixStr-$index"
   }
 }

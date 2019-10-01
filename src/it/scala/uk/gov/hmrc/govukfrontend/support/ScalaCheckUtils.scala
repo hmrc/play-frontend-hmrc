@@ -5,17 +5,19 @@ import org.scalacheck.Prop.collect
 
 object ScalaCheckUtils {
 
+  type ClassifyParams = (Boolean, Any, Any)
+
   /**
     * Collect statistics after checking a property. See [[Prop.classify]]
     * Convenience method that avoids nesting several [[Prop.classify]] by providing a [[Stream]] of conditions.
-    * Stream is used to avoid evaluating the conditions prematurely.
+    * A [[Stream]] is used to avoid evaluating the conditions prematurely.
     *
-    * @param conditions
+    * @param conditions [[Stream]] of triples (condition, ifTrue, ifFalse)
     * @param prop
     * @return [[Prop]]
     */
   @scala.annotation.tailrec
-  def classify(conditions: Stream[(Boolean, Any, Any)])(prop: Prop): Prop = conditions match {
+  def classify(conditions: Stream[ClassifyParams])(prop: Prop): Prop = conditions match {
     case Stream.Empty => prop
     case h #:: Stream.Empty =>
       if (h._1) collect(h._2)(prop) else collect(h._3)(prop)

@@ -21,7 +21,7 @@ import play.api.libs.json._
 import play.twirl.api.Html
 import uk.gov.hmrc.govukfrontend.views.html.components._
 
-class skipLinkSpec extends RenderHtmlSpec("govukSkipLink") {
+class skipLinkSpec extends TemplateUnitSpec("govukSkipLink") {
 
   "skipLink" should {
     "render href" in {

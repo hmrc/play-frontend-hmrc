@@ -7,5 +7,4 @@ object Utils {
     def +/(otherUrl: String): String =
       if (otherUrl.startsWith("/")) url + otherUrl else url + "/" + otherUrl
   }
-
 }

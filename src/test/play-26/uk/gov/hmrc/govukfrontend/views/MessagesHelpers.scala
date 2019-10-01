@@ -20,6 +20,12 @@ import play.api.i18n.Messages
 import play.api.test.Helpers
 
 trait MessagesHelpers {
-  implicit val messages: Messages = Helpers.stubMessages(Helpers.stubMessagesApi(
-    messages = Map("default" -> Map("error.invalid" -> "Invalid input received", "error.missing" -> "Input missing"))))
+  /**
+    * Override the messagesMap to provide custom messages
+    * @return
+    */
+  def messagesMap: Map[String, Map[String, String]] = Map.empty
+
+  implicit lazy val messages: Messages =
+    Helpers.stubMessages(Helpers.stubMessagesApi(messages = messagesMap))
 }

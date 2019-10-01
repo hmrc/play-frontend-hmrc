@@ -102,14 +102,15 @@ lazy val libDependencies: Seq[ModuleID] = dependencies(
     )
 
     val test = Seq(
-      "org.scalatest"                 %% "scalatest"                 % "3.0.8",
-      "org.pegdown"                   % "pegdown"                    % "1.6.0",
-      "org.jsoup"                     % "jsoup"                      % "1.11.3",
-      "com.typesafe.play"             %% "play-test"                 % playRevision,
-      "org.scalacheck"                %% "scalacheck"                % "1.14.1",
-      "com.googlecode.htmlcompressor" % "htmlcompressor"             % "1.5.2",
-      "com.github.pathikrit"          %% "better-files"              % "3.8.0",
-      "com.lihaoyi"                   %% "pprint"                    % "0.5.3",
+      "org.scalatest"                 %% "scalatest"          % "3.0.8",
+      "org.pegdown"                   % "pegdown"             % "1.6.0",
+      "org.jsoup"                     % "jsoup"               % "1.11.3",
+      "com.typesafe.play"             %% "play-test"          % playRevision,
+      "org.scalacheck"                %% "scalacheck"         % "1.14.1",
+      "com.googlecode.htmlcompressor" % "htmlcompressor"      % "1.5.2",
+      "com.github.pathikrit"          %% "better-files"       % "3.8.0",
+      "com.lihaoyi"                   %% "pprint"             % "0.5.3",
+      "org.bitbucket.cowwoc"          % "diff-match-patch"    % "1.2",
       ws
     ).map(_ % Test)
 

@@ -21,7 +21,7 @@ import play.api.libs.json._
 import play.twirl.api.Html
 import uk.gov.hmrc.govukfrontend.views.html.components._
 
-class accordionSpec extends RenderHtmlSpec("govukAccordion") {
+class accordionSpec extends TemplateUnitSpec("govukAccordion") {
   override implicit val reads: Reads[Html] = (
     (__ \ "id").read[String] and
       (__ \ "headingLevel").readWithDefault[Int](2) and

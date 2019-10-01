@@ -21,7 +21,7 @@ import play.api.libs.json._
 import play.twirl.api.Html
 import uk.gov.hmrc.govukfrontend.views.html.components._
 
-class radiosSpec extends RenderHtmlSpec("govukRadios") {
+class radiosSpec extends TemplateUnitSpec("govukRadios") {
 
   override implicit val reads: Reads[Html] = (
     (__ \ "fieldset").readNullable[FieldsetParams] and

@@ -17,11 +17,11 @@ trait TemplateServiceClient extends WordSpecLike with WSScalaTestClient with Gui
   /**
     * Render a govuk-frontend component using the template service
     *
-    * @param templateParams
     * @param govukComponentName the govuk-frontend component name as documented in the template service
+    * @param templateParams
     * @return [[WSResponse]] with the rendered component
     */
-  def renderComponent[T: OWrites](templateParams: T, govukComponentName: String, govukVersion: String = govukFrontendVersion): Future[WSResponse] =
+  def renderComponent[T: OWrites](govukComponentName: String, templateParams: T, govukVersion: String = govukFrontendVersion): Future[WSResponse] =
     wsUrl(s"govuk/v$govukVersion/components/$govukComponentName")
       .post(Json.toJson(templateParams))
 }

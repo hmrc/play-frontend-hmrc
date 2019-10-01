@@ -14,18 +14,12 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.govukfrontend.views.components
+package uk.gov.hmrc.govukfrontend.views
 
-import play.api.libs.functional.syntax._
-import play.api.libs.json._
-import play.twirl.api.Html
-import uk.gov.hmrc.govukfrontend.views.html.components._
+class TemplateValidationException(message: String) extends IllegalArgumentException(message)
 
-class summaryListSpec extends TemplateUnitSpec("govukSummaryList") {
-
-  override implicit val reads: Reads[Html] = (
-    (__ \ "rows").read[Seq[SummaryListRow]] and
-      (__ \ "classes").readWithDefault[String]("") and
-      (__ \ "attributes").readWithDefault[Map[String, String]](Map.empty)
-  )(SummaryList.apply _)
+object TemplateValidationException {
+  def unapply(arg: TemplateValidationException): Option[String] =
+    Some(arg.getMessage)
 }
+

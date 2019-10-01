@@ -21,7 +21,7 @@ import play.api.libs.json._
 import play.twirl.api.Html
 import uk.gov.hmrc.govukfrontend.views.html.components._
 
-class textareaSpec extends RenderHtmlSpec("govukTextarea") {
+class textareaSpec extends TemplateUnitSpec("govukTextarea") {
   override implicit val reads: Reads[Html] = (
     (__ \ "id").read[String] and
       (__ \ "name").read[String] and

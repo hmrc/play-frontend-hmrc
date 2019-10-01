@@ -20,7 +20,7 @@ import play.api.libs.json._
 import play.twirl.api.Html
 import uk.gov.hmrc.govukfrontend.views.html.components._
 
-class fieldsetSpec extends RenderHtmlSpec("govukFieldset") {
+class fieldsetSpec extends TemplateUnitSpec("govukFieldset") {
 
   case class Params(
     describedBy: Option[String]     = None,

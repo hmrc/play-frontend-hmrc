@@ -21,7 +21,7 @@ import play.api.libs.json._
 import play.twirl.api.Html
 import uk.gov.hmrc.govukfrontend.views.html.components._
 
-class dateInputSpec extends RenderHtmlSpec("govukDateInput") {
+class dateInputSpec extends TemplateUnitSpec("govukDateInput") {
   override implicit val reads: Reads[Html] = (
     (__ \ "id").readNullable[String] and
       (__ \ "namePrefix").readNullable[String] and

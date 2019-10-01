@@ -110,9 +110,7 @@ trait Implicits {
 
     private[views] def asErrorLinks(contentConstructor: String => Content): Seq[ErrorLink] =
       formErrors.map { formError =>
-        ErrorLink(
-          href    = Some(formError.key),
-          content = contentConstructor(messages(formError.message, formError.args: _*)))
+        ErrorLink(href = Some(s"#${formError.key}"), content = contentConstructor(errorMessage(formError)))
       }
 
     def asHtmlErrorMessages: Seq[ErrorMessageParams] =
@@ -124,7 +122,7 @@ trait Implicits {
     private[views] def asErrorMessages(contentConstructor: String => Content): Seq[ErrorMessageParams] =
       formErrors
         .map { formError =>
-          ErrorMessageParams(content = contentConstructor(messages(formError.message, formError.args: _*)))
+          ErrorMessageParams(content = contentConstructor(errorMessage(formError)))
         }
 
     def asHtmlErrorMessage(messageSelector: String): Option[ErrorMessageParams] =
@@ -139,7 +137,9 @@ trait Implicits {
       formErrors
         .find(_.message == messageSelector)
         .map { formError =>
-          ErrorMessageParams(content = contentConstructor(messages(formError.message, formError.args: _*)))
+          ErrorMessageParams(content = contentConstructor(errorMessage(formError)))
         }
+
+    private def errorMessage(formError: FormError) = messages(formError.message, formError.args: _*)
   }
 }
