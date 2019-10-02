@@ -21,7 +21,7 @@ import play.api.libs.json._
 import play.twirl.api.Html
 import uk.gov.hmrc.govukfrontend.views.html.components._
 
-class footerSpec extends RenderHtmlSpec("govukFooter") {
+class footerSpec extends TemplateUnitSpec("govukFooter") {
   override implicit val reads: Reads[Html] = (
     (__ \ "meta").readNullable[Meta] and
       (__ \ "navigation").readWithDefault[Seq[FooterNavigation]](Nil) and

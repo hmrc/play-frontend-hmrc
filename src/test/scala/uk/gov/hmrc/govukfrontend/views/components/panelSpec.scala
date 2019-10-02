@@ -21,7 +21,7 @@ import play.api.libs.json._
 import play.twirl.api.Html
 import uk.gov.hmrc.govukfrontend.views.html.components._
 
-class panelSpec extends RenderHtmlSpec("govukPanel") {
+class panelSpec extends TemplateUnitSpec("govukPanel") {
   override implicit val reads: Reads[Html] = (
     (__ \ "headingLevel").readWithDefault[Int](1) and
       (__ \ "classes").readWithDefault[String]("") and

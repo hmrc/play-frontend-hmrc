@@ -31,8 +31,8 @@
   visuallyHiddenText: VisuallyHiddenText = ShowText("Error"))(content: Content)
 <span @id.map {id => id="@id"} class="@toClasses("govuk-error-message", classes)"@toAttributes(attributes)>
  @visuallyHiddenText match {
-   case ShowText(text) => {<span class="govuk-visually-hidden">@text:</span>}
-   case HideText => {}
+   case ShowText(NonEmptyString(text)) => {<span class="govuk-visually-hidden">@text:</span>}
+   case ShowText(_) | HideText => {}
  }
  @content.asHtml
 </span>

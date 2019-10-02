@@ -22,7 +22,7 @@ import play.api.libs.json._
 import play.twirl.api.Html
 import uk.gov.hmrc.govukfrontend.views.html.components._
 
-class backLinkSpec extends RenderHtmlSpec("govukBackLink") {
+class backLinkSpec extends TemplateUnitSpec("govukBackLink") {
 
   "backLink" should {
 

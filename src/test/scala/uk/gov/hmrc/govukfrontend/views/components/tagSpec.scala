@@ -21,7 +21,7 @@ import play.api.libs.json._
 import play.twirl.api.Html
 import uk.gov.hmrc.govukfrontend.views.html.components._
 
-class tagSpec extends RenderHtmlSpec("govukTag") {
+class tagSpec extends TemplateUnitSpec("govukTag") {
   "tag" should {
     "render the default example with strong element and text" in {
       val component = Tag.apply()(HtmlContent("alpha")).select(".govuk-tag")

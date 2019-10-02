@@ -22,15 +22,16 @@
   errorMessageParams: Option[ErrorMessageParams] = None,
   formGroupClasses: String = "",
   idPrefix: Option[String] = None,
-  name: String = "",
+  name: String,
   items: Seq[CheckboxItem],
   classes: String = "",
   attributes: Map[String, String] = Map.empty)
-@defining(innerHtmlSnippet) { case (describedBy, innerHtml) =>
+@require(name.nonEmpty, "parameter 'name' should not be empty")
+@defining(innerHtmlSnippet(describedBy.filter(_.nonEmpty).getOrElse(""))) { case (describedBy1, innerHtml) =>
 <div class="@toClasses("govuk-form-group", errorMessageParams.fold("")(_ => "govuk-form-group--error"), formGroupClasses)">
   @fieldsetParams.fold(innerHtml) { fieldsetParams =>
     @fieldset(
-      describedBy = describedBy.toOption,
+      describedBy = describedBy1.toOption,
       legend = fieldsetParams.legend,
       classes = fieldsetParams.classes,
       attributes = fieldsetParams.attributes
@@ -40,9 +41,9 @@
 }
 
 @* if name is not provided defaults to javascript undefined: https://github.com/alphagov/govuk-frontend/blob/master/src/govuk/components/checkboxes/template.njk#L8 *@
-@idPrefixStr = @{idPrefix.filter(_.nonEmpty).getOrElse(if (name.isEmpty) "undefined" else name)}
+@idPrefixStr = @{idPrefix.filter(_.nonEmpty).getOrElse(name)}
 
-@isConditional = @{items.exists(_.conditionalHtml.exists(_.body.nonEmpty))}
+@isConditional = @{items.exists(_.conditionalHtml.nonEmpty)}
 
 @hasFieldset = @{fieldsetParams.isDefined}
 
@@ -99,8 +100,8 @@
   </div>
 }
 
-@innerHtmlSnippet = @{
-  val describedBy1 = fieldsetParams.fold("")(fieldsetParams => fieldsetParams.describedBy.getOrElse(""))
+@innerHtmlSnippet(describedBy: String) = @{
+  val describedBy1 = fieldsetParams.fold(describedBy)(fieldsetParams => fieldsetParams.describedBy.filter(_.nonEmpty).getOrElse(describedBy))
   val (describedBy2, hintHtml) = hintSnippet(describedBy1)
   val (describedBy3, errorMessageHtml) = errorMessageSnippet(describedBy2)
   val divHtml = divSnippet(describedBy3)
@@ -109,8 +110,8 @@
 
 @itemId(item: CheckboxItem, index: Int) = @{
   (item.id, index) match {
-    case (Some(id), _) => id
-    case (None, 1) => idPrefixStr
+    case (Some(NonEmptyString(id)), _) => id
+    case (Some(_) | None, 1) => idPrefixStr
     case _ => s"$idPrefixStr-$index"
   }
 }
@@ -128,6 +129,6 @@
   @itemDescribedBy(item, index, describedBy).toOption.map { ariaDescribedBy => aria-describedby="@ariaDescribedBy"}
 }
 
-@itemName(item: CheckboxItem) = @{item.name.getOrElse(name)}
+@itemName(item: CheckboxItem) = @{item.name.filter(_.nonEmpty).getOrElse(name)}
 
 @itemDescribedBy(item: CheckboxItem, index: Int, describedBy: String) = @{s"${describedBy.when(!hasFieldset)} ${itemHintId(item, index)}".trim}

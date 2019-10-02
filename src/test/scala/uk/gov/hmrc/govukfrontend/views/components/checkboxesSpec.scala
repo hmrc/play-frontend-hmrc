@@ -21,7 +21,7 @@ import play.api.libs.json._
 import play.twirl.api.Html
 import uk.gov.hmrc.govukfrontend.views.html.components._
 
-class checkboxesSpec extends RenderHtmlSpec("govukCheckboxes") {
+class checkboxesSpec extends TemplateUnitSpec("govukCheckboxes") {
 
   override implicit val reads: Reads[Html] = (
     (__ \ "describedBy").readNullable[String] and

@@ -13,6 +13,7 @@ import uk.gov.hmrc.govukfrontend.views.components.BackLinkParams
 
 class TemplateServiceClientSpec
     extends WordSpec
+    with TemplateServiceClient
     with Matchers
     with ScalaFutures
     with IntegrationPatience
@@ -21,20 +22,17 @@ class TemplateServiceClientSpec
   "TemplateServiceClient" should {
     "successfully obtain a response from the template service" in {
 
-      val templateServiceClient = new TemplateServiceClient {}
-
       Server.withRouter() {
         case GET(p"/govuk/v$govukVersion/components/govukBackLink") =>
           Action {
             Results.Ok("""<a href="#" class="govuk-back-link">Back</a>""")
           }
       } { implicit port =>
-        val response = templateServiceClient
-          .renderComponent(
-            templateParams     = BackLinkParams(href = "#"),
-            govukComponentName = "govukBackLink",
-            govukVersion       = govukFrontendVersion)
-          .futureValue
+        val response = renderComponent(
+          templateParams     = BackLinkParams(href = "#"),
+          govukComponentName = "govukBackLink",
+          govukVersion       = govukFrontendVersion
+        ).futureValue
 
         response.status shouldBe 200
 

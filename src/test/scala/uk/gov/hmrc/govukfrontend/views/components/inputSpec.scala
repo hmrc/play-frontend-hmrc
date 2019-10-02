@@ -22,7 +22,7 @@ import play.twirl.api.Html
 import uk.gov.hmrc.govukfrontend.views.html.components._
 import scala.util.matching.Regex
 
-class inputSpec extends RenderHtmlSpec("govukInput") {
+class inputSpec extends TemplateUnitSpec("govukInput") {
   override implicit val reads: Reads[Html] = (
     (__ \ "id").read[String] and
       (__ \ "name").read[String] and

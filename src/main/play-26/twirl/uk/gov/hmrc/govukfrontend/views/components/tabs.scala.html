@@ -48,4 +48,4 @@
 
 @idPrefixStr = @{ idPrefix.filter(_.nonEmpty).getOrElse("undefined") }
 
-@itemId(item: TabItem, index: Int) = @{ item.id.getOrElse(s"$idPrefixStr-$index") }
+@itemId(item: TabItem, index: Int) = @{ item.id.filter(_.nonEmpty).getOrElse(s"$idPrefixStr-$index") }

@@ -21,7 +21,7 @@ import play.api.libs.json._
 import play.twirl.api.Html
 import uk.gov.hmrc.govukfrontend.views.html.components._
 
-class tabsSpec extends RenderHtmlSpec("govukTabs") {
+class tabsSpec extends TemplateUnitSpec("govukTabs") {
   override implicit val reads: Reads[Html] = (
     (__ \ "id").readNullable[String] and
       (__ \ "idPrefix").readNullable[String] and

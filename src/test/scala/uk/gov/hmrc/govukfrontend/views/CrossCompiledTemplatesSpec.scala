@@ -16,9 +16,9 @@
 
 package uk.gov.hmrc.govukfrontend.views
 
-import org.scalatest.{Ignore, Matchers, WordSpec}
-import uk.gov.hmrc.BuildInfo
 import better.files._
+import org.scalatest.{Matchers, WordSpec}
+import uk.gov.hmrc.BuildInfo
 
 class CrossCompiledTemplatesSpec extends WordSpec with Matchers {
 

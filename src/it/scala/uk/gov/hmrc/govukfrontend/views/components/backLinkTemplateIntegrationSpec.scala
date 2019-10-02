@@ -20,49 +20,39 @@ package components
 import org.scalacheck._
 import play.api.libs.functional.syntax._
 import play.api.libs.json._
-import uk.gov.hmrc.govukfrontend.support.IntegrationSpec
+import uk.gov.hmrc.govukfrontend.support.TemplateIntegrationSpec
 import html.components._
+import play.twirl.api.HtmlFormat
+import uk.gov.hmrc.govukfrontend.support.ScalaCheckUtils.ClassifyParams
 import viewmodels.Generators._
-import viewmodels.common
+import scala.util.Try
 
-object backLinkIntegrationSpec extends Properties("backLink") with IntegrationSpec[BackLinkParams] {
+object backLinkTemplateIntegrationSpec extends TemplateIntegrationSpec[BackLinkParams]("govukBackLink") {
 
   override def overrideParameters(p: Test.Parameters): Test.Parameters =
-    p.withMinSuccessfulTests(100)
+    p.withMinSuccessfulTests(50)
 
-  override def govukComponentName: String = "govukBackLink"
+  override def twirlRender(backLinkParams: BackLinkParams): Try[HtmlFormat.Appendable] =
+    Try(
+      BackLink(href = backLinkParams.href, classes = backLinkParams.classes, attributes = backLinkParams.attributes)(
+        backLinkParams.content)
+    )
 
-  override implicit val writesTemplateParams: OWrites[BackLinkParams] = BackLinkParams.writes
-
-  override implicit val arbTemplateParams: Arbitrary[BackLinkParams] = Arbitrary {
-    for {
-      // Gen.alphaStr generates empty string with very low freq so we tweak the distribution a little
-      href       <- Gen.frequency((75, Gen.alphaStr), (25, Gen.const("")))
-      nClasses   <- Gen.chooseNum(0, 5)
-      classes    <- Gen.listOfN(nClasses, Gen.alphaStr.suchThat(_.trim.nonEmpty)).map(_.mkString(" "))
-      attributes <- genAttrsMap
-      content    <- genContent
-    } yield BackLinkParams(href, classes, attributes, content)
-  }
-
-  override def twirlTemplateAsString(backLinkParams: BackLinkParams): String =
-    BackLink(backLinkParams.href, backLinkParams.classes, backLinkParams.attributes)(backLinkParams.content).body
-
-  override def classifiers(backLinkParams: BackLinkParams): Stream[(Boolean, Any, Any)] =
-    (backLinkParams.href.isEmpty, "empty href", ()) #::
-      (backLinkParams.classes.isEmpty, "empty classes", ()) #::
-      (backLinkParams.attributes.isEmpty, "empty attributes", ()) #::
+  override def classifiers(backLinkParams: BackLinkParams): Stream[ClassifyParams] =
+    (backLinkParams.href.isEmpty, "empty href", "non-empty href") #::
+      (backLinkParams.classes.isEmpty, "empty classes", "non-empty classes") #::
+      (backLinkParams.attributes.isEmpty, "empty attributes", "non-empty attributes") #::
       (backLinkParams.content.nonEmpty && backLinkParams.content.isInstanceOf[HtmlContent], "non-empty Html", ()) #::
       (backLinkParams.content.nonEmpty && backLinkParams.content.isInstanceOf[Text], "non-empty Text", ()) #::
       (!backLinkParams.content.nonEmpty, "empty content", ()) #::
-      Stream.empty[(Boolean, Any, Any)]
+      Stream.empty[ClassifyParams]
 }
 
 case class BackLinkParams(
   href: String,
   classes: String                 = "",
   attributes: Map[String, String] = Map.empty,
-  content: common.Content         = Empty
+  content: Content                = Empty
 )
 
 object BackLinkParams {
@@ -72,6 +62,15 @@ object BackLinkParams {
     (__ \ "href").write[String] and
       (__ \ "classes").write[String] and
       (__ \ "attributes").write[Map[String, String]] and
-      writesContent()
+      writesContent
   )(unlift(BackLinkParams.unapply))
+
+  implicit val arbTemplateParams: Arbitrary[BackLinkParams] = Arbitrary {
+    for {
+      href       <- genAlphaStrOftenEmpty()
+      classes    <- genClasses()
+      attributes <- genAttributes()
+      content    <- genContent
+    } yield BackLinkParams(href, classes, attributes, content)
+  }
 }

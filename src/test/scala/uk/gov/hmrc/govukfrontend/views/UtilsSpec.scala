@@ -41,7 +41,7 @@ class UtilsSpec extends WordSpec with Matchers with ScalaCheckPropertyChecks wit
 
   "toAttributes" should {
     "generate attributes HTML with the required padding" in {
-      forAll(genAttrsMap, Gen.chooseNum(0, 5)) { (attrsMap, padCount) =>
+      forAll(genAttributes(), Gen.chooseNum(0, 5)) { (attrsMap, padCount) =>
         (attrsMap.toSeq, padCount) match {
           case (Nil, _) => toAttributes(attrsMap, padCount)                 shouldBe HtmlFormat.empty
           case (_, 0)   => toAttributes(attrsToMap(toAttributes(attrsMap))) shouldBe toAttributes(attrsMap)

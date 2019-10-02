@@ -34,11 +34,14 @@ trait FixturesRenderer extends JsonHelpers with JsoupHelpers {
     */
   implicit def reads: Reads[Html]
 
-  def twirlHtml(exampleName: String): Try[String] = {
+  def twirlHtml(exampleName: String) = {
     val inputJson = readInputJson(exampleName)
-    val tryHtml = Json.parse(inputJson).validate[Html] match {
-      case JsSuccess(html, _) => Success(html.body)
-      case e: JsError         => Failure(new RuntimeException(s"failed to validate params: $e"))
+    val tryInputJsValue = Try(Json.parse(inputJson))
+    val tryHtml = tryInputJsValue.map { jsValue =>
+      jsValue.validate[Html] match {
+        case JsSuccess(html, _) => html.body
+        case e: JsError => throw(new RuntimeException(s"failed to validate params: $e"))
+      }
     }
     tryHtml
   }

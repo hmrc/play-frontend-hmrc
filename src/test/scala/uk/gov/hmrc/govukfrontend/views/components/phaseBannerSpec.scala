@@ -22,7 +22,7 @@ import play.twirl.api.Html
 import uk.gov.hmrc.govukfrontend.views.html.components._
 import scala.collection.JavaConverters._
 
-class phaseBannerSpec extends RenderHtmlSpec("govukPhaseBanner") {
+class phaseBannerSpec extends TemplateUnitSpec("govukPhaseBanner") {
 
   "phaseBanner" should {
     "allow additional classes to be added to the component" in {
