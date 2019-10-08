@@ -16,26 +16,29 @@
 
 package uk.gov.hmrc.govukfrontend.views.components
 
-import play.api.libs.functional.syntax._
-import play.api.libs.json._
-import play.twirl.api.Html
+import play.twirl.api.HtmlFormat
+import uk.gov.hmrc.govukfrontend.views.TemplateUnitSpec
 import uk.gov.hmrc.govukfrontend.views.html.components._
+import scala.util.Try
 
-class errorMessageSpec extends TemplateUnitSpec("govukErrorMessage") {
+class errorMessageSpec extends TemplateUnitSpec[ErrorMessageParams]("govukErrorMessage") {
   "errorMessage" should {
     "allow additional classes to be specified" in {
-      val component = ErrorMessage.apply(classes = "custom-class")(Empty).select(".govuk-error-message")
+      val component = ErrorMessage(ErrorMessageParams(classes = "custom-class", content = Empty))
+        .select(".govuk-error-message")
       assert(component.hasClass("custom-class"))
     }
 
     "allow text to be passed whilst escaping HTML entities" in {
-      val content = ErrorMessage.apply()(Text("Unexpected > in body")).select(".govuk-error-message").html.trim
+      val content = ErrorMessage(ErrorMessageParams(content = Text("Unexpected > in body")))
+        .select(".govuk-error-message")
+        .html
+        .trim
       content should include("Unexpected &gt; in body")
     }
 
     "allow summary HTML to be passed unescaped" in {
-      val content = ErrorMessage
-        .apply()(HtmlContent("Unexpected <b>bold text</b> in body copy"))
+      val content = ErrorMessage(ErrorMessageParams(content = HtmlContent("Unexpected <b>bold text</b> in body copy")))
         .select(".govuk-error-message")
         .html
         .trim
@@ -43,41 +46,41 @@ class errorMessageSpec extends TemplateUnitSpec("govukErrorMessage") {
     }
 
     "allow additional attributes to be specified" in {
-      val component = ErrorMessage
-        .apply(attributes = Map("data-test" -> "attribute", "id" -> "my-error-message"))(Empty)
+      val component = ErrorMessage(
+        ErrorMessageParams(attributes = Map("data-test" -> "attribute", "id" -> "my-error-message"), content = Empty))
         .select(".govuk-error-message")
       component.attr("data-test") shouldBe "attribute"
       component.attr("id")        shouldBe "my-error-message"
     }
 
     "include a visually hidden 'Error' prefix by default" in {
-      val component = ErrorMessage.apply()(Text("Enter your full name")).select(".govuk-error-message")
+      val component =
+        ErrorMessage(ErrorMessageParams(content = Text("Enter your full name"))).select(".govuk-error-message")
       component.text.trim shouldBe "Error: Enter your full name"
     }
 
     "allow the visually hidden prefix to be customised" in {
       val component =
-        ErrorMessage
-          .apply(visuallyHiddenText = ShowText("Gwall"))(Text("Rhowch eich enw llawn"))
+        ErrorMessage(
+          ErrorMessageParams(visuallyHiddenText = Some("Gwall"), content = Text("Rhowch eich enw llawn")))
           .select(".govuk-error-message")
       component.text.trim shouldBe "Gwall: Rhowch eich enw llawn"
     }
 
     "allow the visually hidden prefix to be removed" in {
       val component =
-        ErrorMessage
-          .apply(visuallyHiddenText = HideText)(Text("There is an error on line 42"))
+        ErrorMessage(ErrorMessageParams(visuallyHiddenText = None, content = Text("There is an error on line 42")))
           .select(".govuk-error-message")
       component.text.trim shouldBe "There is an error on line 42"
     }
   }
 
-  override implicit val reads: Reads[Html] = (
-    (__ \ "id").readNullable[String] and
-      (__ \ "classes").readWithDefault[String]("") and
-      (__ \ "attributes").readWithDefault[Map[String, String]](Map.empty) and
-      readsVisuallyHiddenText and
-      readsContent
-  )(ErrorMessage.apply(_, _, _, _)(_))
-
+  /**
+    * Calls the Twirl template with the given parameters and converts the resulting markup into a [[String]]
+    *
+    * @param templateParams
+    * @return [[Try[HtmlFormat.Appendable]]] containing the markup
+    */
+  override def render(templateParams: ErrorMessageParams): Try[HtmlFormat.Appendable] =
+    Try(ErrorMessage(templateParams))
 }

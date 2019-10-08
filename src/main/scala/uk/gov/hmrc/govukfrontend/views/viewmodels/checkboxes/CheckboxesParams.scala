@@ -14,13 +14,12 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.govukfrontend.views
-package viewmodels
+package uk.gov.hmrc.govukfrontend.views.viewmodels.checkboxes
 
-import JsonHelpers._
-import html.components._
-import play.api.libs.json._
 import play.api.libs.functional.syntax._
+import play.api.libs.json._
+import uk.gov.hmrc.govukfrontend.views.html.components.{ErrorMessageParams, FieldsetParams, HintParams}
+import uk.gov.hmrc.govukfrontend.views.viewmodels.CommonJsonFormats._
 
 case class CheckboxesParams(
   describedBy: Option[String]                    = None,
@@ -44,7 +43,7 @@ object CheckboxesParams {
       (__ \ "errorMessage").readNullable[ErrorMessageParams] and
       readsFormGroupClasses and
       (__ \ "idPrefix").readNullable[String] and
-      (__ \ "name").read[String] and
+      (__ \ "name").readWithDefault[String]("") and
       (__ \ "items").read[Seq[CheckboxItem]] and
       (__ \ "classes").readWithDefault[String]("") and
       (__ \ "attributes").readWithDefault[Map[String, String]](Map.empty)

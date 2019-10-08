@@ -22,10 +22,10 @@ import org.scalacheck._
 import play.twirl.api.HtmlFormat
 import uk.gov.hmrc.govukfrontend.support.ScalaCheckUtils.ClassifyParams
 import uk.gov.hmrc.govukfrontend.support.TemplateIntegrationSpec
-import uk.gov.hmrc.govukfrontend.views.components.Generators._
+import uk.gov.hmrc.govukfrontend.views.components.CheckboxesParamsGenerators._
 import uk.gov.hmrc.govukfrontend.views.html.components._
-import uk.gov.hmrc.govukfrontend.views.viewmodels.CheckboxesParams
 import uk.gov.hmrc.govukfrontend.views.viewmodels.Generators._
+import uk.gov.hmrc.govukfrontend.views.viewmodels.checkboxes.CheckboxesParams
 import scala.util.Try
 
 object checkboxesTemplateIntegrationSpec
@@ -34,9 +34,9 @@ object checkboxesTemplateIntegrationSpec
   override def overrideParameters(p: Test.Parameters): Test.Parameters =
     p.withMinSuccessfulTests(50)
 
-  override def twirlRender(checkboxesParams: CheckboxesParams): Try[HtmlFormat.Appendable] =
+  override def render(checkboxesParams: CheckboxesParams): Try[HtmlFormat.Appendable] =
     Try(
-      Checkboxes(
+      Checkboxes(CheckboxesParams(
         describedBy        = checkboxesParams.describedBy,
         fieldsetParams     = checkboxesParams.fieldsetParams,
         hintParams         = checkboxesParams.hintParams,
@@ -47,7 +47,7 @@ object checkboxesTemplateIntegrationSpec
         items              = checkboxesParams.items,
         classes            = checkboxesParams.classes,
         attributes         = checkboxesParams.attributes
-      )
+      ))
     )
 
   override def classifiers(checkboxesParams: CheckboxesParams): Stream[ClassifyParams] = {
@@ -83,7 +83,7 @@ object checkboxesTemplateIntegrationSpec
 
 }
 
-object Generators {
+object CheckboxesParamsGenerators {
   implicit val arbCheckboxParams: Arbitrary[CheckboxesParams] = Arbitrary(genCheckboxParams)
 
   lazy val genCheckboxParams = for {
@@ -173,16 +173,10 @@ object Generators {
     content    <- genContent
   } yield HintParams(id = id, classes = classes, attributes = attributes, content = content)
 
-  lazy val genHideText = Gen.const(HideText)
-
-  lazy val genShowText = genAlphaStrOftenEmpty().map(ShowText)
-
-  lazy val genVisuallyHiddenText: Gen[VisuallyHiddenText] = Gen.oneOf(genHideText, genShowText)
-
   lazy val genErrorMessageParams = for {
     classes            <- genClasses()
     attributes         <- genAttributes()
-    visuallyHiddenText <- genVisuallyHiddenText
+    visuallyHiddenText <- Gen.option(genAlphaStrOftenEmpty())
     content            <- genContent
   } yield
     ErrorMessageParams(

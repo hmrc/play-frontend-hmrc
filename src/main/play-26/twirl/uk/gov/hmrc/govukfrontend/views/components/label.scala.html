@@ -16,10 +16,8 @@
 
 @this()
 
-@(forAttr: Option[String] = None,
-  isPageHeading: Boolean = false,
-  classes: String = "",
-  attributes: Map[String, String] = Map.empty)(content: Content)
+@(params: LabelParams)
+@import params._
 @content match {
   case NonEmptyHtml(_) | NonEmptyText(_) => {
       @defining {

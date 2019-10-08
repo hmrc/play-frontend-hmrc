@@ -17,36 +17,62 @@
 package uk.gov.hmrc.govukfrontend.views
 
 import better.files._
+import org.scalatest.{Matchers, TryValues, WordSpecLike}
 import play.api.libs.json._
-import play.twirl.api.Html
-import uk.gov.hmrc.govukfrontend.views.GovukFrontendDependency._
+import uk.gov.hmrc.govukfrontend.views.GovukFrontendDependency.govukFrontendVersion
 import scala.util.{Failure, Success, Try}
 
-trait FixturesRenderer extends JsonHelpers with JsoupHelpers {
-  import FixturesRenderer._
+/**
+  *
+  * @param govukComponentName
+  * @param [[Reads[T]]]
+  * @tparam T
+  */
+abstract class TemplateUnitSpec[T: Reads](govukComponentName: String)
+    extends TwirlRenderer[T]
+    with JsoupHelpers
+    with WordSpecLike
+    with Matchers
+    with TryValues {
 
-  /**
-    * Reads for inputs to the example templates included in the test fixtures.
-    * They should be able to parse the inputs as documented in the component's yaml.
-    * ex: [[https://github.com/alphagov/govuk-frontend/blob/master/src/govuk/components/back-link/back-link.yaml]]
-    *
-    * @return [[Html]] of the rendered Twirl template given the parsed inputs
-    */
-  implicit def reads: Reads[Html]
+  exampleNames(govukComponentName)
+    .foreach { exampleName =>
+    s"$exampleName" should {
+      "render the same html as the nunjucks renderer" in {
+        val tryTwirlHtml = renderExample(exampleName)
 
-  def twirlHtml(exampleName: String) = {
-    val inputJson = readInputJson(exampleName)
-    val tryInputJsValue = Try(Json.parse(inputJson))
-    val tryHtml = tryInputJsValue.map { jsValue =>
-      jsValue.validate[Html] match {
-        case JsSuccess(html, _) => html.body
-        case e: JsError => throw(new RuntimeException(s"failed to validate params: $e"))
+        tryTwirlHtml match {
+          case Success(twirlHtml) =>
+            val compressedTwirlHtml    = parseAndCompressHtml(twirlHtml)
+            val compressedNunjucksHtml = parseAndCompressHtml(nunjucksHtml(exampleName).success.value)
+
+            compressedTwirlHtml shouldBe compressedNunjucksHtml
+          case Failure(TemplateValidationException(message)) =>
+            println(s"Failed to validate the parameters for the template for $govukComponentName")
+            println(s"Exception: $message")
+            println(s"Skipping test $exampleName")
+
+            succeed
+          case Failure(exception) => fail(exception)
+        }
       }
     }
-    tryHtml
   }
 
-  def nunjucksHtml(exampleName: String): Try[String] =
+  private def renderExample(exampleName: String): Try[String] =
+    for {
+      inputJson    <- Try(readInputJson(exampleName))
+      inputJsValue <- Try(Json.parse(inputJson))
+      html <- inputJsValue.validate[T] match {
+               case JsSuccess(templateParams, _) =>
+                 render(templateParams)
+                   .transform(html => Success(html.body), f => Failure(new TemplateValidationException(f.getMessage)))
+               case e: JsError =>
+                 throw new RuntimeException(s"Failed to validate Json params: [$inputJsValue]\nException: [$e]")
+             }
+    } yield html
+
+  private def nunjucksHtml(exampleName: String): Try[String] =
     Try(readOutputFile(exampleName))
 
   /**
@@ -56,7 +82,7 @@ trait FixturesRenderer extends JsonHelpers with JsoupHelpers {
     * @return [[Seq[String]]] of folder names for each example in the test fixtures folder or
     *        fails if the fixtures folder is not defined
     */
-  def exampleNames(govukComponentName: String): Seq[String] = {
+  private def exampleNames(govukComponentName: String): Seq[String] = {
     val exampleFolders = getExampleFolders(govukComponentName)
 
     val examples = exampleFolders.map(_.name)
@@ -64,11 +90,8 @@ trait FixturesRenderer extends JsonHelpers with JsoupHelpers {
     if (examples.nonEmpty) examples
     else throw new RuntimeException(s"Couldn't find component named $govukComponentName. Spelling error?")
   }
-}
 
-object FixturesRenderer {
-
-  def getExampleFolders(govukComponentName: String): Seq[File] = {
+  private def getExampleFolders(govukComponentName: String): Seq[File] = {
     def parseComponentName(json: String): Option[String] = (Json.parse(json) \ "name").asOpt[String]
 
     val componentNameFiles = fixturesDir.listRecursively.filter(_.name == "component.json")
@@ -79,21 +102,6 @@ object FixturesRenderer {
     val folders = matchingFiles.map(_.parent).toSeq.distinct
 
     folders
-  }
-
-  def readInputJsonFiles(govukComponentName: String): Seq[(File, JsValue)] = {
-    val exampleFolders = getExampleFolders(govukComponentName)
-
-    val inputJsonFiles: Seq[(File, File)] =
-      exampleFolders.map(
-        folder =>
-          folder -> folder.children
-            .find(_.name == "input.json")
-            .getOrElse(throw new RuntimeException(s"Could not find input json file in folder $folder")))
-
-    inputJsonFiles.map {
-      case (exampleFolder, inputJsonFile) => exampleFolder -> Json.parse(inputJsonFile.contentAsString)
-    }
   }
 
   private lazy val fixturesDir: File = {

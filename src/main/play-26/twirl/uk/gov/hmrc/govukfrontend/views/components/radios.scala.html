@@ -16,23 +16,18 @@
 
 @this(errorMessage: errorMessage, fieldset: fieldset, hint: hint, label: label)
 
-@(fieldsetParams: Option[FieldsetParams] = None,
-  hintParams: Option[HintParams] = None,
-  errorMessageParams: Option[ErrorMessageParams] = None,
-  formGroupClasses: String = "",
-  idPrefix: Option[String] = None,
-  name: String,
-  items: Seq[RadioItem],
-  classes: String = "",
-  attributes: Map[String, String] = Map.empty)
+@(params: RadiosParams)
+@import params._
 @defining(innerHtmlSnippet) { case (describedBy, innerHtml) =>
   <div class="@toClasses("govuk-form-group", errorMessageParams.fold("")(_ => "govuk-form-group--error"), formGroupClasses)">
     @fieldsetParams.fold(innerHtml) { fieldsetParams =>
-        @fieldset(
+        @fieldset(FieldsetParams(
           describedBy = describedBy.toOption,
           legend = fieldsetParams.legend,
           classes = fieldsetParams.classes,
-          attributes = fieldsetParams.attributes)(innerHtml)
+          attributes = fieldsetParams.attributes,
+          html = innerHtml
+        ))
     }
   </div>
 }
@@ -46,10 +41,12 @@
     val hintId = idPrefixStr + "-hint"
     val describedBy1 = s"$describedBy $hintId".ltrim
     val hintHtml =
-      hint(
+      hint(HintParams(
         id = Some(hintId),
         classes = hintParams.classes,
-        attributes = hintParams.attributes)(hintParams.content)
+        attributes = hintParams.attributes,
+        content = hintParams.content
+      ))
     (describedBy1, hintHtml)
   }
 }
@@ -59,12 +56,13 @@
     val errorId = idPrefixStr + "-error"
     val describedBy1 = s"$describedBy $errorId".ltrim
     val errorMessageHtml =
-      errorMessage(
+      errorMessage(ErrorMessageParams(
         id = Some(errorId),
         classes = errorMessageParams.classes,
         attributes = errorMessageParams.attributes,
-        visuallyHiddenText = errorMessageParams.visuallyHiddenText
-      )(errorMessageParams.content)
+        visuallyHiddenText = errorMessageParams.visuallyHiddenText,
+        content = errorMessageParams.content
+      ))
     (describedBy1, errorMessageHtml)
   }
 }
@@ -87,15 +85,19 @@
           } { inputAttrs =>
               <div class="govuk-radios__item">
                 <input class="govuk-radios__input" id="@id" name="@name" type="radio" value="@item.value"@inputAttrs@toAttributes(item.attributes)>
-                  @label(
+                  @label(LabelParams(
                     forAttr = Some(id),
                     classes = toClasses("govuk-radios__label", item.label.map(_.classes).getOrElse("")),
-                    attributes = item.label.map(_.attributes).getOrElse(Map.empty))(item.content)
+                    attributes = item.label.map(_.attributes).getOrElse(Map.empty),
+                    content = item.content
+                  ))
                   @if(hasHint) {
-                    @hint(
+                    @hint(HintParams(
                       id = Some(itemHintId),
                       classes = "govuk-radios__hint",
-                      attributes = item.hint.map(_.attributes).getOrElse(Map.empty))(item.hint.map(_.content).getOrElse(Empty))
+                      attributes = item.hint.map(_.attributes).getOrElse(Map.empty),
+                      content = item.hint.map(_.content).getOrElse(Empty)
+                    ))
                   }
               </div>
               @item.conditionalHtml.map { conditionalHtml =>

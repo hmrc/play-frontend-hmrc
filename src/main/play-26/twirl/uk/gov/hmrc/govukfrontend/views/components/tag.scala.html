@@ -16,8 +16,8 @@
 
 @this()
 
-@(classes: String = "",
-  attributes: Map[String, String] = Map.empty)(content: Content)
+@(params: TagParams)
+@import params._
 <strong class="@toClasses("govuk-tag", classes)"@toAttributes(attributes)>
   @content.asHtml
 </strong>

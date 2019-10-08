@@ -16,8 +16,17 @@
 
 package uk.gov.hmrc.govukfrontend.views.viewmodels.footer
 
+import play.api.libs.json._
+
 final case class FooterNavigation(
-  title: Option[String] = None,
-  columns: Option[Int]  = None,
-  items: Seq[FooterItem]      = Nil
+  title: Option[String]  = None,
+  columns: Option[Int]   = None,
+  items: Seq[FooterItem] = Nil
 )
+
+object FooterNavigation {
+  implicit val reads: Reads[FooterNavigation] =
+    Json.using[Json.WithDefaultValues].reads[FooterNavigation]
+
+  implicit val writes: OWrites[FooterNavigation] = Json.writes[FooterNavigation]
+}

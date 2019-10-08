@@ -16,22 +16,19 @@
 
 package uk.gov.hmrc.govukfrontend.views.components
 
-import play.api.libs.functional.syntax._
-import play.api.libs.json._
-import play.twirl.api.Html
+import play.twirl.api.HtmlFormat
+import uk.gov.hmrc.govukfrontend.views.TemplateUnitSpec
 import uk.gov.hmrc.govukfrontend.views.html.components._
+import scala.util.Try
 
-class selectSpec extends TemplateUnitSpec("govukSelect") {
-  override implicit val reads: Reads[Html] = (
-    (__ \ "id").read[String] and
-      (__ \ "name").read[String] and
-      (__ \ "items").readWithDefault[Seq[SelectItem]](Nil) and
-      (__ \ "describedBy").readNullable[String] and
-      (__ \ "label").read[LabelParams] and
-      (__ \ "hint").readNullable[HintParams] and
-      (__ \ "errorMessage").readNullable[ErrorMessageParams] and
-      readsFormGroupClasses and
-      (__ \ "classes").readWithDefault[String]("") and
-      (__ \ "attributes").readWithDefault[Map[String, String]](Map.empty)
-  )(Select.apply _)
+class selectSpec extends TemplateUnitSpec[SelectParams]("govukSelect") {
+
+  /**
+    * Calls the Twirl template with the given parameters and returns the resulting markup
+    *
+    * @param templateParams
+    * @return [[Try[HtmlFormat.Appendable]]] containing the markup
+    */
+  override def render(templateParams: SelectParams): Try[HtmlFormat.Appendable] =
+    Try(Select(templateParams))
 }

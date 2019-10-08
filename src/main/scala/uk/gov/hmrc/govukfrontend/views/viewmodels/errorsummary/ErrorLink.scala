@@ -17,10 +17,27 @@
 package uk.gov.hmrc.govukfrontend.views.viewmodels
 package errorsummary
 
-import common.{Content, Empty}
+import play.api.libs.functional.syntax._
+import play.api.libs.json._
+import uk.gov.hmrc.govukfrontend.views.viewmodels.content.{Content, Empty}
 
 final case class ErrorLink(
   href: Option[String]            = None,
   content: Content                = Empty,
   attributes: Map[String, String] = Map.empty
 )
+
+object ErrorLink {
+
+  implicit val reads: Reads[ErrorLink] = (
+    (__ \ "href").readNullable[String] and
+      Content.reads and
+      (__ \ "attributes").readWithDefault[Map[String, String]](Map.empty)
+  )(ErrorLink.apply _)
+
+  implicit val writes: OWrites[ErrorLink] = (
+    (__ \ "href").writeNullable[String] and
+      Content.writes and
+      (__ \ "attributes").write[Map[String, String]]
+  )(unlift(ErrorLink.unapply))
+}

@@ -17,6 +17,21 @@
 package uk.gov.hmrc.govukfrontend.views.viewmodels
 package summarylist
 
-import common.{Content, Empty}
+import play.api.libs.functional.syntax._
+import play.api.libs.json._
+import uk.gov.hmrc.govukfrontend.views.viewmodels.content.{Content, Empty}
 
 final case class Value(content: Content = Empty, classes: String = "")
+
+object Value {
+
+  implicit val reads: Reads[Value] = (
+    Content.reads and
+      (__ \ "classes").readWithDefault[String]("")
+  )(Value.apply _)
+
+  implicit val writes: OWrites[Value] = (
+    Content.writes and
+      (__ \ "classes").write[String]
+  )(unlift(Value.unapply))
+}

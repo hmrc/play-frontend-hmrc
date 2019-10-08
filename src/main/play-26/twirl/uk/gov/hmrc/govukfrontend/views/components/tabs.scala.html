@@ -16,12 +16,8 @@
 
 @this()
 
-@(id: Option[String] = None,
-  idPrefix: Option[String] = None,
-  title: String = "Contents",
-  items: Seq[TabItem] = Nil,
-  classes: String = "",
-  attributes: Map[String, String] = Map.empty)
+@(params: TabsParams)
+@import params._
 <div@id.map {id => id="@id"} class="@toClasses("govuk-tabs", classes)"@toAttributes(attributes) data-module="govuk-tabs">
   <h2 class="govuk-tabs__title">
     @HtmlFormat.escape(title)

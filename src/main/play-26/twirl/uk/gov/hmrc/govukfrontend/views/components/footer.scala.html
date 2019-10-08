@@ -16,11 +16,8 @@
 
 @this()
 
-@(meta: Option[Meta] = None,
-  navigation: Seq[FooterNavigation] = Nil,
-  containerClasses: String = "",
-  classes: String = "",
-  attributes: Map[String, String] = Map.empty)
+@(params: FooterParams = FooterParams())
+@import params._
 <footer class="govuk-footer @classes" role="contentinfo"@toAttributes(attributes)>
   <div class="govuk-width-container @containerClasses">
     @if(navigation.nonEmpty) {

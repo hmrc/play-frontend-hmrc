@@ -16,9 +16,8 @@
 
 @this()
 
-@(id: Option[String] = None,
-  classes: String = "",
-  attributes: Map[String, String] = Map.empty)(content: Content = Empty)
+@(params: InsetTextParams)
+@import params._
 <div@id.map { id => id="@id"} class="@toClasses("govuk-inset-text", classes)"@toAttributes(attributes)>
   @content.asHtml
 </div>

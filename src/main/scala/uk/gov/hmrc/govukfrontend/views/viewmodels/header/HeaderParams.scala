@@ -16,15 +16,21 @@
 
 package uk.gov.hmrc.govukfrontend.views.viewmodels.header
 
+import play.api.libs.json._
+
 final case class HeaderParams(
-  homepageUrl: Option[String]     = None,
-  assetsPath: Option[String]      = None, //FIXME remove since we are using Play's reverse routes to reference assets
-  productName: Option[String]     = None,
-  serviceName: Option[String]     = None,
-  serviceUrl: Option[String]      = None,
-  navigation: Seq[HeaderNavigation]     = Nil,
-  navigationClasses: String       = "",
-  containerClasses: String        = "",
-  classes: String                 = "",
-  attributes: Map[String, String] = Map.empty
+  homepageUrl: Option[String]       = None,
+  assetsPath: Option[String]        = None, //FIXME remove since we are using Play's reverse routes to reference assets
+  productName: Option[String]       = None,
+  serviceName: Option[String]       = None,
+  serviceUrl: Option[String]        = None,
+  navigation: Seq[HeaderNavigation] = Nil,
+  navigationClasses: String         = "",
+  containerClasses: String          = "",
+  classes: String                   = "",
+  attributes: Map[String, String]   = Map.empty
 )
+
+object HeaderParams {
+  implicit val format = Json.using[Json.WithDefaultValues].format[HeaderParams]
+}

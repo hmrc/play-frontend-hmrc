@@ -16,25 +16,26 @@
 
 package uk.gov.hmrc.govukfrontend.views.components
 
-import play.api.libs.functional.syntax._
-import play.api.libs.json._
-import play.twirl.api.Html
+import play.twirl.api.HtmlFormat
+import uk.gov.hmrc.govukfrontend.views.TemplateUnitSpec
 import uk.gov.hmrc.govukfrontend.views.html.components._
+import scala.util.Try
 
-class labelSpec extends TemplateUnitSpec("govukLabel") {
+class labelSpec extends TemplateUnitSpec[LabelParams]("govukLabel") {
   "label" should {
     "not output anything if no html or text is provided" in {
-      val component = Label.apply()(Empty).select(".govuk-label")
+      val component = Label(LabelParams(content = Empty)).select(".govuk-label")
 
       component.size() shouldBe 0
     }
   }
 
-  override implicit val reads: Reads[Html] = (
-    (__ \ "forAttr").readNullable[String] and
-      (__ \ "isPageHeading").readWithDefault[Boolean](false) and
-      (__ \ "classes").readWithDefault[String]("") and
-      (__ \ "attributes").readWithDefault[Map[String, String]](Map.empty) and
-      readsContent
-  )(Label.apply(_, _, _, _)(_))
+  /**
+    * Calls the Twirl template with the given parameters and returns the resulting markup
+    *
+    * @param templateParams
+    * @return [[Try[HtmlFormat.Appendable]]] containing the markup
+    */
+  override def render(templateParams: LabelParams): Try[HtmlFormat.Appendable] =
+    Try(Label(templateParams))
 }

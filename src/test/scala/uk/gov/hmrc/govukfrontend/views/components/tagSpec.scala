@@ -16,24 +16,27 @@
 
 package uk.gov.hmrc.govukfrontend.views.components
 
-import play.api.libs.functional.syntax._
-import play.api.libs.json._
-import play.twirl.api.Html
+import play.twirl.api.HtmlFormat
+import uk.gov.hmrc.govukfrontend.views.TemplateUnitSpec
 import uk.gov.hmrc.govukfrontend.views.html.components._
+import scala.util.Try
 
-class tagSpec extends TemplateUnitSpec("govukTag") {
+class tagSpec extends TemplateUnitSpec[TagParams]("govukTag") {
   "tag" should {
     "render the default example with strong element and text" in {
-      val component = Tag.apply()(HtmlContent("alpha")).select(".govuk-tag")
+      val component = Tag(TagParams(content = HtmlContent("alpha"))).select(".govuk-tag")
 
       component.first().tagName() shouldBe "strong"
       component.first().text()    shouldBe "alpha"
     }
   }
 
-  override implicit val reads: Reads[Html] = (
-    (__ \ "classes").readWithDefault[String]("") and
-      (__ \ "attributes").readWithDefault[Map[String, String]](Map.empty) and
-      readsContent
-  )(Tag.apply(_, _)(_))
+  /**
+    * Calls the Twirl template with the given parameters and returns the resulting markup
+    *
+    * @param templateParams
+    * @return [[Try[HtmlFormat.Appendable]]] containing the markup
+    */
+  override def render(templateParams: TagParams): Try[HtmlFormat.Appendable] =
+    Try(Tag(templateParams))
 }

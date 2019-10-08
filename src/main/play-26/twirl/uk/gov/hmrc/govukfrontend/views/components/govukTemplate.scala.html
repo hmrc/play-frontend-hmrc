@@ -63,7 +63,10 @@
     @bodyStart
 
     @skipLinkBlock.getOrElse {
-        @skipLink(href = "#main-content")(HtmlContent("Skip to main content"))
+        @skipLink(SkipLinkParams(
+          href = "#main-content",
+          content = HtmlContent("Skip to main content")
+        ))
     }
 
     @headerBlock

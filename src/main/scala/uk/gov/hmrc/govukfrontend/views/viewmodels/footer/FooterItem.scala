@@ -16,8 +16,25 @@
 
 package uk.gov.hmrc.govukfrontend.views.viewmodels.footer
 
+import play.api.libs.functional.syntax._
+import play.api.libs.json._
+
 final case class FooterItem(
   text: Option[String]            = None,
   href: Option[String]            = None,
   attributes: Map[String, String] = Map.empty
 )
+
+object FooterItem {
+  implicit val reads: Reads[FooterItem] = (
+    (__ \ "text").readNullable[String] and
+      (__ \ "href").readNullable[String] and
+      (__ \ "attributes").readWithDefault[Map[String, String]](Map.empty)
+    )(FooterItem.apply _)
+
+  implicit val writes = (
+    (__ \ "text").writeNullable[String] and
+      (__ \ "href").writeNullable[String] and
+      (__ \ "attributes").write[Map[String, String]]
+    )(unlift(FooterItem.unapply))
+}

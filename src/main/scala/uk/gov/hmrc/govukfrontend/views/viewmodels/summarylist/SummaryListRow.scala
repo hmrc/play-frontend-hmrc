@@ -17,9 +17,19 @@
 package uk.gov.hmrc.govukfrontend.views.viewmodels
 package summarylist
 
+import play.api.libs.json._
+
 final case class SummaryListRow(
   key: Key,
   value: Value,
   classes: String          = "",
   actions: Option[Actions] = None
 )
+
+object SummaryListRow {
+
+  implicit val reads: Reads[SummaryListRow] =
+    Json.using[Json.WithDefaultValues].reads[SummaryListRow]
+
+  implicit val writes: OWrites[SummaryListRow] = Json.writes[SummaryListRow]
+}

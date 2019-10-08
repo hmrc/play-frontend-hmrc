@@ -14,19 +14,18 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.govukfrontend.views.components
+package uk.gov.hmrc.govukfrontend.views
+package components
 
-import play.api.libs.functional.syntax._
-import play.api.libs.json._
-import play.twirl.api.Html
+import play.twirl.api.HtmlFormat
 import uk.gov.hmrc.govukfrontend.views.html.components._
+import scala.util.Try
 
-class detailsSpec extends TemplateUnitSpec("govukDetails") {
+class detailsSpec extends TemplateUnitSpec[DetailsParams]("govukDetails") {
 
   "details" should {
     "allow text to be passed whilst escaping HTML entities" in {
-      val details = Details
-        .apply()(Empty)(Text("More about the greater than symbol (>)"))
+      val details = Details(DetailsParams(summary = Empty, content = Text("More about the greater than symbol (>)")))
         .select(".govuk-details__text")
         .html
         .trim
@@ -35,8 +34,7 @@ class detailsSpec extends TemplateUnitSpec("govukDetails") {
     }
 
     "allow HTML to be passed un-escaped" in {
-      val details = Details
-        .apply()(Empty)(HtmlContent("More about <b>bold text</b>"))
+      val details = Details(DetailsParams(summary = Empty, content = HtmlContent("More about <b>bold text</b>")))
         .select(".govuk-details__text")
         .html
         .trim
@@ -45,8 +43,7 @@ class detailsSpec extends TemplateUnitSpec("govukDetails") {
     }
 
     "allow summary text to be passed whilst escaping HTML entities" in {
-      val details = Details
-        .apply()(Text("The greater than symbol (>) is the best"))(Empty)
+      val details = Details(DetailsParams(summary = Text("The greater than symbol (>) is the best"), content = Empty))
         .select(".govuk-details__summary-text")
         .html
         .trim
@@ -56,8 +53,7 @@ class detailsSpec extends TemplateUnitSpec("govukDetails") {
 
     "allow summary HTML to be passed un-escaped" in {
       val details =
-        Details
-          .apply()(HtmlContent("Use <b>bold text</b> sparingly"))(Empty)
+        Details(DetailsParams(summary = HtmlContent("Use <b>bold text</b> sparingly"), content = Empty))
           .select(".govuk-details__summary-text")
           .html
           .trim
@@ -67,8 +63,7 @@ class detailsSpec extends TemplateUnitSpec("govukDetails") {
 
     "allow additional classes to be added to the details element" in {
       val details =
-        Details
-          .apply(classes = "some-additional-class")(Empty)(Empty)
+        Details(DetailsParams(classes = "some-additional-class", summary = Empty, content = Empty))
           .select(".govuk-details")
 
       assert(details.hasClass("some-additional-class"))
@@ -76,9 +71,11 @@ class detailsSpec extends TemplateUnitSpec("govukDetails") {
 
     "allow additional attributes to be added to the details element" in {
       val details =
-        Details
-          .apply(attributes = Map("data-some-data-attribute" -> "i-love-data", "another-attribute" -> "true"))(Empty)(
-            Empty)
+        Details(
+          DetailsParams(
+            attributes = Map("data-some-data-attribute" -> "i-love-data", "another-attribute" -> "true"),
+            summary    = Empty,
+            content    = Empty))
           .select(".govuk-details")
 
       details.attr("data-some-data-attribute") shouldBe "i-love-data"
@@ -86,12 +83,12 @@ class detailsSpec extends TemplateUnitSpec("govukDetails") {
     }
   }
 
-  override implicit val reads: Reads[Html] = (
-    (__ \ "id").readNullable[String] and
-      (__ \ "open").readWithDefault[Boolean](false) and
-      (__ \ "classes").readWithDefault[String]("") and
-      (__ \ "attributes").readWithDefault[Map[String, String]](Map.empty) and
-      readsHtmlOrText((__ \ "summaryHtml"), (__ \ "summaryText")) and
-      readsContent
-  )(Details.apply(_, _, _, _)(_)(_))
+  /**
+    * Calls the Twirl template with the given parameters and returns the resulting markup
+    *
+    * @param params
+    * @return [[Try[HtmlFormat.Appendable]]] containing the markup
+    */
+  override def render(params: DetailsParams): Try[HtmlFormat.Appendable] =
+    Try(Details(params))
 }

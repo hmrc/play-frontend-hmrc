@@ -3,21 +3,21 @@
 
 
 @()
-@dateInput(
+@dateInput(DateInputParams(
   id = Some("passport-issued"),
   namePrefix = Some("passport-issued"),
   items = Seq(
-    InputParams(
+    InputItem(
       classes = "govuk-input--width-2 govuk-input--error",
       name = "day",
       value = Some("6")
     ),
-    InputParams(
+    InputItem(
       classes = "govuk-input--width-2 govuk-input--error",
       name = "month",
       value = Some("3")
     ),
-    InputParams(
+    InputItem(
       classes = "govuk-input--width-4 govuk-input--error",
       name = "year",
       value = Some("2076")
@@ -36,4 +36,4 @@
       )
     )
   )
-)
+))

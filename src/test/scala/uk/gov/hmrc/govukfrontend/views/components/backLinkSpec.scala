@@ -17,17 +17,17 @@
 package uk.gov.hmrc.govukfrontend.views
 package components
 
-import play.api.libs.functional.syntax._
-import play.api.libs.json._
-import play.twirl.api.Html
+import play.twirl.api.HtmlFormat
 import uk.gov.hmrc.govukfrontend.views.html.components._
+import scala.util.Try
 
-class backLinkSpec extends TemplateUnitSpec("govukBackLink") {
+class backLinkSpec extends TemplateUnitSpec[BackLinkParams]("govukBackLink") {
 
   "backLink" should {
 
     "render the default example with an anchor, href and text correctly" in {
-      val component = BackLink.apply(href = "#")(Empty).select(".govuk-back-link")
+      val params    = BackLinkParams(href = "#", content = Empty)
+      val component = BackLink(params).select(".govuk-back-link")
 
       component.first.tagName shouldBe "a"
       component.attr("href")  shouldBe "#"
@@ -35,55 +35,60 @@ class backLinkSpec extends TemplateUnitSpec("govukBackLink") {
     }
 
     "render classes correctly" in {
-      val component = BackLink
-        .apply(href = "#", classes = "app-back-link--custom-class")(HtmlContent("<b>Back</b>"))
-        .select(".govuk-back-link")
+      val params =
+        BackLinkParams(href = "#", classes = "app-back-link--custom-class", content = HtmlContent("<b>Back</b>"))
+      val component = BackLink(params).select(".govuk-back-link")
 
       assert(component.hasClass("app-back-link--custom-class"))
     }
 
     "render custom text correctly" in {
-      val component = BackLink.apply(href = "#")(Text("Home")).select(".govuk-back-link")
+      val params    = BackLinkParams(href = "#", content = Text("Home"))
+      val component = BackLink(params).select(".govuk-back-link")
 
       component.html shouldBe "Home"
     }
 
     "render escaped html when passed as text" in {
-      val component = BackLink.apply(href = "#")(Text("<b>Home</b>")).select(".govuk-back-link")
+      val params    = BackLinkParams(href = "#", content = Text("<b>Home</b>"))
+      val component = BackLink(params).select(".govuk-back-link")
 
       component.html shouldBe "&lt;b&gt;Home&lt;/b&gt;"
     }
 
     "render html correctly" in {
-      val component = BackLink.apply(href = "#")(HtmlContent("<b>Back</b>")).select(".govuk-back-link")
+      val params    = BackLinkParams(href = "#", content = HtmlContent("<b>Back</b>"))
+      val component = BackLink(params).select(".govuk-back-link")
 
       component.html shouldBe "<b>Back</b>"
     }
 
     "render default text correctly" in {
-      val component = BackLink.apply(href = "#")(Empty).select(".govuk-back-link")
+      val params    = BackLinkParams(href = "#", content = Empty)
+      val component = BackLink(params).select(".govuk-back-link")
 
       component.html shouldBe "Back"
     }
 
     "render attributes correctly" in {
-      val component =
-        BackLink
-          .apply(href = "#", attributes = Map("data-test" -> "attribute", "aria-label" -> "Back to home"))(
-            HtmlContent("Back"))
-          .select(".govuk-back-link")
+      val params = BackLinkParams(
+        href       = "#",
+        attributes = Map("data-test" -> "attribute", "aria-label" -> "Back to home"),
+        content    = HtmlContent("Back"))
+      val component = BackLink(params).select(".govuk-back-link")
 
       component.attr("data-test")  shouldBe "attribute"
       component.attr("aria-label") shouldBe "Back to home"
     }
   }
 
-  override implicit val reads: Reads[Html] = (
-    (__ \ "href").read[String] and
-      (__ \ "classes").readWithDefault[String]("") and
-      (__ \ "attributes").readWithDefault[Map[String, String]](Map.empty) and
-      readsContent
-  )(BackLink.apply(_, _, _)(_))
+  /**
+    * Calls the Twirl template with the given parameters and converts the resulting markup into a [[String]]
+    *
+    * @param templateParams
+    * @return [[Try[HtmlFormat.Appendable]]] containing the markup
+    */
+  override def render(templateParams: BackLinkParams): Try[HtmlFormat.Appendable] =
+    Try(BackLink(templateParams))
+
 }
-
-

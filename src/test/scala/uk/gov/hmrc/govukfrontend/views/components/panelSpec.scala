@@ -16,17 +16,19 @@
 
 package uk.gov.hmrc.govukfrontend.views.components
 
-import play.api.libs.functional.syntax._
-import play.api.libs.json._
-import play.twirl.api.Html
+import play.twirl.api.HtmlFormat
+import uk.gov.hmrc.govukfrontend.views.TemplateUnitSpec
 import uk.gov.hmrc.govukfrontend.views.html.components._
+import scala.util.Try
 
-class panelSpec extends TemplateUnitSpec("govukPanel") {
-  override implicit val reads: Reads[Html] = (
-    (__ \ "headingLevel").readWithDefault[Int](1) and
-      (__ \ "classes").readWithDefault[String]("") and
-      (__ \ "attributes").readWithDefault[Map[String, String]](Map.empty) and
-      readsHtmlOrText((__ \ "titleHtml"), (__ \ "titleText")) and
-      readsContent
-  )(Panel.apply(_, _, _)(_)(_))
+class panelSpec extends TemplateUnitSpec[PanelParams]("govukPanel") {
+
+  /**
+    * Calls the Twirl template with the given parameters and returns the resulting markup
+    *
+    * @param templateParams
+    * @return [[Try[HtmlFormat.Appendable]]] containing the markup
+    */
+  override def render(templateParams: PanelParams): Try[HtmlFormat.Appendable] =
+    Try(Panel(templateParams))
 }

@@ -17,7 +17,10 @@
 package uk.gov.hmrc.govukfrontend.views.viewmodels
 package accordion
 
-import common.{Content, Empty}
+import uk.gov.hmrc.govukfrontend.views.viewmodels.content.Content._
+import play.api.libs.json._
+import play.api.libs.functional.syntax._
+import uk.gov.hmrc.govukfrontend.views.viewmodels.content.{Content, Empty}
 
 final case class Section(
   headingContent: Content = Empty,
@@ -25,3 +28,22 @@ final case class Section(
   content: Content,
   expanded: Boolean = false
 )
+
+object Section {
+
+  implicit val reads: Reads[Section] = (
+    readsHtmlOrText((__ \ "heading" \ "html"), (__ \ "heading" \ "text")) and
+      readsHtmlOrText((__ \ "summary" \ "html"), (__ \ "summary" \ "text")) and
+      readsHtmlOrText((__ \ "content" \ "html"), (__ \ "content" \ "text")) and
+      (__ \ "expanded").readWithDefault[Boolean](false)
+  )(Section.apply _)
+
+  implicit val writes: OWrites[Section] = new OWrites[Section] {
+    override def writes(section: Section): JsObject = Json.obj(
+      "heading" -> writesContent().writes(section.headingContent),
+      "summary" -> writesContent().writes(section.summaryContent),
+      "content" -> writesContent().writes(section.content),
+      "expanded" -> section.expanded
+    )
+  }
+}

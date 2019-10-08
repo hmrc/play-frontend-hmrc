@@ -16,18 +16,8 @@
 
 @this(errorMessage: errorMessage, hint: hint, label: label)
 
-@(id: String,
-  name: String,
-  rows: Int = 5,
-  value: Option[String] = None,
-  describedBy: Option[String] = None,
-  labelParams: LabelParams,
-  hintParams: Option[HintParams] = None,
-  errorMessageParams: Option[ErrorMessageParams] = None,
-  formGroupClasses: String = "",
-  classes: String = "",
-  autocomplete: Option[String] = None,
-  attributes: Map[String, String] = Map.empty)
+@(params: TextareaParams)
+@import params._
 @require(name.nonEmpty && id.nonEmpty)
 @mainSnippet
 
@@ -36,11 +26,12 @@
    val hintId = s"$id-hint"
    val describedBy1 = s"$describedBy $hintId".ltrim
    val hintHtml =
-   hint(
+   hint(HintParams(
      id = Some(hintId),
      classes = hintParams.classes,
-     attributes = hintParams.attributes
-   )(hintParams.content)
+     attributes = hintParams.attributes,
+     content = hintParams.content
+   ))
   (describedBy1, hintHtml)
  }
 }
@@ -50,12 +41,13 @@
     val errorId = s"$id-error"
     val describedBy1 = s"$describedBy $errorId".trim
     val errorMessageHtml =
-     errorMessage(
+     errorMessage(ErrorMessageParams(
        id = Some(errorId),
        classes = errorMessageParams.classes,
        attributes = errorMessageParams.attributes,
-       visuallyHiddenText = errorMessageParams.visuallyHiddenText
-     )(errorMessageParams.content)
+       visuallyHiddenText = errorMessageParams.visuallyHiddenText,
+       content = errorMessageParams.content
+     ))
     (describedBy1, errorMessageHtml)
   }
 }
@@ -83,11 +75,14 @@
 @mainSnippet = @{
   val (describedBy1, hintHtml) = hintSnippet(describedBy.getOrElse(""))
   val (describedBy2, errorMessageHtml) = errorMessageSnippet(describedBy1)
-  val labelHtml = label(
-    forAttr = Some(id),
-    isPageHeading = labelParams.isPageHeading,
-    classes = labelParams.classes,
-    attributes = labelParams.attributes)(labelParams.content)
+  val labelHtml =
+    label(LabelParams(
+      forAttr = Some(id),
+      isPageHeading = labelParams.isPageHeading,
+      classes = labelParams.classes,
+      attributes = labelParams.attributes,
+      content = labelParams.content
+    ))
   val textareaHtml = textareaSnippet(describedBy2)
   divSnippet(labelHtml, hintHtml, errorMessageHtml, textareaHtml)
 }

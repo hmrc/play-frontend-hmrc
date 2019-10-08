@@ -3,4 +3,7 @@
 
 
 @()
-@ErrorMessage(visuallyHiddenText = ShowText("Gwall"))(content = Text("Rhowch eich enw llawn"))
+@ErrorMessage(ErrorMessageParams(
+  visuallyHiddenText = Some("Gwall"),
+  content = Text("Rhowch eich enw llawn")
+))

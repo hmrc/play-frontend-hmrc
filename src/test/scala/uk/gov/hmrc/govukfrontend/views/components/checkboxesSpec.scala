@@ -16,23 +16,19 @@
 
 package uk.gov.hmrc.govukfrontend.views.components
 
-import play.api.libs.functional.syntax._
-import play.api.libs.json._
-import play.twirl.api.Html
+import play.twirl.api.HtmlFormat
+import uk.gov.hmrc.govukfrontend.views.TemplateUnitSpec
 import uk.gov.hmrc.govukfrontend.views.html.components._
+import scala.util.Try
 
-class checkboxesSpec extends TemplateUnitSpec("govukCheckboxes") {
+class checkboxesSpec extends TemplateUnitSpec[CheckboxesParams]("govukCheckboxes") {
 
-  override implicit val reads: Reads[Html] = (
-    (__ \ "describedBy").readNullable[String] and
-      (__ \ "fieldset").readNullable[FieldsetParams] and
-      (__ \ "hint").readNullable[HintParams] and
-      (__ \ "errorMessage").readNullable[ErrorMessageParams] and
-      readsFormGroupClasses and
-      (__ \ "idPrefix").readNullable[String] and
-      (__ \ "name").readWithDefault[String]("") and
-      (__ \ "items").read[Seq[CheckboxItem]] and
-      (__ \ "classes").readWithDefault[String]("") and
-      (__ \ "attributes").readWithDefault[Map[String, String]](Map.empty)
-  )(Checkboxes.apply _)
+  /**
+    * Calls the Twirl template with the given parameters and returns the resulting markup
+    *
+    * @param templateParams
+    * @return [[Try[HtmlFormat.Appendable]]] containing the markup
+    */
+  override def render(templateParams: CheckboxesParams): Try[HtmlFormat.Appendable] =
+    Try(Checkboxes(templateParams))
 }

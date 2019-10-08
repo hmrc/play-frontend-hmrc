@@ -16,33 +16,30 @@
 
 package uk.gov.hmrc.govukfrontend.views.components
 
-import play.api.libs.functional.syntax._
-import play.api.libs.json._
-import play.twirl.api.Html
+import play.twirl.api.HtmlFormat
+import uk.gov.hmrc.govukfrontend.views.TemplateUnitSpec
 import uk.gov.hmrc.govukfrontend.views.html.components._
+import scala.util.Try
 
-class buttonSpec extends TemplateUnitSpec("govukButton") {
+class buttonSpec extends TemplateUnitSpec[ButtonParams]("govukButton") {
 
   "button element" should {
     "render the default example" in {
-      val component = Button.apply()(Text("Save and continue")).select(".govuk-button")
+      val component =
+        Button(ButtonParams(content = Text("Save and continue")))
+          .select(".govuk-button")
 
       component.first.tagName shouldBe "button"
       component.text          should include("Save and continue")
     }
   }
 
-  override implicit val reads: Reads[Html] = (
-    (__ \ "element").readNullable[String] and
-      (__ \ "name").readNullable[String] and
-      (__ \ "input").readNullable[String] and
-      (__ \ "value").readNullable[String] and
-      (__ \ "disabled").readWithDefault[Boolean](false) and
-      (__ \ "href").readNullable[String] and
-      (__ \ "classes").readWithDefault[String]("") and
-      (__ \ "attributes").readWithDefault[Map[String, String]](Map.empty) and
-      (__ \ "preventDoubleClick").readWithDefault[Boolean](false) and
-      (__ \ "isStartButton").readWithDefault[Boolean](false) and
-      readsContent
-  )(Button.apply(_, _, _, _, _, _, _, _, _, _)(_))
+  /**
+    * Calls the Twirl template with the given parameters and returns the resulting markup
+    *
+    * @param templateParams
+    * @return [[Try[HtmlFormat.Appendable]]] containing the markup
+    */
+  override def render(templateParams: ButtonParams): Try[HtmlFormat.Appendable] =
+    Try(Button(templateParams))
 }

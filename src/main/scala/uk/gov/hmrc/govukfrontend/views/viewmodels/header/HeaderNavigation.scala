@@ -16,9 +16,21 @@
 
 package uk.gov.hmrc.govukfrontend.views.viewmodels.header
 
+import play.api.libs.json.{Json, OWrites, Reads}
+
 final case class HeaderNavigation(
   text: Option[String]            = None,
   href: Option[String]            = None,
   active: Boolean                 = false,
   attributes: Map[String, String] = Map.empty
 )
+
+object HeaderNavigation {
+
+  implicit val reads: Reads[HeaderNavigation] =
+    Json.using[Json.WithDefaultValues].reads[HeaderNavigation]
+
+  implicit val writes: OWrites[HeaderNavigation] =
+    Json.writes[HeaderNavigation]
+
+}

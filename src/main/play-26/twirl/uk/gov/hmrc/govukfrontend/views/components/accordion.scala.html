@@ -16,11 +16,8 @@
 
 @this()
 
-@(id: String,
-  headingLevel: Int = 2,
-  classes: String = "",
-  attributes: Map[String, String] = Map.empty,
-  items: Seq[Section] = Nil)
+@(params: AccordionParams)
+@import params._
 <div class="@toClasses("govuk-accordion", classes)" data-module="govuk-accordion" id="@id"@toAttributes(attributes)>
   @for((item, index) <- items.zip(Stream from 1)) {
     <div class="govuk-accordion__section @if(item.expanded) {govuk-accordion__section--expanded}">

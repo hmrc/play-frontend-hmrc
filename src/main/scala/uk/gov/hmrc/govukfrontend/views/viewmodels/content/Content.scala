@@ -14,9 +14,12 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.govukfrontend.views.viewmodels.common
+package uk.gov.hmrc.govukfrontend.views.viewmodels
+package content
 
+import play.api.libs.json._
 import play.twirl.api.{Html, HtmlFormat}
+import JsonImplicits._
 
 sealed trait Content {
   def asHtml: Html
@@ -25,6 +28,35 @@ sealed trait Content {
     case NonEmptyHtml(_) | NonEmptyText(_) => true
     case _                                 => false
   }
+}
+
+object Content {
+
+  implicit val reads: Reads[Content] =
+    readsHtmlOrText((__ \ "html"), (__ \ "text"))
+
+  def writesContent(htmlField: String = "html", textField: String = "text"): OWrites[Content] =
+    new OWrites[Content] {
+      override def writes(content: Content): JsObject = content match {
+        case Empty              => Json.obj()
+        case HtmlContent(value) => Json.obj(htmlField -> value.body)
+        case Text(value)        => Json.obj(textField -> value)
+      }
+    }
+
+  implicit val writes: OWrites[Content] = writesContent()
+
+  def readsHtmlOrText(htmlJsPath: JsPath, textJsPath: JsPath): Reads[Content] =
+    readsHtmlContent(htmlJsPath)
+      .widen[Content]
+      .orElse(readsText(textJsPath).widen[Content])
+      .orElse(Reads.pure[Content](Empty))
+
+  def readsHtmlContent(jsPath: JsPath = (__ \ "html")): Reads[HtmlContent] =
+    jsPath.readsJsValueToString.map(HtmlContent(_))
+
+  def readsText(jsPath: JsPath = (__ \ "text")): Reads[Text] =
+    jsPath.readsJsValueToString.map(Text)
 }
 
 case object Empty extends Content {

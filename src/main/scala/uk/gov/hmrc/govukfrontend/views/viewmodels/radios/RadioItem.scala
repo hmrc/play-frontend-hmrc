@@ -17,10 +17,11 @@
 package uk.gov.hmrc.govukfrontend.views.viewmodels
 package radios
 
-import common.Content
-import hint.HintParams
-import label.LabelParams
+import play.api.libs.functional.syntax._
+import play.api.libs.json._
 import play.twirl.api.Html
+import uk.gov.hmrc.govukfrontend.views.html.components._
+import CommonJsonFormats._
 
 final case class RadioItem(
   content: Content,
@@ -34,3 +35,33 @@ final case class RadioItem(
   disabled: Boolean               = false,
   attributes: Map[String, String] = Map.empty
 )
+
+object RadioItem {
+
+  implicit val reads: Reads[RadioItem] = (
+    Content.reads and
+      (__ \ "id").readNullable[String] and
+      (__ \ "value").readNullable[String] and
+      (__ \ "label").readNullable[LabelParams] and
+      (__ \ "hint").readNullable[HintParams] and
+      (__ \ "divider").readNullable[String] and
+      (__ \ "checked").readWithDefault[Boolean](false) and
+      readsConditionalHtml and
+      (__ \ "disabled").readWithDefault[Boolean](false) and
+      (__ \ "attributes").readWithDefault[Map[String, String]](Map.empty)
+    )(RadioItem.apply _)
+
+  implicit val writes: OWrites[RadioItem] = (
+    Content.writes and
+      (__ \ "id").writeNullable[String] and
+      (__ \ "value").writeNullable[String] and
+      (__ \ "label").writeNullable[LabelParams] and
+      (__ \ "hint").writeNullable[HintParams] and
+      (__ \ "divider").writeNullable[String] and
+      (__ \ "checked").write[Boolean] and
+      writesConditionalHtml and
+      (__ \ "disabled").write[Boolean] and
+      (__ \ "attributes").write[Map[String, String]]
+    )(unlift(RadioItem.unapply))
+
+}

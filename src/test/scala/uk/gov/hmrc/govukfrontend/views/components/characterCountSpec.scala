@@ -14,27 +14,21 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.govukfrontend.views.components
+package uk.gov.hmrc.govukfrontend.views
+package components
 
-import play.api.libs.functional.syntax._
-import play.api.libs.json._
-import play.twirl.api.Html
+import play.twirl.api.HtmlFormat
+import uk.gov.hmrc.govukfrontend.views.viewmodels.charactercount.CharacterCountParams
 import uk.gov.hmrc.govukfrontend.views.html.components._
+import scala.util.Try
 
-class characterCountSpec extends TemplateUnitSpec("govukCharacterCount") {
-  override implicit val reads: Reads[Html] = (
-    (__ \ "id").read[String] and
-      (__ \ "name").read[String] and
-      (__ \ "rows").readWithDefault[Int](5) and
-      (__ \ "value").readNullable[String] and
-      (__ \ "maxlength").readNullable[Int] and
-      (__ \ "maxwords").readNullable[Int] and
-      (__ \ "threshold").readNullable[Int] and
-      (__ \ "label").read[LabelParams] and
-      (__ \ "hint").readNullable[HintParams] and
-      (__ \ "errorMessage").readNullable[ErrorMessageParams] and
-      readsFormGroupClasses and
-      (__ \ "classes").readWithDefault[String]("") and
-      (__ \ "attributes").readWithDefault[Map[String, String]](Map.empty)
-  )(CharacterCount.apply _)
+class characterCountSpec extends TemplateUnitSpec[CharacterCountParams]("govukCharacterCount") {
+  /**
+    * Calls the Twirl template with the given parameters and returns the resulting markup
+    *
+    * @param params
+    * @return [[Try[HtmlFormat.Appendable]]] containing the markup
+    */
+  override def render(params: CharacterCountParams): Try[HtmlFormat.Appendable] =
+    Try(CharacterCount(params))
 }

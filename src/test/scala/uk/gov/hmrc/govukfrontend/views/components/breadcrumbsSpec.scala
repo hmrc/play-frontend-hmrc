@@ -16,16 +16,19 @@
 
 package uk.gov.hmrc.govukfrontend.views.components
 
-import play.api.libs.functional.syntax._
-import play.api.libs.json._
-import play.twirl.api.Html
+import play.twirl.api.HtmlFormat
+import uk.gov.hmrc.govukfrontend.views.TemplateUnitSpec
 import uk.gov.hmrc.govukfrontend.views.html.components._
+import scala.util.Try
 
-class breadcrumbsSpec extends TemplateUnitSpec("govukBreadcrumbs") {
+class breadcrumbsSpec extends TemplateUnitSpec[BreadcrumbsParams]("govukBreadcrumbs") {
 
-  override implicit val reads: Reads[Html] = (
-    (__ \ "items").read[Seq[BreadcrumbsItem]] and
-      (__ \ "classes").readWithDefault[String]("") and
-      (__ \ "attributes").readWithDefault[Map[String, String]](Map.empty)
-  )(Breadcrumbs.apply _)
+  /**
+    * Calls the Twirl template with the given parameters and returns the resulting markup
+    *
+    * @param templateParams
+    * @return [[Try[HtmlFormat.Appendable]]] containing the markup
+    */
+  override def render(templateParams: BreadcrumbsParams): Try[HtmlFormat.Appendable] =
+    Try(Breadcrumbs(templateParams))
 }

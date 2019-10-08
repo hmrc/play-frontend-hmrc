@@ -16,26 +16,26 @@
 
 package uk.gov.hmrc.govukfrontend.views.components
 
-import play.api.libs.functional.syntax._
-import play.api.libs.json._
-import play.twirl.api.Html
+import play.twirl.api.HtmlFormat
+import uk.gov.hmrc.govukfrontend.views.TemplateUnitSpec
 import uk.gov.hmrc.govukfrontend.views.html.components._
 import scala.collection.JavaConverters._
+import scala.util.Try
 
-class phaseBannerSpec extends TemplateUnitSpec("govukPhaseBanner") {
+class phaseBannerSpec extends TemplateUnitSpec[PhaseBannerParams]("govukPhaseBanner") {
 
   "phaseBanner" should {
     "allow additional classes to be added to the component" in {
       val classesString = "a-class another-class"
       val classes       = classesString.split("""\s+""")
-      val div           = PhaseBanner.apply(classes = classesString)().select("div").first()
+      val div           = PhaseBanner(PhaseBannerParams(classes = classesString)).select("div").first()
 
       div.classNames().asScala should contain allElementsOf classes
     }
 
     "render banner text" in {
-      val text = PhaseBanner
-        .apply()(HtmlContent("This is a new service – your feedback will help us to improve it."))
+      val text = PhaseBanner(PhaseBannerParams(
+        content = HtmlContent("This is a new service – your feedback will help us to improve it.")))
         .select(".govuk-phase-banner__text")
         .first()
         .text()
@@ -44,10 +44,12 @@ class phaseBannerSpec extends TemplateUnitSpec("govukPhaseBanner") {
     }
   }
 
-  override implicit val reads: Reads[Html] = (
-    (__ \ "tag").readNullable[TagParams] and
-      (__ \ "classes").readWithDefault[String]("") and
-      (__ \ "attributes").readWithDefault[Map[String, String]](Map.empty) and
-      readsContent
-  )(PhaseBanner.apply(_, _, _)(_))
+  /**
+    * Calls the Twirl template with the given parameters and returns the resulting markup
+    *
+    * @param templateParams
+    * @return [[Try[HtmlFormat.Appendable]]] containing the markup
+    */
+  override def render(templateParams: PhaseBannerParams): Try[HtmlFormat.Appendable] =
+    Try(PhaseBanner(templateParams))
 }

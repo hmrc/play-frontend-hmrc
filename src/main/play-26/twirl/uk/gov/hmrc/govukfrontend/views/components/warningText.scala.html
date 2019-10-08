@@ -16,9 +16,8 @@
 
 @this()
 
-@(iconFallbackText: String,
-  classes: String = "",
-  attributes: Map[String, String] = Map.empty)(content: Content = Empty)
+@(params: WarningTextParams)
+@import params._
 <div class="@toClasses("govuk-warning-text", classes)"@toAttributes(attributes)>
   <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
   <strong class="govuk-warning-text__text">

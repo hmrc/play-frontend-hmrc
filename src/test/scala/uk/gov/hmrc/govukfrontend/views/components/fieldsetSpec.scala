@@ -16,27 +16,18 @@
 
 package uk.gov.hmrc.govukfrontend.views.components
 
-import play.api.libs.json._
-import play.twirl.api.Html
+import play.twirl.api.HtmlFormat
+import uk.gov.hmrc.govukfrontend.views.TemplateUnitSpec
 import uk.gov.hmrc.govukfrontend.views.html.components._
+import scala.util.Try
 
-class fieldsetSpec extends TemplateUnitSpec("govukFieldset") {
-
-  case class Params(
-    describedBy: Option[String]     = None,
-    legend: Option[Legend]          = None,
-    classes: String                 = "",
-    role: Option[String]            = None,
-    attributes: Map[String, String] = Map.empty,
-    html: String                    = ""
-  )
-
-  override implicit val reads: Reads[Html] =
-    Json
-      .using[Json.WithDefaultValues]
-      .reads[Params]
-      .map {
-        case Params(describedBy, legend, classes, role, attributes, html) =>
-          Fieldset.apply(describedBy, legend, classes, role, attributes)(Html(html))
-      }
+class fieldsetSpec extends TemplateUnitSpec[FieldsetParams]("govukFieldset") {
+  /**
+    * Calls the Twirl template with the given parameters and returns the resulting markup
+    *
+    * @param templateParams
+    * @return [[Try[HtmlFormat.Appendable]]] containing the markup
+    */
+  override def render(templateParams: FieldsetParams): Try[HtmlFormat.Appendable] =
+    Try(Fieldset(templateParams))
 }

@@ -16,10 +16,8 @@
 
 @this()
 
-@(headingLevel: Int = 1,
-  classes: String = "",
-  attributes: Map[String, String] = Map.empty
-)(title: Content)(content: Content)
+@(params: PanelParams)
+@import params._
 <div class="@toClasses("govuk-panel govuk-panel--confirmation", classes)"@toAttributes(attributes)>
  <h@headingLevel class="govuk-panel__title">
    @title.asHtml

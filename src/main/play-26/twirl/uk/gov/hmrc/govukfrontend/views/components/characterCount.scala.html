@@ -16,26 +16,15 @@
 
 @this(textarea: textarea)
 
-@(id: String,
-  name: String,
-  rows: Int = 5,
-  value: Option[String] = None,
-  maxLength: Option[Int] = None,
-  maxWords: Option[Int] = None,
-  threshold: Option[Int] = None,
-  labelParams: LabelParams,
-  hintParams: Option[HintParams] = None,
-  errorMessageParams: Option[ErrorMessageParams] = None,
-  formGroupClasses: String = "",
-  classes: String = "",
-  attributes: Map[String, String] = Map.empty)
+@(params: CharacterCountParams)
+@import params._
 @require(name.nonEmpty && id.nonEmpty, "name and id should be non-empty")
 @require(maxLength.isDefined || maxWords.isDefined, "maxLength or maxWords should be provided")
 <div class="govuk-character-count" data-module="govuk-character-count"@attrs>
-  @textarea(
+  @textarea(TextareaParams(
     id = id,
     name = name,
-    describedBy = Some(s"$id-info"),
+    describedBy = Some(s"${id}-info"),
     rows = rows,
     value = value,
     labelParams = labelParams.copy(forAttr = Some(id)),
@@ -44,8 +33,8 @@
     formGroupClasses = formGroupClasses,
     classes = toClasses("govuk-js-character-count ", errorMessageParams.fold("")(_ => " govuk-textarea--error"), classes),
     attributes = attributes
-  )
-  <span id="@id-info" class="govuk-hint govuk-character-count__message" aria-live="polite">
+  ))
+  <span id="@{id}-info" class="govuk-hint govuk-character-count__message" aria-live="polite">
     You can enter up to @maxLength.orElse(maxWords).map {max => @max}@maxWords.map {_ => words}.getOrElse { characters}
   </span>
 </div>

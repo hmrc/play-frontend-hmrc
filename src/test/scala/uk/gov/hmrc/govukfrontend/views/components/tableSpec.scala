@@ -16,19 +16,20 @@
 
 package uk.gov.hmrc.govukfrontend.views.components
 
-import play.api.libs.functional.syntax._
-import play.api.libs.json._
-import play.twirl.api.Html
+import play.twirl.api.HtmlFormat
+import uk.gov.hmrc.govukfrontend.views.TemplateUnitSpec
 import uk.gov.hmrc.govukfrontend.views.html.components._
+import scala.util.Try
 
-class tableSpec extends TemplateUnitSpec("govukTable") {
-  override implicit val reads: Reads[Html] = (
-    (__ \ "rows").readWithDefault[Seq[Seq[TableRow]]](Nil) and
-      (__ \ "head").readWithDefault[Seq[HeadCell]](Nil) and
-      (__ \ "caption").readNullable[String] and
-      (__ \ "captionClasses").readWithDefault[String]("") and
-      (__ \ "firstCellIsHeader").readWithDefault[Boolean](false) and
-      (__ \ "classes").readWithDefault[String]("") and
-      (__ \ "attributes").readWithDefault[Map[String, String]](Map.empty)
-  )(Table.apply _)
+class tableSpec extends TemplateUnitSpec[TableParams]("govukTable") {
+
+  /**
+    * Calls the Twirl template with the given parameters and returns the resulting markup
+    *
+    * @param templateParams
+    * @return [[Try[HtmlFormat.Appendable]]] containing the markup
+    */
+  override def render(
+    templateParams: _root_.uk.gov.hmrc.govukfrontend.views.html.components.TableParams): Try[HtmlFormat.Appendable] =
+    Try(Table(templateParams))
 }

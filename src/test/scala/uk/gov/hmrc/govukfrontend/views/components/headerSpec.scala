@@ -16,11 +16,12 @@
 
 package uk.gov.hmrc.govukfrontend.views.components
 
-import play.api.libs.json._
-import play.twirl.api.Html
+import play.twirl.api.HtmlFormat
+import uk.gov.hmrc.govukfrontend.views.TemplateUnitSpec
 import uk.gov.hmrc.govukfrontend.views.html.components._
+import scala.util.Try
 
-class headerSpec extends TemplateUnitSpec("govukHeader") {
+class headerSpec extends TemplateUnitSpec[HeaderParams]("govukHeader") {
 
   "header" should {
     "have a role of banner" in {
@@ -29,9 +30,12 @@ class headerSpec extends TemplateUnitSpec("govukHeader") {
     }
   }
 
-  override implicit val reads: Reads[Html] =
-    Json
-      .using[Json.WithDefaultValues]
-      .reads[HeaderParams]
-      .map(Header.apply)
+  /**
+    * Calls the Twirl template with the given parameters and returns the resulting markup
+    *
+    * @param templateParams
+    * @return [[Try[HtmlFormat.Appendable]]] containing the markup
+    */
+  override def render(templateParams: HeaderParams): Try[HtmlFormat.Appendable] =
+    Try(Header(templateParams))
 }

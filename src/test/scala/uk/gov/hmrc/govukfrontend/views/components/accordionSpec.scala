@@ -14,19 +14,21 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.govukfrontend.views.components
+package uk.gov.hmrc.govukfrontend.views
+package components
 
-import play.api.libs.functional.syntax._
-import play.api.libs.json._
-import play.twirl.api.Html
+import play.twirl.api.HtmlFormat
 import uk.gov.hmrc.govukfrontend.views.html.components._
+import scala.util.Try
 
-class accordionSpec extends TemplateUnitSpec("govukAccordion") {
-  override implicit val reads: Reads[Html] = (
-    (__ \ "id").read[String] and
-      (__ \ "headingLevel").readWithDefault[Int](2) and
-      (__ \ "classes").readWithDefault[String]("") and
-      (__ \ "attributes").readWithDefault[Map[String, String]](Map.empty) and
-      (__ \ "items").readWithDefault[Seq[Section]](Nil)
-  )(Accordion.apply _)
+class accordionSpec extends TemplateUnitSpec[AccordionParams]("govukAccordion") {
+
+  /**
+    * Calls the Twirl template with the given parameters and returns the resulting markup
+    *
+    * @param templateParams
+    * @return [[Try[HtmlFormat.Appendable]]] containing the markup
+    */
+  override def render(templateParams: AccordionParams): Try[HtmlFormat.Appendable] =
+    Try(Accordion(templateParams))
 }

@@ -16,9 +16,8 @@
 
 @this()
 
-@(rows: Seq[SummaryListRow],
-  classes: String = "",
-  attributes: Map[String, String] = Map.empty)
+@(params: SummaryListParams)
+@import params._
 <dl class="@toClasses("govuk-summary-list", classes)"@toAttributes(attributes)>
   @for(row <- rows) {
     <div class="@toClasses("govuk-summary-list__row", row.classes)">

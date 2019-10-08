@@ -17,7 +17,9 @@
 package uk.gov.hmrc.govukfrontend.views.viewmodels
 package hint
 
-import common.Content
+import play.api.libs.functional.syntax._
+import play.api.libs.json._
+import uk.gov.hmrc.govukfrontend.views.viewmodels.content.Content
 
 final case class HintParams(
   id: Option[String]              = None,
@@ -25,3 +27,19 @@ final case class HintParams(
   attributes: Map[String, String] = Map.empty,
   content: Content
 )
+
+object HintParams {
+  implicit val reads: Reads[HintParams] = (
+    (__ \ "id").readNullable[String] and
+      (__ \ "classes").readWithDefault[String]("") and
+      (__ \ "attributes").readWithDefault[Map[String, String]](Map.empty) and
+      Content.reads
+  )(HintParams.apply _)
+
+  implicit val writes: OWrites[HintParams] = (
+    (__ \ "id").writeNullable[String] and
+      (__ \ "classes").write[String] and
+      (__ \ "attributes").write[Map[String, String]] and
+      Content.writes
+  )(unlift(HintParams.unapply))
+}

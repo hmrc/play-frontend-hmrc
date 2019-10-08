@@ -18,19 +18,20 @@ package uk.gov.hmrc.govukfrontend.views.components
 
 import play.api.libs.functional.syntax._
 import play.api.libs.json._
-import play.twirl.api.Html
+import play.twirl.api.{Html, HtmlFormat}
+import uk.gov.hmrc.govukfrontend.views.TemplateUnitSpec
 import uk.gov.hmrc.govukfrontend.views.html.components._
+import uk.gov.hmrc.govukfrontend.views.viewmodels.CommonJsonFormats._
+import scala.util.Try
 
-class dateInputSpec extends TemplateUnitSpec("govukDateInput") {
-  override implicit val reads: Reads[Html] = (
-    (__ \ "id").readNullable[String] and
-      (__ \ "namePrefix").readNullable[String] and
-      (__ \ "items").readWithDefault[Seq[InputParams]](Nil) and
-      (__ \ "hint").readNullable[HintParams] and
-      (__ \ "errorMessage").readNullable[ErrorMessageParams] and
-      readsFormGroupClasses and
-      (__ \ "fieldset").readNullable[FieldsetParams] and
-      (__ \ "classes").readWithDefault[String]("") and
-      (__ \ "attributes").readWithDefault[Map[String, String]](Map.empty)
-  )(DateInput.apply _)
+class dateInputSpec extends TemplateUnitSpec[DateInputParams]("govukDateInput") {
+
+  /**
+    * Calls the Twirl template with the given parameters and returns the resulting markup
+    *
+    * @param templateParams
+    * @return [[Try[HtmlFormat.Appendable]]] containing the markup
+    */
+  override def render(params: DateInputParams): Try[HtmlFormat.Appendable] =
+    Try(DateInput(params))
 }

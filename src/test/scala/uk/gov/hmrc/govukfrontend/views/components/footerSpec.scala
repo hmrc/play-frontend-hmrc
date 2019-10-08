@@ -16,17 +16,18 @@
 
 package uk.gov.hmrc.govukfrontend.views.components
 
-import play.api.libs.functional.syntax._
-import play.api.libs.json._
-import play.twirl.api.Html
+import play.twirl.api.HtmlFormat
+import uk.gov.hmrc.govukfrontend.views.TemplateUnitSpec
 import uk.gov.hmrc.govukfrontend.views.html.components._
+import scala.util.Try
 
-class footerSpec extends TemplateUnitSpec("govukFooter") {
-  override implicit val reads: Reads[Html] = (
-    (__ \ "meta").readNullable[Meta] and
-      (__ \ "navigation").readWithDefault[Seq[FooterNavigation]](Nil) and
-      (__ \ "containerClasses").readWithDefault[String]("") and
-      (__ \ "classes").readWithDefault[String]("") and
-      (__ \ "attributes").readWithDefault[Map[String, String]](Map.empty)
-  )(Footer.apply _)
+class footerSpec extends TemplateUnitSpec[FooterParams]("govukFooter") {
+  /**
+    * Calls the Twirl template with the given parameters and returns the resulting markup
+    *
+    * @param templateParams
+    * @return [[Try[HtmlFormat.Appendable]]] containing the markup
+    */
+  override def render(templateParams: FooterParams): Try[HtmlFormat.Appendable] =
+    Try(Footer(templateParams))
 }

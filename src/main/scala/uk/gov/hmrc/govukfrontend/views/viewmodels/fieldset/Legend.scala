@@ -17,10 +17,27 @@
 package uk.gov.hmrc.govukfrontend.views.viewmodels
 package fieldset
 
-import common.{Content, Empty}
+import play.api.libs.functional.syntax.{unlift, _}
+import play.api.libs.json._
+import uk.gov.hmrc.govukfrontend.views.viewmodels.content.{Content, Empty}
 
 final case class Legend(
   content: Content     = Empty,
   classes: String        = "",
   isPageHeading: Boolean = false
 )
+
+object Legend {
+  implicit val reads: Reads[Legend] = (
+    Content.reads and
+      (__ \ "classes").readWithDefault[String]("") and
+      (__ \ "isPageHeading").readWithDefault[Boolean](false)
+    )(Legend.apply _)
+
+  implicit val writes: OWrites[Legend] = (
+    Content.writes and
+      (__ \ "classes").write[String] and
+      (__ \ "isPageHeading").write[Boolean]
+    )(unlift(Legend.unapply))
+
+}

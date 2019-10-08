@@ -17,12 +17,33 @@
 package uk.gov.hmrc.govukfrontend.views.viewmodels
 package label
 
-import common.{Content, Empty}
+import play.api.libs.functional.syntax._
+import play.api.libs.json._
+import uk.gov.hmrc.govukfrontend.views.viewmodels.content.{Content, Empty}
 
 final case class LabelParams(
-  forAttr: Option[String] = None,
-  isPageHeading: Boolean = false,
+  forAttr: Option[String]         = None,
+  isPageHeading: Boolean          = false,
   classes: String                 = "",
   attributes: Map[String, String] = Map.empty,
-  content: Content = Empty
+  content: Content                = Empty
 )
+
+object LabelParams {
+
+  implicit val reads: Reads[LabelParams] = (
+    (__ \ "for").readNullable[String] and
+      (__ \ "isPageHeading").readWithDefault[Boolean](false) and
+      (__ \ "classes").readWithDefault[String]("") and
+      (__ \ "attributes").readWithDefault[Map[String, String]](Map.empty) and
+      Content.reads
+  )(LabelParams.apply _)
+
+  implicit val writes: OWrites[LabelParams] = (
+    (__ \ "for").writeNullable[String] and
+      (__ \ "isPageHeading").write[Boolean] and
+      (__ \ "classes").write[String] and
+      (__ \ "attributes").write[Map[String, String]] and
+      Content.writes
+  )(unlift(LabelParams.unapply))
+}

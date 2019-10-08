@@ -3,7 +3,7 @@
 @this()
 
 @()
-@ErrorSummary(
+@ErrorSummary(ErrorSummaryParams(
   errorList =
     Seq(
       ErrorLink(
@@ -13,4 +13,7 @@
       ErrorLink(
         href = Some("#postcode-error"),
         content = Text("Enter a postcode, like AA1 1AA")
-      )))(title = Text("There is a problem"))()
+      )
+    ),
+    title = Text("There is a problem")
+))

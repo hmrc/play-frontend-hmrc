@@ -17,7 +17,9 @@
 package uk.gov.hmrc.govukfrontend.views.viewmodels
 package table
 
-import common.{Content, Empty}
+import play.api.libs.functional.syntax._
+import play.api.libs.json._
+import uk.gov.hmrc.govukfrontend.views.viewmodels.content.{Content, Empty}
 
 final case class HeadCell(
   content: Content                = Empty,
@@ -27,3 +29,24 @@ final case class HeadCell(
   rowspan: Option[Int]            = None,
   attributes: Map[String, String] = Map.empty
 )
+
+object HeadCell {
+
+  implicit val reads: Reads[HeadCell] = (
+    Content.reads and
+      (__ \ "format").readNullable[String] and
+      (__ \ "classes").readWithDefault[String]("") and
+      (__ \ "colspan").readNullable[Int] and
+      (__ \ "rowspan").readNullable[Int] and
+      (__ \ "attributes").readWithDefault[Map[String, String]](Map.empty)
+  )(HeadCell.apply _)
+
+  implicit val writes: OWrites[HeadCell] = (
+    Content.writes and
+      (__ \ "format").writeNullable[String] and
+      (__ \ "classes").write[String] and
+      (__ \ "colspan").writeNullable[Int] and
+      (__ \ "rowspan").writeNullable[Int] and
+      (__ \ "attributes").write[Map[String, String]]
+  )(unlift(HeadCell.unapply))
+}

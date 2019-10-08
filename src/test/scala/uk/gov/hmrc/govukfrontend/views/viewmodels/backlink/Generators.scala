@@ -14,13 +14,18 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.govukfrontend.views.viewmodels
-package summarylist
+package uk.gov.hmrc.govukfrontend.views.viewmodels.backlink
 
-import common.{Content, Empty}
+import org.scalacheck.Arbitrary
+import uk.gov.hmrc.govukfrontend.views.viewmodels.Generators.{genAlphaStrOftenEmpty, genAttributes, genClasses, genContent}
 
-final case class SummaryListItem(
-  href: String,
-  content: Content                 = Empty,
-  visuallyHiddenText: Option[String] = None,
-  classes: String                    = "")
+object Generators {
+  implicit val arbBackLinkParams: Arbitrary[BackLinkParams] = Arbitrary {
+    for {
+      href       <- genAlphaStrOftenEmpty()
+      classes    <- genClasses()
+      attributes <- genAttributes()
+      content    <- genContent
+    } yield BackLinkParams(href, classes, attributes, content)
+  }
+}

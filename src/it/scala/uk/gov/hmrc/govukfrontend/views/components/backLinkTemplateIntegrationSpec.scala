@@ -18,13 +18,12 @@ package uk.gov.hmrc.govukfrontend.views
 package components
 
 import org.scalacheck._
-import play.api.libs.functional.syntax._
-import play.api.libs.json._
-import uk.gov.hmrc.govukfrontend.support.TemplateIntegrationSpec
-import html.components._
 import play.twirl.api.HtmlFormat
 import uk.gov.hmrc.govukfrontend.support.ScalaCheckUtils.ClassifyParams
-import viewmodels.Generators._
+import uk.gov.hmrc.govukfrontend.support.TemplateIntegrationSpec
+import uk.gov.hmrc.govukfrontend.views.html.components._
+import uk.gov.hmrc.govukfrontend.views.viewmodels.backlink.Generators._
+import uk.gov.hmrc.govukfrontend.views.viewmodels.backlink.BackLinkParams
 import scala.util.Try
 
 object backLinkTemplateIntegrationSpec extends TemplateIntegrationSpec[BackLinkParams]("govukBackLink") {
@@ -32,11 +31,8 @@ object backLinkTemplateIntegrationSpec extends TemplateIntegrationSpec[BackLinkP
   override def overrideParameters(p: Test.Parameters): Test.Parameters =
     p.withMinSuccessfulTests(50)
 
-  override def twirlRender(backLinkParams: BackLinkParams): Try[HtmlFormat.Appendable] =
-    Try(
-      BackLink(href = backLinkParams.href, classes = backLinkParams.classes, attributes = backLinkParams.attributes)(
-        backLinkParams.content)
-    )
+  override def render(backLinkParams: BackLinkParams): Try[HtmlFormat.Appendable] =
+    Try(BackLink(backLinkParams))
 
   override def classifiers(backLinkParams: BackLinkParams): Stream[ClassifyParams] =
     (backLinkParams.href.isEmpty, "empty href", "non-empty href") #::
@@ -48,29 +44,4 @@ object backLinkTemplateIntegrationSpec extends TemplateIntegrationSpec[BackLinkP
       Stream.empty[ClassifyParams]
 }
 
-case class BackLinkParams(
-  href: String,
-  classes: String                 = "",
-  attributes: Map[String, String] = Map.empty,
-  content: Content                = Empty
-)
 
-object BackLinkParams {
-  import JsonHelpers.writesContent
-
-  implicit val writes: OWrites[BackLinkParams] = (
-    (__ \ "href").write[String] and
-      (__ \ "classes").write[String] and
-      (__ \ "attributes").write[Map[String, String]] and
-      writesContent
-  )(unlift(BackLinkParams.unapply))
-
-  implicit val arbTemplateParams: Arbitrary[BackLinkParams] = Arbitrary {
-    for {
-      href       <- genAlphaStrOftenEmpty()
-      classes    <- genClasses()
-      attributes <- genAttributes()
-      content    <- genContent
-    } yield BackLinkParams(href, classes, attributes, content)
-  }
-}

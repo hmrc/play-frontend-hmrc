@@ -17,10 +17,13 @@
 package uk.gov.hmrc.govukfrontend.views.viewmodels
 package checkboxes
 
-import common.Content
-import hint.HintParams
-import label.LabelParams
+import play.api.libs.functional.syntax._
+import play.api.libs.json._
 import play.twirl.api.Html
+import CommonJsonFormats._
+import uk.gov.hmrc.govukfrontend.views.viewmodels.content.Content
+import uk.gov.hmrc.govukfrontend.views.viewmodels.hint.HintParams
+import uk.gov.hmrc.govukfrontend.views.viewmodels.label.LabelParams
 
 final case class CheckboxItem(
   content: Content,
@@ -34,3 +37,32 @@ final case class CheckboxItem(
   disabled: Boolean               = false,
   attributes: Map[String, String] = Map.empty
 )
+
+object CheckboxItem {
+  implicit val readsCheckboxItem: Reads[CheckboxItem] = (
+    Content.reads and
+      (__ \ "id").readNullable[String] and
+      (__ \ "name").readNullable[String] and
+      (__ \ "value").read[String] and
+      (__ \ "label").readNullable[LabelParams] and
+      (__ \ "hint").readNullable[HintParams] and
+      (__ \ "checked").readWithDefault[Boolean](false) and
+      readsConditionalHtml and
+      (__ \ "disabled").readWithDefault[Boolean](false) and
+      (__ \ "attributes").readWithDefault[Map[String, String]](Map.empty)
+    )(CheckboxItem.apply _)
+
+  implicit val writesCheckboxItem: OWrites[CheckboxItem] = (
+    Content.writes and
+      (__ \ "id").writeNullable[String] and
+      (__ \ "name").writeNullable[String] and
+      (__ \ "value").write[String] and
+      (__ \ "label").writeNullable[LabelParams] and
+      (__ \ "hint").writeNullable[HintParams] and
+      (__ \ "checked").write[Boolean] and
+      (__ \ "conditional" \ "html").writeNullable[String].contramap((html: Option[Html]) => html.map(_.body)) and
+      (__ \ "disabled").write[Boolean] and
+      (__ \ "attributes").write[Map[String, String]]
+    )(unlift(CheckboxItem.unapply))
+
+}

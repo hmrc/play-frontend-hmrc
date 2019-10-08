@@ -16,25 +16,19 @@
 
 @this(errorMessage: errorMessage, hint: hint, fieldset: fieldset, input: input)
 
-@(id: Option[String] = None,
-  namePrefix: Option[String] = None,
-  items: Seq[InputParams] = Nil,
-  hintParams: Option[HintParams] = None,
-  errorMessageParams: Option[ErrorMessageParams] = None,
-  formGroupClasses: String = "",
-  fieldsetParams: Option[FieldsetParams] = None,
-  classes: String = "",
-  attributes: Map[String, String] = Map.empty)
+@(params: DateInputParams)
+@import params._
 @defining(innerHtmlSnippet) { case (describedBy, innerHtml) =>
   <div class="@toClasses("govuk-form-group", errorMessageParams.fold("")(_ => "govuk-form-group--error"), formGroupClasses)">
     @fieldsetParams.fold(innerHtml) { fieldsetParams =>
-      @fieldset(
+      @fieldset(FieldsetParams(
         describedBy = describedBy.toOption,
         legend = fieldsetParams.legend,
         classes = fieldsetParams.classes,
         role = Some("group"),
-        attributes = fieldsetParams.attributes
-        )(innerHtml)
+        attributes = fieldsetParams.attributes,
+        html = innerHtml
+      ))
     }
   </div>
 }
@@ -44,9 +38,9 @@
    items
  } else {
    Seq(
-     InputParams(name = "day", classes = "govuk-input--width-2"),
-     InputParams(name = "month", classes = "govuk-input--width-2"),
-     InputParams(name = "year", classes = "govuk-input--width-4")
+     InputItem(name = "day", classes = "govuk-input--width-2"),
+     InputItem(name = "month", classes = "govuk-input--width-2"),
+     InputItem(name = "year", classes = "govuk-input--width-4")
    )
  }
 }
@@ -56,10 +50,12 @@
     val hintId = s"${id.getOrElse("")}-hint" //FIXME: https://github.com/alphagov/govuk-frontend/issues/1557
     val describedBy1 = s"$describedBy $hintId".ltrim
     val hintHtml =
-      hint(
+      hint(HintParams(
         id = Some(hintId),
         classes = hintParams.classes,
-        attributes = hintParams.attributes)(hintParams.content)
+        attributes = hintParams.attributes,
+        content = hintParams.content
+      ))
     (describedBy1, hintHtml)
   }
 }
@@ -69,12 +65,13 @@
     val errorId = s"${id.getOrElse("")}-error"
     val describedBy1 = s"$describedBy $errorId".ltrim
     val errorMessageHtml =
-      errorMessage(
+      errorMessage(ErrorMessageParams(
         id = Some(errorId),
         classes = errorMessageParams.classes,
         attributes = errorMessageParams.attributes,
-        visuallyHiddenText = errorMessageParams.visuallyHiddenText
-      )(errorMessageParams.content)
+        visuallyHiddenText = errorMessageParams.visuallyHiddenText,
+        content = errorMessageParams.content
+      ))
     (describedBy1, errorMessageHtml)
   }
 }
@@ -83,7 +80,7 @@
   <div class="@toClasses("govuk-date-input", classes)"@toAttributes(attributes)@id.map {id => id="@id"}>
     @for(item <- dateInputItems) {
       <div class="govuk-date-input__item">
-        @input(
+        @input(InputParams(
           id = item.id.getOrElse(id.getOrElse("") + "-" + item.name),
           name = namePrefix.fold(item.name)(_ + "-" + item.name),
           inputType = "number",
@@ -97,7 +94,7 @@
           autoComplete = item.autoComplete,
           pattern = Option(item.pattern.getOrElse("[0-9]*".r)),
           attributes = item.attributes
-        )
+        ))
       </div>
     }
   </div>

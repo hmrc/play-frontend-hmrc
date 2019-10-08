@@ -19,7 +19,7 @@ package uk.gov.hmrc.govukfrontend.views
 import org.scalatest.{Matchers, OptionValues, WordSpec}
 import GovukFrontendDependency._
 
-class FixturesRendererSpec extends WordSpec with Matchers with OptionValues {
+class GovukFrontendDependencySpec extends WordSpec with Matchers with OptionValues {
 
   "findFirstMatch" should {
     "find the first match of a regular expression in a Seq" in {

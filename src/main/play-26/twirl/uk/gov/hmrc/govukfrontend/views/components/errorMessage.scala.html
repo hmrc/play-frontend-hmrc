@@ -25,14 +25,12 @@
 * Here it uses the type [[VisuallyHiddenText]] to encode the text or intention to hide it.
 * If no value is passed defaults to show "Error" as the visually hidden text.
 *@
-@(id: Option[String] = None,
-  classes: String = "",
-  attributes: Map[String, String] = Map.empty,
-  visuallyHiddenText: VisuallyHiddenText = ShowText("Error"))(content: Content)
+@(params: ErrorMessageParams)
+@import params._
 <span @id.map {id => id="@id"} class="@toClasses("govuk-error-message", classes)"@toAttributes(attributes)>
  @visuallyHiddenText match {
-   case ShowText(NonEmptyString(text)) => {<span class="govuk-visually-hidden">@text:</span>}
-   case ShowText(_) | HideText => {}
+   case Some(NonEmptyString(text)) => {<span class="govuk-visually-hidden">@text:</span>}
+   case Some(_) | None => {}
  }
  @content.asHtml
 </span>

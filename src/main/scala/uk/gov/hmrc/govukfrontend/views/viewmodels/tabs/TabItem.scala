@@ -16,9 +16,19 @@
 
 package uk.gov.hmrc.govukfrontend.views.viewmodels.tabs
 
+import play.api.libs.json._
+import play.api.libs.functional.syntax._
+
 final case class TabItem(
   id: Option[String] = None,
   label: String,
   attributes: Map[String, String] = Map.empty,
   panel: TabPanel
 )
+
+object TabItem {
+
+  implicit val reads: Reads[TabItem] = Json.using[Json.WithDefaultValues].reads[TabItem]
+
+  implicit val writes: OWrites[TabItem] = Json.writes[TabItem]
+}

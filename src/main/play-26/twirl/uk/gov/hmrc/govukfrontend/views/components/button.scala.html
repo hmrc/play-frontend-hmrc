@@ -16,17 +16,8 @@
 
 @this()
 
-@* FIXME use type system to represent `element` types, inputType `types` *@
-@(element: Option[String] = None,
-  name: Option[String] = None,
-  inputType: Option[String] = None,
-  value: Option[String] = None,
-  disabled: Boolean = false,
-  href: Option[String] = None,
-  classes: String = "",
-  attributes: Map[String, String] = Map.empty,
-  preventDoubleClick: Boolean = false,
-  isStartButton: Boolean = false)(content: Content)
+@(params: ButtonParams)
+@import params._
 @require(!element.exists(_.toLowerCase == "input") || content.isInstanceOf[Text])
 @defining(iconHtmlSnippet(classNames)) { case( classNames, iconHtml) =>
     @if(elem == "a") {

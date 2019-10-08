@@ -16,9 +16,8 @@
 
 @this()
 
-@(items: Seq[BreadcrumbsItem] = Nil,
-  classes: String = "",
-  attributes: Map[String, String] = Map.empty)
+@(params: BreadcrumbsParams)
+@import params._
 <div class="@toClasses("govuk-breadcrumbs", classes)"@toAttributes(attributes)>
  <ol class="govuk-breadcrumbs__list">
    @for(item <- items) {

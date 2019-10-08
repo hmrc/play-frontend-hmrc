@@ -16,16 +16,18 @@
 
 package uk.gov.hmrc.govukfrontend.views.components
 
-import play.api.libs.functional.syntax._
-import play.api.libs.json._
-import play.twirl.api.Html
+import play.twirl.api.HtmlFormat
+import uk.gov.hmrc.govukfrontend.views.TemplateUnitSpec
 import uk.gov.hmrc.govukfrontend.views.html.components._
+import scala.util.Try
 
-class hintSpec extends TemplateUnitSpec("govukHint") {
-  override implicit val reads: Reads[Html] = (
-    (__ \ "id").readNullable[String] and
-      (__ \ "classes").readWithDefault[String]("") and
-      (__ \ "attributes").readWithDefault[Map[String, String]](Map.empty) and
-      readsContent
-  )(Hint.apply(_, _, _)(_))
+class hintSpec extends TemplateUnitSpec[HintParams]("govukHint") {
+  /**
+    * Calls the Twirl template with the given parameters and returns the resulting markup
+    *
+    * @param templateParams
+    * @return [[Try[HtmlFormat.Appendable]]] containing the markup
+    */
+  override def render(templateParams: HintParams): Try[HtmlFormat.Appendable] =
+    Try(Hint(templateParams))
 }

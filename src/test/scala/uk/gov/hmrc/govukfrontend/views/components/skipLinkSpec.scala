@@ -16,25 +16,27 @@
 
 package uk.gov.hmrc.govukfrontend.views.components
 
-import play.api.libs.functional.syntax._
-import play.api.libs.json._
-import play.twirl.api.Html
+import play.twirl.api.HtmlFormat
+import uk.gov.hmrc.govukfrontend.views.TemplateUnitSpec
 import uk.gov.hmrc.govukfrontend.views.html.components._
+import scala.util.Try
 
-class skipLinkSpec extends TemplateUnitSpec("govukSkipLink") {
+class skipLinkSpec extends TemplateUnitSpec[SkipLinkParams]("govukSkipLink") {
 
   "skipLink" should {
     "render href" in {
-      val component = SkipLink.apply(href = "#custom")(Empty).select(".govuk-skip-link")
+      val component = SkipLink(SkipLinkParams(href = "#custom", content = Empty)).select(".govuk-skip-link")
 
       component.first().attr("href") shouldBe "#custom"
     }
   }
 
-  override implicit val reads: Reads[Html] = (
-    (__ \ "href").read[String] and
-      (__ \ "classes").readWithDefault[String]("") and
-      (__ \ "attributes").readWithDefault[Map[String, String]](Map.empty) and
-      readsContent
-  )(SkipLink.apply(_, _, _)(_))
+  /**
+    * Calls the Twirl template with the given parameters and returns the resulting markup
+    *
+    * @param templateParams
+    * @return [[Try[HtmlFormat.Appendable]]] containing the markup
+    */
+  override def render(templateParams: SkipLinkParams): Try[HtmlFormat.Appendable] =
+    Try(SkipLink(templateParams))
 }

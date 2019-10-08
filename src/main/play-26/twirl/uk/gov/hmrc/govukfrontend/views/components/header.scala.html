@@ -19,10 +19,11 @@
 @this()
 
 @(params: HeaderParams = HeaderParams())
-<header class="govuk-header @params.classes" role="banner" data-module="govuk-header"@toAttributes(params.attributes)>
-  <div class="@toClasses("govuk-header__container", if (params.containerClasses.nonEmpty) params.containerClasses else "govuk-width-container")">
+@import params._
+<header class="govuk-header @classes" role="banner" data-module="govuk-header"@toAttributes(attributes)>
+  <div class="@toClasses("govuk-header__container", if (containerClasses.nonEmpty) containerClasses else "govuk-width-container")">
     <div class="govuk-header__logo">
-      <a href="@params.homepageUrl.getOrElse{/}" class="govuk-header__link govuk-header__link--homepage">
+      <a href="@homepageUrl.getOrElse{/}" class="govuk-header__link govuk-header__link--homepage">
         <span class="govuk-header__logotype">
           @* We use an inline SVG for the crown so that we can cascade the
           currentColor into the crown whilst continuing to support older browsers
@@ -65,26 +66,26 @@
             GOV.UK
           </span>
         </span>
-        @params.productName.map { productName =>
+        @productName.map { productName =>
           <span class="govuk-header__product-name">
             @productName
           </span>
         }
       </a>
     </div>
-    @(params.serviceName, params.navigation) match {
+    @(serviceName, navigation) match {
       case (Some(_), _) | (_, Seq(_, _*)) => {
         <div class="govuk-header__content">
-            @params.serviceName.map { serviceName =>
-              <a href="@params.serviceUrl" class="govuk-header__link govuk-header__link--service-name">
+            @serviceName.map { serviceName =>
+              <a href="@serviceUrl" class="govuk-header__link govuk-header__link--service-name">
                 @serviceName
               </a>
             }
-            @if(params.navigation.nonEmpty) {
+            @if(navigation.nonEmpty) {
               <button type="button" role="button" class="govuk-header__menu-button govuk-js-header-toggle" aria-controls="navigation" aria-label="Show or hide Top Level Navigation">Menu</button>
               <nav>
-                <ul id="navigation" class="govuk-header__navigation @params.navigationClasses" aria-label="Top Level Navigation">
-                  @for(item <- params.navigation) {
+                <ul id="navigation" class="govuk-header__navigation @navigationClasses" aria-label="Top Level Navigation">
+                  @for(item <- navigation) {
                     @(item.href, item.text) match {
                       case (Some(NonEmptyString(itemHref)), Some(NonEmptyString(itemText))) => {
                         <li class="govuk-header__navigation-item@if(item.active) { govuk-header__navigation-item--active}">

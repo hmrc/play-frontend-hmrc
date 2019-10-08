@@ -17,19 +17,53 @@
 package uk.gov.hmrc.govukfrontend.views
 
 trait Aliases {
-  type Content = viewmodels.common.Content
+  type Content = viewmodels.content.Content
+  val Content = viewmodels.content.Content
 
-  val Empty = viewmodels.common.Empty
+  val Empty = viewmodels.content.Empty
 
-  type HtmlContent = viewmodels.common.HtmlContent
-  val HtmlContent = viewmodels.common.HtmlContent
+  type HtmlContent = viewmodels.content.HtmlContent
+  val HtmlContent = viewmodels.content.HtmlContent
 
-  type Text = viewmodels.common.Text
-  val Text = viewmodels.common.Text
+  type Text = viewmodels.content.Text
+  val Text = viewmodels.content.Text
 
-  val NonEmptyHtml = viewmodels.common.NonEmptyHtml
+  val NonEmptyHtml = viewmodels.content.NonEmptyHtml
 
-  val NonEmptyText = viewmodels.common.NonEmptyText
+  val NonEmptyText = viewmodels.content.NonEmptyText
+
+  type BackLinkParams = viewmodels.backlink.BackLinkParams
+  val BackLinkParams = viewmodels.backlink.BackLinkParams
+
+  type ButtonParams = viewmodels.button.ButtonParams
+  val ButtonParams = viewmodels.button.ButtonParams
+
+  type RadiosParams = viewmodels.radios.RadiosParams
+  val RadiosParams = viewmodels.radios.RadiosParams
+
+  type PanelParams = viewmodels.panel.PanelParams
+  val PanelParams = viewmodels.panel.PanelParams
+
+  type CharacterCountParams = viewmodels.charactercount.CharacterCountParams
+  val CharacterCountParams = viewmodels.charactercount.CharacterCountParams
+
+  type DateInputParams = viewmodels.dateinput.DateInputParams
+  val DateInputParams = viewmodels.dateinput.DateInputParams
+
+  type InputParams = viewmodels.input.InputParams
+  val InputParams = viewmodels.input.InputParams
+
+  type DetailsParams = viewmodels.details.DetailsParams
+  val DetailsParams = viewmodels.details.DetailsParams
+
+  type FileUploadParams = viewmodels.fileupload.FileUploadParams
+  val FileUploadParams = viewmodels.fileupload.FileUploadParams
+
+  type InsetTextParams = viewmodels.insettext.InsetTextParams
+  val InsetTextParams = viewmodels.insettext.InsetTextParams
+
+  type FooterParams = viewmodels.footer.FooterParams
+  val FooterParams = viewmodels.footer.FooterParams
 
   type FooterNavigation = viewmodels.footer.FooterNavigation
   val FooterNavigation = viewmodels.footer.FooterNavigation
@@ -49,6 +83,12 @@ trait Aliases {
   type TagParams = viewmodels.tag.TagParams
   val TagParams = viewmodels.tag.TagParams
 
+  type PhaseBannerParams = viewmodels.phasebanner.PhaseBannerParams
+  val PhaseBannerParams = viewmodels.phasebanner.PhaseBannerParams
+
+  type SkipLinkParams = viewmodels.skiplink.SkipLinkParams
+  val SkipLinkParams = viewmodels.skiplink.SkipLinkParams
+
   type ErrorLink = viewmodels.errorsummary.ErrorLink
   val ErrorLink = viewmodels.errorsummary.ErrorLink
 
@@ -67,15 +107,17 @@ trait Aliases {
   type RadioItem = viewmodels.radios.RadioItem
   val RadioItem = viewmodels.radios.RadioItem
 
-  type VisuallyHiddenText = viewmodels.errormessage.VisuallyHiddenText
-
-  type ShowText = viewmodels.errormessage.ShowText
-  val ShowText = viewmodels.errormessage.ShowText
-
-  val HideText = viewmodels.errormessage.HideText
-
   type ErrorMessageParams = viewmodels.errormessage.ErrorMessageParams
   val ErrorMessageParams = viewmodels.errormessage.ErrorMessageParams
+
+  type ErrorSummaryParams = viewmodels.errorsummary.ErrorSummaryParams
+  val ErrorSummaryParams = viewmodels.errorsummary.ErrorSummaryParams
+
+  type CheckboxesParams = viewmodels.checkboxes.CheckboxesParams
+  val CheckboxesParams = viewmodels.checkboxes.CheckboxesParams
+
+  type SummaryListParams = viewmodels.summarylist.SummaryListParams
+  val SummaryListParams = viewmodels.summarylist.SummaryListParams
 
   type SummaryListRow = viewmodels.summarylist.SummaryListRow
   val SummaryListRow = viewmodels.summarylist.SummaryListRow
@@ -89,14 +131,20 @@ trait Aliases {
   type Actions = viewmodels.summarylist.Actions
   val Actions = viewmodels.summarylist.Actions
 
-  type ActionItem = viewmodels.summarylist.SummaryListItem
-  val ActionItem = viewmodels.summarylist.SummaryListItem
+  type ActionItem = viewmodels.summarylist.ActionItem
+  val ActionItem = viewmodels.summarylist.ActionItem
 
-  type InputParams = viewmodels.dateinput.InputParams
-  val InputParams = viewmodels.dateinput.InputParams
+  type InputItem = viewmodels.dateinput.InputItem
+  val InputItem = viewmodels.dateinput.InputItem
+
+  type AccordionParams = viewmodels.accordion.AccordionParams
+  val AccordionParams = viewmodels.accordion.AccordionParams
 
   type Section = viewmodels.accordion.Section
   val Section = viewmodels.accordion.Section
+
+  type BreadcrumbsParams = viewmodels.breadcrumbs.BreadcrumbsParams
+  val BreadcrumbsParams = viewmodels.breadcrumbs.BreadcrumbsParams
 
   type BreadcrumbsItem = viewmodels.breadcrumbs.BreadcrumbsItem
   val BreadcrumbsItem = viewmodels.breadcrumbs.BreadcrumbsItem
@@ -104,8 +152,14 @@ trait Aliases {
   type CheckboxItem = viewmodels.checkboxes.CheckboxItem
   val CheckboxItem = viewmodels.checkboxes.CheckboxItem
 
+  type SelectParams = viewmodels.select.SelectParams
+  val SelectParams = viewmodels.select.SelectParams
+
   type SelectItem = viewmodels.select.SelectItem
   val SelectItem = viewmodels.select.SelectItem
+
+  type TableParams = viewmodels.table.TableParams
+  val TableParams = viewmodels.table.TableParams
 
   type TableRow = viewmodels.table.TableRow
   val TableRow = viewmodels.table.TableRow
@@ -113,11 +167,21 @@ trait Aliases {
   type HeadCell = viewmodels.table.HeadCell
   val HeadCell = viewmodels.table.HeadCell
 
+  type TabsParams = viewmodels.tabs.TabsParams
+  val TabsParams = viewmodels.tabs.TabsParams
+
   type TabItem = viewmodels.tabs.TabItem
   val TabItem = viewmodels.tabs.TabItem
 
   type TabPanel = viewmodels.tabs.TabPanel
   val TabPanel = viewmodels.tabs.TabPanel
+
+  type TextareaParams = viewmodels.textarea.TextareaParams
+  val TextareaParams = viewmodels.textarea.TextareaParams
+
+  type WarningTextParams = viewmodels.warningtext.WarningTextParams
+  val WarningTextParams = viewmodels.warningtext.WarningTextParams
+
 }
 
 object Aliases extends Aliases

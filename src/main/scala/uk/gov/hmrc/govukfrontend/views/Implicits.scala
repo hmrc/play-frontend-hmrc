@@ -19,7 +19,7 @@ package uk.gov.hmrc.govukfrontend.views
 import play.api.data.FormError
 import play.api.i18n.Messages
 import play.twirl.api.{Html, HtmlFormat}
-import uk.gov.hmrc.govukfrontend.views.viewmodels.common.{Content, HtmlContent, Text}
+import uk.gov.hmrc.govukfrontend.views.viewmodels.content.{Content, HtmlContent, Text}
 import uk.gov.hmrc.govukfrontend.views.viewmodels.errormessage.ErrorMessageParams
 import uk.gov.hmrc.govukfrontend.views.viewmodels.errorsummary.ErrorLink
 
@@ -143,3 +143,5 @@ trait Implicits {
     private def errorMessage(formError: FormError) = messages(formError.message, formError.args: _*)
   }
 }
+
+object Implicits extends Implicits

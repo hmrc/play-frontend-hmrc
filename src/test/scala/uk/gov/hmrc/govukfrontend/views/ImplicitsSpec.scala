@@ -25,7 +25,7 @@ import play.api.data.FormError
 import play.twirl.api.{Html, HtmlFormat}
 import uk.gov.hmrc.govukfrontend.views.html.components.implicits._
 import uk.gov.hmrc.govukfrontend.views.viewmodels.Generators._
-import uk.gov.hmrc.govukfrontend.views.viewmodels.common.{Content, HtmlContent, Text}
+import uk.gov.hmrc.govukfrontend.views.viewmodels.content.{Content, HtmlContent, Text}
 import uk.gov.hmrc.govukfrontend.views.viewmodels.errormessage.ErrorMessageParams
 import uk.gov.hmrc.govukfrontend.views.viewmodels.errorsummary.ErrorLink
 import scala.collection.immutable

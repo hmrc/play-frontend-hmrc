@@ -16,8 +16,7 @@
 
 @this()
 
-@(href: String,
-  classes: String = "",
-  attributes: Map[String, String] = Map.empty)(content: Content)
+@(params: SkipLinkParams)
+@import params._
 @require(href.nonEmpty)
 <a href="@{"#content".?:(href)}" class="@toClasses("govuk-skip-link", classes)"@toAttributes(attributes)>@content.asHtml</a>

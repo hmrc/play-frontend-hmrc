@@ -9,7 +9,7 @@ import play.api.libs.json.{Json, OWrites}
 import play.twirl.api.HtmlFormat
 import uk.gov.hmrc.govukfrontend.support.Implicits._
 import uk.gov.hmrc.govukfrontend.support.ScalaCheckUtils.{ClassifyParams, classify}
-import uk.gov.hmrc.govukfrontend.views.{JsonHelpers, JsoupHelpers, TemplateValidationException}
+import uk.gov.hmrc.govukfrontend.views.{JsoupHelpers, TemplateValidationException, TwirlRenderer}
 import scala.collection.JavaConverters._
 import scala.util.{Failure, Success, Try}
 
@@ -21,9 +21,9 @@ import scala.util.{Failure, Success, Try}
 abstract class TemplateIntegrationSpec[T: OWrites: Arbitrary](govukComponentName: String, seed: Option[String] = None)
     extends Properties(govukComponentName)
     with TemplateServiceClient
+    with TwirlRenderer[T]
     with ShrinkLowPriority
     with JsoupHelpers
-    with JsonHelpers
     with ScalaFutures
     with IntegrationPatience {
 
@@ -36,14 +36,6 @@ abstract class TemplateIntegrationSpec[T: OWrites: Arbitrary](govukComponentName
     */
   def classifiers(templateParams: T): Stream[ClassifyParams] =
     Stream.empty[ClassifyParams]
-
-  /**
-    * Calls the Twirl template with the given parameters and converts the resulting markup into a [[String]]
-    *
-    * @param templateParams
-    * @return [[Try[HtmlFormat.Appendable]]] containing the markup
-    */
-  def twirlRender(templateParams: T): Try[HtmlFormat.Appendable]
 
   /***
     * Diff utility to report diffs in test failures
@@ -59,33 +51,36 @@ abstract class TemplateIntegrationSpec[T: OWrites: Arbitrary](govukComponentName
     templateParams: T =>
       classify(classifiers(templateParams))(secure {
 
-        val response = renderComponent(govukComponentName, templateParams)
+        val response = render(govukComponentName, templateParams)
 
-        val nunJucksOutputHtml =
-          parseAndCompressHtml(response.futureValue.bodyAsString)
+        val nunJucksOutputHtml = response.futureValue.bodyAsString
 
-        val tryTwirlRender =
-          twirlRender(templateParams)
-            .transform(
-              html => Success(parseAndCompressHtml(html.body)),
-              f => Failure(new TemplateValidationException(f.getMessage)))
+        val tryRenderTwirl =
+          render(templateParams)
+            .transform(html => Success(html.body), f => Failure(new TemplateValidationException(f.getMessage)))
 
-        tryTwirlRender match {
+        tryRenderTwirl match {
+
           case Success(twirlOutputHtml) =>
-            val prop = nunJucksOutputHtml == twirlOutputHtml
+            val compressedTwirlHtml    = parseAndCompressHtml(twirlOutputHtml)
+            val compressedNunjucksHtml = parseAndCompressHtml(nunJucksOutputHtml)
+            val prop                   = compressedNunjucksHtml == compressedTwirlHtml
 
             if (!prop)
               showDiff(
-                nunJucksOutputHtml,
-                twirlOutputHtml,
+                compressedNunjucksHtml,
+                compressedTwirlHtml,
                 Json.prettyPrint(Json.toJson(templateParams)),
                 templateParams)
             else ()
 
             prop
-          case Failure(TemplateValidationException(_)) =>
+          case Failure(TemplateValidationException(message)) =>
             println(
-              s"Failed to validate the parameters for the template for $govukComponentName ... Skipping property evaluation")
+              s"Failed to validate the parameters for the template for $govukComponentName")
+            println(s"Exception: $message")
+            println("Skipping property evaluation")
+
             true
         }
       })

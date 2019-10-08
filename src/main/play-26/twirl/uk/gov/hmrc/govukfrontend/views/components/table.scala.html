@@ -16,13 +16,8 @@
 
 @this()
 
-@(rows: Seq[Seq[TableRow]] = Nil,
-  head: Seq[HeadCell] = Nil,
-  caption: Option[String] = None,
-  captionClasses: String = "",
-  firstCellIsHeader: Boolean = false,
-  classes: String = "",
-  attributes: Map[String, String] = Map.empty)
+@(params: TableParams)
+@import params._
 <table class="@toClasses("govuk-table", classes)"@toAttributes(attributes)>
   @caption.map { caption =>
     <caption class="@toClasses("govuk-table__caption", captionClasses)">@caption</caption>

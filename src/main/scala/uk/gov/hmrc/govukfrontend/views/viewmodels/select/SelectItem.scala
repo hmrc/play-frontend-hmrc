@@ -14,7 +14,14 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.govukfrontend.views.viewmodels.select
+package uk.gov.hmrc.govukfrontend.views.viewmodels
+package select
+
+import play.api.libs.functional.syntax._
+import play.api.libs.json._
+import uk.gov.hmrc.govukfrontend.views.Implicits._
+import uk.gov.hmrc.govukfrontend.views.viewmodels.JsonImplicits._
+
 
 final case class SelectItem(
   value: Option[String] = None,
@@ -23,3 +30,22 @@ final case class SelectItem(
   disabled: Boolean = false,
   attributes: Map[String, String] = Map.empty
 )
+
+object SelectItem {
+
+  implicit val reads: Reads[SelectItem] = (
+    (__ \ "value").readsJsValueToString.map(_.toOption) and
+      (__ \ "text").read[String] and
+      (__ \ "selected").readWithDefault[Boolean](false) and
+      (__ \ "disabled").readWithDefault[Boolean](false) and
+      (__ \ "attributes").readWithDefault[Map[String, String]](Map.empty)
+    )(SelectItem.apply _)
+
+  implicit val writes: OWrites[SelectItem] = (
+    (__ \ "value").writeNullable[String] and
+      (__ \ "text").write[String] and
+      (__ \ "selected").write[Boolean] and
+      (__ \ "disabled").write[Boolean] and
+      (__ \ "attributes").write[Map[String, String]]
+  )(unlift(SelectItem.unapply))
+}

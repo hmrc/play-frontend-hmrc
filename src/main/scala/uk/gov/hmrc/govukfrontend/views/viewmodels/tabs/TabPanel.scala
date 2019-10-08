@@ -17,9 +17,24 @@
 package uk.gov.hmrc.govukfrontend.views.viewmodels
 package tabs
 
-import common.{Content, Empty}
+import play.api.libs.json._
+import play.api.libs.functional.syntax._
+import uk.gov.hmrc.govukfrontend.views.viewmodels.content.{Content, Empty}
 
 final case class TabPanel(
   content: Content                = Empty,
   attributes: Map[String, String] = Map.empty
 )
+
+object TabPanel {
+
+  implicit val reads: Reads[TabPanel] = (
+    Content.reads and
+      (__ \ "attributes").readWithDefault[Map[String, String]](Map.empty)
+  )(TabPanel.apply _)
+
+  implicit val writes: OWrites[TabPanel] = (
+    Content.writes and
+      (__ \ "attributes").write[Map[String, String]]
+  )(unlift(TabPanel.unapply))
+}

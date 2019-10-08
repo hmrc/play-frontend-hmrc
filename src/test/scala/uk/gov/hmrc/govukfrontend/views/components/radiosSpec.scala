@@ -16,22 +16,19 @@
 
 package uk.gov.hmrc.govukfrontend.views.components
 
-import play.api.libs.functional.syntax._
-import play.api.libs.json._
-import play.twirl.api.Html
+import play.twirl.api.HtmlFormat
+import uk.gov.hmrc.govukfrontend.views.TemplateUnitSpec
 import uk.gov.hmrc.govukfrontend.views.html.components._
+import scala.util.Try
 
-class radiosSpec extends TemplateUnitSpec("govukRadios") {
+class radiosSpec extends TemplateUnitSpec[RadiosParams]("govukRadios") {
 
-  override implicit val reads: Reads[Html] = (
-    (__ \ "fieldset").readNullable[FieldsetParams] and
-      (__ \ "hint").readNullable[HintParams] and
-      (__ \ "errorMessage").readNullable[ErrorMessageParams] and
-      readsFormGroupClasses and
-      (__ \ "idPrefix").readNullable[String] and
-      (__ \ "name").read[String] and
-      (__ \ "items").read[Seq[RadioItem]] and
-      (__ \ "classes").readWithDefault[String]("") and
-      (__ \ "attributes").readWithDefault[Map[String, String]](Map.empty)
-  )(Radios.apply _)
+  /**
+    * Calls the Twirl template with the given parameters and returns the resulting markup
+    *
+    * @param templateParams
+    * @return [[Try[HtmlFormat.Appendable]]] containing the markup
+    */
+  override def render(templateParams: RadiosParams): Try[HtmlFormat.Appendable] =
+    Try(Radios(templateParams))
 }

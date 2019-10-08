@@ -14,11 +14,19 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.govukfrontend.views.viewmodels.errormessage
+package uk.gov.hmrc.govukfrontend.views.viewmodels.breadcrumbs
 
-sealed trait VisuallyHiddenText
+import play.api.libs.json.{Json, OWrites, Reads}
 
-final case class ShowText(text: String) extends VisuallyHiddenText
+case class BreadcrumbsParams(
+  items: Seq[BreadcrumbsItem]     = Nil,
+  classes: String                 = "",
+  attributes: Map[String, String] = Map.empty
+)
 
-case object HideText extends VisuallyHiddenText
+object BreadcrumbsParams {
 
+  implicit val reads: Reads[BreadcrumbsParams] = Json.using[Json.WithDefaultValues].reads[BreadcrumbsParams]
+
+  implicit val writes: OWrites[BreadcrumbsParams] = Json.writes[BreadcrumbsParams]
+}
