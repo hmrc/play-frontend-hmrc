@@ -14,7 +14,7 @@ import scala.collection.JavaConverters._
 import scala.util.{Failure, Success, Try}
 
 /**
-  * Base trait for integration testing a Twirl template against the Nunjucks template rendering service
+  * Base class for integration testing a Twirl template against the Nunjucks template rendering service
   *
   * @tparam T Type representing the input parameters of the Twirl template
   */

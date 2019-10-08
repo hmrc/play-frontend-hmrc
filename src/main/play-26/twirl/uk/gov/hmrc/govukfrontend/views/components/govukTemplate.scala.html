@@ -22,6 +22,8 @@
 @*FIXME use i18n support from Play instead of passing the language*@
 @(
   htmlLang: Option[String],
+  pageTitleLang: Option[String] = None,
+  mainLang: Option[String] = None,
   htmlClasses: Option[String] = None,
   themeColour: Option[String] = None,
   bodyClasses: Option[String] = None,
@@ -35,12 +37,12 @@
   bodyEndBlock: Option[Html] = None,
   mainClasses: Option[String] = None,
   beforeContentBlock: Option[Html] = None)(contentBlock: Html)<!DOCTYPE html>
-<html lang="@if(htmlLang.isDefined) {@htmlLang} else {en}" class="govuk-template @htmlClasses">
+<html lang="@htmlLang.getOrElse {en}" class="govuk-template @htmlClasses">
   <head>
     <meta charset="utf-8" />
-    <title>@if(pageTitle.isDefined) {@pageTitle} else {GOV.UK - The best place to find government services and information}</title>
+    <title@pageTitleLang.map {pageTitleLang => lang="@pageTitleLang"}>@pageTitle.getOrElse{GOV.UK - The best place to find government services and information}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-    <meta name="theme-color" content="@if(themeColour.isDefined) {@themeColour} else {#0b0c0c}" /> @* Hardcoded value of $govuk-black *@
+    <meta name="theme-color" content="themeColour.getOrElse {#0b0c0c}" /> @* Hardcoded value of $govuk-black *@
     @* Ensure that older IE versions always render with the correct rendering engine *@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
@@ -73,8 +75,8 @@
 
     <div class="govuk-width-container">
       @beforeContentBlock
-      <main class="govuk-main-wrapper @mainClasses" id="main-content" role="main">
-      @contentBlock
+      <main class="govuk-main-wrapper @mainClasses" id="main-content" role="main"@mainLang.map {mainLang => lang="@mainLang"}>
+        @contentBlock
       </main>
     </div>
 

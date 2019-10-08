@@ -26,7 +26,8 @@ import uk.gov.hmrc.govukfrontend.views.viewmodels.backlink.Generators._
 import uk.gov.hmrc.govukfrontend.views.viewmodels.backlink.BackLinkParams
 import scala.util.Try
 
-object backLinkTemplateIntegrationSpec extends TemplateIntegrationSpec[BackLinkParams]("govukBackLink") {
+object backLinkTemplateIntegrationSpec
+    extends TemplateIntegrationSpec[BackLinkParams](govukComponentName = "govukBackLink", seed = None) {
 
   override def overrideParameters(p: Test.Parameters): Test.Parameters =
     p.withMinSuccessfulTests(50)
@@ -43,5 +44,3 @@ object backLinkTemplateIntegrationSpec extends TemplateIntegrationSpec[BackLinkP
       (!backLinkParams.content.nonEmpty, "empty content", ()) #::
       Stream.empty[ClassifyParams]
 }
-
-

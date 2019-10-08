@@ -36,7 +36,7 @@
 @* if name is not provided defaults to javascript undefined: https://github.com/alphagov/govuk-frontend/blob/master/src/govuk/components/checkboxes/template.njk#L8 *@
 @idPrefixStr = @{idPrefix.filter(_.nonEmpty).getOrElse(name)}
 
-@isConditional = @{items.exists(_.conditionalHtml.nonEmpty)}
+@isConditional = @{items.exists(_.conditionalHtml.exists(_.body.nonEmpty))}
 
 @hasFieldset = @{fieldsetParams.isDefined}
 
@@ -92,9 +92,11 @@
           }
       </div>
       @item.conditionalHtml.map { conditionalHtml =>
-        <div class="@toClasses("govuk-checkboxes__conditional", "govuk-checkboxes__conditional--hidden".when(!item.checked))" id="@conditionalId(item, index)">
-          @conditionalHtml
-        </div>
+        @if(conditionalHtml.body.nonEmpty) {
+          <div class="@toClasses("govuk-checkboxes__conditional", "govuk-checkboxes__conditional--hidden".when(!item.checked))" id="@conditionalId(item, index)">
+            @conditionalHtml
+          </div>
+        }
       }
     }
   </div>
@@ -107,6 +109,8 @@
   val divHtml = divSnippet(describedBy3)
   (describedBy3, HtmlFormat.fill(collection.immutable.Seq(hintHtml, errorMessageHtml, divHtml)))
 }
+
+@* The following reusable snippets compile to `def`s so less efficient than using @defining but a lot more readable *@
 
 @itemId(item: CheckboxItem, index: Int) = @{
   (item.id, index) match {
@@ -125,7 +129,7 @@
 @inputAttrs(item: CheckboxItem, index: Int, describedBy: String) = {
   @if(item.checked) { checked}
   @if(item.disabled) { disabled}
-  @item.conditionalHtml.map {_ => data-aria-controls="@conditionalId(item, index)"}
+  @item.conditionalHtml.map { conditionalHtml => @if(conditionalHtml.body.nonEmpty) {data-aria-controls="@conditionalId(item, index)"}}
   @itemDescribedBy(item, index, describedBy).toOption.map { ariaDescribedBy => aria-describedby="@ariaDescribedBy"}
 }
 

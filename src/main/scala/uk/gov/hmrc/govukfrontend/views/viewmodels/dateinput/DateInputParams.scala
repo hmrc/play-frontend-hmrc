@@ -16,9 +16,7 @@
 
 package uk.gov.hmrc.govukfrontend.views.viewmodels.dateinput
 
-import uk.gov.hmrc.govukfrontend.views.viewmodels.errormessage.ErrorMessageParams
-import uk.gov.hmrc.govukfrontend.views.viewmodels.fieldset.FieldsetParams
-import uk.gov.hmrc.govukfrontend.views.viewmodels.hint.HintParams
+import uk.gov.hmrc.govukfrontend.views.html.components._
 import play.api.libs.functional.syntax._
 import play.api.libs.json._
 import uk.gov.hmrc.govukfrontend.views.viewmodels.CommonJsonFormats._
@@ -26,7 +24,7 @@ import uk.gov.hmrc.govukfrontend.views.viewmodels.CommonJsonFormats._
 case class DateInputParams(
   id: Option[String]                             = None,
   namePrefix: Option[String]                     = None,
-  items: Seq[InputItem]                        = Nil,
+  items: Seq[InputItem]                          = Nil,
   hintParams: Option[HintParams]                 = None,
   errorMessageParams: Option[ErrorMessageParams] = None,
   formGroupClasses: String                       = "",
@@ -49,7 +47,7 @@ object DateInputParams {
       (__ \ "attributes").readWithDefault[Map[String, String]](Map.empty)
   )(DateInputParams.apply _)
 
-  implicit val writes = (
+  implicit val writes: OWrites[DateInputParams] = (
     (__ \ "id").writeNullable[String] and
       (__ \ "namePrefix").writeNullable[String] and
       (__ \ "items").write[Seq[InputItem]] and

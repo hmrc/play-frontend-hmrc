@@ -18,7 +18,7 @@ package uk.gov.hmrc.govukfrontend.views.viewmodels.checkboxes
 
 import play.api.libs.functional.syntax._
 import play.api.libs.json._
-import uk.gov.hmrc.govukfrontend.views.html.components.{ErrorMessageParams, FieldsetParams, HintParams}
+import uk.gov.hmrc.govukfrontend.views.html.components._
 import uk.gov.hmrc.govukfrontend.views.viewmodels.CommonJsonFormats._
 
 case class CheckboxesParams(

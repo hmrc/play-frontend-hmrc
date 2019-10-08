@@ -26,7 +26,8 @@ lazy val root = Project(libName, file("."))
     resolvers :=
       Seq(
         "HMRC Releases" at "https://dl.bintray.com/hmrc/releases",
-        "typesafe-releases" at "http://repo.typesafe.com/typesafe/releases/"
+        "typesafe-releases" at "http://repo.typesafe.com/typesafe/releases/",
+        "bintray" at "https://dl.bintray.com/webjars/maven"
       ),
     TwirlKeys.templateImports := templateImports,
     PlayCrossCompilation.playCrossCompilationSettings,
@@ -98,7 +99,7 @@ lazy val libDependencies: Seq[ModuleID] = dependencies(
       "com.typesafe.play" %% "play"            % playRevision,
       "com.typesafe.play" %% "filters-helpers" % playRevision,
       "org.joda"          % "joda-convert"     % "2.0.2",
-      "org.webjars.npm"   % "govuk-frontend"   % "3.2.0"
+      "org.webjars.npm"   % "govuk-frontend"   % "3.3.0"
     )
 
     val test = Seq(

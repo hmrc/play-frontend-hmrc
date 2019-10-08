@@ -29,25 +29,28 @@ import uk.gov.hmrc.govukfrontend.views.viewmodels.checkboxes.CheckboxesParams
 import scala.util.Try
 
 object checkboxesTemplateIntegrationSpec
-    extends TemplateIntegrationSpec[CheckboxesParams](govukComponentName = "govukCheckboxes") {
+    extends TemplateIntegrationSpec[CheckboxesParams](
+      govukComponentName = "govukCheckboxes",
+      seed               = None) {
 
   override def overrideParameters(p: Test.Parameters): Test.Parameters =
     p.withMinSuccessfulTests(50)
 
   override def render(checkboxesParams: CheckboxesParams): Try[HtmlFormat.Appendable] =
     Try(
-      Checkboxes(CheckboxesParams(
-        describedBy        = checkboxesParams.describedBy,
-        fieldsetParams     = checkboxesParams.fieldsetParams,
-        hintParams         = checkboxesParams.hintParams,
-        errorMessageParams = checkboxesParams.errorMessageParams,
-        formGroupClasses   = checkboxesParams.formGroupClasses,
-        idPrefix           = checkboxesParams.idPrefix,
-        name               = checkboxesParams.name,
-        items              = checkboxesParams.items,
-        classes            = checkboxesParams.classes,
-        attributes         = checkboxesParams.attributes
-      ))
+      Checkboxes(
+        CheckboxesParams(
+          describedBy        = checkboxesParams.describedBy,
+          fieldsetParams     = checkboxesParams.fieldsetParams,
+          hintParams         = checkboxesParams.hintParams,
+          errorMessageParams = checkboxesParams.errorMessageParams,
+          formGroupClasses   = checkboxesParams.formGroupClasses,
+          idPrefix           = checkboxesParams.idPrefix,
+          name               = checkboxesParams.name,
+          items              = checkboxesParams.items,
+          classes            = checkboxesParams.classes,
+          attributes         = checkboxesParams.attributes
+        ))
     )
 
   override def classifiers(checkboxesParams: CheckboxesParams): Stream[ClassifyParams] = {

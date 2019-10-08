@@ -23,6 +23,8 @@ import uk.gov.hmrc.govukfrontend.views.GovukFrontendDependency.govukFrontendVers
 import scala.util.{Failure, Success, Try}
 
 /**
+  * Base class for unit testing against test fixtures generated from govuk-frontend's yaml documentation files for
+  * components
   *
   * @param govukComponentName
   * @param [[Reads[T]]]
