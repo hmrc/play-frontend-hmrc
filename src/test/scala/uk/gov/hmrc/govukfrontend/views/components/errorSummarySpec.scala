@@ -29,5 +29,5 @@ class errorSummarySpec extends TemplateUnitSpec[ErrorSummaryParams]("govukErrorS
     * @return [[Try[HtmlFormat.Appendable]]] containing the markup
     */
   override def render(templateParams: ErrorSummaryParams): Try[HtmlFormat.Appendable] =
-    Try(ErrorSummary(templateParams))
+    Try(GovukErrorSummary(templateParams))
 }

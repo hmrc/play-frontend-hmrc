@@ -17,8 +17,7 @@
 package uk.gov.hmrc.govukfrontend.views
 package html
 
-import examples._
-import components._
+import uk.gov.hmrc.govukfrontend.views.html.components._
 
 package object examples {
   lazy val BackLinkDefault = new backlink.default()
@@ -27,9 +26,9 @@ package object examples {
 
   lazy val ErrorSummaryDefault = new errorsummary.default()
 
-  lazy val FieldsetAddressGroup = new fieldset.addressGroup(Input)
+  lazy val FieldsetAddressGroup = new fieldset.addressGroup(GovukInput)
 
-  lazy val ErrorMessageDefault = new errormessage.default(DateInput)
+  lazy val ErrorMessageDefault = new errormessage.default(GovukDateInput)
 
-    lazy val DetailsDefault = new details.default()
+  lazy val DetailsDefault = new details.default()
 }

@@ -28,13 +28,13 @@ class phaseBannerSpec extends TemplateUnitSpec[PhaseBannerParams]("govukPhaseBan
     "allow additional classes to be added to the component" in {
       val classesString = "a-class another-class"
       val classes       = classesString.split("""\s+""")
-      val div           = PhaseBanner(PhaseBannerParams(classes = classesString)).select("div").first()
+      val div           = GovukPhaseBanner(PhaseBannerParams(classes = classesString)).select("div").first()
 
       div.classNames().asScala should contain allElementsOf classes
     }
 
     "render banner text" in {
-      val text = PhaseBanner(PhaseBannerParams(
+      val text = GovukPhaseBanner(PhaseBannerParams(
         content = HtmlContent("This is a new service – your feedback will help us to improve it.")))
         .select(".govuk-phase-banner__text")
         .first()
@@ -51,5 +51,5 @@ class phaseBannerSpec extends TemplateUnitSpec[PhaseBannerParams]("govukPhaseBan
     * @return [[Try[HtmlFormat.Appendable]]] containing the markup
     */
   override def render(templateParams: PhaseBannerParams): Try[HtmlFormat.Appendable] =
-    Try(PhaseBanner(templateParams))
+    Try(GovukPhaseBanner(templateParams))
 }

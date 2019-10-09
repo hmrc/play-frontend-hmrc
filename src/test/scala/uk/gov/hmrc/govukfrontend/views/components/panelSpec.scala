@@ -30,5 +30,5 @@ class panelSpec extends TemplateUnitSpec[PanelParams]("govukPanel") {
     * @return [[Try[HtmlFormat.Appendable]]] containing the markup
     */
   override def render(templateParams: PanelParams): Try[HtmlFormat.Appendable] =
-    Try(Panel(templateParams))
+    Try(GovukPanel(templateParams))
 }

@@ -30,5 +30,5 @@ class checkboxesSpec extends TemplateUnitSpec[CheckboxesParams]("govukCheckboxes
     * @return [[Try[HtmlFormat.Appendable]]] containing the markup
     */
   override def render(templateParams: CheckboxesParams): Try[HtmlFormat.Appendable] =
-    Try(Checkboxes(templateParams))
+    Try(GovukCheckboxes(templateParams))
 }

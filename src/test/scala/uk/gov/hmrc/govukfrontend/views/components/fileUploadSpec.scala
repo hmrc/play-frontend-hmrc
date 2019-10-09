@@ -31,5 +31,5 @@ class fileUploadSpec extends TemplateUnitSpec[FileUploadParams]("govukFileUpload
     * @return [[Try[HtmlFormat.Appendable]]] containing the markup
     */
   override def render(templateParams: FileUploadParams): Try[HtmlFormat.Appendable] =
-    Try(FileUpload(templateParams))
+    Try(GovukFileUpload(templateParams))
 }

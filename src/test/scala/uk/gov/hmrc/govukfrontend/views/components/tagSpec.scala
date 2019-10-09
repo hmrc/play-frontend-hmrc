@@ -24,7 +24,7 @@ import scala.util.Try
 class tagSpec extends TemplateUnitSpec[TagParams]("govukTag") {
   "tag" should {
     "render the default example with strong element and text" in {
-      val component = Tag(TagParams(content = HtmlContent("alpha"))).select(".govuk-tag")
+      val component = GovukTag(TagParams(content = HtmlContent("alpha"))).select(".govuk-tag")
 
       component.first().tagName() shouldBe "strong"
       component.first().text()    shouldBe "alpha"
@@ -38,5 +38,5 @@ class tagSpec extends TemplateUnitSpec[TagParams]("govukTag") {
     * @return [[Try[HtmlFormat.Appendable]]] containing the markup
     */
   override def render(templateParams: TagParams): Try[HtmlFormat.Appendable] =
-    Try(Tag(templateParams))
+    Try(GovukTag(templateParams))
 }

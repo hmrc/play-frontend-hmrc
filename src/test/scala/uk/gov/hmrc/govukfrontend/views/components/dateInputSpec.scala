@@ -33,5 +33,5 @@ class dateInputSpec extends TemplateUnitSpec[DateInputParams]("govukDateInput") 
     * @return [[Try[HtmlFormat.Appendable]]] containing the markup
     */
   override def render(params: DateInputParams): Try[HtmlFormat.Appendable] =
-    Try(DateInput(params))
+    Try(GovukDateInput(params))
 }

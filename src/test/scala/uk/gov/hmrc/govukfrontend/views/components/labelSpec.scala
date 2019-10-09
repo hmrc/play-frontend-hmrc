@@ -24,7 +24,7 @@ import scala.util.Try
 class labelSpec extends TemplateUnitSpec[LabelParams]("govukLabel") {
   "label" should {
     "not output anything if no html or text is provided" in {
-      val component = Label(LabelParams(content = Empty)).select(".govuk-label")
+      val component = GovukLabel(LabelParams(content = Empty)).select(".govuk-label")
 
       component.size() shouldBe 0
     }
@@ -37,5 +37,5 @@ class labelSpec extends TemplateUnitSpec[LabelParams]("govukLabel") {
     * @return [[Try[HtmlFormat.Appendable]]] containing the markup
     */
   override def render(templateParams: LabelParams): Try[HtmlFormat.Appendable] =
-    Try(Label(templateParams))
+    Try(GovukLabel(templateParams))
 }

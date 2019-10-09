@@ -24,123 +24,123 @@ package object components extends Utils with Aliases {
     */
   object implicits extends Implicits
 
-  type BackLink = backLink
+  type GovukBackLink = backLink
   @deprecated("Use DI")
-  lazy val BackLink = new backLink()
+  lazy val GovukBackLink = new backLink()
 
-  type Button = button
+  type GovukButton = button
   @deprecated("Use DI")
-  lazy val Button = new button()
+  lazy val GovukButton = new button()
 
-  type ErrorSummary = errorSummary
+  type GovukErrorSummary = errorSummary
   @deprecated("Use DI")
-  lazy val ErrorSummary = new errorSummary()
+  lazy val GovukErrorSummary = new errorSummary()
 
-  type Fieldset = fieldset
+  type GovukFieldset = fieldset
   @deprecated("Use DI")
-  lazy val Fieldset = new fieldset()
+  lazy val GovukFieldset = new fieldset()
 
-  type Footer = footer
+  type GovukFooter = footer
   @deprecated("Use DI")
-  lazy val Footer = new footer()
+  lazy val GovukFooter = new footer()
 
-  type Header = header
+  type GovukHeader = header
   @deprecated("Use DI")
-  lazy val Header = new header()
+  lazy val GovukHeader = new header()
 
-  type Hint = hint
+  type GovukHint = hint
   @deprecated("Use DI")
-  lazy val Hint = new hint()
+  lazy val GovukHint = new hint()
 
-  type Label = label
+  type GovukLabel = label
   @deprecated("Use DI")
-  lazy val Label = new label()
+  lazy val GovukLabel = new label()
 
-  type Tag = tag
+  type GovukTag = tag
   @deprecated("Use DI")
-  lazy val Tag = new tag()
+  lazy val GovukTag = new tag()
 
-  type PhaseBanner = phaseBanner
+  type GovukPhaseBanner = phaseBanner
   @deprecated("Use DI")
-  lazy val PhaseBanner = new phaseBanner(Tag)
+  lazy val GovukPhaseBanner = new phaseBanner(GovukTag)
 
-  type SkipLink = skipLink
+  type GovukSkipLink = skipLink
   @deprecated("Use DI")
-  lazy val SkipLink = new skipLink()
+  lazy val GovukSkipLink = new skipLink()
 
-  type ErrorMessage = errorMessage
+  type GovukErrorMessage = errorMessage
   @deprecated("Use DI")
-  lazy val ErrorMessage = new errorMessage()
+  lazy val GovukErrorMessage = new errorMessage()
 
-  type Details = details
+  type GovukDetails = details
   @deprecated("Use DI")
-  lazy val Details = new details()
+  lazy val GovukDetails = new details()
 
-  type Radios = radios
+  type GovukRadios = radios
   @deprecated("Use DI")
-  lazy val Radios = new radios(ErrorMessage, Fieldset, Hint, Label)
+  lazy val GovukRadios = new radios(GovukErrorMessage, GovukFieldset, GovukHint, GovukLabel)
 
-  type FileUpload = fileUpload
+  type GovukFileUpload = fileUpload
   @deprecated("Use DI")
-  lazy val FileUpload = new fileUpload(ErrorMessage, Hint, Label)
+  lazy val GovukFileUpload = new fileUpload(GovukErrorMessage, GovukHint, GovukLabel)
 
-  type Input = input
+  type GovukInput = input
   @deprecated("Use DI")
-  lazy val Input = new input(ErrorMessage, Hint, Label)
+  lazy val GovukInput = new input(GovukErrorMessage, GovukHint, GovukLabel)
 
-  type SummaryList = summaryList
+  type GovukSummaryList = summaryList
   @deprecated("Use DI")
-  lazy val SummaryList = new summaryList()
+  lazy val GovukSummaryList = new summaryList()
 
-  type DateInput = dateInput
+  type GovukDateInput = dateInput
   @deprecated("Use DI")
-  val DateInput = new dateInput(ErrorMessage, Hint, Fieldset, Input)
+  val GovukDateInput = new dateInput(GovukErrorMessage, GovukHint, GovukFieldset, GovukInput)
 
-  type Accordion = accordion
+  type GovukAccordion = accordion
   @deprecated("Use DI")
-  val Accordion = new accordion()
+  val GovukAccordion = new accordion()
 
-  type Breadcrumbs = breadcrumbs
+  type GovukBreadcrumbs = breadcrumbs
   @deprecated("Use DI")
-  val Breadcrumbs = new breadcrumbs()
+  val GovukBreadcrumbs = new breadcrumbs()
 
-  type Textarea = textarea
+  type GovukTextarea = textarea
   @deprecated("Use DI")
-  val Textarea = new textarea(ErrorMessage, Hint, Label)
+  val GovukTextarea = new textarea(GovukErrorMessage, GovukHint, GovukLabel)
 
-  type CharacterCount = characterCount
+  type GovukCharacterCount = characterCount
   @deprecated("Use DI")
-  val CharacterCount = new characterCount(Textarea)
+  val GovukCharacterCount = new characterCount(GovukTextarea)
 
-  type Checkboxes = checkboxes
+  type GovukCheckboxes = checkboxes
   @deprecated("Use DI")
-  val Checkboxes = new checkboxes(ErrorMessage, Fieldset, Hint, Label)
+  val GovukCheckboxes = new checkboxes(GovukErrorMessage, GovukFieldset, GovukHint, GovukLabel)
 
-  type Select = select
+  type GovukSelect = select
   @deprecated("Use DI")
-  val Select = new select(ErrorMessage, Hint, Label)
+  val GovukSelect = new select(GovukErrorMessage, GovukHint, GovukLabel)
 
-  type InsetText = insetText
+  type GovukInsetText = insetText
   @deprecated("Use DI")
-  val InsetText = new insetText()
+  val GovukInsetText = new insetText()
 
-  type WarningText = warningText
+  type GovukWarningText = warningText
   @deprecated("Use DI")
-  val WarningText = new warningText()
+  val GovukWarningText = new warningText()
 
-  type Panel = panel
+  type GovukPanel = panel
   @deprecated("Use DI")
-  val Panel = new panel()
+  val GovukPanel = new panel()
 
-  type Table = table
+  type GovukTable = table
   @deprecated("Use DI")
-  val Table = new table()
+  val GovukTable = new table()
 
-  type Tabs = tabs
+  type GovukTabs = tabs
   @deprecated("Use DI")
-  val Tabs = new tabs()
+  val GovukTabs = new tabs()
 
   type GovukTemplate = govukTemplate
   @deprecated("Use DI")
-  lazy val GovukTemplate = new govukTemplate(Header, Footer, SkipLink)
+  lazy val GovukTemplate = new govukTemplate(GovukHeader, GovukFooter, GovukSkipLink)
 }

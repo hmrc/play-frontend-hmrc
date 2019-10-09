@@ -25,7 +25,7 @@ class detailsSpec extends TemplateUnitSpec[DetailsParams]("govukDetails") {
 
   "details" should {
     "allow text to be passed whilst escaping HTML entities" in {
-      val details = Details(DetailsParams(summary = Empty, content = Text("More about the greater than symbol (>)")))
+      val details = GovukDetails(DetailsParams(summary = Empty, content = Text("More about the greater than symbol (>)")))
         .select(".govuk-details__text")
         .html
         .trim
@@ -34,7 +34,7 @@ class detailsSpec extends TemplateUnitSpec[DetailsParams]("govukDetails") {
     }
 
     "allow HTML to be passed un-escaped" in {
-      val details = Details(DetailsParams(summary = Empty, content = HtmlContent("More about <b>bold text</b>")))
+      val details = GovukDetails(DetailsParams(summary = Empty, content = HtmlContent("More about <b>bold text</b>")))
         .select(".govuk-details__text")
         .html
         .trim
@@ -43,7 +43,7 @@ class detailsSpec extends TemplateUnitSpec[DetailsParams]("govukDetails") {
     }
 
     "allow summary text to be passed whilst escaping HTML entities" in {
-      val details = Details(DetailsParams(summary = Text("The greater than symbol (>) is the best"), content = Empty))
+      val details = GovukDetails(DetailsParams(summary = Text("The greater than symbol (>) is the best"), content = Empty))
         .select(".govuk-details__summary-text")
         .html
         .trim
@@ -53,7 +53,7 @@ class detailsSpec extends TemplateUnitSpec[DetailsParams]("govukDetails") {
 
     "allow summary HTML to be passed un-escaped" in {
       val details =
-        Details(DetailsParams(summary = HtmlContent("Use <b>bold text</b> sparingly"), content = Empty))
+        GovukDetails(DetailsParams(summary = HtmlContent("Use <b>bold text</b> sparingly"), content = Empty))
           .select(".govuk-details__summary-text")
           .html
           .trim
@@ -63,7 +63,7 @@ class detailsSpec extends TemplateUnitSpec[DetailsParams]("govukDetails") {
 
     "allow additional classes to be added to the details element" in {
       val details =
-        Details(DetailsParams(classes = "some-additional-class", summary = Empty, content = Empty))
+        GovukDetails(DetailsParams(classes = "some-additional-class", summary = Empty, content = Empty))
           .select(".govuk-details")
 
       assert(details.hasClass("some-additional-class"))
@@ -71,7 +71,7 @@ class detailsSpec extends TemplateUnitSpec[DetailsParams]("govukDetails") {
 
     "allow additional attributes to be added to the details element" in {
       val details =
-        Details(
+        GovukDetails(
           DetailsParams(
             attributes = Map("data-some-data-attribute" -> "i-love-data", "another-attribute" -> "true"),
             summary    = Empty,
@@ -90,5 +90,5 @@ class detailsSpec extends TemplateUnitSpec[DetailsParams]("govukDetails") {
     * @return [[Try[HtmlFormat.Appendable]]] containing the markup
     */
   override def render(params: DetailsParams): Try[HtmlFormat.Appendable] =
-    Try(Details(params))
+    Try(GovukDetails(params))
 }

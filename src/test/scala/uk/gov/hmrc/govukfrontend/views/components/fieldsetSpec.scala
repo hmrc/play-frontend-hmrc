@@ -29,5 +29,5 @@ class fieldsetSpec extends TemplateUnitSpec[FieldsetParams]("govukFieldset") {
     * @return [[Try[HtmlFormat.Appendable]]] containing the markup
     */
   override def render(templateParams: FieldsetParams): Try[HtmlFormat.Appendable] =
-    Try(Fieldset(templateParams))
+    Try(GovukFieldset(templateParams))
 }

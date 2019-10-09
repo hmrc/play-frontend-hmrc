@@ -29,5 +29,5 @@ class footerSpec extends TemplateUnitSpec[FooterParams]("govukFooter") {
     * @return [[Try[HtmlFormat.Appendable]]] containing the markup
     */
   override def render(templateParams: FooterParams): Try[HtmlFormat.Appendable] =
-    Try(Footer(templateParams))
+    Try(GovukFooter(templateParams))
 }

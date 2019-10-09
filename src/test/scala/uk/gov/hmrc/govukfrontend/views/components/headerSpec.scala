@@ -25,7 +25,7 @@ class headerSpec extends TemplateUnitSpec[HeaderParams]("govukHeader") {
 
   "header" should {
     "have a role of banner" in {
-      val component = Header(HeaderParams()).select(".govuk-header")
+      val component = GovukHeader(HeaderParams()).select(".govuk-header")
       component.attr("role") shouldBe "banner"
     }
   }
@@ -37,5 +37,5 @@ class headerSpec extends TemplateUnitSpec[HeaderParams]("govukHeader") {
     * @return [[Try[HtmlFormat.Appendable]]] containing the markup
     */
   override def render(templateParams: HeaderParams): Try[HtmlFormat.Appendable] =
-    Try(Header(templateParams))
+    Try(GovukHeader(templateParams))
 }

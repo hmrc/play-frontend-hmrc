@@ -24,63 +24,63 @@ package object components extends Utils with Aliases {
    */
   object implicits extends Implicits
 
-  lazy val BackLink = backLink
+  lazy val GovukBackLink = backLink
 
-  lazy val Button = button
+  lazy val GovukButton = button
 
-  lazy val ErrorSummary = errorSummary
+  lazy val GovukErrorSummary = errorSummary
 
-  lazy val Fieldset = fieldset
+  lazy val GovukFieldset = fieldset
 
-  lazy val Footer = footer
+  lazy val GovukFooter = footer
 
-  lazy val Header = header
+  lazy val GovukHeader = header
 
-  lazy val Hint = hint
+  lazy val GovukHint = hint
 
-  lazy val Label = label
+  lazy val GovukLabel = label
 
-  lazy val Tag = tag
+  lazy val GovukTag = tag
 
-  lazy val PhaseBanner = phaseBanner
+  lazy val GovukPhaseBanner = phaseBanner
 
-  lazy val SkipLink = skipLink
+  lazy val GovukSkipLink = skipLink
 
-  lazy val ErrorMessage = errorMessage
+  lazy val GovukErrorMessage = errorMessage
 
-  lazy val Details = details
+  lazy val GovukDetails = details
 
-  lazy val Radios = radios
+  lazy val GovukRadios = radios
 
-  lazy val FileUpload = fileUpload
+  lazy val GovukFileUpload = fileUpload
 
-  lazy val Input = input
+  lazy val GovukInput = input
 
-  lazy val SummaryList = summaryList
+  lazy val GovukSummaryList = summaryList
 
-  lazy val DateInput = dateInput
+  lazy val GovukDateInput = dateInput
 
-  lazy val Accordion = accordion
+  lazy val GovukAccordion = accordion
 
-  lazy val Breadcrumbs = breadcrumbs
+  lazy val GovukBreadcrumbs = breadcrumbs
 
-  lazy val Textarea = textarea
+  lazy val GovukTextarea = textarea
 
-  lazy val CharacterCount = characterCount
+  lazy val GovukCharacterCount = characterCount
 
-  lazy val Checkboxes = checkboxes
+  lazy val GovukCheckboxes = checkboxes
 
-  lazy val Select = select
+  lazy val GovukSelect = select
 
-  lazy val InsetText = insetText
+  lazy val GovukInsetText = insetText
 
-  lazy val WarningText = warningText
+  lazy val GovukWarningText = warningText
 
-  lazy val Panel = panel
+  lazy val GovukPanel = panel
 
-  lazy val Table = table
+  lazy val GovukTable = table
 
-  lazy val Tabs = tabs
+  lazy val GovukTabs = tabs
 
   lazy val GovukTemplate = govukTemplate
 }

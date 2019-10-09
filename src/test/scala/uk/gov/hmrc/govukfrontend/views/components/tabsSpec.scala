@@ -31,5 +31,5 @@ class tabsSpec extends TemplateUnitSpec[TabsParams]("govukTabs") {
     */
   override def render(
     templateParams: _root_.uk.gov.hmrc.govukfrontend.views.html.components.TabsParams): Try[HtmlFormat.Appendable] =
-    Try(Tabs(templateParams))
+    Try(GovukTabs(templateParams))
 }

@@ -30,5 +30,5 @@ class insetTextSpec extends TemplateUnitSpec[InsetTextParams]("govukInsetText") 
     * @return [[Try[HtmlFormat.Appendable]]] containing the markup
     */
   override def render(templateParams: InsetTextParams): Try[HtmlFormat.Appendable] =
-    Try(InsetText(templateParams))
+    Try(GovukInsetText(templateParams))
 }

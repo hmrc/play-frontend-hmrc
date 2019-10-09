@@ -29,7 +29,7 @@ object backLinkTemplateIntegrationSpec
     extends TemplateIntegrationSpec[BackLinkParams](govukComponentName = "govukBackLink", seed = None) {
 
   override def render(backLinkParams: BackLinkParams): Try[HtmlFormat.Appendable] =
-    Try(BackLink(backLinkParams))
+    Try(GovukBackLink(backLinkParams))
 
   override def classifiers(backLinkParams: BackLinkParams): Stream[ClassifyParams] =
     (backLinkParams.href.isEmpty, "empty href", "non-empty href") #::

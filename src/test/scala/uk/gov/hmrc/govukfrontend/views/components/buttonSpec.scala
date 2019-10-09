@@ -26,7 +26,7 @@ class buttonSpec extends TemplateUnitSpec[ButtonParams]("govukButton") {
   "button element" should {
     "render the default example" in {
       val component =
-        Button(ButtonParams(content = Text("Save and continue")))
+        GovukButton(ButtonParams(content = Text("Save and continue")))
           .select(".govuk-button")
 
       component.first.tagName shouldBe "button"
@@ -41,5 +41,5 @@ class buttonSpec extends TemplateUnitSpec[ButtonParams]("govukButton") {
     * @return [[Try[HtmlFormat.Appendable]]] containing the markup
     */
   override def render(templateParams: ButtonParams): Try[HtmlFormat.Appendable] =
-    Try(Button(templateParams))
+    Try(GovukButton(templateParams))
 }

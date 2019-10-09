@@ -30,5 +30,5 @@ class breadcrumbsSpec extends TemplateUnitSpec[BreadcrumbsParams]("govukBreadcru
     * @return [[Try[HtmlFormat.Appendable]]] containing the markup
     */
   override def render(templateParams: BreadcrumbsParams): Try[HtmlFormat.Appendable] =
-    Try(Breadcrumbs(templateParams))
+    Try(GovukBreadcrumbs(templateParams))
 }

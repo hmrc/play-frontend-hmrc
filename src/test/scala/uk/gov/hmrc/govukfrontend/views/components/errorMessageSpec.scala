@@ -24,13 +24,13 @@ import scala.util.Try
 class errorMessageSpec extends TemplateUnitSpec[ErrorMessageParams]("govukErrorMessage") {
   "errorMessage" should {
     "allow additional classes to be specified" in {
-      val component = ErrorMessage(ErrorMessageParams(classes = "custom-class", content = Empty))
+      val component = GovukErrorMessage(ErrorMessageParams(classes = "custom-class", content = Empty))
         .select(".govuk-error-message")
       assert(component.hasClass("custom-class"))
     }
 
     "allow text to be passed whilst escaping HTML entities" in {
-      val content = ErrorMessage(ErrorMessageParams(content = Text("Unexpected > in body")))
+      val content = GovukErrorMessage(ErrorMessageParams(content = Text("Unexpected > in body")))
         .select(".govuk-error-message")
         .html
         .trim
@@ -38,7 +38,7 @@ class errorMessageSpec extends TemplateUnitSpec[ErrorMessageParams]("govukErrorM
     }
 
     "allow summary HTML to be passed unescaped" in {
-      val content = ErrorMessage(ErrorMessageParams(content = HtmlContent("Unexpected <b>bold text</b> in body copy")))
+      val content = GovukErrorMessage(ErrorMessageParams(content = HtmlContent("Unexpected <b>bold text</b> in body copy")))
         .select(".govuk-error-message")
         .html
         .trim
@@ -46,7 +46,7 @@ class errorMessageSpec extends TemplateUnitSpec[ErrorMessageParams]("govukErrorM
     }
 
     "allow additional attributes to be specified" in {
-      val component = ErrorMessage(
+      val component = GovukErrorMessage(
         ErrorMessageParams(attributes = Map("data-test" -> "attribute", "id" -> "my-error-message"), content = Empty))
         .select(".govuk-error-message")
       component.attr("data-test") shouldBe "attribute"
@@ -55,13 +55,13 @@ class errorMessageSpec extends TemplateUnitSpec[ErrorMessageParams]("govukErrorM
 
     "include a visually hidden 'Error' prefix by default" in {
       val component =
-        ErrorMessage(ErrorMessageParams(content = Text("Enter your full name"))).select(".govuk-error-message")
+        GovukErrorMessage(ErrorMessageParams(content = Text("Enter your full name"))).select(".govuk-error-message")
       component.text.trim shouldBe "Error: Enter your full name"
     }
 
     "allow the visually hidden prefix to be customised" in {
       val component =
-        ErrorMessage(
+        GovukErrorMessage(
           ErrorMessageParams(visuallyHiddenText = Some("Gwall"), content = Text("Rhowch eich enw llawn")))
           .select(".govuk-error-message")
       component.text.trim shouldBe "Gwall: Rhowch eich enw llawn"
@@ -69,7 +69,7 @@ class errorMessageSpec extends TemplateUnitSpec[ErrorMessageParams]("govukErrorM
 
     "allow the visually hidden prefix to be removed" in {
       val component =
-        ErrorMessage(ErrorMessageParams(visuallyHiddenText = None, content = Text("There is an error on line 42")))
+        GovukErrorMessage(ErrorMessageParams(visuallyHiddenText = None, content = Text("There is an error on line 42")))
           .select(".govuk-error-message")
       component.text.trim shouldBe "There is an error on line 42"
     }
@@ -82,5 +82,5 @@ class errorMessageSpec extends TemplateUnitSpec[ErrorMessageParams]("govukErrorM
     * @return [[Try[HtmlFormat.Appendable]]] containing the markup
     */
   override def render(templateParams: ErrorMessageParams): Try[HtmlFormat.Appendable] =
-    Try(ErrorMessage(templateParams))
+    Try(GovukErrorMessage(templateParams))
 }

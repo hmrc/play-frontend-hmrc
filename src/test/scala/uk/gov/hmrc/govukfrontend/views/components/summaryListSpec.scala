@@ -31,5 +31,5 @@ class summaryListSpec extends TemplateUnitSpec[SummaryListParams]("govukSummaryL
     */
   override def render(templateParams: _root_.uk.gov.hmrc.govukfrontend.views.html.components.SummaryListParams)
     : Try[HtmlFormat.Appendable] =
-    Try(SummaryList(templateParams))
+    Try(GovukSummaryList(templateParams))
 }

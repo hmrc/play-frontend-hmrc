@@ -25,7 +25,7 @@ class skipLinkSpec extends TemplateUnitSpec[SkipLinkParams]("govukSkipLink") {
 
   "skipLink" should {
     "render href" in {
-      val component = SkipLink(SkipLinkParams(href = "#custom", content = Empty)).select(".govuk-skip-link")
+      val component = GovukSkipLink(SkipLinkParams(href = "#custom", content = Empty)).select(".govuk-skip-link")
 
       component.first().attr("href") shouldBe "#custom"
     }
@@ -38,5 +38,5 @@ class skipLinkSpec extends TemplateUnitSpec[SkipLinkParams]("govukSkipLink") {
     * @return [[Try[HtmlFormat.Appendable]]] containing the markup
     */
   override def render(templateParams: SkipLinkParams): Try[HtmlFormat.Appendable] =
-    Try(SkipLink(templateParams))
+    Try(GovukSkipLink(templateParams))
 }

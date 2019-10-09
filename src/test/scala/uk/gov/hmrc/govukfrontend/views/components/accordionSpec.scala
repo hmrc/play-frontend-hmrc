@@ -30,5 +30,5 @@ class accordionSpec extends TemplateUnitSpec[AccordionParams]("govukAccordion") 
     * @return [[Try[HtmlFormat.Appendable]]] containing the markup
     */
   override def render(templateParams: AccordionParams): Try[HtmlFormat.Appendable] =
-    Try(Accordion(templateParams))
+    Try(GovukAccordion(templateParams))
 }

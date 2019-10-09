@@ -30,5 +30,5 @@ class textareaSpec extends TemplateUnitSpec[TextareaParams]("govukTextarea") {
     * @return [[Try[HtmlFormat.Appendable]]] containing the markup
     */
   override def render(templateParams: TextareaParams): Try[HtmlFormat.Appendable] =
-    Try(Textarea(templateParams))
+    Try(GovukTextarea(templateParams))
 }

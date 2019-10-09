@@ -30,5 +30,5 @@ class selectSpec extends TemplateUnitSpec[SelectParams]("govukSelect") {
     * @return [[Try[HtmlFormat.Appendable]]] containing the markup
     */
   override def render(templateParams: SelectParams): Try[HtmlFormat.Appendable] =
-    Try(Select(templateParams))
+    Try(GovukSelect(templateParams))
 }

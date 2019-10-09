@@ -30,5 +30,5 @@ class characterCountSpec extends TemplateUnitSpec[CharacterCountParams]("govukCh
     * @return [[Try[HtmlFormat.Appendable]]] containing the markup
     */
   override def render(params: CharacterCountParams): Try[HtmlFormat.Appendable] =
-    Try(CharacterCount(params))
+    Try(GovukCharacterCount(params))
 }

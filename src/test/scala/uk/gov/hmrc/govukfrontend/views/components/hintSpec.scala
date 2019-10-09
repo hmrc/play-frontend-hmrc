@@ -29,5 +29,5 @@ class hintSpec extends TemplateUnitSpec[HintParams]("govukHint") {
     * @return [[Try[HtmlFormat.Appendable]]] containing the markup
     */
   override def render(templateParams: HintParams): Try[HtmlFormat.Appendable] =
-    Try(Hint(templateParams))
+    Try(GovukHint(templateParams))
 }

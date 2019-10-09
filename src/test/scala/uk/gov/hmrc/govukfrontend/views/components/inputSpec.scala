@@ -29,5 +29,5 @@ class inputSpec extends TemplateUnitSpec[InputParams]("govukInput") {
     * @return [[Try[HtmlFormat.Appendable]]] containing the markup
     */
   override def render(templateParams: InputParams): Try[HtmlFormat.Appendable] =
-    Try(Input(templateParams))
+    Try(GovukInput(templateParams))
 }

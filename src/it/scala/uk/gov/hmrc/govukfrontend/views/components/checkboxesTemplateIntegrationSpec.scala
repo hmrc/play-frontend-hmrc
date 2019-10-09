@@ -33,7 +33,7 @@ object checkboxesTemplateIntegrationSpec
 
   override def render(checkboxesParams: CheckboxesParams): Try[HtmlFormat.Appendable] =
     Try(
-      Checkboxes(
+      GovukCheckboxes(
         CheckboxesParams(
           describedBy        = checkboxesParams.describedBy,
           fieldsetParams     = checkboxesParams.fieldsetParams,

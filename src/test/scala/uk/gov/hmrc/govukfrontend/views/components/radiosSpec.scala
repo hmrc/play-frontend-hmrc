@@ -30,5 +30,5 @@ class radiosSpec extends TemplateUnitSpec[RadiosParams]("govukRadios") {
     * @return [[Try[HtmlFormat.Appendable]]] containing the markup
     */
   override def render(templateParams: RadiosParams): Try[HtmlFormat.Appendable] =
-    Try(Radios(templateParams))
+    Try(GovukRadios(templateParams))
 }
