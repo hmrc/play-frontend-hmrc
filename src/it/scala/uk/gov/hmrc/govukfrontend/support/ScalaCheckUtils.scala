@@ -13,7 +13,7 @@ object ScalaCheckUtils {
     * A [[Stream]] is used to avoid evaluating the conditions prematurely.
     *
     * @param conditions [[Stream]] of triples (condition, ifTrue, ifFalse)
-    * @param prop
+    * @param prop a scalacheck property [[Prop]]
     * @return [[Prop]]
     */
   @scala.annotation.tailrec
