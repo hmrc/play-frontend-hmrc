@@ -18,20 +18,6 @@ package uk.gov.hmrc.govukfrontend.views
 package viewmodels
 package backlink
 
-import org.scalacheck.ShrinkLowPriority
-import org.scalatest.{Matchers, OptionValues, WordSpec}
-import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks
-import play.api.libs.json.Json
+import uk.gov.hmrc.govukfrontend.views.viewmodels.backlink.Generators._
 
-class BackLinkParamsSpec extends WordSpec with Matchers with OptionValues with ScalaCheckPropertyChecks with ShrinkLowPriority {
-
-  import Generators._
-
-  "Json reads/writes" should {
-    "do a roundtrip json serialisation" in {
-      forAll { backLinkParams: BackLinkParams =>
-        Json.toJson(backLinkParams).asOpt[BackLinkParams].value shouldBe backLinkParams
-      }
-    }
-  }
-}
+class BackLinkParamsSpec extends JsonRoundtripSpec("BackLinkParams")

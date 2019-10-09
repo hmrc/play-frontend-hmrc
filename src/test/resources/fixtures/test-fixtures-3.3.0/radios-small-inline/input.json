@@ -1,0 +1,24 @@
+{
+  "idPrefix": "sort",
+  "classes": "govuk-radios--small govuk-radios--inline",
+  "name": "example",
+  "fieldset": {
+    "legend": {
+      "text": "Sort by"
+    }
+  },
+  "items": [
+    {
+      "value": "relevance",
+      "text": "relevance"
+    },
+    {
+      "value": "title",
+      "text": "title"
+    },
+    {
+      "value": "created",
+      "text": "created"
+    }
+  ]
+}

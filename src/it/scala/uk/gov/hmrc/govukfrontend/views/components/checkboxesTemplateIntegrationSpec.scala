@@ -29,12 +29,7 @@ import uk.gov.hmrc.govukfrontend.views.viewmodels.checkboxes.CheckboxesParams
 import scala.util.Try
 
 object checkboxesTemplateIntegrationSpec
-    extends TemplateIntegrationSpec[CheckboxesParams](
-      govukComponentName = "govukCheckboxes",
-      seed               = None) {
-
-  override def overrideParameters(p: Test.Parameters): Test.Parameters =
-    p.withMinSuccessfulTests(50)
+    extends TemplateIntegrationSpec[CheckboxesParams](govukComponentName = "govukCheckboxes", seed = None) {
 
   override def render(checkboxesParams: CheckboxesParams): Try[HtmlFormat.Appendable] =
     Try(
@@ -81,6 +76,7 @@ object checkboxesTemplateIntegrationSpec
       .empty[ClassifyParams]
       .map {
         case (condition, ifTrue, ifFalse) =>
+          // prefix previous classifiers with 'fieldsetParams' to avoid name clashes when reporting
           (condition, s"fieldsetParams $ifTrue", s"fieldsetParams $ifFalse")
       }
 

@@ -29,12 +29,13 @@ case class DiffWrapper(differ: DiffMatchPatch) {
     * @param diff
     * @return [[Path]] to the file
     */
-  def diffToHtml(diff: mutable.Buffer[DiffMatchPatch.Diff]): Path = {
+  def diffToHtml(diff: mutable.Buffer[DiffMatchPatch.Diff], fileNamePrefix: Option[String] = None): Path = {
     // write diff as pretty html to a file
     val diffHtml = differ.diffPrettyHtml(diff.asJava)
 
     val userDir = System.getProperty("user.dir")
-    val name    = s"diff-${UUID.randomUUID.toString}.html"
+    val prefix = fileNamePrefix.map(_ + "-").getOrElse("")
+    val name    =  s"${prefix}diff-${UUID.randomUUID.toString}.html"
     val file    = userDir / "target" / name
 
     file.overwrite(diffHtml)

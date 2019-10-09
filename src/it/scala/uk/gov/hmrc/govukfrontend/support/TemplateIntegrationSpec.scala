@@ -3,15 +3,15 @@ package uk.gov.hmrc.govukfrontend.support
 import org.bitbucket.cowwoc.diffmatchpatch.DiffMatchPatch
 import org.jsoup.Jsoup
 import org.scalacheck.Prop.{forAll, secure}
+import org.scalacheck.Test.TestCallback
 import org.scalacheck.{Arbitrary, Properties, ShrinkLowPriority, Test}
 import org.scalatest.concurrent.{IntegrationPatience, ScalaFutures}
 import play.api.libs.json.{Json, OWrites}
-import play.twirl.api.HtmlFormat
 import uk.gov.hmrc.govukfrontend.support.Implicits._
 import uk.gov.hmrc.govukfrontend.support.ScalaCheckUtils.{ClassifyParams, classify}
 import uk.gov.hmrc.govukfrontend.views.{JsoupHelpers, TemplateValidationException, TwirlRenderer}
 import scala.collection.JavaConverters._
-import scala.util.{Failure, Success, Try}
+import scala.util.{Failure, Success}
 
 /**
   * Base class for integration testing a Twirl template against the Nunjucks template rendering service
@@ -36,6 +36,23 @@ abstract class TemplateIntegrationSpec[T: OWrites: Arbitrary](govukComponentName
     */
   def classifiers(templateParams: T): Stream[ClassifyParams] =
     Stream.empty[ClassifyParams]
+
+  // Due to rounding in [[org.scalacheck.util.Pretty.prettyFreqMap]] the console reporter shows some
+  // frequencies collected from the classifiers as 0% when they are not zero.
+  // This reporter looks for null counts in the classifiers which can signal problems in the generator
+  override def overrideParameters(p: Test.Parameters): Test.Parameters =
+    p.withTestCallback(p.testCallback chain new TestCallback {
+        override def onTestResult(name: String, result: Test.Result): Unit = {
+          println(s"Generator reporter $name")
+          val emptyStats = result.freqMap.getCounts.filter { case (_, c) => c == 0 }
+          if (emptyStats.nonEmpty) {
+            pprint.pprintln("some stats are null, please tweak the generator to provide better coverage")
+            pprint.pprintln(emptyStats, width = 80, height = Int.MaxValue)
+          } else ()
+        }
+
+      })
+      .withMinSuccessfulTests(50)
 
   /***
     * Diff utility to report diffs in test failures
@@ -76,8 +93,7 @@ abstract class TemplateIntegrationSpec[T: OWrites: Arbitrary](govukComponentName
 
             prop
           case Failure(TemplateValidationException(message)) =>
-            println(
-              s"Failed to validate the parameters for the template for $govukComponentName")
+            println(s"Failed to validate the parameters for the template for $govukComponentName")
             println(s"Exception: $message")
             println("Skipping property evaluation")
 
@@ -101,7 +117,7 @@ abstract class TemplateIntegrationSpec[T: OWrites: Arbitrary](govukComponentName
     templateParams: T
   ): Unit = {
     val diffResult = diffWrapper.diff(nunJucksOutputHtml, twirlOutputHtml)
-    val path       = diffWrapper.diffToHtml(diffResult.asScala)
+    val path       = diffWrapper.diffToHtml(diff = diffResult.asScala, fileNamePrefix = Some(govukComponentName))
 
     println("\nThe rendered templates are different\n")
     println("-" * 80)

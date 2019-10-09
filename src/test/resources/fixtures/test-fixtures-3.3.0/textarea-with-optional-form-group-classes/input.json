@@ -1,0 +1,10 @@
+{
+  "id": "textarea-with-page-heading",
+  "name": "address",
+  "label": {
+    "text": "Full address"
+  },
+  "formGroup": {
+    "classes": "extra-class"
+  }
+}

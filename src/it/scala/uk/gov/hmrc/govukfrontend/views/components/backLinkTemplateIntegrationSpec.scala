@@ -17,20 +17,16 @@
 package uk.gov.hmrc.govukfrontend.views
 package components
 
-import org.scalacheck._
 import play.twirl.api.HtmlFormat
 import uk.gov.hmrc.govukfrontend.support.ScalaCheckUtils.ClassifyParams
 import uk.gov.hmrc.govukfrontend.support.TemplateIntegrationSpec
 import uk.gov.hmrc.govukfrontend.views.html.components._
-import uk.gov.hmrc.govukfrontend.views.viewmodels.backlink.Generators._
 import uk.gov.hmrc.govukfrontend.views.viewmodels.backlink.BackLinkParams
+import uk.gov.hmrc.govukfrontend.views.viewmodels.backlink.Generators._
 import scala.util.Try
 
 object backLinkTemplateIntegrationSpec
     extends TemplateIntegrationSpec[BackLinkParams](govukComponentName = "govukBackLink", seed = None) {
-
-  override def overrideParameters(p: Test.Parameters): Test.Parameters =
-    p.withMinSuccessfulTests(50)
 
   override def render(backLinkParams: BackLinkParams): Try[HtmlFormat.Appendable] =
     Try(BackLink(backLinkParams))
