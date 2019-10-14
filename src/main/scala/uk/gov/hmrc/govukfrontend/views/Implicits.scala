@@ -140,6 +140,21 @@ trait Implicits {
           ErrorMessageParams(content = contentConstructor(errorMessage(formError)))
         }
 
+    def asHtmlErrorMessageForField(fieldKey: String): Option[ErrorMessageParams] =
+      asErrorMessageForField(HtmlContent.apply, fieldKey)
+
+    def asTextErrorMessageForField(fieldKey: String): Option[ErrorMessageParams] =
+      asErrorMessageForField(Text.apply, fieldKey)
+
+    private[views] def asErrorMessageForField(
+      contentConstructor: String => Content,
+      fieldKey: String): Option[ErrorMessageParams] =
+      formErrors
+        .find(_.key == fieldKey)
+        .map { formError =>
+          ErrorMessageParams(content = contentConstructor(errorMessage(formError)))
+        }
+
     private def errorMessage(formError: FormError) = messages(formError.message, formError.args: _*)
   }
 }
