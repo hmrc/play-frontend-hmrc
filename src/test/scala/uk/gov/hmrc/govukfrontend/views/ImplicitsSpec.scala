@@ -98,7 +98,55 @@ class ImplicitsSpec
         }
       }
     }
+
+    "asErrorMessageForField" when {
+      "finds matching message for field" should {
+        "convert FormErrors to ErrorMessageParams" in {
+          forAll(genFormErrorsAndMessages) {
+            case (formErrors, contentConstructor, messagesStub) =>
+              import messagesStub.messages
+              val i        = Random.nextInt(formErrors.length)
+              val fieldKey = formErrors(i).key //select random message
+              formErrors.asErrorMessageForField(contentConstructor, fieldKey).value shouldBe ErrorMessageParams(
+                content = contentConstructor(messagesStub.messages(formErrors(i).message, formErrors(i).args: _*)))
+          }
+        }
+      }
+
+      "finds matching message for field" should {
+        "convert FormErrors to ErrorMessageParams choosing first error when several errors are present for the same field" in {
+          forAll(genFormErrorsAndMessagesForSameFormField) {
+            case (formErrors, contentConstructor, messagesStub) =>
+              import messagesStub.messages
+              val i                  = boundedPositiveRandom(formErrors.length)
+              val fieldKey           = formErrors(i).key //select random message
+              val firstErrorForField = formErrors.filter(_.key == fieldKey)(0)
+              formErrors.asErrorMessageForField(contentConstructor, fieldKey).value shouldBe ErrorMessageParams(
+                content =
+                  contentConstructor(messagesStub.messages(firstErrorForField.message, firstErrorForField.args: _*)))
+          }
+        }
+      }
+
+      "finds matching message for field" should {
+        "return None" in {
+          forAll(genFormErrorsAndMessagesForSameFormField) {
+            case (formErrors, contentConstructor, messagesStub) =>
+              import messagesStub.messages
+              val i        = Random.nextInt(formErrors.length)
+              val fieldKey = "" //select random message
+              formErrors.asErrorMessageForField(contentConstructor, fieldKey) shouldBe None
+          }
+        }
+      }
+    }
   }
+
+  private def boundedPositiveRandom(bound: Int) =
+    if (bound == 1)
+      Random.nextInt(bound)
+    else
+      Random.nextInt(bound - 1) + 1
 
   "padLeft" should {
     "add left padding to non-empty HTML" in {
@@ -184,6 +232,12 @@ class ImplicitsSpec
         args  <- Gen.listOfN(nArgs, genNonEmptyAlphaStr)
       } yield FormError(key = s"$key", message = messageKey, args = args)
 
+    def genFormErrorForSameFormField(messageKey: String): Gen[FormError] =
+      for {
+        nArgs <- Gen.chooseNum(1, 5)
+        args  <- Gen.listOfN(nArgs, genNonEmptyAlphaStr)
+      } yield FormError(key = "FieldKey1", message = messageKey, args = args)
+
     val genFormErrorsAndMessages: Gen[(immutable.Seq[FormError], String => Content, MessagesHelpers)] = for {
       contentConstructor <- Gen.oneOf(Gen.const(HtmlContent.apply(_: String)), Gen.const(Text.apply _))
       n                  <- Gen.chooseNum(1, 5)
@@ -194,5 +248,19 @@ class ImplicitsSpec
       (errors, contentConstructor, new MessagesHelpers {
         override val messagesMap = Map("default" -> generatedMessages)
       })
+
+    val genFormErrorsAndMessagesForSameFormField: Gen[(immutable.Seq[FormError], String => Content, MessagesHelpers)] =
+      for {
+        contentConstructor <- Gen.oneOf(Gen.const(HtmlContent.apply(_: String)), Gen.const(Text.apply _))
+        n                  <- Gen.chooseNum(2, 5)
+        generatedMessages  <- genMessages
+        messageKey        = generatedMessages.keys.toSeq(Random.nextInt(generatedMessages.size))
+        anotherMessageKey = generatedMessages.keys.toSeq(boundedPositiveRandom(generatedMessages.size))
+        errors             <- Gen.listOfN(n, genFormErrorForSameFormField(messageKey)).map(_.toSeq)
+        anotherSetOfErrors <- Gen.listOfN(n, genFormErrorForSameFormField(anotherMessageKey)).map(_.toSeq)
+      } yield
+        (errors ++ anotherSetOfErrors, contentConstructor, new MessagesHelpers {
+          override val messagesMap = Map("default" -> generatedMessages)
+        })
   }
 }
