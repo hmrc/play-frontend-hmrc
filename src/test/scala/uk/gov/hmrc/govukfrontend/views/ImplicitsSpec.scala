@@ -118,7 +118,7 @@ class ImplicitsSpec
           forAll(genFormErrorsAndMessagesForSameFormField) {
             case (formErrors, contentConstructor, messagesStub) =>
               import messagesStub.messages
-              val i                  = boundedPositiveRandom(formErrors.length)
+              val i                  = Random.nextInt(formErrors.length)
               val fieldKey           = formErrors(i).key //select random message
               val firstErrorForField = formErrors.filter(_.key == fieldKey)(0)
               formErrors.asErrorMessageForField(contentConstructor, fieldKey).value shouldBe ErrorMessageParams(
@@ -141,12 +141,6 @@ class ImplicitsSpec
       }
     }
   }
-
-  private def boundedPositiveRandom(bound: Int) =
-    if (bound == 1)
-      Random.nextInt(bound)
-    else
-      Random.nextInt(bound - 1) + 1
 
   "padLeft" should {
     "add left padding to non-empty HTML" in {
@@ -242,8 +236,8 @@ class ImplicitsSpec
       contentConstructor <- Gen.oneOf(Gen.const(HtmlContent.apply(_: String)), Gen.const(Text.apply _))
       n                  <- Gen.chooseNum(1, 5)
       generatedMessages  <- genMessages
-      messageKey = generatedMessages.keys.toSeq(Random.nextInt(generatedMessages.size))
-      errors <- Gen.listOfN(n, genFormError(messageKey)).map(_.toSeq)
+      messageKey         <- Gen.oneOf(generatedMessages.keys)
+      errors             <- Gen.listOfN(n, genFormError(messageKey))
     } yield
       (errors, contentConstructor, new MessagesHelpers {
         override val messagesMap = Map("default" -> generatedMessages)
@@ -254,10 +248,10 @@ class ImplicitsSpec
         contentConstructor <- Gen.oneOf(Gen.const(HtmlContent.apply(_: String)), Gen.const(Text.apply _))
         n                  <- Gen.chooseNum(2, 5)
         generatedMessages  <- genMessages
-        messageKey        = generatedMessages.keys.toSeq(Random.nextInt(generatedMessages.size))
-        anotherMessageKey = generatedMessages.keys.toSeq(boundedPositiveRandom(generatedMessages.size))
-        errors             <- Gen.listOfN(n, genFormErrorForSameFormField(messageKey)).map(_.toSeq)
-        anotherSetOfErrors <- Gen.listOfN(n, genFormErrorForSameFormField(anotherMessageKey)).map(_.toSeq)
+        messageKey         <- Gen.oneOf(generatedMessages.keys)
+        anotherMessageKey  <- Gen.oneOf(generatedMessages.keys)
+        errors             <- Gen.listOfN(n, genFormErrorForSameFormField(messageKey))
+        anotherSetOfErrors <- Gen.listOf(genFormErrorForSameFormField(anotherMessageKey))
       } yield
         (errors ++ anotherSetOfErrors, contentConstructor, new MessagesHelpers {
           override val messagesMap = Map("default" -> generatedMessages)
