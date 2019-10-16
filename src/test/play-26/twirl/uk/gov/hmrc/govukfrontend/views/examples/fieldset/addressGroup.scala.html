@@ -1,9 +1,9 @@
 @import uk.gov.hmrc.govukfrontend.views.html.components._
 
-@this(input: GovukInput)
+@this(govukInput: GovukInput)
 
 @()
-@GovukFieldset(FieldsetParams(
+@GovukFieldset(Fieldset(
   legend =
     Some(
       Legend(
@@ -15,32 +15,32 @@
 ))
 
 @html = {
-  @input(InputParams(
+  @govukInput(Input(
     id = "address-line-1",
     name = "address-line-1",
-    labelParams = LabelParams(content = HtmlContent("""Building and street <span class="govuk-visually-hidden">line 1 of 2</span>"""))
+    label = Label(content = HtmlContent("""Building and street <span class="govuk-visually-hidden">line 1 of 2</span>"""))
   ))
-  @input(InputParams(
+  @govukInput(Input(
     id = "address-line-2",
     name = "address-line-2",
-    labelParams = LabelParams(content = HtmlContent("""<span class="govuk-visually-hidden">Building and street line 2 of 2</span>"""))
+    label = Label(content = HtmlContent("""<span class="govuk-visually-hidden">Building and street line 2 of 2</span>"""))
   ))
-  @input(InputParams(
+  @govukInput(Input(
     id = "address-town",
     name = "address-town",
     classes = "govuk-!-width-two-thirds",
-    labelParams = LabelParams(content = Text("Town or city"))
+    label = Label(content = Text("Town or city"))
   ))
-  @input(InputParams(
+  @govukInput(Input(
     id = "address-county",
     name = "address-county",
     classes = "govuk-!-width-two-thirds",
-    labelParams = LabelParams(content = Text("County"))
+    label = Label(content = Text("County"))
   ))
-  @input(InputParams(
+  @govukInput(Input(
     id = "address-postcode",
     name = "address-postcode",
     classes = "govuk-input--width-10",
-    labelParams = LabelParams(content = Text("Postcode"))
+    label = Label(content = Text("Postcode"))
   ))
 }

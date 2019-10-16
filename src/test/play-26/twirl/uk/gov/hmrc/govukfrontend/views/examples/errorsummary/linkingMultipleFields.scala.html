@@ -1,9 +1,9 @@
 @import uk.gov.hmrc.govukfrontend.views.html.components._
 
-@this(dateInput: GovukDateInput)
+@this(govukDateInput: GovukDateInput)
 
 @()
-@GovukErrorSummary(ErrorSummaryParams(
+@GovukErrorSummary(ErrorSummary(
   title = Text("There is a problem"),
   errorList =
     Seq(
@@ -14,8 +14,8 @@
     )
 ))
 
-@dateInput(DateInputParams(
-  fieldsetParams = Some(FieldsetParams(
+@govukDateInput(DateInput(
+  fieldset = Some(Fieldset(
     legend = Some(Legend(
       isPageHeading = true,
       content = Text("When was your passport issued?"),
@@ -23,7 +23,7 @@
     ))
   )),
   id = Some("passport-issued"),
-  errorMessageParams = Some(ErrorMessageParams(
+  errorMessage = Some(ErrorMessage(
     content = Text("Passport issue date must include a year")
   )),
   items = Seq(

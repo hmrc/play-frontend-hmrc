@@ -3,10 +3,10 @@
 @this()
 
 @()
-@GovukRadios(RadiosParams(
+@GovukRadios(Radios(
   idPrefix = Some("where-do-you-live"),
   name = "where-do-you-live",
-  fieldsetParams = Some(FieldsetParams(
+  fieldset = Some(Fieldset(
     legend = Some(Legend(
       content = Text("Where do you live?"),
       isPageHeading = true,

@@ -3,13 +3,13 @@
 
 
 @()
-@GovukInput(InputParams(
+@GovukInput(Input(
   id = "event-name",
   name = "event-name",
-  labelParams = LabelParams(
+  label = Label(
     content = Text("Event name")
   ),
-  hintParams = Some(HintParams(
+  hint = Some(Hint(
     content = Text("The name you’ll use on promotional material.")
   ))
 ))

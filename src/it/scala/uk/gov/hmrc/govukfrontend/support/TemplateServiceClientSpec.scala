@@ -9,7 +9,7 @@ import play.core.server.Server
 import uk.gov.hmrc.govukfrontend.support.Implicits._
 import uk.gov.hmrc.govukfrontend.views.GovukFrontendDependency.govukFrontendVersion
 import uk.gov.hmrc.govukfrontend.views.JsoupHelpers
-import uk.gov.hmrc.govukfrontend.views.viewmodels.backlink.BackLinkParams
+import uk.gov.hmrc.govukfrontend.views.viewmodels.backlink.BackLink
 
 class TemplateServiceClientSpec
     extends WordSpec
@@ -30,7 +30,7 @@ class TemplateServiceClientSpec
             }
         } { implicit port =>
           val response = render(
-            templateParams     = BackLinkParams(href = "#"),
+            templateParams     = BackLink(href = "#"),
             govukComponentName = "govukBackLink",
             govukVersion       = govukFrontendVersion
           ).futureValue

@@ -3,17 +3,17 @@
 
 
 @()
-@GovukRadios(RadiosParams(
+@GovukRadios(Radios(
   idPrefix = Some("how-contacted-conditional"),
   name = "how-contacted",
-  fieldsetParams = Some(FieldsetParams(
+  fieldset = Some(Fieldset(
     legend = Some(Legend(
       content = Text("How would you prefer to be contacted?"),
       isPageHeading = true,
       classes = "govuk-fieldset__legend--xl"
     ))
   )),
-  hintParams = Some(HintParams(
+  hint = Some(Hint(
     content = Text("Select one option.")
   )),
   items = Seq(
@@ -24,12 +24,12 @@
 ))
 
 @emailHtml = {
-  @input(InputParams(
+  @govukInput(Input(
     id = "contact-by-email",
     name = "contact-by-email",
     inputType = "email",
     classes = "govuk-!-width-one-third",
-    labelParams = LabelParams(
+    label = Label(
       content = Text("Email address")
     ),
     attributes = Map("spellcheck" -> "false")
@@ -37,24 +37,24 @@
 }
 
 @phoneHtml = {
-  @input(InputParams(
+  @govukInput(Input(
     id = "contact-by-phone",
     name = "contact-by-phone",
     inputType = "tel",
     classes = "govuk-!-width-one-third",
-    labelParams = LabelParams(
+    label = Label(
       content = Text("Phone number")
     )
   ))
 }
 
 @textHtml = {
-  @input(InputParams(
+  @govukInput(Input(
     id = "contact-by-text",
     name = "contact-by-text",
     inputType = "tel",
     classes = "govuk-!-width-one-third",
-    labelParams = LabelParams(
+    label = Label(
       content = Text("Mobile phone number")
     )
   ))

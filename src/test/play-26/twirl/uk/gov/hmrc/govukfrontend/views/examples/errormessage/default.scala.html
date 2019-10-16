@@ -1,9 +1,9 @@
 @import uk.gov.hmrc.govukfrontend.views.html.components._
 
-@this(dateInput: GovukDateInput)
+@this(govukDateInput: GovukDateInput)
 
 @()
-@dateInput(DateInputParams(
+@govukDateInput(DateInput(
   id = Some("passport-issued"),
   namePrefix = Some("passport-issued"),
   items = Seq(
@@ -23,9 +23,9 @@
       value = Some("2076")
     )
   ),
-  hintParams = Some(HintParams(content = Text("For example, 12 11 2007"))),
-  errorMessageParams = Some(ErrorMessageParams(content = Text("The date your passport was issued must be in the past"))),
-  fieldsetParams = Some(FieldsetParams(
+  hint = Some(Hint(content = Text("For example, 12 11 2007"))),
+  errorMessage = Some(ErrorMessage(content = Text("The date your passport was issued must be in the past"))),
+  fieldset = Some(Fieldset(
     legend = Some(
       Legend(
         content = Text("When was your passport issued?"),

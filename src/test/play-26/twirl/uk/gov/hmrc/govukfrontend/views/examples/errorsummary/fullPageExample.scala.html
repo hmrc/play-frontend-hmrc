@@ -3,10 +3,10 @@ so we cannot cleanly reproduce it in Twirl *@
 @import uk.gov.hmrc.govukfrontend.views.html.components._
 
 @this(
-  backLink: GovukBackLink,
-  button: GovukButton,
-  dateInput: GovukDateInput,
-  errorSummary: GovukErrorSummary
+  govukBackLink: GovukBackLink,
+  govukButton: GovukButton,
+  govukDateInput: GovukDateInput,
+  govukErrorSummary: GovukErrorSummary
 )
 
 @(beforeContent: Option[Html] = None, content: Option[Html] = None)
@@ -22,7 +22,7 @@ so we cannot cleanly reproduce it in Twirl *@
     <div class="govuk-grid-row">
       <div class="govuk-grid-column-two-thirds">
         <form action="/form-handler" method="post" novalidate>
-          @errorSummary(ErrorSummaryParams(
+          @govukErrorSummary(ErrorSummary(
             title = Text("There is a problem"),
             errorList = Seq(
               ErrorLink(
@@ -32,8 +32,8 @@ so we cannot cleanly reproduce it in Twirl *@
             )
           ))
 
-          @dateInput(DateInputParams(
-            fieldsetParams = Some(FieldsetParams(
+          @govukDateInput(DateInput(
+            fieldset = Some(Fieldset(
               legend = Some(Legend(
                 isPageHeading = true,
                 content = Text("When was your passport issued?"),
@@ -41,7 +41,7 @@ so we cannot cleanly reproduce it in Twirl *@
               ))
             )),
             id = Some("passport-issued"),
-            errorMessageParams = Some(ErrorMessageParams(
+            errorMessage = Some(ErrorMessage(
               content = Text("Passport issue date must include a year")
             )),
             items = Seq(
@@ -51,12 +51,12 @@ so we cannot cleanly reproduce it in Twirl *@
             )
           ))
 
-          @button(ButtonParams(content = Text("Continue")))
+          @govukButton(Button(content = Text("Continue")))
         </form>
       </div>
     </div>
   }
 }
 
-@beforeContentBlock = {@beforeContent.getOrElse {@backLink(BackLinkParams(content = Text("Back")))}}
+@beforeContentBlock = {@beforeContent.getOrElse {@govukBackLink(BackLink(content = Text("Back")))}}
 

@@ -17,7 +17,7 @@
     
 @import uk.gov.hmrc.govukfrontend.controllers.routes
 
-@this(header: header, footer: footer, skipLink: skipLink)
+@this(govukHeader: govukHeader, govukFooter: govukFooter, govukSkipLink: govukSkipLink)
 
 @*FIXME use i18n support from Play instead of passing the language*@
 @(
@@ -32,8 +32,8 @@
   headBlock: Option[Html] = None,
   bodyStart: Option[Html] = None,
   skipLinkBlock: Option[Html] = None,
-  headerBlock: Html = header(),
-  footerBlock: Html = footer(),
+  headerBlock: Html = govukHeader(),
+  footerBlock: Html = govukFooter(),
   bodyEndBlock: Option[Html] = None,
   mainClasses: Option[String] = None,
   beforeContentBlock: Option[Html] = None)(contentBlock: Html)<!DOCTYPE html>
@@ -65,7 +65,7 @@
     @bodyStart
 
     @skipLinkBlock.getOrElse {
-        @skipLink(SkipLinkParams(
+        @govukSkipLink(SkipLink(
           href = "#main-content",
           content = HtmlContent("Skip to main content")
         ))

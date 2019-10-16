@@ -1,0 +1,85 @@
+@*
+ * Copyright 2019 HM Revenue & Customs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *@
+
+@import scala.util.matching.Regex
+
+@this(govukErrorMessage: govukErrorMessage, govukHint: govukHint, govukLabel: govukLabel)
+
+@(params: Input)
+@import params._
+@require(name.nonEmpty && id.nonEmpty)
+<div class="@toClasses("govuk-form-group", errorMessage.fold("")(_ => "govuk-form-group--error"), formGroupClasses)">
+  @govukLabel(Label(
+    forAttr = Some(id),
+    isPageHeading = label.isPageHeading,
+    classes = label.classes,
+    attributes = label.attributes,
+    content = label.content
+  ))
+  @divSnippet
+</div>
+
+@hintSnippet(describedBy: String) = @{
+ hint.fold((describedBy, HtmlFormat.empty)) { hint =>
+   val hintId = s"$id-hint"
+   val describedBy1 = s"$describedBy $hintId".ltrim
+   val hintHtml =
+   govukHint(Hint(
+     id = Some(hintId),
+     classes = hint.classes,
+     attributes = hint.attributes,
+     content = hint.content
+   ))
+  (describedBy1, hintHtml)
+ }
+}
+
+@errorMessageSnippet(describedBy: String) = @{
+  errorMessage.fold((describedBy, HtmlFormat.empty)) { errorMessage =>
+    val errorId = s"$id-error"
+    val describedBy1 = s"$describedBy $errorId".ltrim
+    val errorMessageHtml =
+      govukErrorMessage(ErrorMessage(
+        id = Some(errorId),
+        classes = errorMessage.classes,
+        attributes = errorMessage.attributes,
+        visuallyHiddenText = errorMessage.visuallyHiddenText,
+        content = errorMessage.content
+     ))
+    (describedBy1, errorMessageHtml)
+  }
+}
+
+@inputSnippet(describedBy: String) = {
+  @defining {
+    id="@id" name="@name" type="@inputType"@value.map { value => value="@value" }@if(describedBy.nonEmpty) { aria-describedby="@describedBy"}
+  } { attrs =>
+  @defining {
+    @autoComplete.map { autoComplete => autocomplete="@autoComplete"}@pattern.map { pattern => pattern="@pattern"}@inputMode.map { inputMode => inputmode="@inputMode"}@toAttributes(attributes)
+  } { otherAttrs =>
+      <input class="@toClasses("govuk-input", classes, errorMessage.fold("")(_ => "govuk-input--error"))" @attrs@otherAttrs>
+  }}
+}
+
+@divSnippet = @{
+  val (describedBy1, hintHtml) = hintSnippet(describedBy.getOrElse(""))
+  val (describedBy2, errorMessageHtml) = errorMessageSnippet(describedBy1)
+  val inputHtml = inputSnippet(describedBy2)
+  HtmlFormat.fill(collection.immutable.Seq(hintHtml, errorMessageHtml, inputHtml))
+}
+
+
+

@@ -32,38 +32,44 @@ trait Aliases {
 
   val NonEmptyText = viewmodels.content.NonEmptyText
 
-  type BackLinkParams = viewmodels.backlink.BackLinkParams
-  val BackLinkParams = viewmodels.backlink.BackLinkParams
+  type BackLink = viewmodels.backlink.BackLink
+  val BackLink = viewmodels.backlink.BackLink
 
-  type ButtonParams = viewmodels.button.ButtonParams
-  val ButtonParams = viewmodels.button.ButtonParams
+  type Button = viewmodels.button.Button
+  val Button = viewmodels.button.Button
 
-  type RadiosParams = viewmodels.radios.RadiosParams
-  val RadiosParams = viewmodels.radios.RadiosParams
+  type Radios = viewmodels.radios.Radios
+  val Radios = viewmodels.radios.Radios
 
-  type PanelParams = viewmodels.panel.PanelParams
-  val PanelParams = viewmodels.panel.PanelParams
+  type RadioItem = viewmodels.radios.RadioItem
+  val RadioItem = viewmodels.radios.RadioItem
 
-  type CharacterCountParams = viewmodels.charactercount.CharacterCountParams
-  val CharacterCountParams = viewmodels.charactercount.CharacterCountParams
+  type Panel = viewmodels.panel.Panel
+  val Panel = viewmodels.panel.Panel
 
-  type DateInputParams = viewmodels.dateinput.DateInputParams
-  val DateInputParams = viewmodels.dateinput.DateInputParams
+  type CharacterCount = viewmodels.charactercount.CharacterCount
+  val CharacterCount = viewmodels.charactercount.CharacterCount
 
-  type InputParams = viewmodels.input.InputParams
-  val InputParams = viewmodels.input.InputParams
+  type DateInput = viewmodels.dateinput.DateInput
+  val DateInput = viewmodels.dateinput.DateInput
 
-  type DetailsParams = viewmodels.details.DetailsParams
-  val DetailsParams = viewmodels.details.DetailsParams
+  type InputItem = viewmodels.dateinput.InputItem
+  val InputItem = viewmodels.dateinput.InputItem
 
-  type FileUploadParams = viewmodels.fileupload.FileUploadParams
-  val FileUploadParams = viewmodels.fileupload.FileUploadParams
+  type Input = viewmodels.input.Input
+  val Input = viewmodels.input.Input
 
-  type InsetTextParams = viewmodels.insettext.InsetTextParams
-  val InsetTextParams = viewmodels.insettext.InsetTextParams
+  type Details = viewmodels.details.Details
+  val Details = viewmodels.details.Details
 
-  type FooterParams = viewmodels.footer.FooterParams
-  val FooterParams = viewmodels.footer.FooterParams
+  type FileUpload = viewmodels.fileupload.FileUpload
+  val FileUpload = viewmodels.fileupload.FileUpload
+
+  type InsetText = viewmodels.insettext.InsetText
+  val InsetText = viewmodels.insettext.InsetText
+
+  type Footer = viewmodels.footer.Footer
+  val Footer = viewmodels.footer.Footer
 
   type FooterNavigation = viewmodels.footer.FooterNavigation
   val FooterNavigation = viewmodels.footer.FooterNavigation
@@ -74,50 +80,50 @@ trait Aliases {
   type FooterItem = viewmodels.footer.FooterItem
   val FooterItem = viewmodels.footer.FooterItem
 
-  type HeaderParams = viewmodels.header.HeaderParams
-  val HeaderParams = viewmodels.header.HeaderParams
+  type Header = viewmodels.header.Header
+  val Header = viewmodels.header.Header
 
   type HeaderNavigation = viewmodels.header.HeaderNavigation
   val HeaderNavigation = viewmodels.header.HeaderNavigation
 
-  type TagParams = viewmodels.tag.TagParams
-  val TagParams = viewmodels.tag.TagParams
+  type Tag = viewmodels.tag.Tag
+  val Tag = viewmodels.tag.Tag
 
-  type PhaseBannerParams = viewmodels.phasebanner.PhaseBannerParams
-  val PhaseBannerParams = viewmodels.phasebanner.PhaseBannerParams
+  type PhaseBanner = viewmodels.phasebanner.PhaseBanner
+  val PhaseBanner = viewmodels.phasebanner.PhaseBanner
 
-  type SkipLinkParams = viewmodels.skiplink.SkipLinkParams
-  val SkipLinkParams = viewmodels.skiplink.SkipLinkParams
-
-  type ErrorLink = viewmodels.errorsummary.ErrorLink
-  val ErrorLink = viewmodels.errorsummary.ErrorLink
+  type SkipLink = viewmodels.skiplink.SkipLink
+  val SkipLink = viewmodels.skiplink.SkipLink
 
   type Legend = viewmodels.fieldset.Legend
   val Legend = viewmodels.fieldset.Legend
 
-  type FieldsetParams = viewmodels.fieldset.FieldsetParams
-  val FieldsetParams = viewmodels.fieldset.FieldsetParams
+  type Fieldset = viewmodels.fieldset.Fieldset
+  val Fieldset = viewmodels.fieldset.Fieldset
 
-  type HintParams = viewmodels.hint.HintParams
-  val HintParams = viewmodels.hint.HintParams
+  type Hint = viewmodels.hint.Hint
+  val Hint = viewmodels.hint.Hint
 
-  type LabelParams = viewmodels.label.LabelParams
-  val LabelParams = viewmodels.label.LabelParams
+  type Label = viewmodels.label.Label
+  val Label = viewmodels.label.Label
 
-  type RadioItem = viewmodels.radios.RadioItem
-  val RadioItem = viewmodels.radios.RadioItem
+  type ErrorMessage = viewmodels.errormessage.ErrorMessage
+  val ErrorMessage = viewmodels.errormessage.ErrorMessage
 
-  type ErrorMessageParams = viewmodels.errormessage.ErrorMessageParams
-  val ErrorMessageParams = viewmodels.errormessage.ErrorMessageParams
+  type ErrorSummary = viewmodels.errorsummary.ErrorSummary
+  val ErrorSummary = viewmodels.errorsummary.ErrorSummary
 
-  type ErrorSummaryParams = viewmodels.errorsummary.ErrorSummaryParams
-  val ErrorSummaryParams = viewmodels.errorsummary.ErrorSummaryParams
+  type ErrorLink = viewmodels.errorsummary.ErrorLink
+  val ErrorLink = viewmodels.errorsummary.ErrorLink
 
-  type CheckboxesParams = viewmodels.checkboxes.CheckboxesParams
-  val CheckboxesParams = viewmodels.checkboxes.CheckboxesParams
+  type Checkboxes = viewmodels.checkboxes.Checkboxes
+  val Checkboxes = viewmodels.checkboxes.Checkboxes
 
-  type SummaryListParams = viewmodels.summarylist.SummaryListParams
-  val SummaryListParams = viewmodels.summarylist.SummaryListParams
+  type CheckboxItem = viewmodels.checkboxes.CheckboxItem
+  val CheckboxItem = viewmodels.checkboxes.CheckboxItem
+
+  type SummaryList = viewmodels.summarylist.SummaryList
+  val SummaryList = viewmodels.summarylist.SummaryList
 
   type SummaryListRow = viewmodels.summarylist.SummaryListRow
   val SummaryListRow = viewmodels.summarylist.SummaryListRow
@@ -134,32 +140,26 @@ trait Aliases {
   type ActionItem = viewmodels.summarylist.ActionItem
   val ActionItem = viewmodels.summarylist.ActionItem
 
-  type InputItem = viewmodels.dateinput.InputItem
-  val InputItem = viewmodels.dateinput.InputItem
-
-  type AccordionParams = viewmodels.accordion.AccordionParams
-  val AccordionParams = viewmodels.accordion.AccordionParams
+  type Accordion = viewmodels.accordion.Accordion
+  val Accordion = viewmodels.accordion.Accordion
 
   type Section = viewmodels.accordion.Section
   val Section = viewmodels.accordion.Section
 
-  type BreadcrumbsParams = viewmodels.breadcrumbs.BreadcrumbsParams
-  val BreadcrumbsParams = viewmodels.breadcrumbs.BreadcrumbsParams
+  type Breadcrumbs = viewmodels.breadcrumbs.Breadcrumbs
+  val Breadcrumbs = viewmodels.breadcrumbs.Breadcrumbs
 
   type BreadcrumbsItem = viewmodels.breadcrumbs.BreadcrumbsItem
   val BreadcrumbsItem = viewmodels.breadcrumbs.BreadcrumbsItem
 
-  type CheckboxItem = viewmodels.checkboxes.CheckboxItem
-  val CheckboxItem = viewmodels.checkboxes.CheckboxItem
-
-  type SelectParams = viewmodels.select.SelectParams
-  val SelectParams = viewmodels.select.SelectParams
+  type Select = viewmodels.select.Select
+  val Select = viewmodels.select.Select
 
   type SelectItem = viewmodels.select.SelectItem
   val SelectItem = viewmodels.select.SelectItem
 
-  type TableParams = viewmodels.table.TableParams
-  val TableParams = viewmodels.table.TableParams
+  type Table = viewmodels.table.Table
+  val Table = viewmodels.table.Table
 
   type TableRow = viewmodels.table.TableRow
   val TableRow = viewmodels.table.TableRow
@@ -167,8 +167,8 @@ trait Aliases {
   type HeadCell = viewmodels.table.HeadCell
   val HeadCell = viewmodels.table.HeadCell
 
-  type TabsParams = viewmodels.tabs.TabsParams
-  val TabsParams = viewmodels.tabs.TabsParams
+  type Tabs = viewmodels.tabs.Tabs
+  val Tabs = viewmodels.tabs.Tabs
 
   type TabItem = viewmodels.tabs.TabItem
   val TabItem = viewmodels.tabs.TabItem
@@ -176,11 +176,11 @@ trait Aliases {
   type TabPanel = viewmodels.tabs.TabPanel
   val TabPanel = viewmodels.tabs.TabPanel
 
-  type TextareaParams = viewmodels.textarea.TextareaParams
-  val TextareaParams = viewmodels.textarea.TextareaParams
+  type Textarea = viewmodels.textarea.Textarea
+  val Textarea = viewmodels.textarea.Textarea
 
-  type WarningTextParams = viewmodels.warningtext.WarningTextParams
-  val WarningTextParams = viewmodels.warningtext.WarningTextParams
+  type WarningText = viewmodels.warningtext.WarningText
+  val WarningText = viewmodels.warningtext.WarningText
 
 }
 

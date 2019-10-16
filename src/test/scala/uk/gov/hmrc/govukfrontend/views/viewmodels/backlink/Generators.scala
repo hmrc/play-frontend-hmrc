@@ -20,12 +20,12 @@ import org.scalacheck.Arbitrary
 import uk.gov.hmrc.govukfrontend.views.viewmodels.Generators.{genAlphaStrOftenEmpty, genAttributes, genClasses, genContent}
 
 object Generators {
-  implicit val arbBackLinkParams: Arbitrary[BackLinkParams] = Arbitrary {
+  implicit val arbBackLink: Arbitrary[BackLink] = Arbitrary {
     for {
       href       <- genAlphaStrOftenEmpty()
       classes    <- genClasses()
       attributes <- genAttributes()
       content    <- genContent
-    } yield BackLinkParams(href, classes, attributes, content)
+    } yield BackLink(href, classes, attributes, content)
   }
 }

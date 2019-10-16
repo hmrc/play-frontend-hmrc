@@ -26,7 +26,7 @@ import play.twirl.api.{Html, HtmlFormat}
 import uk.gov.hmrc.govukfrontend.views.html.components.implicits._
 import uk.gov.hmrc.govukfrontend.views.viewmodels.Generators._
 import uk.gov.hmrc.govukfrontend.views.viewmodels.content.{Content, HtmlContent, Text}
-import uk.gov.hmrc.govukfrontend.views.viewmodels.errormessage.ErrorMessageParams
+import uk.gov.hmrc.govukfrontend.views.viewmodels.errormessage.ErrorMessage
 import uk.gov.hmrc.govukfrontend.views.viewmodels.errorsummary.ErrorLink
 import scala.collection.immutable
 import scala.util.Random
@@ -60,13 +60,13 @@ class ImplicitsSpec
     }
 
     "asErrorMessages" should {
-      "convert FormErrors to ErrorMessageParams either text or html" in {
+      "convert FormErrors to ErrorMessage either text or html" in {
         forAll(genFormErrorsAndMessages) {
           case (formErrors, contentConstructor, messagesStub) =>
             import messagesStub.messages
             formErrors.asErrorMessages(contentConstructor).zipWithIndex.foreach {
               case (errorMessageParams, i) =>
-                errorMessageParams shouldBe ErrorMessageParams(
+                errorMessageParams shouldBe ErrorMessage(
                   content = contentConstructor(messagesStub.messages(formErrors(i).message, formErrors(i).args: _*)))
             }
         }
@@ -75,13 +75,13 @@ class ImplicitsSpec
 
     "asErrorMessage" when {
       "finds matching message" should {
-        "convert FormErrors to ErrorMessageParams" in {
+        "convert FormErrors to ErrorMessage" in {
           forAll(genFormErrorsAndMessages) {
             case (formErrors, contentConstructor, messagesStub) =>
               import messagesStub.messages
               val i             = Random.nextInt(formErrors.length)
               val randomMessage = formErrors(i).message //select random message
-              formErrors.asErrorMessage(contentConstructor, randomMessage).value shouldBe ErrorMessageParams(
+              formErrors.asErrorMessage(contentConstructor, randomMessage).value shouldBe ErrorMessage(
                 content = contentConstructor(messagesStub.messages(formErrors(i).message, formErrors(i).args: _*)))
           }
         }
@@ -101,27 +101,27 @@ class ImplicitsSpec
 
     "asErrorMessageForField" when {
       "finds matching message for field" should {
-        "convert FormErrors to ErrorMessageParams" in {
+        "convert FormErrors to ErrorMessage" in {
           forAll(genFormErrorsAndMessages) {
             case (formErrors, contentConstructor, messagesStub) =>
               import messagesStub.messages
               val i        = Random.nextInt(formErrors.length)
               val fieldKey = formErrors(i).key //select random message
-              formErrors.asErrorMessageForField(contentConstructor, fieldKey).value shouldBe ErrorMessageParams(
+              formErrors.asErrorMessageForField(contentConstructor, fieldKey).value shouldBe ErrorMessage(
                 content = contentConstructor(messagesStub.messages(formErrors(i).message, formErrors(i).args: _*)))
           }
         }
       }
 
       "finds matching message for field" should {
-        "convert FormErrors to ErrorMessageParams choosing first error when several errors are present for the same field" in {
+        "convert FormErrors to ErrorMessage choosing first error when several errors are present for the same field" in {
           forAll(genFormErrorsAndMessagesForSameFormField) {
             case (formErrors, contentConstructor, messagesStub) =>
               import messagesStub.messages
               val i                  = Random.nextInt(formErrors.length)
               val fieldKey           = formErrors(i).key //select random message
               val firstErrorForField = formErrors.filter(_.key == fieldKey)(0)
-              formErrors.asErrorMessageForField(contentConstructor, fieldKey).value shouldBe ErrorMessageParams(
+              formErrors.asErrorMessageForField(contentConstructor, fieldKey).value shouldBe ErrorMessage(
                 content =
                   contentConstructor(messagesStub.messages(firstErrorForField.message, firstErrorForField.args: _*)))
           }

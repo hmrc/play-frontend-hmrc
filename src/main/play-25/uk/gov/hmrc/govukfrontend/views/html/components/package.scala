@@ -24,63 +24,63 @@ package object components extends Utils with Aliases {
    */
   object implicits extends Implicits
 
-  lazy val GovukBackLink = backLink
+  lazy val GovukBackLink = govukBackLink
 
-  lazy val GovukButton = button
+  lazy val GovukButton = govukButton
 
-  lazy val GovukErrorSummary = errorSummary
+  lazy val GovukErrorSummary = govukErrorSummary
 
-  lazy val GovukFieldset = fieldset
+  lazy val GovukFieldset = govukFieldset
 
-  lazy val GovukFooter = footer
+  lazy val GovukFooter = govukFooter
 
-  lazy val GovukHeader = header
+  lazy val GovukHeader = govukHeader
 
-  lazy val GovukHint = hint
+  lazy val GovukHint = govukHint
 
-  lazy val GovukLabel = label
+  lazy val GovukLabel = govukLabel
 
-  lazy val GovukTag = tag
+  lazy val GovukTag = govukTag
 
-  lazy val GovukPhaseBanner = phaseBanner
+  lazy val GovukPhaseBanner = govukPhaseBanner
 
-  lazy val GovukSkipLink = skipLink
+  lazy val GovukSkipLink = govukSkipLink
 
-  lazy val GovukErrorMessage = errorMessage
+  lazy val GovukErrorMessage = govukErrorMessage
 
-  lazy val GovukDetails = details
+  lazy val GovukDetails = govukDetails
 
-  lazy val GovukRadios = radios
+  lazy val GovukRadios = govukRadios
 
-  lazy val GovukFileUpload = fileUpload
+  lazy val GovukFileUpload = govukFileUpload
 
-  lazy val GovukInput = input
+  lazy val GovukInput = govukInput
 
-  lazy val GovukSummaryList = summaryList
+  lazy val GovukSummaryList = govukSummaryList
 
-  lazy val GovukDateInput = dateInput
+  lazy val GovukDateInput = govukDateInput
 
-  lazy val GovukAccordion = accordion
+  lazy val GovukAccordion = govukAccordion
 
-  lazy val GovukBreadcrumbs = breadcrumbs
+  lazy val GovukBreadcrumbs = govukBreadcrumbs
 
-  lazy val GovukTextarea = textarea
+  lazy val GovukTextarea = govukTextarea
 
-  lazy val GovukCharacterCount = characterCount
+  lazy val GovukCharacterCount = govukCharacterCount
 
-  lazy val GovukCheckboxes = checkboxes
+  lazy val GovukCheckboxes = govukCheckboxes
 
-  lazy val GovukSelect = select
+  lazy val GovukSelect = govukSelect
 
-  lazy val GovukInsetText = insetText
+  lazy val GovukInsetText = govukInsetText
 
-  lazy val GovukWarningText = warningText
+  lazy val GovukWarningText = govukWarningText
 
-  lazy val GovukPanel = panel
+  lazy val GovukPanel = govukPanel
 
-  lazy val GovukTable = table
+  lazy val GovukTable = govukTable
 
-  lazy val GovukTabs = tabs
+  lazy val GovukTabs = govukTabs
 
   lazy val GovukTemplate = govukTemplate
 }

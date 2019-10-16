@@ -3,14 +3,14 @@
 @this()
 
 @()
-@GovukTextarea(TextareaParams(
+@GovukTextarea(Textarea(
   name = "more-detail",
   id = "more-detail",
   rows = 8,
-  labelParams = LabelParams(
+  label = Label(
     content = Text("Can you provide more detail?")
   ),
-  hintParams = Some(HintParams(
+  hint = Some(Hint(
     content = Text("Do not include personal or financial information, like your National Insurance number or credit card details.")
   ))
 ))

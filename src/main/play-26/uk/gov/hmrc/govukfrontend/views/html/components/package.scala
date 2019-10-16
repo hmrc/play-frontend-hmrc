@@ -24,121 +24,121 @@ package object components extends Utils with Aliases {
     */
   object implicits extends Implicits
 
-  type GovukBackLink = backLink
+  type GovukBackLink = govukBackLink
   @deprecated("Use DI")
-  lazy val GovukBackLink = new backLink()
+  lazy val GovukBackLink = new govukBackLink()
 
-  type GovukButton = button
+  type GovukButton = govukButton
   @deprecated("Use DI")
-  lazy val GovukButton = new button()
+  lazy val GovukButton = new govukButton()
 
-  type GovukErrorSummary = errorSummary
+  type GovukErrorSummary = govukErrorSummary
   @deprecated("Use DI")
-  lazy val GovukErrorSummary = new errorSummary()
+  lazy val GovukErrorSummary = new govukErrorSummary()
 
-  type GovukFieldset = fieldset
+  type GovukFieldset = govukFieldset
   @deprecated("Use DI")
-  lazy val GovukFieldset = new fieldset()
+  lazy val GovukFieldset = new govukFieldset()
 
-  type GovukFooter = footer
+  type GovukFooter = govukFooter
   @deprecated("Use DI")
-  lazy val GovukFooter = new footer()
+  lazy val GovukFooter = new govukFooter()
 
-  type GovukHeader = header
+  type GovukHeader = govukHeader
   @deprecated("Use DI")
-  lazy val GovukHeader = new header()
+  lazy val GovukHeader = new govukHeader()
 
-  type GovukHint = hint
+  type GovukHint = govukHint
   @deprecated("Use DI")
-  lazy val GovukHint = new hint()
+  lazy val GovukHint = new govukHint()
 
-  type GovukLabel = label
+  type GovukLabel = govukLabel
   @deprecated("Use DI")
-  lazy val GovukLabel = new label()
+  lazy val GovukLabel = new govukLabel()
 
-  type GovukTag = tag
+  type GovukTag = govukTag
   @deprecated("Use DI")
-  lazy val GovukTag = new tag()
+  lazy val GovukTag = new govukTag()
 
-  type GovukPhaseBanner = phaseBanner
+  type GovukPhaseBanner = govukPhaseBanner
   @deprecated("Use DI")
-  lazy val GovukPhaseBanner = new phaseBanner(GovukTag)
+  lazy val GovukPhaseBanner = new govukPhaseBanner(GovukTag)
 
-  type GovukSkipLink = skipLink
+  type GovukSkipLink = govukSkipLink
   @deprecated("Use DI")
-  lazy val GovukSkipLink = new skipLink()
+  lazy val GovukSkipLink = new govukSkipLink()
 
-  type GovukErrorMessage = errorMessage
+  type GovukErrorMessage = govukErrorMessage
   @deprecated("Use DI")
-  lazy val GovukErrorMessage = new errorMessage()
+  lazy val GovukErrorMessage = new govukErrorMessage()
 
-  type GovukDetails = details
+  type GovukDetails = govukDetails
   @deprecated("Use DI")
-  lazy val GovukDetails = new details()
+  lazy val GovukDetails = new govukDetails()
 
-  type GovukRadios = radios
+  type GovukRadios = govukRadios
   @deprecated("Use DI")
-  lazy val GovukRadios = new radios(GovukErrorMessage, GovukFieldset, GovukHint, GovukLabel)
+  lazy val GovukRadios = new govukRadios(GovukErrorMessage, GovukFieldset, GovukHint, GovukLabel)
 
-  type GovukFileUpload = fileUpload
+  type GovukFileUpload = govukFileUpload
   @deprecated("Use DI")
-  lazy val GovukFileUpload = new fileUpload(GovukErrorMessage, GovukHint, GovukLabel)
+  lazy val GovukFileUpload = new govukFileUpload(GovukErrorMessage, GovukHint, GovukLabel)
 
-  type GovukInput = input
+  type GovukInput = govukInput
   @deprecated("Use DI")
-  lazy val GovukInput = new input(GovukErrorMessage, GovukHint, GovukLabel)
+  lazy val GovukInput = new govukInput(GovukErrorMessage, GovukHint, GovukLabel)
 
-  type GovukSummaryList = summaryList
+  type GovukSummaryList = govukSummaryList
   @deprecated("Use DI")
-  lazy val GovukSummaryList = new summaryList()
+  lazy val GovukSummaryList = new govukSummaryList()
 
-  type GovukDateInput = dateInput
+  type GovukDateInput = govukDateInput
   @deprecated("Use DI")
-  val GovukDateInput = new dateInput(GovukErrorMessage, GovukHint, GovukFieldset, GovukInput)
+  val GovukDateInput = new govukDateInput(GovukErrorMessage, GovukHint, GovukFieldset, GovukInput)
 
-  type GovukAccordion = accordion
+  type GovukAccordion = govukAccordion
   @deprecated("Use DI")
-  val GovukAccordion = new accordion()
+  val GovukAccordion = new govukAccordion()
 
-  type GovukBreadcrumbs = breadcrumbs
+  type GovukBreadcrumbs = govukBreadcrumbs
   @deprecated("Use DI")
-  val GovukBreadcrumbs = new breadcrumbs()
+  val GovukBreadcrumbs = new govukBreadcrumbs()
 
-  type GovukTextarea = textarea
+  type GovukTextarea = govukTextarea
   @deprecated("Use DI")
-  val GovukTextarea = new textarea(GovukErrorMessage, GovukHint, GovukLabel)
+  val GovukTextarea = new govukTextarea(GovukErrorMessage, GovukHint, GovukLabel)
 
-  type GovukCharacterCount = characterCount
+  type GovukCharacterCount = govukCharacterCount
   @deprecated("Use DI")
-  val GovukCharacterCount = new characterCount(GovukTextarea)
+  val GovukCharacterCount = new govukCharacterCount(GovukTextarea)
 
-  type GovukCheckboxes = checkboxes
+  type GovukCheckboxes = govukCheckboxes
   @deprecated("Use DI")
-  val GovukCheckboxes = new checkboxes(GovukErrorMessage, GovukFieldset, GovukHint, GovukLabel)
+  val GovukCheckboxes = new govukCheckboxes(GovukErrorMessage, GovukFieldset, GovukHint, GovukLabel)
 
-  type GovukSelect = select
+  type GovukSelect = govukSelect
   @deprecated("Use DI")
-  val GovukSelect = new select(GovukErrorMessage, GovukHint, GovukLabel)
+  val GovukSelect = new govukSelect(GovukErrorMessage, GovukHint, GovukLabel)
 
-  type GovukInsetText = insetText
+  type GovukInsetText = govukInsetText
   @deprecated("Use DI")
-  val GovukInsetText = new insetText()
+  val GovukInsetText = new govukInsetText()
 
-  type GovukWarningText = warningText
+  type GovukWarningText = govukWarningText
   @deprecated("Use DI")
-  val GovukWarningText = new warningText()
+  val GovukWarningText = new govukWarningText()
 
-  type GovukPanel = panel
+  type GovukPanel = govukPanel
   @deprecated("Use DI")
-  val GovukPanel = new panel()
+  val GovukPanel = new govukPanel()
 
-  type GovukTable = table
+  type GovukTable = govukTable
   @deprecated("Use DI")
-  val GovukTable = new table()
+  val GovukTable = new govukTable()
 
-  type GovukTabs = tabs
+  type GovukTabs = govukTabs
   @deprecated("Use DI")
-  val GovukTabs = new tabs()
+  val GovukTabs = new govukTabs()
 
   type GovukTemplate = govukTemplate
   @deprecated("Use DI")
