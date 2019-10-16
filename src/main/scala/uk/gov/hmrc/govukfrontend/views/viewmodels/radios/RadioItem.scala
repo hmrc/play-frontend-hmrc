@@ -24,7 +24,7 @@ import uk.gov.hmrc.govukfrontend.views.html.components._
 import CommonJsonFormats._
 
 final case class RadioItem(
-  content: Content,
+  content: Content                = Empty,
   id: Option[String]              = None,
   value: Option[String]           = None,
   label: Option[LabelParams]      = None,
@@ -49,7 +49,7 @@ object RadioItem {
       readsConditionalHtml and
       (__ \ "disabled").readWithDefault[Boolean](false) and
       (__ \ "attributes").readWithDefault[Map[String, String]](Map.empty)
-    )(RadioItem.apply _)
+  )(RadioItem.apply _)
 
   implicit val writes: OWrites[RadioItem] = (
     Content.writes and
@@ -62,6 +62,6 @@ object RadioItem {
       writesConditionalHtml and
       (__ \ "disabled").write[Boolean] and
       (__ \ "attributes").write[Map[String, String]]
-    )(unlift(RadioItem.unapply))
+  )(unlift(RadioItem.unapply))
 
 }

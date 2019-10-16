@@ -1,0 +1,16 @@
+@import uk.gov.hmrc.govukfrontend.views.html.components._
+
+
+
+@()
+@GovukHeader(HeaderParams(
+  homepageUrl = Some("#"),
+  serviceName = Some("Service name"),
+  serviceUrl = Some("#"),
+  navigation = Seq(
+    HeaderNavigation(href = Some("#1"), text = Some("Navigation item 1"), active = true),
+    HeaderNavigation(href = Some("#2"), text = Some("Navigation item 2")),
+    HeaderNavigation(href = Some("#3"), text = Some("Navigation item 3")),
+    HeaderNavigation(href = Some("#4"), text = Some("Navigation item 4"))
+  )
+))

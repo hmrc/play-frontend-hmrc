@@ -1,0 +1,39 @@
+@import uk.gov.hmrc.govukfrontend.views.html.components._
+
+
+
+@()
+@GovukSummaryList(SummaryListParams(
+  rows = Seq(
+    SummaryListRow(
+      key = Key(content = Text("Name")),
+      value = Value(content = Text("Sarah Philips")),
+      actions = Some(Actions(items = Seq(
+        ActionItem(href = "#", content = Text("Change"), visuallyHiddenText = Some("name"))
+      )))
+    ),
+    SummaryListRow(
+      key = Key(content = Text("Date of birth")),
+      value = Value(content = Text("5 January 1978")),
+      actions = Some(Actions(items = Seq(
+        ActionItem(href = "#", content = Text("Change"), visuallyHiddenText = Some("date of birth"))
+      )))
+    ),
+    SummaryListRow(
+      key = Key(content = Text("Contact information")),
+      value = Value(content = HtmlContent("""72 Guild Street<br>London<br>SE23 6FH""")),
+      actions = Some(Actions(items = Seq(
+        ActionItem(href = "#", content = Text("Change"), visuallyHiddenText = Some("contact information"))
+      )))
+    ),
+    SummaryListRow(
+      key = Key(content = Text("Contact details")),
+      value = Value(content = HtmlContent(
+        """<p class="govuk-body">07700 900457</p>
+          |<p class="govuk-body">sarah.phillips@example.com</p>""".stripMargin)),
+      actions = Some(Actions(items = Seq(
+        ActionItem(href = "#", content = Text("Change"), visuallyHiddenText = Some("contact details"))
+      )))
+    )
+  )
+))

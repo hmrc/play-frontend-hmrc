@@ -1,8 +1,9 @@
-import play.sbt.PlayImport.PlayKeys._
-import uk.gov.hmrc.playcrosscompilation.PlayVersion.{Play25, Play26}
+import GenerateExamplesManifest.generateExamplesManifest
+import GeneratePlay25Twirl.generatePlay25Templates
 import PlayCrossCompilation.{dependencies, playVersion}
 import de.heikoseeberger.sbtheader.HeaderKey
-import GeneratePlay25Twirl.generatePlay25Templates
+import play.sbt.PlayImport.PlayKeys._
+import uk.gov.hmrc.playcrosscompilation.PlayVersion.{Play25, Play26}
 
 val libName = "play-frontend-govuk"
 
@@ -67,6 +68,21 @@ lazy val root = Project(libName, file("."))
       val play26Templates: Set[File] = (play26TemplatesDir ** ("*.scala.html")).get.toSet
       cachedFun(play26Templates).toSeq
     },
+    generateExamplesManifestTask := {
+      val cachedFun: Set[File] => Set[File] =
+        FileFunction.cached(
+          cacheBaseDirectory = streams.value.cacheDirectory / "generate-examples-manifest-task",
+          inStyle            = FilesInfo.lastModified,
+          outStyle           = FilesInfo.exists) { (in: Set[File]) =>
+          println("Generating manifest.json")
+          val manifestFile = (resourceDirectory in Test).value / "manifest.json"
+          generateExamplesManifest(play26Examples = in, manifestFile = manifestFile)
+        }
+
+      val play26ExamplesDir         = baseDirectory.value / "src/test/play-26/twirl/uk/gov/hmrc/govukfrontend/views/examples"
+      val play26Examples: Set[File] = (play26ExamplesDir ** ("*.scala.html")).get.toSet
+      cachedFun(play26Examples).toSeq
+    },
     (TwirlKeys.compileTemplates in Compile) :=
       ((TwirlKeys.compileTemplates in Compile) dependsOn (generatePlay25TemplatesTask in Compile)).value,
     (TwirlKeys.compileTemplates in Test) :=
@@ -103,15 +119,15 @@ lazy val libDependencies: Seq[ModuleID] = dependencies(
     )
 
     val test = Seq(
-      "org.scalatest"                 %% "scalatest"          % "3.0.8",
-      "org.pegdown"                   % "pegdown"             % "1.6.0",
-      "org.jsoup"                     % "jsoup"               % "1.11.3",
-      "com.typesafe.play"             %% "play-test"          % playRevision,
-      "org.scalacheck"                %% "scalacheck"         % "1.14.1",
-      "com.googlecode.htmlcompressor" % "htmlcompressor"      % "1.5.2",
-      "com.github.pathikrit"          %% "better-files"       % "3.8.0",
-      "com.lihaoyi"                   %% "pprint"             % "0.5.3",
-      "org.bitbucket.cowwoc"          % "diff-match-patch"    % "1.2",
+      "org.scalatest"                 %% "scalatest"       % "3.0.8",
+      "org.pegdown"                   % "pegdown"          % "1.6.0",
+      "org.jsoup"                     % "jsoup"            % "1.11.3",
+      "com.typesafe.play"             %% "play-test"       % playRevision,
+      "org.scalacheck"                %% "scalacheck"      % "1.14.1",
+      "com.googlecode.htmlcompressor" % "htmlcompressor"   % "1.5.2",
+      "com.github.pathikrit"          %% "better-files"    % "3.8.0",
+      "com.lihaoyi"                   %% "pprint"          % "0.5.3",
+      "org.bitbucket.cowwoc"          % "diff-match-patch" % "1.2",
       ws
     ).map(_ % Test)
 
@@ -171,3 +187,12 @@ lazy val templateImports: Seq[String] = {
 }
 
 lazy val generatePlay25TemplatesTask = taskKey[Seq[File]]("Generate Play 2.5 templates")
+
+/**
+  * Generates the manifest.json file in the [[src/test/resources]] folder, used by the Design System browser
+  * extension to display Twirl examples for the library's components.
+  *
+  * To generate the manifest.json implement the examples in the folder [[src/test/play-26/twirl/uk/gov/hmrc/govukfrontend/views/examples]]
+  * (the corresponding play-25 examples will be auto-generated automatically) and run the task at the sbt console <code>generateExamplesManifestTask</code>
+  */
+lazy val generateExamplesManifestTask = taskKey[Seq[File]]("Generate Twirl examples manifest.json file")

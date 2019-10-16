@@ -1,4 +1,20 @@
-package uk.gov.hmrc.govukfrontend.support
+/*
+ * Copyright 2019 HM Revenue & Customs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package uk.gov.hmrc.govukfrontend.views
 
 import java.nio.file.Path
 import java.util
@@ -29,13 +45,13 @@ case class DiffWrapper(differ: DiffMatchPatch) {
     * @param diff
     * @return [[Path]] to the file
     */
-  def diffToHtml(diff: mutable.Buffer[DiffMatchPatch.Diff], fileNamePrefix: Option[String] = None): Path = {
+  def diffToHtml(diff: mutable.Buffer[DiffMatchPatch.Diff], diffFilePrefix: Option[String] = None): Path = {
     // write diff as pretty html to a file
     val diffHtml = differ.diffPrettyHtml(diff.asJava)
 
     val userDir = System.getProperty("user.dir")
-    val prefix = fileNamePrefix.map(_ + "-").getOrElse("")
-    val name    =  s"${prefix}diff-${UUID.randomUUID.toString}.html"
+    val prefix  = diffFilePrefix.map(_ + "-").getOrElse("")
+    val name    = s"${prefix}diff-${UUID.randomUUID.toString}.html"
     val file    = userDir / "target" / name
 
     file.overwrite(diffHtml)

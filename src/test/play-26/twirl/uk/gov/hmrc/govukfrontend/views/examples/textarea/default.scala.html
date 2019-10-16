@@ -1,0 +1,15 @@
+@import uk.gov.hmrc.govukfrontend.views.html.components._
+
+@this()
+
+@()
+@GovukTextarea(TextareaParams(
+  name = "more-detail",
+  id = "more-detail",
+  labelParams = LabelParams(
+    content = Text("Can you provide more detail?")
+  ),
+  hintParams = Some(HintParams(
+    content = Text("Do not include personal or financial information, like your National Insurance number or credit card details.")
+  ))
+))

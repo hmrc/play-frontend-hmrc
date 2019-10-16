@@ -1,0 +1,34 @@
+@import uk.gov.hmrc.govukfrontend.views.html.components._
+
+
+
+@()
+@GovukErrorSummary(ErrorSummaryParams(
+  title = Text("There is a problem"),
+  errorList =
+    Seq(
+      ErrorLink(
+        href = Some("#passport-issued-year"),
+        content = Text("Passport issue date must include a year")
+      )
+    )
+))
+
+@dateInput(DateInputParams(
+  fieldsetParams = Some(FieldsetParams(
+    legend = Some(Legend(
+      isPageHeading = true,
+      content = Text("When was your passport issued?"),
+      classes = "govuk-fieldset__legend--xl"
+    ))
+  )),
+  id = Some("passport-issued"),
+  errorMessageParams = Some(ErrorMessageParams(
+    content = Text("Passport issue date must include a year")
+  )),
+  items = Seq(
+    InputItem(name = "day", classes = "govuk-input--width-2", value = Some("5")),
+    InputItem(name = "month", classes = "govuk-input--width-2", value = Some("12")),
+    InputItem(name = "year", classes = "govuk-input--width-4 govuk-input--error")
+  )
+))
