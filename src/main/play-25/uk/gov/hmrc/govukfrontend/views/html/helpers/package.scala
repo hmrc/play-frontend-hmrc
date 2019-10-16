@@ -19,8 +19,4 @@ package uk.gov.hmrc.govukfrontend.views.html
 package object helpers {
 
   lazy val FormWithCSRF = formWithCSRF
-
-  lazy val Head = head
-
-  lazy val Scripts = scripts
 }

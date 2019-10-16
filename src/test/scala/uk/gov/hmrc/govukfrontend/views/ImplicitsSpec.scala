@@ -41,7 +41,7 @@ class ImplicitsSpec
   import Generators._
 
   implicit override val generatorDrivenConfig: PropertyCheckConfiguration =
-    PropertyCheckConfiguration(minSuccessful = 500)
+    PropertyCheckConfiguration(minSuccessful = 50)
 
   "RichFormErrors" when {
     "asErrorLinks" should {

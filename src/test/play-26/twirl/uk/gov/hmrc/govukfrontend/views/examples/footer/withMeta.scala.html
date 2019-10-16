@@ -1,0 +1,14 @@
+@import uk.gov.hmrc.govukfrontend.views.html.components._
+
+@this()
+
+@()
+@GovukFooter(FooterParams(
+  meta = Some(Meta(
+    items = Seq(
+      FooterItem(href = Some("#1"), text = Some("Item 1")),
+      FooterItem(href = Some("#2"), text = Some("Item 2")),
+      FooterItem(href = Some("#3"), text = Some("Item 3"))
+    )
+  ))
+))

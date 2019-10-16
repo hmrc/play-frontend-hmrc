@@ -1,0 +1,29 @@
+@import uk.gov.hmrc.govukfrontend.views.html.components._
+
+@this()
+
+@()
+@GovukFooter(FooterParams(
+  navigation = Seq(
+    FooterNavigation(
+      title = Some("Two column list"),
+      columns = Some(2),
+      items = Seq(
+        FooterItem(href = Some("#1"), text = Some("Navigation item 1")),
+        FooterItem(href = Some("#2"), text = Some("Navigation item 2")),
+        FooterItem(href = Some("#3"), text = Some("Navigation item 3")),
+        FooterItem(href = Some("#4"), text = Some("Navigation item 4")),
+        FooterItem(href = Some("#5"), text = Some("Navigation item 5")),
+        FooterItem(href = Some("#6"), text = Some("Navigation item 6"))
+      )
+    ),
+    FooterNavigation(
+      title = Some("Single column list"),
+      items = Seq(
+        FooterItem(href = Some("#1"), text = Some("Navigation item 1")),
+        FooterItem(href = Some("#2"), text = Some("Navigation item 2")),
+        FooterItem(href = Some("#3"), text = Some("Navigation item 3"))
+      )
+    )
+  )
+))

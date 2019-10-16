@@ -1,0 +1,52 @@
+@import uk.gov.hmrc.govukfrontend.views.html.components._
+
+@this()
+
+@()
+@GovukFooter(FooterParams(
+  navigation = Seq(
+    FooterNavigation(
+      title = Some("Services and information"),
+      columns = Some(2),
+      items = Seq(
+        FooterItem(href = Some("#"), text = Some("Benefits")),
+        FooterItem(href = Some("#"), text = Some("Births, deaths, marriages and care")),
+        FooterItem(href = Some("#"), text = Some("Business and self-employed")),
+        FooterItem(href = Some("#"), text = Some("Childcare and parenting")),
+        FooterItem(href = Some("#"), text = Some("Citizenship and living in the UK")),
+        FooterItem(href = Some("#"), text = Some("Crime, justice and the law")),
+        FooterItem(href = Some("#"), text = Some("Disabled people")),
+        FooterItem(href = Some("#"), text = Some("Driving and transport")),
+        FooterItem(href = Some("#"), text = Some("Education and learning")),
+        FooterItem(href = Some("#"), text = Some("Employing people")),
+        FooterItem(href = Some("#"), text = Some("Environment and countryside")),
+        FooterItem(href = Some("#"), text = Some("Housing and local services")),
+        FooterItem(href = Some("#"), text = Some("Money and tax")),
+        FooterItem(href = Some("#"), text = Some("Passports, travel and living abroad")),
+        FooterItem(href = Some("#"), text = Some("Visas and immigration")),
+        FooterItem(href = Some("#"), text = Some("Working, jobs and pensions"))
+      )
+    ),
+    FooterNavigation(
+      title = Some("Departments and policy"),
+      items = Seq(
+        FooterItem(href = Some("#"), text = Some("How government works")),
+        FooterItem(href = Some("#"), text = Some("Departments")),
+        FooterItem(href = Some("#"), text = Some("Worldwide")),
+        FooterItem(href = Some("#"), text = Some("Policies")),
+        FooterItem(href = Some("#"), text = Some("Publications")),
+        FooterItem(href = Some("#"), text = Some("Announcements"))
+      )
+    )
+  ),
+  meta = Some(Meta(
+    items = Seq(
+      FooterItem(href = Some("#"), text = Some("Help")),
+      FooterItem(href = Some("#"), text = Some("Cookies")),
+      FooterItem(href = Some("#"), text = Some("Contact")),
+      FooterItem(href = Some("#"), text = Some("Terms and conditions")),
+      FooterItem(href = Some("#"), text = Some("Rhestr o Wasanaethau Cymraeg"))
+    ),
+    content = HtmlContent("""Built by the <a href="#" class="govuk-footer__link">Government Digital Service</a>""")
+  ))
+))

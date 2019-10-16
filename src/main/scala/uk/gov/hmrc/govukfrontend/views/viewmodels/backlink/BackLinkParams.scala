@@ -22,7 +22,7 @@ import play.api.libs.json._
 import uk.gov.hmrc.govukfrontend.views.viewmodels.content.{Content, Empty}
 
 case class BackLinkParams(
-  href: String,
+  href: String                    = "",
   classes: String                 = "",
   attributes: Map[String, String] = Map.empty,
   content: Content                = Empty

@@ -1,6 +1,5 @@
 package uk.gov.hmrc.govukfrontend.support
 
-import org.bitbucket.cowwoc.diffmatchpatch.DiffMatchPatch
 import org.jsoup.Jsoup
 import org.scalacheck.Prop.{forAll, secure}
 import org.scalacheck.Test.TestCallback
@@ -10,8 +9,8 @@ import play.api.libs.json.{Json, OWrites}
 import uk.gov.hmrc.govukfrontend.support.Implicits._
 import uk.gov.hmrc.govukfrontend.support.ScalaCheckUtils.{ClassifyParams, classify}
 import uk.gov.hmrc.govukfrontend.views.{JsoupHelpers, TemplateValidationException, TwirlRenderer}
-import scala.collection.JavaConverters._
 import scala.util.{Failure, Success}
+import uk.gov.hmrc.govukfrontend.views.TemplateDiff._
 
 /**
   * Base class for integration testing a Twirl template against the Nunjucks template rendering service
@@ -39,25 +38,22 @@ abstract class TemplateIntegrationSpec[T: OWrites: Arbitrary](govukComponentName
 
   // Due to rounding in [[org.scalacheck.util.Pretty.prettyFreqMap]] the console reporter shows some
   // frequencies collected from the classifiers as 0% when they are not zero.
-  // This reporter looks for null counts in the classifiers which can signal problems in the generator
+  // This reporter looks for null counts instead of ratios in the classifiers which can signal problems in the generator
+  // and/or an insufficient number of test runs
   override def overrideParameters(p: Test.Parameters): Test.Parameters =
     p.withTestCallback(p.testCallback chain new TestCallback {
         override def onTestResult(name: String, result: Test.Result): Unit = {
           println(s"Generator reporter $name")
           val emptyStats = result.freqMap.getCounts.filter { case (_, c) => c == 0 }
           if (emptyStats.nonEmpty) {
-            pprint.pprintln("some stats are null, please tweak the generator to provide better coverage")
+            pprint.pprintln(
+              "some stats are null, please tweak the generator to provide better coverage and/or increase the minSuccessfulTests parameter")
             pprint.pprintln(emptyStats, width = 80, height = Int.MaxValue)
           } else ()
         }
 
       })
       .withMinSuccessfulTests(50)
-
-  /***
-    * Diff utility to report diffs in test failures
-    */
-  private lazy val diffWrapper = DiffWrapper(new DiffMatchPatch())
 
   /**
     * Property that renders the Twirl template and uses the template rendering service to render the equivalent
@@ -81,15 +77,16 @@ abstract class TemplateIntegrationSpec[T: OWrites: Arbitrary](govukComponentName
           case Success(twirlOutputHtml) =>
             val compressedTwirlHtml    = parseAndCompressHtml(twirlOutputHtml)
             val compressedNunjucksHtml = parseAndCompressHtml(nunJucksOutputHtml)
-            val prop                   = compressedNunjucksHtml == compressedTwirlHtml
+            val prop                   = compressedTwirlHtml == compressedNunjucksHtml
 
-            if (!prop)
-              showDiff(
-                compressedNunjucksHtml,
-                compressedTwirlHtml,
-                Json.prettyPrint(Json.toJson(templateParams)),
-                templateParams)
-            else ()
+            if (!prop) {
+              reportDiff(
+                compressedTwirlHtml    = compressedTwirlHtml,
+                compressedNunjucksHtml = compressedNunjucksHtml,
+                templateParams         = templateParams,
+                templateParamsJson     = Json.prettyPrint(Json.toJson(templateParams))
+              )
+            }
 
             prop
           case Failure(TemplateValidationException(message)) =>
@@ -102,39 +99,39 @@ abstract class TemplateIntegrationSpec[T: OWrites: Arbitrary](govukComponentName
       })
   }
 
-  /**
-    * Compute the diff and print the path to the diff file
-    *
-    * @param nunJucksOutputHtml
-    * @param twirlOutputHtml
-    * @param templateParamsJson
-    * @param templateParams
-    */
-  def showDiff(
-    nunJucksOutputHtml: String,
-    twirlOutputHtml: String,
-    templateParamsJson: String,
-    templateParams: T
-  ): Unit = {
-    val diffResult = diffWrapper.diff(nunJucksOutputHtml, twirlOutputHtml)
-    val path       = diffWrapper.diffToHtml(diff = diffResult.asScala, fileNamePrefix = Some(govukComponentName))
+  def reportDiff(
+    compressedTwirlHtml: String,
+    compressedNunjucksHtml: String,
+    templateParams: T,
+    templateParamsJson: String): Unit = {
 
-    println("\nThe rendered templates are different\n")
-    println("-" * 80)
-    println("Nunjucks")
-    println("-" * 80)
-    println(s"\nparameters: ")
-    println(templateParamsJson)
-    val formattedNunjucksHtml = Jsoup.parseBodyFragment(nunJucksOutputHtml).body.html
-    println(s"\nNunjucks output:\n$formattedNunjucksHtml\n")
+    val diffPath =
+      templateDiffPath(
+        twirlOutputHtml    = compressedTwirlHtml,
+        nunJucksOutputHtml = compressedNunjucksHtml,
+        diffFilePrefix     = Some(govukComponentName)
+      )
+
+    println(s"Diff between Twirl and Nunjucks outputs (please open diff HTML file in a browser): file://$diffPath\n")
 
     println("-" * 80)
     println("Twirl")
     println("-" * 80)
+
+    val formattedTwirlHtml = Jsoup.parseBodyFragment(compressedTwirlHtml).body.html
+    println(s"\nTwirl output:\n$formattedTwirlHtml\n")
+
     println(s"\nparameters: ")
     pprint.pprintln(templateParams, width = 80, height = 500)
-    val formattedTwirlHtml = Jsoup.parseBodyFragment(twirlOutputHtml).body.html
-    println(s"\nTwirl output:\n$formattedTwirlHtml\n")
-    println(s"\ndiff between Nunjucks and Twirl outputs (please open diff HTML file in a browser): file://$path\n")
+
+    println("-" * 80)
+    println("Nunjucks")
+    println("-" * 80)
+
+    val formattedNunjucksHtml = Jsoup.parseBodyFragment(compressedNunjucksHtml).body.html
+    println(s"\nNunjucks output:\n$formattedNunjucksHtml\n")
+
+    println(s"\nparameters: ")
+    println(templateParamsJson)
   }
 }

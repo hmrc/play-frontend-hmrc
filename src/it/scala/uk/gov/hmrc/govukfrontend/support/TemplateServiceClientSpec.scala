@@ -19,25 +19,27 @@ class TemplateServiceClientSpec
     with IntegrationPatience
     with JsoupHelpers {
 
-  "TemplateServiceClient" should {
-    "successfully obtain a response from the template service" in {
+  "TemplateServiceClient" when {
+    "making a request to the 'render' endpoint" should {
+      "successfully obtain a response from the template service" in {
 
-      Server.withRouter() {
-        case GET(p"/govuk/v$govukVersion/components/govukBackLink") =>
-          Action {
-            Results.Ok("""<a href="#" class="govuk-back-link">Back</a>""")
-          }
-      } { implicit port =>
-        val response = render(
-          templateParams     = BackLinkParams(href = "#"),
-          govukComponentName = "govukBackLink",
-          govukVersion       = govukFrontendVersion
-        ).futureValue
+        Server.withRouter() {
+          case GET(p"/govuk/v$govukVersion/components/govukBackLink ") =>
+            Action {
+              Results.Ok("""<a href="#" class="govuk-back-link">Back</a>""")
+            }
+        } { implicit port =>
+          val response = render(
+            templateParams     = BackLinkParams(href = "#"),
+            govukComponentName = "govukBackLink",
+            govukVersion       = govukFrontendVersion
+          ).futureValue
 
-        response.status shouldBe 200
+          response.status shouldBe 200
 
-        parseAndCompressHtml(response.bodyAsString) shouldBe parseAndCompressHtml(
-          """<a href="#" class="govuk-back-link">Back</a>""")
+          parseAndCompressHtml(response.bodyAsString) shouldBe parseAndCompressHtml(
+            """<a href="#" class="govuk-back-link">Back</a>""")
+        }
       }
     }
   }

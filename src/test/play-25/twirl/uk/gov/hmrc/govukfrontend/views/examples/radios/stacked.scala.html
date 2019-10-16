@@ -1,0 +1,22 @@
+@import uk.gov.hmrc.govukfrontend.views.html.components._
+
+
+
+@()
+@GovukRadios(RadiosParams(
+  idPrefix = Some("where-do-you-live"),
+  name = "where-do-you-live",
+  fieldsetParams = Some(FieldsetParams(
+    legend = Some(Legend(
+      content = Text("Where do you live?"),
+      isPageHeading = true,
+      classes = "govuk-fieldset__legend--xl"
+    ))
+  )),
+  items = Seq(
+    RadioItem(value = Some("england"), content = Text("England")),
+    RadioItem(value = Some("scotland"), content = Text("Scotland")),
+    RadioItem(value = Some("wales"), content = Text("Wales")),
+    RadioItem(value = Some("northern-ireland"), content = Text("Northern Ireland"))
+  )
+))

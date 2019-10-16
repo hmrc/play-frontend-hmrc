@@ -1,0 +1,18 @@
+@import uk.gov.hmrc.govukfrontend.views.html.components._
+
+
+
+@()
+@GovukInput(InputParams(
+  id = "event-name",
+  name = "event-name",
+  labelParams = LabelParams(
+    content = Text("Event name")
+  ),
+  hintParams = Some(HintParams(
+    content = Text("The name you’ll use on promotional material.")
+  )),
+  errorMessageParams = Some(ErrorMessageParams(
+    content = Text("Enter an event name")
+  ))
+))

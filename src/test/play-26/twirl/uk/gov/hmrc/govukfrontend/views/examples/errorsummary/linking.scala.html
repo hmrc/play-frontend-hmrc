@@ -1,0 +1,28 @@
+@import uk.gov.hmrc.govukfrontend.views.html.components._
+
+@this(input: GovukInput, errorSummary: GovukErrorSummary)
+
+@()
+@errorSummary(ErrorSummaryParams(
+  errorList =
+    Seq(
+      ErrorLink(
+        href = Some("#name"),
+        content = Text("Enter your full name")
+      )
+    ),
+  title = Text("There is a problem")
+))
+
+<h1 class="govuk-heading-xl">Your details</h1>
+
+@input(InputParams(
+  labelParams = LabelParams(
+    content = Text("Full name")
+  ),
+  id = "name",
+  name = "name",
+  errorMessageParams = Some(ErrorMessageParams(
+    content = Text("Enter your full name")
+  ))
+))

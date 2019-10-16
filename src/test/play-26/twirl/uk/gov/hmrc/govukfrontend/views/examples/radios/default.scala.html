@@ -1,0 +1,24 @@
+@import uk.gov.hmrc.govukfrontend.views.html.components._
+
+@this()
+
+@()
+@GovukRadios(RadiosParams(
+  classes = "govuk-radios--inline",
+  idPrefix = Some("changed-name"),
+  name = "changed-name",
+  fieldsetParams = Some(FieldsetParams(
+    legend = Some(Legend(
+      content = Text("Have you changed your name?"),
+      isPageHeading = true,
+      classes = "govuk-fieldset__legend--xl"
+    ))
+  )),
+  hintParams = Some(HintParams(
+    content = Text("This includes changing your last name or spelling your name differently.")
+  )),
+  items = Seq(
+    RadioItem(value = Some("yes"), content = Text("Yes")),
+    RadioItem(value = Some("no"), content = Text("No"))
+  )
+))
