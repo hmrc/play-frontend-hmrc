@@ -3,11 +3,11 @@
 
 
 @()
-@GovukRadios(RadiosParams(
+@GovukRadios(Radios(
   classes = "govuk-radios--small",
   idPrefix = Some("changed-name"),
   name = "changed-name",
-  fieldsetParams = Some(FieldsetParams(
+  fieldset = Some(Fieldset(
     legend = Some(Legend(
       content = Text("Filter"),
       isPageHeading = true,

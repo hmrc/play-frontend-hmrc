@@ -1,0 +1,41 @@
+@*
+ * Copyright 2019 HM Revenue & Customs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *@
+
+@this()
+
+@(params: Accordion)
+@import params._
+<div class="@toClasses("govuk-accordion", classes)" data-module="govuk-accordion" id="@id"@toAttributes(attributes)>
+  @for((item, index) <- items.zip(Stream from 1)) {
+    <div class="govuk-accordion__section @if(item.expanded) {govuk-accordion__section--expanded}">
+      <div class="govuk-accordion__section-header">
+        <h@headingLevel class="govuk-accordion__section-heading">
+          <span class="govuk-accordion__section-button" id="@id-heading-@index">
+            @item.headingContent.asHtml
+          </span>
+        </h@headingLevel>
+        @if(item.summaryContent.nonEmpty) {
+          <div class="govuk-accordion__section-summary govuk-body" id="@id-summary-@index">
+            @item.summaryContent.asHtml
+          </div>
+        }
+      </div>
+      <div id="@id-content-@index" class="govuk-accordion__section-content" aria-labelledby="@id-heading-@index">
+        @item.content.asHtml
+      </div>
+    </div>
+  }
+</div>

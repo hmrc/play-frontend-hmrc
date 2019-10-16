@@ -16,7 +16,7 @@
     <div class="govuk-grid-row">
       <div class="govuk-grid-column-two-thirds">
         <form action="/form-handler" method="post" novalidate>
-          @errorSummary(ErrorSummaryParams(
+          @govukErrorSummary(ErrorSummary(
             title = Text("There is a problem"),
             errorList = Seq(
               ErrorLink(
@@ -26,8 +26,8 @@
             )
           ))
 
-          @dateInput(DateInputParams(
-            fieldsetParams = Some(FieldsetParams(
+          @govukDateInput(DateInput(
+            fieldset = Some(Fieldset(
               legend = Some(Legend(
                 isPageHeading = true,
                 content = Text("When was your passport issued?"),
@@ -35,7 +35,7 @@
               ))
             )),
             id = Some("passport-issued"),
-            errorMessageParams = Some(ErrorMessageParams(
+            errorMessage = Some(ErrorMessage(
               content = Text("Passport issue date must include a year")
             )),
             items = Seq(
@@ -45,12 +45,12 @@
             )
           ))
 
-          @button(ButtonParams(content = Text("Continue")))
+          @govukButton(Button(content = Text("Continue")))
         </form>
       </div>
     </div>
   }
 }
 
-@beforeContentBlock = {@beforeContent.getOrElse {@backLink(BackLinkParams(content = Text("Back")))}}
+@beforeContentBlock = {@beforeContent.getOrElse {@govukBackLink(BackLink(content = Text("Back")))}}
 

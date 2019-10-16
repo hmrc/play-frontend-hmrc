@@ -27,8 +27,8 @@ final case class RadioItem(
   content: Content                = Empty,
   id: Option[String]              = None,
   value: Option[String]           = None,
-  label: Option[LabelParams]      = None,
-  hint: Option[HintParams]        = None,
+  label: Option[Label]      = None,
+  hint: Option[Hint]        = None,
   divider: Option[String]         = None,
   checked: Boolean                = false,
   conditionalHtml: Option[Html]   = None,
@@ -42,8 +42,8 @@ object RadioItem {
     Content.reads and
       (__ \ "id").readNullable[String] and
       (__ \ "value").readNullable[String] and
-      (__ \ "label").readNullable[LabelParams] and
-      (__ \ "hint").readNullable[HintParams] and
+      (__ \ "label").readNullable[Label] and
+      (__ \ "hint").readNullable[Hint] and
       (__ \ "divider").readNullable[String] and
       (__ \ "checked").readWithDefault[Boolean](false) and
       readsConditionalHtml and
@@ -55,8 +55,8 @@ object RadioItem {
     Content.writes and
       (__ \ "id").writeNullable[String] and
       (__ \ "value").writeNullable[String] and
-      (__ \ "label").writeNullable[LabelParams] and
-      (__ \ "hint").writeNullable[HintParams] and
+      (__ \ "label").writeNullable[Label] and
+      (__ \ "hint").writeNullable[Hint] and
       (__ \ "divider").writeNullable[String] and
       (__ \ "checked").write[Boolean] and
       writesConditionalHtml and

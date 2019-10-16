@@ -3,18 +3,18 @@
 
 
 @()
-@GovukRadios(RadiosParams(
+@GovukRadios(Radios(
   classes = "govuk-radios--inline",
   idPrefix = Some("changed-name"),
   name = "changed-name",
-  fieldsetParams = Some(FieldsetParams(
+  fieldset = Some(Fieldset(
     legend = Some(Legend(
       content = Text("Have you changed your name?"),
       isPageHeading = true,
       classes = "govuk-fieldset__legend--xl"
     ))
   )),
-  hintParams = Some(HintParams(
+  hint = Some(Hint(
     content = Text("This includes changing your last name or spelling your name differently.")
   )),
   items = Seq(

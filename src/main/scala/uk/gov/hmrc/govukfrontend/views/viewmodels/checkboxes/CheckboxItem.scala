@@ -22,16 +22,16 @@ import play.api.libs.json._
 import play.twirl.api.Html
 import CommonJsonFormats._
 import uk.gov.hmrc.govukfrontend.views.viewmodels.content.Content
-import uk.gov.hmrc.govukfrontend.views.viewmodels.hint.HintParams
-import uk.gov.hmrc.govukfrontend.views.viewmodels.label.LabelParams
+import uk.gov.hmrc.govukfrontend.views.viewmodels.hint.Hint
+import uk.gov.hmrc.govukfrontend.views.viewmodels.label.Label
 
 final case class CheckboxItem(
   content: Content,
   id: Option[String]   = None,
   name: Option[String] = None,
   value: String,
-  label: Option[LabelParams]      = None,
-  hint: Option[HintParams]        = None,
+  label: Option[Label]      = None,
+  hint: Option[Hint]        = None,
   checked: Boolean                = false,
   conditionalHtml: Option[Html]   = None,
   disabled: Boolean               = false,
@@ -44,8 +44,8 @@ object CheckboxItem {
       (__ \ "id").readNullable[String] and
       (__ \ "name").readNullable[String] and
       (__ \ "value").read[String] and
-      (__ \ "label").readNullable[LabelParams] and
-      (__ \ "hint").readNullable[HintParams] and
+      (__ \ "label").readNullable[Label] and
+      (__ \ "hint").readNullable[Hint] and
       (__ \ "checked").readWithDefault[Boolean](false) and
       readsConditionalHtml and
       (__ \ "disabled").readWithDefault[Boolean](false) and
@@ -57,8 +57,8 @@ object CheckboxItem {
       (__ \ "id").writeNullable[String] and
       (__ \ "name").writeNullable[String] and
       (__ \ "value").write[String] and
-      (__ \ "label").writeNullable[LabelParams] and
-      (__ \ "hint").writeNullable[HintParams] and
+      (__ \ "label").writeNullable[Label] and
+      (__ \ "hint").writeNullable[Hint] and
       (__ \ "checked").write[Boolean] and
       (__ \ "conditional" \ "html").writeNullable[String].contramap((html: Option[Html]) => html.map(_.body)) and
       (__ \ "disabled").write[Boolean] and

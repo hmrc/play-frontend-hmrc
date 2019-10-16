@@ -1,9 +1,9 @@
 @import uk.gov.hmrc.govukfrontend.views.html.components._
 
-@this(checkboxes: GovukCheckboxes)
+@this(govukCheckboxes: GovukCheckboxes)
 
 @()
-@GovukErrorSummary(ErrorSummaryParams(
+@GovukErrorSummary(ErrorSummary(
   errorList =
     Seq(
       ErrorLink(
@@ -14,27 +14,27 @@
   title = Text("There is a problem")
 ))
 
-@checkboxes(CheckboxesParams(
+@govukCheckboxes(Checkboxes(
   idPrefix = Some("nationality"),
   name = "nationality",
-  fieldsetParams = Some(FieldsetParams(
+  fieldset = Some(Fieldset(
     legend = Some(Legend(
       content = Text("What is your nationality?"),
       isPageHeading = true,
       classes = "govuk-fieldset__legend--xl"
     ))
   )),
-  hintParams = Some(HintParams(
+  hint = Some(Hint(
     content = Text("If you have dual nationality, select all options that are relevant to you.")
   )),
-  errorMessageParams = Some(ErrorMessageParams(
+  errorMessage = Some(ErrorMessage(
     content = Text("Select if you are British, Irish or a citizen of a different country")
   )),
   items = Seq(
     CheckboxItem(
       value = "british",
       content = Text("British"),
-      hint = Some(HintParams(content = Text("including English, Scottish, Welsh and Northern Irish"))),
+      hint = Some(Hint(content = Text("including English, Scottish, Welsh and Northern Irish"))),
       id = Some("nationality")
     ),
     CheckboxItem(

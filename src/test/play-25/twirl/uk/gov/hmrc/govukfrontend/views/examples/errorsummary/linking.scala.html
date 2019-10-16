@@ -3,7 +3,7 @@
 
 
 @()
-@errorSummary(ErrorSummaryParams(
+@govukErrorSummary(ErrorSummary(
   errorList =
     Seq(
       ErrorLink(
@@ -16,13 +16,13 @@
 
 <h1 class="govuk-heading-xl">Your details</h1>
 
-@input(InputParams(
-  labelParams = LabelParams(
+@govukInput(Input(
+  label = Label(
     content = Text("Full name")
   ),
   id = "name",
   name = "name",
-  errorMessageParams = Some(ErrorMessageParams(
+  errorMessage = Some(ErrorMessage(
     content = Text("Enter your full name")
   ))
 ))

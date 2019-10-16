@@ -1,0 +1,62 @@
+@*
+ * Copyright 2019 HM Revenue & Customs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *@
+
+@this()
+
+@(params: SummaryList)
+@import params._
+<dl class="@toClasses("govuk-summary-list", classes)"@toAttributes(attributes)>
+  @for(row <- rows) {
+    <div class="@toClasses("govuk-summary-list__row", row.classes)">
+      <dt class="@toClasses("govuk-summary-list__key", row.key.classes)">
+        @row.key.content.asHtml
+      </dt>
+      <dd class="@toClasses("govuk-summary-list__value", row.value.classes)">
+        @row.value.content.asHtml
+      </dd>
+      @if(row.actions.exists(_.items.length > 0)) {
+        <dd class="@toClasses("govuk-summary-list__actions", row.actions.map(_.classes).getOrElse(""))">
+          @if(row.actions.exists(_.items.length == 1)) {
+            @row.actions.map { actions => @actionLink(actions.items.head) }
+          } else {
+            <ul class="govuk-summary-list__actions-list">
+              @row.actions.map { actions =>
+                @for(action <- actions.items) {
+                  <li class="govuk-summary-list__actions-list-item">
+                    @actionLink(action)
+                  </li>
+                }
+              }
+            </ul>
+          }
+        </dd>
+      } else {
+        @if(anyRowHasActions) {
+          @* Add dummy column to extend border *@
+          <span class="govuk-summary-list__actions"></span>
+        }
+      }
+    </div>
+  }
+</dl>
+
+@actionLink(action: ActionItem) = {
+  <a class="@toClasses("govuk-link", action.classes)" href="@action.href"> @actionContent(action)</a>
+}
+
+@actionContent(action: ActionItem) = {@action.content.asHtml@action.visuallyHiddenText.map { visuallyHiddenText =><span class="govuk-visually-hidden"> @visuallyHiddenText</span> }}
+
+@anyRowHasActions = @{rows.exists(_.actions.exists(_.items.nonEmpty))}
