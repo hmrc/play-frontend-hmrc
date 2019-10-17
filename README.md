@@ -93,13 +93,13 @@ Same button using DI:
 ))
 ```
 
-### Examples
+### Example Templates
 
 We provide example templates using the Twirl components through a `Chrome` extension. Please refer to the 
 [extension's github repository](https://github.com/hmrc/play-frontend-govuk-extension) for installation instructions.
 
 With the extension installed, you should be able to go to the [GOV.UK Design System](https://design-system.service.gov.uk/components/), 
-click on a component on the sidebar and see the `Twirl` examples matching the provided Nunjucks templates.
+click on a component on the sidebar and see the `Twirl` examples matching the provided `Nunjucks` templates.
 
 _Note: Currently there are examples only for the following components:_
 
@@ -123,19 +123,35 @@ TODO: link to scaladoc
 
 ## Maintainers
 
-### Unit tests
+### sbt Dependencies
 
-The suite of unit tests runs against a set of test fixtures with data extracted from `govuk-frontend`'s `yaml` documentation
-for each component. The yaml examples are used in `govuk-frontend`'s own unit test suite.  This provides very basic coverage 
-which is insufficient, so the library runs additional black-box tests described next.
+The library depends on a `govuk-frontend` artifact published as a webjar.
 
-### Black-box testing against govuk-frontend
+```sbt
+"org.webjars.npm" % "govuk-frontend" % "x.y.z"
+```
+
+Currently GDS does not automate the publishing of the webjar so it has to be manually published from [WebJars](https://www.webjars.org) after a `govuk-frontend` release.
+
+### Unit Tests
+
+The suite of unit tests runs against a set of test fixtures with data extracted from [govuk-frontend's yaml documentation](https://github.com/alphagov/govuk-frontend/blob/master/src/govuk/components/button/button.yaml)
+for each component. The yaml examples are used in `govuk-frontend`'s own unit test suite. 
+
+The test fixtures are generated from the release of `govuk-frontend` [used in the library](#sbt-dependencies). 
+A script [TODO: document script] generates the fixtures which are manually included in the resources directory under `src/test/resources/fixtures/`.
+The unit tests will pick up the fixtures folder matching the version of `govuk-frontend` in the dependencies.
+
+_Future work: Given that unit testing the library using a fixed set of test fixtures provides only very basic coverage at best,
+ if we can improve the test coverage via generative testing described on the next section, we could discard the test fixtures completely._ 
+
+### Black-box Testing
 
 To ensure (as much as possible) that the implemented templates conform to the `govuk-frontend` templates, we use generative
-testing, via `scalacheck`, to compare the `Twirl` templates output against the Nunjucks `govuk-frontend` templates.
-Currently the black-box testing strategy has only been implemented as a proof of concept for two components: `govukBackLink` and `govukCheckboxes`.
+testing, via `scalacheck`, to compare the `Twirl` templates output against the `Nunjucks` `govuk-frontend` templates.
+Currently, the black-box testing strategy has only been implemented as a proof of concept for two components: `govukBackLink` and `govukCheckboxes`.
  
-The library runs its black-box (integration tests) against a `node.js` service used to render the `govuk-frontend` Nunjucks templates,
+The library runs its black-box (integration tests) against a `node.js` service used to render the `govuk-frontend` `Nunjucks` templates,
 so you'll need to install it first.
 To install `node.js` via `nvm` please follow the instructions [here](https://github.com/nvm-sh/nvm#installation-and-update).
 
@@ -158,18 +174,88 @@ sbt it:test
 _Note: The integration tests output produces a bit of noise as the library outputs statistics about the generators to check
 the distribution of the test cases._
 
-### Play 2.5 / Play 2.6 cross-compilation
+#### Reproducing failures (deterministic testing)
+In case of a test failure, the library outputs a seed that can be passed back to the failing test to reproduce it.
+
+Ex:
+```scala
+object govukBackLinkTemplateIntegrationSpec
+    extends TemplateIntegrationSpec[BackLink](
+      govukComponentName = "govukBackLink", seed = Some("pass the seed here")) // pass the seed and re-run
+```
+
+Additionally, upon a test failure, the test reporter prints out a link to a diff file in `HTML` to easily compare the
+markup for the failing test case against the expected markup. 
+
+```scala
+Diff between Twirl and Nunjucks outputs (please open diff HTML file in a browser): file:///Users/a-developer/dev/hmrc/play-frontend-govuk/target/govukBackLink-diff-2b99bb2a-98d4-48dc-8088-06bfe3008021.html
+```
+
+### Play 2.5 / Play 2.6 Cross-Compilation
 
 With the implementation of 
 [dependency injection for templates](https://www.playframework.com/documentation/2.6.x/ScalaTemplatesDependencyInjection), `Play 2.6`
-introduced breaking changes in the syntax of `Twirl` templates.  For this reason, for every `Play 2.6` template we have
- to create a mostly duplicate `Play 2.5` template.
+introduced breaking changes in the syntax of `Twirl` templates.  For this reason, for every `Play 2.6` template implementing a component, we have
+ to provide an almost identical `Play 2.5-compatible` template, differing only in the dependency injection declaration.
 
 To automate this manual effort, the library uses an `sbt` task to auto-generate the `Play 2.5` templates from the `Play 2.6` ones:
+
+```sbt
+lazy val generatePlay25TemplatesTask = taskKey[Seq[File]]("Generate Play 2.5 templates")
+```
   
 * this task is a dependency for `twirl-compile-templates` in both `Compile` and `Test` configurations
 * the auto-generated `Play 2.5` templates are not version controlled and should not be edited
 * the `Play 2.5` templates for the examples consumed by the [Chrome extension plugin](https://github.com/hmrc/play-frontend-govuk-extension) are also auto-generated but they are version controlled
+
+#### Naming Conventions for Injected Templates in Play 2.6
+
+The automatic generation of `Play 2.5` templates works by stripping out the `@this` declaration
+from a `Play 2.6` template.
+This means that the name of an injected template should match the name of the `Twirl` template file that
+implements it.
+
+Ex: Given a hypothetical new component injecting `govukInput` we should name the parameter `govukInput`.
+When the `Play 2.5` auto-generated template gets compiled it is able to find the `govukInput` object
+that implements the template (defined in the file `govukInput.scala.html`).
+```scala
+@this(govukInput: GovukInput)
+
+@()
+@govukInput(<params for govukInput template>)
+```  
+
+The auto-generated `Play 2.5` template will be:
+```scala
+@()
+@govukInput(<params for govukInput template>)
+```
+
+`govukInput` is the name of the Scala object that implements the compiled `govukInput.scala.html` template.
+Had we named the injected component something else, for example `input`, the auto-generated template would fail to compile
+since there is no template named `input.scala.html`.
+
+#### Backwards Compatibility in Play 2.6 Templates
+
+Due to the aforementioned differences between the `Twirl` compilers in `Play 2.5` and `Play 2.6` and the auto-generation
+feature, templates should not be written with backwards incompatible features only introduced in `Play 2.6`, such as
+[@if else if](https://github.com/playframework/twirl/issues/33).
+
+### Generating Example Templates (Future Work)
+
+The library provides a set of manually created examples as [described above](#example-templates).
+The examples are unit tested against the expected output `HTML` accompanying each example in the [GOV.UK Design System](https://design-system.service.gov.uk/components/)
+to ensure the `Twirl` examples produce the same markup as the `Nunjucks` ones.
+Once the examples are created, an `sbt` task is manually run to generate a [manifest.json](src/test/resources/manifest.json)
+file that is consumed by the [Chrome extension]((https://github.com/hmrc/play-frontend-govuk-extension)) to display the examples
+in the [GOV.UK Design System](https://design-system.service.gov.uk/components/).
+
+We plan to extract the example generation to a separate project that will:
+1. Generate the examples from the `Nunjucks` ones
+2. Run the tests
+3. Generate the `manifest.json` for the `Chrome` extension
+
+![example generation](docs/images/example-generation.svg)
 
 ## Contributing
 
