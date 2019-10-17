@@ -42,11 +42,6 @@ to construct them, import the following:
 import uk.gov.hmrc.govukfrontend.views.html.components._
 ```
 
-Import `govukTemplate` and a basic layout wrapping it:
-```scala
-import uk.gov.hmrc.govukfrontend.views.html.layouts._
-```
-
 The following import will bring the available `Twirl` helpers:
 ```scala
 import uk.gov.hmrc.govukfrontend.views.html.helpers._
@@ -167,8 +162,8 @@ the distribution of the test cases._
 
 With the implementation of 
 [dependency injection for templates](https://www.playframework.com/documentation/2.6.x/ScalaTemplatesDependencyInjection), `Play 2.6`
-introduced breaking changes in the syntax of `Twirl` templates.    
-For this reason, for every `Play 2.6` template we have to create a mostly duplicate `Play 2.5` template.
+introduced breaking changes in the syntax of `Twirl` templates.  For this reason, for every `Play 2.6` template we have
+ to create a mostly duplicate `Play 2.5` template.
 
 To automate this manual effort, the library uses an `sbt` task to auto-generate the `Play 2.5` templates from the `Play 2.6` ones:
   
