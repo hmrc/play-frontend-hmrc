@@ -22,6 +22,6 @@
   args: (Symbol,String)*
 )(body: => Html)(implicit request: RequestHeader, messages: Messages)
 <form action="@action.url" method="@action.method" @toHtmlArgs(args.toMap)>
-    @CSRF.formField
-    @body
+  @CSRF.formField
+  @body
 </form>

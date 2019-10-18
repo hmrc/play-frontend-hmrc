@@ -21,13 +21,13 @@
 @defining(innerHtmlSnippet) { case (describedBy, innerHtml) =>
   <div class="@toClasses("govuk-form-group", errorMessage.fold("")(_ => "govuk-form-group--error"), formGroupClasses)">
     @fieldset.fold(innerHtml) { fieldset =>
-        @govukFieldset(Fieldset(
-          describedBy = describedBy.toOption,
-          legend = fieldset.legend,
-          classes = fieldset.classes,
-          attributes = fieldset.attributes,
-          html = innerHtml
-        ))
+      @govukFieldset(Fieldset(
+        describedBy = describedBy.toOption,
+        legend = fieldset.legend,
+        classes = fieldset.classes,
+        attributes = fieldset.attributes,
+        html = innerHtml
+      ))
     }
   </div>
 }
