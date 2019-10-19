@@ -33,7 +33,7 @@ object ErrorMessage {
 
   // Converts the ambiguously documented visuallyHiddenText parameter from govuk-frontend to the correct type.
   // The original govuk-frontend implementation will show any truthy value as the hidden text when visuallyHiddenText is set to it.
-  // [[https://github.com/alphagov/govuk-frontend/blob/v3.2.0/src/govuk/components/error-message/template.test.js#L82]]
+  // [[https://github.com/alphagov/govuk-frontend/blob/v3.3.0/src/govuk/components/error-message/template.test.js#L82]]
   // When visuallyHiddenText is a falsy value we want to hide the text
   // If it is not provided we default to "Error"
   val readsVisuallyHiddenText: Reads[Option[String]] = (
@@ -41,11 +41,10 @@ object ErrorMessage {
       .readWithDefault[JsValue](JsString("Error"))
       .map {
         case JsNull                => None
-        case JsString("")          => None
-        case JsString(text)        => Some(text)
         case JsFalse               => None
         case JsNumber(n) if n == 0 => None
-        case x                     => Some(x.toString) // not intended behaviour but that is how govuk-frontend behaves
+        case JsString(text)        => Some(text)
+        case x                     => Some(x.toString) // not intended but that is how govuk-frontend behaves
       }
   )
 

@@ -17,9 +17,8 @@
 package uk.gov.hmrc.govukfrontend.views
 package viewmodels
 
-import play.twirl.api.{Html, HtmlFormat}
-import html.components._
 import org.scalacheck.{Arbitrary, Gen}
+import play.twirl.api.{Html, HtmlFormat}
 
 object Generators {
 
@@ -49,16 +48,6 @@ object Generators {
       html       <- Gen.frequency((80, Html(htmlString)), (20, HtmlFormat.empty))
     } yield html
   }
-
-  val genEmpty = Gen.const(Empty)
-
-  val genHtmlContent =
-    arbHtml.arbitrary.map(HtmlContent(_))
-
-  val genText =
-    Gen.frequency((80, Gen.asciiPrintableStr), (20, genHtmlString)).map(Text)
-
-  val genContent: Gen[Content] = Gen.oneOf(genEmpty, genHtmlContent, genText)
 
   def genClasses(nClasses: Int = 3): Gen[String] =
     for {

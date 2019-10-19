@@ -47,7 +47,7 @@ abstract class TemplateIntegrationSpec[T: OWrites: Arbitrary](govukComponentName
           val emptyStats = result.freqMap.getCounts.filter { case (_, c) => c == 0 }
           if (emptyStats.nonEmpty) {
             pprint.pprintln(
-              "some stats are null, please tweak the generator to provide better coverage and/or increase the minSuccessfulTests parameter")
+              "some stats are null, tweak the generator to provide better coverage and/or increase the minSuccessfulTests parameter")
             pprint.pprintln(emptyStats, width = 80, height = Int.MaxValue)
           } else ()
         }

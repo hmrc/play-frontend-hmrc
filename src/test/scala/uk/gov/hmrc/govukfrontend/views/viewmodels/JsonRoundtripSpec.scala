@@ -20,8 +20,9 @@ import org.scalacheck.{Arbitrary, ShrinkLowPriority}
 import org.scalatest.{Matchers, OptionValues, WordSpec}
 import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks
 import play.api.libs.json.{Json, Reads, Writes}
+import scala.reflect.ClassTag
 
-class JsonRoundtripSpec[T: Reads: Writes: Arbitrary](viewModel: String)
+class JsonRoundtripSpec[T: Reads: Writes: Arbitrary: ClassTag]
     extends WordSpec
     with Matchers
     with OptionValues
@@ -29,9 +30,9 @@ class JsonRoundtripSpec[T: Reads: Writes: Arbitrary](viewModel: String)
     with ShrinkLowPriority {
 
   "Json reads/writes" should {
-    s"do a roundtrip json serialisation of view model $viewModel" in {
+    s"do a roundtrip json serialisation of ${implicitly[ClassTag[T]]}" in {
       forAll { v: T =>
-        Json.toJson(v).asOpt[T].value shouldBe v
+        Json.toJson[T](v).asOpt[T].value shouldBe v
       }
     }
   }

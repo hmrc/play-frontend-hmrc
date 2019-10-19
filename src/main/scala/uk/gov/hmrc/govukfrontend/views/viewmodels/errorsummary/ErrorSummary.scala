@@ -38,7 +38,7 @@ object ErrorSummary {
       Content.readsHtmlOrText((__ \ "descriptionHtml"), (__ \ "descriptionText"))
   )(ErrorSummary.apply _)
 
-  implicit val writes = (
+  implicit val writes: OWrites[ErrorSummary] = (
     (__ \ "errorList").write[Seq[ErrorLink]] and
       (__ \ "classes").write[String] and
       (__ \ "attributes").write[Map[String, String]] and

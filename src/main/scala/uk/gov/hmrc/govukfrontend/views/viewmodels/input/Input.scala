@@ -22,7 +22,6 @@ import uk.gov.hmrc.govukfrontend.views.viewmodels.CommonJsonFormats._
 import uk.gov.hmrc.govukfrontend.views.viewmodels.errormessage.ErrorMessage
 import uk.gov.hmrc.govukfrontend.views.viewmodels.hint.Hint
 import uk.gov.hmrc.govukfrontend.views.viewmodels.label.Label
-import scala.util.matching.Regex
 
 case class Input(
   id: String,
@@ -34,11 +33,11 @@ case class Input(
   label: Label,
   hint: Option[Hint]                 = None,
   errorMessage: Option[ErrorMessage] = None,
-  formGroupClasses: String                       = "",
-  classes: String                                = "",
-  autoComplete: Option[String]                   = None,
-  pattern: Option[Regex]                         = None,
-  attributes: Map[String, String]                = Map.empty
+  formGroupClasses: String           = "",
+  classes: String                    = "",
+  autoComplete: Option[String]       = None,
+  pattern: Option[String]            = None,
+  attributes: Map[String, String]    = Map.empty
 )
 
 object Input {
@@ -56,7 +55,7 @@ object Input {
       readsFormGroupClasses and
       (__ \ "classes").readWithDefault[String]("") and
       (__ \ "autocomplete").readNullable[String] and
-      (__ \ "pattern").readNullable[Regex] and
+      (__ \ "pattern").readNullable[String] and
       (__ \ "attributes").readWithDefault[Map[String, String]](Map.empty)
   )(Input.apply _)
 
@@ -73,7 +72,7 @@ object Input {
       writesFormGroupClasses and
       (__ \ "classes").write[String] and
       (__ \ "autocomplete").writeNullable[String] and
-      (__ \ "pattern").writeNullable[Regex] and
+      (__ \ "pattern").writeNullable[String] and
       (__ \ "attributes").write[Map[String, String]]
   )(unlift(Input.unapply))
 }

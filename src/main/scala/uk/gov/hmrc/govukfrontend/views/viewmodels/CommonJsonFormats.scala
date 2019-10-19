@@ -18,7 +18,6 @@ package uk.gov.hmrc.govukfrontend.views.viewmodels
 
 import play.api.libs.json._
 import play.twirl.api.Html
-import scala.util.matching.Regex
 
 object CommonJsonFormats {
   val readsFormGroupClasses: Reads[String] =
@@ -35,16 +34,5 @@ object CommonJsonFormats {
   val writesConditionalHtml: OWrites[Option[Html]] = new OWrites[Option[Html]] {
     override def writes(o: Option[Html]): JsObject =
       o.map(o => Json.obj("conditional" -> Json.obj("html" -> o.body))).getOrElse(Json.obj())
-  }
-
-  implicit val readsRegex: Reads[Regex] = new Reads[Regex] {
-    override def reads(json: JsValue): JsResult[Regex] = json match {
-      case JsString(s) => JsSuccess(new Regex(s))
-      case _           => JsError(JsonValidationError("error.expected.jsstring"))
-    }
-  }
-
-  implicit val writesRegex: Writes[Regex] = new Writes[Regex] {
-    override def writes(o: Regex): JsValue = JsString(o.regex)
   }
 }

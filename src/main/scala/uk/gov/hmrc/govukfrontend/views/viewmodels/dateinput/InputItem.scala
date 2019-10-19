@@ -17,10 +17,8 @@
 package uk.gov.hmrc.govukfrontend.views.viewmodels
 package dateinput
 
-import play.api.libs.json._
 import play.api.libs.functional.syntax._
-import CommonJsonFormats._
-import scala.util.matching.Regex
+import play.api.libs.json._
 
 final case class InputItem(
   id: Option[String] = None,
@@ -28,7 +26,7 @@ final case class InputItem(
   label: Option[String]           = None,
   value: Option[String]           = None,
   autoComplete: Option[String]    = None,
-  pattern: Option[Regex]          = None,
+  pattern: Option[String]         = None,
   classes: String                 = "",
   attributes: Map[String, String] = Map.empty
 )
@@ -41,7 +39,7 @@ object InputItem {
       (__ \ "label").readNullable[String] and
       (__ \ "value").readNullable[String] and
       (__ \ "autocomplete").readNullable[String] and
-      (__ \ "pattern").readNullable[Regex] and
+      (__ \ "pattern").readNullable[String] and
       (__ \ "classes").readWithDefault[String]("") and
       (__ \ "attributes").readWithDefault[Map[String, String]](Map.empty)
   )(InputItem.apply _)
@@ -52,7 +50,7 @@ object InputItem {
       (__ \ "label").writeNullable[String] and
       (__ \ "value").writeNullable[String] and
       (__ \ "autocomplete").writeNullable[String] and
-      (__ \ "pattern").writeNullable[Regex] and
+      (__ \ "pattern").writeNullable[String] and
       (__ \ "classes").write[String] and
       (__ \ "attributes").write[Map[String, String]]
   )(unlift(InputItem.unapply))

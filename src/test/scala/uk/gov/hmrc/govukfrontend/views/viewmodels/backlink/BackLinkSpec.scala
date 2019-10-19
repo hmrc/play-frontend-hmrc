@@ -20,4 +20,4 @@ package backlink
 
 import uk.gov.hmrc.govukfrontend.views.viewmodels.backlink.Generators._
 
-class BackLinkSpec extends JsonRoundtripSpec[BackLink]("BackLink")
+class BackLinkSpec extends JsonRoundtripSpec[BackLink]

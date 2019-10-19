@@ -92,7 +92,7 @@
             ),
           classes = toClasses("govuk-date-input__input", item.classes),
           autoComplete = item.autoComplete,
-          pattern = Option(item.pattern.getOrElse("[0-9]*".r)),
+          pattern = Option(item.pattern.getOrElse("[0-9]*")),
           attributes = item.attributes
         ))
       </div>

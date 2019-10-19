@@ -17,15 +17,12 @@
 package uk.gov.hmrc.govukfrontend.views
 package components
 
-import org.scalacheck.Arbitrary._
-import org.scalacheck._
 import play.twirl.api.HtmlFormat
 import uk.gov.hmrc.govukfrontend.support.ScalaCheckUtils.ClassifyParams
 import uk.gov.hmrc.govukfrontend.support.TemplateIntegrationSpec
-import uk.gov.hmrc.govukfrontend.views.components.CheckboxesGenerators._
 import uk.gov.hmrc.govukfrontend.views.html.components._
-import uk.gov.hmrc.govukfrontend.views.viewmodels.Generators._
 import uk.gov.hmrc.govukfrontend.views.viewmodels.checkboxes.Checkboxes
+import uk.gov.hmrc.govukfrontend.views.viewmodels.checkboxes.Generators._
 import scala.util.Try
 
 object govukCheckboxesTemplateIntegrationSpec
@@ -35,16 +32,16 @@ object govukCheckboxesTemplateIntegrationSpec
     Try(
       GovukCheckboxes(
         Checkboxes(
-          describedBy        = checkboxesParams.describedBy,
-          fieldset     = checkboxesParams.fieldset,
-          hint         = checkboxesParams.hint,
-          errorMessage = checkboxesParams.errorMessage,
-          formGroupClasses   = checkboxesParams.formGroupClasses,
-          idPrefix           = checkboxesParams.idPrefix,
-          name               = checkboxesParams.name,
-          items              = checkboxesParams.items,
-          classes            = checkboxesParams.classes,
-          attributes         = checkboxesParams.attributes
+          describedBy      = checkboxesParams.describedBy,
+          fieldset         = checkboxesParams.fieldset,
+          hint             = checkboxesParams.hint,
+          errorMessage     = checkboxesParams.errorMessage,
+          formGroupClasses = checkboxesParams.formGroupClasses,
+          idPrefix         = checkboxesParams.idPrefix,
+          name             = checkboxesParams.name,
+          items            = checkboxesParams.items,
+          classes          = checkboxesParams.classes,
+          attributes       = checkboxesParams.attributes
         ))
     )
 
@@ -80,107 +77,4 @@ object govukCheckboxesTemplateIntegrationSpec
           (condition, s"fieldsetParams $ifTrue", s"fieldsetParams $ifFalse")
       }
 
-}
-
-object CheckboxesGenerators {
-  implicit val arbCheckbox: Arbitrary[Checkboxes] = Arbitrary(genCheckbox)
-
-  lazy val genCheckbox = for {
-    describedBy        <- Gen.option(genAlphaStrOftenEmpty())
-    fieldsetParams     <- Gen.option(genFieldset)
-    hintParams         <- Gen.option(genHint)
-    errorMessageParams <- Gen.option(genErrorMessage)
-    formGroupClasses   <- genClasses()
-    idPrefix           <- Gen.option(genAlphaStrOftenEmpty())
-    name               <- genNonEmptyAlphaStr
-    nItems             <- Gen.chooseNum(0, 5)
-    items              <- Gen.listOfN(nItems, genCheckboxItem)
-    classes            <- genClasses()
-    attributes         <- genAttributes()
-  } yield
-    Checkboxes(
-      describedBy        = describedBy,
-      fieldset     = fieldsetParams,
-      hint         = hintParams,
-      errorMessage = errorMessageParams,
-      formGroupClasses   = formGroupClasses,
-      idPrefix           = idPrefix,
-      name               = name,
-      items              = items,
-      classes            = classes,
-      attributes         = attributes
-    )
-
-  lazy val genCheckboxItem = for {
-    content         <- genContent
-    id              <- Gen.option(genAlphaStrOftenEmpty())
-    name            <- Gen.option(genAlphaStrOftenEmpty())
-    value           <- genAlphaStrOftenEmpty()
-    label           <- Gen.option(genLabel)
-    hint            <- Gen.option(genHint)
-    checked         <- arbBool.arbitrary
-    conditionalHtml <- Gen.option(arbHtml.arbitrary)
-    disabled        <- arbBool.arbitrary
-    attributes      <- genAttributes()
-  } yield
-    CheckboxItem(
-      content         = content,
-      id              = id,
-      name            = name,
-      value           = value,
-      label           = label,
-      hint            = hint,
-      checked         = checked,
-      conditionalHtml = conditionalHtml,
-      disabled        = disabled,
-      attributes      = attributes
-    )
-
-  lazy val genLabel = for {
-    forAttr       <- Gen.option(genAlphaStrOftenEmpty())
-    isPageHeading <- arbBool.arbitrary
-    classes       <- genClasses()
-    attributes    <- genAttributes()
-    content       <- genContent
-  } yield
-    Label(
-      forAttr       = forAttr,
-      isPageHeading = isPageHeading,
-      classes       = classes,
-      attributes    = attributes,
-      content       = content)
-
-  lazy val genFieldset: Gen[Fieldset] = for {
-    describedBy <- Gen.option(genAlphaStrOftenEmpty())
-    legend      <- Gen.option(genLegend)
-    classes     <- genClasses()
-    role        <- Gen.option(genAlphaStrOftenEmpty())
-    attributes  <- genAttributes()
-  } yield
-    Fieldset(describedBy = describedBy, legend = legend, classes = classes, role = role, attributes = attributes)
-
-  lazy val genLegend: Gen[Legend] = for {
-    content       <- genContent
-    classes       <- genClasses()
-    isPageHeading <- arbBool.arbitrary
-  } yield Legend(content = content, classes = classes, isPageHeading)
-
-  lazy val genHint = for {
-    id         <- Gen.option(genAlphaStrOftenEmpty())
-    classes    <- genClasses()
-    attributes <- genAttributes()
-    content    <- genContent
-  } yield Hint(id = id, classes = classes, attributes = attributes, content = content)
-
-  lazy val genErrorMessage = for {
-    classes            <- genClasses()
-    attributes         <- genAttributes()
-    visuallyHiddenText <- Gen.option(genAlphaStrOftenEmpty())
-    content            <- genContent
-  } yield
-    ErrorMessage(
-      classes            = classes,
-      attributes         = attributes,
-      visuallyHiddenText = visuallyHiddenText,
-      content            = content)
 }

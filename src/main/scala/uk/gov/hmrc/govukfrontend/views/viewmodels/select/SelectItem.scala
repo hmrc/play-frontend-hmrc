@@ -19,27 +19,25 @@ package select
 
 import play.api.libs.functional.syntax._
 import play.api.libs.json._
-import uk.gov.hmrc.govukfrontend.views.Implicits._
 import uk.gov.hmrc.govukfrontend.views.viewmodels.JsonImplicits._
-
 
 final case class SelectItem(
   value: Option[String] = None,
   text: String,
-  selected: Boolean = false,
-  disabled: Boolean = false,
+  selected: Boolean               = false,
+  disabled: Boolean               = false,
   attributes: Map[String, String] = Map.empty
 )
 
 object SelectItem {
 
   implicit val reads: Reads[SelectItem] = (
-    (__ \ "value").readsJsValueToString.map(_.toOption) and
+    (__ \ "value").readsJsValueToString.map(Option[String]).orElse(Reads.pure(None)) and
       (__ \ "text").read[String] and
       (__ \ "selected").readWithDefault[Boolean](false) and
       (__ \ "disabled").readWithDefault[Boolean](false) and
       (__ \ "attributes").readWithDefault[Map[String, String]](Map.empty)
-    )(SelectItem.apply _)
+  )(SelectItem.apply _)
 
   implicit val writes: OWrites[SelectItem] = (
     (__ \ "value").writeNullable[String] and
