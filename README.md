@@ -13,7 +13,6 @@ __This is a work in progress and for the time being we will be releasing version
 - [Getting Started](#getting-started)
 - [Usage](#usage)
 - [API](#api)
-- [Maintainers](#maintainers)
 - [Contributing](#contributing)
 - [License](#license)
 
@@ -121,7 +120,7 @@ _Note: Currently there are examples only for the following components:_
 
 TODO: link to scaladoc
 
-## Maintainers
+## Contributing
 
 ### sbt Dependencies
 
@@ -258,8 +257,6 @@ We plan to extract the example generation to a separate project that will:
 3. Generate the `manifest.json` for the `Chrome` extension
 
 ![example generation](docs/images/example-generation.svg)
-
-## Contributing
 
 TODO
 
