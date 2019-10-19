@@ -20,7 +20,7 @@ __This is a work in progress and for the time being we will be releasing version
 ## Background
 
 This library provides accessibility-compliant `Twirl` basic building blocks as originally implemented in the [govuk-frontend](https://github.com/alphagov/govuk-frontend/)
-library. Additionally, it provides a layout that wraps the `govukTemplate`, used across all frontends, and we plan to 
+library. Additionally, it provides a layout that wraps the `GovukTemplate`, used across all frontends, and we plan to 
 include more helpers built on top of `Play`'s own helpers and the basic components.
 The following figure illustrates the components and their dependencies (zoom in for a better view).
 
@@ -47,8 +47,8 @@ The following import will bring the available `Twirl` helpers:
 import uk.gov.hmrc.govukfrontend.views.html.helpers._
 ```
 
-Additionally, the following implicits will bring in extension methods on `Play`'s [FormError](https://www.playframework.com/documentation/2.6.x/api/scala/play/api/data/FormError.html) 
-to convert between `Play`'s form errors and view models needed by the `govuk-frontend` Twirl components used to display errors in forms:
+The following import will summon implicits that provide extension methods on `Play`'s [FormError](https://www.playframework.com/documentation/2.6.x/api/scala/play/api/data/FormError.html) 
+to convert between `Play`'s form errors and view models used by `GovukErrorMessage` and `GovukErrorSummary`:
 ```scala
 import uk.gov.hmrc.govukfrontend.views.html.components.implicits._
 ```
@@ -133,6 +133,8 @@ The library depends on a `govuk-frontend` artifact published as a webjar.
 
 Currently GDS does not automate the publishing of the webjar so it has to be manually published from [WebJars](https://www.webjars.org) after a `govuk-frontend` release.
 
+The [following guide](/docs/upgrading.md) illustrates the process of updating the library when GDS releases a new version of `govuk-frontend`. 
+
 ### Unit Tests
 
 The suite of unit tests runs against a set of test fixtures with data extracted from [govuk-frontend's yaml documentation](https://github.com/alphagov/govuk-frontend/blob/master/src/govuk/components/button/button.yaml)
@@ -145,13 +147,13 @@ The unit tests will pick up the fixtures folder matching the version of `govuk-f
 _Future work: Given that unit testing the library using a fixed set of test fixtures provides only very basic coverage at best,
  if we can improve the test coverage via generative testing described on the next section, we could discard the test fixtures completely._ 
 
-### Black-box Testing
+### Generative Testing
 
 To ensure (as much as possible) that the implemented templates conform to the `govuk-frontend` templates, we use generative
 testing, via `scalacheck`, to compare the `Twirl` templates output against the `Nunjucks` `govuk-frontend` templates.
-Currently, the black-box testing strategy has only been implemented as a proof of concept for two components: `govukBackLink` and `govukCheckboxes`.
+Currently, the generative testing strategy has only been implemented as a proof of concept for two components: `GovukBackLink` and `GovukCheckboxes`.
  
-The library runs its black-box (integration tests) against a `node.js` service used to render the `govuk-frontend` `Nunjucks` templates,
+The tests run against a `node.js` service used to render the `govuk-frontend` `Nunjucks` templates,
 so you'll need to install it first.
 To install `node.js` via `nvm` please follow the instructions [here](https://github.com/nvm-sh/nvm#installation-and-update).
 
@@ -174,7 +176,7 @@ sbt it:test
 _Note: The integration tests output produces a bit of noise as the library outputs statistics about the generators to check
 the distribution of the test cases._
 
-#### Reproducing failures (deterministic testing)
+#### Reproducing Failures (Deterministic Testing)
 In case of a test failure, the library outputs a seed that can be passed back to the failing test to reproduce it.
 
 Ex:
@@ -184,11 +186,11 @@ object govukBackLinkTemplateIntegrationSpec
       govukComponentName = "govukBackLink", seed = Some("pass the seed here")) // pass the seed and re-run
 ```
 
-Additionally, upon a test failure, the test reporter prints out a link to a diff file in `HTML` to easily compare the
+Upon a test failure, the test reporter prints out a link to a diff file in `HTML` to easily compare the
 markup for the failing test case against the expected markup. 
 
 ```scala
-Diff between Twirl and Nunjucks outputs (please open diff HTML file in a browser): file:///Users/a-developer/dev/hmrc/play-frontend-govuk/target/govukBackLink-diff-2b99bb2a-98d4-48dc-8088-06bfe3008021.html
+Diff between Twirl and Nunjucks outputs (please open diff HTML file in a browser): file:///Users/foo/dev/hmrc/play-frontend-govuk/target/govukBackLink-diff-2b99bb2a-98d4-48dc-8088-06bfe3008021.html
 ```
 
 ### Play 2.5 / Play 2.6 Cross-Compilation
@@ -215,7 +217,7 @@ from a `Play 2.6` template.
 This means that the name of an injected template should match the name of the `Twirl` template file that
 implements it.
 
-Ex: Given a hypothetical new component injecting `govukInput` we should name the parameter `govukInput`.
+Ex: Given a hypothetical new component injecting `GovukInput` we should name the parameter `govukInput`.
 When the `Play 2.5` auto-generated template gets compiled it is able to find the `govukInput` object
 that implements the template (defined in the file `govukInput.scala.html`).
 ```scala
