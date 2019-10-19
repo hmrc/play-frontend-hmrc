@@ -27,7 +27,7 @@ case class Input(
   id: String,
   name: String,
   inputType: String           = "text",
-  inputMode: Option[String]   = None,
+  inputmode: Option[String]   = None,
   describedBy: Option[String] = None,
   value: Option[String]       = None,
   label: Label,
@@ -35,7 +35,7 @@ case class Input(
   errorMessage: Option[ErrorMessage] = None,
   formGroupClasses: String           = "",
   classes: String                    = "",
-  autoComplete: Option[String]       = None,
+  autocomplete: Option[String]       = None,
   pattern: Option[String]            = None,
   attributes: Map[String, String]    = Map.empty
 )

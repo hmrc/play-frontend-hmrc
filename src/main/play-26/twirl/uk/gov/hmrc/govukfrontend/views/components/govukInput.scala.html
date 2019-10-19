@@ -68,7 +68,7 @@
     id="@id" name="@name" type="@inputType"@value.map { value => value="@value" }@if(describedBy.nonEmpty) { aria-describedby="@describedBy"}
   } { attrs =>
   @defining {
-    @autoComplete.map { autoComplete => autocomplete="@autoComplete"}@pattern.map { pattern => pattern="@pattern"}@inputMode.map { inputMode => inputmode="@inputMode"}@toAttributes(attributes)
+    @autocomplete.map { autocomplete => autocomplete="@autocomplete"}@pattern.map { pattern => pattern="@pattern"}@inputmode.map { inputmode => inputmode="@inputmode"}@toAttributes(attributes)
   } { otherAttrs =>
       <input class="@toClasses("govuk-input", classes, errorMessage.fold("")(_ => "govuk-input--error"))" @attrs@otherAttrs>
   }}

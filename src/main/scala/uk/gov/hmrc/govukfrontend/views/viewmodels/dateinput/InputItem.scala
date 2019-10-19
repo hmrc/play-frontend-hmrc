@@ -25,7 +25,7 @@ final case class InputItem(
   name: String,
   label: Option[String]           = None,
   value: Option[String]           = None,
-  autoComplete: Option[String]    = None,
+  autocomplete: Option[String]    = None,
   pattern: Option[String]         = None,
   classes: String                 = "",
   attributes: Map[String, String] = Map.empty

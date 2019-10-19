@@ -37,7 +37,7 @@ object Generators {
       errorMessage     <- Gen.option(arbErrorMessage.arbitrary)
       formGroupClasses <- genClasses()
       classes          <- genClasses()
-      autoComplete     <- Gen.option(genAlphaStrOftenEmpty())
+      autocomplete     <- Gen.option(genAlphaStrOftenEmpty())
       pattern          <- Gen.option(genAlphaStrOftenEmpty())
       attributes       <- genAttributes()
     } yield
@@ -45,7 +45,7 @@ object Generators {
         id               = id,
         name             = name,
         inputType        = inputType,
-        inputMode        = inputMode,
+        inputmode        = inputMode,
         describedBy      = describedBy,
         value            = value,
         label            = label,
@@ -53,7 +53,7 @@ object Generators {
         errorMessage     = errorMessage,
         formGroupClasses = formGroupClasses,
         classes          = classes,
-        autoComplete     = autoComplete,
+        autocomplete     = autocomplete,
         pattern          = pattern,
         attributes       = attributes
       )
