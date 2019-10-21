@@ -29,6 +29,9 @@ The following figure illustrates the components and their dependencies (zoom in 
 
 sbt
 ```sbt
+//Add the resolver for private libraries
+resolvers += "hmrc-releases" at "https://artefacts.tax.service.gov.uk/artifactory/hmrc-releases/"
+
 //build.sbt for Play 2.5
 libraryDependencies += "uk.gov.hmrc" %% "play-frontend-govuk" % "x.y.z-play-25"
 //or Play 2.6
