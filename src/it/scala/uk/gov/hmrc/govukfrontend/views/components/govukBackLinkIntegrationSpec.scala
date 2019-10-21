@@ -25,18 +25,17 @@ import uk.gov.hmrc.govukfrontend.views.viewmodels.backlink.BackLink
 import uk.gov.hmrc.govukfrontend.views.viewmodels.backlink.Generators._
 import scala.util.Try
 
-object govukBackLinkTemplateIntegrationSpec
+object govukBackLinkIntegrationSpec
     extends TemplateIntegrationSpec[BackLink](govukComponentName = "govukBackLink", seed = None) {
 
-  override def render(backLinkParams: BackLink): Try[HtmlFormat.Appendable] =
-    Try(GovukBackLink(backLinkParams))
+  override def render(backLink: BackLink): Try[HtmlFormat.Appendable] =
+    Try(GovukBackLink(backLink))
 
-  override def classifiers(backLinkParams: BackLink): Stream[ClassifyParams] =
-    (backLinkParams.href.isEmpty, "empty href", "non-empty href") #::
-      (backLinkParams.classes.isEmpty, "empty classes", "non-empty classes") #::
-      (backLinkParams.attributes.isEmpty, "empty attributes", "non-empty attributes") #::
-      (backLinkParams.content.nonEmpty && backLinkParams.content.isInstanceOf[HtmlContent], "non-empty Html", ()) #::
-      (backLinkParams.content.nonEmpty && backLinkParams.content.isInstanceOf[Text], "non-empty Text", ()) #::
-      (!backLinkParams.content.nonEmpty, "empty content", ()) #::
+  override def classifiers(backLink: BackLink): Stream[ClassifyParams] =
+    (backLink.href.isEmpty, "empty href", "non-empty href") #::
+      (backLink.classes.isEmpty, "empty classes", "non-empty classes") #::
+      (backLink.attributes.isEmpty, "empty attributes", "non-empty attributes") #::
+      (!backLink.content.nonEmpty, "empty content", "non-empty content") #::
       Stream.empty[ClassifyParams]
+
 }

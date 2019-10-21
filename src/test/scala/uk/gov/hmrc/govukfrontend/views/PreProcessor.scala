@@ -16,22 +16,27 @@
 
 package uk.gov.hmrc.govukfrontend.views
 
-import org.jsoup.Jsoup
-import org.jsoup.nodes.Document
-import org.jsoup.select.Elements
-import play.twirl.api.Html
+import com.googlecode.htmlcompressor.compressor.HtmlCompressor
+import org.jsoup.parser.Parser
 
-trait JsoupHelpers {
+trait PreProcessor {
 
-  implicit class RichHtml(html: Html) {
-    def select(cssQuery: String): Elements =
-      parseNoPrettyPrinting(html).select(cssQuery)
-  }
+  private lazy val compressor = new HtmlCompressor()
 
-  // otherwise Jsoup inserts linefeed https://stackoverflow.com/questions/12503117/jsoup-line-feed
-  def parseNoPrettyPrinting(html: Html): Document = {
-    val doc = Jsoup.parse(html.body)
-    doc.outputSettings().prettyPrint(false)
-    doc
-  }
+  /***
+    * Compresses markup to remove irrelevant whitespace differences.
+    *
+    * @param html
+    * @return
+    */
+  def parseAndCompressHtml(html: String): String =
+    compressor.compress(Parser.unescapeEntities(html, false))
+
+  /***
+    * Function to pre-process the markup before comparing.
+    *
+    * @param html
+    * @return String
+    */
+  def preProcess(html: String): String = parseAndCompressHtml(html: String)
 }

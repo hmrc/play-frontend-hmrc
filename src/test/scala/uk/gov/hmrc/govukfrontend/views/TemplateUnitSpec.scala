@@ -32,12 +32,13 @@ import scala.util.{Failure, Success, Try}
   */
 abstract class TemplateUnitSpec[T: Reads](govukComponentName: String)
     extends TwirlRenderer[T]
+    with PreProcessor
     with JsoupHelpers
     with WordSpecLike
     with Matchers
     with TryValues {
 
-  exampleNames(govukComponentName)
+  exampleNames(govukComponentName).filter(_ == "header-default")
     .foreach { exampleName =>
     s"$exampleName" should {
       "render the same html as the nunjucks renderer" in {
@@ -45,10 +46,10 @@ abstract class TemplateUnitSpec[T: Reads](govukComponentName: String)
 
         tryTwirlHtml match {
           case Success(twirlHtml) =>
-            val compressedTwirlHtml    = parseAndCompressHtml(twirlHtml)
-            val compressedNunjucksHtml = parseAndCompressHtml(nunjucksHtml(exampleName).success.value)
+            val preProcessedTwirlHtml    = preProcess(twirlHtml)
+            val preProcessedNunjucksHtml = preProcess(nunjucksHtml(exampleName).success.value)
 
-            compressedTwirlHtml shouldBe compressedNunjucksHtml
+            preProcessedTwirlHtml shouldBe preProcessedNunjucksHtml
           case Failure(TemplateValidationException(message)) =>
             println(s"Failed to validate the parameters for the template for $govukComponentName")
             println(s"Exception: $message")

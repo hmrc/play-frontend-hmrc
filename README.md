@@ -153,7 +153,9 @@ the test coverage via generative testing described on the next section, we could
 
 To ensure (as much as possible) that the implemented templates conform to the `govuk-frontend` templates, we use generative
 testing, via `scalacheck`, to compare the `Twirl` templates output against the `Nunjucks` `govuk-frontend` templates.
-Currently, the generative testing strategy has only been implemented as a proof of concept for two components: `GovukBackLink` and `GovukCheckboxes`.
+Currently, the generative testing strategy has only been implemented for a few components: 
+`GovukBackLink`, `GovukCheckboxes`, `GovukErrorMessage`, `GovukErrorSummary`, `GovukFieldset`, 
+`GovukHeader`, `GovukHint`, `GovukLabel`, `GovukRadios` and `GovukSummaryList`.
  
 The tests run against a `node.js` service used to render the `govuk-frontend` `Nunjucks` templates,
 so you'll need to install it first.

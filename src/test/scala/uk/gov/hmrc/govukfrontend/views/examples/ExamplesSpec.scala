@@ -18,19 +18,19 @@ package uk.gov.hmrc.govukfrontend.views.examples
 
 import org.scalatest.prop.TableDrivenPropertyChecks
 import org.scalatest.{Matchers, WordSpec}
-import uk.gov.hmrc.govukfrontend.views.JsoupHelpers
+import uk.gov.hmrc.govukfrontend.views.PreProcessor
 import uk.gov.hmrc.govukfrontend.views.TemplateDiff._
 import uk.gov.hmrc.govukfrontend.views.html.examples._
 
-class ExamplesSpec extends WordSpec with Matchers with JsoupHelpers with TableDrivenPropertyChecks {
+class ExamplesSpec extends WordSpec with Matchers with PreProcessor with TableDrivenPropertyChecks {
 
   "Examples" should {
     "render as the nunjucks examples" in {
 
       forAll(testData) { (exampleName, example, expected) =>
         {
-          val twirlHtml    = parseAndCompressHtml(example.body)
-          val expectedHtml = parseAndCompressHtml(expected)
+          val twirlHtml    = preProcess(example.body)
+          val expectedHtml = preProcess(expected)
 
           assert(
             twirlHtml == expectedHtml, {

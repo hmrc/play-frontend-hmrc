@@ -14,24 +14,18 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.govukfrontend.views
+package uk.gov.hmrc.govukfrontend.views.components
 
-import org.jsoup.Jsoup
-import org.jsoup.nodes.Document
-import org.jsoup.select.Elements
-import play.twirl.api.Html
+import play.twirl.api.HtmlFormat
+import uk.gov.hmrc.govukfrontend.support.TemplateIntegrationSpec
+import uk.gov.hmrc.govukfrontend.views.html.components._
+import uk.gov.hmrc.govukfrontend.views.viewmodels.hint.Hint
+import uk.gov.hmrc.govukfrontend.views.viewmodels.hint.Generators._
+import scala.util.Try
 
-trait JsoupHelpers {
+object govukHintIntegrationSpec
+    extends TemplateIntegrationSpec[Hint](govukComponentName = "govukHint", seed = None) {
 
-  implicit class RichHtml(html: Html) {
-    def select(cssQuery: String): Elements =
-      parseNoPrettyPrinting(html).select(cssQuery)
-  }
-
-  // otherwise Jsoup inserts linefeed https://stackoverflow.com/questions/12503117/jsoup-line-feed
-  def parseNoPrettyPrinting(html: Html): Document = {
-    val doc = Jsoup.parse(html.body)
-    doc.outputSettings().prettyPrint(false)
-    doc
-  }
+  override def render(hint: Hint): Try[HtmlFormat.Appendable] =
+    Try(GovukHint(hint))
 }

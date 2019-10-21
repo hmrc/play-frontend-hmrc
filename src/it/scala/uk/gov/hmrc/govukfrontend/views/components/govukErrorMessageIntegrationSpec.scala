@@ -17,28 +17,15 @@
 package uk.gov.hmrc.govukfrontend.views.components
 
 import play.twirl.api.HtmlFormat
-import uk.gov.hmrc.govukfrontend.views.TemplateUnitSpec
+import uk.gov.hmrc.govukfrontend.support.TemplateIntegrationSpec
 import uk.gov.hmrc.govukfrontend.views.html.components._
+import uk.gov.hmrc.govukfrontend.views.viewmodels.errormessage.ErrorMessage
+import uk.gov.hmrc.govukfrontend.views.viewmodels.errormessage.Generators._
 import scala.util.Try
 
-class govukHeaderSpec extends TemplateUnitSpec[Header]("govukHeader") {
+object govukErrorMessageIntegrationSpec
+    extends TemplateIntegrationSpec[ErrorMessage](govukComponentName = "govukErrorMessage", seed = None) {
 
-  override def preProcess(html: String): String =
-    (super.preProcess _ andThen HeaderPreProcessor.preProcess)(html)
-
-  "header" should {
-    "have a role of banner" in {
-      val component = GovukHeader(Header()).select(".govuk-header")
-      component.attr("role") shouldBe "banner"
-    }
-  }
-
-  /**
-    * Calls the Twirl template with the given parameters and returns the resulting markup
-    *
-    * @param templateParams
-    * @return [[Try[HtmlFormat.Appendable]]] containing the markup
-    */
-  override def render(templateParams: Header): Try[HtmlFormat.Appendable] =
-    Try(GovukHeader(templateParams))
+  override def render(errorMessage: ErrorMessage): Try[HtmlFormat.Appendable] =
+    Try(GovukErrorMessage(errorMessage))
 }

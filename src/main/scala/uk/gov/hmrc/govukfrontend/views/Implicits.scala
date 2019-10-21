@@ -48,6 +48,9 @@ trait Implicits {
       */
     def indent(n: Int, indentFirstLine: Boolean = false): Html =
       Html(html.toString.indent(n, indentFirstLine))
+
+    def nonEmpty: Boolean =
+      html.body.nonEmpty
   }
 
   implicit class RichString(s: String) {

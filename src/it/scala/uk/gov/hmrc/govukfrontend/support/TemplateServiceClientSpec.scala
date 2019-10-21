@@ -8,7 +8,7 @@ import play.api.routing.sird._
 import play.core.server.Server
 import uk.gov.hmrc.govukfrontend.support.Implicits._
 import uk.gov.hmrc.govukfrontend.views.GovukFrontendDependency.govukFrontendVersion
-import uk.gov.hmrc.govukfrontend.views.JsoupHelpers
+import uk.gov.hmrc.govukfrontend.views.PreProcessor
 import uk.gov.hmrc.govukfrontend.views.viewmodels.backlink.BackLink
 
 class TemplateServiceClientSpec
@@ -17,7 +17,7 @@ class TemplateServiceClientSpec
     with Matchers
     with ScalaFutures
     with IntegrationPatience
-    with JsoupHelpers {
+    with PreProcessor {
 
   "TemplateServiceClient" when {
     "making a request to the 'render' endpoint" should {
@@ -37,7 +37,7 @@ class TemplateServiceClientSpec
 
           response.status shouldBe 200
 
-          parseAndCompressHtml(response.bodyAsString) shouldBe parseAndCompressHtml(
+          preProcess(response.bodyAsString) shouldBe preProcess(
             """<a href="#" class="govuk-back-link">Back</a>""")
         }
       }
