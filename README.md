@@ -143,8 +143,8 @@ The test fixtures are generated from the release of `govuk-frontend` [used in th
 A script [TODO: document script] generates the fixtures which are manually included in the resources directory under `src/test/resources/fixtures/`.
 The unit tests will pick up the fixtures folder matching the version of `govuk-frontend` in the dependencies.
 
-_Future work: Given that unit testing the library using a fixed set of test fixtures provides only very basic coverage at best,
- if we can improve the test coverage via generative testing described on the next section, we could discard the test fixtures completely._ 
+_Future work: Unit testing the library using a fixed set of test data provides only very basic coverage. if we can improve 
+the test coverage via generative testing described on the next section, we could discard the test fixtures completely._ 
 
 ### Generative Testing
 
@@ -173,16 +173,17 @@ sbt it:test
 ```
 
 _Note: The integration tests output produces a bit of noise as the library outputs statistics about the generators to check
-the distribution of the test cases._
+the distribution of the test cases. More information about collecting statistics on generators [here](https://github.com/typelevel/scalacheck/blob/master/doc/UserGuide.md#collecting-generated-test-data)._
 
 #### Reproducing Failures (Deterministic Testing)
-In case of a test failure, the library outputs a seed that can be passed back to the failing test to reproduce it.
+In case of a test failure, the test reporter outputs a `org.scalacheck.rng.Seed` encoded in Base-64 that can be passed back to the failing test to reproduce it.
+More information about this feature [here](https://gist.github.com/non/aeef5824b3f681b9cfc141437b16b014).
 
 Ex:
 ```scala
 object govukBackLinkTemplateIntegrationSpec
     extends TemplateIntegrationSpec[BackLink](
-      govukComponentName = "govukBackLink", seed = Some("pass the seed here")) // pass the seed and re-run
+      govukComponentName = "govukBackLink", seed = Some("Aw2mVetq64JgBXG2hsqNSIwFnYLc0798R7Ey9XIZr6M=")) // pass the seed and re-run
 ```
 
 Upon a test failure, the test reporter prints out a link to a diff file in `HTML` to easily compare the
