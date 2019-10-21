@@ -196,6 +196,52 @@ markup for the failing test case against the expected markup.
 Diff between Twirl and Nunjucks outputs (please open diff HTML file in a browser): file:///Users/foo/dev/hmrc/play-frontend-govuk/target/govukBackLink-diff-2b99bb2a-98d4-48dc-8088-06bfe3008021.html
 ```
 
+### Writing New Templates
+
+When writing a new template from an existing `Nunjucks` template it is necessary to make a few translation decisions.
+
+1. validation:
+
+   The lack of validation in the `govuk-frontend` `Nunjucks` templates sometimes poses some difficulties and it is better to
+[raise issues](https://github.com/alphagov/govuk-frontend/issues/1557) to confirm assumptions about the validity of parameters
+ that could break parity of features.
+  
+   That said, some Twirl components in the library add validation by using `scala` assertions such as 
+ [require](https://www.scala-lang.org/api/current/scala/Predef$.html#require(requirement:Boolean,message:=%3EAny):Unit),
+  which means **`Play` controllers should be handling potential `IllegalArgumentException`** thrown from views.
+
+2. representing required and optional parameters (as documented in the `yaml` for a component in `govuk-frontend`):
+   
+   In some instances a parameter is documented incorrectly as `required` when it is `optional`, so the disambiguation comes
+   from looking at its usage in the template.
+   We opted to map optional parameters as `Option` types because it is the most natural mapping.
+   
+3. mapping from untyped `Javascript` to `Scala`:
+
+   `Javascript` makes liberal use of boolean-like types, the so called `truthy` and `falsy` values.
+   Special care is needed to translate conditions involving these types correctly.
+   
+   Ex: the following `Nunjucks` snippet where name is a `string` 
+   
+   ```nunjucks
+   {% if params.name %} name="{{ params.name }}"{% endif %}
+   ``` 
+   
+   would not render anything if `name` was `""` since it is a [falsy value](https://developer.mozilla.org/en-US/docs/Glossary/Falsy).
+    
+    It can be mapped to `name: Option[String]` in `Scala` and translated to `Twirl` as: 
+   ```scala
+   @name.filter(_.nonEmpty).map { name => name="@name" }
+   
+   // instead of the following which would render `name=""` 
+   // if name had the value Some("")
+   @name.map { name => name="@name@ }
+   ```
+   
+   Another example is the representation of `Javascript`'s `undefined`, which maps nicely to `Scala`'s `None`.
+   The need to represent `undefined`  sometimes gives rise to unusual types like `Option[List[T]]`.
+   The most correct type here would be `Option[NonEmptyList[T]]` but we opted not to use [refinement types](https://github.com/fthomas/refined) yet.
+   
 ### Play 2.5 / Play 2.6 Cross-Compilation
 
 With the implementation of 
@@ -244,7 +290,7 @@ since there is no template named `input.scala.html`.
 
 Due to the aforementioned differences between the `Twirl` compilers in `Play 2.5` and `Play 2.6` and the auto-generation
 feature, templates should not be written with backwards incompatible features only introduced in `Play 2.6`, such as
-[@if else if](https://github.com/playframework/twirl/issues/33).
+[@if else if](https://github.com/playframework/twirl/issues/33).   
 
 ### Generating Example Templates (Future Work)
 
