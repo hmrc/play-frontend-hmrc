@@ -83,5 +83,5 @@ final case class Text(value: String) extends Content {
 
 object NonEmptyText {
   def unapply(text: Text): Option[String] =
-    if (text.value == null || text.value.trim.isEmpty) None else Some(text.value)
+    if (text.value == null || text.value.isEmpty) None else Some(text.value)
 }

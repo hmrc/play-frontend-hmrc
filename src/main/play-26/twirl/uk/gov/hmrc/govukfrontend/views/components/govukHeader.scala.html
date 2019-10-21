@@ -21,7 +21,7 @@
 @(params: Header = Header())
 @import params._
 <header class="govuk-header @classes" role="banner" data-module="govuk-header"@toAttributes(attributes)>
-  <div class="@toClasses("govuk-header__container", if (containerClasses.nonEmpty) containerClasses else "govuk-width-container")">
+  <div class="govuk-header__container @containerClasses.getOrElse("govuk-width-container")">
     <div class="govuk-header__logo">
       <a href="@homepageUrl.getOrElse{/}" class="govuk-header__link govuk-header__link--homepage">
         <span class="govuk-header__logotype">
@@ -66,7 +66,7 @@
             GOV.UK
           </span>
         </span>
-        @productName.map { productName =>
+        @productName.filter(_.nonEmpty).map { productName =>
           <span class="govuk-header__product-name">
             @productName
           </span>
@@ -74,32 +74,32 @@
       </a>
     </div>
     @(serviceName, navigation) match {
-      case (Some(_), _) | (_, Seq(_, _*)) => {
+      case (Some(NonEmptyString(_)), _) | (_, Some(_)) => {
         <div class="govuk-header__content">
-            @serviceName.map { serviceName =>
-              <a href="@serviceUrl" class="govuk-header__link govuk-header__link--service-name">
-                @serviceName
-              </a>
-            }
-            @if(navigation.nonEmpty) {
-              <button type="button" class="govuk-header__menu-button govuk-js-header-toggle" aria-controls="navigation" aria-label="Show or hide Top Level Navigation">Menu</button>
-              <nav>
-                <ul id="navigation" class="govuk-header__navigation @navigationClasses" aria-label="Top Level Navigation">
-                  @for(item <- navigation) {
-                    @(item.href, item.text) match {
-                      case (Some(NonEmptyString(itemHref)), Some(NonEmptyString(itemText))) => {
-                        <li class="govuk-header__navigation-item@if(item.active) { govuk-header__navigation-item--active}">
-                          <a class="govuk-header__link" href="@itemHref"@toAttributes(item.attributes)>
-                            @itemText
-                          </a>
-                        </li>
-                      }
-                      case _ => {}
+          @serviceName.filter(_.nonEmpty).map { serviceName =>
+            <a href="@serviceUrl" class="govuk-header__link govuk-header__link--service-name">
+              @serviceName
+            </a>
+          }
+          @navigation.map { navigation =>
+            <button type="button" class="govuk-header__menu-button govuk-js-header-toggle" aria-controls="navigation" aria-label="Show or hide Top Level Navigation">Menu</button>
+            <nav>
+              <ul id="navigation" class="govuk-header__navigation @navigationClasses" aria-label="Top Level Navigation">
+                @for(item <- navigation) {
+                  @(item.href, item.text) match {
+                    case (Some(NonEmptyString(itemHref)), Some(NonEmptyString(itemText))) => {
+                      <li class="govuk-header__navigation-item@if(item.active) { govuk-header__navigation-item--active}">
+                        <a class="govuk-header__link" href="@itemHref"@toAttributes(item.attributes)>
+                          @itemText
+                        </a>
+                      </li>
                     }
+                    case _ => {}
                   }
-                </ul>
-              </nav>
-            }
+                }
+              </ul>
+            </nav>
+          }
         </div>
       }
       case _ => {}

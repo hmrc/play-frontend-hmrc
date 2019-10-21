@@ -21,7 +21,7 @@
 @content match {
   case NonEmptyHtml(_) | NonEmptyText(_) => {
     @defining {
-      <label class="@toClasses("govuk-label", classes)"@toAttributes(attributes)@forAttr.map {forAttr => for="@forAttr"}>
+      <label class="@toClasses("govuk-label", classes)"@toAttributes(attributes)@forAttr.filter(_.nonEmpty).map {forAttr => for="@forAttr"}>
         @content.asHtml
       </label>
     } { labelHtml =>

@@ -18,17 +18,35 @@ package uk.gov.hmrc.govukfrontend.views.viewmodels.header
 
 import play.api.libs.json._
 
+/***
+  * We removed assets path since the Twirl implementation of <code>govukHeader</code> uses
+  * reverse routes to reference the assets.
+  * FIXME: when the library is ready for Production and the assets are hosted on a CDN
+  * maybe add <code>assetsPath</code> back again to read from config in Prod and use reverse routes
+  * in Dev.
+  *
+  * @param homepageUrl
+  * @param productName
+  * @param serviceName
+  * @param serviceUrl
+  * @param navigation
+  * @param navigationClasses
+  * @param containerClasses
+  * @param classes
+  * @param attributes
+  */
 final case class Header(
-  homepageUrl: Option[String]       = None,
-  assetsPath: Option[String]        = None, //FIXME remove since we are using Play's reverse routes to reference assets
-  productName: Option[String]       = None,
-  serviceName: Option[String]       = None,
-  serviceUrl: Option[String]        = None,
-  navigation: Seq[HeaderNavigation] = Nil,
-  navigationClasses: String         = "",
-  containerClasses: String          = "",
-  classes: String                   = "",
-  attributes: Map[String, String]   = Map.empty
+  homepageUrl: Option[String]               = None,
+  productName: Option[String]               = None,
+  serviceName: Option[String]               = None,
+  serviceUrl: Option[String]                = None,
+  // Need the weird Option[Seq[HeaderNavigation]] to represent JS `undefined` values because None maps to `undefined` nicely.
+  // If we refined the type, the correct type would be something like Option[NonEmptySeq[HeaderNavigation]]
+  navigation: Option[Seq[HeaderNavigation]] = None,
+  navigationClasses: String                 = "",
+  containerClasses: Option[String]          = None,
+  classes: String                           = "",
+  attributes: Map[String, String]           = Map.empty
 )
 
 object Header {

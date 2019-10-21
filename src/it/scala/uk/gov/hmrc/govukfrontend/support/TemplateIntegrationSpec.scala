@@ -8,9 +8,9 @@ import org.scalatest.concurrent.{IntegrationPatience, ScalaFutures}
 import play.api.libs.json.{Json, OWrites}
 import uk.gov.hmrc.govukfrontend.support.Implicits._
 import uk.gov.hmrc.govukfrontend.support.ScalaCheckUtils.{ClassifyParams, classify}
-import uk.gov.hmrc.govukfrontend.views.{JsoupHelpers, TemplateValidationException, TwirlRenderer}
-import scala.util.{Failure, Success}
 import uk.gov.hmrc.govukfrontend.views.TemplateDiff._
+import uk.gov.hmrc.govukfrontend.views.{JsoupHelpers, PreProcessor, TemplateValidationException, TwirlRenderer}
+import scala.util.{Failure, Success}
 
 /**
   * Base class for integration testing a Twirl template against the Nunjucks template rendering service
@@ -20,6 +20,7 @@ import uk.gov.hmrc.govukfrontend.views.TemplateDiff._
 abstract class TemplateIntegrationSpec[T: OWrites: Arbitrary](govukComponentName: String, seed: Option[String] = None)
     extends Properties(govukComponentName)
     with TemplateServiceClient
+    with PreProcessor
     with TwirlRenderer[T]
     with ShrinkLowPriority
     with JsoupHelpers
@@ -49,7 +50,7 @@ abstract class TemplateIntegrationSpec[T: OWrites: Arbitrary](govukComponentName
             pprint.pprintln(
               "some stats are null, tweak the generator to provide better coverage and/or increase the minSuccessfulTests parameter")
             pprint.pprintln(emptyStats, width = 80, height = Int.MaxValue)
-          } else ()
+          }
         }
 
       })
@@ -75,14 +76,14 @@ abstract class TemplateIntegrationSpec[T: OWrites: Arbitrary](govukComponentName
         tryRenderTwirl match {
 
           case Success(twirlOutputHtml) =>
-            val compressedTwirlHtml    = parseAndCompressHtml(twirlOutputHtml)
-            val compressedNunjucksHtml = parseAndCompressHtml(nunJucksOutputHtml)
-            val prop                   = compressedTwirlHtml == compressedNunjucksHtml
+            val preProcessedTwirlHtml    = preProcess(twirlOutputHtml)
+            val preProcessedNunjucksHtml = preProcess(nunJucksOutputHtml)
+            val prop                   = preProcessedTwirlHtml == preProcessedNunjucksHtml
 
             if (!prop) {
               reportDiff(
-                compressedTwirlHtml    = compressedTwirlHtml,
-                compressedNunjucksHtml = compressedNunjucksHtml,
+                preProcessedTwirlHtml    = preProcessedTwirlHtml,
+                preProcessedNunjucksHtml = preProcessedNunjucksHtml,
                 templateParams         = templateParams,
                 templateParamsJson     = Json.prettyPrint(Json.toJson(templateParams))
               )
@@ -100,15 +101,15 @@ abstract class TemplateIntegrationSpec[T: OWrites: Arbitrary](govukComponentName
   }
 
   def reportDiff(
-    compressedTwirlHtml: String,
-    compressedNunjucksHtml: String,
+    preProcessedTwirlHtml: String,
+    preProcessedNunjucksHtml: String,
     templateParams: T,
     templateParamsJson: String): Unit = {
 
     val diffPath =
       templateDiffPath(
-        twirlOutputHtml    = compressedTwirlHtml,
-        nunJucksOutputHtml = compressedNunjucksHtml,
+        twirlOutputHtml    = preProcessedTwirlHtml,
+        nunJucksOutputHtml = preProcessedNunjucksHtml,
         diffFilePrefix     = Some(govukComponentName)
       )
 
@@ -118,7 +119,7 @@ abstract class TemplateIntegrationSpec[T: OWrites: Arbitrary](govukComponentName
     println("Twirl")
     println("-" * 80)
 
-    val formattedTwirlHtml = Jsoup.parseBodyFragment(compressedTwirlHtml).body.html
+    val formattedTwirlHtml = Jsoup.parseBodyFragment(preProcessedTwirlHtml).body.html
     println(s"\nTwirl output:\n$formattedTwirlHtml\n")
 
     println(s"\nparameters: ")
@@ -128,7 +129,7 @@ abstract class TemplateIntegrationSpec[T: OWrites: Arbitrary](govukComponentName
     println("Nunjucks")
     println("-" * 80)
 
-    val formattedNunjucksHtml = Jsoup.parseBodyFragment(compressedNunjucksHtml).body.html
+    val formattedNunjucksHtml = Jsoup.parseBodyFragment(preProcessedNunjucksHtml).body.html
     println(s"\nNunjucks output:\n$formattedNunjucksHtml\n")
 
     println(s"\nparameters: ")

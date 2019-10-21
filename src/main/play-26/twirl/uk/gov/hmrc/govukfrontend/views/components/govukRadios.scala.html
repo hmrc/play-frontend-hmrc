@@ -72,7 +72,7 @@
   @for((item, index) <- items.zip(Stream from 1)) {
     @defining(itemId(item, index)) { id =>
     @defining(s"conditional-$id") { conditionalId =>
-      @item.divider match {
+      @item.divider.filter(_.nonEmpty) match {
         case Some(divider) => {<div class="govuk-radios__divider">@divider</div>}
         case None => {
           @defining(item.hint.exists(_.content.nonEmpty)) { hasHint =>
@@ -80,7 +80,7 @@
           @defining {
             @if(item.checked) { checked}
             @if(item.disabled) { disabled}
-            @item.conditionalHtml.map {_ => data-aria-controls="@conditionalId"}
+            @item.conditionalHtml.filter(_.nonEmpty).map {_ => data-aria-controls="@conditionalId"}
             @if(hasHint) {aria-describedby="@itemHintId"}
           } { inputAttrs =>
               <div class="govuk-radios__item">
@@ -100,7 +100,7 @@
                     ))
                   }
               </div>
-              @item.conditionalHtml.map { conditionalHtml =>
+              @item.conditionalHtml.filter(_.nonEmpty).map { conditionalHtml =>
                 <div class="@toClasses("govuk-radios__conditional", "govuk-radios__conditional--hidden".when(!item.checked))" id="@conditionalId">
                   @conditionalHtml
                 </div>

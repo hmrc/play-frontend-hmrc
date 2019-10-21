@@ -14,24 +14,9 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.govukfrontend.views
+package uk.gov.hmrc.govukfrontend.views.viewmodels.errorsummary
 
-import org.jsoup.Jsoup
-import org.jsoup.nodes.Document
-import org.jsoup.select.Elements
-import play.twirl.api.Html
+import uk.gov.hmrc.govukfrontend.views.viewmodels.JsonRoundtripSpec
+import uk.gov.hmrc.govukfrontend.views.viewmodels.errorsummary.Generators._
 
-trait JsoupHelpers {
-
-  implicit class RichHtml(html: Html) {
-    def select(cssQuery: String): Elements =
-      parseNoPrettyPrinting(html).select(cssQuery)
-  }
-
-  // otherwise Jsoup inserts linefeed https://stackoverflow.com/questions/12503117/jsoup-line-feed
-  def parseNoPrettyPrinting(html: Html): Document = {
-    val doc = Jsoup.parse(html.body)
-    doc.outputSettings().prettyPrint(false)
-    doc
-  }
-}
+class ErrorSummarySpec extends JsonRoundtripSpec[ErrorLink]

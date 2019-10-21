@@ -18,26 +18,24 @@
 
 @(params: ErrorSummary)
 @import params._
-@if(errorList.nonEmpty) {
-  <div class="@toClasses("govuk-error-summary", classes)" aria-labelledby="error-summary-title" role="alert" tabindex="-1"@toAttributes(attributes) data-module="govuk-error-summary">
-    <h2 class="govuk-error-summary__title" id="error-summary-title">
-      @title.asHtml
-    </h2>
-    <div class="govuk-error-summary__body">
-      @if(description.nonEmpty) {
-      <p>
-        @description.asHtml
-      </p>
+<div class="@toClasses("govuk-error-summary", classes)" aria-labelledby="error-summary-title" role="alert" tabindex="-1"@toAttributes(attributes) data-module="govuk-error-summary">
+  <h2 class="govuk-error-summary__title" id="error-summary-title">
+    @title.asHtml
+  </h2>
+  <div class="govuk-error-summary__body">
+    @if(description.nonEmpty) {
+    <p>
+      @description.asHtml
+    </p>
+    }
+    <ul class="govuk-list govuk-error-summary__list">
+      @for(item <- errorList) {
+        <li>
+          @item.href.filter(_.nonEmpty).fold(item.content.asHtml) { itemHref =>
+            <a href="@itemHref"@toAttributes(item.attributes)>@item.content.asHtml</a>
+          }
+        </li>
       }
-      <ul class="govuk-list govuk-error-summary__list">
-        @for(item <- errorList) {
-          <li>
-            @item.href.fold(item.content.asHtml) { itemHref =>
-              <a href="@itemHref"@toAttributes(item.attributes)>@item.content.asHtml</a>
-            }
-          </li>
-        }
-      </ul>
-    </div>
+    </ul>
   </div>
-}
+</div>
