@@ -23,7 +23,8 @@
         govukBackLink: GovukBackLink
 )
 
-@(pageTitle: Option[String] = None,
+@(
+        pageTitle: Option[String] = None,
         headBlock: Option[Html] = None,
         headerBlock: Option[Html] = None,
         beforeContentBlock: Option[Html] = None,
@@ -33,16 +34,8 @@
         scriptsBlock: Option[Html] = None
 )(contentBlock: Html)(implicit request: Request[_], messages: Messages)
 
-@headDefault = {
-@if(headBlock.isDefined) {
-    @headBlock
-}
-}
-
 @headerDefault = {
-@if(headerBlock.isDefined) {
-    @headerBlock
-} else {
+@headerBlock.getOrElse {
     @govukHeader(Header(
         homepageUrl = Some(messages("service.homePageUrl")),
         serviceName = Some(messages("service.name")),
@@ -51,28 +44,15 @@
 }
 }
 
-@beforeContentDefault = {
-@if(beforeContentBlock.isDefined) {
-    @beforeContentBlock
-}
-}
-
 @footerDefault = {
-  @if(footerBlock.isDefined){
-    @footerBlock
-  }
-  @if(!footerItems.isEmpty) {
-      @govukFooter(new Footer(meta = Some(Meta(items = footerItems))))
-  }
+    @footerBlock.getOrElse {
+        @govukFooter(new Footer(meta = Some(Meta(items = footerItems))))
+    }
 }
 
 @bodyEndDefault = {
-@if(bodyEndBlock.isDefined) {
     @bodyEndBlock
-}
-@if(scriptsBlock.isDefined) {
     @scriptsBlock
-}
 }
 
 @mainContentDefault = {
@@ -86,9 +66,9 @@
 @govukTemplate(
     htmlLang = Some("en"),
     pageTitle = pageTitle,
-    headBlock = Some(headDefault),
+    headBlock = headBlock,
     headerBlock = headerDefault,
-    beforeContentBlock = Some(beforeContentDefault),
+    beforeContentBlock = beforeContentBlock,
     footerBlock = footerDefault,
     mainClasses = Some("govuk-main-wrapper--auto-spacing"),
     bodyEndBlock = Some(bodyEndDefault))(mainContentDefault)
