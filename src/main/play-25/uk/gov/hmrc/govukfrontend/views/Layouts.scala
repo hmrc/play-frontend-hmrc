@@ -14,9 +14,14 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.govukfrontend.views.html
+package uk.gov.hmrc.govukfrontend.views
 
-package object helpers {
+import uk.gov.hmrc.govukfrontend.views.html.components.{GovukBackLink, GovukFooter, GovukHeader, GovukPhaseBanner, GovukSkipLink}
+import uk.gov.hmrc.govukfrontend.views.html.layouts.{govukLayout, govukTemplate}
 
-  lazy val FormWithCSRF = formWithCSRF
+trait Layouts {
+
+  lazy val GovukLayout = govukLayout
+
+  lazy val GovukTemplate =  govukTemplate
 }

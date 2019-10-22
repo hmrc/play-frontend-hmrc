@@ -17,7 +17,7 @@
 package uk.gov.hmrc.govukfrontend.views
 package html
 
-package object components extends Utils with Aliases {
+package object components extends Utils with Aliases with Helpers with Layouts {
 
   /**
    * Top-level implicits for all components
@@ -81,6 +81,4 @@ package object components extends Utils with Aliases {
   lazy val GovukTable = govukTable
 
   lazy val GovukTabs = govukTabs
-
-  lazy val GovukTemplate = govukTemplate
 }

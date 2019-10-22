@@ -17,7 +17,7 @@
 package uk.gov.hmrc.govukfrontend.views
 package html
 
-package object components extends Utils with Aliases {
+package object components extends  Utils with Aliases with Layouts with Helpers {
 
   /**
     * Top-level implicits for all components
@@ -139,8 +139,4 @@ package object components extends Utils with Aliases {
   type GovukTabs = govukTabs
   @deprecated("Use DI")
   val GovukTabs = new govukTabs()
-
-  type GovukTemplate = govukTemplate
-  @deprecated("Use DI")
-  lazy val GovukTemplate = new govukTemplate(GovukHeader, GovukFooter, GovukSkipLink)
 }

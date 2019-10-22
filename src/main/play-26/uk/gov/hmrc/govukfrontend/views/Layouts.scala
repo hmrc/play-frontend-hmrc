@@ -14,21 +14,18 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.govukfrontend.views.helpers
+package uk.gov.hmrc.govukfrontend.views
 
-import org.scalatest.{Matchers, WordSpec}
-import play.api.mvc.Call
-import play.twirl.api.HtmlFormat
 import uk.gov.hmrc.govukfrontend.views.html.components._
-import uk.gov.hmrc.govukfrontend.views.{JsoupHelpers, MessagesHelpers}
+import uk.gov.hmrc.govukfrontend.views.html.layouts._
 
-class formWithCSRFSpec extends WordSpec with Matchers with JsoupHelpers with MessagesHelpers with CSRFSpec {
-  "formWithCSRF" should {
-    "add a CSRF token as a hidden field in the form" in {
-      val rendered = FormWithCSRF.apply(Call("GET", "/someUrl"))(HtmlFormat.empty)
+trait Layouts {
 
-      rendered.select("input").attr("type") shouldBe "hidden"
-      rendered.select("input").attr("name") shouldBe "csrfToken"
-    }
-  }
+  type GovukLayout = govukLayout
+  @deprecated("Use DI")
+  lazy val GovukLayout = new govukLayout(GovukTemplate, GovukHeader, GovukFooter, GovukBackLink)
+
+  type GovukTemplate = govukTemplate
+  @deprecated("Use DI")
+  lazy val GovukTemplate = new govukTemplate(GovukHeader, GovukFooter, GovukSkipLink)
 }

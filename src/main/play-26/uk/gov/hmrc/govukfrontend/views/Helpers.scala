@@ -14,9 +14,11 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.govukfrontend.views.html
+package uk.gov.hmrc.govukfrontend.views
 
-package object helpers {
+import uk.gov.hmrc.govukfrontend.views.html.helpers.formWithCSRF
+
+trait Helpers {
 
   type FormWithCSRF = formWithCSRF
   @deprecated("Use DI")
