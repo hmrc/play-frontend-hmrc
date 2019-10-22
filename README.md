@@ -44,10 +44,7 @@ and all the [types](https://github.com/hmrc/play-frontend-govuk/blob/master/src/
 @import uk.gov.hmrc.govukfrontend.views.html.components._
 ```
 
-The following import will bring the available `Twirl` [helpers](https://github.com/hmrc/play-frontend-govuk/blob/master/src/main/play-26/uk/gov/hmrc/govukfrontend/views/html/helpers/package.scala):
-```scala
-@import uk.gov.hmrc.govukfrontend.views.html.helpers._
-```
+The above import will also bring into scope the available `Twirl` [helpers](https://github.com/hmrc/play-frontend-govuk/blob/master/src/main/play-26/uk/gov/hmrc/govukfrontend/views/Helpers.scala) and [layouts](https://github.com/hmrc/play-frontend-govuk/blob/master/src/main/play-26/uk/gov/hmrc/govukfrontend/views/Layouts.scala).
 
 The following import will summon [implicits](https://github.com/hmrc/play-frontend-govuk/blob/master/src/main/scala/uk/gov/hmrc/govukfrontend/views/Implicits.scala) that provide extension methods on `Play`'s [FormError](https://www.playframework.com/documentation/2.6.x/api/scala/play/api/data/FormError.html) 
 to convert between `Play`'s form errors and view models used by `GovukErrorMessage` and `GovukErrorSummary`:
