@@ -17,7 +17,6 @@
 package uk.gov.hmrc.govukfrontend.views.viewmodels.content
 
 import org.scalacheck.{Arbitrary, Gen}
-import uk.gov.hmrc.govukfrontend.views.html.components.Text
 import uk.gov.hmrc.govukfrontend.views.viewmodels.Generators.{arbHtml, genHtmlString}
 
 object Generators {
