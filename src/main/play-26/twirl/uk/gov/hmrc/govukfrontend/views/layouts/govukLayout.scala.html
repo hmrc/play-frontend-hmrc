@@ -17,59 +17,60 @@
 @import uk.gov.hmrc.govukfrontend.views.html.components._
 
 @this(
-        govukTemplate: GovukTemplate,
-        govukHeader: GovukHeader,
-        govukFooter: GovukFooter,
-        govukBackLink: GovukBackLink
+  govukTemplate: GovukTemplate,
+  govukHeader: GovukHeader,
+  govukFooter: GovukFooter,
+  govukBackLink: GovukBackLink
 )
 
 @(
-        pageTitle: Option[String] = None,
-        headBlock: Option[Html] = None,
-        headerBlock: Option[Html] = None,
-        beforeContentBlock: Option[Html] = None,
-        footerBlock: Option[Html] = None,
-        footerItems: Seq[FooterItem] = Seq.empty,
-        bodyEndBlock: Option[Html] = None,
-        scriptsBlock: Option[Html] = None
+  pageTitle: Option[String] = None,
+  headBlock: Option[Html] = None,
+  headerBlock: Option[Html] = None,
+  beforeContentBlock: Option[Html] = None,
+  footerBlock: Option[Html] = None,
+  footerItems: Seq[FooterItem] = Seq.empty,
+  bodyEndBlock: Option[Html] = None,
+  scriptsBlock: Option[Html] = None
 )(contentBlock: Html)(implicit request: Request[_], messages: Messages)
 
 @headerDefault = {
-@headerBlock.getOrElse {
+  @headerBlock.getOrElse {
     @govukHeader(Header(
-        homepageUrl = Some(messages("service.homePageUrl")),
-        serviceName = Some(messages("service.name")),
-        serviceUrl = Some(messages("service.homePageUrl")),
-        containerClasses = Some("govuk-width-container")))
-}
+      homepageUrl = Some(messages("service.homePageUrl")),
+      serviceName = Some(messages("service.name")),
+      serviceUrl = Some(messages("service.homePageUrl")),
+      containerClasses = Some("govuk-width-container")))
+  }
 }
 
 @footerDefault = {
-    @footerBlock.getOrElse {
-        @govukFooter(new Footer(meta = Some(Meta(items = footerItems))))
-    }
+  @footerBlock.getOrElse {
+    @govukFooter(new Footer(meta = Some(Meta(items = footerItems))))
+  }
 }
 
 @bodyEndDefault = {
-    @bodyEndBlock
-    @scriptsBlock
+  @bodyEndBlock
+  @scriptsBlock
 }
 
 @mainContentDefault = {
-    <div class="govuk-grid-row">
-        <div class="govuk-grid-column-two-thirds">
-        @contentBlock
-        </div>
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+    @contentBlock
     </div>
+  </div>
 }
 
 @govukTemplate(
-    htmlLang = Some("en"),
-    pageTitle = pageTitle,
-    headBlock = headBlock,
-    headerBlock = headerDefault,
-    beforeContentBlock = beforeContentBlock,
-    footerBlock = footerDefault,
-    mainClasses = Some("govuk-main-wrapper--auto-spacing"),
-    bodyEndBlock = Some(bodyEndDefault))(mainContentDefault)
+  htmlLang = Some("en"),
+  pageTitle = pageTitle,
+  headBlock = headBlock,
+  headerBlock = headerDefault,
+  beforeContentBlock = beforeContentBlock,
+  footerBlock = footerDefault,
+  mainClasses = Some("govuk-main-wrapper--auto-spacing"),
+  bodyEndBlock = Some(bodyEndDefault)
+)(mainContentDefault)
 
