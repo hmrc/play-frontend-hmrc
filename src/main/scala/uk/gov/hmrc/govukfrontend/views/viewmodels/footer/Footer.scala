@@ -20,18 +20,18 @@ import play.api.libs.functional.syntax._
 import play.api.libs.json._
 
 case class Footer(
-  meta: Option[Meta]                = None,
-  navigation: Seq[FooterNavigation] = Nil,
-  containerClasses: String          = "",
-  classes: String                   = "",
-  attributes: Map[String, String]   = Map.empty
+  meta: Option[Meta]                        = None,
+  navigation: Option[Seq[FooterNavigation]] = None,
+  containerClasses: String                  = "",
+  classes: String                           = "",
+  attributes: Map[String, String]           = Map.empty
 )
 
 object Footer {
 
   implicit val reads: Reads[Footer] = (
     (__ \ "meta").readNullable[Meta] and
-      (__ \ "navigation").readWithDefault[Seq[FooterNavigation]](Nil) and
+      (__ \ "navigation").readNullable[Seq[FooterNavigation]] and
       (__ \ "containerClasses").readWithDefault[String]("") and
       (__ \ "classes").readWithDefault[String]("") and
       (__ \ "attributes").readWithDefault[Map[String, String]](Map.empty)
@@ -39,7 +39,7 @@ object Footer {
 
   implicit val writes: OWrites[Footer] = (
     (__ \ "meta").writeNullable[Meta] and
-      (__ \ "navigation").write[Seq[FooterNavigation]] and
+      (__ \ "navigation").writeNullable[Seq[FooterNavigation]] and
       (__ \ "containerClasses").write[String] and
       (__ \ "classes").write[String] and
       (__ \ "attributes").write[Map[String, String]]

@@ -14,19 +14,18 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.govukfrontend.views.viewmodels.footer
+package uk.gov.hmrc.govukfrontend.views.components
 
-import play.api.libs.json._
+import play.twirl.api.HtmlFormat
+import uk.gov.hmrc.govukfrontend.support.TemplateIntegrationSpec
+import uk.gov.hmrc.govukfrontend.views.html.components._
+import uk.gov.hmrc.govukfrontend.views.viewmodels.footer.Generators._
+import uk.gov.hmrc.govukfrontend.views.viewmodels.footer.Footer
+import scala.util.Try
 
-final case class FooterNavigation(
-  title: Option[String]          = None,
-  columns: Option[Int]           = None,
-  items: Option[Seq[FooterItem]] = None
-)
+object govukFooterIntegrationSpec
+    extends TemplateIntegrationSpec[Footer](govukComponentName = "govukFooter", seed = None) {
 
-object FooterNavigation {
-  implicit val reads: Reads[FooterNavigation] =
-    Json.using[Json.WithDefaultValues].reads[FooterNavigation]
-
-  implicit val writes: OWrites[FooterNavigation] = Json.writes[FooterNavigation]
+  override def render(footer: Footer): Try[HtmlFormat.Appendable] =
+    Try(GovukFooter(footer))
 }

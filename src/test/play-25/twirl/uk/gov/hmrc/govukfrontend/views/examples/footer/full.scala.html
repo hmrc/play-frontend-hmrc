@@ -4,11 +4,11 @@
 
 @()
 @GovukFooter(Footer(
-  navigation = Seq(
+  navigation = Some(Seq(
     FooterNavigation(
       title = Some("Services and information"),
       columns = Some(2),
-      items = Seq(
+      items = Some(Seq(
         FooterItem(href = Some("#"), text = Some("Benefits")),
         FooterItem(href = Some("#"), text = Some("Births, deaths, marriages and care")),
         FooterItem(href = Some("#"), text = Some("Business and self-employed")),
@@ -25,28 +25,28 @@
         FooterItem(href = Some("#"), text = Some("Passports, travel and living abroad")),
         FooterItem(href = Some("#"), text = Some("Visas and immigration")),
         FooterItem(href = Some("#"), text = Some("Working, jobs and pensions"))
-      )
+      ))
     ),
     FooterNavigation(
       title = Some("Departments and policy"),
-      items = Seq(
+      items = Some(Seq(
         FooterItem(href = Some("#"), text = Some("How government works")),
         FooterItem(href = Some("#"), text = Some("Departments")),
         FooterItem(href = Some("#"), text = Some("Worldwide")),
         FooterItem(href = Some("#"), text = Some("Policies")),
         FooterItem(href = Some("#"), text = Some("Publications")),
         FooterItem(href = Some("#"), text = Some("Announcements"))
-      )
+      ))
     )
-  ),
+  )),
   meta = Some(Meta(
-    items = Seq(
+    items = Some(Seq(
       FooterItem(href = Some("#"), text = Some("Help")),
       FooterItem(href = Some("#"), text = Some("Cookies")),
       FooterItem(href = Some("#"), text = Some("Contact")),
       FooterItem(href = Some("#"), text = Some("Terms and conditions")),
       FooterItem(href = Some("#"), text = Some("Rhestr o Wasanaethau Cymraeg"))
-    ),
+    )),
     content = HtmlContent("""Built by the <a href="#" class="govuk-footer__link">Government Digital Service</a>""")
   ))
 ))

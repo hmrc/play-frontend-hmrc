@@ -24,7 +24,7 @@ import uk.gov.hmrc.govukfrontend.views.viewmodels.content.{Content, Empty}
 final case class Meta(
   visuallyHiddenTitle: Option[String] = None,
   content: Content                    = Empty,
-  items: Seq[FooterItem]              = Nil
+  items: Option[Seq[FooterItem]]      = None
 )
 
 object Meta {
@@ -32,12 +32,12 @@ object Meta {
   implicit val reads: Reads[Meta] = (
     (__ \ "visuallyHiddenTitle").readNullable[String] and
       Content.reads and
-      (__ \ "items").readWithDefault[Seq[FooterItem]](Nil)
+      (__ \ "items").readNullable[Seq[FooterItem]]
   )(Meta.apply _)
 
   implicit val writes: OWrites[Meta] = (
     (__ \ "visuallyHiddenTitle").writeNullable[String] and
       Content.writes and
-      (__ \ "items").write[Seq[FooterItem]]
+      (__ \ "items").writeNullable[Seq[FooterItem]]
   )(unlift(Meta.unapply))
 }

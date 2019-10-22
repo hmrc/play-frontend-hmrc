@@ -35,7 +35,7 @@ object Generators {
       title   <- Gen.option(genAlphaStrOftenEmpty())
       columns <- Gen.option(Gen.chooseNum(0, 5))
       n       <- Gen.chooseNum(0, 5)
-      items   <- Gen.listOfN(n, arbFooterItem.arbitrary)
+      items   <- Gen.option(Gen.listOfN(n, arbFooterItem.arbitrary))
     } yield FooterNavigation(title = title, columns = columns, items = items)
   }
 
@@ -44,7 +44,7 @@ object Generators {
       visuallyHiddenText <- Gen.option(genAlphaStrOftenEmpty())
       content            <- arbContent.arbitrary
       n                  <- Gen.chooseNum(0, 5)
-      items              <- Gen.listOfN(n, arbFooterItem.arbitrary)
+      items              <- Gen.option(Gen.listOfN(n, arbFooterItem.arbitrary))
     } yield Meta(visuallyHiddenTitle = visuallyHiddenText, content = content, items = items)
   }
 
@@ -52,7 +52,7 @@ object Generators {
     for {
       meta             <- Gen.option(arbMeta.arbitrary)
       n                <- Gen.chooseNum(0, 5)
-      navigation       <- Gen.listOfN(n, arbFooterNavigation.arbitrary)
+      navigation       <- Gen.option(Gen.listOfN(n, arbFooterNavigation.arbitrary))
       containerClasses <- genClasses()
       classes          <- genClasses()
       attributes       <- genAttributes()

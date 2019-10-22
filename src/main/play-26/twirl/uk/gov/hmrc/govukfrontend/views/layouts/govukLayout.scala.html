@@ -46,7 +46,7 @@
 
 @footerDefault = {
   @footerBlock.getOrElse {
-    @govukFooter(new Footer(meta = Some(Meta(items = footerItems))))
+    @govukFooter(new Footer(meta = Some(Meta(items = Some(footerItems)))))
   }
 }
 
