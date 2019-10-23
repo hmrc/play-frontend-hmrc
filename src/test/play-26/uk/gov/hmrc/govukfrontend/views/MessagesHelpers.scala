@@ -17,9 +17,10 @@
 package uk.gov.hmrc.govukfrontend.views
 
 import play.api.i18n.Messages
-import play.api.test.Helpers
+import play.api.test.{Helpers => PlayHelpers}
 
 trait MessagesHelpers {
+
   /**
     * Override the messagesMap to provide custom messages
     * @return
@@ -27,5 +28,5 @@ trait MessagesHelpers {
   def messagesMap: Map[String, Map[String, String]] = Map.empty
 
   implicit lazy val messages: Messages =
-    Helpers.stubMessages(Helpers.stubMessagesApi(messages = messagesMap))
+    PlayHelpers.stubMessages(PlayHelpers.stubMessagesApi(messages = messagesMap))
 }
