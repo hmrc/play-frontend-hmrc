@@ -19,6 +19,7 @@ package uk.gov.hmrc.govukfrontend.views.viewmodels.button
 import play.api.libs.functional.syntax._
 import play.api.libs.json._
 import uk.gov.hmrc.govukfrontend.views.html.components._
+import uk.gov.hmrc.govukfrontend.views.viewmodels.JsonDefaultValueFormatter
 
 case class Button(
   element: Option[String]         = None,
@@ -31,36 +32,41 @@ case class Button(
   attributes: Map[String, String] = Map.empty,
   preventDoubleClick: Boolean     = false,
   isStartButton: Boolean          = false,
-  content: Content
+  content: Content                = Empty
 )
 
-object Button {
+object Button extends JsonDefaultValueFormatter[Button] {
 
-  implicit val reads: Reads[Button] = (
-    (__ \ "element").readNullable[String] and
-      (__ \ "name").readNullable[String] and
-      (__ \ "input").readNullable[String] and
-      (__ \ "value").readNullable[String] and
-      (__ \ "disabled").readWithDefault[Boolean](false) and
-      (__ \ "href").readNullable[String] and
-      (__ \ "classes").readWithDefault[String]("") and
-      (__ \ "attributes").readWithDefault[Map[String, String]](Map.empty) and
-      (__ \ "preventDoubleClick").readWithDefault[Boolean](false) and
-      (__ \ "isStartButton").readWithDefault[Boolean](false) and
-      Content.reads
-  )(Button.apply _)
+  override def defaultObject: Button = Button()
 
-  implicit val writes: OWrites[Button] = (
-    (__ \ "element").writeNullable[String] and
-      (__ \ "name").writeNullable[String] and
-      (__ \ "input").writeNullable[String] and
-      (__ \ "value").writeNullable[String] and
-      (__ \ "disabled").write[Boolean] and
-      (__ \ "href").writeNullable[String] and
-      (__ \ "classes").write[String] and
-      (__ \ "attributes").write[Map[String, String]] and
-      (__ \ "preventDoubleClick").write[Boolean] and
-      (__ \ "isStartButton").write[Boolean] and
-      Content.writes
-  )(unlift(Button.unapply))
+  override def defaultReads: Reads[Button] =
+    (
+      (__ \ "element").readNullable[String] and
+        (__ \ "name").readNullable[String] and
+        (__ \ "input").readNullable[String] and
+        (__ \ "value").readNullable[String] and
+        (__ \ "disabled").read[Boolean] and
+        (__ \ "href").readNullable[String] and
+        (__ \ "classes").read[String] and
+        (__ \ "attributes").read[Map[String, String]] and
+        (__ \ "preventDoubleClick").read[Boolean] and
+        (__ \ "isStartButton").read[Boolean] and
+        Content.reads
+    )(Button.apply _)
+
+  override implicit def jsonWrites: OWrites[Button] =
+    (
+      (__ \ "element").writeNullable[String] and
+        (__ \ "name").writeNullable[String] and
+        (__ \ "input").writeNullable[String] and
+        (__ \ "value").writeNullable[String] and
+        (__ \ "disabled").write[Boolean] and
+        (__ \ "href").writeNullable[String] and
+        (__ \ "classes").write[String] and
+        (__ \ "attributes").write[Map[String, String]] and
+        (__ \ "preventDoubleClick").write[Boolean] and
+        (__ \ "isStartButton").write[Boolean] and
+        Content.writes
+    )(unlift(Button.unapply))
+
 }

@@ -18,6 +18,7 @@ package uk.gov.hmrc.govukfrontend.views.viewmodels.footer
 
 import play.api.libs.functional.syntax._
 import play.api.libs.json._
+import uk.gov.hmrc.govukfrontend.views.viewmodels.JsonDefaultValueFormatter
 
 final case class FooterItem(
   text: Option[String]            = None,
@@ -25,16 +26,22 @@ final case class FooterItem(
   attributes: Map[String, String] = Map.empty
 )
 
-object FooterItem {
-  implicit val reads: Reads[FooterItem] = (
-    (__ \ "text").readNullable[String] and
-      (__ \ "href").readNullable[String] and
-      (__ \ "attributes").readWithDefault[Map[String, String]](Map.empty)
+object FooterItem extends JsonDefaultValueFormatter[FooterItem] {
+
+  override def defaultObject: FooterItem = FooterItem()
+
+  override def defaultReads: Reads[FooterItem] =
+    (
+      (__ \ "text").readNullable[String] and
+        (__ \ "href").readNullable[String] and
+        (__ \ "attributes").read[Map[String, String]]
     )(FooterItem.apply _)
 
-  implicit val writes = (
-    (__ \ "text").writeNullable[String] and
-      (__ \ "href").writeNullable[String] and
-      (__ \ "attributes").write[Map[String, String]]
+  override implicit def jsonWrites: OWrites[FooterItem] =
+    (
+      (__ \ "text").writeNullable[String] and
+        (__ \ "href").writeNullable[String] and
+        (__ \ "attributes").write[Map[String, String]]
     )(unlift(FooterItem.unapply))
+
 }

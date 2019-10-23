@@ -28,19 +28,23 @@ case class BackLink(
   content: Content                = Empty
 )
 
-object BackLink {
+object BackLink extends JsonDefaultValueFormatter[BackLink] {
 
-  implicit val reads: Reads[BackLink] = (
-    (__ \ "href").readWithDefault[String]("") and
-      (__ \ "classes").readWithDefault[String]("") and
-      (__ \ "attributes").readWithDefault[Map[String, String]](Map.empty) and
-      Content.reads
-  )(BackLink.apply _)
+  override def defaultObject: BackLink = BackLink()
 
-  implicit val writes: OWrites[BackLink] = (
-    (__ \ "href").write[String] and
-      (__ \ "classes").write[String] and
-      (__ \ "attributes").write[Map[String, String]] and
-      Content.writes
-  )(unlift(BackLink.unapply))
+  override def defaultReads: Reads[BackLink] =
+    (
+      (__ \ "href").read[String] and
+        (__ \ "classes").read[String] and
+        (__ \ "attributes").read[Map[String, String]] and
+        Content.reads
+    )(BackLink.apply _)
+
+  override implicit def jsonWrites: OWrites[BackLink] =
+    (
+      (__ \ "href").write[String] and
+        (__ \ "classes").write[String] and
+        (__ \ "attributes").write[Map[String, String]] and
+        Content.writes
+    )(unlift(BackLink.unapply))
 }

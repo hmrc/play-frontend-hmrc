@@ -16,32 +16,38 @@
 
 package uk.gov.hmrc.govukfrontend.views.viewmodels.panel
 
-import play.api.libs.json._
 import play.api.libs.functional.syntax._
-import uk.gov.hmrc.govukfrontend.views.viewmodels.content.Content
+import play.api.libs.json._
+import uk.gov.hmrc.govukfrontend.views.viewmodels.JsonDefaultValueFormatter
+import uk.gov.hmrc.govukfrontend.views.viewmodels.content.{Content, Empty}
 
 case class Panel(
   headingLevel: Int               = 1,
   classes: String                 = "",
   attributes: Map[String, String] = Map.empty,
-  title: Content,
-  content: Content)
+  title: Content                  = Empty,
+  content: Content                = Empty)
 
-object Panel {
+object Panel extends JsonDefaultValueFormatter[Panel] {
 
-  implicit val reads = (
-    (__ \ "headingLevel").readWithDefault[Int](1) and
-      (__ \ "classes").readWithDefault[String]("") and
-      (__ \ "attributes").readWithDefault[Map[String, String]](Map.empty) and
-      Content.readsHtmlOrText((__ \ "titleHtml"), (__ \ "titleText")) and
-      Content.reads
-  )(Panel.apply _)
+  override def defaultObject: Panel = Panel()
 
-  implicit val writes = (
-    (__ \ "headingLevel").write[Int] and
-      (__ \ "classes").write[String] and
-      (__ \ "attributes").write[Map[String, String]] and
-      Content.writesContent("titleHtml", "titleText") and
-      Content.writes
-  )(unlift(Panel.unapply))
+  override def defaultReads: Reads[Panel] =
+    (
+      (__ \ "headingLevel").read[Int] and
+        (__ \ "classes").read[String] and
+        (__ \ "attributes").read[Map[String, String]] and
+        Content.readsHtmlOrText((__ \ "titleHtml"), (__ \ "titleText")) and
+        Content.reads
+    )(Panel.apply _)
+
+  override implicit def jsonWrites: OWrites[Panel] =
+    (
+      (__ \ "headingLevel").write[Int] and
+        (__ \ "classes").write[String] and
+        (__ \ "attributes").write[Map[String, String]] and
+        Content.writesContent("titleHtml", "titleText") and
+        Content.writes
+    )(unlift(Panel.unapply))
+
 }

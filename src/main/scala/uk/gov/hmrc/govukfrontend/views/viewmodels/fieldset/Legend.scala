@@ -17,27 +17,32 @@
 package uk.gov.hmrc.govukfrontend.views.viewmodels
 package fieldset
 
-import play.api.libs.functional.syntax.{unlift, _}
+import play.api.libs.functional.syntax._
 import play.api.libs.json._
 import uk.gov.hmrc.govukfrontend.views.viewmodels.content.{Content, Empty}
 
 final case class Legend(
-  content: Content     = Empty,
+  content: Content       = Empty,
   classes: String        = "",
   isPageHeading: Boolean = false
 )
 
-object Legend {
-  implicit val reads: Reads[Legend] = (
-    Content.reads and
-      (__ \ "classes").readWithDefault[String]("") and
-      (__ \ "isPageHeading").readWithDefault[Boolean](false)
+object Legend extends JsonDefaultValueFormatter[Legend] {
+
+  override def defaultObject: Legend = Legend()
+
+  override def defaultReads: Reads[Legend] =
+    (
+      Content.reads and
+        (__ \ "classes").read[String] and
+        (__ \ "isPageHeading").read[Boolean]
     )(Legend.apply _)
 
-  implicit val writes: OWrites[Legend] = (
-    Content.writes and
-      (__ \ "classes").write[String] and
-      (__ \ "isPageHeading").write[Boolean]
+  override implicit def jsonWrites: OWrites[Legend] =
+    (
+      Content.writes and
+        (__ \ "classes").write[String] and
+        (__ \ "isPageHeading").write[Boolean]
     )(unlift(Legend.unapply))
 
 }

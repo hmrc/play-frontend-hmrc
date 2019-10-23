@@ -21,8 +21,8 @@ import play.api.libs.functional.syntax._
 import play.api.libs.json._
 
 final case class InputItem(
-  id: Option[String] = None,
-  name: String,
+  id: Option[String]              = None,
+  name: String                    = "",
   label: Option[String]           = None,
   value: Option[String]           = None,
   autocomplete: Option[String]    = None,
@@ -31,27 +31,32 @@ final case class InputItem(
   attributes: Map[String, String] = Map.empty
 )
 
-object InputItem {
+object InputItem extends JsonDefaultValueFormatter[InputItem] {
 
-  implicit val reads: Reads[InputItem] = (
-    (__ \ "id").readNullable[String] and
-      (__ \ "name").read[String] and
-      (__ \ "label").readNullable[String] and
-      (__ \ "value").readNullable[String] and
-      (__ \ "autocomplete").readNullable[String] and
-      (__ \ "pattern").readNullable[String] and
-      (__ \ "classes").readWithDefault[String]("") and
-      (__ \ "attributes").readWithDefault[Map[String, String]](Map.empty)
-  )(InputItem.apply _)
+  override def defaultObject: InputItem = InputItem()
 
-  implicit val writes: OWrites[InputItem] = (
-    (__ \ "id").writeNullable[String] and
-      (__ \ "name").write[String] and
-      (__ \ "label").writeNullable[String] and
-      (__ \ "value").writeNullable[String] and
-      (__ \ "autocomplete").writeNullable[String] and
-      (__ \ "pattern").writeNullable[String] and
-      (__ \ "classes").write[String] and
-      (__ \ "attributes").write[Map[String, String]]
-  )(unlift(InputItem.unapply))
+  override def defaultReads: Reads[InputItem] =
+    (
+      (__ \ "id").readNullable[String] and
+        (__ \ "name").read[String] and
+        (__ \ "label").readNullable[String] and
+        (__ \ "value").readNullable[String] and
+        (__ \ "autocomplete").readNullable[String] and
+        (__ \ "pattern").readNullable[String] and
+        (__ \ "classes").read[String] and
+        (__ \ "attributes").read[Map[String, String]]
+    )(InputItem.apply _)
+
+  override implicit def jsonWrites: OWrites[InputItem] =
+    (
+      (__ \ "id").writeNullable[String] and
+        (__ \ "name").write[String] and
+        (__ \ "label").writeNullable[String] and
+        (__ \ "value").writeNullable[String] and
+        (__ \ "autocomplete").writeNullable[String] and
+        (__ \ "pattern").writeNullable[String] and
+        (__ \ "classes").write[String] and
+        (__ \ "attributes").write[Map[String, String]]
+    )(unlift(InputItem.unapply))
+
 }

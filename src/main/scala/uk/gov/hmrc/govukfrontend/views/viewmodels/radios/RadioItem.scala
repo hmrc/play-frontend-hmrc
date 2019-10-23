@@ -21,14 +21,14 @@ import play.api.libs.functional.syntax._
 import play.api.libs.json._
 import play.twirl.api.Html
 import uk.gov.hmrc.govukfrontend.views.html.components._
-import CommonJsonFormats._
+import uk.gov.hmrc.govukfrontend.views.viewmodels.CommonJsonFormats._
 
 final case class RadioItem(
   content: Content                = Empty,
   id: Option[String]              = None,
   value: Option[String]           = None,
-  label: Option[Label]      = None,
-  hint: Option[Hint]        = None,
+  label: Option[Label]            = None,
+  hint: Option[Hint]              = None,
   divider: Option[String]         = None,
   checked: Boolean                = false,
   conditionalHtml: Option[Html]   = None,
@@ -36,32 +36,36 @@ final case class RadioItem(
   attributes: Map[String, String] = Map.empty
 )
 
-object RadioItem {
+object RadioItem extends JsonDefaultValueFormatter[RadioItem] {
 
-  implicit val reads: Reads[RadioItem] = (
-    Content.reads and
-      (__ \ "id").readNullable[String] and
-      (__ \ "value").readNullable[String] and
-      (__ \ "label").readNullable[Label] and
-      (__ \ "hint").readNullable[Hint] and
-      (__ \ "divider").readNullable[String] and
-      (__ \ "checked").readWithDefault[Boolean](false) and
-      readsConditionalHtml and
-      (__ \ "disabled").readWithDefault[Boolean](false) and
-      (__ \ "attributes").readWithDefault[Map[String, String]](Map.empty)
-  )(RadioItem.apply _)
+  override def defaultObject: RadioItem = RadioItem()
 
-  implicit val writes: OWrites[RadioItem] = (
-    Content.writes and
-      (__ \ "id").writeNullable[String] and
-      (__ \ "value").writeNullable[String] and
-      (__ \ "label").writeNullable[Label] and
-      (__ \ "hint").writeNullable[Hint] and
-      (__ \ "divider").writeNullable[String] and
-      (__ \ "checked").write[Boolean] and
-      writesConditionalHtml and
-      (__ \ "disabled").write[Boolean] and
-      (__ \ "attributes").write[Map[String, String]]
-  )(unlift(RadioItem.unapply))
+  override def defaultReads: Reads[RadioItem] =
+    (
+      Content.reads and
+        (__ \ "id").readNullable[String] and
+        (__ \ "value").readNullable[String] and
+        (__ \ "label").readNullable[Label] and
+        (__ \ "hint").readNullable[Hint] and
+        (__ \ "divider").readNullable[String] and
+        (__ \ "checked").read[Boolean] and
+        readsConditionalHtml and
+        (__ \ "disabled").read[Boolean] and
+        (__ \ "attributes").read[Map[String, String]]
+    )(RadioItem.apply _)
+
+  override implicit def jsonWrites: OWrites[RadioItem] =
+    (
+      Content.writes and
+        (__ \ "id").writeNullable[String] and
+        (__ \ "value").writeNullable[String] and
+        (__ \ "label").writeNullable[Label] and
+        (__ \ "hint").writeNullable[Hint] and
+        (__ \ "divider").writeNullable[String] and
+        (__ \ "checked").write[Boolean] and
+        writesConditionalHtml and
+        (__ \ "disabled").write[Boolean] and
+        (__ \ "attributes").write[Map[String, String]]
+    )(unlift(RadioItem.unapply))
 
 }

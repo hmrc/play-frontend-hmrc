@@ -17,6 +17,7 @@
 package uk.gov.hmrc.govukfrontend.views.viewmodels.header
 
 import play.api.libs.json.{Json, OWrites, Reads}
+import uk.gov.hmrc.govukfrontend.views.viewmodels.JsonDefaultValueFormatter
 
 final case class HeaderNavigation(
   text: Option[String]            = None,
@@ -25,12 +26,11 @@ final case class HeaderNavigation(
   attributes: Map[String, String] = Map.empty
 )
 
-object HeaderNavigation {
+object HeaderNavigation extends JsonDefaultValueFormatter[HeaderNavigation] {
 
-  implicit val reads: Reads[HeaderNavigation] =
-    Json.using[Json.WithDefaultValues].reads[HeaderNavigation]
+  override def defaultObject: HeaderNavigation = HeaderNavigation()
 
-  implicit val writes: OWrites[HeaderNavigation] =
-    Json.writes[HeaderNavigation]
+  override def defaultReads: Reads[HeaderNavigation] = Json.reads[HeaderNavigation]
 
+  override implicit def jsonWrites: OWrites[HeaderNavigation] = Json.writes[HeaderNavigation]
 }

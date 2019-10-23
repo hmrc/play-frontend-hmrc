@@ -17,16 +17,19 @@
 package uk.gov.hmrc.govukfrontend.views.viewmodels.summarylist
 
 import play.api.libs.json.{Json, OWrites, Reads}
+import uk.gov.hmrc.govukfrontend.views.viewmodels.JsonDefaultValueFormatter
 
 case class SummaryList(
-  rows: Seq[SummaryListRow],
+  rows: Seq[SummaryListRow]       = Nil,
   classes: String                 = "",
   attributes: Map[String, String] = Map.empty
 )
 
-object SummaryList {
+object SummaryList extends JsonDefaultValueFormatter[SummaryList] {
 
-  implicit val reads: Reads[SummaryList] = Json.using[Json.WithDefaultValues].reads[SummaryList]
+  override def defaultObject: SummaryList = SummaryList()
 
-  implicit val writes: OWrites[SummaryList] = Json.writes[SummaryList]
+  override def defaultReads: Reads[SummaryList] = Json.reads[SummaryList]
+
+  override implicit def jsonWrites: OWrites[SummaryList] = Json.writes[SummaryList]
 }

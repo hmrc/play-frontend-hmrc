@@ -16,29 +16,35 @@
 
 package uk.gov.hmrc.govukfrontend.views.viewmodels.phasebanner
 
-import play.api.libs.json._
 import play.api.libs.functional.syntax._
+import play.api.libs.json._
 import uk.gov.hmrc.govukfrontend.views.html.components._
+import uk.gov.hmrc.govukfrontend.views.viewmodels.JsonDefaultValueFormatter
 
 case class PhaseBanner(
-  tag: Option[Tag]    = None,
+  tag: Option[Tag]                = None,
   classes: String                 = "",
   attributes: Map[String, String] = Map.empty,
   content: Content                = Empty)
 
-object PhaseBanner {
+object PhaseBanner extends JsonDefaultValueFormatter[PhaseBanner] {
 
-  implicit val reads = (
-    (__ \ "tag").readNullable[Tag] and
-      (__ \ "classes").readWithDefault[String]("") and
-      (__ \ "attributes").readWithDefault[Map[String, String]](Map.empty) and
-      Content.reads
-  )(PhaseBanner.apply _)
+  override def defaultObject: PhaseBanner = PhaseBanner()
 
-  implicit val writes = (
-    (__ \ "tag").writeNullable[Tag] and
-      (__ \ "classes").write[String] and
-      (__ \ "attributes").write[Map[String, String]] and
-      Content.writes
-  )(unlift(PhaseBanner.unapply))
+  override def defaultReads: Reads[PhaseBanner] =
+    (
+      (__ \ "tag").readNullable[Tag] and
+        (__ \ "classes").read[String] and
+        (__ \ "attributes").read[Map[String, String]] and
+        Content.reads
+    )(PhaseBanner.apply _)
+
+  override implicit def jsonWrites: OWrites[PhaseBanner] =
+    (
+      (__ \ "tag").writeNullable[Tag] and
+        (__ \ "classes").write[String] and
+        (__ \ "attributes").write[Map[String, String]] and
+        Content.writes
+    )(unlift(PhaseBanner.unapply))
+
 }

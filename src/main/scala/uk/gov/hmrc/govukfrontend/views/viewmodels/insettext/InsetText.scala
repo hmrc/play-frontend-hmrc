@@ -16,8 +16,9 @@
 
 package uk.gov.hmrc.govukfrontend.views.viewmodels.insettext
 
-import play.api.libs.json._
 import play.api.libs.functional.syntax._
+import play.api.libs.json._
+import uk.gov.hmrc.govukfrontend.views.viewmodels.JsonDefaultValueFormatter
 import uk.gov.hmrc.govukfrontend.views.viewmodels.content.{Content, Empty}
 
 case class InsetText(
@@ -27,19 +28,24 @@ case class InsetText(
   content: Content                = Empty
 )
 
-object InsetText {
+object InsetText extends JsonDefaultValueFormatter[InsetText] {
 
-  implicit val reads: Reads[InsetText] = (
-    (__ \ "id").readNullable[String] and
-      (__ \ "classes").readWithDefault[String]("") and
-      (__ \ "attributes").readWithDefault[Map[String, String]](Map.empty) and
-      Content.reads
-  )(InsetText.apply _)
+  override def defaultObject: InsetText = InsetText()
 
-  implicit val writes: OWrites[InsetText] = (
-    (__ \ "id").writeNullable[String] and
-      (__ \ "classes").write[String] and
-      (__ \ "attributes").write[Map[String, String]] and
-      Content.writes
-  )(unlift(InsetText.unapply))
+  override def defaultReads: Reads[InsetText] =
+    (
+      (__ \ "id").readNullable[String] and
+        (__ \ "classes").read[String] and
+        (__ \ "attributes").read[Map[String, String]] and
+        Content.reads
+    )(InsetText.apply _)
+
+  override implicit def jsonWrites: OWrites[InsetText] =
+    (
+      (__ \ "id").writeNullable[String] and
+        (__ \ "classes").write[String] and
+        (__ \ "attributes").write[Map[String, String]] and
+        Content.writes
+    )(unlift(InsetText.unapply))
+
 }

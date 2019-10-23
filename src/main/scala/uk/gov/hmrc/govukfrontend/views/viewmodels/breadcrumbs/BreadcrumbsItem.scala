@@ -27,17 +27,19 @@ final case class BreadcrumbsItem(
   attributes: Map[String, String] = Map.empty
 )
 
-object BreadcrumbsItem {
+object BreadcrumbsItem extends JsonDefaultValueFormatter[BreadcrumbsItem] {
 
-  implicit val reads: Reads[BreadcrumbsItem] = (
+  override def defaultObject: BreadcrumbsItem = BreadcrumbsItem()
+
+  override def defaultReads: Reads[BreadcrumbsItem] = (
     Content.reads and
       (__ \ "href").readNullable[String] and
-      (__ \ "attributes").readWithDefault[Map[String, String]](Map.empty)
-  )(BreadcrumbsItem.apply _)
+      (__ \ "attributes").read[Map[String, String]]
+    )(BreadcrumbsItem.apply _)
 
-  implicit val writes: OWrites[BreadcrumbsItem] = (
+  override implicit def jsonWrites: OWrites[BreadcrumbsItem] = (
     Content.writes and
       (__ \ "href").writeNullable[String] and
       (__ \ "attributes").write[Map[String, String]]
-  )(unlift(BreadcrumbsItem.unapply))
+    )(unlift(BreadcrumbsItem.unapply))
 }

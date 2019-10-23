@@ -19,48 +19,54 @@ package uk.gov.hmrc.govukfrontend.views.viewmodels.fileupload
 import play.api.libs.functional.syntax._
 import play.api.libs.json._
 import uk.gov.hmrc.govukfrontend.views.viewmodels.CommonJsonFormats._
+import uk.gov.hmrc.govukfrontend.views.viewmodels.JsonDefaultValueFormatter
 import uk.gov.hmrc.govukfrontend.views.viewmodels.errormessage.ErrorMessage
 import uk.gov.hmrc.govukfrontend.views.viewmodels.hint.Hint
 import uk.gov.hmrc.govukfrontend.views.viewmodels.label.Label
 
 case class FileUpload(
-  name: String,
-  id: String,
-  value: Option[String]       = None,
-  describedBy: Option[String] = None,
-  label: Label,
+  name: String                       = "",
+  id: String                         = "",
+  value: Option[String]              = None,
+  describedBy: Option[String]        = None,
+  label: Label                       = Label(),
   hint: Option[Hint]                 = None,
   errorMessage: Option[ErrorMessage] = None,
-  formGroupClasses: String                       = "",
-  classes: String                                = "",
-  attributes: Map[String, String]                = Map.empty
+  formGroupClasses: String           = "",
+  classes: String                    = "",
+  attributes: Map[String, String]    = Map.empty
 )
 
-object FileUpload {
+object FileUpload extends JsonDefaultValueFormatter[FileUpload] {
 
-  implicit val reads = (
-    (__ \ "name").read[String] and
-      (__ \ "id").read[String] and
-      (__ \ "value").readNullable[String] and
-      (__ \ "describedBy").readNullable[String] and
-      (__ \ "label").read[Label] and
-      (__ \ "hint").readNullable[Hint] and
-      (__ \ "errorMessage").readNullable[ErrorMessage] and
-      readsFormGroupClasses and
-      (__ \ "classes").readWithDefault[String]("") and
-      (__ \ "attributes").readWithDefault[Map[String, String]](Map.empty)
-  )(FileUpload.apply _)
+  override def defaultObject: FileUpload = FileUpload()
 
-  implicit val writes = (
-    (__ \ "name").write[String] and
-      (__ \ "id").write[String] and
-      (__ \ "value").writeNullable[String] and
-      (__ \ "describedBy").writeNullable[String] and
-      (__ \ "label").write[Label] and
-      (__ \ "hint").writeNullable[Hint] and
-      (__ \ "errorMessage").writeNullable[ErrorMessage] and
-      writesFormGroupClasses and
-      (__ \ "classes").write[String] and
-      (__ \ "attributes").write[Map[String, String]]
-  )(unlift(FileUpload.unapply))
+  override def defaultReads: Reads[FileUpload] =
+    (
+      (__ \ "name").read[String] and
+        (__ \ "id").read[String] and
+        (__ \ "value").readNullable[String] and
+        (__ \ "describedBy").readNullable[String] and
+        (__ \ "label").read[Label] and
+        (__ \ "hint").readNullable[Hint] and
+        (__ \ "errorMessage").readNullable[ErrorMessage] and
+        readsFormGroupClasses and
+        (__ \ "classes").read[String] and
+        (__ \ "attributes").read[Map[String, String]]
+    )(FileUpload.apply _)
+
+  override implicit def jsonWrites: OWrites[FileUpload] =
+    (
+      (__ \ "name").write[String] and
+        (__ \ "id").write[String] and
+        (__ \ "value").writeNullable[String] and
+        (__ \ "describedBy").writeNullable[String] and
+        (__ \ "label").write[Label] and
+        (__ \ "hint").writeNullable[Hint] and
+        (__ \ "errorMessage").writeNullable[ErrorMessage] and
+        writesFormGroupClasses and
+        (__ \ "classes").write[String] and
+        (__ \ "attributes").write[Map[String, String]]
+    )(unlift(FileUpload.unapply))
+
 }

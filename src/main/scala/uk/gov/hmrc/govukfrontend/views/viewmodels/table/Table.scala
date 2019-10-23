@@ -18,7 +18,7 @@ package uk.gov.hmrc.govukfrontend.views.viewmodels.table
 
 import play.api.libs.functional.syntax._
 import play.api.libs.json._
-import uk.gov.hmrc.govukfrontend.views.html.components._
+import uk.gov.hmrc.govukfrontend.views.viewmodels.JsonDefaultValueFormatter
 
 case class Table(
   rows: Seq[Seq[TableRow]]        = Nil,
@@ -30,25 +30,30 @@ case class Table(
   attributes: Map[String, String] = Map.empty
 )
 
-object Table {
+object Table extends JsonDefaultValueFormatter[Table] {
 
-  implicit val reads = (
-    (__ \ "rows").readWithDefault[Seq[Seq[TableRow]]](Nil) and
-      (__ \ "head").readWithDefault[Seq[HeadCell]](Nil) and
-      (__ \ "caption").readNullable[String] and
-      (__ \ "captionClasses").readWithDefault[String]("") and
-      (__ \ "firstCellIsHeader").readWithDefault[Boolean](false) and
-      (__ \ "classes").readWithDefault[String]("") and
-      (__ \ "attributes").readWithDefault[Map[String, String]](Map.empty)
-  )(Table.apply _)
+  override def defaultObject: Table = Table()
 
-  implicit val writes = (
-    (__ \ "rows").write[Seq[Seq[TableRow]]] and
-      (__ \ "head").write[Seq[HeadCell]] and
-      (__ \ "caption").writeNullable[String] and
-      (__ \ "captionClasses").write[String] and
-      (__ \ "firstCellIsHeader").write[Boolean] and
-      (__ \ "classes").write[String] and
-      (__ \ "attributes").write[Map[String, String]]
-  )(unlift(Table.unapply))
+  override def defaultReads: Reads[Table] =
+    (
+      (__ \ "rows").read[Seq[Seq[TableRow]]] and
+        (__ \ "head").read[Seq[HeadCell]] and
+        (__ \ "caption").readNullable[String] and
+        (__ \ "captionClasses").read[String] and
+        (__ \ "firstCellIsHeader").read[Boolean] and
+        (__ \ "classes").read[String] and
+        (__ \ "attributes").read[Map[String, String]]
+    )(Table.apply _)
+
+  override implicit def jsonWrites: OWrites[Table] =
+    (
+      (__ \ "rows").write[Seq[Seq[TableRow]]] and
+        (__ \ "head").write[Seq[HeadCell]] and
+        (__ \ "caption").writeNullable[String] and
+        (__ \ "captionClasses").write[String] and
+        (__ \ "firstCellIsHeader").write[Boolean] and
+        (__ \ "classes").write[String] and
+        (__ \ "attributes").write[Map[String, String]]
+    )(unlift(Table.unapply))
+
 }

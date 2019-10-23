@@ -25,24 +25,27 @@ import uk.gov.hmrc.govukfrontend.views.viewmodels.content.{Content, Empty}
 final case class Section(
   headingContent: Content = Empty,
   summaryContent: Content = Empty,
-  content: Content,
-  expanded: Boolean = false
+  content: Content        = Empty,
+  expanded: Boolean       = false
 )
 
-object Section {
+object Section extends JsonDefaultValueFormatter[Section] {
 
-  implicit val reads: Reads[Section] = (
-    readsHtmlOrText((__ \ "heading" \ "html"), (__ \ "heading" \ "text")) and
-      readsHtmlOrText((__ \ "summary" \ "html"), (__ \ "summary" \ "text")) and
-      readsHtmlOrText((__ \ "content" \ "html"), (__ \ "content" \ "text")) and
-      (__ \ "expanded").readWithDefault[Boolean](false)
-  )(Section.apply _)
+  override def defaultObject: Section = Section()
 
-  implicit val writes: OWrites[Section] = new OWrites[Section] {
+  override def defaultReads: Reads[Section] =
+    (
+      readsHtmlOrText((__ \ "heading" \ "html"), (__ \ "heading" \ "text")) and
+        readsHtmlOrText((__ \ "summary" \ "html"), (__ \ "summary" \ "text")) and
+        readsHtmlOrText((__ \ "content" \ "html"), (__ \ "content" \ "text")) and
+        (__ \ "expanded").read[Boolean]
+    )(Section.apply _)
+
+  override implicit def jsonWrites: OWrites[Section] = new OWrites[Section] {
     override def writes(section: Section): JsObject = Json.obj(
-      "heading" -> writesContent().writes(section.headingContent),
-      "summary" -> writesContent().writes(section.summaryContent),
-      "content" -> writesContent().writes(section.content),
+      "heading"  -> writesContent().writes(section.headingContent),
+      "summary"  -> writesContent().writes(section.summaryContent),
+      "content"  -> writesContent().writes(section.content),
       "expanded" -> section.expanded
     )
   }

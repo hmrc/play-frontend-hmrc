@@ -17,6 +17,7 @@
 package uk.gov.hmrc.govukfrontend.views.viewmodels.header
 
 import play.api.libs.json._
+import uk.gov.hmrc.govukfrontend.views.viewmodels.JsonDefaultValueFormatter
 
 /***
   * We removed assets path since the Twirl implementation of <code>govukHeader</code> uses
@@ -36,10 +37,10 @@ import play.api.libs.json._
   * @param attributes
   */
 final case class Header(
-  homepageUrl: Option[String]               = None,
-  productName: Option[String]               = None,
-  serviceName: Option[String]               = None,
-  serviceUrl: Option[String]                = None,
+  homepageUrl: Option[String] = None,
+  productName: Option[String] = None,
+  serviceName: Option[String] = None,
+  serviceUrl: Option[String]  = None,
   // Need the weird Option[Seq[HeaderNavigation]] to represent JS `undefined` values because None maps to `undefined` nicely.
   // If we refined the type, the correct type would be something like Option[NonEmptySeq[HeaderNavigation]]
   navigation: Option[Seq[HeaderNavigation]] = None,
@@ -49,6 +50,11 @@ final case class Header(
   attributes: Map[String, String]           = Map.empty
 )
 
-object Header {
-  implicit val format = Json.using[Json.WithDefaultValues].format[Header]
+object Header extends JsonDefaultValueFormatter[Header] {
+
+  override def defaultObject: Header = Header()
+
+  override def defaultReads: Reads[Header] = Json.reads[Header]
+
+  override implicit def jsonWrites: OWrites[Header] = Json.writes[Header]
 }

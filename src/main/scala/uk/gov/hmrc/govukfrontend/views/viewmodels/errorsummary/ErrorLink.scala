@@ -27,17 +27,22 @@ final case class ErrorLink(
   attributes: Map[String, String] = Map.empty
 )
 
-object ErrorLink {
+object ErrorLink extends JsonDefaultValueFormatter[ErrorLink] {
 
-  implicit val reads: Reads[ErrorLink] = (
-    (__ \ "href").readNullable[String] and
-      Content.reads and
-      (__ \ "attributes").readWithDefault[Map[String, String]](Map.empty)
-  )(ErrorLink.apply _)
+  override def defaultObject: ErrorLink = ErrorLink()
 
-  implicit val writes: OWrites[ErrorLink] = (
-    (__ \ "href").writeNullable[String] and
-      Content.writes and
-      (__ \ "attributes").write[Map[String, String]]
-  )(unlift(ErrorLink.unapply))
+  override def defaultReads: Reads[ErrorLink] =
+    (
+      (__ \ "href").readNullable[String] and
+        Content.reads and
+        (__ \ "attributes").read[Map[String, String]]
+    )(ErrorLink.apply _)
+
+  override implicit def jsonWrites: OWrites[ErrorLink] =
+    (
+      (__ \ "href").writeNullable[String] and
+        Content.writes and
+        (__ \ "attributes").write[Map[String, String]]
+    )(unlift(ErrorLink.unapply))
+
 }

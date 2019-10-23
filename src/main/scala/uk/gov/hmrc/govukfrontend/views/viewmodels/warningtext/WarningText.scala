@@ -19,27 +19,33 @@ package uk.gov.hmrc.govukfrontend.views.viewmodels.warningtext
 import play.api.libs.functional.syntax._
 import play.api.libs.json._
 import uk.gov.hmrc.govukfrontend.views.html.components._
+import uk.gov.hmrc.govukfrontend.views.viewmodels.JsonDefaultValueFormatter
 
 case class WarningText(
-  iconFallbackText: String,
+  iconFallbackText: String        = "",
   classes: String                 = "",
   attributes: Map[String, String] = Map.empty,
   content: Content                = Empty
 )
 
-object WarningText {
+object WarningText extends JsonDefaultValueFormatter[WarningText] {
 
-  implicit val reads: Reads[WarningText] = (
-    (__ \ "iconFallbackText").read[String] and
-      (__ \ "classes").readWithDefault[String]("") and
-      (__ \ "attributes").readWithDefault[Map[String, String]](Map.empty) and
-      Content.reads
-  )(WarningText.apply _)
+  override def defaultObject: WarningText = WarningText()
 
-  implicit val writes: OWrites[WarningText] = (
-    (__ \ "iconFallbackText").write[String] and
-      (__ \ "classes").write[String] and
-      (__ \ "attributes").write[Map[String, String]] and
-      Content.writes
-  )(unlift(WarningText.unapply))
+  override def defaultReads: Reads[WarningText] =
+    (
+      (__ \ "iconFallbackText").read[String] and
+        (__ \ "classes").read[String] and
+        (__ \ "attributes").read[Map[String, String]] and
+        Content.reads
+    )(WarningText.apply _)
+
+  override implicit def jsonWrites: OWrites[WarningText] =
+    (
+      (__ \ "iconFallbackText").write[String] and
+        (__ \ "classes").write[String] and
+        (__ \ "attributes").write[Map[String, String]] and
+        Content.writes
+    )(unlift(WarningText.unapply))
+
 }

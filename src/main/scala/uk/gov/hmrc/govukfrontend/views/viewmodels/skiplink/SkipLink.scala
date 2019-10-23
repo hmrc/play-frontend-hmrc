@@ -16,30 +16,36 @@
 
 package uk.gov.hmrc.govukfrontend.views.viewmodels.skiplink
 
-import play.api.libs.json._
 import play.api.libs.functional.syntax._
+import play.api.libs.json._
 import uk.gov.hmrc.govukfrontend.views.html.components._
+import uk.gov.hmrc.govukfrontend.views.viewmodels.JsonDefaultValueFormatter
 
 case class SkipLink(
-  href: String,
+  href: String                    = "",
   classes: String                 = "",
   attributes: Map[String, String] = Map.empty,
-  content: Content
+  content: Content                = Empty
 )
 
-object SkipLink {
+object SkipLink extends JsonDefaultValueFormatter[SkipLink] {
 
-  implicit val reads: Reads[SkipLink] = (
-    (__ \ "href").read[String] and
-      (__ \ "classes").readWithDefault[String]("") and
-      (__ \ "attributes").readWithDefault[Map[String, String]](Map.empty) and
-      Content.reads
-  )(SkipLink.apply _)
+  override def defaultObject: SkipLink = SkipLink()
 
-  implicit val writes: OWrites[SkipLink] = (
-    (__ \ "href").write[String] and
-      (__ \ "classes").write[String] and
-      (__ \ "attributes").write[Map[String, String]] and
-      Content.writes
-  )(unlift(SkipLink.unapply))
+  override def defaultReads: Reads[SkipLink] =
+    (
+      (__ \ "href").read[String] and
+        (__ \ "classes").read[String] and
+        (__ \ "attributes").read[Map[String, String]] and
+        Content.reads
+    )(SkipLink.apply _)
+
+  override implicit def jsonWrites: OWrites[SkipLink] =
+    (
+      (__ \ "href").write[String] and
+        (__ \ "classes").write[String] and
+        (__ \ "attributes").write[Map[String, String]] and
+        Content.writes
+    )(unlift(SkipLink.unapply))
+
 }

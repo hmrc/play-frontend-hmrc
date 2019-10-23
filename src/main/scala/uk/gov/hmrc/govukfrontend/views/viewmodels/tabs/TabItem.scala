@@ -17,18 +17,20 @@
 package uk.gov.hmrc.govukfrontend.views.viewmodels.tabs
 
 import play.api.libs.json._
-import play.api.libs.functional.syntax._
+import uk.gov.hmrc.govukfrontend.views.viewmodels.JsonDefaultValueFormatter
 
 final case class TabItem(
-  id: Option[String] = None,
-  label: String,
+  id: Option[String]              = None,
+  label: String                   = "",
   attributes: Map[String, String] = Map.empty,
-  panel: TabPanel
+  panel: TabPanel                 = TabPanel()
 )
 
-object TabItem {
+object TabItem extends JsonDefaultValueFormatter[TabItem] {
 
-  implicit val reads: Reads[TabItem] = Json.using[Json.WithDefaultValues].reads[TabItem]
+  override def defaultObject: TabItem = TabItem()
 
-  implicit val writes: OWrites[TabItem] = Json.writes[TabItem]
+  override def defaultReads: Reads[TabItem] = Json.reads[TabItem]
+
+  override implicit def jsonWrites: OWrites[TabItem] = Json.writes[TabItem]
 }

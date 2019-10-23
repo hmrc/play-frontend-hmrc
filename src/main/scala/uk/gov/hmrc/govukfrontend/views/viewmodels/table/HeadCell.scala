@@ -30,23 +30,28 @@ final case class HeadCell(
   attributes: Map[String, String] = Map.empty
 )
 
-object HeadCell {
+object HeadCell extends JsonDefaultValueFormatter[HeadCell] {
 
-  implicit val reads: Reads[HeadCell] = (
-    Content.reads and
-      (__ \ "format").readNullable[String] and
-      (__ \ "classes").readWithDefault[String]("") and
-      (__ \ "colspan").readNullable[Int] and
-      (__ \ "rowspan").readNullable[Int] and
-      (__ \ "attributes").readWithDefault[Map[String, String]](Map.empty)
-  )(HeadCell.apply _)
+  override def defaultObject: HeadCell = HeadCell()
 
-  implicit val writes: OWrites[HeadCell] = (
-    Content.writes and
-      (__ \ "format").writeNullable[String] and
-      (__ \ "classes").write[String] and
-      (__ \ "colspan").writeNullable[Int] and
-      (__ \ "rowspan").writeNullable[Int] and
-      (__ \ "attributes").write[Map[String, String]]
-  )(unlift(HeadCell.unapply))
+  override def defaultReads: Reads[HeadCell] =
+    (
+      Content.reads and
+        (__ \ "format").readNullable[String] and
+        (__ \ "classes").read[String] and
+        (__ \ "colspan").readNullable[Int] and
+        (__ \ "rowspan").readNullable[Int] and
+        (__ \ "attributes").read[Map[String, String]]
+    )(HeadCell.apply _)
+
+  override implicit def jsonWrites: OWrites[HeadCell] =
+    (
+      Content.writes and
+        (__ \ "format").writeNullable[String] and
+        (__ \ "classes").write[String] and
+        (__ \ "colspan").writeNullable[Int] and
+        (__ \ "rowspan").writeNullable[Int] and
+        (__ \ "attributes").write[Map[String, String]]
+    )(unlift(HeadCell.unapply))
+
 }

@@ -18,31 +18,37 @@ package uk.gov.hmrc.govukfrontend.views.viewmodels.errorsummary
 
 import play.api.libs.functional.syntax._
 import play.api.libs.json._
+import uk.gov.hmrc.govukfrontend.views.viewmodels.JsonDefaultValueFormatter
 import uk.gov.hmrc.govukfrontend.views.viewmodels.content.{Content, Empty}
 
 case class ErrorSummary(
   errorList: Seq[ErrorLink]       = Nil,
   classes: String                 = "",
   attributes: Map[String, String] = Map.empty,
-  title: Content,
-  description: Content = Empty
+  title: Content                  = Empty,
+  description: Content            = Empty
 )
 
-object ErrorSummary {
+object ErrorSummary extends JsonDefaultValueFormatter[ErrorSummary] {
 
-  implicit val reads: Reads[ErrorSummary] = (
-    (__ \ "errorList").readWithDefault[Seq[ErrorLink]](Nil) and
-      (__ \ "classes").readWithDefault[String]("") and
-      (__ \ "attributes").readWithDefault[Map[String, String]](Map.empty) and
-      Content.readsHtmlOrText((__ \ "titleHtml"), (__ \ "titleText")) and
-      Content.readsHtmlOrText((__ \ "descriptionHtml"), (__ \ "descriptionText"))
-  )(ErrorSummary.apply _)
+  override def defaultObject: ErrorSummary = ErrorSummary()
 
-  implicit val writes: OWrites[ErrorSummary] = (
-    (__ \ "errorList").write[Seq[ErrorLink]] and
-      (__ \ "classes").write[String] and
-      (__ \ "attributes").write[Map[String, String]] and
-      Content.writesContent("titleHtml", "titleText") and
-      Content.writesContent("descriptionHtml", "descriptionText")
-  )(unlift(ErrorSummary.unapply))
+  override def defaultReads: Reads[ErrorSummary] =
+    (
+      (__ \ "errorList").read[Seq[ErrorLink]] and
+        (__ \ "classes").read[String] and
+        (__ \ "attributes").read[Map[String, String]] and
+        Content.readsHtmlOrText((__ \ "titleHtml"), (__ \ "titleText")) and
+        Content.readsHtmlOrText((__ \ "descriptionHtml"), (__ \ "descriptionText"))
+    )(ErrorSummary.apply _)
+
+  override implicit def jsonWrites: OWrites[ErrorSummary] =
+    (
+      (__ \ "errorList").write[Seq[ErrorLink]] and
+        (__ \ "classes").write[String] and
+        (__ \ "attributes").write[Map[String, String]] and
+        Content.writesContent("titleHtml", "titleText") and
+        Content.writesContent("descriptionHtml", "descriptionText")
+    )(unlift(ErrorSummary.unapply))
+
 }
