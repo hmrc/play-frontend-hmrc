@@ -18,7 +18,6 @@ package uk.gov.hmrc.govukfrontend.views
 package components
 
 import play.twirl.api.HtmlFormat
-import uk.gov.hmrc.govukfrontend.support.ScalaCheckUtils.ClassifyParams
 import uk.gov.hmrc.govukfrontend.support.TemplateIntegrationSpec
 import uk.gov.hmrc.govukfrontend.views.html.components._
 import uk.gov.hmrc.govukfrontend.views.viewmodels.checkboxes.Checkboxes
@@ -30,6 +29,9 @@ object govukCheckboxesIntegrationSpec
 
   override def render(checkboxes: Checkboxes): Try[HtmlFormat.Appendable] =
     Try(GovukCheckboxes(checkboxes))
+
+  /* The classifiers here are very clunky so just an experiment that is not very useful
+     Think of a better way to look at distributions...
 
   override def classifiers(checkboxes: Checkboxes): Stream[ClassifyParams] = {
     val checkboxesClassifiers =
@@ -48,4 +50,5 @@ object govukCheckboxesIntegrationSpec
       .map(govukFieldsetIntegrationSpec.classifiers)
       .getOrElse(Stream.empty[ClassifyParams])
   }
+   */
 }

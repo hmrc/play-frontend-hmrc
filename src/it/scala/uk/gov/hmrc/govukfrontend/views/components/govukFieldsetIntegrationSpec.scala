@@ -32,6 +32,8 @@ object govukFieldsetIntegrationSpec
   override def render(fieldset: Fieldset): Try[HtmlFormat.Appendable] =
     Try(GovukFieldset(fieldset))
 
+  /* Again just an idea for classifiers...
+
   override def classifiers(fieldset: Fieldset): Stream[ClassifyParams] =
     (fieldset.describedBy.forall(_.isEmpty), "empty describedBy", "non-empty describedBy") #::
       (fieldset.legend.isEmpty, "empty legend", "non-empty legend") #::
@@ -45,4 +47,5 @@ object govukFieldsetIntegrationSpec
           // prefix previous classifiers with 'fieldset' to avoid name clashes when reporting
           (condition, s"fieldset $ifTrue", s"fieldset $ifFalse")
       }
+   */
 }
