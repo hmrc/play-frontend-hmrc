@@ -25,7 +25,7 @@ object Generators {
 
   implicit val arbButton: Arbitrary[Button] = Arbitrary {
     for {
-      element            <- Gen.option(genAlphaStrOftenEmpty())
+      element            <- Gen.option(Gen.oneOf("a", "button", "input", "foo", ""))
       name               <- Gen.option(genAlphaStrOftenEmpty())
       inputType          <- Gen.option(genAlphaStrOftenEmpty())
       value              <- Gen.option(genAlphaStrOftenEmpty())

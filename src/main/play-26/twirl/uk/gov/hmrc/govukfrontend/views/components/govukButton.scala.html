@@ -18,32 +18,30 @@
 
 @(params: Button)
 @import params._
-@require(!element.exists(_.toLowerCase == "input") || content.isInstanceOf[Text])
+@require(if (element.exists(_.toLowerCase == "input")) content.isInstanceOf[Text] else true) @* if element is input content has to be text *@
 @defining(iconHtmlSnippet(classNames)) { case( classNames, iconHtml) =>
   @if(elem == "a") {
-    <a href="@{"#".?:(href)}" role="button" draggable="false" @commonAttributes(classNames)>
+    <a href="@href.filter(_.nonEmpty).getOrElse{#}" role="button" draggable="false" @commonAttributes(classNames)>
       @content.asHtml
-      @iconHtml.trim @* TODO: implement Nunjucks indent(m, bool) *@
+      @iconHtml.trim.indent(2, indentFirstLine = true)
     </a>
   } else {
     @if(elem == "button") {
-      <button @value.map {value => value="@value"}@inputType.map {inputType => type="@inputType"}@buttonAttributes @commonAttributes(classNames)>
+      <button @value.filter(_.nonEmpty).map {value => value="@value"}@inputType.filter(_.nonEmpty).map {inputType => type="@inputType"}@buttonAttributes @commonAttributes(classNames)>
         @content.asHtml
-        @iconHtml.trim
+        @iconHtml.trim.indent(2, indentFirstLine = true)
       </button>
     } else {
       @if(elem == "input") {
-        <input value="@content.asInstanceOf[Text].value" type="@inputTypeAttr.trim"@buttonAttributes @commonAttributes(classNames)>
+        <input value="@content.asInstanceOf[Text].asHtml" type="@inputTypeAttr.trim"@buttonAttributes @commonAttributes(classNames)>
       }
     }
   }
 }
 
-@elem = @{ element.fold(href.fold("button")(_ => "a"))(_.toLowerCase) }
+@elem = @{ element.filter(_.nonEmpty).fold(href.filter(_.nonEmpty).fold("button")(_ => "a"))(_.toLowerCase) }
 
-@commonAttributes(classNames: String) = {
-  class="@classNames" data-module="govuk-button"@toAttributes(attributes)
-}
+@commonAttributes(classNames: String) = {class="@classNames" data-module="govuk-button"@toAttributes(attributes)}
 
 @buttonAttributes = {
   @name.filter(_.nonEmpty).map {name => name="@name"}@if(disabled) { disabled="disabled" aria-disabled="true"}@if(preventDoubleClick) { data-prevent-double-click="true"}
@@ -69,6 +67,6 @@
 }
 
 @inputTypeAttr = {
- @inputType.map {inputType => @if(inputType.nonEmpty) {@inputType} else {submit}}.getOrElse {submit}
+  @inputType.filter(_.nonEmpty).getOrElse {submit}
 }
 

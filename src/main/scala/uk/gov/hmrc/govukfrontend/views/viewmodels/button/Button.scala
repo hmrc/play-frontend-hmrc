@@ -43,7 +43,7 @@ object Button extends JsonDefaultValueFormatter[Button] {
     (
       (__ \ "element").readNullable[String] and
         (__ \ "name").readNullable[String] and
-        (__ \ "input").readNullable[String] and
+        (__ \ "type").readNullable[String] and
         (__ \ "value").readNullable[String] and
         (__ \ "disabled").read[Boolean] and
         (__ \ "href").readNullable[String] and
@@ -58,7 +58,7 @@ object Button extends JsonDefaultValueFormatter[Button] {
     (
       (__ \ "element").writeNullable[String] and
         (__ \ "name").writeNullable[String] and
-        (__ \ "input").writeNullable[String] and
+        (__ \ "type").writeNullable[String] and
         (__ \ "value").writeNullable[String] and
         (__ \ "disabled").write[Boolean] and
         (__ \ "href").writeNullable[String] and
