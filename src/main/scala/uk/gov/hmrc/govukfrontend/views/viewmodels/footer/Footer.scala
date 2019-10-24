@@ -22,6 +22,8 @@ import uk.gov.hmrc.govukfrontend.views.viewmodels.JsonDefaultValueFormatter
 
 case class Footer(
   meta: Option[Meta]                        = None,
+  //FIXME Option[Seq[T]] is used to represent the 3 possible types of values of javascript arrays: undefined, non-empty array, and empty array
+  // once https://github.com/alphagov/govuk-frontend/issues/1618 is solved we can think of a better type
   navigation: Option[Seq[FooterNavigation]] = None,
   containerClasses: String                  = "",
   classes: String                           = "",
