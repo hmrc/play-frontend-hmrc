@@ -22,24 +22,29 @@ import play.api.libs.json._
 import uk.gov.hmrc.govukfrontend.views.viewmodels.content.{Content, Empty}
 
 final case class ActionItem(
-  href: String,
+  href: String                       = "",
   content: Content                   = Empty,
   visuallyHiddenText: Option[String] = None,
   classes: String                    = "")
 
-object ActionItem {
+object ActionItem extends JsonDefaultValueFormatter[ActionItem] {
 
-  implicit val reads: Reads[ActionItem] = (
-    (__ \ "href").readWithDefault[String]("") and
-      Content.reads and
-      (__ \ "visuallyHiddenText").readNullable[String] and
-      (__ \ "classes").readWithDefault[String]("")
-  )(ActionItem.apply _)
+  override def defaultObject: ActionItem = ActionItem()
 
-  implicit val writes = (
-    (__ \ "href").write[String] and
-      Content.writes and
-      (__ \ "visuallyHiddenText").writeNullable[String] and
-      (__ \ "classes").write[String]
-  )(unlift(ActionItem.unapply))
+  override def defaultReads: Reads[ActionItem] =
+    (
+      (__ \ "href").read[String] and
+        Content.reads and
+        (__ \ "visuallyHiddenText").readNullable[String] and
+        (__ \ "classes").read[String]
+    )(ActionItem.apply _)
+
+  override implicit def jsonWrites: OWrites[ActionItem] =
+    (
+      (__ \ "href").write[String] and
+        Content.writes and
+        (__ \ "visuallyHiddenText").writeNullable[String] and
+        (__ \ "classes").write[String]
+    )(unlift(ActionItem.unapply))
+
 }

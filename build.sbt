@@ -149,10 +149,7 @@ lazy val libDependencies: Seq[ModuleID] = dependencies(
 
 lazy val overrides: Set[ModuleID] = dependencies(
   play25 = Seq(
-    "com.typesafe.play" %% "twirl-api" % "1.1.1",
-    // use same version as for Play 2.6 so we get enhanced Read stuff such as
-    // JsPath.readWithDefault and Json.using[Json.WithDefaultValues]
-    "com.typesafe.play" %% "play-json" % "2.6.12" % Test
+    "com.typesafe.play" %% "twirl-api" % "1.1.1"
   )
 ).toSet
 

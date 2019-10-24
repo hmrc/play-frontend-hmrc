@@ -30,23 +30,28 @@ final case class TableRow(
   attributes: Map[String, String] = Map.empty
 )
 
-object TableRow {
+object TableRow extends JsonDefaultValueFormatter[TableRow] {
 
-  implicit val reads: Reads[TableRow] = (
-    Content.reads and
-      (__ \ "format").readNullable[String] and
-      (__ \ "classes").readWithDefault[String]("") and
-      (__ \ "colspan").readNullable[Int] and
-      (__ \ "rowspan").readNullable[Int] and
-      (__ \ "attributes").readWithDefault[Map[String, String]](Map.empty)
-  )(TableRow.apply _)
+  override def defaultObject: TableRow = TableRow()
 
-  implicit val writes: OWrites[TableRow] = (
-    Content.writes and
-      (__ \ "format").writeNullable[String] and
-      (__ \ "classes").write[String] and
-      (__ \ "colspan").writeNullable[Int] and
-      (__ \ "rowspan").writeNullable[Int] and
-      (__ \ "attributes").write[Map[String, String]]
-  )(unlift(TableRow.unapply))
+  override def defaultReads: Reads[TableRow] =
+    (
+      Content.reads and
+        (__ \ "format").readNullable[String] and
+        (__ \ "classes").read[String] and
+        (__ \ "colspan").readNullable[Int] and
+        (__ \ "rowspan").readNullable[Int] and
+        (__ \ "attributes").read[Map[String, String]]
+    )(TableRow.apply _)
+
+  override implicit def jsonWrites: OWrites[TableRow] =
+    (
+      Content.writes and
+        (__ \ "format").writeNullable[String] and
+        (__ \ "classes").write[String] and
+        (__ \ "colspan").writeNullable[Int] and
+        (__ \ "rowspan").writeNullable[Int] and
+        (__ \ "attributes").write[Map[String, String]]
+    )(unlift(TableRow.unapply))
+
 }

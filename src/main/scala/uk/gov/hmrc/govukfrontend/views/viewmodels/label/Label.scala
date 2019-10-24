@@ -29,21 +29,26 @@ final case class Label(
   content: Content                = Empty
 )
 
-object Label {
+object Label extends JsonDefaultValueFormatter[Label] {
 
-  implicit val reads: Reads[Label] = (
-    (__ \ "for").readNullable[String] and
-      (__ \ "isPageHeading").readWithDefault[Boolean](false) and
-      (__ \ "classes").readWithDefault[String]("") and
-      (__ \ "attributes").readWithDefault[Map[String, String]](Map.empty) and
-      Content.reads
-  )(Label.apply _)
+  override def defaultObject: Label = Label()
 
-  implicit val writes: OWrites[Label] = (
-    (__ \ "for").writeNullable[String] and
-      (__ \ "isPageHeading").write[Boolean] and
-      (__ \ "classes").write[String] and
-      (__ \ "attributes").write[Map[String, String]] and
-      Content.writes
-  )(unlift(Label.unapply))
+  override def defaultReads: Reads[Label] =
+    (
+      (__ \ "for").readNullable[String] and
+        (__ \ "isPageHeading").read[Boolean] and
+        (__ \ "classes").read[String] and
+        (__ \ "attributes").read[Map[String, String]] and
+        Content.reads
+    )(Label.apply _)
+
+  override implicit def jsonWrites: OWrites[Label] =
+    (
+      (__ \ "for").writeNullable[String] and
+        (__ \ "isPageHeading").write[Boolean] and
+        (__ \ "classes").write[String] and
+        (__ \ "attributes").write[Map[String, String]] and
+        Content.writes
+    )(unlift(Label.unapply))
+
 }

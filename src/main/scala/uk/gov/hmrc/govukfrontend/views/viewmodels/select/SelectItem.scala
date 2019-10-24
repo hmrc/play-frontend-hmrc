@@ -22,28 +22,32 @@ import play.api.libs.json._
 import uk.gov.hmrc.govukfrontend.views.viewmodels.JsonImplicits._
 
 final case class SelectItem(
-  value: Option[String] = None,
-  text: String,
+  value: Option[String]           = None,
+  text: String                    = "",
   selected: Boolean               = false,
   disabled: Boolean               = false,
   attributes: Map[String, String] = Map.empty
 )
 
-object SelectItem {
+object SelectItem extends JsonDefaultValueFormatter[SelectItem] {
 
-  implicit val reads: Reads[SelectItem] = (
+  override def defaultObject: SelectItem = SelectItem()
+
+  override def defaultReads: Reads[SelectItem] = (
     (__ \ "value").readsJsValueToString.map(Option[String]).orElse(Reads.pure(None)) and
       (__ \ "text").read[String] and
-      (__ \ "selected").readWithDefault[Boolean](false) and
-      (__ \ "disabled").readWithDefault[Boolean](false) and
-      (__ \ "attributes").readWithDefault[Map[String, String]](Map.empty)
-  )(SelectItem.apply _)
+      (__ \ "selected").read[Boolean] and
+      (__ \ "disabled").read[Boolean] and
+      (__ \ "attributes").read[Map[String, String]]
+    )(SelectItem.apply _)
 
-  implicit val writes: OWrites[SelectItem] = (
+
+  override implicit def jsonWrites: OWrites[SelectItem] = (
     (__ \ "value").writeNullable[String] and
       (__ \ "text").write[String] and
       (__ \ "selected").write[Boolean] and
       (__ \ "disabled").write[Boolean] and
       (__ \ "attributes").write[Map[String, String]]
-  )(unlift(SelectItem.unapply))
+    )(unlift(SelectItem.unapply))
+
 }

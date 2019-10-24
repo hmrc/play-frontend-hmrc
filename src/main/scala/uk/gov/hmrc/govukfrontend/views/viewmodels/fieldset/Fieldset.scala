@@ -16,9 +16,10 @@
 
 package uk.gov.hmrc.govukfrontend.views.viewmodels.fieldset
 
-import play.api.libs.json._
 import play.api.libs.functional.syntax._
+import play.api.libs.json._
 import play.twirl.api.{Html, HtmlFormat}
+import uk.gov.hmrc.govukfrontend.views.viewmodels.JsonDefaultValueFormatter
 
 final case class Fieldset(
   describedBy: Option[String]     = None,
@@ -29,18 +30,21 @@ final case class Fieldset(
   html: Html                      = HtmlFormat.empty
 )
 
-object Fieldset {
+object Fieldset extends JsonDefaultValueFormatter[Fieldset] {
 
-  implicit val reads: Reads[Fieldset] = (
-    (__ \ "describedBy").readNullable[String] and
-      (__ \ "legend").readNullable[Legend] and
-      (__ \ "classes").readWithDefault[String]("") and
-      (__ \ "role").readNullable[String] and
-      (__ \ "attributes").readWithDefault[Map[String, String]](Map.empty) and
-      (__ \ "html").readWithDefault[String]("").map(Html(_))
-  )(Fieldset.apply _)
+  override def defaultObject: Fieldset = Fieldset()
 
-  implicit val writes: OWrites[Fieldset] =
+  override def defaultReads: Reads[Fieldset] =
+    (
+      (__ \ "describedBy").readNullable[String] and
+        (__ \ "legend").readNullable[Legend] and
+        (__ \ "classes").read[String] and
+        (__ \ "role").readNullable[String] and
+        (__ \ "attributes").read[Map[String, String]] and
+        (__ \ "html").read[String].map(Html(_))
+    )(Fieldset.apply _)
+
+  override implicit def jsonWrites: OWrites[Fieldset] =
     (
       (__ \ "describedBy").writeNullable[String] and
         (__ \ "legend").writeNullable[Legend] and
@@ -49,4 +53,5 @@ object Fieldset {
         (__ \ "attributes").write[Map[String, String]] and
         (__ \ "html").write[String].contramap((html: Html) => html.body)
     )(unlift(Fieldset.unapply))
+
 }

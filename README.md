@@ -160,7 +160,7 @@ the test coverage via generative testing described on the next section, we could
 To ensure (as much as possible) that the implemented templates conform to the `govuk-frontend` templates, we use generative
 testing, via `scalacheck`, to compare the `Twirl` templates output against the `Nunjucks` `govuk-frontend` templates.
 Currently, the generative testing strategy has only been implemented for a few components: 
-`GovukBackLink`, `GovukCheckboxes`, `GovukErrorMessage`, `GovukErrorSummary`, `GovukFieldset`, 
+`GovukButton`, `GovukBackLink`, `GovukCheckboxes`, `GovukErrorMessage`, `GovukErrorSummary`, `GovukFieldset`, 
 `GovukHeader`, `GovukHint`, `GovukLabel`, `GovukRadios` and `GovukSummaryList`.
  
 The tests run against a `node.js` service used to render the `govuk-frontend` `Nunjucks` templates,
@@ -198,7 +198,8 @@ object govukBackLinkTemplateIntegrationSpec
 ```
 
 Upon a test failure, the test reporter prints out a link to a diff file in `HTML` to easily compare the
-markup for the failing test case against the expected markup. 
+markup for the failing test case against the expected markup. The diff is presented as if the `original` file was
+the Twirl template output and the `new` file was the Nunjucks template output (expected result). 
 
 ```scala
 Diff between Twirl and Nunjucks outputs (please open diff HTML file in a browser): file:///Users/foo/dev/hmrc/play-frontend-govuk/target/govukBackLink-diff-2b99bb2a-98d4-48dc-8088-06bfe3008021.html

@@ -37,24 +37,30 @@ abstract class TemplateIntegrationSpec[T: OWrites: Arbitrary](govukComponentName
   def classifiers(templateParams: T): Stream[ClassifyParams] =
     Stream.empty[ClassifyParams]
 
+  override def overrideParameters(p: Test.Parameters): Test.Parameters =
+    p.withMinSuccessfulTests(50)
+
+  /* This is just an idea for a reporter that would look at the counts instead of rounded frequencies.
+
   // Due to rounding in [[org.scalacheck.util.Pretty.prettyFreqMap]] the console reporter shows some
   // frequencies collected from the classifiers as 0% when they are not zero.
-  // This reporter looks for null counts instead of ratios in the classifiers which can signal problems in the generator
+  // This reporter looks for counts instead of ratios in the classifiers which can signal problems in the generator
   // and/or an insufficient number of test runs
   override def overrideParameters(p: Test.Parameters): Test.Parameters =
     p.withTestCallback(p.testCallback chain new TestCallback {
         override def onTestResult(name: String, result: Test.Result): Unit = {
           println(s"Generator reporter $name")
-          val emptyStats = result.freqMap.getCounts.filter { case (_, c) => c == 0 }
-          if (emptyStats.nonEmpty) {
+          val threshold = 2
+          val lowStats = result.freqMap.getCounts.filter { case (_, c) => c < threshold }
+          if (lowStats.nonEmpty) {
             pprint.pprintln(
-              "some stats are null, tweak the generator to provide better coverage and/or increase the minSuccessfulTests parameter")
+              "some stats are very low, tweak the generator to provide better coverage and/or increase the minSuccessfulTests parameter")
             pprint.pprintln(emptyStats, width = 80, height = Int.MaxValue)
           }
         }
 
       })
-      .withMinSuccessfulTests(50)
+   */
 
   /**
     * Property that renders the Twirl template and uses the template rendering service to render the equivalent
@@ -78,14 +84,14 @@ abstract class TemplateIntegrationSpec[T: OWrites: Arbitrary](govukComponentName
           case Success(twirlOutputHtml) =>
             val preProcessedTwirlHtml    = preProcess(twirlOutputHtml)
             val preProcessedNunjucksHtml = preProcess(nunJucksOutputHtml)
-            val prop                   = preProcessedTwirlHtml == preProcessedNunjucksHtml
+            val prop                     = preProcessedTwirlHtml == preProcessedNunjucksHtml
 
             if (!prop) {
               reportDiff(
                 preProcessedTwirlHtml    = preProcessedTwirlHtml,
                 preProcessedNunjucksHtml = preProcessedNunjucksHtml,
-                templateParams         = templateParams,
-                templateParamsJson     = Json.prettyPrint(Json.toJson(templateParams))
+                templateParams           = templateParams,
+                templateParamsJson       = Json.prettyPrint(Json.toJson(templateParams))
               )
             }
 

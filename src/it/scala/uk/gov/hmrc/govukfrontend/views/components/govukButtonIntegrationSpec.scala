@@ -14,19 +14,18 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.govukfrontend.views
+package uk.gov.hmrc.govukfrontend.views.components
 
-import play.api.i18n.Messages
-import play.api.test.{Helpers => PlayHelpers}
+import play.twirl.api.HtmlFormat
+import uk.gov.hmrc.govukfrontend.support.TemplateIntegrationSpec
+import uk.gov.hmrc.govukfrontend.views.html.components._
+import uk.gov.hmrc.govukfrontend.views.viewmodels.button.Generators._
+import uk.gov.hmrc.govukfrontend.views.viewmodels.button.Button
+import scala.util.Try
 
-trait MessagesHelpers {
+object govukButtonIntegrationSpec
+    extends TemplateIntegrationSpec[Button](govukComponentName = "govukButton", seed = None) {
 
-  /**
-    * Override the messagesMap to provide custom messages
-    * @return
-    */
-  def messagesMap: Map[String, Map[String, String]] = Map.empty
-
-  implicit lazy val messages: Messages =
-    PlayHelpers.stubMessages(PlayHelpers.stubMessagesApi(messages = messagesMap))
+  override def render(button: Button): Try[HtmlFormat.Appendable] =
+    Try(GovukButton(button))
 }

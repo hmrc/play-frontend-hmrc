@@ -20,16 +20,17 @@ package summarylist
 import play.api.libs.json._
 
 final case class SummaryListRow(
-  key: Key,
-  value: Value,
+  key: Key                 = Key(),
+  value: Value             = Value(),
   classes: String          = "",
   actions: Option[Actions] = None
 )
 
-object SummaryListRow {
+object SummaryListRow extends JsonDefaultValueFormatter[SummaryListRow] {
 
-  implicit val reads: Reads[SummaryListRow] =
-    Json.using[Json.WithDefaultValues].reads[SummaryListRow]
+  override def defaultObject: SummaryListRow = SummaryListRow()
 
-  implicit val writes: OWrites[SummaryListRow] = Json.writes[SummaryListRow]
+  override def defaultReads: Reads[SummaryListRow] = Json.reads[SummaryListRow]
+
+  override implicit def jsonWrites: OWrites[SummaryListRow] = Json.writes[SummaryListRow]
 }

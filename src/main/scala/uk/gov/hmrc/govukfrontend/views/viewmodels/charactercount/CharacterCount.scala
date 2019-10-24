@@ -19,56 +19,62 @@ package uk.gov.hmrc.govukfrontend.views.viewmodels.charactercount
 import play.api.libs.functional.syntax._
 import play.api.libs.json._
 import uk.gov.hmrc.govukfrontend.views.viewmodels.CommonJsonFormats._
+import uk.gov.hmrc.govukfrontend.views.viewmodels.JsonDefaultValueFormatter
 import uk.gov.hmrc.govukfrontend.views.viewmodels.errormessage.ErrorMessage
 import uk.gov.hmrc.govukfrontend.views.viewmodels.hint.Hint
 import uk.gov.hmrc.govukfrontend.views.viewmodels.label.Label
 
 case class CharacterCount(
-  id: String,
-  name: String,
-  rows: Int              = 5,
-  value: Option[String]  = None,
-  maxLength: Option[Int] = None,
-  maxWords: Option[Int]  = None,
-  threshold: Option[Int] = None,
-  label: Label,
-  hint: Option[Hint]                       = None,
+  id: String                         = "",
+  name: String                       = "",
+  rows: Int                          = 5,
+  value: Option[String]              = None,
+  maxLength: Option[Int]             = None,
+  maxWords: Option[Int]              = None,
+  threshold: Option[Int]             = None,
+  label: Label                       = Label(),
+  hint: Option[Hint]                 = None,
   errorMessage: Option[ErrorMessage] = None,
-  formGroupClasses: String                 = "",
-  classes: String                          = "",
-  attributes: Map[String, String]          = Map.empty)
+  formGroupClasses: String           = "",
+  classes: String                    = "",
+  attributes: Map[String, String]    = Map.empty)
 
-object CharacterCount {
+object CharacterCount extends JsonDefaultValueFormatter[CharacterCount] {
 
-  implicit val reads: Reads[CharacterCount] = (
-    (__ \ "id").read[String] and
-      (__ \ "name").read[String] and
-      (__ \ "rows").readWithDefault[Int](5) and
-      (__ \ "value").readNullable[String] and
-      (__ \ "maxlength").readNullable[Int] and
-      (__ \ "maxwords").readNullable[Int] and
-      (__ \ "threshold").readNullable[Int] and
-      (__ \ "label").read[Label] and
-      (__ \ "hint").readNullable[Hint] and
-      (__ \ "errorMessage").readNullable[ErrorMessage] and
-      readsFormGroupClasses and
-      (__ \ "classes").readWithDefault[String]("") and
-      (__ \ "attributes").readWithDefault[Map[String, String]](Map.empty)
-  )(CharacterCount.apply _)
+  override def defaultObject: CharacterCount = CharacterCount()
 
-  implicit val writes: OWrites[CharacterCount] = (
-    (__ \ "id").write[String] and
-      (__ \ "name").write[String] and
-      (__ \ "rows").write[Int] and
-      (__ \ "value").writeNullable[String] and
-      (__ \ "maxlength").writeNullable[Int] and
-      (__ \ "maxwords").writeNullable[Int] and
-      (__ \ "threshold").writeNullable[Int] and
-      (__ \ "label").write[Label] and
-      (__ \ "hint").writeNullable[Hint] and
-      (__ \ "errorMessage").writeNullable[ErrorMessage] and
-      writesFormGroupClasses and
-      (__ \ "classes").write[String] and
-      (__ \ "attributes").write[Map[String, String]]
-  )(unlift(CharacterCount.unapply))
+  override def defaultReads: Reads[CharacterCount] =
+    (
+      (__ \ "id").read[String] and
+        (__ \ "name").read[String] and
+        (__ \ "rows").read[Int] and
+        (__ \ "value").readNullable[String] and
+        (__ \ "maxlength").readNullable[Int] and
+        (__ \ "maxwords").readNullable[Int] and
+        (__ \ "threshold").readNullable[Int] and
+        (__ \ "label").read[Label] and
+        (__ \ "hint").readNullable[Hint] and
+        (__ \ "errorMessage").readNullable[ErrorMessage] and
+        readsFormGroupClasses and
+        (__ \ "classes").read[String] and
+        (__ \ "attributes").read[Map[String, String]]
+    )(CharacterCount.apply _)
+
+  override implicit def jsonWrites: OWrites[CharacterCount] =
+    (
+      (__ \ "id").write[String] and
+        (__ \ "name").write[String] and
+        (__ \ "rows").write[Int] and
+        (__ \ "value").writeNullable[String] and
+        (__ \ "maxlength").writeNullable[Int] and
+        (__ \ "maxwords").writeNullable[Int] and
+        (__ \ "threshold").writeNullable[Int] and
+        (__ \ "label").write[Label] and
+        (__ \ "hint").writeNullable[Hint] and
+        (__ \ "errorMessage").writeNullable[ErrorMessage] and
+        writesFormGroupClasses and
+        (__ \ "classes").write[String] and
+        (__ \ "attributes").write[Map[String, String]]
+    )(unlift(CharacterCount.unapply))
+
 }

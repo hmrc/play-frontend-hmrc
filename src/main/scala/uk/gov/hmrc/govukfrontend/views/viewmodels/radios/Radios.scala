@@ -16,45 +16,51 @@
 
 package uk.gov.hmrc.govukfrontend.views.viewmodels.radios
 
-import play.api.libs.json._
 import play.api.libs.functional.syntax._
+import play.api.libs.json._
 import uk.gov.hmrc.govukfrontend.views.html.components._
 import uk.gov.hmrc.govukfrontend.views.viewmodels.CommonJsonFormats._
+import uk.gov.hmrc.govukfrontend.views.viewmodels.JsonDefaultValueFormatter
 
 case class Radios(
   fieldset: Option[Fieldset]         = None,
   hint: Option[Hint]                 = None,
   errorMessage: Option[ErrorMessage] = None,
-  formGroupClasses: String                       = "",
-  idPrefix: Option[String]                       = None,
-  name: String,
-  items: Seq[RadioItem],
-  classes: String                 = "",
-  attributes: Map[String, String] = Map.empty)
+  formGroupClasses: String           = "",
+  idPrefix: Option[String]           = None,
+  name: String                       = "",
+  items: Seq[RadioItem]              = Nil,
+  classes: String                    = "",
+  attributes: Map[String, String]    = Map.empty)
 
-object Radios {
+object Radios extends JsonDefaultValueFormatter[Radios] {
 
-implicit val reads: Reads[Radios] = (
-  (__ \ "fieldset").readNullable[Fieldset] and
-    (__ \ "hint").readNullable[Hint] and
-    (__ \ "errorMessage").readNullable[ErrorMessage] and
-    readsFormGroupClasses and
-    (__ \ "idPrefix").readNullable[String] and
-    (__ \ "name").read[String] and
-    (__ \ "items").read[Seq[RadioItem]] and
-    (__ \ "classes").readWithDefault[String]("") and
-    (__ \ "attributes").readWithDefault[Map[String, String]](Map.empty)
-  )(Radios.apply _)
+  override def defaultObject: Radios = Radios()
 
-  implicit val writes: OWrites[Radios] = (
-    (__ \ "fieldset").writeNullable[Fieldset] and
-      (__ \ "hint").writeNullable[Hint] and
-      (__ \ "errorMessage").writeNullable[ErrorMessage] and
-      writesFormGroupClasses and
-      (__ \ "idPrefix").writeNullable[String] and
-      (__ \ "name").write[String] and
-      (__ \ "items").write[Seq[RadioItem]] and
-      (__ \ "classes").write[String] and
-      (__ \ "attributes").write[Map[String, String]]
+  override def defaultReads: Reads[Radios] =
+    (
+      (__ \ "fieldset").readNullable[Fieldset] and
+        (__ \ "hint").readNullable[Hint] and
+        (__ \ "errorMessage").readNullable[ErrorMessage] and
+        readsFormGroupClasses and
+        (__ \ "idPrefix").readNullable[String] and
+        (__ \ "name").read[String] and
+        (__ \ "items").read[Seq[RadioItem]] and
+        (__ \ "classes").read[String] and
+        (__ \ "attributes").read[Map[String, String]]
+    )(Radios.apply _)
+
+  override implicit def jsonWrites: OWrites[Radios] =
+    (
+      (__ \ "fieldset").writeNullable[Fieldset] and
+        (__ \ "hint").writeNullable[Hint] and
+        (__ \ "errorMessage").writeNullable[ErrorMessage] and
+        writesFormGroupClasses and
+        (__ \ "idPrefix").writeNullable[String] and
+        (__ \ "name").write[String] and
+        (__ \ "items").write[Seq[RadioItem]] and
+        (__ \ "classes").write[String] and
+        (__ \ "attributes").write[Map[String, String]]
     )(unlift(Radios.unapply))
+
 }

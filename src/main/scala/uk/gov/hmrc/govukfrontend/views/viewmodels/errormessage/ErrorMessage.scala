@@ -19,17 +19,17 @@ package errormessage
 
 import play.api.libs.functional.syntax._
 import play.api.libs.json._
-import uk.gov.hmrc.govukfrontend.views.viewmodels.content.Content
+import uk.gov.hmrc.govukfrontend.views.viewmodels.content.{Content, Empty}
 
 final case class ErrorMessage(
   id: Option[String]                 = None,
   classes: String                    = "",
   attributes: Map[String, String]    = Map.empty,
   visuallyHiddenText: Option[String] = Some("Error"),
-  content: Content
+  content: Content                   = Empty
 )
 
-object ErrorMessage {
+object ErrorMessage extends JsonDefaultValueFormatter[ErrorMessage] {
 
   // Converts the ambiguously documented visuallyHiddenText parameter from govuk-frontend to the correct type.
   // The original govuk-frontend implementation will show any truthy value as the hidden text when visuallyHiddenText is set to it.
@@ -38,10 +38,11 @@ object ErrorMessage {
   // If it is not provided we default to "Error"
   val readsVisuallyHiddenText: Reads[Option[String]] = (
     (__ \ "visuallyHiddenText")
-      .readWithDefault[JsValue](JsString("Error"))
+      .read[JsValue]
+      .orElse(Reads.pure(JsString("Error")))
       .map {
         case JsNull                => None
-        case JsFalse               => None
+        case JsBoolean(false)      => None
         case JsNumber(n) if n == 0 => None
         case JsString(text)        => Some(text)
         case x                     => Some(x.toString) // not intended but that is how govuk-frontend behaves
@@ -55,19 +56,24 @@ object ErrorMessage {
     }
   }
 
-  implicit val reads: Reads[ErrorMessage] = (
-    (__ \ "id").readNullable[String] and
-      (__ \ "classes").readWithDefault[String]("") and
-      (__ \ "attributes").readWithDefault[Map[String, String]](Map.empty) and
-      readsVisuallyHiddenText and
-      Content.reads
-  )(ErrorMessage.apply _)
+  override def defaultObject: ErrorMessage = ErrorMessage()
 
-  implicit val writes: OWrites[ErrorMessage] = (
-    (__ \ "id").writeNullable[String] and
-      (__ \ "classes").write[String] and
-      (__ \ "attributes").write[Map[String, String]] and
-      writesVisuallyHiddenText and
-      Content.writes
-  )(unlift(ErrorMessage.unapply))
+  override def defaultReads: Reads[ErrorMessage] =
+    (
+      (__ \ "id").readNullable[String] and
+        (__ \ "classes").read[String] and
+        (__ \ "attributes").read[Map[String, String]] and
+        readsVisuallyHiddenText and
+        Content.reads
+    )(ErrorMessage.apply _)
+
+  override implicit def jsonWrites: OWrites[ErrorMessage] =
+    (
+      (__ \ "id").writeNullable[String] and
+        (__ \ "classes").write[String] and
+        (__ \ "attributes").write[Map[String, String]] and
+        writesVisuallyHiddenText and
+        Content.writes
+    )(unlift(ErrorMessage.unapply))
+
 }

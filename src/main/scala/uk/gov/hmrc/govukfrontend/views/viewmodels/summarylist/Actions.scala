@@ -21,10 +21,11 @@ import play.api.libs.json._
 
 final case class Actions(classes: String = "", items: Seq[ActionItem] = Nil)
 
-object Actions {
+object Actions extends JsonDefaultValueFormatter[Actions] {
 
-  implicit val reads: Reads[Actions] =
-    Json.using[Json.WithDefaultValues].reads[Actions]
+  override def defaultObject: Actions = Actions()
 
-  implicit val writes: OWrites[Actions] = Json.writes[Actions]
+  override def defaultReads: Reads[Actions] = Json.reads[Actions]
+
+  override implicit def jsonWrites: OWrites[Actions] = Json.writes[Actions]
 }

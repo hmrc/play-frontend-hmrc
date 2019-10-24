@@ -16,7 +16,8 @@
 
 package uk.gov.hmrc.govukfrontend.views.viewmodels.breadcrumbs
 
-import play.api.libs.json.{Json, OWrites, Reads}
+import play.api.libs.json.{Json, OWrites, Reads, Writes}
+import uk.gov.hmrc.govukfrontend.views.viewmodels.JsonDefaultValueFormatter
 
 case class Breadcrumbs(
   items: Seq[BreadcrumbsItem]     = Nil,
@@ -24,9 +25,11 @@ case class Breadcrumbs(
   attributes: Map[String, String] = Map.empty
 )
 
-object Breadcrumbs {
+object Breadcrumbs extends JsonDefaultValueFormatter[Breadcrumbs] {
 
-  implicit val reads: Reads[Breadcrumbs] = Json.using[Json.WithDefaultValues].reads[Breadcrumbs]
+  override def defaultObject: Breadcrumbs = Breadcrumbs()
 
-  implicit val writes: OWrites[Breadcrumbs] = Json.writes[Breadcrumbs]
+  override def defaultReads: Reads[Breadcrumbs] = Json.reads[Breadcrumbs]
+
+  override implicit def jsonWrites: OWrites[Breadcrumbs] = Json.writes[Breadcrumbs]
 }

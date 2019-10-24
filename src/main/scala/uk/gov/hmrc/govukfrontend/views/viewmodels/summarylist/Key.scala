@@ -23,15 +23,20 @@ import uk.gov.hmrc.govukfrontend.views.viewmodels.content.{Content, Empty}
 
 final case class Key(content: Content = Empty, classes: String = "")
 
-object Key {
+object Key extends JsonDefaultValueFormatter[Key] {
 
-  implicit val reads: Reads[Key] = (
-    Content.reads and
-      (__ \ "classes").readWithDefault[String]("")
-  )(Key.apply _)
+  override def defaultObject: Key = Key()
 
-  implicit val writes: OWrites[Key] = (
-    Content.writes and
-      (__ \ "classes").write[String]
-  )(unlift(Key.unapply))
+  override def defaultReads: Reads[Key] =
+    (
+      Content.reads and
+        (__ \ "classes").read[String]
+    )(Key.apply _)
+
+  override implicit def jsonWrites: OWrites[Key] =
+    (
+      Content.writes and
+        (__ \ "classes").write[String]
+    )(unlift(Key.unapply))
+
 }

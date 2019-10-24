@@ -17,15 +17,21 @@
 package uk.gov.hmrc.govukfrontend.views.viewmodels.accordion
 
 import play.api.libs.json._
+import uk.gov.hmrc.govukfrontend.views.viewmodels.JsonDefaultValueFormatter
 
 case class Accordion(
-  id: String,
+  id: String                      = "",
   headingLevel: Int               = 2,
   classes: String                 = "",
   attributes: Map[String, String] = Map.empty,
   items: Seq[Section]             = Nil
 )
 
-object Accordion {
-  implicit val format = Json.using[Json.WithDefaultValues].format[Accordion]
+object Accordion extends JsonDefaultValueFormatter[Accordion] {
+
+  override def defaultObject: Accordion = Accordion()
+
+  override def defaultReads: Reads[Accordion] = Json.reads[Accordion]
+
+  override implicit def jsonWrites: OWrites[Accordion] = Json.writes[Accordion]
 }
