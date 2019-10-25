@@ -47,7 +47,7 @@ and all the [types](https://github.com/hmrc/play-frontend-govuk/blob/master/src/
 The above import will also bring into scope the available `Twirl` [helpers](https://github.com/hmrc/play-frontend-govuk/blob/master/src/main/play-26/uk/gov/hmrc/govukfrontend/views/Helpers.scala) and [layouts](https://github.com/hmrc/play-frontend-govuk/blob/master/src/main/play-26/uk/gov/hmrc/govukfrontend/views/Layouts.scala).
 
 The following import will summon [implicits](https://github.com/hmrc/play-frontend-govuk/blob/master/src/main/scala/uk/gov/hmrc/govukfrontend/views/Implicits.scala) that provide extension methods on `Play`'s [FormError](https://www.playframework.com/documentation/2.6.x/api/scala/play/api/data/FormError.html) 
-to convert between `Play`'s form errors and view models used by `GovukErrorMessage` and `GovukErrorSummary` (E.g. **form.errors.asTextErrorLinks**): 
+to convert between `Play`'s form errors and view models used by `GovukErrorMessage` and `GovukErrorSummary` (E.g. **form.errors.asTextErrorLinks**, **form.errors.asTextErrorMessageForField**): 
 ```scala
 @import uk.gov.hmrc.govukfrontend.views.html.components.implicits._
 
@@ -65,7 +65,7 @@ to convert between `Play`'s form errors and view models used by `GovukErrorMessa
 ...
 ```
 
-### An example usage of Layout template
+### An example usage of [GovukLayout](https://github.com/hmrc/play-frontend-govuk/blob/master/src/main/play-26/twirl/uk/gov/hmrc/govukfrontend/views/layouts/govukLayout.scala.html) template
 A convenient way of setting up a view with standard structure and Govuk design elements is provided. 
 Instead of directly invoking GovukTemplate, use GovukLayout and pass in GovUk assets wiring in head and scripts elements. 
 The following example snippet sets up a common local layout shared by view pages which then delegates to the standard GovukLayout. 
@@ -86,8 +86,19 @@ The following example snippet sets up a common local layout shared by view pages
     footerItems = Seq(FooterItem(href = Some("https://govuk-prototype-kit.herokuapp.com/"), text = Some("GOV.UK Prototype Kit v9.1.0"))),
     bodyEndBlock = Some(scripts()))(contentBlock)
 ```
-The above snippet leverages local head and scripts template for assets wiring. 
-The local head view templates looks like the following:
+The above snippet uses some sensible defaults (e.g. initial language) and configs (e.g. header config) to render a page. 
+One of the optional parameters of GovukLayout is _headerBlock_. It can be composed of [Header](https://github.com/hmrc/play-frontend-govuk/blob/master/src/main/scala/uk/gov/hmrc/govukfrontend/views/viewmodels/header/Header.scala) element. 
+However, if no header block is passed in but simply the following i18n message keys being present, the following Header element is constructed:
+```scala
+Header(
+      homepageUrl = Some(messages("service.homePageUrl")),
+      serviceName = Some(messages("service.name")),
+      serviceUrl = Some(messages("service.homePageUrl")),
+      containerClasses = Some("govuk-width-container"))
+```
+The above snippet is based on the premise that a header could be in different languages when supporting i18n standards. <br/>
+GovukLayout leverages local head and scripts template for assets wiring. 
+The local head view template looks like the following:
 ```html
 @this()
 
@@ -95,8 +106,8 @@ The local head view templates looks like the following:
 <!--[if lte IE 8]><link href='@controllers.routes.Assets.versioned("stylesheets/application-ie-8.css")' rel="stylesheet" type="text/css" /><![endif]-->
 <!--[if gt IE 8]><!--><link href='@controllers.routes.Assets.versioned("stylesheets/application.css")' media="screen" rel="stylesheet" type="text/css" /><!--<![endif]-->
 ```
-The local scripts view templates looks like the following:
-```scala
+The local scripts view template looks like the following:
+```html
 @this()
 
 @()
@@ -114,7 +125,7 @@ $govuk-assets-path: "/play-mtp-frontend/assets/lib/govuk-frontend/govuk/assets/"
   font-weight: bold;
 }
 ```
-
+Please note that the /play-mtp-frontend/ in $govuk-assets-path is the context root path of the frontend using the library.
 
 ## Usage
 
