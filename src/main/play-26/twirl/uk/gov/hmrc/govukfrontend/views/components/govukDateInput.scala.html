@@ -18,6 +18,8 @@
 
 @(params: DateInput)
 @import params._
+@require(id.exists(_.nonEmpty), "id should not be empty")
+@require(if (items.nonEmpty) items.exists(_.forall(_.name.nonEmpty)) else true, "all item.names should be defined")
 @defining(innerHtmlSnippet) { case (describedBy, innerHtml) =>
   <div class="@toClasses("govuk-form-group", errorMessage.fold("")(_ => "govuk-form-group--error"), formGroupClasses)">
     @fieldset.fold(innerHtml) { fieldset =>
@@ -34,20 +36,16 @@
 }
 
 @dateInputItems = @{
- if (items.nonEmpty) {
-   items
- } else {
-   Seq(
-     InputItem(name = "day", classes = "govuk-input--width-2"),
-     InputItem(name = "month", classes = "govuk-input--width-2"),
-     InputItem(name = "year", classes = "govuk-input--width-4")
-   )
- }
+  items.getOrElse(Seq(
+    InputItem(name = "day", classes = "govuk-input--width-2"),
+    InputItem(name = "month", classes = "govuk-input--width-2"),
+    InputItem(name = "year", classes = "govuk-input--width-4")
+  ))
 }
 
 @hintSnippet(describedBy: String) = @{
   hint.fold((describedBy, HtmlFormat.empty)) { hint =>
-    val hintId = s"${id.getOrElse("")}-hint" //FIXME: https://github.com/alphagov/govuk-frontend/issues/1557
+    val hintId = s"${id.getNonEmptyOrElse("")}-hint"
     val describedBy1 = s"$describedBy $hintId".ltrim
     val hintHtml =
       govukHint(Hint(
@@ -62,7 +60,7 @@
 
 @errorMessageSnippet(describedBy: String) = @{
   errorMessage.fold((describedBy, HtmlFormat.empty)) { errorMessage =>
-    val errorId = s"${id.getOrElse("")}-error"
+    val errorId = s"${id.getNonEmptyOrElse("")}-error"
     val describedBy1 = s"$describedBy $errorId".ltrim
     val errorMessageHtml =
       govukErrorMessage(ErrorMessage(
@@ -77,22 +75,22 @@
 }
 
 @divSnippet = {
-  <div class="@toClasses("govuk-date-input", classes)"@toAttributes(attributes)@id.map {id => id="@id"}>
+  <div class="@toClasses("govuk-date-input", classes)"@toAttributes(attributes)@id.mapNonEmpty {id => id="@id"}>
     @for(item <- dateInputItems) {
       <div class="govuk-date-input__item">
         @govukInput(Input(
-          id = item.id.getOrElse(id.getOrElse("") + "-" + item.name),
-          name = namePrefix.fold(item.name)(_ + "-" + item.name),
+          id = item.id.getNonEmptyOrElse(id.getNonEmptyOrElse("") + "-" + item.name),
+          name = namePrefix.foldNonEmpty(item.name)(_ + "-" + item.name),
           inputType = "number",
           value = item.value,
           label =
             Label(
               classes = "govuk-date-input__label",
-              content = item.label.map(Text).getOrElse(Text(item.name.capitalize))
+              content = item.label.mapNonEmpty(Text).getOrElse(Text(item.name.nunjucksCapitalize))
             ),
-          classes = toClasses("govuk-date-input__input", item.classes),
+          classes = s"govuk-date-input__input ${item.classes}",
           autocomplete = item.autocomplete,
-          pattern = Option(item.pattern.getOrElse("[0-9]*")),
+          pattern = Option(item.pattern.getNonEmptyOrElse("[0-9]*")),
           attributes = item.attributes
         ))
       </div>

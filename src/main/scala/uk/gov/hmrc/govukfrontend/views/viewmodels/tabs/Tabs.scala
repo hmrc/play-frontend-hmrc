@@ -23,7 +23,7 @@ case class Tabs(
   id: Option[String]              = None,
   idPrefix: Option[String]        = None,
   title: String                   = "Contents",
-  items: Seq[TabItem]             = Nil,
+  items: Option[Seq[TabItem]]     = None,
   classes: String                 = "",
   attributes: Map[String, String] = Map.empty)
 

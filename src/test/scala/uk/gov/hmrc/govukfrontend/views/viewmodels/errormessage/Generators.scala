@@ -26,7 +26,7 @@ object Generators {
     for {
       classes            <- genClasses()
       attributes         <- genAttributes()
-      visuallyHiddenText <- Gen.option(genAlphaStrOftenEmpty())
+      visuallyHiddenText <- Gen.option(genAlphaStr())
       content            <- arbContent.arbitrary
     } yield
       ErrorMessage(

@@ -25,7 +25,7 @@ object Generators {
   implicit val arbHeadCell: Arbitrary[HeadCell] = Arbitrary {
     for {
       content    <- arbContent.arbitrary
-      format     <- Gen.option(genAlphaStrOftenEmpty())
+      format     <- Gen.option(genAlphaStr())
       classes    <- genClasses()
       colspan    <- Gen.option(Gen.chooseNum(0, 5))
       rowspan    <- Gen.option(Gen.chooseNum(0, 5))
@@ -43,7 +43,7 @@ object Generators {
   implicit val arbTableRow: Arbitrary[TableRow] = Arbitrary {
     for {
       content    <- arbContent.arbitrary
-      format     <- Gen.option(genAlphaStrOftenEmpty())
+      format     <- Gen.option(genAlphaStr())
       classes    <- genClasses()
       colspan    <- Gen.option(Gen.chooseNum(0, 5))
       rowspan    <- Gen.option(Gen.chooseNum(0, 5))
@@ -65,8 +65,8 @@ object Generators {
       nRows             <- Gen.chooseNum(0, 5)
       rows              <- Gen.listOfN(nRows, tableRowsGen)
       nHeadCells        <- Gen.chooseNum(0, 5)
-      head              <- Gen.listOfN(nHeadCells, arbHeadCell.arbitrary)
-      caption           <- Gen.option(genAlphaStrOftenEmpty())
+      head              <- Gen.option(Gen.listOfN(nHeadCells, arbHeadCell.arbitrary))
+      caption           <- Gen.option(genAlphaStr())
       captionClasses    <- genClasses()
       firstCellIsHeader <- Arbitrary.arbBool.arbitrary
       classes           <- genClasses()

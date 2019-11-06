@@ -24,15 +24,15 @@ object Generators {
 
   implicit val arbFooterItem: Arbitrary[FooterItem] = Arbitrary {
     for {
-      text       <- Gen.option(genAlphaStrOftenEmpty())
-      href       <- Gen.option(genAlphaStrOftenEmpty())
+      text       <- Gen.option(genAlphaStr())
+      href       <- Gen.option(genAlphaStr())
       attributes <- genAttributes()
     } yield FooterItem(text = text, href = href, attributes = attributes)
   }
 
   implicit val arbFooterNavigation: Arbitrary[FooterNavigation] = Arbitrary {
     for {
-      title   <- Gen.option(genAlphaStrOftenEmpty())
+      title   <- Gen.option(genAlphaStr())
       columns <- Gen.option(Gen.chooseNum(0, 5))
       n       <- Gen.chooseNum(0, 5)
       items   <- Gen.option(Gen.listOfN(n, arbFooterItem.arbitrary))
@@ -41,7 +41,7 @@ object Generators {
 
   implicit val arbMeta: Arbitrary[Meta] = Arbitrary {
     for {
-      visuallyHiddenText <- Gen.option(genAlphaStrOftenEmpty())
+      visuallyHiddenText <- Gen.option(genAlphaStr())
       content            <- arbContent.arbitrary
       n                  <- Gen.chooseNum(0, 5)
       items              <- Gen.option(Gen.listOfN(n, arbFooterItem.arbitrary))

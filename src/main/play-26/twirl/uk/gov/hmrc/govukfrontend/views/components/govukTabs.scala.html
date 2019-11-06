@@ -18,12 +18,12 @@
 
 @(params: Tabs)
 @import params._
-<div@id.map {id => id="@id"} class="@toClasses("govuk-tabs", classes)"@toAttributes(attributes) data-module="govuk-tabs">
+<div@id.mapNonEmpty {id => id="@id"} class="@toClasses("govuk-tabs", classes)"@toAttributes(attributes) data-module="govuk-tabs">
   <h2 class="govuk-tabs__title">
     @HtmlFormat.escape(title)
   </h2>
 
-  @if(items.nonEmpty) {
+  @items.map { items =>
     <ul class="govuk-tabs__list">
       @for((item, index) <- items.zip(Stream from 1)) {
         <li class="@toClasses("govuk-tabs__list-item", "govuk-tabs__list-item--selected".when(index == 1))">
@@ -33,15 +33,16 @@
         </li>
       }
     </ul>
-  }
 
-  @for((item, index) <- items.zip(Stream from 1)) {
-    <section class="@toClasses("govuk-tabs__panel", "govuk-tabs__panel--hidden".when(index > 1))" id="@itemId(item, index)"@toAttributes(item.panel.attributes)>
-      @item.panel.content.asHtml
-    </section>
+
+    @for((item, index) <- items.zip(Stream from 1)) {
+      <section class="@toClasses("govuk-tabs__panel", "govuk-tabs__panel--hidden".when(index > 1))" id="@itemId(item, index)"@toAttributes(item.panel.attributes)>
+        @item.panel.content.asHtml
+      </section>
+    }
   }
 </div>
 
-@idPrefixStr = @{ idPrefix.filter(_.nonEmpty).getOrElse("undefined") }
+@idPrefixStr = @{ idPrefix.getNonEmptyOrElse("") }
 
-@itemId(item: TabItem, index: Int) = @{ item.id.filter(_.nonEmpty).getOrElse(s"$idPrefixStr-$index") }
+@itemId(item: TabItem, index: Int) = @{ item.id.getNonEmptyOrElse(s"$idPrefixStr-$index") }

@@ -6,7 +6,7 @@
 @govukDateInput(DateInput(
   id = Some("passport-issued"),
   namePrefix = Some("passport-issued"),
-  items = Seq(
+  items = Some(Seq(
     InputItem(
       classes = "govuk-input--width-2 govuk-input--error",
       name = "day",
@@ -22,7 +22,7 @@
       name = "year",
       value = Some("2076")
     )
-  ),
+  )),
   hint = Some(Hint(content = Text("For example, 12 11 2007"))),
   errorMessage = Some(ErrorMessage(content = Text("The date your passport was issued must be in the past"))),
   fieldset = Some(Fieldset(

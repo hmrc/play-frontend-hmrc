@@ -26,8 +26,8 @@ object Generators {
 
   implicit val arbSelectItem: Arbitrary[SelectItem] = Arbitrary {
     for {
-      value      <- Gen.option(genAlphaStrOftenEmpty())
-      text       <- genAlphaStrOftenEmpty()
+      value      <- Gen.option(genAlphaStr())
+      text       <- genAlphaStr()
       selected   <- Arbitrary.arbBool.arbitrary
       disabled   <- Arbitrary.arbBool.arbitrary
       attributes <- genAttributes()
@@ -40,7 +40,7 @@ object Generators {
       name             <- genNonEmptyAlphaStr
       n                <- Gen.chooseNum(0, 5)
       items            <- Gen.listOfN(n, arbSelectItem.arbitrary)
-      describedBy      <- Gen.option(genAlphaStrOftenEmpty())
+      describedBy      <- Gen.option(genAlphaStr())
       label            <- arbLabel.arbitrary
       hint             <- Gen.option(arbHint.arbitrary)
       errorMessage     <- Gen.option(arbErrorMessage.arbitrary)

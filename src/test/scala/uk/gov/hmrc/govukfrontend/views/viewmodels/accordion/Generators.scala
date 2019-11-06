@@ -35,7 +35,7 @@ object Generators {
 
   implicit val arbAccordion: Arbitrary[Accordion] = Arbitrary {
     for {
-      id           <- genAlphaStrOftenEmpty()
+      id           <- genAlphaStr()
       headingLevel <- Gen.chooseNum(1, 6)
       classes      <- genClasses()
       attributes   <- genAttributes()

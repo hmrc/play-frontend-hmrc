@@ -24,7 +24,7 @@ object Generators {
 
   implicit val arbWarningText: Arbitrary[WarningText] = Arbitrary {
     for {
-      iconFallbackText <- genAlphaStrOftenEmpty()
+      iconFallbackText <- genAlphaStr()
       classes          <- genClasses()
       attributes       <- genAttributes()
       content          <- arbContent.arbitrary

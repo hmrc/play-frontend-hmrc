@@ -95,6 +95,34 @@ trait Implicits {
         lines.map(" " + _)
       }
     }
+
+    /**
+      * Implements [[https://mozilla.github.io/nunjucks/templating.html#capitalize]].
+      * Unlike Scala's [[scala.collection.immutable.StringLike#capitalize()]] Nunjucks' capitalize converts the first
+      * letter to uppercase and the rest to lowercase.
+      *
+      * @return
+      */
+    def nunjucksCapitalize: String =
+      s.toLowerCase.capitalize
+
+  }
+
+  /**
+    * Mapping, folding and getOrElse on Option[String] for non-empty strings.
+    * Commonly used in the Twirl components.
+    *
+    * @param optString
+    */
+  implicit class RichOptionString(optString: Option[String]) {
+    def mapNonEmpty[T](f: String => T): Option[T] =
+      optString.filter(_.nonEmpty).map(f)
+
+    def foldNonEmpty[B](ifEmpty: => B)(f: String => B): B =
+      optString.filter(_.nonEmpty).fold(ifEmpty)(f)
+
+    def getNonEmptyOrElse[B >: String](default: => B): B =
+      optString.filter(_.nonEmpty).getOrElse(default)
   }
 
   /**

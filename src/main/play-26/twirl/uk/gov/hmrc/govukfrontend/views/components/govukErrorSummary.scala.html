@@ -31,7 +31,7 @@
     <ul class="govuk-list govuk-error-summary__list">
       @for(item <- errorList) {
         <li>
-          @item.href.filter(_.nonEmpty).fold(item.content.asHtml) { itemHref =>
+          @item.href.foldNonEmpty(item.content.asHtml) { itemHref =>
             <a href="@itemHref"@toAttributes(item.attributes)>@item.content.asHtml</a>
           }
         </li>

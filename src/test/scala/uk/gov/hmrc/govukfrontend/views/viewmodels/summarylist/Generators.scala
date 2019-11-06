@@ -26,7 +26,7 @@ object Generators {
     for {
       href               <- genNonEmptyAlphaStr
       content            <- arbContent.arbitrary
-      visuallyHiddenText <- Gen.option(genAlphaStrOftenEmpty())
+      visuallyHiddenText <- Gen.option(genAlphaStr())
       classes            <- genClasses()
     } yield ActionItem(href = href, content = content, visuallyHiddenText = visuallyHiddenText, classes = classes)
   }

@@ -21,7 +21,7 @@
 <div class="@toClasses("govuk-breadcrumbs", classes)"@toAttributes(attributes)>
  <ol class="govuk-breadcrumbs__list">
    @for(item <- items) {
-     @item.href.fold {
+     @item.href.foldNonEmpty {
        <li class="govuk-breadcrumbs__list-item" aria-current="page">@item.content.asHtml</li>
      } { href =>
          <li class="govuk-breadcrumbs__list-item">

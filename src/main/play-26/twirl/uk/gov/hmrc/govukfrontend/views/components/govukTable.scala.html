@@ -19,14 +19,14 @@
 @(params: Table)
 @import params._
 <table class="@toClasses("govuk-table", classes)"@toAttributes(attributes)>
-  @caption.map { caption =>
+  @caption.mapNonEmpty { caption =>
     <caption class="@toClasses("govuk-table__caption", captionClasses)">@caption</caption>
   }
-  @if(head.nonEmpty) {
+  @head.map { head =>
     <thead class="govuk-table__head">
      <tr class="govuk-table__row">
        @for(item <- head) {
-         <th scope="col" class="@toClasses("govuk-table__header", item.format.fold(""){ itemFormat => s"govuk-table__header--$itemFormat"}, item.classes)"@headItemAttrs(item)>@item.content.asHtml</th>
+         <th scope="col" class="@toClasses("govuk-table__header", item.format.foldNonEmpty(""){ itemFormat => s"govuk-table__header--$itemFormat"}, item.classes)"@headItemAttrs(item)>@item.content.asHtml</th>
        }
      </tr>
     </thead>
@@ -38,7 +38,7 @@
           @if(index == 0 && firstCellIsHeader) {
             <th scope="row" class="@toClasses("govuk-table__header", cell.classes)"@commonAttrs(cell)>@cell.content.asHtml</th>
           } else {
-            <td class="@toClasses("govuk-table__cell", cell.format.fold(""){ cellFormat => s"govuk-table__cell--$cellFormat"}, cell.classes)"@commonAttrs(cell)>@cell.content.asHtml</td>
+            <td class="@toClasses("govuk-table__cell", cell.format.foldNonEmpty(""){ cellFormat => s"govuk-table__cell--$cellFormat"}, cell.classes)"@commonAttrs(cell)>@cell.content.asHtml</td>
           }
         }
       </tr>
@@ -47,9 +47,9 @@
 </table>
 
 @headItemAttrs(item: HeadCell) = {
-  @item.colspan.map { colspan => colspan="@colspan"}@item.rowspan.map { rowspan => rowspan="@rowspan"}@toAttributes(item.attributes)
+  @item.colspan.filter(_ > 0).map { colspan => colspan="@colspan"}@item.rowspan.filter(_ > 0).map { rowspan => rowspan="@rowspan"}@toAttributes(item.attributes)
 }
 
 @commonAttrs(cell: TableRow) = {
-  @cell.colspan.map { colspan => colspan="@colspan"}@cell.rowspan.map { rowspan => rowspan="@rowspan"}@toAttributes(cell.attributes)
+  @cell.colspan.filter(_ > 0).map { colspan => colspan="@colspan"}@cell.rowspan.filter(_ > 0).map { rowspan => rowspan="@rowspan"}@toAttributes(cell.attributes)
 }

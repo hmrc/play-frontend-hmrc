@@ -29,11 +29,11 @@ object Generators {
   implicit val arbRadioItem: Arbitrary[RadioItem] = Arbitrary {
     for {
       content         <- arbContent.arbitrary
-      id              <- Gen.option(genAlphaStrOftenEmpty())
-      value           <- Gen.option(genAlphaStrOftenEmpty())
+      id              <- Gen.option(genAlphaStr())
+      value           <- Gen.option(genAlphaStr())
       label           <- Gen.option(arbLabel.arbitrary)
       hint            <- Gen.option(arbHint.arbitrary)
-      divider         <- Gen.option(genAlphaStrOftenEmpty())
+      divider         <- Gen.option(genAlphaStr())
       checked         <- Arbitrary.arbBool.arbitrary
       conditionalHtml <- Gen.option(arbHtml.arbitrary)
       disabled        <- Arbitrary.arbBool.arbitrary
@@ -59,8 +59,8 @@ object Generators {
       hint             <- Gen.option(arbHint.arbitrary)
       errorMessage     <- Gen.option(arbErrorMessage.arbitrary)
       formGroupClasses <- genClasses()
-      idPrefix         <- Gen.option(genAlphaStrOftenEmpty())
-      name             <- genAlphaStrOftenEmpty()
+      idPrefix         <- Gen.option(genAlphaStr())
+      name             <- genAlphaStr()
       n                <- Gen.chooseNum(0, 5)
       items            <- Gen.listOfN(n, arbRadioItem.arbitrary)
       classes          <- genClasses()

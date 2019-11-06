@@ -30,15 +30,15 @@ object Generators {
       name             <- genNonEmptyAlphaStr
       inputType        <- genNonEmptyAlphaStr
       inputMode        <- Gen.option(genNonEmptyAlphaStr)
-      describedBy      <- Gen.option(genAlphaStrOftenEmpty())
-      value            <- Gen.option(genAlphaStrOftenEmpty())
+      describedBy      <- Gen.option(genAlphaStr())
+      value            <- Gen.option(genAlphaStr())
       label            <- arbLabel.arbitrary
       hint             <- Gen.option(arbHint.arbitrary)
       errorMessage     <- Gen.option(arbErrorMessage.arbitrary)
       formGroupClasses <- genClasses()
       classes          <- genClasses()
-      autocomplete     <- Gen.option(genAlphaStrOftenEmpty())
-      pattern          <- Gen.option(genAlphaStrOftenEmpty())
+      autocomplete     <- Gen.option(genAlphaStr())
+      pattern          <- Gen.option(genAlphaStr())
       attributes       <- genAttributes()
     } yield
       Input(

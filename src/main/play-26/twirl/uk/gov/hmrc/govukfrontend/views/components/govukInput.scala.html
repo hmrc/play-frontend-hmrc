@@ -20,7 +20,7 @@
 
 @(params: Input)
 @import params._
-@require(name.nonEmpty && id.nonEmpty)
+@require(name.nonEmpty && id.nonEmpty, s"failed requirements for govukInput: name and id should not be empty. name=[$name], id=[$id]")
 <div class="@toClasses("govuk-form-group", errorMessage.fold("")(_ => "govuk-form-group--error"), formGroupClasses)">
   @govukLabel(Label(
     forAttr = Some(id),
@@ -65,10 +65,10 @@
 
 @inputSnippet(describedBy: String) = {
   @defining {
-    id="@id" name="@name" type="@inputType"@value.map { value => value="@value" }@if(describedBy.nonEmpty) { aria-describedby="@describedBy"}
+    id="@id" name="@name" type="@inputType"@value.mapNonEmpty { value => value="@value" }@if(describedBy.nonEmpty) { aria-describedby="@describedBy"}
   } { attrs =>
   @defining {
-    @autocomplete.map { autocomplete => autocomplete="@autocomplete"}@pattern.map { pattern => pattern="@pattern"}@inputmode.map { inputmode => inputmode="@inputmode"}@toAttributes(attributes)
+    @autocomplete.mapNonEmpty { autocomplete => autocomplete="@autocomplete"}@pattern.mapNonEmpty { pattern => pattern="@pattern"}@inputmode.mapNonEmpty { inputmode => inputmode="@inputmode"}@toAttributes(attributes)
   } { otherAttrs =>
       <input class="@toClasses("govuk-input", classes, errorMessage.fold("")(_ => "govuk-input--error"))" @attrs@otherAttrs>
   }}
