@@ -226,9 +226,6 @@ the test coverage via generative testing described on the next section, we could
 
 To ensure (as much as possible) that the implemented templates conform to the `govuk-frontend` templates, we use generative
 testing, via `scalacheck`, to compare the `Twirl` templates output against the `Nunjucks` `govuk-frontend` templates.
-Currently, the generative testing strategy has only been implemented for a few components: 
-`GovukButton`, `GovukBackLink`, `GovukCheckboxes`, `GovukErrorMessage`, `GovukErrorSummary`, `GovukFieldset`, 
-`GovukHeader`, `GovukHint`, `GovukLabel`, `GovukRadios` and `GovukSummaryList`.
  
 The tests run against a `node.js` service used to render the `govuk-frontend` `Nunjucks` templates,
 so you'll need to install it first.
@@ -320,7 +317,6 @@ When writing a new template from an existing `Nunjucks` template it is necessary
    
 ### Play 2.5 / Play 2.6 Cross-Compilation
 
-With the implementation of 
 [dependency injection for templates](https://www.playframework.com/documentation/2.6.x/ScalaTemplatesDependencyInjection), `Play 2.6`
 introduced breaking changes in the syntax of `Twirl` templates.  For this reason, for every `Play 2.6` template implementing a component, we have
  to provide an almost identical `Play 2.5-compatible` template, differing only in the dependency injection declaration.
