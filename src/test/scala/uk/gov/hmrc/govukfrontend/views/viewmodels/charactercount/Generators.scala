@@ -29,7 +29,7 @@ object Generators {
       id        <- genNonEmptyAlphaStr
       name      <- genNonEmptyAlphaStr
       rows      <- Gen.chooseNum(0, 5)
-      value     <- Gen.option(genAlphaStrOftenEmpty())
+      value     <- Gen.option(genAlphaStr())
       maxLength <- Gen.option(Gen.chooseNum(0, 10))
       maxWords <- Gen
                    .option(Gen.chooseNum(0, 10))

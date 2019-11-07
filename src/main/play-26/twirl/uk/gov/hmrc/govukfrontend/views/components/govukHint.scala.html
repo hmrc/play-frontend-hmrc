@@ -18,6 +18,6 @@
 
 @(params: Hint)
 @import params._
-<span@id.filter(_.nonEmpty).map {id => id="@id"} class="@toClasses("govuk-hint", classes)"@toAttributes(attributes)>
+<span@id.mapNonEmpty {id => id="@id"} class="@toClasses("govuk-hint", classes)"@toAttributes(attributes)>
   @content.asHtml
 </span>

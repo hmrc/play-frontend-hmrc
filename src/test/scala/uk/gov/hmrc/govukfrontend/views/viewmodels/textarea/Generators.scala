@@ -29,14 +29,14 @@ object Generators {
       id               <- genNonEmptyAlphaStr
       name             <- genNonEmptyAlphaStr
       rows             <- Gen.chooseNum(0, 5)
-      value            <- Gen.option(genAlphaStrOftenEmpty())
-      describedBy      <- Gen.option(genAlphaStrOftenEmpty())
+      value            <- Gen.option(genAlphaStr())
+      describedBy      <- Gen.option(genAlphaStr())
       label            <- arbLabel.arbitrary
       hint             <- Gen.option(arbHint.arbitrary)
       errorMessage     <- Gen.option(arbErrorMessage.arbitrary)
       formGroupClasses <- genClasses()
       classes          <- genClasses()
-      autocomplete     <- Gen.option(genAlphaStrOftenEmpty())
+      autocomplete     <- Gen.option(genAlphaStr())
       attributes       <- genAttributes()
     } yield
       Textarea(

@@ -54,12 +54,12 @@
 
 @textareaSnippet(describedBy: String) = {
   @defining {
-    @autocomplete.map { autocomplete =>autocomplete="@autocomplete"}
+    @autocomplete.mapNonEmpty { autocomplete =>autocomplete="@autocomplete"}
   } { autocompleteAttr =>
   @defining {
-    id="@id" name="@name" rows="@rows"@if(describedBy.nonEmpty) { aria-describedby="@describedBy"}@autocompleteAttr @toAttributes(attributes)
+    id="@id" name="@name" rows="@if(rows != 0) {@rows} else {5}"@if(describedBy.nonEmpty) { aria-describedby="@describedBy"}@autocompleteAttr @toAttributes(attributes)
   } { attrs =>
-    <textarea class="@toClasses("govuk-textarea", errorMessage.fold("")(_ => "govuk-textarea--error"), classes)" @attrs>@value.map { value =>@HtmlFormat.escape(value)}</textarea>
+    <textarea class="@toClasses("govuk-textarea", errorMessage.fold("")(_ => "govuk-textarea--error"), classes)" @attrs>@value.mapNonEmpty { value =>@HtmlFormat.escape(value)}</textarea>
   }}
 }
 

@@ -18,7 +18,7 @@
 
 @(params: Fieldset)
 @import params._
-<fieldset class="@toClasses("govuk-fieldset", classes)"@role.filter(_.nonEmpty).map {role => role="@role"}@describedBySnippet@toAttributes(attributes)>
+<fieldset class="@toClasses("govuk-fieldset", classes)"@role.mapNonEmpty {role => role="@role"}@describedBySnippet@toAttributes(attributes)>
   @legend.map { legend =>
     @legend.content match {
       case (NonEmptyHtml(_) | NonEmptyText(_)) => {
@@ -36,4 +36,4 @@
   @html
 </fieldset>
 
-@describedBySnippet = { @describedBy.filter(_.nonEmpty).map {describedBy => aria-describedby="@describedBy"} }
+@describedBySnippet = { @describedBy.mapNonEmpty {describedBy => aria-describedby="@describedBy"} }

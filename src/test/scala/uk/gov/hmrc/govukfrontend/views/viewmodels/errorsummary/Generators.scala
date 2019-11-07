@@ -24,7 +24,7 @@ object Generators {
 
   implicit val arbErrorLink: Arbitrary[ErrorLink] = Arbitrary {
     for {
-      href       <- Gen.option(genAlphaStrOftenEmpty())
+      href       <- Gen.option(genAlphaStr())
       content    <- arbContent.arbitrary
       attributes <- genAttributes()
     } yield ErrorLink(href = href, content = content, attributes = attributes)

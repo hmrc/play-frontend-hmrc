@@ -32,7 +32,7 @@ lazy val root = Project(libName, file("."))
       ),
     TwirlKeys.templateImports := templateImports,
     PlayCrossCompilation.playCrossCompilationSettings,
-    makePublicallyAvailableOnBintray := false,
+    makePublicallyAvailableOnBintray := true,
     unmanagedSourceDirectories in Compile += baseDirectory.value / "src/main/twirl",
     unmanagedSourceDirectories in Test += baseDirectory.value / "src/test/twirl",
     (sourceDirectories in (Compile, TwirlKeys.compileTemplates)) +=

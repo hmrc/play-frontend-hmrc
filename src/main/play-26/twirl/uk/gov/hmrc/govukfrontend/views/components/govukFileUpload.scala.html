@@ -18,7 +18,7 @@
 
 @(params: FileUpload)
 @import params._
-@require(name.nonEmpty && id.nonEmpty)
+@require(name.nonEmpty && id.nonEmpty, "name and id should not be empty")
 <div class="@toClasses("govuk-form-group", errorMessage.fold("")(_ => "govuk-form-group--error"), formGroupClasses)">
   @govukLabel(Label(
     forAttr = Some(id),
@@ -65,7 +65,7 @@
 
 @inputSnippet(describedBy: String) = {
   @defining {
-    id="@id" name="@name" type="file"@value.map { value => value="@value" }@if(describedBy.nonEmpty) { aria-describedby="@describedBy"}@toAttributes(attributes)
+    id="@id" name="@name" type="file"@value.mapNonEmpty { value => value="@value" }@if(describedBy.nonEmpty) { aria-describedby="@describedBy"}@toAttributes(attributes)
   } { attrs =>
       <input class="@toClasses("govuk-file-upload", classes, errorMessage.fold("")(_ => "govuk-file-upload--error"))" @attrs>
   }

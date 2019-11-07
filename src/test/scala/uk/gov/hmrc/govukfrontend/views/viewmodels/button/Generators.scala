@@ -18,7 +18,7 @@ package uk.gov.hmrc.govukfrontend.views.viewmodels.button
 
 import org.scalacheck.Arbitrary._
 import org.scalacheck.{Arbitrary, Gen}
-import uk.gov.hmrc.govukfrontend.views.viewmodels.Generators.{genAlphaStrOftenEmpty, genAttributes}
+import uk.gov.hmrc.govukfrontend.views.viewmodels.Generators.{genAlphaStr, genAttributes}
 import uk.gov.hmrc.govukfrontend.views.viewmodels.content.Generators._
 
 object Generators {
@@ -26,12 +26,12 @@ object Generators {
   implicit val arbButton: Arbitrary[Button] = Arbitrary {
     for {
       element            <- Gen.option(Gen.oneOf("a", "button", "input", "foo", ""))
-      name               <- Gen.option(genAlphaStrOftenEmpty())
-      inputType          <- Gen.option(genAlphaStrOftenEmpty())
-      value              <- Gen.option(genAlphaStrOftenEmpty())
+      name               <- Gen.option(genAlphaStr())
+      inputType          <- Gen.option(genAlphaStr())
+      value              <- Gen.option(genAlphaStr())
       disabled           <- arbBool.arbitrary
-      href               <- Gen.option(genAlphaStrOftenEmpty())
-      classes            <- genAlphaStrOftenEmpty()
+      href               <- Gen.option(genAlphaStr())
+      classes            <- genAlphaStr()
       attributes         <- genAttributes()
       preventDoubleClick <- arbBool.arbitrary
       isStartButton      <- arbBool.arbitrary

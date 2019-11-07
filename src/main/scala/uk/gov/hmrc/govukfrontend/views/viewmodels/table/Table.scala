@@ -22,7 +22,7 @@ import uk.gov.hmrc.govukfrontend.views.viewmodels.JsonDefaultValueFormatter
 
 case class Table(
   rows: Seq[Seq[TableRow]]        = Nil,
-  head: Seq[HeadCell]             = Nil,
+  head: Option[Seq[HeadCell]]     = None,
   caption: Option[String]         = None,
   captionClasses: String          = "",
   firstCellIsHeader: Boolean      = false,
@@ -37,7 +37,7 @@ object Table extends JsonDefaultValueFormatter[Table] {
   override def defaultReads: Reads[Table] =
     (
       (__ \ "rows").read[Seq[Seq[TableRow]]] and
-        (__ \ "head").read[Seq[HeadCell]] and
+        (__ \ "head").readNullable[Seq[HeadCell]] and
         (__ \ "caption").readNullable[String] and
         (__ \ "captionClasses").read[String] and
         (__ \ "firstCellIsHeader").read[Boolean] and
@@ -48,7 +48,7 @@ object Table extends JsonDefaultValueFormatter[Table] {
   override implicit def jsonWrites: OWrites[Table] =
     (
       (__ \ "rows").write[Seq[Seq[TableRow]]] and
-        (__ \ "head").write[Seq[HeadCell]] and
+        (__ \ "head").writeNullable[Seq[HeadCell]] and
         (__ \ "caption").writeNullable[String] and
         (__ \ "captionClasses").write[String] and
         (__ \ "firstCellIsHeader").write[Boolean] and

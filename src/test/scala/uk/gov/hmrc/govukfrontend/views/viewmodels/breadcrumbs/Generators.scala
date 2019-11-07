@@ -17,7 +17,7 @@
 package uk.gov.hmrc.govukfrontend.views.viewmodels.breadcrumbs
 
 import org.scalacheck.{Arbitrary, Gen}
-import uk.gov.hmrc.govukfrontend.views.viewmodels.Generators.{genAlphaStrOftenEmpty, genAttributes}
+import uk.gov.hmrc.govukfrontend.views.viewmodels.Generators.{genAlphaStr, genAttributes}
 import uk.gov.hmrc.govukfrontend.views.viewmodels.content.Generators._
 
 object Generators {
@@ -25,7 +25,7 @@ object Generators {
   implicit val arbBreadcrumbsItem: Arbitrary[BreadcrumbsItem] = Arbitrary {
     for {
       content    <- arbContent.arbitrary
-      href       <- Gen.option(genAlphaStrOftenEmpty())
+      href       <- Gen.option(genAlphaStr())
       attributes <- genAttributes()
     } yield BreadcrumbsItem(content = content, href = href, attributes = attributes)
   }
@@ -34,7 +34,7 @@ object Generators {
     for {
       n          <- Gen.chooseNum(0, 5)
       items      <- Gen.listOfN(n, arbBreadcrumbsItem.arbitrary)
-      classes    <- genAlphaStrOftenEmpty()
+      classes    <- genAlphaStr()
       attributes <- genAttributes()
     } yield Breadcrumbs(items = items, classes = classes, attributes = attributes)
   }

@@ -23,8 +23,8 @@ object Generators {
 
   implicit val arbHeaderNavigation: Arbitrary[HeaderNavigation] = Arbitrary {
     for {
-      text       <- Gen.option(genAlphaStrOftenEmpty())
-      href       <- Gen.option(genAlphaStrOftenEmpty())
+      text       <- Gen.option(genAlphaStr())
+      href       <- Gen.option(genAlphaStr())
       active     <- Arbitrary.arbBool.arbitrary
       attributes <- genAttributes()
     } yield HeaderNavigation(text = text, href = href, active = active, attributes = attributes)
@@ -32,10 +32,10 @@ object Generators {
 
   implicit val arbHeader: Arbitrary[Header] = Arbitrary {
     for {
-      homepageUrl       <- Gen.option(genAlphaStrOftenEmpty())
-      productName       <- Gen.option(genAlphaStrOftenEmpty())
-      serviceName       <- Gen.option(genAlphaStrOftenEmpty())
-      serviceUrl        <- Gen.option(genAlphaStrOftenEmpty())
+      homepageUrl       <- Gen.option(genAlphaStr())
+      productName       <- Gen.option(genAlphaStr())
+      serviceName       <- Gen.option(genAlphaStr())
+      serviceUrl        <- Gen.option(genAlphaStr())
       n                 <- Gen.chooseNum(0, 5)
       navigation        <- Gen.option(Gen.listOfN(n, arbHeaderNavigation.arbitrary))
       navigationClasses <- genClasses()

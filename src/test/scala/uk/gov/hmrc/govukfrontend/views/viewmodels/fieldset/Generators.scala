@@ -33,10 +33,10 @@ object Generators {
 
   implicit val arbFieldset: Arbitrary[Fieldset] = Arbitrary {
     for {
-      describedBy <- Gen.option(genAlphaStrOftenEmpty())
+      describedBy <- Gen.option(genAlphaStr())
       legend      <- Gen.option(arbLegend.arbitrary)
       classes     <- genClasses()
-      role        <- Gen.option(genAlphaStrOftenEmpty())
+      role        <- Gen.option(genAlphaStr())
       attributes  <- genAttributes()
     } yield
       Fieldset(describedBy = describedBy, legend = legend, classes = classes, role = role, attributes = attributes)

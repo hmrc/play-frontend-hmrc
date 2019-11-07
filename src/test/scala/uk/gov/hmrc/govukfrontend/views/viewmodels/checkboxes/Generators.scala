@@ -30,9 +30,9 @@ object Generators {
   implicit val arbCheckboxItem: Arbitrary[CheckboxItem] = Arbitrary {
     for {
       content         <- arbContent.arbitrary
-      id              <- Gen.option(genAlphaStrOftenEmpty())
-      name            <- Gen.option(genAlphaStrOftenEmpty())
-      value           <- genAlphaStrOftenEmpty()
+      id              <- Gen.option(genAlphaStr())
+      name            <- Gen.option(genAlphaStr())
+      value           <- genAlphaStr()
       label           <- Gen.option(arbLabel.arbitrary)
       hint            <- Gen.option(arbHint.arbitrary)
       checked         <- arbBool.arbitrary
@@ -56,12 +56,12 @@ object Generators {
 
   implicit val arbCheckboxes: Arbitrary[Checkboxes] = Arbitrary {
     for {
-      describedBy        <- Gen.option(genAlphaStrOftenEmpty())
+      describedBy        <- Gen.option(genAlphaStr())
       fieldsetParams     <- Gen.option(arbFieldset.arbitrary)
       hintParams         <- Gen.option(arbHint.arbitrary)
       errorMessageParams <- Gen.option(arbErrorMessage.arbitrary)
       formGroupClasses   <- genClasses()
-      idPrefix           <- Gen.option(genAlphaStrOftenEmpty())
+      idPrefix           <- Gen.option(genAlphaStr())
       name               <- genNonEmptyAlphaStr
       nItems             <- Gen.chooseNum(0, 5)
       items              <- Gen.listOfN(nItems, arbCheckboxItem.arbitrary)

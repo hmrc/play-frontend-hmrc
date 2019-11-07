@@ -20,7 +20,7 @@ __This is a work in progress and for the time being we will be releasing version
 
 This library provides accessibility-compliant `Twirl` basic building blocks as originally implemented in the [govuk-frontend](https://github.com/alphagov/govuk-frontend/)
 library. Additionally, it provides a layout that wraps the `GovukTemplate`, used across all frontends, and we plan to 
-include more helpers built on top of `Play`'s own helpers and the basic components.
+include more helpers built on top of `Play's` own helpers and the basic components.
 The following figure illustrates the components and their dependencies (zoom in for a better view).
 
 ![components](docs/images/govukcomponents.svg)
@@ -29,9 +29,6 @@ The following figure illustrates the components and their dependencies (zoom in 
 
 sbt
 ```sbt
-//Add the resolver for private libraries
-resolvers += "hmrc-releases" at "https://artefacts.tax.service.gov.uk/artifactory/hmrc-releases/"
-
 //build.sbt for Play 2.5
 libraryDependencies += "uk.gov.hmrc" %% "play-frontend-govuk" % "x.y.z-play-25"
 //or Play 2.6
@@ -46,21 +43,21 @@ and all the [types](https://github.com/hmrc/play-frontend-govuk/blob/master/src/
 
 The above import will also bring into scope the available `Twirl` [helpers](https://github.com/hmrc/play-frontend-govuk/blob/master/src/main/play-26/uk/gov/hmrc/govukfrontend/views/Helpers.scala) and [layouts](https://github.com/hmrc/play-frontend-govuk/blob/master/src/main/play-26/uk/gov/hmrc/govukfrontend/views/Layouts.scala).
 
-The following import will summon [implicits](https://github.com/hmrc/play-frontend-govuk/blob/master/src/main/scala/uk/gov/hmrc/govukfrontend/views/Implicits.scala) that provide extension methods on `Play`'s [FormError](https://www.playframework.com/documentation/2.6.x/api/scala/play/api/data/FormError.html) 
-to convert between `Play`'s form errors and view models used by `GovukErrorMessage` and `GovukErrorSummary` (E.g. **form.errors.asTextErrorLinks**, **form.errors.asTextErrorMessageForField**): 
+The following import will summon [implicits](https://github.com/hmrc/play-frontend-govuk/blob/master/src/main/scala/uk/gov/hmrc/govukfrontend/views/Implicits.scala) that provide extension methods on `Play's` [FormError](https://www.playframework.com/documentation/2.6.x/api/scala/play/api/data/FormError.html) 
+to convert between `Play's` form errors and view models used by `GovukErrorMessage` and `GovukErrorSummary` (E.g. **form.errors.asTextErrorLinks**, **form.errors.asTextErrorMessageForField**): 
 ```scala
 @import uk.gov.hmrc.govukfrontend.views.html.components.implicits._
 
 ...
     @formWithCSRF(action = routes.NameController.onSubmit(mode)) {
 
-        @if(form.errors.nonEmpty) {
-            @errorSummary(ErrorSummary(errorList = form.errors.asTextErrorLinks, title = Text(messages("error.summary.title"))))
-        }
+    @if(form.errors.nonEmpty) {
+      @errorSummary(ErrorSummary(errorList = form.errors.asTextErrorLinks, title = Text(messages("error.summary.title"))))
+    }
 
-        @input(Input(id = "value", name = "value", value = form.value,
-            errorMessage = form.errors.asTextErrorMessageForField(fieldKey = "value"),
-            label = Label(isPageHeading = true, classes = "govuk-label--l", content = Text(messages("name.heading"))))) 
+      @input(Input(id = "value", name = "value", value = form.value,
+        errorMessage = form.errors.asTextErrorMessageForField(fieldKey = "value"),
+        label = Label(isPageHeading = true, classes = "govuk-label--l", content = Text(messages("name.heading"))))) 
  }
 ...
 ```
@@ -71,30 +68,34 @@ Instead of directly invoking GovukTemplate, use GovukLayout and pass in GovUk as
 The following example snippet sets up a common local layout shared by view pages which then delegates to the standard GovukLayout. 
 ```scala
 @this(
-        govukLayout: GovukLayout,
-        head: head,
-        scripts: scripts
+  govukLayout: GovukLayout,
+  head: head,
+  scripts: scripts
 )
 
 @(pageTitle: Option[String] = None,
-        beforeContentBlock: Option[Html] = None)(contentBlock: Html)(implicit request: Request[_], messages: Messages)
+  beforeContentBlock: Option[Html] = None
+)(contentBlock: Html)(implicit request: Request[_], messages: Messages)
 
 @govukLayout(
-    pageTitle = pageTitle,
-    headBlock = Some(head()),
-    beforeContentBlock = beforeContentBlock,
-    footerItems = Seq(FooterItem(href = Some("https://govuk-prototype-kit.herokuapp.com/"), text = Some("GOV.UK Prototype Kit v9.1.0"))),
-    bodyEndBlock = Some(scripts()))(contentBlock)
+  pageTitle = pageTitle,
+  headBlock = Some(head()),
+  beforeContentBlock = beforeContentBlock,
+  footerItems = Seq(FooterItem(
+    href = Some("https://govuk-prototype-kit.herokuapp.com/"), 
+    text = Some("GOV.UK Prototype Kit v9.1.0"))),
+  bodyEndBlock = Some(scripts()))(contentBlock)
 ```
 The above snippet uses some sensible defaults (e.g. initial language) and configs (e.g. header config) to render a page. 
 One of the optional parameters of GovukLayout is _headerBlock_. It can be composed of [Header](https://github.com/hmrc/play-frontend-govuk/blob/master/src/main/scala/uk/gov/hmrc/govukfrontend/views/viewmodels/header/Header.scala) element. 
 However, if no header block is passed in but simply the following i18n message keys being present, the following Header element is constructed:
 ```scala
 Header(
-      homepageUrl = Some(messages("service.homePageUrl")),
-      serviceName = Some(messages("service.name")),
-      serviceUrl = Some(messages("service.homePageUrl")),
-      containerClasses = Some("govuk-width-container"))
+  homepageUrl = Some(messages("service.homePageUrl")),
+  serviceName = Some(messages("service.name")),
+  serviceUrl = Some(messages("service.homePageUrl")),
+  containerClasses = Some("govuk-width-container")
+)
 ```
 The above snippet is based on the premise that a header could be in different languages when supporting i18n standards. <br/>
 GovukLayout leverages local head and scripts template for assets wiring. 
@@ -225,9 +226,6 @@ the test coverage via generative testing described on the next section, we could
 
 To ensure (as much as possible) that the implemented templates conform to the `govuk-frontend` templates, we use generative
 testing, via `scalacheck`, to compare the `Twirl` templates output against the `Nunjucks` `govuk-frontend` templates.
-Currently, the generative testing strategy has only been implemented for a few components: 
-`GovukButton`, `GovukBackLink`, `GovukCheckboxes`, `GovukErrorMessage`, `GovukErrorSummary`, `GovukFieldset`, 
-`GovukHeader`, `GovukHint`, `GovukLabel`, `GovukRadios` and `GovukSummaryList`.
  
 The tests run against a `node.js` service used to render the `govuk-frontend` `Nunjucks` templates,
 so you'll need to install it first.
@@ -319,7 +317,6 @@ When writing a new template from an existing `Nunjucks` template it is necessary
    
 ### Play 2.5 / Play 2.6 Cross-Compilation
 
-With the implementation of 
 [dependency injection for templates](https://www.playframework.com/documentation/2.6.x/ScalaTemplatesDependencyInjection), `Play 2.6`
 introduced breaking changes in the syntax of `Twirl` templates.  For this reason, for every `Play 2.6` template implementing a component, we have
  to provide an almost identical `Play 2.5-compatible` template, differing only in the dependency injection declaration.

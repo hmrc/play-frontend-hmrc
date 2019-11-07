@@ -32,7 +32,7 @@
   </div>
 }
 
-@idPrefixStr = @{idPrefix.filter(_.nonEmpty).getOrElse(name)}
+@idPrefixStr = @{idPrefix.getNonEmptyOrElse(name)}
 
 @isConditional = @{items.exists(_.conditionalHtml.exists(_.body.nonEmpty))}
 

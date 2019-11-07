@@ -25,7 +25,7 @@ object Generators {
 
   implicit val arbLabel: Arbitrary[Label] = Arbitrary {
     for {
-      forAttr <- Gen.option(genAlphaStrOftenEmpty())
+      forAttr <- Gen.option(genAlphaStr())
       isPageHeading <- arbBool.arbitrary
       classes <- genClasses()
       attributes <- genAttributes()

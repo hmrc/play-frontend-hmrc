@@ -24,8 +24,12 @@ object Generators {
 
   val genNonEmptyAlphaStr: Gen[String] = Gen.alphaStr.suchThat(_.nonEmpty)
 
-  // Gen.alphaStr generates empty string with very low freq so we tweak the distribution a little
-  def genAlphaStrOftenEmpty(emptyFreq: Int = 25): Gen[String] =
+  /**
+    * Generates an alphabetic String with adjustable empty frequency String.
+    * @param emptyFreq as a percentage (0 - 100)
+    * @return
+    */
+  def genAlphaStr(emptyFreq: Int = 25): Gen[String] =
     Gen.frequency((100 - emptyFreq, Gen.alphaStr), (emptyFreq, Gen.const("")))
 
   val genAttrVal: Gen[(String, String)] = for {

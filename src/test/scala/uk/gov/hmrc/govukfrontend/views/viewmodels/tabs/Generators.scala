@@ -31,8 +31,8 @@ object Generators {
 
   implicit val arbTabItem: Arbitrary[TabItem] = Arbitrary {
     for {
-      id         <- Gen.option(genAlphaStrOftenEmpty())
-      label      <- genAlphaStrOftenEmpty()
+      id         <- Gen.option(genNonEmptyAlphaStr)
+      label      <- genAlphaStr()
       attributes <- genAttributes()
       panel      <- arbTabPanel.arbitrary
     } yield TabItem(id = id, label = label, attributes = attributes, panel = panel)
@@ -40,11 +40,11 @@ object Generators {
 
   implicit val arbTabs: Arbitrary[Tabs] = Arbitrary {
     for {
-      id         <- Gen.option(genAlphaStrOftenEmpty())
-      idPrefix   <- Gen.option(genAlphaStrOftenEmpty())
-      title      <- genAlphaStrOftenEmpty()
+      id         <- Gen.option(genAlphaStr())
+      idPrefix   <- Gen.option(genAlphaStr())
+      title      <- genAlphaStr()
       n          <- Gen.chooseNum(0, 5)
-      items      <- Gen.listOfN(n, arbTabItem.arbitrary)
+      items      <- Gen.option(Gen.listOfN(n, arbTabItem.arbitrary))
       classes    <- genClasses()
       attributes <- genAttributes()
     } yield Tabs(id = id, idPrefix = idPrefix, title = title, items = items, classes = classes, attributes = attributes)

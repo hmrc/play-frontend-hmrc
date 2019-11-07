@@ -24,7 +24,7 @@ object Generators {
 
   implicit val arbHint: Arbitrary[Hint] = Arbitrary {
     for {
-      id         <- Gen.option(genAlphaStrOftenEmpty())
+      id         <- Gen.option(genAlphaStr())
       classes    <- genClasses()
       attributes <- genAttributes()
       content    <- arbContent.arbitrary

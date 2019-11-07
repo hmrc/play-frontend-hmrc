@@ -97,7 +97,7 @@ abstract class TemplateIntegrationSpec[T: OWrites: Arbitrary](govukComponentName
 
             prop
           case Failure(TemplateValidationException(message)) =>
-            println(s"Failed to validate the parameters for the template for $govukComponentName")
+            println(s"Failed to validate the parameters for the $govukComponentName template")
             println(s"Exception: $message")
             println("Skipping property evaluation")
 

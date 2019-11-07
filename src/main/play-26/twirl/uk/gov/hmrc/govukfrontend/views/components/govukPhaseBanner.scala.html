@@ -27,7 +27,7 @@
 </div>
 
 @tagSnippet(tag: Option[Tag]) = {
-  @tag.map { tag =>
+  @tag.orElse(Some(Tag())).map { tag =>
     @govukTag(Tag(
       classes = toClasses("govuk-phase-banner__content__tag", tag.classes),
       content = tag.content))}

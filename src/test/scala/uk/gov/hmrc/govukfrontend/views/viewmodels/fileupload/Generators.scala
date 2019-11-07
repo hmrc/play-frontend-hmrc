@@ -28,8 +28,8 @@ object Generators {
     for {
       name             <- genNonEmptyAlphaStr
       id               <- genNonEmptyAlphaStr
-      value            <- Gen.option(genAlphaStrOftenEmpty())
-      describedBy      <- Gen.option(genAlphaStrOftenEmpty())
+      value            <- Gen.option(genAlphaStr())
+      describedBy      <- Gen.option(genAlphaStr())
       label            <- arbLabel.arbitrary
       hint             <- Gen.option(arbHint.arbitrary)
       errorMessage     <- Gen.option(arbErrorMessage.arbitrary)

@@ -57,6 +57,6 @@
   <a class="@toClasses("govuk-link", action.classes)" href="@action.href"> @actionContent(action)</a>
 }
 
-@actionContent(action: ActionItem) = {@action.content.asHtml@action.visuallyHiddenText.filter(_.nonEmpty).map { visuallyHiddenText =><span class="govuk-visually-hidden"> @visuallyHiddenText</span> }}
+@actionContent(action: ActionItem) = {@action.content.asHtml@action.visuallyHiddenText.mapNonEmpty { visuallyHiddenText =><span class="govuk-visually-hidden"> @visuallyHiddenText</span> }}
 
 @anyRowHasActions = @{rows.exists(_.actions.nonEmpty)} @* in JS empty array is truthy *@
