@@ -14,6 +14,7 @@ __This is a work in progress and for the time being we will be releasing version
 - [Usage](#usage)
 - [API](#api)
 - [Contributing](#contributing)
+- [Upgrading](#upgrading)
 - [License](#license)
 
 ## Background
@@ -208,8 +209,6 @@ The library depends on a `govuk-frontend` artifact published as a webjar.
 
 Currently GDS does not automate the publishing of the webjar so it has to be manually published from [WebJars](https://www.webjars.org) after a `govuk-frontend` release.
 
-The [following guide](/docs/upgrading.md) illustrates the process of updating the library when GDS releases a new version of `govuk-frontend`. 
-
 ### Unit Tests
 
 The suite of unit tests runs against a set of test fixtures with data extracted from [govuk-frontend's yaml documentation](https://github.com/alphagov/govuk-frontend/blob/master/src/govuk/components/button/button.yaml)
@@ -381,6 +380,10 @@ We plan to extract the example generation to a separate project that will:
 ![example generation](docs/images/example-generation.svg)
 
 TODO
+
+## Upgrading
+
+The [following guide](/docs/upgrading.md) illustrates the process of updating the library when GDS releases a new version of `govuk-frontend`. 
 
 ## License
 
