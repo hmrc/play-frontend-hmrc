@@ -2,10 +2,12 @@
 
 ## Basic Steps
 
-1. Bump webjar dependency for `govuk-frontend` in `build.sbt`.
-2. Generate and copy fixtures folder to test/resources (this won't be necessary when we implement generative testing to increase test coverage).
-3. Run unit tests: `sbt test`.
-4. Compare the two versions using a diff tool.
+1. Bump webjar [dependency](https://github.com/alphagov/govuk-frontend/tags) for `govuk-frontend` in `build.sbt`.
+2. Generate and copy fixtures folder to test/resources/fixtures (this won't be necessary when we implement generative testing to increase test coverage).
+   - Run `./generateGovukTestFixtures.sh <govuk-version>` in [x-frontend-snapshotter](https://github.com/dorightdigital/x-frontend-snapshotter)
+   - Extract zip file created in `target/processed` and copy to the destination folder
+3. Run unit tests: `sbt clean test`.
+4. Compare the two versions of `govuk-frontend` (outgoing vs incoming) using a diff tool as shown [below](#examining-components-for-failed-tests).
 
 ### Comparing Differences
 Since some of the components have dependencies, it is easier to start upgrading by starting from components with no dependencies, or, alternatively, from the components on the bottom of the graph illustrated below, and work our way up.
