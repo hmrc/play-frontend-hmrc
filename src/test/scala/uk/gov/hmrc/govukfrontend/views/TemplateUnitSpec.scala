@@ -38,7 +38,7 @@ abstract class TemplateUnitSpec[T: Reads](govukComponentName: String)
     with Matchers
     with TryValues {
 
-  exampleNames(govukComponentName).filter(_ == "header-default")
+  exampleNames(govukComponentName)
     .foreach { exampleName =>
     s"$exampleName" should {
       "render the same html as the nunjucks renderer" in {
