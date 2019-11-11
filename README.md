@@ -383,7 +383,7 @@ TODO
 
 ## Upgrading
 
-The [following guide](/docs/upgrading.md) illustrates the process of updating the library when GDS releases a new version of `govuk-frontend`. 
+This [guide](/docs/upgrading.md) illustrates the process of updating the library when GDS releases a new version of `govuk-frontend`. 
 
 ## License
 
