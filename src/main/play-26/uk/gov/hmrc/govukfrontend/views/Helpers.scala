@@ -21,6 +21,6 @@ import uk.gov.hmrc.govukfrontend.views.html.helpers.formWithCSRF
 trait Helpers {
 
   type FormWithCSRF = formWithCSRF
-  @deprecated("Use DI")
+  @deprecated(message="Use DI", since="Play 2.6")
   lazy val FormWithCSRF = new formWithCSRF
 }
