@@ -1,4 +1,3 @@
-import GenerateExamplesManifest.generateExamplesManifest
 import GeneratePlay25Twirl.generatePlay25Templates
 import PlayCrossCompilation.{dependencies, playVersion}
 import de.heikoseeberger.sbtheader.HeaderKey
@@ -67,21 +66,6 @@ lazy val root = Project(libName, file("."))
       val play26TemplatesDir         = baseDirectory.value / "src/test/play-26/twirl"
       val play26Templates: Set[File] = (play26TemplatesDir ** ("*.scala.html")).get.toSet
       cachedFun(play26Templates).toSeq
-    },
-    generateExamplesManifestTask := {
-      val cachedFun: Set[File] => Set[File] =
-        FileFunction.cached(
-          cacheBaseDirectory = streams.value.cacheDirectory / "generate-examples-manifest-task",
-          inStyle            = FilesInfo.lastModified,
-          outStyle           = FilesInfo.exists) { (in: Set[File]) =>
-          println("Generating manifest.json")
-          val manifestFile = (resourceDirectory in Test).value / "manifest.json"
-          generateExamplesManifest(play26Examples = in, manifestFile = manifestFile)
-        }
-
-      val play26ExamplesDir         = baseDirectory.value / "src/test/play-26/twirl/uk/gov/hmrc/govukfrontend/views/examples"
-      val play26Examples: Set[File] = (play26ExamplesDir ** ("*.scala.html")).get.toSet
-      cachedFun(play26Examples).toSeq
     },
     (TwirlKeys.compileTemplates in Compile) :=
       ((TwirlKeys.compileTemplates in Compile) dependsOn (generatePlay25TemplatesTask in Compile)).value,
@@ -184,12 +168,3 @@ lazy val templateImports: Seq[String] = {
 }
 
 lazy val generatePlay25TemplatesTask = taskKey[Seq[File]]("Generate Play 2.5 templates")
-
-/**
-  * Generates the manifest.json file in the [[src/test/resources]] folder, used by the Design System browser
-  * extension to display Twirl examples for the library's components.
-  *
-  * To generate the manifest.json implement the examples in the folder [[src/test/play-26/twirl/uk/gov/hmrc/govukfrontend/views/examples]]
-  * (the corresponding play-25 examples will be auto-generated automatically) and run the task at the sbt console <code>generateExamplesManifestTask</code>
-  */
-lazy val generateExamplesManifestTask = taskKey[Seq[File]]("Generate Twirl examples manifest.json file")
