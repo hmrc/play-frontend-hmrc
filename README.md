@@ -363,24 +363,6 @@ Due to the aforementioned differences between the `Twirl` compilers in `Play 2.5
 feature, templates should not be written with backwards incompatible features only introduced in `Play 2.6`, such as
 [@if else if](https://github.com/playframework/twirl/issues/33).   
 
-### Generating Example Templates (Future Work)
-
-The library provides a set of manually created examples as [described above](#example-templates).
-The examples are unit tested against the expected output `HTML` accompanying each example in the [GOV.UK Design System](https://design-system.service.gov.uk/components/)
-to ensure the `Twirl` examples produce the same markup as the `Nunjucks` ones.
-Once the examples are created, an `sbt` task is manually run to generate a [manifest.json](src/test/resources/manifest.json)
-file that is consumed by the [Chrome extension]((https://github.com/hmrc/play-frontend-govuk-extension)) to display the examples
-in the [GOV.UK Design System](https://design-system.service.gov.uk/components/).
-
-We plan to extract the example generation to a separate project that will:
-1. Generate the examples from the `Nunjucks` ones
-2. Run the tests
-3. Generate the `manifest.json` for the `Chrome` extension
-
-![example generation](docs/images/example-generation.svg)
-
-TODO
-
 ## Upgrading
 
 This [guide](/docs/upgrading.md) illustrates the process of updating the library when GDS releases a new version of `govuk-frontend`. 
