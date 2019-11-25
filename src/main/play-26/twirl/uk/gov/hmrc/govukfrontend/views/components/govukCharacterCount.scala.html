@@ -31,16 +31,16 @@
     hint = hint,
     errorMessage = errorMessage,
     formGroupClasses = formGroupClasses,
-    classes = toClasses("govuk-js-character-count ", errorMessage.fold("")(_ => " govuk-textarea--error"), classes),
+    classes = toClasses("govuk-js-character-count", errorMessage.fold("")(_ => " govuk-textarea--error"), if (classes.isEmpty) "" else s" ${classes}"),
     attributes = attributes
   ))
   <span id="@{id}-info" class="govuk-hint govuk-character-count__message" aria-live="polite">
-    You can enter up to @maxLength.orElse(maxWords).map {max => @max}@maxWords.map {_ => words}.getOrElse { characters}
+    You can enter up to @maxLength.filter(_ > 0).orElse(maxWords).getOrElse("") @maxWords.filter(_ > 0).fold("characters")(_ => "words")
   </span>
 </div>
 
 @attrs = {
-  @maxLength.map { maxLength => data-maxlength="@maxLength"}
-  @threshold.map { threshold => data-threshold="@threshold"}
-  @maxWords.map { maxWords => data-maxwords="@maxWords"}
+  @maxLength.filter(_ > 0).fold("")(max => s"""data-maxlength="${max}"""")
+  @threshold.filter(_ > 0).fold("")(max => s"""data-threshold="${max}"""")
+  @maxWords.filter(_ > 0).fold("")(max => s"""data-maxwords="${max}"""")
 }
