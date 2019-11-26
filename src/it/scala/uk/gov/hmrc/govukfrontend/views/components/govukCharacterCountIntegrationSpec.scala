@@ -23,8 +23,6 @@ import uk.gov.hmrc.govukfrontend.views.viewmodels.charactercount.CharacterCount
 import uk.gov.hmrc.govukfrontend.views.viewmodels.charactercount.Generators._
 import scala.util.Try
 
-// FIXME: tests failing because of https://github.com/alphagov/govuk-frontend/issues/1630
-// fixed in https://github.com/alphagov/govuk-frontend/pull/1631/ and tests should pass on next release of govuk-frontend > 3.3.0
 object govukCharacterCountIntegrationSpec
     extends TemplateIntegrationSpec[CharacterCount](govukComponentName = "govukCharacterCount", seed = None) {
 
