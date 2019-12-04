@@ -19,6 +19,7 @@ package uk.gov.hmrc.govukfrontend.views.viewmodels.textarea
 import play.api.libs.functional.syntax._
 import play.api.libs.json._
 import uk.gov.hmrc.govukfrontend.views.html.components._
+import uk.gov.hmrc.govukfrontend.views.IntString
 import uk.gov.hmrc.govukfrontend.views.viewmodels.CommonJsonFormats._
 import uk.gov.hmrc.govukfrontend.views.viewmodels.JsonDefaultValueFormatter
 
@@ -45,7 +46,7 @@ object Textarea extends JsonDefaultValueFormatter[Textarea] {
     (
       (__ \ "id").read[String] and
         (__ \ "name").read[String] and
-        (__ \ "rows").read[Int] and
+        (__ \ "rows").read[IntString].int and
         (__ \ "value").readNullable[String] and
         (__ \ "describedBy").readNullable[String] and
         (__ \ "label").read[Label] and

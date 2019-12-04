@@ -18,6 +18,7 @@ package uk.gov.hmrc.govukfrontend.views.viewmodels.charactercount
 
 import play.api.libs.functional.syntax._
 import play.api.libs.json._
+import uk.gov.hmrc.govukfrontend.views.IntString
 import uk.gov.hmrc.govukfrontend.views.viewmodels.CommonJsonFormats._
 import uk.gov.hmrc.govukfrontend.views.viewmodels.JsonDefaultValueFormatter
 import uk.gov.hmrc.govukfrontend.views.viewmodels.errormessage.ErrorMessage
@@ -47,11 +48,11 @@ object CharacterCount extends JsonDefaultValueFormatter[CharacterCount] {
     (
       (__ \ "id").read[String] and
         (__ \ "name").read[String] and
-        (__ \ "rows").read[Int] and
+        (__ \ "rows").read[IntString].int and
         (__ \ "value").readNullable[String] and
-        (__ \ "maxlength").readNullable[Int] and
-        (__ \ "maxwords").readNullable[Int] and
-        (__ \ "threshold").readNullable[Int] and
+        (__ \ "maxlength").readNullable[IntString].int and
+        (__ \ "maxwords").readNullable[IntString].int and
+        (__ \ "threshold").readNullable[IntString].int and
         (__ \ "label").read[Label] and
         (__ \ "hint").readNullable[Hint] and
         (__ \ "errorMessage").readNullable[ErrorMessage] and
