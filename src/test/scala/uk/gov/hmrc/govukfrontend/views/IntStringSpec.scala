@@ -160,11 +160,11 @@ class IntStringSpec extends WordSpec with Matchers with ScalaCheckDrivenProperty
         val expectedIntOption = Some(int)
 
         val optReadsStub = new Reads[Option[IntString]] {
-          def reads(jsValue: JsValue): JsResult[Option[IntString]] = JsSuccess(Some(IntString(expectedIntOption.get)))
+          def reads(jsValue: JsValue): JsResult[Option[IntString]] = JsSuccess(Some(jsValue.as[IntString]))
         }
 
         val intermediateReads: Reads[Option[Int]] = optReadsStub.int
-        JsString("foo").as[Option[Int]](intermediateReads) shouldBe expectedIntOption
+        JsString(s"$int").as[Option[Int]](intermediateReads) shouldBe expectedIntOption
       }
     }
 
