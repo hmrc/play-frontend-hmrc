@@ -19,6 +19,7 @@ package table
 
 import play.api.libs.functional.syntax._
 import play.api.libs.json._
+import uk.gov.hmrc.govukfrontend.views.IntString
 import uk.gov.hmrc.govukfrontend.views.viewmodels.content.{Content, Empty}
 
 final case class TableRow(
@@ -39,8 +40,8 @@ object TableRow extends JsonDefaultValueFormatter[TableRow] {
       Content.reads and
         (__ \ "format").readNullable[String] and
         (__ \ "classes").read[String] and
-        (__ \ "colspan").readNullable[Int] and
-        (__ \ "rowspan").readNullable[Int] and
+        (__ \ "colspan").readNullable[IntString].int and
+        (__ \ "rowspan").readNullable[IntString].int and
         (__ \ "attributes").read[Map[String, String]]
     )(TableRow.apply _)
 

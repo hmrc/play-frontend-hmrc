@@ -18,6 +18,7 @@ package uk.gov.hmrc.govukfrontend.views.viewmodels.panel
 
 import play.api.libs.functional.syntax._
 import play.api.libs.json._
+import uk.gov.hmrc.govukfrontend.views.IntString
 import uk.gov.hmrc.govukfrontend.views.viewmodels.JsonDefaultValueFormatter
 import uk.gov.hmrc.govukfrontend.views.viewmodels.content.{Content, Empty}
 
@@ -34,7 +35,7 @@ object Panel extends JsonDefaultValueFormatter[Panel] {
 
   override def defaultReads: Reads[Panel] =
     (
-      (__ \ "headingLevel").read[Int] and
+      (__ \ "headingLevel").read[IntString].int and
         (__ \ "classes").read[String] and
         (__ \ "attributes").read[Map[String, String]] and
         Content.readsHtmlOrText((__ \ "titleHtml"), (__ \ "titleText")) and
