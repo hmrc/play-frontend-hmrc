@@ -13,8 +13,10 @@ __This is a work in progress and for the time being we will be releasing version
 - [Getting Started](#getting-started)
 - [Usage](#usage)
 - [API](#api)
+- [Dependencies](#dependencies)
 - [Contributing](#contributing)
-- [Upgrading](#upgrading)
+- [Useful Links](#useful-links)
+- [Owning Team Readme](#owning-team-readme)
 - [License](#license)
 
 ## Background
@@ -26,9 +28,8 @@ The following figure illustrates the components and their dependencies (zoom in 
 
 ![components](docs/images/govukcomponents.svg)
 
-## Getting Started
-
-sbt
+## Getting started
+1>  Add [Twirl](https://github.com/hmrc/play-frontend-govuk/releases) library in the App dependencies.
 ```sbt
 //build.sbt for Play 2.5
 libraryDependencies += "uk.gov.hmrc" %% "play-frontend-govuk" % "x.y.z-play-25"
@@ -36,12 +37,49 @@ libraryDependencies += "uk.gov.hmrc" %% "play-frontend-govuk" % "x.y.z-play-25"
 libraryDependencies += "uk.gov.hmrc" %% "play-frontend-govuk" % "x.y.z-play-26"
 ```
 
+2>  Add SASS assets to app/assets/stylesheets in application.scss to inherit / extend GovUk style assets / elements, e.g.:
+```
+$govuk-assets-path: "/play-mtp-twirl-frontend/assets/lib/govuk-frontend/govuk/assets/";
+
+@import "lib/govuk-frontend/govuk/all";
+
+.app-reference-number {
+  display: block;
+  font-weight: bold;
+}
+```
+
+3>  Add govuk-frontend routing redirection in app.routes:
+```scala
+->         /govuk-frontend                      govuk.Routes
+```
+
+4>  Add TwirlKeys.templateImports in build.sbt:
+```sbt
+    TwirlKeys.templateImports ++= Seq(
+      "uk.gov.hmrc.govukfrontend.views.html.components._",
+      "uk.gov.hmrc.govukfrontend.views.html.helpers._"
+    )
+```
+
+5>  Use GovukLayout from library to create standard views out of the box
+```scala
+@govukLayout(
+    pageTitle = pageTitle,
+    headBlock = Some(head()),
+    beforeContentBlock = beforeContentBlock,
+    footerItems = Seq(FooterItem(href = Some("https://govuk-prototype-kit.herokuapp.com/"), text = Some("GOV.UK Prototype Kit v9.1.0"))),
+    bodyEndBlock = Some(scripts()))(contentBlock)
+```
+
+### Using govuk-frontend Components in Twirl
 To use the [govuk-frontend](https://github.com/alphagov/govuk-frontend/) `Twirl` [components](https://github.com/hmrc/play-frontend-govuk/blob/master/src/main/play-26/uk/gov/hmrc/govukfrontend/views/html/components/package.scala) 
 and all the [types](https://github.com/hmrc/play-frontend-govuk/blob/master/src/main/scala/uk/gov/hmrc/govukfrontend/views/Aliases.scala) needed to construct them, import the following:
 ```scala
 @import uk.gov.hmrc.govukfrontend.views.html.components._
 ```
 
+### Twirl HTML helper methods and implicits
 The above import will also bring into scope the available `Twirl` [helpers](https://github.com/hmrc/play-frontend-govuk/blob/master/src/main/play-26/uk/gov/hmrc/govukfrontend/views/Helpers.scala) and [layouts](https://github.com/hmrc/play-frontend-govuk/blob/master/src/main/play-26/uk/gov/hmrc/govukfrontend/views/Layouts.scala).
 
 The following import will summon [implicits](https://github.com/hmrc/play-frontend-govuk/blob/master/src/main/scala/uk/gov/hmrc/govukfrontend/views/Implicits.scala) that provide extension methods on `Play's` [FormError](https://www.playframework.com/documentation/2.6.x/api/scala/play/api/data/FormError.html) 
@@ -62,6 +100,9 @@ to convert between `Play's` form errors and view models used by `GovukErrorMessa
  }
 ...
 ```
+
+It also provides extension methods on `Play's` [Html](https://www.playframework.com/documentation/2.6.x/api/scala/play/twirl/api/Html.html) objects.
+This includes HTML trims, pads, indents and handling HTML emptiness.
 
 ### An example usage of [GovukLayout](https://github.com/hmrc/play-frontend-govuk/blob/master/src/main/play-26/twirl/uk/gov/hmrc/govukfrontend/views/layouts/govukLayout.scala.html) template
 A convenient way of setting up a view with standard structure and Govuk design elements is provided. 
@@ -197,7 +238,7 @@ _Note: Currently there are examples only for the following components:_
 
 TODO: link to scaladoc
 
-## Contributing
+## Dependencies
 
 ### sbt Dependencies
 
@@ -209,163 +250,35 @@ The library depends on a `govuk-frontend` artifact published as a webjar.
 
 Currently GDS does not automate the publishing of the webjar so it has to be manually published from [WebJars](https://www.webjars.org) after a `govuk-frontend` release.
 
-### Unit Tests
+## Getting help
 
-The suite of unit tests runs against a set of test fixtures with data extracted from [govuk-frontend's yaml documentation](https://github.com/alphagov/govuk-frontend/blob/master/src/govuk/components/button/button.yaml)
-for each component. The yaml examples are used in `govuk-frontend`'s own unit test suite. 
+Please report any issues with this library in Slack at `#event-play-frontend-beta`.
 
-The test fixtures are generated from the release of `govuk-frontend` [used in the library](#sbt-dependencies). 
-A script [TODO: document script] generates the fixtures which are manually included in the resources directory under `src/test/resources/fixtures/`.
-The unit tests will pick up the fixtures folder matching the version of `govuk-frontend` in the dependencies.
+For other issues or wider discussions, please use `#team-plat-ui`.
 
-_Future work: Unit testing the library using a fixed set of test data provides only very basic coverage. if we can improve 
-the test coverage via generative testing described on the next section, we could discard the test fixtures completely._ 
+## Contributing
 
-### Generative Testing
+PlatUI and this repository is responsible for providing a means to access GOV.UK components in Play/Twirl.
+However, the underlying components, their design and surrounding user research are owned by GDS under GOV.UK.
 
-To ensure (as much as possible) that the implemented templates conform to the `govuk-frontend` templates, we use generative
-testing, via `scalacheck`, to compare the `Twirl` templates output against the `Nunjucks` `govuk-frontend` templates.
- 
-The tests run against a `node.js` service used to render the `govuk-frontend` `Nunjucks` templates,
-so you'll need to install it first.
-To install `node.js` via `nvm` please follow the instructions [here](https://github.com/nvm-sh/nvm#installation-and-update).
+If you would like to propose a feature, you should raise this with GDS and the wider design community.
 
-To start the service before running integration tests:
-```bash
-git clone git@github.com:hmrc/template-service-spike.git
+If you have an issue with the underlying govuk-frontend implementation, you can [create an issue](https://github.com/alphagov/govuk-frontend/issues/new) for them to address directly.
+You could also look at raising a feature request there too.
 
-cd template-service-spike
+Should GOV.UK accept your feature request, it will then be available in Twirl once the appropriate upgrade is made in this repository to match that version upgrade.
 
-npm install
+## Useful Links
 
-npm start
-```
+- [govuk-frontend](https://github.com/alphagov/govuk-frontend/) - reusable Nunjucks HTML components from GOV.UK
+- [GOV.UK Design System](https://design-system.service.gov.uk/components/) - documentation for the use of `govuk-frontend` components
+- [play-frontend-hmrc](https://github.com/hmrc/play-frontend-hmrc/) - Twirl implementation of `hmrc-frontend` components
+- [hmrc-frontend](https://github.com/hmrc/hmrc-frontend/) - reusable Nunjucks HTML components for HMRC design patterns
+- [HMRC Design Patterns](https://design.tax.service.gov.uk/hmrc-design-patterns/) - documentation for the use of `hmrc-frontend` components
+- [GOV.UK Design System Chrome extension](https://github.com/hmrc/play-frontend-govuk-extension) - `Chrome` extension to add a Twirl tab for each example in the GOV.UK Design System
 
-Once the service is started on port 3000, you can run the integration tests:
-```sbt
-sbt it:test
-```
-
-_Note: The integration tests output produces a bit of noise as the library outputs statistics about the generators to check
-the distribution of the test cases. More information about collecting statistics on generators [here](https://github.com/typelevel/scalacheck/blob/master/doc/UserGuide.md#collecting-generated-test-data)._
-
-#### Reproducing Failures (Deterministic Testing)
-In case of a test failure, the test reporter outputs a `org.scalacheck.rng.Seed` encoded in Base-64 that can be passed back to the failing test to reproduce it.
-More information about this feature [here](https://gist.github.com/non/aeef5824b3f681b9cfc141437b16b014).
-
-Ex:
-```scala
-object govukBackLinkTemplateIntegrationSpec
-    extends TemplateIntegrationSpec[BackLink](
-      govukComponentName = "govukBackLink", seed = Some("Aw2mVetq64JgBXG2hsqNSIwFnYLc0798R7Ey9XIZr6M=")) // pass the seed and re-run
-```
-
-Upon a test failure, the test reporter prints out a link to a diff file in `HTML` to easily compare the
-markup for the failing test case against the expected markup. The diff is presented as if the `original` file was
-the Twirl template output and the `new` file was the Nunjucks template output (expected result). 
-
-```scala
-Diff between Twirl and Nunjucks outputs (please open diff HTML file in a browser): file:///Users/foo/dev/hmrc/play-frontend-govuk/target/govukBackLink-diff-2b99bb2a-98d4-48dc-8088-06bfe3008021.html
-```
-
-### Writing New Templates
-
-When writing a new template from an existing `Nunjucks` template it is necessary to make a few translation decisions.
-
-1. validation:
-
-   The lack of validation in the `govuk-frontend` `Nunjucks` templates sometimes poses some difficulties and it is better to
-[raise issues](https://github.com/alphagov/govuk-frontend/issues/1557) to confirm assumptions about the validity of parameters
- that could break parity of features.
-  
-   That said, some Twirl components in the library add validation by using `scala` assertions such as 
- [require](https://www.scala-lang.org/api/current/scala/Predef$.html#require(requirement:Boolean,message:=%3EAny):Unit),
-  which means **`Play` controllers should be handling potential `IllegalArgumentException`** thrown from views.
-
-2. representing required and optional parameters (as documented in the `yaml` for a component in `govuk-frontend`):
-   
-   In some instances a parameter is documented incorrectly as `required` when it is `optional`, so the disambiguation comes
-   from looking at its usage in the template.
-   We opted to map optional parameters as `Option` types because it is the most natural mapping.
-   
-3. mapping from untyped `Javascript` to `Scala`:
-
-   `Javascript` makes liberal use of boolean-like types, the so called `truthy` and `falsy` values.
-   Special care is needed to translate conditions involving these types correctly.
-   
-   Ex: the following `Nunjucks` snippet where name is a `string` 
-   
-   ```nunjucks
-   {% if params.name %} name="{{ params.name }}"{% endif %}
-   ``` 
-   
-   would not render anything if `name` was `""` since it is a [falsy value](https://developer.mozilla.org/en-US/docs/Glossary/Falsy).
-    
-    It can be mapped to `name: Option[String]` in `Scala` and translated to `Twirl` as: 
-   ```scala
-   @name.filter(_.nonEmpty).map { name => name="@name" }
-   
-   // instead of the following which would render `name=""` 
-   // if name had the value Some("")
-   @name.map { name => name="@name@ }
-   ```
-   
-   Another example is the representation of `Javascript`'s `undefined`, which maps nicely to `Scala`'s `None`.
-   The need to represent `undefined`  sometimes gives rise to unusual types like `Option[List[T]]`.
-   The most correct type here would be `Option[NonEmptyList[T]]` but we opted not to use [refinement types](https://github.com/fthomas/refined) yet.
-   
-### Play 2.5 / Play 2.6 Cross-Compilation
-
-[dependency injection for templates](https://www.playframework.com/documentation/2.6.x/ScalaTemplatesDependencyInjection), `Play 2.6`
-introduced breaking changes in the syntax of `Twirl` templates.  For this reason, for every `Play 2.6` template implementing a component, we have
- to provide an almost identical `Play 2.5-compatible` template, differing only in the dependency injection declaration.
-
-To automate this manual effort, the library uses an `sbt` task to auto-generate the `Play 2.5` templates from the `Play 2.6` ones:
-
-```sbt
-lazy val generatePlay25TemplatesTask = taskKey[Seq[File]]("Generate Play 2.5 templates")
-```
-  
-* this task is a dependency for `twirl-compile-templates` in both `Compile` and `Test` configurations
-* the auto-generated `Play 2.5` templates are not version controlled and should not be edited
-* the `Play 2.5` templates for the examples consumed by the [Chrome extension plugin](https://github.com/hmrc/play-frontend-govuk-extension) are also auto-generated but they are version controlled
-
-#### Naming Conventions for Injected Templates in Play 2.6
-
-The automatic generation of `Play 2.5` templates works by stripping out the `@this` declaration
-from a `Play 2.6` template.
-This means that the name of an injected template should match the name of the `Twirl` template file that
-implements it.
-
-Ex: Given a hypothetical new component injecting `GovukInput` we should name the parameter `govukInput`.
-When the `Play 2.5` auto-generated template gets compiled it is able to find the `govukInput` object
-that implements the template (defined in the file `govukInput.scala.html`).
-```scala
-@this(govukInput: GovukInput)
-
-@()
-@govukInput(<params for govukInput template>)
-```  
-
-The auto-generated `Play 2.5` template will be:
-```scala
-@()
-@govukInput(<params for govukInput template>)
-```
-
-`govukInput` is the name of the Scala object that implements the compiled `govukInput.scala.html` template.
-Had we named the injected component something else, for example `input`, the auto-generated template would fail to compile
-since there is no template named `input.scala.html`.
-
-#### Backwards Compatibility in Play 2.6 Templates
-
-Due to the aforementioned differences between the `Twirl` compilers in `Play 2.5` and `Play 2.6` and the auto-generation
-feature, templates should not be written with backwards incompatible features only introduced in `Play 2.6`, such as
-[@if else if](https://github.com/playframework/twirl/issues/33).   
-
-## Upgrading
-
-This [guide](/docs/upgrading.md) illustrates the process of updating the library when GDS releases a new version of `govuk-frontend`. 
+## Owning team README
+Rationale for code and translation decisions, dependencies, as well as instructions for team members maintaining this repository can be found [here](/docs/maintainers/overview.md).
 
 ## License
 
