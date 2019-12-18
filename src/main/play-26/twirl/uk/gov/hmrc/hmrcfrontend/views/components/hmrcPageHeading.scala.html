@@ -19,9 +19,9 @@
 @(params: PageHeading)
 @import params._
 <header class="hmrc-page-heading">
-    <h1 class="govuk-heading-xl">@text</h1>
-    @section match {
-      case Some(NonEmptyString(s)) => {<p class="govuk-caption-xl hmrc-caption-xl"><span class="govuk-visually-hidden">This section is </span>@s</p>}
-      case Some(_) | None => {}
-    }
+  <h1 class="govuk-heading-xl">@text</h1>
+  @section match {
+    case Some(NonEmptyString(x)) => {<p class="govuk-caption-xl hmrc-caption-xl"><span class="govuk-visually-hidden">This section is </span>@x</p>}
+    case Some(_) | None => {}
+  }
 </header>

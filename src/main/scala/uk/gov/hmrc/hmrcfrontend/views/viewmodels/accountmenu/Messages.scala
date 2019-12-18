@@ -14,20 +14,22 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.hmrcfrontend.views
-package html
+package uk.gov.hmrc.hmrcfrontend.views.viewmodels.accountmenu
 
-package object components extends Utils with Aliases {
+import play.api.libs.json._
+import uk.gov.hmrc.hmrcfrontend.views.viewmodels.JsonDefaultValueFormatter
 
-  /**
-   * Top-level implicits for all components
-   */
-  object implicits extends Implicits
+case class Messages(
+                     href: String = "#",
+                     active: Boolean = false,
+                     messageCount: Option[Int] = None
+                   )
 
-  lazy val HmrcAccountMenu       = hmrcAccountMenu
+object Messages extends JsonDefaultValueFormatter[Messages] {
 
-  lazy val HmrcNotificationBadge = hmrcNotificationBadge
+  override def defaultObject: Messages = Messages()
 
-  lazy val HmrcPageHeading       = hmrcPageHeading
+  override def defaultReads: Reads[Messages] = Json.reads[Messages]
 
+  override implicit def jsonWrites: OWrites[Messages] = Json.writes[Messages]
 }

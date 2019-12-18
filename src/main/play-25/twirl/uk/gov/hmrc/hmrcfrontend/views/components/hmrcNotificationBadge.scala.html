@@ -14,12 +14,9 @@
  * limitations under the License.
  *@
 
-@(params: PageHeading)
+@(params: NotificationBadge = NotificationBadge())
 @import params._
-<header class="hmrc-page-heading">
-  <h1 class="govuk-heading-xl">@text</h1>
-  @section match {
-    case Some(NonEmptyString(x)) => {<p class="govuk-caption-xl hmrc-caption-xl"><span class="govuk-visually-hidden">This section is </span>@x</p>}
-    case Some(_) | None => {}
-  }
-</header>
+@text match {
+  case NonEmptyString(x) => {<span class="hmrc-notification-badge">@x</span>}
+  case _ => {}
+}

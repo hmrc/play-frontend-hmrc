@@ -17,6 +17,39 @@
 package uk.gov.hmrc.hmrcfrontend.views
 
 trait Aliases {
+  type AccountHome = viewmodels.accountmenu.AccountHome
+  val AccountHome = viewmodels.accountmenu.AccountHome
+
+  type AccountMenu = viewmodels.accountmenu.AccountMenu
+  val AccountMenu = viewmodels.accountmenu.AccountMenu
+
+  type CheckProgress = viewmodels.accountmenu.CheckProgress
+  val CheckProgress = viewmodels.accountmenu.CheckProgress
+
+  type Cy = viewmodels.accountmenu.Language.Cy
+  val Cy = viewmodels.accountmenu.Language.Cy
+
+  type En = viewmodels.accountmenu.Language.En
+  val En = viewmodels.accountmenu.Language.En
+
+  type Language = viewmodels.accountmenu.Language
+  val Language = viewmodels.accountmenu.Language
+
+  type Messages = viewmodels.accountmenu.Messages
+  val Messages = viewmodels.accountmenu.Messages
+
+  type PaperlessSettings = viewmodels.accountmenu.PaperlessSettings
+  val PaperlessSettings = viewmodels.accountmenu.PaperlessSettings
+
+  type PersonalDetails = viewmodels.accountmenu.PersonalDetails
+  val PersonalDetails = viewmodels.accountmenu.PersonalDetails
+
+  type SignOut = viewmodels.accountmenu.SignOut
+  val SignOut = viewmodels.accountmenu.SignOut
+
+  type NotificationBadge = viewmodels.notificationbadge.NotificationBadge
+  val NotificationBadge = viewmodels.notificationbadge.NotificationBadge
+
   type PageHeading = viewmodels.pageheading.PageHeading
   val PageHeading = viewmodels.pageheading.PageHeading
 }

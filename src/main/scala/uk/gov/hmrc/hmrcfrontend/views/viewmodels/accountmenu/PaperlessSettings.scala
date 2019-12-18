@@ -14,20 +14,20 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.hmrcfrontend.views
-package html
+package uk.gov.hmrc.hmrcfrontend.views.viewmodels.accountmenu
 
-package object components extends Utils with Aliases {
+import play.api.libs.json._
+import uk.gov.hmrc.hmrcfrontend.views.viewmodels.JsonDefaultValueFormatter
 
-  /**
-   * Top-level implicits for all components
-   */
-  object implicits extends Implicits
+case class PaperlessSettings(
+                              href: String = "#"
+                            )
 
-  lazy val HmrcAccountMenu       = hmrcAccountMenu
+object PaperlessSettings extends JsonDefaultValueFormatter[PaperlessSettings] {
 
-  lazy val HmrcNotificationBadge = hmrcNotificationBadge
+  override def defaultObject: PaperlessSettings = PaperlessSettings()
 
-  lazy val HmrcPageHeading       = hmrcPageHeading
+  override def defaultReads: Reads[PaperlessSettings] = Json.reads[PaperlessSettings]
 
+  override implicit def jsonWrites: OWrites[PaperlessSettings] = Json.writes[PaperlessSettings]
 }

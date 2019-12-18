@@ -1,4 +1,4 @@
-@*
+/*
  * Copyright 2019 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,14 +12,23 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- *@
+ */
 
-@(params: PageHeading)
-@import params._
-<header class="hmrc-page-heading">
-  <h1 class="govuk-heading-xl">@text</h1>
-  @section match {
-    case Some(NonEmptyString(x)) => {<p class="govuk-caption-xl hmrc-caption-xl"><span class="govuk-visually-hidden">This section is </span>@x</p>}
-    case Some(_) | None => {}
-  }
-</header>
+package uk.gov.hmrc.hmrcfrontend.views
+package components
+
+import play.twirl.api.HtmlFormat
+import uk.gov.hmrc.hmrcfrontend.views.html.components._
+import scala.util.Try
+
+class hmrcAccountMenuSpec extends TemplateUnitSpec[AccountMenu]("hmrcAccountMenu") {
+
+  /**
+   * Calls the Twirl template with the given parameters and returns the resulting markup
+   *
+   * @param templateParams
+   * @return [[Try[HtmlFormat.Appendable]]] containing the markup
+   */
+  override def render(templateParams: AccountMenu): Try[HtmlFormat.Appendable] =
+    Try(HmrcAccountMenu(templateParams))
+}

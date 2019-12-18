@@ -14,20 +14,21 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.hmrcfrontend.views
-package html
+package uk.gov.hmrc.hmrcfrontend.views.viewmodels.accountmenu
 
-package object components extends Utils with Aliases {
+import play.api.libs.json._
+import uk.gov.hmrc.hmrcfrontend.views.viewmodels.JsonDefaultValueFormatter
 
-  /**
-   * Top-level implicits for all components
-   */
-  object implicits extends Implicits
+case class CheckProgress(
+                          href: String = "#",
+                          active: Boolean = false
+                        )
 
-  lazy val HmrcAccountMenu       = hmrcAccountMenu
+object CheckProgress extends JsonDefaultValueFormatter[CheckProgress] {
 
-  lazy val HmrcNotificationBadge = hmrcNotificationBadge
+  override def defaultObject: CheckProgress = CheckProgress()
 
-  lazy val HmrcPageHeading       = hmrcPageHeading
+  override def defaultReads: Reads[CheckProgress] = Json.reads[CheckProgress]
 
+  override implicit def jsonWrites: OWrites[CheckProgress] = Json.writes[CheckProgress]
 }
