@@ -1,4 +1,4 @@
-/*
+@*
  * Copyright 2019 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,26 +12,13 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- */
+ *@
 
-package uk.gov.hmrc.hmrcfrontend.views
-package html
+@this()
 
-package object components extends Utils with Aliases {
-
-  /**
-   * Top-level implicits for all components
-   */
-  object implicits extends Implicits
-
-  lazy val HmrcAccountMenu       = hmrcAccountMenu
-
-  lazy val HmrcBanner            = hmrcBanner
-
-  lazy val HmrcInternalHeader    = hmrcInternalHeader
-
-  lazy val HmrcNotificationBadge = hmrcNotificationBadge
-
-  lazy val HmrcPageHeading       = hmrcPageHeading
-
+@(params: NotificationBadge = NotificationBadge())
+@import params._
+@text match {
+  case NonEmptyString(x) => {<span class="hmrc-notification-badge">@x</span>}
+  case _ => {}
 }

@@ -17,12 +17,28 @@
 package uk.gov.hmrc.hmrcfrontend.views
 package html
 
-package object components extends  Utils with Aliases {
+package object components extends Utils with Aliases {
 
   /**
    * Top-level implicits for all components
    */
   object implicits extends Implicits
+
+  type HmrcAccountMenu = hmrcAccountMenu
+  @deprecated(message="Use DI", since="Play 2.6")
+  lazy val HmrcAccountMenu = new hmrcAccountMenu(HmrcNotificationBadge)
+
+  type HmrcBanner = hmrcBanner
+  @deprecated(message="Use DI", since="Play 2.6")
+  lazy val HmrcBanner = new hmrcBanner()
+
+  type HmrcInternalHeader = hmrcInternalHeader
+  @deprecated(message="Use DI", since="Play 2.6")
+  lazy val HmrcInternalHeader = new hmrcInternalHeader()
+
+  type HmrcNotificationBadge = hmrcNotificationBadge
+  @deprecated(message="Use DI", since="Play 2.6")
+  lazy val HmrcNotificationBadge = new hmrcNotificationBadge()
 
   type HmrcPageHeading = hmrcPageHeading
   @deprecated(message="Use DI", since="Play 2.6")

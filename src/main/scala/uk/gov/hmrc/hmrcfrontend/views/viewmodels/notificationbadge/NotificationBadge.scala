@@ -14,24 +14,20 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.hmrcfrontend.views
-package html
+package uk.gov.hmrc.hmrcfrontend.views.viewmodels.notificationbadge
 
-package object components extends Utils with Aliases {
+import play.api.libs.json._
+import uk.gov.hmrc.hmrcfrontend.views.viewmodels.JsonDefaultValueFormatter
 
-  /**
-   * Top-level implicits for all components
-   */
-  object implicits extends Implicits
+case class NotificationBadge(
+                              text: String = ""
+                            )
 
-  lazy val HmrcAccountMenu       = hmrcAccountMenu
+object NotificationBadge extends JsonDefaultValueFormatter[NotificationBadge] {
 
-  lazy val HmrcBanner            = hmrcBanner
+  override def defaultObject: NotificationBadge = NotificationBadge()
 
-  lazy val HmrcInternalHeader    = hmrcInternalHeader
+  override def defaultReads: Reads[NotificationBadge] = Json.reads[NotificationBadge]
 
-  lazy val HmrcNotificationBadge = hmrcNotificationBadge
-
-  lazy val HmrcPageHeading       = hmrcPageHeading
-
+  override implicit def jsonWrites: OWrites[NotificationBadge] = Json.writes[NotificationBadge]
 }

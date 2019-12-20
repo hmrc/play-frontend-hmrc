@@ -14,24 +14,20 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.hmrcfrontend.views
-package html
+package uk.gov.hmrc.hmrcfrontend.views.viewmodels.accountmenu
 
-package object components extends Utils with Aliases {
+import play.api.libs.json._
+import uk.gov.hmrc.hmrcfrontend.views.viewmodels.JsonDefaultValueFormatter
 
-  /**
-   * Top-level implicits for all components
-   */
-  object implicits extends Implicits
+case class SignOut(
+                    href: String = "#"
+                  )
 
-  lazy val HmrcAccountMenu       = hmrcAccountMenu
+object SignOut extends JsonDefaultValueFormatter[SignOut] {
 
-  lazy val HmrcBanner            = hmrcBanner
+  override def defaultObject: SignOut = SignOut()
 
-  lazy val HmrcInternalHeader    = hmrcInternalHeader
+  override def defaultReads: Reads[SignOut] = Json.reads[SignOut]
 
-  lazy val HmrcNotificationBadge = hmrcNotificationBadge
-
-  lazy val HmrcPageHeading       = hmrcPageHeading
-
+  override implicit def jsonWrites: OWrites[SignOut] = Json.writes[SignOut]
 }

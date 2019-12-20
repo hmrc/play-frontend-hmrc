@@ -14,24 +14,21 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.hmrcfrontend.views
-package html
+package uk.gov.hmrc.hmrcfrontend.views.viewmodels.accountmenu
 
-package object components extends Utils with Aliases {
+import play.api.libs.json._
+import uk.gov.hmrc.hmrcfrontend.views.viewmodels.JsonDefaultValueFormatter
 
-  /**
-   * Top-level implicits for all components
-   */
-  object implicits extends Implicits
+case class AccountHome(
+                        href: String = "#",
+                        active: Boolean = false
+                      )
 
-  lazy val HmrcAccountMenu       = hmrcAccountMenu
+object AccountHome extends JsonDefaultValueFormatter[AccountHome] {
 
-  lazy val HmrcBanner            = hmrcBanner
+  override def defaultObject: AccountHome = AccountHome()
 
-  lazy val HmrcInternalHeader    = hmrcInternalHeader
+  override def defaultReads: Reads[AccountHome] = Json.reads[AccountHome]
 
-  lazy val HmrcNotificationBadge = hmrcNotificationBadge
-
-  lazy val HmrcPageHeading       = hmrcPageHeading
-
+  override implicit def jsonWrites: OWrites[AccountHome] = Json.writes[AccountHome]
 }

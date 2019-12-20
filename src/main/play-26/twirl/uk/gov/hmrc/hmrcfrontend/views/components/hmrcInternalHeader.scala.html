@@ -1,4 +1,4 @@
-/*
+@*
  * Copyright 2019 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,26 +12,28 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- */
+ *@
 
-package uk.gov.hmrc.hmrcfrontend.views
-package html
+@this()
 
-package object components extends Utils with Aliases {
+@(params: InternalHeader)
+@import params._
 
-  /**
-   * Top-level implicits for all components
-   */
-  object implicits extends Implicits
+<header role="banner" class="hmrc-internal-header">
+  <div class="hmrc-internal-header__logo">
+    <a href="@homepageUrl" class="hmrc-internal-header__logo-link">
+      HM Revenue &amp; Customs
+    </a>
+  </div>
 
-  lazy val HmrcAccountMenu       = hmrcAccountMenu
-
-  lazy val HmrcBanner            = hmrcBanner
-
-  lazy val HmrcInternalHeader    = hmrcInternalHeader
-
-  lazy val HmrcNotificationBadge = hmrcNotificationBadge
-
-  lazy val HmrcPageHeading       = hmrcPageHeading
-
+@serviceName match {
+  case Some(NonEmptyString(x)) => {
+  <div class="hmrc-internal-header__service-name">
+    <a href="@serviceUrl" class="hmrc-internal-header__link">
+      @x
+    </a>
+  </div>
+  }
+  case _ => {}
 }
+</header>

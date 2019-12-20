@@ -22,6 +22,6 @@
   <h1 class="govuk-heading-xl">@text</h1>
   @section match {
     case Some(NonEmptyString(x)) => {<p class="govuk-caption-xl hmrc-caption-xl"><span class="govuk-visually-hidden">This section is </span>@x</p>}
-    case Some(_) | None => {}
+    case _ => {}
   }
 </header>

@@ -1,0 +1,10 @@
+
+
+
+
+@(params: NotificationBadge = NotificationBadge())
+@import params._
+@text match {
+  case NonEmptyString(x) => {<span class="hmrc-notification-badge">@x</span>}
+  case _ => {}
+}

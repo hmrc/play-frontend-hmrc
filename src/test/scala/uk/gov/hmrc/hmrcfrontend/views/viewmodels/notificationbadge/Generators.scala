@@ -14,24 +14,16 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.hmrcfrontend.views
-package html
+package uk.gov.hmrc.hmrcfrontend.views.viewmodels.notificationbadge
 
-package object components extends Utils with Aliases {
+import org.scalacheck.Arbitrary
+import uk.gov.hmrc.hmrcfrontend.views.viewmodels.Generators._
 
-  /**
-   * Top-level implicits for all components
-   */
-  object implicits extends Implicits
+object Generators {
 
-  lazy val HmrcAccountMenu       = hmrcAccountMenu
-
-  lazy val HmrcBanner            = hmrcBanner
-
-  lazy val HmrcInternalHeader    = hmrcInternalHeader
-
-  lazy val HmrcNotificationBadge = hmrcNotificationBadge
-
-  lazy val HmrcPageHeading       = hmrcPageHeading
-
+  implicit val arbNotificationBadge: Arbitrary[NotificationBadge] = Arbitrary {
+    for {
+      text <- genAlphaStr()
+    } yield NotificationBadge(text = text)
+  }
 }

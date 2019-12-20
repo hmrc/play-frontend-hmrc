@@ -14,24 +14,13 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.hmrcfrontend.views
-package html
+package uk.gov.hmrc.hmrcfrontend.views.viewmodels.language
 
-package object components extends Utils with Aliases {
+import org.scalacheck.{Arbitrary, Gen}
+import uk.gov.hmrc.hmrcfrontend.views.viewmodels.language.Language.{Cy, En}
 
-  /**
-   * Top-level implicits for all components
-   */
-  object implicits extends Implicits
+object Generators {
 
-  lazy val HmrcAccountMenu       = hmrcAccountMenu
-
-  lazy val HmrcBanner            = hmrcBanner
-
-  lazy val HmrcInternalHeader    = hmrcInternalHeader
-
-  lazy val HmrcNotificationBadge = hmrcNotificationBadge
-
-  lazy val HmrcPageHeading       = hmrcPageHeading
+  implicit val arbLanguage: Arbitrary[Language] = Arbitrary(Gen.oneOf(Cy, En))
 
 }

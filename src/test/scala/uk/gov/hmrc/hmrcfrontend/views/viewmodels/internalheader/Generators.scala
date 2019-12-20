@@ -14,24 +14,19 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.hmrcfrontend.views
-package html
+package uk.gov.hmrc.hmrcfrontend.views.viewmodels.internalheader
 
-package object components extends Utils with Aliases {
+import org.scalacheck.{Arbitrary, Gen}
 
-  /**
-   * Top-level implicits for all components
-   */
-  object implicits extends Implicits
+import uk.gov.hmrc.hmrcfrontend.views.viewmodels.Generators._
 
-  lazy val HmrcAccountMenu       = hmrcAccountMenu
+object Generators {
 
-  lazy val HmrcBanner            = hmrcBanner
-
-  lazy val HmrcInternalHeader    = hmrcInternalHeader
-
-  lazy val HmrcNotificationBadge = hmrcNotificationBadge
-
-  lazy val HmrcPageHeading       = hmrcPageHeading
-
+  implicit val arbInternalHeader: Arbitrary[InternalHeader] = Arbitrary {
+    for {
+      homepageUrl <- genAlphaStr()
+      serviceName <- Gen.option(genAlphaStr())
+      serviceUrl  <- genAlphaStr()
+    } yield InternalHeader(homepageUrl = homepageUrl, serviceName = serviceName, serviceUrl = serviceUrl)
+  }
 }
