@@ -17,10 +17,35 @@
 package uk.gov.hmrc.hmrcfrontend.views.viewmodels.language
 
 import org.scalacheck.{Arbitrary, Gen}
+import uk.gov.hmrc.hmrcfrontend.views.viewmodels.Generators._
 import uk.gov.hmrc.hmrcfrontend.views.viewmodels.language.Language.{Cy, En}
 
 object Generators {
 
   implicit val arbLanguage: Arbitrary[Language] = Arbitrary(Gen.oneOf(Cy, En))
 
+  val arbLangLinkVal: Arbitrary[(Language, String)] = Arbitrary {
+    for {
+      language  <- arbLanguage.arbitrary
+      value     <- genAlphaStr()
+    } yield (language, value)
+  }
+
+  def genLanguageLinks(nLinks: Int = 5): Gen[Array[(Language, String)]] = for {
+      sz    <- Gen.chooseNum(0, nLinks)
+      links <- Gen.listOfN[(Language, String)](sz, arbLangLinkVal.arbitrary)
+    } yield links.toArray
+
+  implicit val arbLanguageToggle: Arbitrary[LanguageToggle] = Arbitrary {
+    for {
+      links <- genLanguageLinks()
+    } yield LanguageToggle(links: _*)
+  }
+
+  implicit val arbLanguageSelect: Arbitrary[LanguageSelect] = Arbitrary {
+    for {
+      language       <- arbLanguage.arbitrary
+      languageLinks  <- genLanguageLinks()
+    } yield LanguageSelect(language = language, languageLinks = languageLinks: _*)
+  }
 }

@@ -33,14 +33,26 @@ trait Aliases {
 
   val En = viewmodels.language.Language.En
 
+  type Header = viewmodels.header.Header
+  val Header = viewmodels.header.Header
+
   type InternalHeader = viewmodels.internalheader.InternalHeader
   val InternalHeader = viewmodels.internalheader.InternalHeader
 
   type Language = viewmodels.language.Language
   val Language = viewmodels.language.Language
 
+  type LanguageSelect = viewmodels.language.LanguageSelect
+  val LanguageSelect = viewmodels.language.LanguageSelect
+
+  type LanguageToggle = viewmodels.language.LanguageToggle
+  val LanguageToggle = viewmodels.language.LanguageToggle
+
   type Messages = viewmodels.accountmenu.Messages
   val Messages = viewmodels.accountmenu.Messages
+
+  type NavigationItem = viewmodels.header.NavigationItem
+  val NavigationItem = viewmodels.header.NavigationItem
 
   type NotificationBadge = viewmodels.notificationbadge.NotificationBadge
   val NotificationBadge = viewmodels.notificationbadge.NotificationBadge

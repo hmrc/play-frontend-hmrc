@@ -15,27 +15,20 @@
  */
 
 package uk.gov.hmrc.hmrcfrontend.views
-package html
+package components
 
-package object components extends Utils with Aliases {
+import play.twirl.api.HtmlFormat
+import uk.gov.hmrc.hmrcfrontend.views.html.components._
+import scala.util.Try
+
+class hmrcLanguageSelectSpec extends TemplateUnitSpec[LanguageSelect]("hmrcLanguageSelect") {
 
   /**
-   * Top-level implicits for all components
+   * Calls the Twirl template with the given parameters and returns the resulting markup
+   *
+   * @param templateParams
+   * @return [[Try[HtmlFormat.Appendable]]] containing the markup
    */
-  object implicits extends Implicits
-
-  lazy val HmrcAccountMenu       = hmrcAccountMenu
-
-  lazy val HmrcBanner            = hmrcBanner
-
-  lazy val HmrcHeader            = hmrcHeader
-
-  lazy val HmrcInternalHeader    = hmrcInternalHeader
-
-  lazy val HmrcLanguageSelect    = hmrcLanguageSelect
-
-  lazy val HmrcNotificationBadge = hmrcNotificationBadge
-
-  lazy val HmrcPageHeading       = hmrcPageHeading
-
+  override def render(templateParams: LanguageSelect): Try[HtmlFormat.Appendable] =
+    Try(HmrcLanguageSelect(templateParams))
 }

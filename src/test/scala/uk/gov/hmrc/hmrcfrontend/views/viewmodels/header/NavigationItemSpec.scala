@@ -14,28 +14,9 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.hmrcfrontend.views
-package html
+package uk.gov.hmrc.hmrcfrontend.views.viewmodels.header
 
-package object components extends Utils with Aliases {
+import uk.gov.hmrc.hmrcfrontend.views.viewmodels.JsonRoundtripSpec
+import uk.gov.hmrc.hmrcfrontend.views.viewmodels.header.Generators._
 
-  /**
-   * Top-level implicits for all components
-   */
-  object implicits extends Implicits
-
-  lazy val HmrcAccountMenu       = hmrcAccountMenu
-
-  lazy val HmrcBanner            = hmrcBanner
-
-  lazy val HmrcHeader            = hmrcHeader
-
-  lazy val HmrcInternalHeader    = hmrcInternalHeader
-
-  lazy val HmrcLanguageSelect    = hmrcLanguageSelect
-
-  lazy val HmrcNotificationBadge = hmrcNotificationBadge
-
-  lazy val HmrcPageHeading       = hmrcPageHeading
-
-}
+class NavigationItemSpec extends JsonRoundtripSpec[NavigationItem]
