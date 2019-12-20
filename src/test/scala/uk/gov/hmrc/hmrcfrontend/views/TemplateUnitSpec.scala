@@ -24,7 +24,7 @@ import play.api.libs.json._
 import scala.util.{Failure, Success, Try}
 
 /**
-  * Base class for unit testing against test fixtures generated from govuk-frontend's yaml documentation files for
+  * Base class for unit testing against test fixtures generated from hmrc-frontend's yaml documentation files for
   * components
   *
   * @param hmrcComponentName
@@ -82,26 +82,26 @@ abstract class TemplateUnitSpec[T: Reads](hmrcComponentName: String)
   /**
     * Traverse the test fixtures directory to fetch all examples for a given component
     *
-    * @param govukComponentName govuk component name as found in the test fixtures file component.json
+    * @param hmrcComponentName hmrc component name as found in the test fixtures file component.json
     * @return [[Seq[String]]] of folder names for each example in the test fixtures folder or
     *        fails if the fixtures folder is not defined
     */
-  private def exampleNames(govukComponentName: String): Seq[String] = {
-    val exampleFolders = getExampleFolders(govukComponentName)
+  private def exampleNames(hmrcComponentName: String): Seq[String] = {
+    val exampleFolders = getExampleFolders(hmrcComponentName)
 
     val examples = exampleFolders.map(_.name)
 
     if (examples.nonEmpty) examples
-    else throw new RuntimeException(s"Couldn't find component named $govukComponentName. Spelling error?")
+    else throw new RuntimeException(s"Couldn't find component named $hmrcComponentName. Spelling error?")
   }
 
-  private def getExampleFolders(govukComponentName: String): Seq[File] = {
+  private def getExampleFolders(hmrcComponentName: String): Seq[File] = {
     def parseComponentName(json: String): Option[String] = (Json.parse(json) \ "name").asOpt[String]
 
     val componentNameFiles = fixturesDir.listRecursively.filter(_.name == "component.json")
 
     val matchingFiles =
-      componentNameFiles.filter(file => parseComponentName(file.contentAsString).contains(govukComponentName))
+      componentNameFiles.filter(file => parseComponentName(file.contentAsString).contains(hmrcComponentName))
 
     val folders = matchingFiles.map(_.parent).toSeq.distinct
 
