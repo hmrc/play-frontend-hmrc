@@ -69,6 +69,8 @@ trait Aliases {
   type SignOut = viewmodels.accountmenu.SignOut
   val SignOut = viewmodels.accountmenu.SignOut
 
+  type TimeoutDialog = viewmodels.timeoutdialog.TimeoutDialog
+  val TimeoutDialog = viewmodels.timeoutdialog.TimeoutDialog
 }
 
 object Aliases extends Aliases
