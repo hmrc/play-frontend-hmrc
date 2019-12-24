@@ -24,8 +24,8 @@ object Generators {
   implicit val arbTimeoutDialog: Arbitrary[TimeoutDialog] = Arbitrary {
     for {
       name                <- genAlphaStr()
-      timeout             <- Gen.option(Gen.nu)
-      countdown           <- Gen.option(genAlphaStr())
+      timeout             <- Gen.option(genPositiveNumber())
+      countdown           <- Gen.option(genPositiveNumber())
       keepAliveUrl        <- Gen.option(genAlphaStr())
       signOutUrl          <- Gen.option(genAlphaStr())
       title               <- Gen.option(genAlphaStr())

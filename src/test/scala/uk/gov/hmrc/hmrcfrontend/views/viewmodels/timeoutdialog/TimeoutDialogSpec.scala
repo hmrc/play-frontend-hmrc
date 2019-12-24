@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.hmrcfrontend.views.viewmodels.pageheading
+package uk.gov.hmrc.hmrcfrontend.views.viewmodels.timeoutdialog
 
 import uk.gov.hmrc.hmrcfrontend.views.viewmodels.JsonRoundtripSpec
-import uk.gov.hmrc.hmrcfrontend.views.viewmodels.pageheading.Generators._
+import uk.gov.hmrc.hmrcfrontend.views.viewmodels.timeoutdialog.Generators._
 
 class TimeoutDialogSpec extends JsonRoundtripSpec[TimeoutDialog]
