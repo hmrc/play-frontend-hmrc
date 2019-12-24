@@ -21,7 +21,7 @@ import uk.gov.hmrc.hmrcfrontend.views.viewmodels.Generators._
 
 object Generators {
 
-  implicit val arbAccordion: Arbitrary[PageHeading] = Arbitrary {
+  implicit val arbPageHeading: Arbitrary[PageHeading] = Arbitrary {
     for {
       text    <- genAlphaStr()
       section <- Gen.option(genAlphaStr())

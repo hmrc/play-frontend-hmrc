@@ -21,6 +21,8 @@ import play.twirl.api.{Html, HtmlFormat}
 
 object Generators {
 
+  def genPositiveNumber(max: Int = 25): Gen[Int] = Gen.choose(0, max)
+
   val genNonEmptyAlphaStr: Gen[String] = Gen.alphaStr.suchThat(_.nonEmpty)
 
   /**

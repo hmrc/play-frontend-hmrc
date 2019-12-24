@@ -1,0 +1,29 @@
+
+
+
+
+@(params: LanguageSelect)
+@import params._
+
+<div class="hrmc-lang-select">
+  <p class="hrmc-lang-select__content">
+  @languageToggle.linkMap.map {
+  case (lang, link) => {@if(lang == language){
+  @lang.name
+  } else {
+  <a class="govuk-link" id="@lang match {
+    case En => {switchToEnglish}
+    case Cy => {switchToWelsh}
+  }" lang="@lang.code" href="@link"
+    data-journey-click="link - click:lang-select:@lang.name">@lang.name</a>
+  }
+  }
+  }.toList match {
+    case x::Nil => {@x}
+    case x::y => {
+    @{(x::y).reduce((l, r) => Html(s"""$l\n    <span aria-hidden="true">|</span>$r"""))}
+    }
+    case _ => {}
+  }
+  </p>
+</div>

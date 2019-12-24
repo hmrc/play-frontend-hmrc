@@ -1,0 +1,25 @@
+
+
+
+
+@(params: InternalHeader)
+@import params._
+
+<header role="banner" class="hmrc-internal-header">
+  <div class="hmrc-internal-header__logo">
+    <a href="@homepageUrl" class="hmrc-internal-header__logo-link">
+      HM Revenue &amp; Customs
+    </a>
+  </div>
+
+@serviceName match {
+  case Some(NonEmptyString(x)) => {
+  <div class="hmrc-internal-header__service-name">
+    <a href="@serviceUrl" class="hmrc-internal-header__link">
+      @x
+    </a>
+  </div>
+  }
+  case _ => {}
+}
+</header>
