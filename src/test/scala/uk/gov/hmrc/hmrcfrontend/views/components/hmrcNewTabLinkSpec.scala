@@ -1,4 +1,4 @@
-@*
+/*
  * Copyright 2019 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,20 +12,24 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- *@
+ */
 
-@this()
+package uk.gov.hmrc.hmrcfrontend.views
+package components
 
-@(params: NewTabLink)
-@import params._
+import play.twirl.api.HtmlFormat
+import uk.gov.hmrc.hmrcfrontend.views.html.components._
 
-@if(!text.isEmpty) {
- <a class="@toClasses("govuk-link ", classList.getOrElse(""))" target="_blank" rel="noopener noreferrer" href="@href">
-  @text
-  @if(params.language.get == "en"){
-  (opens in a new window or tab)
- }
- @if(params.language.get == "cy"){
-  (yn agor ffenestr neu dab newydd)
- }</a>
+import scala.util.Try
+
+class hmrcNewTabLinkSpec extends TemplateUnitSpec[NewTabLink]("hmrcNewTabLink") {
+
+  /**
+   * Calls the Twirl template with the given parameters and returns the resulting markup
+   *
+   * @param templateParams
+   * @return [[Try[HtmlFormat.Appendable]]] containing the markup
+   */
+  override def render(templateParams: NewTabLink): Try[HtmlFormat.Appendable] =
+    Try(HmrcNewTabLink(templateParams))
 }

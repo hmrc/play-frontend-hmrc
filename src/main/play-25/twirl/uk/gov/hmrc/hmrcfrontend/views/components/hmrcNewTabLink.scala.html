@@ -6,12 +6,12 @@
 @import params._
 
 @if(!text.isEmpty) {
- <a class="@toClasses("govuk-link", classList:_*)" target="_blank" rel="noopener noreferrer" href="@href">
+ <a class="@toClasses("govuk-link ", classList.getOrElse(""))" target="_blank" rel="noopener noreferrer" href="@href">
   @text
-  @if(language == "en"){
+  @if(params.language.get == "en"){
   (opens in a new window or tab)
  }
- @if(language == "cy"){
+ @if(params.language.get == "cy"){
   (yn agor ffenestr neu dab newydd)
  }</a>
 }

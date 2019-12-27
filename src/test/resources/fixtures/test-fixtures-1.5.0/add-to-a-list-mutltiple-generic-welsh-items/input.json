@@ -1,0 +1,16 @@
+{
+  "language": "cy",
+  "itemList": [
+    {
+      "name": "Eitem un",
+      "changeUrl": "#c1url",
+      "removeUrl": "#r1url"
+    },
+    {
+      "name": "Eitem dau",
+      "changeUrl": "#c2url",
+      "removeUrl": "#r2url"
+    }
+  ],
+  "formAction": "#addItem"
+}

@@ -20,10 +20,10 @@ import play.api.libs.json.{Json, OWrites, Reads}
 import uk.gov.hmrc.hmrcfrontend.views.viewmodels.JsonDefaultValueFormatter
 
 case class NewTabLink(
-  text: String             = "",
-  href: Option[String]     = None,
-  language: Option[String] = None,
-  classList: Seq[String]   = Seq.empty
+  text: String              = "",
+  href: Option[String]      = None,
+  language: Option[String]  = None,
+  classList: Option[String] = None
 )
 
 object NewTabLink extends JsonDefaultValueFormatter[NewTabLink] {
