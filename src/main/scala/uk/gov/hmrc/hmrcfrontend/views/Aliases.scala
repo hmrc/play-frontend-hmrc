@@ -54,6 +54,9 @@ trait Aliases {
   type NavigationItem = viewmodels.header.NavigationItem
   val NavigationItem = viewmodels.header.NavigationItem
 
+  type NewTabLink = viewmodels.newtablink.NewTabLink
+  val NewTabLink = viewmodels.newtablink.NewTabLink
+
   type NotificationBadge = viewmodels.notificationbadge.NotificationBadge
   val NotificationBadge = viewmodels.notificationbadge.NotificationBadge
 

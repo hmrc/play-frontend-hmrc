@@ -59,4 +59,10 @@ object Generators {
       sz      <- Gen.chooseNum(0, nClasses)
       classes <- Gen.listOfN(sz, Gen.alphaStr.suchThat(_.trim.nonEmpty)).map(_.mkString(" "))
     } yield classes
+
+  def genClassesSeq(nClasses: Int = 3): Gen[Seq[String]] =
+    for {
+      sz      <- Gen.chooseNum(0, nClasses)
+      classes <- Gen.listOfN(sz, Gen.alphaStr.suchThat(_.trim.nonEmpty))
+    } yield classes
 }
