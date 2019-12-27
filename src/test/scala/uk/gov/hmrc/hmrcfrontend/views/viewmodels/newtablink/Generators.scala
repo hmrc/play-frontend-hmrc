@@ -26,7 +26,7 @@ object Generators {
       text      <- genAlphaStr()
       href      <- Gen.option(genAlphaStr())
       language  <- Gen.option(genAlphaStr())
-      classList <- genClassesSeq()
+      classList <- Gen.option(genClasses())
     } yield
       NewTabLink(
         text      = text,
