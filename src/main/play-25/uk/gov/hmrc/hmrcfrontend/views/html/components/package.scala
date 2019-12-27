@@ -20,23 +20,25 @@ package html
 package object components extends Utils with Aliases {
 
   /**
-   * Top-level implicits for all components
-   */
+    * Top-level implicits for all components
+    */
   object implicits extends Implicits
 
-  lazy val HmrcAccountMenu       = hmrcAccountMenu
+  lazy val HmrcAccountMenu = hmrcAccountMenu
 
-  lazy val HmrcBanner            = hmrcBanner
+  lazy val HmrcBanner = hmrcBanner
 
-  lazy val HmrcHeader            = hmrcHeader
+  lazy val HmrcHeader = hmrcHeader
 
-  lazy val HmrcInternalHeader    = hmrcInternalHeader
+  lazy val HmrcInternalHeader = hmrcInternalHeader
 
-  lazy val HmrcLanguageSelect    = hmrcLanguageSelect
+  lazy val HmrcLanguageSelect = hmrcLanguageSelect
+
+  lazy val HmrcNewTabLink = hmrcNewTabLink
 
   lazy val HmrcNotificationBadge = hmrcNotificationBadge
 
-  lazy val HmrcPageHeading       = hmrcPageHeading
+  lazy val HmrcPageHeading = hmrcPageHeading
 
   lazy val HmrcTimeoutDialog = hmrcTimeoutDialog
 
