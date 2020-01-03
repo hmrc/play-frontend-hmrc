@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 HM Revenue & Customs
+ * Copyright 2020 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,21 +26,21 @@ import uk.gov.hmrc.hmrcfrontend.views.viewmodels.language.LanguageToggle
 import scala.collection.immutable.SortedMap
 
 case class Header(
-                   homepageUrl: String = "/",
-                   assetsPath: String = "/assets/images",
-                   productName: Option[String] = None,
-                   serviceName: Option[String] = None,
-                   serviceUrl: String = "",
-                   navigation: Iterable[NavigationItem] = Iterable.empty,
-                   navigationClasses: String = "",
-                   containerClasses: String = "govuk-width-container",
-                   classes: String = "",
-                   attributes: Map[String, String] = Map.empty,
-                   language: Language = En,
-                   displayHmrcBanner: Boolean = false,
-                   signOutHref: Option[String] = None,
-                   private val inputLanguageToggle: Option[LanguageToggle] = None
-                 ) {
+  homepageUrl: String                                     = "/",
+  assetsPath: String                                      = "/assets/images",
+  productName: Option[String]                             = None,
+  serviceName: Option[String]                             = None,
+  serviceUrl: String                                      = "",
+  navigation: Iterable[NavigationItem]                    = Iterable.empty,
+  navigationClasses: String                               = "",
+  containerClasses: String                                = "govuk-width-container",
+  classes: String                                         = "",
+  attributes: Map[String, String]                         = Map.empty,
+  language: Language                                      = En,
+  displayHmrcBanner: Boolean                              = false,
+  signOutHref: Option[String]                             = None,
+  private val inputLanguageToggle: Option[LanguageToggle] = None
+) {
 
   // We use this method instead of using the input language toggle directly
   // as the version in `hmrc-frontend` is less flexible, and sets a default
@@ -62,24 +62,24 @@ object Header extends JsonDefaultValueFormatter[Header] {
   override def defaultReads: Reads[Header] =
     (
       (__ \ "homepageUrl").read[String] and
-      (__ \ "assetsPath").read[String] and
-      (__ \ "productName").readNullable[String] and
-      (__ \ "serviceName").readNullable[String] and
-      (__ \ "serviceUrl").read[String] and
-      (__ \ "navigation").read[Iterable[NavigationItem]] and
-      (__ \ "navigationClasses").read[String] and
-      (__ \ "containerClasses").read[String] and
-      (__ \ "classes").read[String] and
-      (__ \ "attributes").read[Map[String, String]] and
-      (__ \ "language").read[Language] and
-      (__ \ "displayHmrcBanner").read[Boolean] and
-      (__ \ "signOutHref").readNullable[String] and
-      (__ \ "languageToggle").readNullable[LanguageToggle]
+        (__ \ "assetsPath").read[String] and
+        (__ \ "productName").readNullable[String] and
+        (__ \ "serviceName").readNullable[String] and
+        (__ \ "serviceUrl").read[String] and
+        (__ \ "navigation").read[Iterable[NavigationItem]] and
+        (__ \ "navigationClasses").read[String] and
+        (__ \ "containerClasses").read[String] and
+        (__ \ "classes").read[String] and
+        (__ \ "attributes").read[Map[String, String]] and
+        (__ \ "language").read[Language] and
+        (__ \ "displayHmrcBanner").read[Boolean] and
+        (__ \ "signOutHref").readNullable[String] and
+        (__ \ "languageToggle").readNullable[LanguageToggle]
     )(Header.apply _)
 
   override implicit def jsonWrites: OWrites[Header] =
     (
-        (__ \ "homepageUrl").write[String] and
+      (__ \ "homepageUrl").write[String] and
         (__ \ "assetsPath").write[String] and
         (__ \ "productName").writeNullable[String] and
         (__ \ "serviceName").writeNullable[String] and
