@@ -23,7 +23,7 @@ import uk.gov.hmrc.hmrcfrontend.views.viewmodels.language.Language
 
 case class AccountMenu(
                         accountHome: AccountHome = AccountHome(),
-                        messages: Messages = Messages(),
+                        messages: AccountMessages = AccountMessages(),
                         checkProgress: CheckProgress = CheckProgress(),
                         paperlessSettings: PaperlessSettings = PaperlessSettings(),
                         personalDetails: PersonalDetails = PersonalDetails(),

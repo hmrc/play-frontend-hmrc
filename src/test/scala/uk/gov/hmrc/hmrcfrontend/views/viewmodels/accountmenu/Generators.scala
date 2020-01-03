@@ -39,13 +39,13 @@ object Generators {
       CheckProgress(href = href, active = active)
   }
 
-  implicit val arbMessages: Arbitrary[Messages] = Arbitrary {
+  implicit val arbMessages: Arbitrary[AccountMessages] = Arbitrary {
     for {
       href         <- genAlphaStr()
       active       <- arbBool.arbitrary
       messageCount <- Gen.option(Gen.chooseNum(0, 5))
     } yield
-      Messages(href = href, active = active, messageCount = messageCount)
+      AccountMessages(href = href, active = active, messageCount = messageCount)
   }
 
   implicit val arbPaperlessSettings: Arbitrary[PaperlessSettings] = Arbitrary {

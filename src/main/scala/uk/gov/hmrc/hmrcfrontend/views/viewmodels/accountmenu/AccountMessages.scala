@@ -16,7 +16,20 @@
 
 package uk.gov.hmrc.hmrcfrontend.views.viewmodels.accountmenu
 
-import uk.gov.hmrc.hmrcfrontend.views.viewmodels.JsonRoundtripSpec
-import uk.gov.hmrc.hmrcfrontend.views.viewmodels.accountmenu.Generators._
+import play.api.libs.json._
+import uk.gov.hmrc.hmrcfrontend.views.viewmodels.JsonDefaultValueFormatter
 
-class MessagesSpec extends JsonRoundtripSpec[Messages]
+case class AccountMessages(
+                     href: String = "#",
+                     active: Boolean = false,
+                     messageCount: Option[Int] = None
+                   )
+
+object AccountMessages extends JsonDefaultValueFormatter[AccountMessages] {
+
+  override def defaultObject: AccountMessages = AccountMessages()
+
+  override def defaultReads: Reads[AccountMessages] = Json.reads[AccountMessages]
+
+  override implicit def jsonWrites: OWrites[AccountMessages] = Json.writes[AccountMessages]
+}
