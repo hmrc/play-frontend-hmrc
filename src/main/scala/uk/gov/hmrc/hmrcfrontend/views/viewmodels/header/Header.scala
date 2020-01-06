@@ -19,28 +19,26 @@ package uk.gov.hmrc.hmrcfrontend.views.viewmodels.header
 import play.api.libs.functional.syntax._
 import play.api.libs.json._
 import uk.gov.hmrc.hmrcfrontend.views.viewmodels.JsonDefaultValueFormatter
-import uk.gov.hmrc.hmrcfrontend.views.viewmodels.language.Language
-import uk.gov.hmrc.hmrcfrontend.views.viewmodels.language.Language.{Cy, En}
-import uk.gov.hmrc.hmrcfrontend.views.viewmodels.language.LanguageToggle
+import uk.gov.hmrc.hmrcfrontend.views.viewmodels.language.{Cy, En, Language, LanguageToggle}
 
 import scala.collection.immutable.SortedMap
 
 case class Header(
-  homepageUrl: String                                     = "/",
-  assetsPath: String                                      = "/assets/images",
-  productName: Option[String]                             = None,
-  serviceName: Option[String]                             = None,
-  serviceUrl: String                                      = "",
-  navigation: Iterable[NavigationItem]                    = Iterable.empty,
-  navigationClasses: String                               = "",
-  containerClasses: String                                = "govuk-width-container",
-  classes: String                                         = "",
-  attributes: Map[String, String]                         = Map.empty,
-  language: Language                                      = En,
-  displayHmrcBanner: Boolean                              = false,
-  signOutHref: Option[String]                             = None,
-  private val inputLanguageToggle: Option[LanguageToggle] = None
-) {
+                   homepageUrl: String = "/",
+                   assetsPath: String = "/assets/images",
+                   productName: Option[String] = None,
+                   serviceName: Option[String] = None,
+                   serviceUrl: String = "",
+                   navigation: Iterable[NavigationItem] = Iterable.empty,
+                   navigationClasses: String = "",
+                   containerClasses: String = "govuk-width-container",
+                   classes: String = "",
+                   attributes: Map[String, String] = Map.empty,
+                   language: Language = En,
+                   displayHmrcBanner: Boolean = false,
+                   signOutHref: Option[String] = None,
+                   private val inputLanguageToggle: Option[LanguageToggle] = None
+                 ) {
 
   // We use this method instead of using the input language toggle directly
   // as the version in `hmrc-frontend` is less flexible, and sets a default
@@ -75,7 +73,7 @@ object Header extends JsonDefaultValueFormatter[Header] {
         (__ \ "displayHmrcBanner").read[Boolean] and
         (__ \ "signOutHref").readNullable[String] and
         (__ \ "languageToggle").readNullable[LanguageToggle]
-    )(Header.apply _)
+      ) (Header.apply _)
 
   override implicit def jsonWrites: OWrites[Header] =
     (
@@ -93,5 +91,5 @@ object Header extends JsonDefaultValueFormatter[Header] {
         (__ \ "displayHmrcBanner").write[Boolean] and
         (__ \ "signOutHref").writeNullable[String] and
         (__ \ "languageToggle").writeNullable[LanguageToggle]
-    )(header => unlift(Header.unapply)(header.copy(inputLanguageToggle = header.languageToggle)))
+      ) (header => unlift(Header.unapply)(header.copy(inputLanguageToggle = header.languageToggle)))
 }

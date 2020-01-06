@@ -21,9 +21,7 @@ import org.scalacheck.ShrinkLowPriority
 import org.scalatest.{Matchers, OptionValues, WordSpec}
 import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks
 import play.api.libs.json.Json
-import uk.gov.hmrc.hmrcfrontend.views.viewmodels.language.Language.{Cy, En}
 
-import scala.collection.immutable.SortedMap
 import scala.reflect.ClassTag
 
 // We use this customised test class as the `hmrc-frontend` Nunjucks model
@@ -44,7 +42,7 @@ class LanguageSelectSpec
   "Json reads/writes" should {
     s"do a roundtrip json serialisation of ${implicitly[ClassTag[LanguageSelect]]}" in {
       forAll { v: LanguageSelect =>
-        val linkMapWithDefaults: SortedMap[Language, String] = SortedMap(En -> "", Cy -> "") ++ v.languageToggle.linkMap
+        val linkMapWithDefaults: Map[Language, String] = Map(En -> "", Cy -> "") ++ v.languageToggle.linkMap
         Json.toJson(v).asOpt[LanguageSelect].value shouldBe LanguageSelect(v.language, linkMapWithDefaults.toArray: _*)
       }
     }

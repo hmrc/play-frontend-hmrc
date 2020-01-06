@@ -29,9 +29,9 @@ trait Aliases {
   type CheckProgress = viewmodels.accountmenu.CheckProgress
   val CheckProgress = viewmodels.accountmenu.CheckProgress
 
-  val Cy = viewmodels.language.Language.Cy
+  val Cy = viewmodels.language.Cy
 
-  val En = viewmodels.language.Language.En
+  val En = viewmodels.language.En
 
   type Header = viewmodels.header.Header
   val Header = viewmodels.header.Header
