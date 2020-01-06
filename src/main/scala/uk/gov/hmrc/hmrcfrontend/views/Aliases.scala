@@ -48,8 +48,8 @@ trait Aliases {
   type LanguageToggle = viewmodels.language.LanguageToggle
   val LanguageToggle = viewmodels.language.LanguageToggle
 
-  type Messages = viewmodels.accountmenu.AccountMessages
-  val Messages = viewmodels.accountmenu.AccountMessages
+  type AccountMessages = viewmodels.accountmenu.AccountMessages
+  val AccountMessages = viewmodels.accountmenu.AccountMessages
 
   type NavigationItem = viewmodels.header.NavigationItem
   val NavigationItem = viewmodels.header.NavigationItem
