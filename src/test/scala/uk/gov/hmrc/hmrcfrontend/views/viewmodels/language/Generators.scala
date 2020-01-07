@@ -18,7 +18,6 @@ package uk.gov.hmrc.hmrcfrontend.views.viewmodels.language
 
 import org.scalacheck.{Arbitrary, Gen}
 import uk.gov.hmrc.hmrcfrontend.views.viewmodels.Generators._
-import uk.gov.hmrc.hmrcfrontend.views.viewmodels.language.Language.{Cy, En}
 
 object Generators {
 

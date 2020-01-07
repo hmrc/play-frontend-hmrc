@@ -14,21 +14,9 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.hmrcfrontend.views.viewmodels.banner
+package uk.gov.hmrc.hmrcfrontend.views.viewmodels.language
 
-import play.api.libs.json._
-import uk.gov.hmrc.hmrcfrontend.views.viewmodels.JsonDefaultValueFormatter
-import uk.gov.hmrc.hmrcfrontend.views.viewmodels.language.{En, Language}
-
-case class Banner(
-                   language: Language = En
-                 )
-
-object Banner extends JsonDefaultValueFormatter[Banner] {
-
-  override def defaultObject: Banner = Banner()
-
-  override def defaultReads: Reads[Banner] = Json.reads[Banner]
-
-  override implicit def jsonWrites: OWrites[Banner] = Json.writes[Banner]
+case object Cy extends Language {
+  val code: String = "cy"
+  val name: String = "Cymraeg"
 }

@@ -17,10 +17,8 @@
 package uk.gov.hmrc.hmrcfrontend.views.viewmodels.language
 
 import play.api.libs.json._
-import uk.gov.hmrc.hmrcfrontend.views.viewmodels.language.Language.LanguageFormat
-import uk.gov.hmrc.hmrcfrontend.views.viewmodels.language.Language.{Cy, En}
 
-import scala.collection.immutable.SortedMap
+import uk.gov.hmrc.hmrcfrontend.views.viewmodels.language.Language.LanguageFormat
 
 case class LanguageSelect(language: Language, private val languageLinks: (Language, String)*) {
 
@@ -31,8 +29,7 @@ case class LanguageSelect(language: Language, private val languageLinks: (Langua
   // This behaviour is mirrored here both to pass the unit tests and to
   // maintain parity with `hmrc-frontend`.
   val languageToggle: LanguageToggle = {
-    val inputLangLinks = SortedMap[Language, String](languageLinks.toArray: _*)
-    val linkMapWithDefaults: SortedMap[Language, String] = SortedMap(En -> "", Cy -> "") ++ inputLangLinks
+    val linkMapWithDefaults: Map[Language, String] = Map(En -> "", Cy -> "") ++ languageLinks
     LanguageToggle(linkMapWithDefaults.toArray: _*)
   }
 

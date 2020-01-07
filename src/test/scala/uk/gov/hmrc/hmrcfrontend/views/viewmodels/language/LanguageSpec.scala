@@ -18,7 +18,6 @@ package uk.gov.hmrc.hmrcfrontend.views.viewmodels.language
 
 import uk.gov.hmrc.hmrcfrontend.views.viewmodels.JsonRoundtripSpec
 import uk.gov.hmrc.hmrcfrontend.views.viewmodels.language.Generators._
-import uk.gov.hmrc.hmrcfrontend.views.viewmodels.language.Language.{Cy, En}
 
 class LanguageSpec extends JsonRoundtripSpec[Language] {
 

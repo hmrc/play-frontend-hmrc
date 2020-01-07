@@ -21,10 +21,8 @@ import org.scalacheck.ShrinkLowPriority
 import org.scalatest.{Matchers, OptionValues, WordSpec}
 import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks
 import play.api.libs.json.Json
-import uk.gov.hmrc.hmrcfrontend.views.viewmodels.language.LanguageToggle
-import uk.gov.hmrc.hmrcfrontend.views.viewmodels.language.Language.{Cy, En}
+import uk.gov.hmrc.hmrcfrontend.views.viewmodels.language.{Cy, En, LanguageToggle}
 
-import scala.collection.immutable.SortedMap
 import scala.reflect.ClassTag
 
 // We use this customised test class as the `hmrc-frontend` Nunjucks model
@@ -46,7 +44,12 @@ class HeaderSpec
   "Json reads/writes" should {
     s"do a roundtrip json serialisation of ${implicitly[ClassTag[Header]]}" in {
       forAll { v: Header =>
-        val linkMapWithDefaults: Option[LanguageToggle] = v.languageToggle.map(x => LanguageToggle(SortedMap(En -> "", Cy -> "") ++ x.linkMap))
+        val linkMapWithDefaults: Option[LanguageToggle] = v.languageToggle.map {
+          x => {
+            val links = Map(En -> "", Cy -> "") ++ x.linkMap
+            LanguageToggle(links.toArray: _*)
+          }
+        }
         Json.toJson(v).asOpt[Header].value shouldBe v.copy(inputLanguageToggle = linkMapWithDefaults)
       }
     }
