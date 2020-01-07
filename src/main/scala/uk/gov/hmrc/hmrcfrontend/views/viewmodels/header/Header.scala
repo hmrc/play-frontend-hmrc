@@ -29,7 +29,7 @@ case class Header(
                    productName: Option[String] = None,
                    serviceName: Option[String] = None,
                    serviceUrl: String = "",
-                   navigation: Iterable[NavigationItem] = Iterable.empty,
+                   navigation: Option[Seq[NavigationItem]] = None,
                    navigationClasses: String = "",
                    containerClasses: String = "govuk-width-container",
                    classes: String = "",
@@ -64,7 +64,7 @@ object Header extends JsonDefaultValueFormatter[Header] {
         (__ \ "productName").readNullable[String] and
         (__ \ "serviceName").readNullable[String] and
         (__ \ "serviceUrl").read[String] and
-        (__ \ "navigation").read[Iterable[NavigationItem]] and
+        (__ \ "navigation").readNullable[Seq[NavigationItem]] and
         (__ \ "navigationClasses").read[String] and
         (__ \ "containerClasses").read[String] and
         (__ \ "classes").read[String] and
@@ -82,7 +82,7 @@ object Header extends JsonDefaultValueFormatter[Header] {
         (__ \ "productName").writeNullable[String] and
         (__ \ "serviceName").writeNullable[String] and
         (__ \ "serviceUrl").write[String] and
-        (__ \ "navigation").write[Iterable[NavigationItem]] and
+        (__ \ "navigation").writeNullable[Seq[NavigationItem]] and
         (__ \ "navigationClasses").write[String] and
         (__ \ "containerClasses").write[String] and
         (__ \ "classes").write[String] and
