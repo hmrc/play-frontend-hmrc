@@ -44,7 +44,7 @@ object Generators {
       productName       <- Gen.option(genAlphaStr())
       serviceName       <- Gen.option(genAlphaStr())
       serviceUrl        <- genAlphaStr()
-      navigation        <- genNavigationItems()
+      navigation        <- Gen.option(genNavigationItems())
       navigationClasses <- genAlphaStr()
       containerClasses  <- genAlphaStr()
       classes           <- genAlphaStr()
