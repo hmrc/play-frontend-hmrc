@@ -33,9 +33,9 @@ To install `node.js` via `nvm` please follow the instructions [here](https://git
 
 To start the service before running integration tests:
 ```bash
-git clone git@github.com:hmrc/template-service-spike.git
+git clone git@github.com:hmrc/x-govuk-component-renderer.git
 
-cd template-service-spike
+cd x-govuk-component-renderer
 
 npm install
 
@@ -169,7 +169,7 @@ feature, templates should not be written with backwards incompatible features on
 
 ## Useful Links
 - [x-frontend-snapshotter](https://github.com/dorightdigital/x-frontend-snapshotter) - provides static test fixtures for `govuk-frontend` and `hmrc-frontend` components in unit tests
-- [template-service-spike](https://github.com/hmrc/template-service-spike) - service that returns HTML for `govuk-frontend` and `hmrc-frontend` component input parameters in the form of JSON objects - useful for confirming Twirl HTML outputs in integration tests
+- [x-govuk-component-renderer](https://github.com/hmrc/x-govuk-component-renderer) - service that returns HTML for `govuk-frontend` and `hmrc-frontend` component input parameters in the form of JSON objects - useful for confirming Twirl HTML outputs in integration tests
 - [hmrc-frontend](https://github.com/hmrc/hmrc-frontend/) - reusable Nunjucks HTML components for HMRC design patterns
 - [HMRC Design Patterns](https://design.tax.service.gov.uk/hmrc-design-patterns/) - documentation for the use of `hmrc-frontend` components
 - [govuk-frontend](https://github.com/alphagov/govuk-frontend/) - reusable Nunjucks HTML components from GOV.UK
