@@ -18,12 +18,11 @@
 @import params._
 
 @if(!text.isEmpty) {
- <a class="@toClasses("govuk-link ", classList.getOrElse(""))" target="_blank" rel="noopener noreferrer" href="@href">
-  @text
-  @if(params.language.get == "en"){
-  (opens in a new window or tab)
+ <a class="@toClasses("govuk-link ", classList.getOrElse(""))" target="_blank" rel="noopener noreferrer" href="@href">@text@if(params.language.get == "en"){
+  (opens in a new window or tab)</a>
+ } else {
+    @if(params.language.get == "cy"){
+     (yn agor ffenestr neu dab newydd)</a>
+    } else {</a>}
  }
- @if(params.language.get == "cy"){
-  (yn agor ffenestr neu dab newydd)
- }</a>
 }
