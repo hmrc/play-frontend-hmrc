@@ -50,7 +50,7 @@
             case _ => "Messages"
             }
           ){msg =>
-                @msg@messages.messageCount.filter(_ > 0).map{x => @hmrcNotificationBadge(NotificationBadge(x.toString))}.getOrElse{}</a>
+                @msg@messages.messageCount.filter(_ > 0).map{x =>@hmrcNotificationBadge(NotificationBadge(x.toString))}.getOrElse{}</a>
           }
     </li>
 
