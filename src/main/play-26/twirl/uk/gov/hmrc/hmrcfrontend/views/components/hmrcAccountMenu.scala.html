@@ -45,13 +45,15 @@
     </li>
 
     <li>
-      <a href="@messages.href" class="hmrc-account-menu__link@if(messages.active) { hmrc-account-menu__link--active} else {}">
-          @language match {
-            case Cy => {Negeseuon}
-            case _ => {Messages}
+      <a href="@messages.href"
+        class="hmrc-account-menu__link@if(messages.active) { hmrc-account-menu__link--active} else {}">@defining(
+            language match {
+            case Cy => "Negeseuon"
+            case _ => "Messages"
+            }
+          ){msg =>
+                @msg@messages.messageCount.filter(_ > 0).map{x => @hmrcNotificationBadge(NotificationBadge(x.toString))}.getOrElse{}</a>
           }
-          @messages.messageCount.filter(_ > 0).map{x => @hmrcNotificationBadge(NotificationBadge(x.toString))}.getOrElse{}
-      </a>
     </li>
 
     <li>
