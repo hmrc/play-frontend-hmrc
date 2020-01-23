@@ -16,26 +16,23 @@ The suite of unit tests runs against a set of test fixtures with data extracted 
 for each component. The yaml examples are used in `govuk-frontend`'s own unit test suite. 
 
 The test fixtures are generated from the release of `govuk-frontend` [used in the library](#sbt-dependencies). 
-A script [TODO: document script] generates the fixtures which are manually included in the resources directory under `src/test/resources/fixtures/`.
+A script in [x-frontend-snapshotter](https://github.com/dorightdigital/x-frontend-snapshotter) generates the fixtures which are manually pasted into the `src/test/resources/fixtures/` directory.
 The unit tests will pick up the fixtures folder matching the version of `govuk-frontend` in the dependencies.
 
-_Future work: Unit testing the library using a fixed set of test data provides only very basic coverage. if we can improve 
-the test coverage via generative testing described on the next section, we could discard the test fixtures completely._ 
 
-### Generative Testing
+### Integration Tests (Generative Testing)
 
 To ensure (as much as possible) that the implemented templates conform to the `govuk-frontend` templates, we use generative
 testing, via `scalacheck`, to compare the `Twirl` templates output against the `Nunjucks` `govuk-frontend` templates.
  
-The tests run against a `node.js` service used to render the `govuk-frontend` `Nunjucks` templates,
-so you'll need to install it first.
-To install `node.js` via `nvm` please follow the instructions [here](https://github.com/nvm-sh/nvm#installation-and-update).
+These tests run against a `node.js` based [service](https://github.com/hmrc/x-govuk-component-renderer) which renders the `govuk-frontend` `Nunjucks` templates as Hmtl snippets.
+In order to run these tests locally this service will need to be run manually. 
 
 To start the service before running integration tests:
 ```bash
-git clone git@github.com:hmrc/template-service-spike.git
+git clone git@github.com:hmrc/x-govuk-component-renderer.git
 
-cd template-service-spike
+cd x-govuk-component-renderer
 
 npm install
 
@@ -46,6 +43,9 @@ Once the service is started on port 3000, you can run the integration tests:
 ```sbt
 sbt it:test
 ```
+
+Due to the manual way of running the external service the integration tests do not run during the build process. 
+In order to incorporate these tests in the Jenkins build, there is ongoing [effort](https://jira.tools.tax.service.gov.uk/browse/PBD-2085) to start the external service in a sidecar and have the generative tests run against it.
 
 _Note: The integration tests output produces a bit of noise as the library outputs statistics about the generators to check
 the distribution of the test cases. More information about collecting statistics on generators [here](https://github.com/typelevel/scalacheck/blob/master/doc/UserGuide.md#collecting-generated-test-data)._
@@ -172,7 +172,7 @@ feature, templates should not be written with backwards incompatible features on
 
 ## Useful Links
 - [x-frontend-snapshotter](https://github.com/dorightdigital/x-frontend-snapshotter) - provides static test fixtures for `govuk-frontend` and `hmrc-frontend` components in unit tests
-- [template-service-spike](https://github.com/hmrc/template-service-spike) - service that returns HTML for `govuk-frontend` and `hmrc-frontend` component input parameters in the form of JSON objects - useful for confirming Twirl HTML outputs in integration tests
+- [x-govuk-component-renderer](https://github.com/hmrc/x-govuk-component-renderer) - service that returns HTML for `govuk-frontend` and `hmrc-frontend` component input parameters in the form of JSON objects - useful for confirming Twirl HTML outputs in integration tests
 - [govuk-frontend](https://github.com/alphagov/govuk-frontend/) - reusable Nunjucks HTML components from GOV.UK
 - [GOV.UK Design System](https://design-system.service.gov.uk/components/) - documentation for the use of `govuk-frontend` components
 - [hmrc-frontend](https://github.com/hmrc/hmrc-frontend/) - reusable Nunjucks HTML components for HMRC design patterns
