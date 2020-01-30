@@ -8,7 +8,7 @@
  - Input `govuk-frontend` and select the relevant version from the dropdown
  - Hit `Deploy!`
 2. Bump webjar [dependency](https://github.com/alphagov/govuk-frontend/tags) for `govuk-frontend` in `build.sbt`.
-3. Generate and copy fixtures folder to test/resources/fixtures (this won't be necessary when we implement generative testing to increase test coverage).
+3. Generate and copy fixtures folder to test/resources/fixtures.
    - Follow `Usage` steps in [x-frontend-snapshotter](https://github.com/dorightdigital/x-frontend-snapshotter)
    - Extract the contents of zip file `test-fixtures-[version-number].tar.gz` created in `target` and copy these to test/resources/fixtures/test-fixtures-[version-number] in this repo.
 4. Run unit tests: `sbt clean test`.
@@ -19,7 +19,7 @@ Since some of the components have dependencies, it is easier to start upgrading 
 
 ![components-horizontal](/docs/images/govuk-components-horiz.svg)
 
-We should first look at the components for which tests failed. It is also important to verify that there are no changes in the other components which were not flagged up by failing tests. Again, this situation might be mitigated by increasing test coverage with generative testing.
+We should first look at the components for which tests failed. It is unlikely that there are any changes in components for which tests dont fail, but a cursory verification of this in the diff would not hurt. If ever this is the case a missing test spec is more likely the reason.
 
 #### Examining Components for Failed Tests
  
