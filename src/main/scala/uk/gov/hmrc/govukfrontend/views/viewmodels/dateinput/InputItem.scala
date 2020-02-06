@@ -28,8 +28,6 @@ final case class InputItem(
   autocomplete: Option[String]    = None,
   pattern: Option[String]         = None,
   classes: String                 = "",
-  inputType: String               = "",
-  inputmode: String               = "",
   attributes: Map[String, String] = Map.empty
 )
 
@@ -46,8 +44,6 @@ object InputItem extends JsonDefaultValueFormatter[InputItem] {
         (__ \ "autocomplete").readNullable[String] and
         (__ \ "pattern").readNullable[String] and
         (__ \ "classes").read[String] and
-        (__ \ "inputType").read[String] and
-        (__ \ "inputmode").read[String] and
         (__ \ "attributes").read[Map[String, String]]
     )(InputItem.apply _)
 
@@ -60,8 +56,6 @@ object InputItem extends JsonDefaultValueFormatter[InputItem] {
         (__ \ "autocomplete").writeNullable[String] and
         (__ \ "pattern").writeNullable[String] and
         (__ \ "classes").write[String] and
-        (__ \ "inputType").write[String] and
-        (__ \ "inputmode").write[String] and
         (__ \ "attributes").write[Map[String, String]]
     )(unlift(InputItem.unapply))
 

@@ -25,7 +25,7 @@ import scala.util.Try
 
 object govukDateInputIntegrationSpec
     extends TemplateIntegrationSpec[DateInput](
-      govukComponentName = "dateInputItems",
+      govukComponentName = "govukDateInput",
       seed               = None) {
 
   override def render(dateInput: DateInput): Try[HtmlFormat.Appendable] =
