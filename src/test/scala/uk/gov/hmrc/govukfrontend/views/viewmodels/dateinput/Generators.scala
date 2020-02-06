@@ -48,7 +48,7 @@ object Generators {
 
   implicit val arbDateInput: Arbitrary[DateInput] = Arbitrary {
     for {
-      id               <- genNonEmptyAlphaStr.map(Some(_))
+      id               <- genNonEmptyAlphaStr
       namePrefix       <- genNonEmptyAlphaStr.map(Some(_))
       n                <- Gen.chooseNum(0, 5)
       items            <- Gen.option(Gen.listOfN(n, arbInputItem.arbitrary))
