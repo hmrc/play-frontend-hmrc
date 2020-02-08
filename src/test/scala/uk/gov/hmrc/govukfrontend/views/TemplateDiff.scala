@@ -31,7 +31,7 @@ object TemplateDiff {
     * @param diffFilePrefix
     */
   def templateDiffPath(twirlOutputHtml: String, nunJucksOutputHtml: String, diffFilePrefix: Option[String] = None): Path = {
-    val diffResult = diffWrapper.diff(twirlOutputHtml, nunJucksOutputHtml)
+    val diffResult = diffWrapper.diff(nunJucksOutputHtml, twirlOutputHtml)
     val path       = diffWrapper.diffToHtml(diff = diffResult.asScala, diffFilePrefix = diffFilePrefix)
     path
   }

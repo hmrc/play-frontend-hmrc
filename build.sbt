@@ -99,7 +99,7 @@ lazy val libDependencies: Seq[ModuleID] = dependencies(
       "com.typesafe.play" %% "play"            % playRevision,
       "com.typesafe.play" %% "filters-helpers" % playRevision,
       "org.joda"          % "joda-convert"     % "2.0.2",
-      "org.webjars.npm"   % "govuk-frontend"   % "3.4.0"
+      "org.webjars.npm"   % "govuk-frontend"   % "3.5.0"
     )
 
     val test = Seq(

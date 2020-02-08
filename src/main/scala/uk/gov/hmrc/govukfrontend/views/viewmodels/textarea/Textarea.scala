@@ -35,8 +35,9 @@ case class Textarea(
   formGroupClasses: String           = "",
   classes: String                    = "",
   autocomplete: Option[String]       = None,
-  attributes: Map[String, String]    = Map.empty
-)
+  attributes: Map[String, String]    = Map.empty,
+  countMessageClasses: String        = "")
+
 
 object Textarea extends JsonDefaultValueFormatter[Textarea] {
 
@@ -55,7 +56,8 @@ object Textarea extends JsonDefaultValueFormatter[Textarea] {
         readsFormGroupClasses and
         (__ \ "classes").read[String] and
         (__ \ "autocomplete").readNullable[String] and
-        (__ \ "attributes").read[Map[String, String]]
+        (__ \ "attributes").read[Map[String, String]] and
+        readsCountMessageClasses
     )(Textarea.apply _)
 
   override implicit def jsonWrites: OWrites[Textarea] =
@@ -71,7 +73,8 @@ object Textarea extends JsonDefaultValueFormatter[Textarea] {
         writesFormGroupClasses and
         (__ \ "classes").write[String] and
         (__ \ "autocomplete").writeNullable[String] and
-        (__ \ "attributes").write[Map[String, String]]
+        (__ \ "attributes").write[Map[String, String]] and
+        writesCountMessageClasses
     )(unlift(Textarea.unapply))
 
 }

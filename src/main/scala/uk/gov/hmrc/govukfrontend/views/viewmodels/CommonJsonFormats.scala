@@ -28,6 +28,14 @@ object CommonJsonFormats {
       Json.obj("formGroup" -> Json.obj("classes" -> classes))
   }
 
+  val readsCountMessageClasses: Reads[String] =
+    (__ \ "countMessage" \ "classes").read[String].orElse(Reads.pure(""))
+
+  val writesCountMessageClasses: OWrites[String] = new OWrites[String] {
+    override def writes(classes: String): JsObject =
+      Json.obj("countMessage" -> Json.obj("classes" -> classes))
+  }
+
   val readsConditionalHtml: Reads[Option[Html]] =
     (__ \ "conditional" \ "html").readNullable[String].map(_.map(Html(_))).orElse(Reads.pure(None))
 

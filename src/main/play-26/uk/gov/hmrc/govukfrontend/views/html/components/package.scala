@@ -110,7 +110,7 @@ package object components extends  Utils with Aliases with Layouts with Helpers 
 
   type GovukCharacterCount = govukCharacterCount
   @deprecated(message="Use DI", since="Play 2.6")
-  val GovukCharacterCount = new govukCharacterCount(GovukTextarea)
+  val GovukCharacterCount = new govukCharacterCount(GovukTextarea, GovukHint)
 
   type GovukCheckboxes = govukCheckboxes
   @deprecated(message="Use DI", since="Play 2.6")

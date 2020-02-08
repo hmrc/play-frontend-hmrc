@@ -29,12 +29,12 @@ case class DiffWrapper(differ: DiffMatchPatch) {
   /**
     * Compute the diff between two strings
     *
-    * @param s first [[String]]
-    * @param t second [[String]]
+    * @param expected first [[String]]
+    * @param actual second [[String]]
     * @return [[util.LinkedList[DiffMatchPatch.Diff]]]
     */
-  def diff(s: String, t: String): util.LinkedList[DiffMatchPatch.Diff] = {
-    val diffResult = differ.diffMain(s, t)
+  def diff(expected: String, actual: String): util.LinkedList[DiffMatchPatch.Diff] = {
+    val diffResult = differ.diffMain(expected, actual)
     val _          = differ.diffCleanupSemantic(diffResult)
     diffResult
   }

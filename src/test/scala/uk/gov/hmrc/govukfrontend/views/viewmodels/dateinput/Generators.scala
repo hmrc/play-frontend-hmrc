@@ -51,7 +51,7 @@ object Generators {
       id               <- genNonEmptyAlphaStr.map(Some(_))
       namePrefix       <- genNonEmptyAlphaStr.map(Some(_))
       n                <- Gen.chooseNum(0, 5)
-      items            <- Gen.option(Gen.listOfN(n, arbInputItem.arbitrary))
+      items            <- Gen.listOfN(n, arbInputItem.arbitrary)
       hint             <- Gen.option(arbHint.arbitrary)
       errorMessage     <- Gen.option(arbErrorMessage.arbitrary)
       formGroupClasses <- genClasses()

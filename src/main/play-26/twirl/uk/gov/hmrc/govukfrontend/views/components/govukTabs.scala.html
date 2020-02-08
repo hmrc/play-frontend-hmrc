@@ -23,7 +23,7 @@
     @HtmlFormat.escape(title)
   </h2>
 
-  @items.map { items =>
+  @if(items.nonEmpty) {
     <ul class="govuk-tabs__list">
       @for((item, index) <- items.zip(Stream from 1)) {
         <li class="@toClasses("govuk-tabs__list-item", "govuk-tabs__list-item--selected".when(index == 1))">

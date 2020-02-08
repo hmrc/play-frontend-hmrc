@@ -38,7 +38,8 @@ case class CharacterCount(
   errorMessage: Option[ErrorMessage] = None,
   formGroupClasses: String           = "",
   classes: String                    = "",
-  attributes: Map[String, String]    = Map.empty)
+  attributes: Map[String, String]    = Map.empty,
+  countMessageClasses: String        = "")
 
 object CharacterCount extends JsonDefaultValueFormatter[CharacterCount] {
 
@@ -58,7 +59,8 @@ object CharacterCount extends JsonDefaultValueFormatter[CharacterCount] {
         (__ \ "errorMessage").readNullable[ErrorMessage] and
         readsFormGroupClasses and
         (__ \ "classes").read[String] and
-        (__ \ "attributes").read[Map[String, String]]
+        (__ \ "attributes").read[Map[String, String]] and
+        readsCountMessageClasses
     )(CharacterCount.apply _)
 
   override implicit def jsonWrites: OWrites[CharacterCount] =
@@ -75,7 +77,8 @@ object CharacterCount extends JsonDefaultValueFormatter[CharacterCount] {
         (__ \ "errorMessage").writeNullable[ErrorMessage] and
         writesFormGroupClasses and
         (__ \ "classes").write[String] and
-        (__ \ "attributes").write[Map[String, String]]
+        (__ \ "attributes").write[Map[String, String]] and
+        writesCountMessageClasses
     )(unlift(CharacterCount.unapply))
 
 }

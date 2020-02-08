@@ -44,7 +44,7 @@ object Generators {
       idPrefix   <- Gen.option(genAlphaStr())
       title      <- genAlphaStr()
       n          <- Gen.chooseNum(0, 5)
-      items      <- Gen.option(Gen.listOfN(n, arbTabItem.arbitrary))
+      items      <- Gen.listOfN(n, arbTabItem.arbitrary)
       classes    <- genClasses()
       attributes <- genAttributes()
     } yield Tabs(id = id, idPrefix = idPrefix, title = title, items = items, classes = classes, attributes = attributes)

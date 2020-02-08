@@ -20,46 +20,48 @@
 @import params._
 <footer class="govuk-footer @classes" role="contentinfo"@toAttributes(attributes)>
   <div class="govuk-width-container @containerClasses">
-    @navigation.map { navigation =>
-      <div class="govuk-footer__navigation">
-        @for(nav <- navigation) {
-          <div class="govuk-footer__section">
-            <h2 class="govuk-footer__heading govuk-heading-m">@nav.title</h2>
-            @nav.items.map { navItems =>
-              <ul class="govuk-footer__list @if(nav.columns.exists(_ > 0)) { govuk-footer__list--columns-@nav.columns}">
-                @for(item <- navItems) {
-                  @(item.href, item.text) match {
-                    case (Some(NonEmptyString(itemHref)), Some(NonEmptyString(itemText))) => {
-                      <li class="govuk-footer__list-item">
-                        <a class="govuk-footer__link" href="@itemHref"@toAttributes(item.attributes)>
-                        @itemText
-                        </a>
-                      </li>
+      @if(navigation.nonEmpty){
+        <div class="govuk-footer__navigation">
+          @for(nav <- navigation) {
+            <div class="govuk-footer__section">
+              <h2 class="govuk-footer__heading govuk-heading-m">@nav.title</h2>
+                @if(nav.items.nonEmpty) {
+                  <ul class="govuk-footer__list @if(nav.columns.exists(_ > 0)) { govuk-footer__list--columns-@nav.columns}">
+                  @for(item <- nav.items) {
+                    @(item.href, item.text) match {
+                      case (Some(NonEmptyString(itemHref)), Some(NonEmptyString(itemText))) => {
+                        <li class="govuk-footer__list-item">
+                          <a class="govuk-footer__link" href="@itemHref"@toAttributes(item.attributes)>
+                          @itemText
+                          </a>
+                        </li>
+                      }
+                      case _ => {}
                     }
-                    case _ => {}
                   }
+                  </ul>
                 }
-              </ul>
-            }
-          </div>
-        }
-      </div>
-      <hr class="govuk-footer__section-break">
-    }
+            </div>
+          }
+        </div>
+        <hr class="govuk-footer__section-break">
+      }
     <div class="govuk-footer__meta">
       <div class="govuk-footer__meta-item govuk-footer__meta-item--grow">
         @meta.map { meta =>
           <h2 class="govuk-visually-hidden">@HtmlFormat.escape(meta.visuallyHiddenTitle.getOrElse("Support links"))</h2>
           @meta.items.map { metaItems =>
+          @if(metaItems.nonEmpty) {
             <ul class="govuk-footer__inline-list">
-              @for(item <- metaItems) {
-                <li class="govuk-footer__inline-list-item">
-                  <a class="govuk-footer__link" href="@item.href"@toAttributes(item.attributes)>
-                    @item.text
-                  </a>
-                </li>
-              }
+            @for(item <- metaItems) {
+              <li class="govuk-footer__inline-list-item">
+                <a class="govuk-footer__link" href="@item.href"@toAttributes(item.attributes)>
+                @item.text
+                </a>
+              </li>
+            }
             </ul>
+          }
           }
           @if(meta.content.nonEmpty) {
             <div class="govuk-footer__meta-custom">

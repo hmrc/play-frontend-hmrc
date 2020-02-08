@@ -85,7 +85,7 @@
           @if(hasHint(item)) {
             @govukHint(Hint(
               id = Some(itemHintId(item, index)),
-              classes = "govuk-checkboxes__hint",
+              classes = toClasses("govuk-checkboxes__hint", item.hint.map(_.classes).getOrElse("")),
               attributes = item.hint.map(_.attributes).getOrElse(Map.empty),
               content = item.hint.map(_.content).getOrElse(Empty)
             ))

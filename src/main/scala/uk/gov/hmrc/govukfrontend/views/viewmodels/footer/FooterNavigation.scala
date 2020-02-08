@@ -20,11 +20,9 @@ import play.api.libs.json._
 import uk.gov.hmrc.govukfrontend.views.viewmodels.JsonDefaultValueFormatter
 
 final case class FooterNavigation(
-  title: Option[String]          = None,
-  columns: Option[Int]           = None,
-  //FIXME Option[Seq[T]] is used to represent the 3 possible types of values of javascript arrays: undefined, non-empty array, and empty array
-  // once https://github.com/alphagov/govuk-frontend/issues/1618 is solved we can think of a better type
-  items: Option[Seq[FooterItem]] = None
+  title: Option[String] = None,
+  columns: Option[Int]  = None,
+  items: Seq[FooterItem] = Seq.empty
 )
 
 object FooterNavigation extends JsonDefaultValueFormatter[FooterNavigation] {

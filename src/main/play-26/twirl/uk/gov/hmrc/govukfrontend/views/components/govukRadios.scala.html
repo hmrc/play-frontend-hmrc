@@ -94,7 +94,7 @@
                   @if(hasHint) {
                     @govukHint(Hint(
                       id = Some(itemHintId),
-                      classes = "govuk-radios__hint",
+                      classes = toClasses("govuk-radios__hint", item.hint.map(_.classes).getOrElse("")),
                       attributes = item.hint.map(_.attributes).getOrElse(Map.empty),
                       content = item.hint.map(_.content).getOrElse(Empty)
                     ))
