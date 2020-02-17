@@ -20,14 +20,14 @@
 @import params._
 <footer class="govuk-footer @classes" role="contentinfo"@toAttributes(attributes)>
   <div class="govuk-width-container @containerClasses">
-      @if(navigation.nonEmpty){
+      @if(navigation.nonEmpty && navigation.get.nonEmpty){
         <div class="govuk-footer__navigation">
-          @for(nav <- navigation) {
+          @for(nav <- navigation.get) {
             <div class="govuk-footer__section">
               <h2 class="govuk-footer__heading govuk-heading-m">@nav.title</h2>
-                @if(nav.items.nonEmpty) {
+                @if(nav.items.nonEmpty && nav.items.get.nonEmpty) {
                   <ul class="govuk-footer__list @if(nav.columns.exists(_ > 0)) { govuk-footer__list--columns-@nav.columns}">
-                  @for(item <- nav.items) {
+                  @for(item <- nav.items.get) {
                     @(item.href, item.text) match {
                       case (Some(NonEmptyString(itemHref)), Some(NonEmptyString(itemText))) => {
                         <li class="govuk-footer__list-item">

@@ -23,9 +23,9 @@
     @HtmlFormat.escape(title)
   </h2>
 
-  @if(items.nonEmpty) {
+  @if(items.nonEmpty && items.get.nonEmpty) {
     <ul class="govuk-tabs__list">
-      @for((item, index) <- items.zip(Stream from 1)) {
+      @for((item, index) <- items.get.zip(Stream from 1)) {
         <li class="@toClasses("govuk-tabs__list-item", "govuk-tabs__list-item--selected".when(index == 1))">
           <a class="govuk-tabs__tab" href="#@itemId(item, index)"@toAttributes(item.attributes)>
             @HtmlFormat.escape(item.label)
@@ -35,7 +35,7 @@
     </ul>
 
 
-    @for((item, index) <- items.zip(Stream from 1)) {
+    @for((item, index) <- items.get.zip(Stream from 1)) {
       <section class="@toClasses("govuk-tabs__panel", "govuk-tabs__panel--hidden".when(index > 1))" id="@itemId(item, index)"@toAttributes(item.panel.attributes)>
         @item.panel.content.asHtml
       </section>
