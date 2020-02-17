@@ -25,7 +25,6 @@
           @for(nav <- navigation) {
             <div class="govuk-footer__section">
               <h2 class="govuk-footer__heading govuk-heading-m">@nav.title</h2>
-
                 @if(nav.items.nonEmpty && nav.items.get.nonEmpty) {
                   <ul class="govuk-footer__list @if(nav.columns.exists(_ > 0)) { govuk-footer__list--columns-@nav.columns}">
                   @for(item <- nav.items.get) {
