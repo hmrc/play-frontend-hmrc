@@ -21,7 +21,7 @@ import play.api.libs.json._
 import uk.gov.hmrc.govukfrontend.views.viewmodels.JsonDefaultValueFormatter
 
 case class Footer(
-  meta: Option[Meta] = None,
+  meta: Option[Meta]                = None,
   navigation: Seq[FooterNavigation] = Seq.empty,
   containerClasses: String          = "",
   classes: String                   = "",
