@@ -18,8 +18,7 @@
 
 @(params: DateInput)
 @import params._
-@require(id.exists(_.nonEmpty), "id should not be empty")
-@require(if (items.nonEmpty) items.forall(_.name.nonEmpty) else true, "all item.names should be defined")
+@require(if (items.nonEmpty) items.exists(_.forall(_.name.nonEmpty)) else true, "all item.names should be defined")
 @defining(innerHtmlSnippet) { case (describedBy, innerHtml) =>
   <div class="@toClasses("govuk-form-group", errorMessage.fold("")(_ => "govuk-form-group--error"), formGroupClasses)">
     @fieldset.fold(innerHtml) { fieldset =>
@@ -36,15 +35,11 @@
 }
 
 @dateInputItems = @{
-  if(items.nonEmpty){
-        items
-  }
-  else { Seq(
-    InputItem(name = "day", classes = "govuk-input--width-2"),
-    InputItem(name = "month", classes = "govuk-input--width-2"),
-    InputItem(name = "year", classes = "govuk-input--width-4")
-    )
-  }
+    items.filter(_.nonEmpty).getOrElse(Seq(
+        InputItem(name = "day", classes = "govuk-input--width-2"),
+        InputItem(name = "month", classes = "govuk-input--width-2"),
+        InputItem(name = "year", classes = "govuk-input--width-4")
+    ))
 }
 
 @hintSnippet(describedBy: String) = @{
