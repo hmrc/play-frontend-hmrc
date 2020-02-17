@@ -21,7 +21,7 @@ import play.api.libs.functional.syntax._
 import play.api.libs.json._
 
 final case class InputItem(
-  id: Option[String]              = None,
+  id: String                     = "",
   name: String                    = "",
   label: Option[String]           = None,
   value: Option[String]           = None,
@@ -37,7 +37,7 @@ object InputItem extends JsonDefaultValueFormatter[InputItem] {
 
   override def defaultReads: Reads[InputItem] =
     (
-      (__ \ "id").readNullable[String] and
+      (__ \ "id").read[String] and
         (__ \ "name").read[String] and
         (__ \ "label").readNullable[String] and
         (__ \ "value").readNullable[String] and
@@ -49,7 +49,7 @@ object InputItem extends JsonDefaultValueFormatter[InputItem] {
 
   override implicit def jsonWrites: OWrites[InputItem] =
     (
-      (__ \ "id").writeNullable[String] and
+      (__ \ "id").write[String] and
         (__ \ "name").write[String] and
         (__ \ "label").writeNullable[String] and
         (__ \ "value").writeNullable[String] and

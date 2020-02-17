@@ -26,7 +26,7 @@ object Generators {
 
   implicit val arbInputItem: Arbitrary[InputItem] = Arbitrary {
     for {
-      id           <- Gen.option(genAlphaStr(5))
+      id           <- genAlphaStr(5)
       name         <- genNonEmptyAlphaStr
       label        <- Gen.option(genAlphaStr())
       value        <- Gen.option(genAlphaStr())
@@ -48,10 +48,10 @@ object Generators {
 
   implicit val arbDateInput: Arbitrary[DateInput] = Arbitrary {
     for {
-      id               <- genNonEmptyAlphaStr.map(Some(_))
+      id               <- genNonEmptyAlphaStr
       namePrefix       <- genNonEmptyAlphaStr.map(Some(_))
       n                <- Gen.chooseNum(0, 5)
-      items            <- Gen.option(Gen.listOfN(n, arbInputItem.arbitrary))
+      items            <- Gen.listOfN(n, arbInputItem.arbitrary)
       hint             <- Gen.option(arbHint.arbitrary)
       errorMessage     <- Gen.option(arbErrorMessage.arbitrary)
       formGroupClasses <- genClasses()

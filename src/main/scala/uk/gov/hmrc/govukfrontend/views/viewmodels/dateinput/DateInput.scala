@@ -23,9 +23,9 @@ import uk.gov.hmrc.govukfrontend.views.viewmodels.CommonJsonFormats._
 import uk.gov.hmrc.govukfrontend.views.viewmodels.JsonDefaultValueFormatter
 
 case class DateInput(
-  id: Option[String]                 = None,
+  id: String                         = "",
   namePrefix: Option[String]         = None,
-  items: Option[Seq[InputItem]]      = None,
+  items: Seq[InputItem]              = Seq.empty,
   hint: Option[Hint]                 = None,
   errorMessage: Option[ErrorMessage] = None,
   formGroupClasses: String           = "",
@@ -40,9 +40,9 @@ object DateInput extends JsonDefaultValueFormatter[DateInput] {
 
   override def defaultReads: Reads[DateInput] =
     (
-      (__ \ "id").readNullable[String] and
+      (__ \ "id").read[String] and
         (__ \ "namePrefix").readNullable[String] and
-        (__ \ "items").readNullable[Seq[InputItem]] and
+        (__ \ "items").read[Seq[InputItem]] and
         (__ \ "hint").readNullable[Hint] and
         (__ \ "errorMessage").readNullable[ErrorMessage] and
         readsFormGroupClasses and
@@ -53,9 +53,9 @@ object DateInput extends JsonDefaultValueFormatter[DateInput] {
 
   override implicit def jsonWrites: OWrites[DateInput] =
     (
-      (__ \ "id").writeNullable[String] and
+      (__ \ "id").write[String] and
         (__ \ "namePrefix").writeNullable[String] and
-        (__ \ "items").writeNullable[Seq[InputItem]] and
+        (__ \ "items").write[Seq[InputItem]] and
         (__ \ "hint").writeNullable[Hint] and
         (__ \ "errorMessage").writeNullable[ErrorMessage] and
         writesFormGroupClasses and
