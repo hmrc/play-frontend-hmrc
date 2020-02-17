@@ -52,7 +52,7 @@ object Generators {
     for {
       meta             <- Gen.option(arbMeta.arbitrary)
       n                <- Gen.chooseNum(0, 5)
-      navigation       <- Gen.listOfN(n, arbFooterNavigation.arbitrary)
+      navigation       <- Gen.option(Gen.listOfN(n, arbFooterNavigation.arbitrary))
       containerClasses <- genClasses()
       classes          <- genClasses()
       attributes       <- genAttributes()
