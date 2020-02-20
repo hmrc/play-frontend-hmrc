@@ -20,15 +20,9 @@ import play.api.libs.json._
 import uk.gov.hmrc.govukfrontend.views.viewmodels.JsonDefaultValueFormatter
 
 final case class FooterNavigation(
-<<<<<<< HEAD
   title: Option[String]          = None,
   columns: Option[Int]           = None,
   items: Option[Seq[FooterItem]] = None
-=======
-  title: Option[String] = None,
-  columns: Option[Int]  = None,
-  items: Seq[FooterItem] = Seq.empty
->>>>>>> PlatUI-361A: Fixed Footer template, removed unnecessary Options
 )
 
 object FooterNavigation extends JsonDefaultValueFormatter[FooterNavigation] {

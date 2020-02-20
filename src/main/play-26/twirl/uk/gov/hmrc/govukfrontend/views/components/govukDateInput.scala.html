@@ -36,11 +36,14 @@
 }
 
 @dateInputItems = @{
-    items.filter(_.nonEmpty).getOrElse(Seq(
+  if(items.nonEmpty){
+    items
+  }
+  else{Seq(
         InputItem(name = "day", classes = "govuk-input--width-2"),
         InputItem(name = "month", classes = "govuk-input--width-2"),
         InputItem(name = "year", classes = "govuk-input--width-4")
-    ))
+  )}
 }
 
 @hintSnippet(describedBy: String) = @{
@@ -75,7 +78,7 @@
 }
 
 @divSnippet = {
-  <div class="@toClasses("govuk-date-input", classes)"@toAttributes(attributes)id="@id">
+  <div class="@toClasses("govuk-date-input", classes)"@toAttributes(attributes) id="@id">
     @for(item <- dateInputItems) {
       <div class="govuk-date-input__item">
         @govukInput(Input(

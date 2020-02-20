@@ -21,19 +21,11 @@ import play.api.libs.json._
 import uk.gov.hmrc.govukfrontend.views.viewmodels.JsonDefaultValueFormatter
 
 case class Footer(
-<<<<<<< HEAD
   meta: Option[Meta]                        = None,
   navigation: Option[Seq[FooterNavigation]] = None,
   containerClasses: String                  = "",
   classes: String                           = "",
   attributes: Map[String, String]           = Map.empty
-=======
-  meta: Option[Meta] = None,
-  navigation: Seq[FooterNavigation] = Seq.empty,
-  containerClasses: String          = "",
-  classes: String                   = "",
-  attributes: Map[String, String]   = Map.empty
->>>>>>> PlatUI-361A: Fixed Footer template, removed unnecessary Options
 )
 
 object Footer extends JsonDefaultValueFormatter[Footer] {
@@ -43,7 +35,7 @@ object Footer extends JsonDefaultValueFormatter[Footer] {
   override def defaultReads: Reads[Footer] =
     (
       (__ \ "meta").readNullable[Meta] and
-        (__ \ "navigation").read[Seq[FooterNavigation]] and
+        (__ \ "navigation").readNullable[Seq[FooterNavigation]] and
         (__ \ "containerClasses").read[String] and
         (__ \ "classes").read[String] and
         (__ \ "attributes").read[Map[String, String]]
@@ -52,7 +44,7 @@ object Footer extends JsonDefaultValueFormatter[Footer] {
   override implicit def jsonWrites: OWrites[Footer] =
     (
       (__ \ "meta").writeNullable[Meta] and
-        (__ \ "navigation").write[Seq[FooterNavigation]] and
+        (__ \ "navigation").writeNullable[Seq[FooterNavigation]] and
         (__ \ "containerClasses").write[String] and
         (__ \ "classes").write[String] and
         (__ \ "attributes").write[Map[String, String]]
