@@ -39,7 +39,7 @@ libraryDependencies += "uk.gov.hmrc" %% "play-frontend-govuk" % "x.y.z-play-26"
 
 2>  Add SASS assets to app/assets/stylesheets in application.scss to inherit / extend GovUk style assets / elements, e.g.:
 ```
-$govuk-assets-path: "/play-mtp-twirl-frontend/assets/lib/govuk-frontend/govuk/assets/";
+$govuk-assets-path: "/<your-project-context-root>/assets/lib/govuk-frontend/govuk/assets/";
 
 @import "lib/govuk-frontend/govuk/all";
 
@@ -48,6 +48,7 @@ $govuk-assets-path: "/play-mtp-twirl-frontend/assets/lib/govuk-frontend/govuk/as
   font-weight: bold;
 }
 ```
+Ensure [sbt-sassify](https://github.com/irundaia/sbt-sassify) is added to plugins.sbt
 
 3>  Add govuk-frontend routing redirection in app.routes:
 ```scala
@@ -169,6 +170,8 @@ $govuk-assets-path: "/play-mtp-frontend/assets/lib/govuk-frontend/govuk/assets/"
 }
 ```
 Please note that the /play-mtp-frontend/ in $govuk-assets-path is the context root path of the frontend using the library.
+
+A reference implementation can be found in [play-mtp-twirl-frontend](https://github.com/hmrc/play-mtp-twirl-frontend)
 
 ## Usage
 
