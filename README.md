@@ -70,6 +70,8 @@ $hmrc-assets-path: "/app-name-here/assets/lib/hmrc-frontend/hmrc/assets/";
     bodyEndBlock = Some(scripts()))(contentBlock)
 ```
 
+A reference implementation can be found in [play-mtp-twirl-frontend](https://github.com/hmrc/play-mtp-twirl-frontend)
+
 ### Using hmrc-frontend Components in Twirl
 
 To use the [hmrc-frontend](https://github.com/hmrc/hmrc-frontend/) `Twirl` [components](https://github.com/hmrc/play-frontend-hmrc/blob/master/src/main/play-26/uk/gov/hmrc/hmrcfrontend/views/html/components/package.scala) 
