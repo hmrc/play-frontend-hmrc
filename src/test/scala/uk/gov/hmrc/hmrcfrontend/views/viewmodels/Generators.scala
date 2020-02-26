@@ -38,7 +38,7 @@ object Generators {
     value <- Gen.alphaStr
   } yield (attr, value)
 
-  def genAttributes(nAttributes: Int = 5) =
+  def genAttributes(nAttributes: Int = 15) =
     for {
       sz         <- Gen.chooseNum(0, nAttributes)
       attributes <- Gen.mapOfN[String, String](sz, genAttrVal)
@@ -54,13 +54,13 @@ object Generators {
     } yield html
   }
 
-  def genClasses(nClasses: Int = 3): Gen[String] =
+  def genClasses(nClasses: Int = 15): Gen[String] =
     for {
       sz      <- Gen.chooseNum(0, nClasses)
       classes <- Gen.listOfN(sz, Gen.alphaStr.suchThat(_.trim.nonEmpty)).map(_.mkString(" "))
     } yield classes
 
-  def genClassesSeq(nClasses: Int = 3): Gen[Seq[String]] =
+  def genClassesSeq(nClasses: Int = 15): Gen[Seq[String]] =
     for {
       sz      <- Gen.chooseNum(0, nClasses)
       classes <- Gen.listOfN(sz, Gen.alphaStr.suchThat(_.trim.nonEmpty))
