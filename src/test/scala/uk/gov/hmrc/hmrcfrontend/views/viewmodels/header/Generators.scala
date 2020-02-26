@@ -32,7 +32,7 @@ object Generators {
     } yield NavigationItem(text = text, href = href, active = active, attributes = attributes)
   }
 
-  def genNavigationItems(n: Int = 5): Gen[List[NavigationItem]] = for {
+  def genNavigationItems(n: Int = 15): Gen[List[NavigationItem]] = for {
     sz    <- Gen.chooseNum(0, n)
     items <- Gen.listOfN[NavigationItem](sz, arbNavigationItem.arbitrary)
   } yield items
@@ -44,7 +44,7 @@ object Generators {
       productName       <- Gen.option(genAlphaStr())
       serviceName       <- Gen.option(genAlphaStr())
       serviceUrl        <- genAlphaStr()
-      navigation        <- Gen.option(genNavigationItems(20))
+      navigation        <- Gen.option(genNavigationItems())
       navigationClasses <- genAlphaStr()
       containerClasses  <- genAlphaStr()
       classes           <- genAlphaStr()
