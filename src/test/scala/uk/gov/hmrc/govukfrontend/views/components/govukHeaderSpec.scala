@@ -23,9 +23,6 @@ import scala.util.Try
 
 class govukHeaderSpec extends TemplateUnitSpec[Header]("govukHeader") {
 
-  override def preProcess(html: String): String =
-    (super.preProcess _ andThen HeaderPreProcessor.preProcess)(html)
-
   "header" should {
     "have a role of banner" in {
       val component = GovukHeader(Header()).select(".govuk-header")

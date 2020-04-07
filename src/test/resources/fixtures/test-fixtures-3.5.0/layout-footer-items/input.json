@@ -1,0 +1,19 @@
+{
+  "pageTitle": "Custom title",
+  "head": "\n  <link href=\"custom-stylesheet.css\" rel=\"stylesheet\">\n",
+  "beforeContent": "<p>Customised before content, <a class=\"govuk-link\" href=\"#\">this is a link</a>.",
+  "header": "<header role=\"banner\">Custom header</header>",
+  "content": "<h1 class=\"govuk-heading-xl\">Customised page template</h1>",
+  "footerItems": [
+    {
+      "href": "/help",
+      "text": "Help"
+    },
+    {
+      "href": "/help/cookies",
+      "text": "Cookies"
+    }
+  ],
+  "scripts": "<script src=\"custom-script.js\"></script>",
+  "bodyEnd": "<script src=\"custom-script-2.js\"></script>"
+}

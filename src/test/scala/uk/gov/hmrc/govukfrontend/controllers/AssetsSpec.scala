@@ -34,7 +34,7 @@ class AssetsSpec extends PlaySpec with Results with GuiceOneAppPerTest {
 
   "Asset controller " must {
     "serve an asset in the public assets folder" in {
-      status(route(app, FakeRequest("GET", "/assets/assets/images/favicon.ico")).get) must be(200)
+      status(route(app, FakeRequest("GET", "/assets/images/favicon.ico")).get) must be(200)
     }
   }
 

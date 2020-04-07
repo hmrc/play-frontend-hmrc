@@ -28,8 +28,4 @@ object govukHeaderIntegrationSpec
 
   override def render(header: Header): Try[HtmlFormat.Appendable] =
     Try(GovukHeader(header))
-
-  override def preProcess(html: String): String =
-    (super.preProcess _ andThen HeaderPreProcessor.preProcess)(html)
-
 }
