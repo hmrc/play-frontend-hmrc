@@ -19,6 +19,8 @@ package uk.gov.hmrc.govukfrontend.views.viewmodels
 import play.api.libs.json._
 import play.twirl.api.Html
 
+import scala.collection.Seq
+
 object CommonJsonFormats {
   val readsFormGroupClasses: Reads[String] =
     (__ \ "formGroup" \ "classes").read[String].orElse(Reads.pure(""))
@@ -34,6 +36,17 @@ object CommonJsonFormats {
   val writesCountMessageClasses: OWrites[String] = new OWrites[String] {
     override def writes(classes: String): JsObject =
       Json.obj("countMessage" -> Json.obj("classes" -> classes))
+  }
+
+  implicit val htmlWrites: Writes[Html] = new Writes[Html] {
+    def writes(o: Html): JsString = JsString(o.body)
+  }
+
+  implicit val htmlReads: Reads[Html] = new Reads[Html] {
+    def reads(json: JsValue): JsResult[Html] = json match {
+      case JsString(s) => JsSuccess(Html(s))
+      case _           => JsError(Seq(JsPath -> Seq(JsonValidationError("error.expected.jsstring"))))
+    }
   }
 
   val readsConditionalHtml: Reads[Option[Html]] =

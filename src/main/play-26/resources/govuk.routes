@@ -1,1 +1,1 @@
-GET        /assets/*file        uk.gov.hmrc.govukfrontend.controllers.Assets.at(path="/public/lib/govuk-frontend/govuk", file)
+GET        /assets/*file        uk.gov.hmrc.govukfrontend.controllers.Assets.at(path="/public/lib/govuk-frontend/govuk/assets", file)
