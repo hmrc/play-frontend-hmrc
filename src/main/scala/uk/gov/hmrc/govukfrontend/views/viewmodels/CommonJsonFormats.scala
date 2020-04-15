@@ -45,7 +45,7 @@ object CommonJsonFormats {
   implicit val htmlReads: Reads[Html] = new Reads[Html] {
     def reads(json: JsValue): JsResult[Html] = json match {
       case JsString(s) => JsSuccess(Html(s))
-      case _           => JsError(Seq(JsPath -> Seq(JsonValidationError("error.expected.jsstring"))))
+      case _ => JsError("error.expected.jsstring")
     }
   }
 

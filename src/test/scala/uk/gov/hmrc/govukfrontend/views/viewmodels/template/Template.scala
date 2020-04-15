@@ -17,7 +17,7 @@
 package uk.gov.hmrc.govukfrontend.views.viewmodels.template
 import uk.gov.hmrc.govukfrontend.views.viewmodels.CommonJsonFormats._
 
-import play.api.libs.json.{JsError, JsPath, JsResult, JsString, JsSuccess, JsValue, Json, JsonValidationError, OWrites, Reads, Writes}
+import play.api.libs.json.{Json, OWrites, Reads}
 import play.twirl.api.Html
 
 final case class Template(
