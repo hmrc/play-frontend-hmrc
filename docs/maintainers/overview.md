@@ -44,11 +44,12 @@ Once the service is started on port 3000, you can run the integration tests:
 sbt it:test
 ```
 
-Due to the manual way of running the external service the integration tests do not run during the build process. 
-In order to incorporate these tests in the Jenkins build, there is ongoing [effort](https://jira.tools.tax.service.gov.uk/browse/PBD-2085) to start the external service in a sidecar and have the generative tests run against it.
-
 _Note: The integration tests output produces a bit of noise as the library outputs statistics about the generators to check
 the distribution of the test cases. More information about collecting statistics on generators [here](https://github.com/typelevel/scalacheck/blob/master/doc/UserGuide.md#collecting-generated-test-data)._
+
+The integration tests are automatically run as part of the build and publish pipeline with the component renderer 
+run as a sidecar. For this reason, it's important to merge any changes to the component renderer before merging corresponding
+changes to the library.
 
 #### Reproducing Failures (Deterministic Testing)
 In case of a test failure, the test reporter outputs a `org.scalacheck.rng.Seed` encoded in Base-64 that can be passed back to the failing test to reproduce it.
@@ -67,6 +68,18 @@ the Twirl template output and the `new` file was the Nunjucks template output (e
 
 ```scala
 Diff between Twirl and Nunjucks outputs (please open diff HTML file in a browser): file:///Users/foo/dev/hmrc/play-frontend-govuk/target/govukBackLink-diff-2b99bb2a-98d4-48dc-8088-06bfe3008021.html
+```
+
+### Running all tests for all supported Scala and Play versions
+
+Prior to merging to master, it is a good idea to run all the tests against all supported versions of Scala and Play.
+These checks will also be performed automatically as part of the build pipeline before publishing.
+
+To achieve this, run:
+
+```bash
+PLAY_VERSION=2.5 sbt clean +test +it:test && \
+PLAY_VERSION=2.6 sbt clean +test +it:test
 ```
 
 ## Upgrading
