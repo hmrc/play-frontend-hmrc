@@ -40,7 +40,10 @@
   <ul class="hmrc-account-menu__main js-hidden">
     <li class="hmrc-account-menu__link--back hidden" aria-hidden="true">
       <a href="#" tabindex="-1" class="hmrc-account-menu__link">
-        Back
+        @language match {
+          case Cy => {Yn ôl}
+          case _ => {Back}
+        }
       </a>
     </li>
 

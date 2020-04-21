@@ -59,4 +59,8 @@ package object components extends Utils with Aliases {
   type HmrcTimeoutDialog = hmrcTimeoutDialog
   @deprecated(message="Use DI", since="Play 2.6")
   lazy val HmrcTimeoutDialog = new hmrcTimeoutDialog()
+
+  type HmrcReportTechnicalIssue = hmrcReportTechnicalIssue
+  @deprecated(message="Use DI", since="Play 2.6")
+  lazy val HmrcReportTechnicalIssue = new hmrcReportTechnicalIssue()
 }

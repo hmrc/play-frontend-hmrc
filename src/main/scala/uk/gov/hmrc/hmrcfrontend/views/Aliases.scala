@@ -74,6 +74,9 @@ trait Aliases {
 
   type TimeoutDialog = viewmodels.timeoutdialog.TimeoutDialog
   val TimeoutDialog = viewmodels.timeoutdialog.TimeoutDialog
+
+  type ReportTechnicalIssue = viewmodels.reporttechnicalissue.ReportTechnicalIssue
+  val ReportTechnicalIssue = viewmodels.reporttechnicalissue.ReportTechnicalIssue
 }
 
 object Aliases extends Aliases

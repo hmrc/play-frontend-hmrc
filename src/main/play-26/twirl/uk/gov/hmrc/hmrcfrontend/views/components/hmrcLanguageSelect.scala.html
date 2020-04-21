@@ -19,25 +19,35 @@
 @(params: LanguageSelect)
 @import params._
 
-<div class="hrmc-lang-select">
-  <p class="hrmc-lang-select__content">
-  @languageToggle.linkMap.map {
-  case (lang, link) => {@if(lang == language){
-  @lang.name
-  } else {
-  <a class="govuk-link" id="@lang match {
-    case En => {switchToEnglish}
-    case Cy => {switchToWelsh}
-  }" lang="@lang.code" href="@link"
-    data-journey-click="link - click:lang-select:@lang.name">@lang.name</a>
-  }
-  }
-  }.toList match {
-    case x::Nil => {@x}
-    case x::y => {
-    @{(x::y).reduce((l, r) => Html(s"""$l\n    <span aria-hidden="true">|</span>$r"""))}
+<nav class="hmrc-language-select"
+     aria-label="@if(language.code == "cy"){Switcher iaith} else {Language switcher}"
+>
+  <ul class="hmrc-language-select__list">
+    @languageToggle.linkMap.map {
+      case (lang, link) => {
+        @if(lang == language){
+          <li class="hmrc-language-select__list-item">
+            <span aria-current="true">@lang.name</span>
+          </li>
+        } else {
+          <li class="hmrc-language-select__list-item">
+            <a href="@link"
+               hreflang="@lang.code"
+               lang="@lang.code"
+               rel="alternate"
+               class="govuk-link"
+               data-journey-click="link - click:lang-select:@lang.name"
+            >
+              <span class="govuk-visually-hidden">@if(lang.code == "cy"){
+                Newid yr iaith ir Gymraeg
+              } else {
+                Change the language to English
+              }</span>
+              <span aria-hidden="true">@lang.name</span>
+            </a>
+          </li>
+        }
+      }
     }
-    case _ => {}
-  }
-  </p>
-</div>
+  </ul>
+</nav>
