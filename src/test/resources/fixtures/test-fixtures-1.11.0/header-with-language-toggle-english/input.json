@@ -1,0 +1,12 @@
+{
+  "serviceName": "Example Service",
+  "language": "en",
+  "languageToggle": {
+    "en": {
+      "href": "/components/header/with-language-toggle-english/preview"
+    },
+    "cy": {
+      "href": "/components/header/with-language-toggle-welsh/preview"
+    }
+  }
+}
