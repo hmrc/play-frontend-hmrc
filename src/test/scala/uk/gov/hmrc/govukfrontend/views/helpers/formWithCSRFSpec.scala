@@ -17,18 +17,87 @@
 package uk.gov.hmrc.govukfrontend.views.helpers
 
 import org.scalatest.{Matchers, WordSpec}
-import play.api.mvc.Call
-import play.twirl.api.HtmlFormat
+import play.api.mvc.{AnyContentAsEmpty, Call}
+import play.api.test.FakeRequest
+import play.twirl.api.{Html, HtmlFormat}
 import uk.gov.hmrc.govukfrontend.views.html.components._
 import uk.gov.hmrc.govukfrontend.views.{JsoupHelpers, MessagesHelpers}
 
 class formWithCSRFSpec extends WordSpec with Matchers with JsoupHelpers with MessagesHelpers with CSRFSpec {
   "formWithCSRF" should {
-    "add a CSRF token as a hidden field in the form" in {
-      val rendered = FormWithCSRF.apply(Call("GET", "/someUrl"))(HtmlFormat.empty)
+    val postAction = Call(method = "POST", url = "/the-post-url")
 
-      rendered.select("input").attr("type") shouldBe "hidden"
-      rendered.select("input").attr("name") shouldBe "csrfToken"
+    "render with the correct action attribute" in {
+      val form =
+        FormWithCSRF.apply(action = postAction)(HtmlFormat.empty)
+          .select("form")
+
+      form.attr("action") shouldBe "/the-post-url"
+    }
+
+    "render with the correct action including a fragment" in {
+      val form =
+        FormWithCSRF.apply(action = postAction.withFragment("tab"))(HtmlFormat.empty)
+          .select("form")
+
+      form.attr("action") shouldBe "/the-post-url#tab"
+    }
+
+    "render with the correct method" in {
+      val getCall = Call(method = "GET", url = "/the-post-url")
+
+      val form =
+        FormWithCSRF.apply(action = getCall)(HtmlFormat.empty)
+          .select("form")
+
+      form.attr("method") shouldBe "GET"
+    }
+
+    "render the passed attributes" in {
+      val form =
+        FormWithCSRF.apply(action = postAction, 'attribute1 -> "value1")(HtmlFormat.empty)
+          .select("form")
+
+      form.attr("attribute1") shouldBe "value1"
+    }
+
+    "render multiple attributes" in {
+      val form =
+        FormWithCSRF.apply(action = postAction, 'attribute1 -> "value1", 'attribute2 -> "value2")(HtmlFormat.empty)
+          .select("form")
+
+      form.attr("attribute1") shouldBe "value1"
+      form.attr("attribute2") shouldBe "value2"
+    }
+
+    "render the contents of the form" in {
+      val content = Html("<p>Content</p>")
+      val form =
+        FormWithCSRF.apply(action = postAction)(content)
+          .select("p")
+
+      form.outerHtml shouldBe "<p>Content</p>"
+    }
+
+    "not render the CSRF token if the request does not contain the token" in {
+      implicit val request: FakeRequest[AnyContentAsEmpty.type] = FakeRequest()
+      val form =
+        FormWithCSRF.apply(action = postAction)(HtmlFormat.empty)
+
+      val input = form.select("input")
+      input.size shouldBe 0
+    }
+
+    "render the CSRF token" in {
+      val form =
+        FormWithCSRF.apply(action = postAction)(HtmlFormat.empty)
+
+      val input = form.select("input")
+      input.size shouldBe 1
+
+      input.attr("type")         shouldBe "hidden"
+      input.attr("name")         shouldBe "csrfToken"
+      input.attr("value").length should be > 0
     }
   }
 }
