@@ -36,9 +36,9 @@
 
 
     @for((item, index) <- items.zip(Stream from 1)) {
-      <section class="@toClasses("govuk-tabs__panel", "govuk-tabs__panel--hidden".when(index > 1))" id="@itemId(item, index)"@toAttributes(item.panel.attributes)>
+      <div class="@toClasses("govuk-tabs__panel", "govuk-tabs__panel--hidden".when(index > 1))" id="@itemId(item, index)"@toAttributes(item.panel.attributes)>
         @item.panel.content.asHtml
-      </section>
+      </div>
     }
   }
 </div>
