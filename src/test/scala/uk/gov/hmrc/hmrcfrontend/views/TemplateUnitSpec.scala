@@ -39,33 +39,35 @@ abstract class TemplateUnitSpec[T: Reads](hmrcComponentName: String)
     with Matchers
     with TryValues {
 
-  exampleNames(hmrcComponentName)
-    .foreach { exampleName =>
-    s"$exampleName" should {
-      "render the same html as the nunjucks renderer" in {
-        val tryTwirlHtml = renderExample(exampleName)
+  exampleNames(fixturesDirs, hmrcComponentName)
+    .foreach { fixtureDirExampleName =>
+      val (fixtureDir, exampleName) = fixtureDirExampleName
 
-        tryTwirlHtml match {
-          case Success(twirlHtml) =>
-            val preProcessedTwirlHtml    = preProcess(twirlHtml)
-            val preProcessedNunjucksHtml = preProcess(nunjucksHtml(exampleName).success.value)
+      s"$exampleName" should {
+        "render the same html as the nunjucks renderer" in {
+          val tryTwirlHtml = renderExample(fixtureDir, exampleName)
 
-            preProcessedTwirlHtml shouldBe preProcessedNunjucksHtml
-          case Failure(TemplateValidationException(message)) =>
-            println(s"Failed to validate the parameters for the $hmrcComponentName template")
-            println(s"Exception: $message")
-            println(s"Skipping test $exampleName")
+          tryTwirlHtml match {
+            case Success(twirlHtml) =>
+              val preProcessedTwirlHtml    = preProcess(twirlHtml)
+              val preProcessedNunjucksHtml = preProcess(nunjucksHtml(fixtureDir, exampleName).success.value)
 
-            succeed
-          case Failure(exception) => fail(exception)
+              preProcessedTwirlHtml shouldBe preProcessedNunjucksHtml
+            case Failure(TemplateValidationException(message)) =>
+              println(s"Failed to validate the parameters for the $hmrcComponentName template")
+              println(s"Exception: $message")
+              println(s"Skipping test $exampleName")
+
+              succeed
+            case Failure(exception) => fail(exception)
+          }
         }
       }
     }
-  }
 
-  private def renderExample(exampleName: String): Try[String] =
+  private def renderExample(fixturesDir: File, exampleName: String): Try[String] =
     for {
-      inputJson    <- Try(readInputJson(exampleName))
+      inputJson    <- Try(readInputJson(fixturesDir, exampleName))
       inputJsValue <- Try(Json.parse(inputJson))
       html <- inputJsValue.validate[T] match {
                case JsSuccess(templateParams, _) =>
@@ -76,8 +78,8 @@ abstract class TemplateUnitSpec[T: Reads](hmrcComponentName: String)
              }
     } yield html
 
-  private def nunjucksHtml(exampleName: String): Try[String] =
-    Try(readOutputFile(exampleName))
+  private def nunjucksHtml(fixturesDir: File, exampleName: String): Try[String] =
+    Try(readOutputFile(fixturesDir, exampleName))
 
   /**
     * Traverse the test fixtures directory to fetch all examples for a given component
@@ -86,16 +88,20 @@ abstract class TemplateUnitSpec[T: Reads](hmrcComponentName: String)
     * @return [[Seq[String]]] of folder names for each example in the test fixtures folder or
     *        fails if the fixtures folder is not defined
     */
-  private def exampleNames(hmrcComponentName: String): Seq[String] = {
-    val exampleFolders = getExampleFolders(hmrcComponentName)
+  private def exampleNames(fixturesDirs: Seq[File], hmrcComponentName: String): Seq[(File, String)] = {
+    val exampleFolders = fixturesDirs.flatMap(
+      fixtureDir =>
+        getExampleFolders(fixtureDir, hmrcComponentName).map(
+          exampleDir => (fixtureDir, exampleDir)
+        ))
 
-    val examples = exampleFolders.map(_.name)
+    val examples = for ((fixtureDir, exampleDir) <- exampleFolders) yield (fixtureDir, exampleDir.name)
 
     if (examples.nonEmpty) examples
     else throw new RuntimeException(s"Couldn't find component named $hmrcComponentName. Spelling error?")
   }
 
-  private def getExampleFolders(hmrcComponentName: String): Seq[File] = {
+  private def getExampleFolders(fixturesDir: File, hmrcComponentName: String): Seq[File] = {
     def parseComponentName(json: String): Option[String] = (Json.parse(json) \ "name").asOpt[String]
 
     val componentNameFiles = fixturesDir.listRecursively.filter(_.name == "component.json")
@@ -108,15 +114,17 @@ abstract class TemplateUnitSpec[T: Reads](hmrcComponentName: String)
     folders
   }
 
-  private lazy val fixturesDir: File = {
-    val dir = s"/fixtures/test-fixtures-$hmrcFrontendVersion"
-    Try(File(Resource.my.getUrl(dir)))
+  private lazy val fixturesDirs: Seq[File] = {
+    val dir = s"/fixtures"
+    val fixturesDir = Try(File(Resource.my.getUrl(dir)))
       .getOrElse(throw new RuntimeException(s"Test fixtures folder not found: $dir"))
+
+    fixturesDir.children.toSeq
   }
 
-  private def readOutputFile(exampleName: String): String =
+  private def readOutputFile(fixturesDir: File, exampleName: String): String =
     (fixturesDir / exampleName / "output.html").contentAsString
 
-  private def readInputJson(exampleName: String): String =
+  private def readInputJson(fixturesDir: File, exampleName: String): String =
     (fixturesDir / exampleName / "input.json").contentAsString
 }

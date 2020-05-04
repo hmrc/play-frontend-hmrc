@@ -14,25 +14,28 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.hmrcfrontend.views.viewmodels.content
+package uk.gov.hmrc.hmrcfrontend.views.viewmodels.label
 
+import org.scalacheck.Arbitrary.arbBool
 import org.scalacheck.{Arbitrary, Gen}
-import uk.gov.hmrc.govukfrontend.views.viewmodels.content.{Content, Empty, HtmlContent, Text}
+import uk.gov.hmrc.govukfrontend.views.viewmodels.label.Label
 import uk.gov.hmrc.hmrcfrontend.views.viewmodels.Generators._
+import uk.gov.hmrc.hmrcfrontend.views.viewmodels.content.Generators._
 
 object Generators {
-
-  implicit val arbEmpty: Arbitrary[Empty.type] = Arbitrary { Gen.const(Empty) }
-
-  implicit val arbHtmlContent: Arbitrary[HtmlContent] = Arbitrary {
-    arbHtml.arbitrary.map(HtmlContent(_))
-  }
-
-  implicit val arbText: Arbitrary[Text] = Arbitrary {
-    Gen.frequency((80, Gen.asciiPrintableStr), (20, genHtmlString)).map(Text)
-  }
-
-  implicit val arbContent: Arbitrary[Content] = Arbitrary {
-    Gen.oneOf(arbEmpty.arbitrary, arbHtmlContent.arbitrary, arbText.arbitrary)
+  implicit val arbLabel: Arbitrary[Label] = Arbitrary {
+    for {
+      forAttr <- Gen.option(genAlphaStr())
+      isPageHeading <- arbBool.arbitrary
+      classes <- genClasses()
+      attributes <- genAttributes()
+      content <- arbContent.arbitrary
+    } yield
+      Label(
+        forAttr = forAttr,
+        isPageHeading = isPageHeading,
+        classes = classes,
+        attributes = attributes,
+        content = content)
   }
 }

@@ -99,7 +99,7 @@ lazy val libDependencies: Seq[ModuleID] = dependencies(
       "com.typesafe.play" %% "play"            % playRevision,
       "com.typesafe.play" %% "filters-helpers" % playRevision,
       "org.joda"          % "joda-convert"     % "2.0.2",
-      "org.webjars.npm"   % "hmrc-frontend"    % "1.11.0"
+      "org.webjars.npm"   % "hmrc-frontend"    % "1.12.0"
     )
 
     val test = Seq(
@@ -118,16 +118,26 @@ lazy val libDependencies: Seq[ModuleID] = dependencies(
     compile ++ test
   },
   play25 = {
+    val compile = Seq(
+      "uk.gov.hmrc" %% "play-frontend-govuk" % "0.43.0-play-25"
+    )
+
     val test = Seq(
       "org.scalatestplus.play" %% "scalatestplus-play" % "2.0.1"
     ).map(_ % Test)
-    test
+
+    compile ++ test
   },
   play26 = {
+    val compile = Seq(
+      "uk.gov.hmrc" %% "play-frontend-govuk" % "0.43.0-play-26"
+    )
+
     val test = Seq(
       "org.scalatestplus.play" %% "scalatestplus-play" % "3.1.2"
-    )
-    test
+    ).map(_ % Test)
+
+    compile ++ test
   }
 )
 

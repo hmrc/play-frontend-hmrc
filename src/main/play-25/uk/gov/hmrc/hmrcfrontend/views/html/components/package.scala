@@ -43,4 +43,7 @@ package object components extends Utils with Aliases {
   lazy val HmrcTimeoutDialog = hmrcTimeoutDialog
 
   lazy val HmrcReportTechnicalIssue = hmrcReportTechnicalIssue
+
+  lazy val HmrcCurrencyInput = hmrcCurrencyInput
+
 }
