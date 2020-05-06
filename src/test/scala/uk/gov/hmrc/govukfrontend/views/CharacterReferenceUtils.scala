@@ -15,21 +15,20 @@
  */
 
 package uk.gov.hmrc.govukfrontend.views
-package components
 
-import play.twirl.api.HtmlFormat
-import uk.gov.hmrc.govukfrontend.views.viewmodels.charactercount.CharacterCount
-import uk.gov.hmrc.govukfrontend.views.html.components._
-import scala.util.Try
+object CharacterReferenceUtils {
+  private val hexReferenceRegex = "&#x([0-9A-F]+);".r
 
-class govukCharacterCountSpec extends TemplateUnitSpec[CharacterCount]("govukCharacterCount") {
+  private def decimalReference(value: Int) = s"&#$value;"
+
+  private def hexToInt(value: String) = Integer.parseInt(value, 16)
+
   /**
-    * Calls the Twirl template with the given parameters and returns the resulting markup
+    * Converts a string containing hex character references to decimal character references
     *
-    * @param params
-    * @return [[Try[HtmlFormat.Appendable]]] containing the markup
+    * @param value
+    * @return
     */
-  override def render(params: CharacterCount): Try[HtmlFormat.Appendable] = {
-    Try(GovukCharacterCount(params))
-  }
+  def toDecimal(value: String): String =
+    hexReferenceRegex.replaceAllIn(value, matchValue => decimalReference(hexToInt(matchValue.group(1))))
 }

@@ -18,7 +18,7 @@ package uk.gov.hmrc.govukfrontend.views
 
 import com.googlecode.htmlcompressor.compressor.HtmlCompressor
 import com.googlecode.htmlcompressor.compressor.HtmlCompressor._
-import org.jsoup.parser.Parser
+import CharacterReferenceUtils._
 
 trait PreProcessor {
 
@@ -32,7 +32,7 @@ trait PreProcessor {
     */
   def parseAndCompressHtml(html: String): String = {
     compressor.setRemoveSurroundingSpaces(ALL_TAGS)
-    compressor.compress(Parser.unescapeEntities(html, false))
+    compressor.compress(toDecimal(html))
   }
 
   /***

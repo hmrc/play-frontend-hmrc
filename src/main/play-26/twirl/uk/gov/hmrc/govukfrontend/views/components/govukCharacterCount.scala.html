@@ -21,6 +21,13 @@
 @import params._
 @require(name.nonEmpty && id.nonEmpty, "name and id should be non-empty")
 @require(maxLength.isDefined || maxWords.isDefined, "maxLength or maxWords should be provided")
+
+@attrs = {
+  @maxLength.filter(_ > 0).map {value => data-maxlength="@value"}
+  @threshold.filter(_ > 0).map {value => data-threshold="@value"}
+  @maxWords.filter(_ > 0).map {value => data-maxwords="@value"}
+}
+
 <div class="govuk-character-count" data-module="govuk-character-count"@attrs>
   @govukTextarea(Textarea(
     id = id,
@@ -42,9 +49,3 @@
     content = Text("You can enter up to " + maxLength.filter(_ > 0).orElse(maxWords).getOrElse("undefined") + " " + maxWords.filter(_ > 0).fold("characters")(_ => "words"))
   ))
 </div>
-
-@attrs = {
-  @maxLength.filter(_ > 0).fold("")(max => s"""data-maxlength="${max}"""")
-  @threshold.filter(_ > 0).fold("")(max => s"""data-threshold="${max}"""")
-  @maxWords.filter(_ > 0).fold("")(max => s"""data-maxwords="${max}"""")
-}
