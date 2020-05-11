@@ -17,6 +17,8 @@
 package uk.gov.hmrc.hmrcfrontend.views
 package html
 
+import uk.gov.hmrc.govukfrontend.views.html.components.{GovukErrorMessage, GovukHint, GovukLabel}
+
 package object components extends Utils with Aliases {
 
   /**
@@ -63,4 +65,8 @@ package object components extends Utils with Aliases {
   type HmrcReportTechnicalIssue = hmrcReportTechnicalIssue
   @deprecated(message="Use DI", since="Play 2.6")
   lazy val HmrcReportTechnicalIssue = new hmrcReportTechnicalIssue()
+
+  type HmrcCurrencyInput = hmrcCurrencyInput
+  @deprecated(message="Use DI", since="Play 2.6")
+  lazy val HmrcCurrencyInput = new hmrcCurrencyInput(GovukErrorMessage, GovukHint, GovukLabel)
 }

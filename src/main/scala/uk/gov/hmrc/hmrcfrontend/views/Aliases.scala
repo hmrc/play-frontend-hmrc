@@ -77,6 +77,9 @@ trait Aliases {
 
   type ReportTechnicalIssue = viewmodels.reporttechnicalissue.ReportTechnicalIssue
   val ReportTechnicalIssue = viewmodels.reporttechnicalissue.ReportTechnicalIssue
+
+  type CurrencyInput = viewmodels.currencyinput.CurrencyInput
+  val CurrencyInput = viewmodels.currencyinput.CurrencyInput
 }
 
 object Aliases extends Aliases

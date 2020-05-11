@@ -14,9 +14,20 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.hmrcfrontend.views.viewmodels.content
+package uk.gov.hmrc.hmrcfrontend.views.viewmodels.hint
 
-import uk.gov.hmrc.hmrcfrontend.views.viewmodels.JsonRoundtripSpec
+import org.scalacheck.{Arbitrary, Gen}
+import uk.gov.hmrc.govukfrontend.views.viewmodels.hint.Hint
+import uk.gov.hmrc.hmrcfrontend.views.viewmodels.Generators._
 import uk.gov.hmrc.hmrcfrontend.views.viewmodels.content.Generators._
 
-class ContentSpec extends JsonRoundtripSpec[Content]
+object Generators {
+  implicit val arbHint: Arbitrary[Hint] = Arbitrary {
+    for {
+      id         <- Gen.option(genAlphaStr())
+      classes    <- genClasses()
+      attributes <- genAttributes()
+      content    <- arbContent.arbitrary
+    } yield Hint(id = id, classes = classes, attributes = attributes, content = content)
+  }
+}

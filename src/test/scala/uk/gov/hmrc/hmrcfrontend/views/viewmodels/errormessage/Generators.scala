@@ -14,25 +14,25 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.hmrcfrontend.views.viewmodels.content
+package uk.gov.hmrc.hmrcfrontend.views.viewmodels.errormessage
 
 import org.scalacheck.{Arbitrary, Gen}
-import uk.gov.hmrc.govukfrontend.views.viewmodels.content.{Content, Empty, HtmlContent, Text}
+import uk.gov.hmrc.govukfrontend.views.viewmodels.errormessage.ErrorMessage
 import uk.gov.hmrc.hmrcfrontend.views.viewmodels.Generators._
+import uk.gov.hmrc.hmrcfrontend.views.viewmodels.content.Generators._
 
 object Generators {
-
-  implicit val arbEmpty: Arbitrary[Empty.type] = Arbitrary { Gen.const(Empty) }
-
-  implicit val arbHtmlContent: Arbitrary[HtmlContent] = Arbitrary {
-    arbHtml.arbitrary.map(HtmlContent(_))
-  }
-
-  implicit val arbText: Arbitrary[Text] = Arbitrary {
-    Gen.frequency((80, Gen.asciiPrintableStr), (20, genHtmlString)).map(Text)
-  }
-
-  implicit val arbContent: Arbitrary[Content] = Arbitrary {
-    Gen.oneOf(arbEmpty.arbitrary, arbHtmlContent.arbitrary, arbText.arbitrary)
+  implicit val arbErrorMessage: Arbitrary[ErrorMessage] = Arbitrary {
+    for {
+      classes            <- genClasses()
+      attributes         <- genAttributes()
+      visuallyHiddenText <- Gen.option(genAlphaStr())
+      content            <- arbContent.arbitrary
+    } yield
+      ErrorMessage(
+        classes            = classes,
+        attributes         = attributes,
+        visuallyHiddenText = visuallyHiddenText,
+        content            = content)
   }
 }
