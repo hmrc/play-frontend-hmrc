@@ -1,0 +1,7 @@
+{
+  "title" : "Example Timeout Dialog",
+  "timeout" : 700,
+  "countdown" : 690,
+  "keepAliveUrl" : "?abc=def",
+  "signOutUrl" : "?ghi=jkl"
+}

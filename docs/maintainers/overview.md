@@ -12,15 +12,19 @@
 
 ### Unit Tests
 
-The suite of unit tests runs against a set of test fixtures with data extracted from [hmrc-frontend's yaml documentation](https://github.com/hmrc/hmrc-frontend/blob/master/src/components/page-heading/page-heading.yaml)
-for each component. The yaml examples are used in `hmrc-frontend`'s own unit test suite. 
+The unit tests work against two sets of fixtures. 
 
-The test fixtures are generated from the release of `hmrc-frontend` [used in the library](/README.md#sbt). 
-A script [TODO: document script] generates the fixtures which are manually included in the resources directory under `src/test/resources/fixtures/`.
-The unit tests will pick up the fixtures folder matching the version of `hmrc-frontend` in the dependencies.
+The first set in `src/test/resources/fixtures/test-fixtures` are derived from data extracted 
+from [hmrc-frontend's yaml documentation](https://github.com/hmrc/hmrc-frontend)
+for each component. The yaml examples are used in `hmrc-frontend`'s own unit test suite.
 
-_Future work: Unit testing the library using a fixed set of test data provides only very basic coverage. if we can improve 
-the test coverage via generative testing described on the next section, we could discard the test fixtures completely._ 
+An additional, manually created, set of fixtures in `src/test/resources/fixtures/additional-fixtures` captures test
+cases that are not covered by the published examples. For example, the layout and template components
+do not have published examples in `govuk-frontend` so they are placed in this directory.
+
+To regenerate the test fixtures, you will need the template renderer running locally (see below). 
+Then run ```sbt generateUnitTestFixtures```. The template renderer does not need to be running while the unit
+tests are executing.
 
 ### Generative Testing
 
@@ -168,7 +172,6 @@ feature, templates should not be written with backwards incompatible features on
 [@if else if](https://github.com/playframework/twirl/issues/33).   
 
 ## Useful Links
-- [x-frontend-snapshotter](https://github.com/dorightdigital/x-frontend-snapshotter) - provides static test fixtures for `govuk-frontend` and `hmrc-frontend` components in unit tests
 - [x-govuk-component-renderer](https://github.com/hmrc/x-govuk-component-renderer) - service that returns HTML for `govuk-frontend` and `hmrc-frontend` component input parameters in the form of JSON objects - useful for confirming Twirl HTML outputs in integration tests
 - [hmrc-frontend](https://github.com/hmrc/hmrc-frontend/) - reusable Nunjucks HTML components for HMRC design patterns
 - [HMRC Design Patterns](https://design.tax.service.gov.uk/hmrc-design-patterns/) - documentation for the use of `hmrc-frontend` components

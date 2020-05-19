@@ -8,9 +8,8 @@
  - Input `hmrc-frontend` and select the relevant version from the dropdown
  - Hit `Deploy!`
 2. Bump webjar [dependency](https://github.com/hmrc/hmrc-frontend/tags) for `hmrc-frontend` in `build.sbt`.
-3. Generate and copy fixtures folder to test/resources/fixtures (this won't be necessary when we implement generative testing to increase test coverage).
-   - Follow `Usage` steps in [x-frontend-snapshotter](https://github.com/dorightdigital/x-frontend-snapshotter)
-   - Extract the contents of zip file `test-fixtures-[version-number].tar.gz` created in `target` and copy these to test/resources/fixtures/test-fixtures-[version-number] in this repo.
+3. Generate fixtures folder `src/test/resources/fixtures/test-fixtures`.
+   - With the template renderer running locally (see below), execute `sbt generateUnitTestFixtures` 
 4. Run unit tests: `sbt clean test`.
 5. Start integration test dependencies: .
 6. Run integration tests: `sbt clean it:test`.
@@ -73,7 +72,6 @@ index 51d2d346..713db75d 100644
 ```
 
 ## Useful Links
-- [x-frontend-snapshotter](https://github.com/dorightdigital/x-frontend-snapshotter) - provides static test fixtures for `govuk-frontend` and `hmrc-frontend` components in unit tests
 - [x-govuk-component-renderer](https://github.com/hmrc/x-govuk-component-renderer) - service that returns HTML for `govuk-frontend` and `hmrc-frontend` component input parameters in the form of JSON objects - useful for confirming Twirl HTML outputs in integration tests
 - [hmrc-frontend](https://github.com/hmrc/hmrc-frontend/) - reusable Nunjucks HTML components for HMRC design patterns
 - [HMRC Design Patterns](https://design.tax.service.gov.uk/hmrc-design-patterns/) - documentation for the use of `hmrc-frontend` components
