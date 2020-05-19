@@ -1,0 +1,8 @@
+{
+  "label" : {
+    "text" : "National Insurance number",
+    "isPageHeading" : true
+  },
+  "id" : "input-with-page-heading",
+  "name" : "test-name"
+}

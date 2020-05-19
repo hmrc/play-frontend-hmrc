@@ -1,0 +1,1 @@
+<input value="Explicit input button disabled" type="submit" disabled="disabled" aria-disabled="true" class="govuk-button govuk-button--disabled" data-module="govuk-button">
