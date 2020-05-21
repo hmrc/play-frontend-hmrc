@@ -123,7 +123,7 @@ abstract class TemplateUnitSpec[T: Reads](hmrcComponentName: String)
   }
 
   private def readOutputFile(fixturesDir: File, exampleName: String): String =
-    (fixturesDir / exampleName / "output.html").contentAsString
+    (fixturesDir / exampleName / "output.txt").contentAsString
 
   private def readInputJson(fixturesDir: File, exampleName: String): String =
     (fixturesDir / exampleName / "input.json").contentAsString

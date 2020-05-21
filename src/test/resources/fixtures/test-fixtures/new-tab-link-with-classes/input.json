@@ -1,0 +1,6 @@
+{
+  "text" : "an example link",
+  "href" : "http://example.com",
+  "classList" : "govuk-!-font-weight-bold my-custom-class",
+  "language" : "en"
+}

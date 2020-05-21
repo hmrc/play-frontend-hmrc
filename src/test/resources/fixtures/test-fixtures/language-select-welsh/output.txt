@@ -1,0 +1,19 @@
+
+  <nav class="hmrc-language-select" aria-label="Switcher iaith">
+    <ul class="hmrc-language-select__list">
+      <li class="hmrc-language-select__list-item">
+        <a href="/components/language-select/preview"
+          hreflang="en"
+          lang="en"
+          rel="alternate"
+          class="govuk-link"
+          data-journey-click="link - click:lang-select:English">
+          <span class="govuk-visually-hidden">Change the language to English</span>
+          <span aria-hidden="true">English</span>
+        </a>
+      </li>
+      <li class="hmrc-language-select__list-item">
+        <span aria-current="true">Cymraeg</span>
+      </li>
+    </ul>
+  </nav>

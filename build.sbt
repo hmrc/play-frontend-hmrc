@@ -1,6 +1,6 @@
+import GenerateFixtures.generateFixtures
 import GeneratePlay25Twirl.generatePlay25Templates
 import PlayCrossCompilation.{dependencies, playVersion}
-import de.heikoseeberger.sbtheader.HeaderKey
 import play.sbt.PlayImport.PlayKeys._
 import uk.gov.hmrc.playcrosscompilation.PlayVersion.{Play25, Play26}
 
@@ -11,6 +11,8 @@ lazy val playDir =
    else "play-26")
 
 lazy val IntegrationTest = config("it") extend Test
+
+lazy val hmrcFrontendVersion = "1.12.0"
 
 lazy val root = Project(libName, file("."))
   .enablePlugins(PlayScala, SbtAutoBuildPlugin, SbtGitVersioning, SbtTwirl, SbtArtifactory)
@@ -32,16 +34,12 @@ lazy val root = Project(libName, file("."))
     TwirlKeys.templateImports := templateImports,
     PlayCrossCompilation.playCrossCompilationSettings,
     makePublicallyAvailableOnBintray := true,
-    unmanagedSourceDirectories in Compile += baseDirectory.value / "src/main/twirl",
-    unmanagedSourceDirectories in Test += baseDirectory.value / "src/test/twirl",
     (sourceDirectories in (Compile, TwirlKeys.compileTemplates)) +=
       baseDirectory.value / "src" / "main" / playDir / "twirl",
-    (sourceDirectories in (Test, TwirlKeys.compileTemplates)) +=
-      baseDirectory.value / "src" / "test" / playDir / "twirl",
-    (generatePlay25TemplatesTask in Compile) := {
+    (generatePlay25TemplatesTask) := {
       val cachedFun: Set[File] => Set[File] =
         FileFunction.cached(
-          cacheBaseDirectory = streams.value.cacheDirectory / "compile-generate-play-25-templates-task",
+          cacheBaseDirectory = streams.value.cacheDirectory / "generate-play-25-templates-task",
           inStyle            = FilesInfo.lastModified,
           outStyle           = FilesInfo.exists) { (in: Set[File]) =>
           println("Generating Play 2.5 templates")
@@ -52,32 +50,19 @@ lazy val root = Project(libName, file("."))
       val play26Templates: Set[File] = (play26TemplatesDir ** ("*.scala.html")).get.toSet
       cachedFun(play26Templates).toSeq
     },
-    // FIXME: refactor to remove task implementation duplication
-    (generatePlay25TemplatesTask in Test) := {
-      val cachedFun: Set[File] => Set[File] =
-        FileFunction.cached(
-          cacheBaseDirectory = streams.value.cacheDirectory / "test-generate-play-25-templates-task",
-          inStyle            = FilesInfo.lastModified,
-          outStyle           = FilesInfo.exists) { (in: Set[File]) =>
-          println("Generating Play 2.5 test templates")
-          generatePlay25Templates(in)
-        }
-
-      val play26TemplatesDir         = baseDirectory.value / "src/test/play-26/twirl"
-      val play26Templates: Set[File] = (play26TemplatesDir ** ("*.scala.html")).get.toSet
-      cachedFun(play26Templates).toSeq
+    (generateUnitTestFixtures in Test) := {
+      generateFixtures(baseDirectory.value / "src/test/resources", hmrcFrontendVersion)
     },
     (TwirlKeys.compileTemplates in Compile) :=
-      ((TwirlKeys.compileTemplates in Compile) dependsOn (generatePlay25TemplatesTask in Compile)).value,
+      ((TwirlKeys.compileTemplates in Compile) dependsOn (generatePlay25TemplatesTask)).value,
     (TwirlKeys.compileTemplates in Test) :=
-      ((TwirlKeys.compileTemplates in Test) dependsOn (generatePlay25TemplatesTask in Test)).value,
+      ((TwirlKeys.compileTemplates in Test) dependsOn (generatePlay25TemplatesTask)).value,
     parallelExecution in sbt.Test := false,
     playMonitoredFiles ++= (sourceDirectories in (Compile, TwirlKeys.compileTemplates)).value,
     routesGenerator := {
       if (playVersion == Play25) StaticRoutesGenerator
       else InjectedRoutesGenerator
     },
-    HeaderKey.excludes += "fixtures/*/*/*.html",
     unmanagedResourceDirectories in Test ++= Seq(baseDirectory(_ / "target/web/public/test").value),
     buildInfoKeys ++= Seq[BuildInfoKey](
       "playVersion" -> PlayCrossCompilation.playVersion,
@@ -99,7 +84,7 @@ lazy val libDependencies: Seq[ModuleID] = dependencies(
       "com.typesafe.play" %% "play"            % playRevision,
       "com.typesafe.play" %% "filters-helpers" % playRevision,
       "org.joda"          % "joda-convert"     % "2.0.2",
-      "org.webjars.npm"   % "hmrc-frontend"    % "1.12.0"
+      "org.webjars.npm"   % "hmrc-frontend"    % hmrcFrontendVersion
     )
 
     val test = Seq(
@@ -119,7 +104,7 @@ lazy val libDependencies: Seq[ModuleID] = dependencies(
   },
   play25 = {
     val compile = Seq(
-      "uk.gov.hmrc" %% "play-frontend-govuk" % "0.44.0-play-25"
+      "uk.gov.hmrc" %% "play-frontend-govuk" % "0.45.0-play-25"
     )
 
     val test = Seq(
@@ -130,7 +115,7 @@ lazy val libDependencies: Seq[ModuleID] = dependencies(
   },
   play26 = {
     val compile = Seq(
-      "uk.gov.hmrc" %% "play-frontend-govuk" % "0.44.0-play-26"
+      "uk.gov.hmrc" %% "play-frontend-govuk" % "0.45.0-play-26"
     )
 
     val test = Seq(
@@ -178,3 +163,4 @@ lazy val templateImports: Seq[String] = {
 }
 
 lazy val generatePlay25TemplatesTask = taskKey[Seq[File]]("Generate Play 2.5 templates")
+lazy val generateUnitTestFixtures = taskKey[Unit]("Generate unit test fixtures")
