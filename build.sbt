@@ -36,10 +36,10 @@ lazy val root = Project(libName, file("."))
     makePublicallyAvailableOnBintray := true,
     (sourceDirectories in (Compile, TwirlKeys.compileTemplates)) +=
       baseDirectory.value / "src" / "main" / playDir / "twirl",
-    (generatePlay25TemplatesTask in Compile) := {
+    (generatePlay25TemplatesTask) := {
       val cachedFun: Set[File] => Set[File] =
         FileFunction.cached(
-          cacheBaseDirectory = streams.value.cacheDirectory / "compile-generate-play-25-templates-task",
+          cacheBaseDirectory = streams.value.cacheDirectory / "generate-play-25-templates-task",
           inStyle            = FilesInfo.lastModified,
           outStyle           = FilesInfo.exists) { (in: Set[File]) =>
           println("Generating Play 2.5 templates")
@@ -54,7 +54,9 @@ lazy val root = Project(libName, file("."))
       generateFixtures(baseDirectory.value / "src/test/resources", hmrcFrontendVersion)
     },
     (TwirlKeys.compileTemplates in Compile) :=
-      ((TwirlKeys.compileTemplates in Compile) dependsOn (generatePlay25TemplatesTask in Compile)).value,
+      ((TwirlKeys.compileTemplates in Compile) dependsOn (generatePlay25TemplatesTask)).value,
+    (TwirlKeys.compileTemplates in Test) :=
+      ((TwirlKeys.compileTemplates in Test) dependsOn (generatePlay25TemplatesTask)).value,
     parallelExecution in sbt.Test := false,
     playMonitoredFiles ++= (sourceDirectories in (Compile, TwirlKeys.compileTemplates)).value,
     routesGenerator := {
