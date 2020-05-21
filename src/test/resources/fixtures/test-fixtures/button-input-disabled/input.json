@@ -1,0 +1,5 @@
+{
+  "element" : "input",
+  "text" : "Explicit input button disabled",
+  "disabled" : true
+}

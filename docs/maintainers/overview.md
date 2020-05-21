@@ -12,13 +12,19 @@
 
 ### Unit Tests
 
-The suite of unit tests runs against a set of test fixtures with data extracted from [govuk-frontend's yaml documentation](https://github.com/alphagov/govuk-frontend/blob/master/src/govuk/components/button/button.yaml)
-for each component. The yaml examples are used in `govuk-frontend`'s own unit test suite. 
+The unit tests work against two sets of fixtures. 
 
-The test fixtures are generated from the release of `govuk-frontend` [used in the library](#sbt-dependencies). 
-A script in [x-frontend-snapshotter](https://github.com/dorightdigital/x-frontend-snapshotter) generates the fixtures which are manually pasted into the `src/test/resources/fixtures/` directory.
-The unit tests will pick up the fixtures folder matching the version of `govuk-frontend` in the dependencies.
+The first set in `src/test/resources/fixtures/test-fixtures` are derived from data extracted 
+from [govuk-frontend's yaml documentation](https://github.com/alphagov/govuk-frontend/blob/master/src/govuk/components/button/button.yaml)
+for each component. The yaml examples are used in `govuk-frontend`'s own unit test suite.
 
+An additional, manually created, set of fixtures in `src/test/resources/fixtures/additional-fixtures` captures test
+cases that are not covered by the published examples. For example, the layout and template components
+do not have published examples in `govuk-frontend` so they are placed in this directory.
+
+To regenerate the test fixtures, you will need the template renderer running locally (see below). 
+Then run ```sbt generateUnitTestFixtures```. The template renderer does not need to be running while the unit
+tests are executing.
 
 ### Integration Tests (Generative Testing)
 
@@ -184,7 +190,6 @@ feature, templates should not be written with backwards incompatible features on
 [@if else if](https://github.com/playframework/twirl/issues/33).   
 
 ## Useful Links
-- [x-frontend-snapshotter](https://github.com/dorightdigital/x-frontend-snapshotter) - provides static test fixtures for `govuk-frontend` and `hmrc-frontend` components in unit tests
 - [x-govuk-component-renderer](https://github.com/hmrc/x-govuk-component-renderer) - service that returns HTML for `govuk-frontend` and `hmrc-frontend` component input parameters in the form of JSON objects - useful for confirming Twirl HTML outputs in integration tests
 - [govuk-frontend](https://github.com/alphagov/govuk-frontend/) - reusable Nunjucks HTML components from GOV.UK
 - [GOV.UK Design System](https://design-system.service.gov.uk/components/) - documentation for the use of `govuk-frontend` components

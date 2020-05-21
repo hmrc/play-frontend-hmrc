@@ -19,7 +19,6 @@ package uk.gov.hmrc.govukfrontend.views
 import better.files._
 import org.scalatest.{Matchers, TryValues, WordSpecLike}
 import play.api.libs.json._
-import uk.gov.hmrc.govukfrontend.views.GovukFrontendDependency.govukFrontendVersion
 import scala.util.{Failure, Success, Try}
 
 /**
@@ -38,33 +37,35 @@ abstract class TemplateUnitSpec[T: Reads](govukComponentName: String)
     with Matchers
     with TryValues {
 
-  exampleNames(govukComponentName)
-    .foreach { exampleName =>
-    s"$exampleName" should {
-      "render the same html as the nunjucks renderer" in {
-        val tryTwirlHtml = renderExample(exampleName)
+  exampleNames(fixturesDirs, govukComponentName)
+    .foreach { fixtureDirExampleName =>
+      val (fixtureDir, exampleName) = fixtureDirExampleName
 
-        tryTwirlHtml match {
-          case Success(twirlHtml) =>
-            val preProcessedTwirlHtml    = preProcess(twirlHtml)
-            val preProcessedNunjucksHtml = preProcess(nunjucksHtml(exampleName).success.value)
+      s"$exampleName" should {
+        "render the same html as the nunjucks renderer" in {
+          val tryTwirlHtml = renderExample(fixtureDir, exampleName)
 
-            preProcessedTwirlHtml shouldBe preProcessedNunjucksHtml
-          case Failure(TemplateValidationException(message)) =>
-            println(s"Failed to validate the parameters for the $govukComponentName template")
-            println(s"Exception: $message")
-            println(s"Skipping test $exampleName")
+          tryTwirlHtml match {
+            case Success(twirlHtml) =>
+              val preProcessedTwirlHtml    = preProcess(twirlHtml)
+              val preProcessedNunjucksHtml = preProcess(nunjucksHtml(fixtureDir, exampleName).success.value)
 
-            succeed
-          case Failure(exception) => fail(exception)
+              preProcessedTwirlHtml shouldBe preProcessedNunjucksHtml
+            case Failure(TemplateValidationException(message)) =>
+              println(s"Failed to validate the parameters for the $govukComponentName template")
+              println(s"Exception: $message")
+              println(s"Skipping test $exampleName")
+
+              succeed
+            case Failure(exception) => fail(exception)
+          }
         }
       }
     }
-  }
 
-  private def renderExample(exampleName: String): Try[String] =
+  private def renderExample(fixturesDir: File, exampleName: String): Try[String] =
     for {
-      inputJson    <- Try(readInputJson(exampleName))
+      inputJson    <- Try(readInputJson(fixturesDir, exampleName))
       inputJsValue <- Try(Json.parse(inputJson))
       html <- inputJsValue.validate[T] match {
                case JsSuccess(templateParams, _) =>
@@ -75,8 +76,8 @@ abstract class TemplateUnitSpec[T: Reads](govukComponentName: String)
              }
     } yield html
 
-  private def nunjucksHtml(exampleName: String): Try[String] =
-    Try(readOutputFile(exampleName))
+  private def nunjucksHtml(fixtureDir: File, exampleName: String): Try[String] =
+    Try(readOutputFile(fixtureDir, exampleName))
 
   /**
     * Traverse the test fixtures directory to fetch all examples for a given component
@@ -85,16 +86,20 @@ abstract class TemplateUnitSpec[T: Reads](govukComponentName: String)
     * @return [[Seq[String]]] of folder names for each example in the test fixtures folder or
     *        fails if the fixtures folder is not defined
     */
-  private def exampleNames(govukComponentName: String): Seq[String] = {
-    val exampleFolders = getExampleFolders(govukComponentName)
+  private def exampleNames(fixturesDirs: Seq[File], govukComponentName: String): Seq[(File, String)] = {
+    val exampleFolders = fixturesDirs.flatMap(
+      fixtureDir =>
+        getExampleFolders(fixtureDir, govukComponentName).map(
+          exampleDir => (fixtureDir, exampleDir)
+      ))
 
-    val examples = exampleFolders.map(_.name)
+    val examples = for ((fixtureDir, exampleDir) <- exampleFolders) yield (fixtureDir, exampleDir.name)
 
     if (examples.nonEmpty) examples
     else throw new RuntimeException(s"Couldn't find component named $govukComponentName. Spelling error?")
   }
 
-  private def getExampleFolders(govukComponentName: String): Seq[File] = {
+  private def getExampleFolders(fixturesDir: File, govukComponentName: String): Seq[File] = {
     def parseComponentName(json: String): Option[String] = (Json.parse(json) \ "name").asOpt[String]
 
     val componentNameFiles = fixturesDir.listRecursively.filter(_.name == "component.json")
@@ -107,15 +112,17 @@ abstract class TemplateUnitSpec[T: Reads](govukComponentName: String)
     folders
   }
 
-  private lazy val fixturesDir: File = {
-    val dir = s"/fixtures/test-fixtures-$govukFrontendVersion"
-    Try(File(Resource.my.getUrl(dir)))
+  private lazy val fixturesDirs: Seq[File] = {
+    val dir = s"/fixtures"
+    val fixturesDir = Try(File(Resource.my.getUrl(dir)))
       .getOrElse(throw new RuntimeException(s"Test fixtures folder not found: $dir"))
+
+    fixturesDir.children.toSeq
   }
 
-  private def readOutputFile(exampleName: String): String =
-    (fixturesDir / exampleName / "output.html").contentAsString
+  private def readOutputFile(fixturesDir: File, exampleName: String): String =
+    (fixturesDir / exampleName / "output.txt").contentAsString
 
-  private def readInputJson(exampleName: String): String =
+  private def readInputJson(fixturesDir: File, exampleName: String): String =
     (fixturesDir / exampleName / "input.json").contentAsString
 }
