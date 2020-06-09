@@ -38,7 +38,7 @@ abstract class TemplateIntegrationSpec[T: OWrites: Arbitrary](govukComponentName
     Stream.empty[ClassifyParams]
 
   override def overrideParameters(p: Test.Parameters): Test.Parameters =
-    p.withMinSuccessfulTests(50)
+    p.withMinSuccessfulTests(20)
 
   /* This is just an idea for a reporter that would look at the counts instead of rounded frequencies.
 
