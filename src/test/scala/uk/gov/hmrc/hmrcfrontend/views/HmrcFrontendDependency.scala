@@ -16,7 +16,7 @@
 
 package uk.gov.hmrc.hmrcfrontend.views
 
-import uk.gov.hmrc.BuildInfo
+import buildinfo.BuildInfo
 
 import scala.util.matching.Regex
 
