@@ -16,7 +16,7 @@
 
 package uk.gov.hmrc.govukfrontend.views
 
-import uk.gov.hmrc.BuildInfo
+import buildinfo.BuildInfo
 import scala.util.matching.Regex
 
 object GovukFrontendDependency {
