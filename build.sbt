@@ -1,10 +1,10 @@
 import GenerateFixtures.generateFixtures
 import GeneratePlay25Twirl.generatePlay25Templates
-import PlayCrossCompilation.{dependencies, playVersion}
 import play.sbt.PlayImport.PlayKeys._
-import uk.gov.hmrc.playcrosscompilation.PlayVersion.{Play25, Play26}
+import uk.gov.hmrc.playcrosscompilation.PlayVersion.Play25
 
 val libName = "play-frontend-hmrc"
+val silencerVersion = "1.4.4"
 
 lazy val playDir =
   (if (PlayCrossCompilation.playVersion == Play25) "play-25"
@@ -12,28 +12,34 @@ lazy val playDir =
 
 lazy val IntegrationTest = config("it") extend Test
 
-lazy val hmrcFrontendVersion = "1.12.0"
-
 lazy val root = Project(libName, file("."))
-  .enablePlugins(PlayScala, SbtAutoBuildPlugin, SbtGitVersioning, SbtTwirl, SbtArtifactory)
+  .enablePlugins(PlayScala, SbtAutoBuildPlugin, SbtGitVersioning, SbtTwirl, SbtArtifactory, BuildInfoPlugin)
   .disablePlugins(PlayLayoutPlugin)
   .configs(IntegrationTest)
   .settings(
     name := libName,
     majorVersion := 0,
-    scalaVersion := "2.11.12",
-    crossScalaVersions := List("2.11.12", "2.12.8"),
-    libraryDependencies ++= libDependencies,
-    dependencyOverrides ++= overrides,
+    scalaVersion := "2.12.10",
+    crossScalaVersions := List("2.11.12", "2.12.10"),
+    libraryDependencies ++= LibDependencies.libDependencies,
+    dependencyOverrides ++= LibDependencies.overrides,
     resolvers :=
       Seq(
         "HMRC Releases" at "https://dl.bintray.com/hmrc/releases",
-        "typesafe-releases" at "http://repo.typesafe.com/typesafe/releases/",
+        "typesafe-releases" at "https://repo.typesafe.com/typesafe/releases/",
         "bintray" at "https://dl.bintray.com/webjars/maven"
       ),
     TwirlKeys.templateImports := templateImports,
     PlayCrossCompilation.playCrossCompilationSettings,
     makePublicallyAvailableOnBintray := true,
+    // ***************
+    // Use the silencer plugin to suppress warnings from unused imports in compiled twirl templates
+    scalacOptions += "-P:silencer:pathFilters=views;routes",
+    libraryDependencies ++= Seq(
+      compilerPlugin("com.github.ghik" % "silencer-plugin" % silencerVersion cross CrossVersion.full),
+      "com.github.ghik" % "silencer-lib" % silencerVersion % Provided cross CrossVersion.full
+    ),
+    // ***************
     (sourceDirectories in (Compile, TwirlKeys.compileTemplates)) +=
       baseDirectory.value / "src" / "main" / playDir / "twirl",
     (generatePlay25TemplatesTask) := {
@@ -51,7 +57,7 @@ lazy val root = Project(libName, file("."))
       cachedFun(play26Templates).toSeq
     },
     (generateUnitTestFixtures in Test) := {
-      generateFixtures(baseDirectory.value / "src/test/resources", hmrcFrontendVersion)
+      generateFixtures(baseDirectory.value / "src/test/resources", LibDependencies.hmrcFrontendVersion)
     },
     (TwirlKeys.compileTemplates in Compile) :=
       ((TwirlKeys.compileTemplates in Compile) dependsOn (generatePlay25TemplatesTask)).value,
@@ -59,10 +65,6 @@ lazy val root = Project(libName, file("."))
       ((TwirlKeys.compileTemplates in Test) dependsOn (generatePlay25TemplatesTask)).value,
     parallelExecution in sbt.Test := false,
     playMonitoredFiles ++= (sourceDirectories in (Compile, TwirlKeys.compileTemplates)).value,
-    routesGenerator := {
-      if (playVersion == Play25) StaticRoutesGenerator
-      else InjectedRoutesGenerator
-    },
     unmanagedResourceDirectories in Test ++= Seq(baseDirectory(_ / "target/web/public/test").value),
     buildInfoKeys ++= Seq[BuildInfoKey](
       "playVersion" -> PlayCrossCompilation.playVersion,
@@ -75,62 +77,6 @@ lazy val itSettings = Defaults.itSettings ++ Seq(
   unmanagedSourceDirectories += sourceDirectory.value / playDir,
   unmanagedResourceDirectories += sourceDirectory.value / playDir / "resources"
 )
-
-lazy val libDependencies: Seq[ModuleID] = dependencies(
-  shared = {
-    import PlayCrossCompilation.playRevision
-
-    val compile = Seq(
-      "com.typesafe.play" %% "play"            % playRevision,
-      "com.typesafe.play" %% "filters-helpers" % playRevision,
-      "org.joda"          % "joda-convert"     % "2.0.2",
-      "org.webjars.npm"   % "hmrc-frontend"    % hmrcFrontendVersion
-    )
-
-    val test = Seq(
-      "org.scalatest"                 %% "scalatest"       % "3.0.8",
-      "org.pegdown"                   % "pegdown"          % "1.6.0",
-      "org.jsoup"                     % "jsoup"            % "1.11.3",
-      "com.typesafe.play"             %% "play-test"       % playRevision,
-      "org.scalacheck"                %% "scalacheck"      % "1.14.1",
-      "com.googlecode.htmlcompressor" % "htmlcompressor"   % "1.5.2",
-      "com.github.pathikrit"          %% "better-files"    % "3.8.0",
-      "com.lihaoyi"                   %% "pprint"          % "0.5.3",
-      "org.bitbucket.cowwoc"          % "diff-match-patch" % "1.2",
-      ws
-    ).map(_ % Test)
-
-    compile ++ test
-  },
-  play25 = {
-    val compile = Seq(
-      "uk.gov.hmrc" %% "play-frontend-govuk" % "0.45.0-play-25"
-    )
-
-    val test = Seq(
-      "org.scalatestplus.play" %% "scalatestplus-play" % "2.0.1"
-    ).map(_ % Test)
-
-    compile ++ test
-  },
-  play26 = {
-    val compile = Seq(
-      "uk.gov.hmrc" %% "play-frontend-govuk" % "0.45.0-play-26"
-    )
-
-    val test = Seq(
-      "org.scalatestplus.play" %% "scalatestplus-play" % "3.1.2"
-    ).map(_ % Test)
-
-    compile ++ test
-  }
-)
-
-lazy val overrides: Set[ModuleID] = dependencies(
-  play25 = Seq(
-    "com.typesafe.play" %% "twirl-api" % "1.1.1"
-  )
-).toSet
 
 lazy val templateImports: Seq[String] = {
 
@@ -152,7 +98,7 @@ lazy val templateImports: Seq[String] = {
       Seq(
         "_root_.play.twirl.api.TemplateMagic._"
       )
-    case Play26 =>
+    case _ =>
       Seq(
         "_root_.play.twirl.api.TwirlFeatureImports._",
         "_root_.play.twirl.api.TwirlHelperImports._"

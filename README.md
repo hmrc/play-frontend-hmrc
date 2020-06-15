@@ -38,7 +38,7 @@ libraryDependencies += "uk.gov.hmrc" %% "play-frontend-hmrc" % "x.y.z-play-26"
 
 2>  Add SASS assets to app/assets/stylesheets in application.scss to inherit / extend hmrc-frontend style assets / elements, e.g.:
 ```
-$hmrc-assets-path: "/app-name-here/assets/lib/hmrc-frontend/hmrc/assets/";
+$hmrc-assets-path: "/app-name-here/assets/lib/hmrc-frontend/hmrc/";
 
 @import "lib/hmrc-frontend/hmrc/all";
 
