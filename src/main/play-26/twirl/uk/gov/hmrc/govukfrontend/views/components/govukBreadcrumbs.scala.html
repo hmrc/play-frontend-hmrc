@@ -18,7 +18,7 @@
 
 @(params: Breadcrumbs)
 @import params._
-<div class="@toClasses("govuk-breadcrumbs", classes)"@toAttributes(attributes)>
+<div class="@toClasses("govuk-breadcrumbs ", classes, if (collapseOnMobile) {"govuk-breadcrumbs--collapse-on-mobile"} else {""})"@toAttributes(attributes)>
  <ol class="govuk-breadcrumbs__list">
    @for(item <- items) {
      @item.href.foldNonEmpty {

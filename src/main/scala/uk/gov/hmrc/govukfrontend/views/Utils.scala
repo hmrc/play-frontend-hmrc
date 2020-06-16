@@ -50,6 +50,11 @@ trait Utils {
     def unapply(s: String): Option[String] =
       if (s != null && s.nonEmpty) Some(s) else None
   }
+
+  private[views] def isNonEmptyOptionString(value: Option[String]) = value match {
+    case Some(NonEmptyString(_)) => true
+    case _ => false
+  }
 }
 
 object Utils extends Utils

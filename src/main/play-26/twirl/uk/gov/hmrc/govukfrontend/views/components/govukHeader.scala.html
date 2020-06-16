@@ -86,15 +86,12 @@
             <nav>
               <ul id="navigation" class="govuk-header__navigation @navigationClasses" aria-label="Top Level Navigation">
                 @for(item <- navigation) {
-                  @(item.href, item.text) match {
-                    case (Some(NonEmptyString(itemHref)), Some(NonEmptyString(itemText))) => {
-                      <li class="govuk-header__navigation-item@if(item.active) { govuk-header__navigation-item--active}">
-                        <a class="govuk-header__link" href="@itemHref"@toAttributes(item.attributes)>
-                          @itemText
-                        </a>
-                      </li>
-                    }
-                    case _ => {}
+                  @if(isNonEmptyOptionString(item.href) && (item.text.nonEmpty || item.content.nonEmpty)) {
+                    <li class="govuk-header__navigation-item@if(item.active) { govuk-header__navigation-item--active}">
+                      <a class="govuk-header__link" href="@item.href"@toAttributes(item.attributes)>
+                        @if(item.content.nonEmpty) { @item.content.asHtml } else { @item.text }
+                      </a>
+                    </li>
                   }
                 }
               </ul>
