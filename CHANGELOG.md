@@ -5,6 +5,20 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [0.48.0] - 2020-06-19
+
+### Added
+
+- Upgrade to govuk-frontend v3.7.0
+- `content: Content` in HeaderNavigation to allow for HTML in navigation items
+(`text: Option[String]` has been kept to maintain backward source-compatibility)
+- `collapseOnMobile: Boolean` added to Breadcrumbs
+- This version is not binary compatible with 0.47.0
+
+### Compatible with
+
+- [alphagov/govuk-frontend v3.7.0](https://github.com/alphagov/govuk-frontend/releases/tag/v3.7.0)
+
 ## [0.47.0] - 2020-06-12
 
 ### Added

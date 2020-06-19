@@ -22,7 +22,8 @@ import uk.gov.hmrc.govukfrontend.views.viewmodels.JsonDefaultValueFormatter
 case class Breadcrumbs(
   items: Seq[BreadcrumbsItem]     = Nil,
   classes: String                 = "",
-  attributes: Map[String, String] = Map.empty
+  attributes: Map[String, String] = Map.empty,
+  collapseOnMobile: Boolean       = false
 )
 
 object Breadcrumbs extends JsonDefaultValueFormatter[Breadcrumbs] {

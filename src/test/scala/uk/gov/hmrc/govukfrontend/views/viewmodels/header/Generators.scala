@@ -18,16 +18,17 @@ package uk.gov.hmrc.govukfrontend.views.viewmodels.header
 
 import org.scalacheck.{Arbitrary, Gen}
 import uk.gov.hmrc.govukfrontend.views.viewmodels.Generators._
+import uk.gov.hmrc.govukfrontend.views.viewmodels.content.Generators.arbContent
 
 object Generators {
 
   implicit val arbHeaderNavigation: Arbitrary[HeaderNavigation] = Arbitrary {
     for {
-      text       <- Gen.option(genAlphaStr())
+      content    <- arbContent.arbitrary
       href       <- Gen.option(genAlphaStr())
       active     <- Arbitrary.arbBool.arbitrary
       attributes <- genAttributes()
-    } yield HeaderNavigation(text = text, href = href, active = active, attributes = attributes)
+    } yield HeaderNavigation(content = content, href = href, active = active, attributes = attributes)
   }
 
   implicit val arbHeader: Arbitrary[Header] = Arbitrary {

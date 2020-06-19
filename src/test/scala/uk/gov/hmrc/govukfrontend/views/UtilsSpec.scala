@@ -50,6 +50,24 @@ class UtilsSpec extends WordSpec with Matchers with ScalaCheckPropertyChecks wit
       }
     }
 
+    "isNonEmptyOptionString" should {
+      "return true for a non-empty string" in {
+        isNonEmptyOptionString(Some("abc")) should be (true)
+      }
+
+      "return true for a non-empty string containing only whitespace" in {
+        isNonEmptyOptionString(Some(" ")) should be (true)
+      }
+
+      "return false for an empty string" in {
+        isNonEmptyOptionString(Some("")) should be (false)
+      }
+
+      "return false for None" in {
+        isNonEmptyOptionString(None) should be (false)
+      }
+    }
+
     def attrsToMap(html: Html): Map[String, String] = {
       val attrs: List[List[String]] =
         html.body.trim.split(" ").toList.map(_.split("=").toList)
