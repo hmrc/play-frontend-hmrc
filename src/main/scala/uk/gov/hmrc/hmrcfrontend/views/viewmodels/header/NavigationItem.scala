@@ -23,7 +23,7 @@ import play.api.libs.json._
 import uk.gov.hmrc.govukfrontend.views.viewmodels.content.Content.writesContent
 
 final case class NavigationItem(
-                                   @deprecated("Use content", "Since play-frontend-hmrc v0.17.0") text: Option[String] = None,
+                                   @deprecated("Use content", "Since play-frontend-hmrc v0.17.0") text: Option[String]  = None,
                                    href: Option[String]                                                                 = None,
                                    active: Boolean                                                                      = false,
                                    attributes: Map[String, String]                                                      = Map.empty,
