@@ -40,12 +40,12 @@
       * 'focusable' when using the keyboard to navigate.                        *
       **************************************************************************@
       <svg
-          role="presentation"
+          aria-hidden="true"
           focusable="false"
           class="govuk-header__logotype-crown"
           xmlns="http://www.w3.org/2000/svg"
           viewbox="0 0 132 97"
-          height="32"
+          height="30"
           width="36"
       >
       <path
@@ -64,8 +64,8 @@
       * In other browsers <image> is synonymous for the <img> tag and will be    *
       * interpreted as such, displaying the fallback image.                      *
       ***************************************************************************@
-      <image src="@assetsPath/govuk-logotype-crown.png"
-           class="govuk-header__logotype-crown-fallback-image"></image>
+      <image src="@assetsPath/govuk-logotype-crown.png" xlink:href=""
+           class="govuk-header__logotype-crown-fallback-image" width="36" height="32"></image>
       </svg>
       <span class="govuk-header__logotype-text">
       GOV.UK
@@ -82,7 +82,7 @@
       </a>
     </div>
 
-    @if(serviceName.exists(_.nonEmpty) || signOutHref.exists(_.nonEmpty) || navigation.isDefined || languageToggle.exists(_.linkMap.nonEmpty)) {
+    @if(serviceName.exists(_.nonEmpty) || signOutHref.exists(_.nonEmpty) || (navigation.getOrElse(Seq.empty).nonEmpty) || languageToggle.exists(_.linkMap.nonEmpty)) {
     <div class="govuk-header__content">
       @serviceName match {
       case Some(NonEmptyString(x)) => {
@@ -93,8 +93,8 @@
       case None => {}
       }
 
-      @if(navigation.isDefined) {
-      <button type="button" role="button" class="govuk-header__menu-button js-header-toggle"
+      @if(navigation.getOrElse(Seq.empty).nonEmpty) {
+      <button type="button" class="govuk-header__menu-button govuk-js-header-toggle"
           aria-controls="navigation"
           aria-label="Show or hide Top Level Navigation">Menu
       </button>
@@ -102,12 +102,12 @@
         <ul id="navigation"
           class="@toClasses("govuk-header__navigation ", navigationClasses)"
           aria-label="Top Level Navigation">
-          @for(item <- navigation.getOrElse(Seq.empty).filter(item => item.href.nonEmpty && item.text.nonEmpty)) {
+        @for(item <- navigation.getOrElse(Seq.empty).filter(item => item.href.getOrElse("") != "" && item.content.nonEmpty)) {
           <li class="govuk-header__navigation-item@if(item.active){ govuk-header__navigation-item--active}else{}">
             <a class="govuk-header__link"
                href="@item.href" @toAttributes(item.attributes)
             >
-              @item.text
+              @item.content.asHtml
             </a>
           </li>
           }

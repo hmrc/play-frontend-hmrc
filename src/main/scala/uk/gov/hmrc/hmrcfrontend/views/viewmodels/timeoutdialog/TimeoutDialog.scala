@@ -21,6 +21,7 @@ import uk.gov.hmrc.hmrcfrontend.views.viewmodels.JsonDefaultValueFormatter
 
 case class TimeoutDialog(
   name: String                        = "",
+  language: Option[String]            = None,
   timeout: Option[Int]                = None,
   countdown: Option[Int]              = None,
   keepAliveUrl: Option[String]        = None,

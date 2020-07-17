@@ -16,7 +16,39 @@
 
 package uk.gov.hmrc.hmrcfrontend.views.viewmodels.notificationbadge
 
+import play.api.libs.json.Json
 import uk.gov.hmrc.hmrcfrontend.views.viewmodels.JsonRoundtripSpec
 import uk.gov.hmrc.hmrcfrontend.views.viewmodels.notificationbadge.Generators._
 
-class NotificationBadgeSpec extends JsonRoundtripSpec[NotificationBadge]
+class NotificationBadgeSpec extends JsonRoundtripSpec[NotificationBadge] {
+  "NotificationBadge" should {
+    "accept strings" in {
+      val testData = NotificationBadge("3")
+
+      val json = Json.toJson[NotificationBadge](testData)
+
+      json.as[NotificationBadge] should be(
+        NotificationBadge("3"))
+    }
+    "accept integers" in {
+      val testData = NotificationBadge(1)
+
+      val json = Json.toJson[NotificationBadge](testData)
+
+      json.as[NotificationBadge] should be(
+        NotificationBadge("1"))
+    }
+    "accept integers via JSON" in {
+      val json = Json.parse("{\"text\": 3}")
+
+      json.as[NotificationBadge] should be(
+        NotificationBadge("3"))
+    }
+    "allow strings from JSON" in {
+      val json = Json.parse("{\"text\": \"New\"}")
+
+      json.as[NotificationBadge] should be(
+        NotificationBadge("New"))
+    }
+  }
+}

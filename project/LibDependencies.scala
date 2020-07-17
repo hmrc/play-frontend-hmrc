@@ -4,7 +4,7 @@ import play.sbt.PlayImport.ws
 import sbt.ModuleID
 
 object LibDependencies {
-  lazy val hmrcFrontendVersion = "1.12.0"
+  lazy val hmrcFrontendVersion = "1.15.1"
 
   lazy val libDependencies: Seq[ModuleID] = dependencies(
     shared = {
@@ -34,7 +34,7 @@ object LibDependencies {
     },
     play25 = {
       val compile = Seq(
-        "uk.gov.hmrc" %% "play-frontend-govuk" % "0.47.0-play-25"
+        "uk.gov.hmrc" %% "play-frontend-govuk" % "0.49.0-play-25"
       )
 
       val test = Seq(
@@ -45,7 +45,7 @@ object LibDependencies {
     },
     play26 = {
       val compile = Seq(
-        "uk.gov.hmrc" %% "play-frontend-govuk" % "0.47.0-play-26"
+        "uk.gov.hmrc" %% "play-frontend-govuk" % "0.49.0-play-26"
       )
 
       val test = Seq(
@@ -56,7 +56,7 @@ object LibDependencies {
     },
     play27 = {
       val compile = Seq(
-        "uk.gov.hmrc" %% "play-frontend-govuk" % "0.47.0-play-27"
+        "uk.gov.hmrc" %% "play-frontend-govuk" % "0.49.0-play-27"
       )
       val test = Seq(
         "org.scalatestplus.play" %% "scalatestplus-play" % "4.0.3"

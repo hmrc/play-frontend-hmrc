@@ -1,9 +1,9 @@
 
 <meta name="hmrc-timeout-dialog"
       content="hmrc-timeout-dialog"
-      data-language=""
-      data-timeout="75"
-      data-countdown="74"
+      data-language="cy"
+      data-timeout="70"
+      data-countdown="68"
       data-keep-alive-url="?abc=def"
       data-sign-out-url="?ghi=jkl"
       data-title=""

@@ -7,7 +7,7 @@
  - Select `WebJar Type` as `NPM`
  - Input `hmrc-frontend` and select the relevant version from the dropdown
  - Hit `Deploy!`
-2. Bump webjar [dependency](https://github.com/hmrc/hmrc-frontend/tags) for `hmrc-frontend` in `build.sbt`.
+2. Bump webjar [dependency](https://github.com/hmrc/hmrc-frontend/tags) for `hmrc-frontend` in `project/LibDependencies.scala`.
 3. Generate fixtures folder `src/test/resources/fixtures/test-fixtures`.
    - With the template renderer running locally (see below), execute `sbt generateUnitTestFixtures` 
 4. Run unit tests: `sbt clean test`.

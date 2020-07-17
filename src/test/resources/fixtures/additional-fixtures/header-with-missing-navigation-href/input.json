@@ -1,0 +1,15 @@
+{
+  "navigation" : [ {
+    "href" : "#1",
+    "text" : "Navigation item 1",
+    "active" : true
+  }, {
+    "text" : "Navigation item 2 - empty href"
+  }, {
+    "href" : "#3",
+    "text" : "Navigation item 3"
+  }, {
+    "href" : "#4",
+    "text" : "Navigation item 4"
+  } ]
+}

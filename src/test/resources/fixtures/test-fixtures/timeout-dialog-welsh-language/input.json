@@ -1,6 +1,7 @@
 {
-  "timeout" : 75,
-  "countdown" : 74,
+  "language" : "cy",
+  "timeout" : 70,
+  "countdown" : 68,
   "keepAliveUrl" : "?abc=def",
   "signOutUrl" : "?ghi=jkl"
 }
