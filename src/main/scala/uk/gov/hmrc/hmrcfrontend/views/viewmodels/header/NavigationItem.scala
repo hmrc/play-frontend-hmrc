@@ -23,24 +23,22 @@ import play.api.libs.json._
 import uk.gov.hmrc.govukfrontend.views.viewmodels.content.Content.writesContent
 
 final case class NavigationItem(
-                                   @deprecated("Use content", "Since play-frontend-hmrc v0.17.0") text: Option[String]  = None,
+                                   content: Content                                                                     = Empty,
                                    href: Option[String]                                                                 = None,
                                    active: Boolean                                                                      = false,
-                                   attributes: Map[String, String]                                                      = Map.empty,
-                                   content: Content                                                                     = Empty
+                                   attributes: Map[String, String]                                                      = Map.empty
                                  )
 
 object NavigationItem extends JsonDefaultValueFormatter[NavigationItem] {
 
-  override def defaultObject: NavigationItem = NavigationItem()
+  override def defaultObject: NavigationItem = NavigationItem(Empty)
 
   override def defaultReads: Reads[NavigationItem] =
     (
-      Reads.pure(None) and
+        Content.reads and
         (__ \ "href").readNullable[String] and
         (__ \ "active").read[Boolean] and
-        (__ \ "attributes").read[Map[String, String]] and
-        Content.reads
+        (__ \ "attributes").read[Map[String, String]]
       )(NavigationItem.apply _)
 
   override implicit def jsonWrites: OWrites[NavigationItem] = OWrites { hn =>
