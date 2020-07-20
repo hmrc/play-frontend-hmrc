@@ -1,10 +1,13 @@
 
 <meta name="hmrc-timeout-dialog"
+      content="hmrc-timeout-dialog"
+      data-language=""
       data-timeout="100"
       data-countdown="90"
       data-keep-alive-url="keepAliveUrl"
       data-sign-out-url="signOutUrl"
       data-title="title"
       data-message="message"
+      data-message-suffix="there is a suffix for the message"
       data-keep-alive-button-text="keepAliveButtonText"
       data-sign-out-button-text="signOutButtonText" />

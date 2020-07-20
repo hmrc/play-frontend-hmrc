@@ -1,0 +1,12 @@
+{
+  "navigation": [
+    {
+      "href": "",
+      "text": "Should be hidden"
+    },
+    {
+      "href": "ydwpqssxtha",
+      "text": "Should be displayed"
+    }
+  ]
+}

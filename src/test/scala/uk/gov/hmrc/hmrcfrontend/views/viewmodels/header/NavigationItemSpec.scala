@@ -16,7 +16,12 @@
 
 package uk.gov.hmrc.hmrcfrontend.views.viewmodels.header
 
+import play.api.libs.json.Json
+import uk.gov.hmrc.govukfrontend.views.viewmodels.content.HtmlContent
 import uk.gov.hmrc.hmrcfrontend.views.viewmodels.JsonRoundtripSpec
 import uk.gov.hmrc.hmrcfrontend.views.viewmodels.header.Generators._
+
+import uk.gov.hmrc.govukfrontend.views.viewmodels.content.{Empty, HtmlContent, Text}
+import Generators._
 
 class NavigationItemSpec extends JsonRoundtripSpec[NavigationItem]

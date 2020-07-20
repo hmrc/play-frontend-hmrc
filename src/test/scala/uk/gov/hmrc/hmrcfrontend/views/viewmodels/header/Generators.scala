@@ -19,17 +19,18 @@ package uk.gov.hmrc.hmrcfrontend.views.viewmodels.header
 import org.scalacheck.{Arbitrary, Gen}
 import org.scalacheck.Arbitrary.arbBool
 import uk.gov.hmrc.hmrcfrontend.views.viewmodels.Generators._
+import uk.gov.hmrc.hmrcfrontend.views.viewmodels.content.Generators._
 import uk.gov.hmrc.hmrcfrontend.views.viewmodels.language.Generators._
 
 object Generators {
 
   implicit val arbNavigationItem: Arbitrary[NavigationItem] = Arbitrary {
     for {
-      text       <- genAlphaStr()
-      href       <- genAlphaStr()
+      href       <- Gen.option(genAlphaStr())
       active     <- arbBool.arbitrary
       attributes <- genAttributes()
-    } yield NavigationItem(text = text, href = href, active = active, attributes = attributes)
+      content    <- arbContent.arbitrary
+    } yield NavigationItem(href = href, active = active, attributes = attributes, content = content)
   }
 
   def genNavigationItems(n: Int = 15): Gen[List[NavigationItem]] = for {
