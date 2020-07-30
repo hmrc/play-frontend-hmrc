@@ -10,9 +10,9 @@
           <label class="govuk-label govuk-radios__label" for="how-contacted-2">
         Email
       </label>
-          <span id="how-contacted-2-item-hint" class="govuk-hint govuk-radios__hint">
+          <div id="how-contacted-2-item-hint" class="govuk-hint govuk-radios__hint">
         Hint for email address
-      </span>
+      </div>
         </div>
         <div class="govuk-radios__item">
           <input class="govuk-radios__input" id="how-contacted-2-2" name="how-contacted-2" type="radio" value="phone">

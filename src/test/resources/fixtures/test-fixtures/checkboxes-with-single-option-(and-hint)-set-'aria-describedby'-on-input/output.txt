@@ -9,9 +9,9 @@
           <label class="govuk-label govuk-checkboxes__label" for="t-and-c-with-hint">
         I agree to the terms and conditions
       </label>
-          <span id="t-and-c-with-hint-item-hint" class="govuk-hint govuk-checkboxes__hint">
+          <div id="t-and-c-with-hint-item-hint" class="govuk-hint govuk-checkboxes__hint">
         Go on, you know you want to!
-      </span>
+      </div>
         </div>
   </div>
 </div>

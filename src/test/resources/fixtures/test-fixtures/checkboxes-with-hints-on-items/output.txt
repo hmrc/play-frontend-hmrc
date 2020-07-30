@@ -12,18 +12,18 @@
           <label class="govuk-label govuk-checkboxes__label" for="government-gateway">
         Sign in with Government Gateway
       </label>
-          <span id="government-gateway-item-hint" class="govuk-hint govuk-checkboxes__hint">
+          <div id="government-gateway-item-hint" class="govuk-hint govuk-checkboxes__hint">
         You’ll have a user ID if you’ve registered for Self Assessment or filed a tax return online before.
-      </span>
+      </div>
         </div>
         <div class="govuk-checkboxes__item">
           <input class="govuk-checkboxes__input" id="govuk-verify" name="verify" type="checkbox" value="gov-verify" aria-describedby="govuk-verify-item-hint">
           <label class="govuk-label govuk-checkboxes__label" for="govuk-verify">
         Sign in with GOV.UK Verify
       </label>
-          <span id="govuk-verify-item-hint" class="govuk-hint govuk-checkboxes__hint">
+          <div id="govuk-verify-item-hint" class="govuk-hint govuk-checkboxes__hint">
         You’ll have an account if you’ve already proved your identity with either Barclays, CitizenSafe, Digidentity, Experian, Post Office, Royal Mail or SecureIdentity.
-      </span>
+      </div>
         </div>
   </div>
 </fieldset>

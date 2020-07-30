@@ -6,9 +6,9 @@
       Which part of the Housing Act was your licence issued under?
     </h1>
   </legend>
-  <span id="housing-act-hint" class="govuk-hint">
+  <div id="housing-act-hint" class="govuk-hint">
     Select one of the options below.
-  </span>
+  </div>
   <div class="govuk-radios">
         <div class="govuk-radios__item">
           <input class="govuk-radios__input" id="housing-act" name="housing-act" type="radio" value="part-2">

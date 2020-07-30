@@ -1,0 +1,9 @@
+{
+  "label" : {
+    "text" : "Spellcheck is disabled"
+  },
+  "id" : "textarea-with-spellcheck-disabled",
+  "name" : "spellcheck",
+  "type" : "text",
+  "spellcheck" : false
+}

@@ -2,9 +2,9 @@
   <label class="govuk-label" for="file-upload-3">
     Upload a file
   </label>
-  <span id="file-upload-3-hint" class="govuk-hint">
+  <div id="file-upload-3-hint" class="govuk-hint">
     Your photo may be in your Pictures, Photos, Downloads or Desktop folder. Or in an app like iPhoto.
-  </span>
+  </div>
   <span id="file-upload-3-error" class="govuk-error-message">
   <span class="govuk-visually-hidden">Error:</span> Error message goes here
   </span>

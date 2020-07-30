@@ -4,9 +4,9 @@
   <legend class="govuk-fieldset__legend">
     Maecenas faucibus mollis interdum?
   </legend>
-  <span id="waste-hint" class="govuk-hint">
+  <div id="waste-hint" class="govuk-hint">
     Nullam id dolor id nibh ultricies vehicula ut id elit.
-  </span>
+  </div>
   <span id="waste-error" class="govuk-error-message">
   <span class="govuk-visually-hidden">Error:</span> Lorem ipsum dolor sit amet, consectetur adipiscing elit.
   </span>
