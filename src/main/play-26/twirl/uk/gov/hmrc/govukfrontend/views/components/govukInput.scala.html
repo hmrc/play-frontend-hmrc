@@ -65,10 +65,10 @@
 
 @inputSnippet(describedBy: String) = {
   @defining {
-    id="@id" name="@name" type="@inputType"@value.mapNonEmpty { value => value="@value" }@if(describedBy.nonEmpty) { aria-describedby="@describedBy"}
+    id="@id" name="@name" type="@inputType"@if(spellcheck.nonEmpty){ spellcheck="@if(spellcheck.getOrElse(true)){true}else{false}" }@value.mapNonEmpty { value => value="@value" }@if(describedBy.nonEmpty) { aria-describedby="@describedBy"}
   } { attrs =>
   @defining {
-    @autocomplete.mapNonEmpty { autocomplete => autocomplete="@autocomplete"}@pattern.mapNonEmpty { pattern => pattern="@pattern"}@inputmode.mapNonEmpty { inputmode => inputmode="@inputmode"}@toAttributes(attributes)@if(spellcheck.nonEmpty){spellcheck="@if(spellcheck.getOrElse(true)){true}else{false}"}
+    @autocomplete.mapNonEmpty { autocomplete => autocomplete="@autocomplete"}@pattern.mapNonEmpty { pattern => pattern="@pattern"}@inputmode.mapNonEmpty { inputmode => inputmode="@inputmode"}@toAttributes(attributes)
   } { otherAttrs =>
       <input class="@toClasses("govuk-input", classes, errorMessage.fold("")(_ => "govuk-input--error"))" @attrs@otherAttrs>
   }}
