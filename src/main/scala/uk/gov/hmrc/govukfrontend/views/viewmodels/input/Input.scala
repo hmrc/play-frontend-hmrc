@@ -38,7 +38,8 @@ case class Input(
   classes: String                    = "",
   autocomplete: Option[String]       = None,
   pattern: Option[String]            = None,
-  attributes: Map[String, String]    = Map.empty
+  attributes: Map[String, String]    = Map.empty,
+  spellcheck: Option[Boolean]        = None
 )
 
 object Input extends JsonDefaultValueFormatter[Input] {
@@ -60,7 +61,8 @@ object Input extends JsonDefaultValueFormatter[Input] {
         (__ \ "classes").read[String] and
         (__ \ "autocomplete").readNullable[String] and
         (__ \ "pattern").readNullable[String] and
-        (__ \ "attributes").read[Map[String, String]]
+        (__ \ "attributes").read[Map[String, String]] and
+        (__ \ "spellcheck").readNullable[Boolean]
     )(Input.apply _)
 
   override implicit def jsonWrites: OWrites[Input] =
@@ -78,7 +80,8 @@ object Input extends JsonDefaultValueFormatter[Input] {
         (__ \ "classes").write[String] and
         (__ \ "autocomplete").writeNullable[String] and
         (__ \ "pattern").writeNullable[String] and
-        (__ \ "attributes").write[Map[String, String]]
+        (__ \ "attributes").write[Map[String, String]] and
+        (__ \ "spellcheck").writeNullable[Boolean]
     )(unlift(Input.unapply))
 
 }
