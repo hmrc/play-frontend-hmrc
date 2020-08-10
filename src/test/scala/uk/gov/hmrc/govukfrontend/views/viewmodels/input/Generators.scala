@@ -41,7 +41,7 @@ object Generators {
       autocomplete     <- Gen.option(genAlphaStr())
       pattern          <- Gen.option(genAlphaStr())
       attributes       <- genAttributes()
-      arbSpellcheck    <- Gen.option(arbBool.arbitrary)
+      spellcheck    <- Gen.option(arbBool.arbitrary)
     } yield
       Input(
         id               = id,
@@ -58,7 +58,7 @@ object Generators {
         autocomplete     = autocomplete,
         pattern          = pattern,
         attributes       = attributes,
-        spellcheck       = arbSpellcheck
+        spellcheck       = spellcheck
       )
   }
 }
