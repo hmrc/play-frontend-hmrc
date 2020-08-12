@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [0.50.0] - 2020-08-12
+
+### Added
+
+- Upgrade to govuk-frontend v3.8.0
+
 ## [0.49.0] - 2020-07-03
 
 ### Added
