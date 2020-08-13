@@ -4,6 +4,5 @@
   },
   "id" : "textarea-with-spellcheck-enabled",
   "name" : "spellcheck",
-  "type" : "text",
   "spellcheck" : true
 }
