@@ -10,9 +10,9 @@
           <label class="govuk-label govuk-checkboxes__label" for="nationality">
         a thing
       </label>
-          <span id="nationality-item-hint" class="govuk-hint govuk-checkboxes__hint">
+          <div id="nationality-item-hint" class="govuk-hint govuk-checkboxes__hint">
         hint for a thing
-      </span>
+      </div>
         </div>
         <div class="govuk-checkboxes__item">
           <input class="govuk-checkboxes__input" id="nationality-2" name="nationality" type="checkbox" value="b">

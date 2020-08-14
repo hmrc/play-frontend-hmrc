@@ -13,27 +13,27 @@
           <label class="govuk-label govuk-checkboxes__label" for="waste">
         Waste from animal carcasses
       </label>
-          <span id="waste-item-hint" class="govuk-hint govuk-checkboxes__hint">
+          <div id="waste-item-hint" class="govuk-hint govuk-checkboxes__hint">
         Nullam id dolor id nibh ultricies vehicula ut id elit.
-      </span>
+      </div>
         </div>
         <div class="govuk-checkboxes__item">
           <input class="govuk-checkboxes__input" id="waste-2" name="waste" type="checkbox" value="mines" aria-describedby="waste-2-item-hint">
           <label class="govuk-label govuk-checkboxes__label" for="waste-2">
         Waste from mines or quarries
       </label>
-          <span id="waste-2-item-hint" class="govuk-hint govuk-checkboxes__hint">
+          <div id="waste-2-item-hint" class="govuk-hint govuk-checkboxes__hint">
         Nullam id dolor id nibh ultricies vehicula ut id elit.
-      </span>
+      </div>
         </div>
         <div class="govuk-checkboxes__item">
           <input class="govuk-checkboxes__input" id="waste-3" name="waste" type="checkbox" value="farm" aria-describedby="waste-3-item-hint">
           <label class="govuk-label govuk-checkboxes__label" for="waste-3">
         Farm or agricultural waste
       </label>
-          <span id="waste-3-item-hint" class="govuk-hint govuk-checkboxes__hint">
+          <div id="waste-3-item-hint" class="govuk-hint govuk-checkboxes__hint">
         Nullam id dolor id nibh ultricies vehicula ut id elit.
-      </span>
+      </div>
         </div>
   </div>
 </fieldset>

@@ -6,9 +6,9 @@
       Which types of waste do you transport regularly?
     </h1>
   </legend>
-  <span id="waste-hint" class="govuk-hint">
+  <div id="waste-hint" class="govuk-hint">
     Select all that apply
-  </span>
+  </div>
   <div class="govuk-checkboxes">
         <div class="govuk-checkboxes__item">
           <input class="govuk-checkboxes__input" id="waste" name="waste" type="checkbox" value="animal">

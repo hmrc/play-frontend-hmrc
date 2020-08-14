@@ -5,9 +5,9 @@
   <legend class="govuk-fieldset__legend">
     What is your date of birth?
   </legend>
-  <span id="dob-hint" class="govuk-hint">
+  <div id="dob-hint" class="govuk-hint">
     For example, 31 3 1980
-  </span>
+  </div>
   <div class="govuk-date-input" id="dob">
     <div class="govuk-date-input__item">
       <div class="govuk-form-group">

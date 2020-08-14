@@ -21,6 +21,7 @@ import uk.gov.hmrc.govukfrontend.views.viewmodels.Generators._
 import uk.gov.hmrc.govukfrontend.views.viewmodels.errormessage.Generators._
 import uk.gov.hmrc.govukfrontend.views.viewmodels.hint.Generators._
 import uk.gov.hmrc.govukfrontend.views.viewmodels.label.Generators._
+import org.scalacheck.Arbitrary._
 
 object Generators {
 
@@ -40,6 +41,7 @@ object Generators {
       autocomplete     <- Gen.option(genAlphaStr())
       pattern          <- Gen.option(genAlphaStr())
       attributes       <- genAttributes()
+      spellcheck    <- Gen.option(arbBool.arbitrary)
     } yield
       Input(
         id               = id,
@@ -55,7 +57,8 @@ object Generators {
         classes          = classes,
         autocomplete     = autocomplete,
         pattern          = pattern,
-        attributes       = attributes
+        attributes       = attributes,
+        spellcheck       = spellcheck
       )
   }
 }

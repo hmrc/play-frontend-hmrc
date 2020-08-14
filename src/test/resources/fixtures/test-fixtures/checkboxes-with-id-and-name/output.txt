@@ -4,9 +4,9 @@
   <legend class="govuk-fieldset__legend">
     What is your nationality?
   </legend>
-  <span id="with-id-and-name-hint" class="govuk-hint">
+  <div id="with-id-and-name-hint" class="govuk-hint">
     If you have dual nationality, select all options that are relevant to you.
-  </span>
+  </div>
   <div class="govuk-checkboxes">
         <div class="govuk-checkboxes__item">
           <input class="govuk-checkboxes__input" id="item_british" name="british" type="checkbox" value="yes">
