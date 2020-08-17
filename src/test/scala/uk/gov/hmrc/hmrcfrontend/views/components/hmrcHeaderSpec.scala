@@ -18,7 +18,9 @@ package uk.gov.hmrc.hmrcfrontend.views
 package components
 
 import play.twirl.api.HtmlFormat
+import uk.gov.hmrc.govukfrontend.views.html.components.{BackLink, Empty, GovukBackLink}
 import uk.gov.hmrc.hmrcfrontend.views.html.components._
+
 import scala.util.Try
 
 class hmrcHeaderSpec extends TemplateUnitSpec[Header]("hmrcHeader") {
@@ -31,4 +33,15 @@ class hmrcHeaderSpec extends TemplateUnitSpec[Header]("hmrcHeader") {
    */
   override def render(templateParams: Header): Try[HtmlFormat.Appendable] =
     Try(HmrcHeader(templateParams))
+
+  "header" should {
+    """not throw an exception if Some("") is passed as serviceName""" in {
+      val params = Header(serviceName = Some(""),
+        containerClasses = "govuk-width-container",
+        signOutHref = Some("/sign-out"))
+      val componentTry = Try(HmrcHeader(params))
+
+      componentTry should be a 'success
+    }
+  }
 }
