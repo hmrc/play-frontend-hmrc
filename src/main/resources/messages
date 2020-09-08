@@ -1,0 +1,9 @@
+footer.cookies.text = Cookies
+footer.cookies.url = /help/cookies
+footer.privacy.text = Privacy policy
+footer.privacy.url = /help/privacy
+footer.termsConditions.text = Terms and conditions
+footer.termsConditions.url = /help/terms-and-conditions
+footer.govukHelp.text = Help using GOV.UK
+footer.govukHelp.url = https://www.gov.uk/help
+footer.accessibility.text = Accessibility statement
