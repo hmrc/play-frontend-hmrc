@@ -24,11 +24,13 @@ import uk.gov.hmrc.hmrcfrontend.config.AccessibilityStatementConfig
 
 class HmrcFooterItems @Inject()(accessibilityStatementConfig: AccessibilityStatementConfig) {
   def get(implicit messages: Messages, request: RequestHeader): Seq[FooterItem] =
-    footerItemForKey("cookies").toSeq ++
-      accessibilityLink ++
-      footerItemForKey("privacy") ++
-      footerItemForKey("termsConditions") ++
+    Seq(
+      footerItemForKey("cookies"),
+      accessibilityLink,
+      footerItemForKey("privacy"),
+      footerItemForKey("termsConditions"),
       footerItemForKey("govukHelp")
+    ).flatten
 
   private def accessibilityLink(implicit messages: Messages, request: RequestHeader): Option[FooterItem] =
     accessibilityStatementConfig.url
