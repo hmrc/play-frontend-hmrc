@@ -17,6 +17,10 @@
 package uk.gov.hmrc.hmrcfrontend.views
 package html
 
+import play.api.Play
+import uk.gov.hmrc.hmrcfrontend.config.AccessibilityStatementConfig
+import uk.gov.hmrc.hmrcfrontend.views.config.HmrcFooterItems
+
 package object components extends Utils with Aliases {
 
   /**
@@ -29,6 +33,12 @@ package object components extends Utils with Aliases {
   lazy val HmrcBanner = hmrcBanner
 
   lazy val HmrcHeader = hmrcHeader
+
+  private lazy val accessibilityStatementConfig = Play.current.injector.instanceOf[AccessibilityStatementConfig]
+
+  lazy val hmrcFooterItems = new HmrcFooterItems(accessibilityStatementConfig)
+
+  lazy val HmrcFooter = hmrcFooter
 
   lazy val HmrcInternalHeader = hmrcInternalHeader
 

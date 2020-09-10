@@ -127,6 +127,23 @@ Same button using DI:
 ))
 ```
 
+### Accessibility Statements
+
+The [hmrcFooter](src/main/play-26/twirl/uk/gov/hmrc/hmrcfrontend/views/components/hmrcFooter.scala.html) component,
+ generates the standard Gov.UK footer including the standard list of footer links.
+
+To configure this component to link to the new 
+[Accessibility Statement service](https://www.github.com/hmrc/accessibility-statement-frontend), provide the key 
+`accessibility-statement.service-path` in your `application.conf`. This key is the path to your 
+accessibility statement under https://www.tax.service.gov.uk/accessibility-statement.
+ 
+For example, if your accessibility statement is https://www.tax.service.gov.uk/accessibility-statement/discounted-icecreams, 
+this property must be set to `/discounted-icecreams` as follows:
+
+```
+accessibility-statement.service-path = "/discounted-icecreams"
+```
+
 ### Example Templates
 
 We intend to provide example templates using the Twirl components through a `Chrome` extension.
@@ -151,9 +168,7 @@ We do not currently automate the publishing of the webjar so it has to be manual
 
 ## Getting help
 
-Please report any issues with this library in Slack at `#event-play-frontend-beta`.
-
-For other issues or wider discussions, please use `#team-plat-ui`.
+Please report any issues with this library in Slack at `#team-plat-ui`.
 
 ## Contributing
 

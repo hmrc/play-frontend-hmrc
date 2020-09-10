@@ -17,56 +17,68 @@
 package uk.gov.hmrc.hmrcfrontend.views
 package html
 
-import uk.gov.hmrc.govukfrontend.views.html.components.{GovukErrorMessage, GovukHint, GovukLabel}
+import play.api.Play
+import uk.gov.hmrc.govukfrontend.views.html.components.{GovukErrorMessage, GovukFooter, GovukHint, GovukLabel}
+import uk.gov.hmrc.hmrcfrontend.config.AccessibilityStatementConfig
+import uk.gov.hmrc.hmrcfrontend.views.config.HmrcFooterItems
 
 package object components extends Utils with Aliases {
 
   /**
-   * Top-level implicits for all components
-   */
+    * Top-level implicits for all components
+    */
   object implicits extends Implicits
 
+  private lazy val accessibilityStatementConfig = Play.current.injector.instanceOf[AccessibilityStatementConfig]
+
   type HmrcAccountMenu = hmrcAccountMenu
-  @deprecated(message="Use DI", since="Play 2.6")
+  @deprecated(message = "Use DI", since = "Play 2.6")
   lazy val HmrcAccountMenu = new hmrcAccountMenu(HmrcNotificationBadge)
 
   type HmrcBanner = hmrcBanner
-  @deprecated(message="Use DI", since="Play 2.6")
+  @deprecated(message = "Use DI", since = "Play 2.6")
   lazy val HmrcBanner = new hmrcBanner()
 
   type HmrcHeader = hmrcHeader
-  @deprecated(message="Use DI", since="Play 2.6")
+  @deprecated(message = "Use DI", since = "Play 2.6")
   lazy val HmrcHeader = new hmrcHeader(HmrcBanner)
 
+  @deprecated(message = "Use DI", since = "Play 2.6")
+  lazy val HmrcFooterItems = new HmrcFooterItems(accessibilityStatementConfig)
+
+  type HmrcFooter = hmrcFooter
+  @deprecated(message = "Use DI", since = "Play 2.6")
+  lazy val HmrcFooter = new hmrcFooter(GovukFooter, HmrcFooterItems)
+
   type HmrcInternalHeader = hmrcInternalHeader
-  @deprecated(message="Use DI", since="Play 2.6")
+  @deprecated(message = "Use DI", since = "Play 2.6")
   lazy val HmrcInternalHeader = new hmrcInternalHeader()
 
   type HmrcLanguageSelect = hmrcLanguageSelect
-  @deprecated(message="Use DI", since="Play 2.6")
+  @deprecated(message = "Use DI", since = "Play 2.6")
   lazy val HmrcLanguageSelect = new hmrcLanguageSelect()
 
   type HmrcNewTabLink = hmrcNewTabLink
-  @deprecated(message="Use DI", since="Play 2.6")
+  @deprecated(message = "Use DI", since = "Play 2.6")
   lazy val HmrcNewTabLink = new hmrcNewTabLink()
 
   type HmrcNotificationBadge = hmrcNotificationBadge
-  @deprecated(message="Use DI", since="Play 2.6")
+  @deprecated(message = "Use DI", since = "Play 2.6")
   lazy val HmrcNotificationBadge = new hmrcNotificationBadge()
 
   type HmrcPageHeading = hmrcPageHeading
-  @deprecated(message="Use DI", since="Play 2.6")
+  @deprecated(message = "Use DI", since = "Play 2.6")
   lazy val HmrcPageHeading = new hmrcPageHeading()
 
   type HmrcTimeoutDialog = hmrcTimeoutDialog
-  @deprecated(message="Use DI", since="Play 2.6")
+  @deprecated(message = "Use DI", since = "Play 2.6")
   lazy val HmrcTimeoutDialog = new hmrcTimeoutDialog()
 
   type HmrcReportTechnicalIssue = hmrcReportTechnicalIssue
-  @deprecated(message="Use DI", since="Play 2.6")
+  @deprecated(message = "Use DI", since = "Play 2.6")
   lazy val HmrcReportTechnicalIssue = new hmrcReportTechnicalIssue()
 
   type HmrcCurrencyInput = hmrcCurrencyInput
-  @deprecated(message="Use DI", since="Play 2.6")
+  @deprecated(message = "Use DI", since = "Play 2.6")
   lazy val HmrcCurrencyInput = new hmrcCurrencyInput(GovukErrorMessage, GovukHint, GovukLabel)
 }
