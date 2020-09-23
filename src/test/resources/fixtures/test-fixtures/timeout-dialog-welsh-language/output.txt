@@ -6,6 +6,7 @@
       data-countdown="68"
       data-keep-alive-url="?abc=def"
       data-sign-out-url="?ghi=jkl"
+      data-timeout-url=""
       data-title=""
       data-message=""
       data-message-suffix=""

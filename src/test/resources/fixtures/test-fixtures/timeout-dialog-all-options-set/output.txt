@@ -6,6 +6,7 @@
       data-countdown="90"
       data-keep-alive-url="keepAliveUrl"
       data-sign-out-url="signOutUrl"
+      data-timeout-url=""
       data-title="title"
       data-message="message"
       data-message-suffix="there is a suffix for the message"
