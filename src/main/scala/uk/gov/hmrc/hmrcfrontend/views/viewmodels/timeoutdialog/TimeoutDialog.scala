@@ -26,6 +26,7 @@ case class TimeoutDialog(
   countdown: Option[Int]              = None,
   keepAliveUrl: Option[String]        = None,
   signOutUrl: Option[String]          = None,
+  timeoutUrl: Option[String]          = None,
   title: Option[String]               = None,
   message: Option[String]             = None,
   messageSuffix: Option[String]       = None,
