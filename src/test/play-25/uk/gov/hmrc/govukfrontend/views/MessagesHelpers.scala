@@ -16,19 +16,38 @@
 
 package uk.gov.hmrc.govukfrontend.views
 
-import play.api.i18n.{DefaultLangs, DefaultMessagesApi, Messages}
+import play.api.i18n.{DefaultLangs, DefaultMessagesApi, Lang, Messages, MessagesApi}
 import play.api.{Configuration, Environment}
+
+import scala.collection.immutable.List
 
 trait MessagesHelpers {
 
   def messagesMap: Map[String, Map[String, String]] = Map.empty
 
-  lazy val messagesApi =
-    new DefaultMessagesApi(Environment.simple(), Configuration.reference, new DefaultLangs(Configuration.reference)) {
+  implicit lazy val messagesApi: MessagesApi = {
+
+    val environment = Environment.simple()
+
+    val configuration = Configuration.load(environment)
+
+    val langs = new DefaultLangs(Configuration.from(Map(
+      "play.i18n.langs" -> List("en", "cy")
+    )))
+
+    new DefaultMessagesApi(
+      environment   = environment,
+      configuration = configuration,
+      langs         = langs
+    )
+
+    new DefaultMessagesApi(environment, configuration, langs = langs) {
       override protected def loadAllMessages: Map[String, Map[String, String]] =
         if (messagesMap.isEmpty) super.loadAllMessages else messagesMap
     }
+  }
 
-  implicit lazy val messages: Messages = messagesApi.preferred(Seq.empty)
+  implicit lazy val messages: Messages =
+    Messages(Lang("en"), messagesApi)
 }
 
