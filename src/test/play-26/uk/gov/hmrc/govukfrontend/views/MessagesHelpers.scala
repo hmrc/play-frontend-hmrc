@@ -16,7 +16,7 @@
 
 package uk.gov.hmrc.govukfrontend.views
 
-import play.api.i18n.Messages
+import play.api.i18n.{DefaultLangs, Lang, Langs, Messages, MessagesApi}
 import play.api.test.{Helpers => PlayHelpers}
 
 trait MessagesHelpers {
@@ -27,6 +27,12 @@ trait MessagesHelpers {
     */
   def messagesMap: Map[String, Map[String, String]] = Map.empty
 
+  implicit lazy val messagesApi: MessagesApi = {
+    val langs = new DefaultLangs(Seq(Lang("en"), Lang("cy")))
+
+    PlayHelpers.stubMessagesApi(messages = messagesMap, langs = langs)
+  }
+
   implicit lazy val messages: Messages =
-    PlayHelpers.stubMessages(PlayHelpers.stubMessagesApi(messages = messagesMap))
+    PlayHelpers.stubMessages(messagesApi)
 }

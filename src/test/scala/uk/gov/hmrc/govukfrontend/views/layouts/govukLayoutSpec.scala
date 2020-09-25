@@ -16,6 +16,7 @@
 
 package uk.gov.hmrc.govukfrontend.views.layouts
 
+import play.api.i18n.Lang
 import play.api.mvc.AnyContentAsEmpty
 import play.api.test.FakeRequest
 import play.twirl.api.HtmlFormat
@@ -45,5 +46,25 @@ class govukLayoutSpec extends TemplateUnitSpec[Layout]("govukLayout") with Messa
       scriptsBlock = layout.scripts,
       beforeContentBlock = layout.beforeContent)(layout.content.getOrElse(HtmlFormat.empty))
     )
+  }
+
+  "govukLayout" should {
+    "render the html lang as en by default" in {
+      val layoutHtml =
+        GovukLayout.apply()(HtmlFormat.empty)
+
+      val html = layoutHtml.select("html")
+      html.attr("lang") shouldBe "en"
+    }
+
+    "render the html lang as cy if language toggle is set to Welsh" in {
+      val messages = messagesApi.preferred(Seq(Lang("cy")))
+
+      val layoutHtml =
+        GovukLayout.apply()(HtmlFormat.empty)(messages)
+
+      val html = layoutHtml.select("html")
+      html.attr("lang") shouldBe "cy"
+    }
   }
 }
