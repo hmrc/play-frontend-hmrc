@@ -144,6 +144,49 @@ this property must be set to `/discounted-icecreams` as follows:
 accessibility-statement.service-path = "/discounted-icecreams"
 ```
 
+### Integrating with Tracking Consent
+
+The [hmrcTrackingConsentSnippet](src/main/play-26/twirl/uk/gov/hmrc/hmrcfrontend/views/components/hmrcTrackingConsentSnippet.scala.html)
+component generates the HTML SCRIPT tags necessary to integrate with [tracking-consent-frontend](https//www.github.com/hmrc/tracking-consent-frontend)
+
+Before integrating, it is important to remove any hardcoded snippets relating to GTM, GA or Optimizely. Tracking consent
+manages the enabling of these third-party solutions based on the user's tracking preferences. If they are not removed
+there is a risk the user's tracking preferences will not be honoured.
+
+Configure your service's GTM container in `conf/application.conf`. For example, if you have been
+instructed to use GTM container `a`, the configuration would appear as:
+
+```
+tracking-consent-frontend {
+  gtm.container = "a"
+}
+```
+
+Locate in your frontend code the location where the play-frontend assets are added.
+
+Add HmrcTrackingConsentSnippet above the other assets in the HEAD tag. For example,
+
+```
+@this(hmrcTrackingConsentSnippet: HmrcTrackingConsentSnippet)
+
+...
+
+@hmrcTrackingConsentSnippet()
+
+<!--[if lte IE 8]><link href='@controllers.routes.Assets.versioned("stylesheets/application-ie-8.css")' rel="stylesheet" type="text/css" /><![endif]-->
+<!--[if gt IE 8]><!--><link href='@controllers.routes.Assets.versioned("stylesheets/application.css")' media="all" rel="stylesheet" type="text/css" /><!--<![endif]-->
+...
+```
+
+If using Play 2.7 and CSPFilter, the nonce can be passed to tracking consent as follows:
+
+```
+@import views.html.helper.CSPNonce
+...
+@hmrcTrackingConsentSnippet(nonce = CSPNonce.get)
+...
+```
+
 ### Example Templates
 
 We intend to provide example templates using the Twirl components through a `Chrome` extension.
