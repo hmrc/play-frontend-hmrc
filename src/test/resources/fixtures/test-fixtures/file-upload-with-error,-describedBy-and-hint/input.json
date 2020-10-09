@@ -1,0 +1,9 @@
+{
+  "describedBy" : "some-id",
+  "errorMessage" : {
+    "text" : "Error message"
+  },
+  "hint" : {
+    "text" : "hint"
+  }
+}

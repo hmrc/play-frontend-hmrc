@@ -1,0 +1,16 @@
+{
+  "name" : "example-fieldset-params",
+  "fieldset" : {
+    "classes" : "app-fieldset--custom-modifier",
+    "legend" : {
+      "text" : "Have you changed your name?"
+    },
+    "attributes" : {
+      "data-attribute" : "value",
+      "data-second-attribute" : "second-value"
+    }
+  },
+  "hint" : {
+    "text" : "This includes changing your last name or spelling your name differently."
+  }
+}

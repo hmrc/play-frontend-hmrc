@@ -16,6 +16,7 @@
 
 package uk.gov.hmrc.govukfrontend.views.viewmodels.breadcrumbs
 
+import play.api.libs.json.Json
 import uk.gov.hmrc.govukfrontend.views.viewmodels.JsonRoundtripSpec
 import uk.gov.hmrc.govukfrontend.views.viewmodels.breadcrumbs.Generators._
 

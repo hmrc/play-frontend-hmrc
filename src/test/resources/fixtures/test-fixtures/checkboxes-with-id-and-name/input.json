@@ -18,5 +18,9 @@
     "id" : "item_irish",
     "value" : "irish",
     "text" : "Irish"
+  }, {
+    "name" : "custom-name-scottish",
+    "text" : "Scottish",
+    "value" : "scottish"
   } ]
 }

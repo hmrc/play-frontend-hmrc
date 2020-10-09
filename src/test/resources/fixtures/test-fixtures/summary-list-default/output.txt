@@ -7,20 +7,6 @@
         <dd class="govuk-summary-list__value">
           Firstname Lastname
         </dd>
-          <dd class="govuk-summary-list__actions">
-              <ul class="govuk-summary-list__actions-list">
-                  <li class="govuk-summary-list__actions-list-item">
-                    <a class="govuk-link" href="#">
-                      Edit<span class="govuk-visually-hidden"> name</span>
-                  </a>
-                  </li>
-                  <li class="govuk-summary-list__actions-list-item">
-                    <a class="govuk-link" href="#">
-                      Delete<span class="govuk-visually-hidden"> name</span>
-                  </a>
-                  </li>
-              </ul>
-          </dd>
       </div>
       <div class="govuk-summary-list__row">
         <dt class="govuk-summary-list__key">
@@ -29,11 +15,6 @@
         <dd class="govuk-summary-list__value">
           13/08/1980
         </dd>
-          <dd class="govuk-summary-list__actions">
-              <a class="govuk-link" href="#">
-                Change<span class="govuk-visually-hidden"> date of birth</span>
-            </a>
-          </dd>
       </div>
       <div class="govuk-summary-list__row">
         <dt class="govuk-summary-list__key">
@@ -41,7 +22,7 @@
         </dt>
         <dd class="govuk-summary-list__value">
           <p class="govuk-body">
-         email@email.com
+          email@email.com
         </p>
         <p class="govuk-body">
           Address line 1<br>
@@ -51,19 +32,5 @@
           Address line 5
         </p>
         </dd>
-          <dd class="govuk-summary-list__actions">
-              <ul class="govuk-summary-list__actions-list">
-                  <li class="govuk-summary-list__actions-list-item">
-                    <a class="govuk-link" href="#">
-                      Edit<span class="govuk-visually-hidden"> contact information</span>
-                  </a>
-                  </li>
-                  <li class="govuk-summary-list__actions-list-item">
-                    <a class="govuk-link" href="#">
-                      Change<span class="govuk-visually-hidden"> contact information</span>
-                  </a>
-                  </li>
-              </ul>
-          </dd>
       </div>
 </dl>

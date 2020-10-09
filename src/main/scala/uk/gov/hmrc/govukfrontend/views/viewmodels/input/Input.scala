@@ -25,21 +25,23 @@ import uk.gov.hmrc.govukfrontend.views.viewmodels.hint.Hint
 import uk.gov.hmrc.govukfrontend.views.viewmodels.label.Label
 
 case class Input(
-  id: String                         = "",
-  name: String                       = "",
-  inputType: String                  = "text",
-  inputmode: Option[String]          = None,
-  describedBy: Option[String]        = None,
-  value: Option[String]              = None,
-  label: Label                       = Label(),
-  hint: Option[Hint]                 = None,
-  errorMessage: Option[ErrorMessage] = None,
-  formGroupClasses: String           = "",
-  classes: String                    = "",
-  autocomplete: Option[String]       = None,
-  pattern: Option[String]            = None,
-  attributes: Map[String, String]    = Map.empty,
-  spellcheck: Option[Boolean]        = None
+                  id: String                         = "",
+                  name: String                       = "",
+                  inputType: String                  = "text",
+                  inputmode: Option[String]          = None,
+                  describedBy: Option[String]        = None,
+                  value: Option[String]              = None,
+                  label: Label                       = Label(),
+                  hint: Option[Hint]                 = None,
+                  errorMessage: Option[ErrorMessage] = None,
+                  formGroupClasses: String           = "",
+                  classes: String                    = "",
+                  autocomplete: Option[String]       = None,
+                  pattern: Option[String]            = None,
+                  attributes: Map[String, String]    = Map.empty,
+                  spellcheck: Option[Boolean]        = None,
+                  prefix: Option[PrefixOrSuffix]     = None,
+                  suffix: Option[PrefixOrSuffix]     = None
 )
 
 object Input extends JsonDefaultValueFormatter[Input] {
@@ -62,7 +64,9 @@ object Input extends JsonDefaultValueFormatter[Input] {
         (__ \ "autocomplete").readNullable[String] and
         (__ \ "pattern").readNullable[String] and
         (__ \ "attributes").read[Map[String, String]] and
-        (__ \ "spellcheck").readNullable[Boolean]
+        (__ \ "spellcheck").readNullable[Boolean] and
+        (__ \ "prefix").readNullable[PrefixOrSuffix] and
+        (__ \ "suffix").readNullable[PrefixOrSuffix]
     )(Input.apply _)
 
   override implicit def jsonWrites: OWrites[Input] =
@@ -81,7 +85,9 @@ object Input extends JsonDefaultValueFormatter[Input] {
         (__ \ "autocomplete").writeNullable[String] and
         (__ \ "pattern").writeNullable[String] and
         (__ \ "attributes").write[Map[String, String]] and
-        (__ \ "spellcheck").writeNullable[Boolean]
+        (__ \ "spellcheck").writeNullable[Boolean] and
+        (__ \ "prefix").writeNullable[PrefixOrSuffix] and  //TODO: Make sure this actually writes (write a test for it)
+        (__ \ "suffix").writeNullable[PrefixOrSuffix] //TODO: Make sure this actually writes (write a test for it)
     )(unlift(Input.unapply))
 
 }

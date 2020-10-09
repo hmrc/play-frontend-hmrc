@@ -2,5 +2,4 @@
   <label class="govuk-label" for="input-with-pattern-attribute">
     Numbers only
   </label>
-  <input class="govuk-input" id="input-with-pattern-attribute" name="numbers-only" type="number" pattern="[0-9]*">
-</div>
+<input class="govuk-input" id="input-with-pattern-attribute" name="numbers-only" type="number" pattern="[0-9]*"></div>

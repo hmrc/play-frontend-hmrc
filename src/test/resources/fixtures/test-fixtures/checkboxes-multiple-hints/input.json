@@ -1,0 +1,20 @@
+{
+  "name" : "example-multiple-hints",
+  "hint" : {
+    "text" : "If you have dual nationality, select all options that are relevant to you."
+  },
+  "items" : [ {
+    "value" : "british",
+    "text" : "British",
+    "hint" : {
+      "text" : "Hint for british option here"
+    }
+  }, {
+    "value" : "irish",
+    "text" : "Irish"
+  }, {
+    "hint" : {
+      "text" : "Hint for other option here"
+    }
+  } ]
+}

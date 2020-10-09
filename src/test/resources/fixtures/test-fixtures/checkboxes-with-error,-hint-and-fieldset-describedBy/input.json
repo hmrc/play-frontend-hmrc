@@ -1,0 +1,15 @@
+{
+  "name" : "example",
+  "errorMessage" : {
+    "text" : "Please select an option"
+  },
+  "fieldset" : {
+    "describedBy" : "some-id",
+    "legend" : {
+      "text" : "What is your nationality?"
+    }
+  },
+  "hint" : {
+    "text" : "If you have dual nationality, select all options that are relevant to you."
+  }
+}

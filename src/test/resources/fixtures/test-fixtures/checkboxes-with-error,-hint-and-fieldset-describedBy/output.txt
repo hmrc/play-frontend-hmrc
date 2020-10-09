@@ -1,0 +1,17 @@
+
+<div class="govuk-form-group govuk-form-group--error">
+<fieldset class="govuk-fieldset" aria-describedby="some-id example-hint example-error">
+  <legend class="govuk-fieldset__legend">
+    What is your nationality?
+  </legend>
+  <div id="example-hint" class="govuk-hint">
+    If you have dual nationality, select all options that are relevant to you.
+  </div>
+  <span id="example-error" class="govuk-error-message">
+  <span class="govuk-visually-hidden">Error:</span> Please select an option
+  </span>
+  <div class="govuk-checkboxes">
+  </div>
+
+</fieldset>
+</div>

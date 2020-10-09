@@ -1,0 +1,21 @@
+
+
+<div class="govuk-form-group">
+  <div class="govuk-date-input">
+    <div class="govuk-date-input__item">
+      <div class="govuk-form-group">
+        
+      <input class="govuk-input govuk-date-input__input " id="day" name="" type="text" pattern="[0-9]*" inputmode="numeric"></div>
+    </div>
+    <div class="govuk-date-input__item">
+      <div class="govuk-form-group">
+        
+      <input class="govuk-input govuk-date-input__input " id="month" name="" type="text" pattern="[0-9]*" inputmode="numeric"></div>
+    </div>
+    <div class="govuk-date-input__item">
+      <div class="govuk-form-group">
+        
+      <input class="govuk-input govuk-date-input__input " id="undefined-undefined" name="" type="text" pattern="[0-9]*" inputmode="numeric"></div>
+    </div>
+  </div>
+</div>

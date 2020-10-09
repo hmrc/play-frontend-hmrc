@@ -1,0 +1,6 @@
+{
+  "attributes" : {
+    "data-test" : "attribute",
+    "id" : "my-error-message"
+  }
+}

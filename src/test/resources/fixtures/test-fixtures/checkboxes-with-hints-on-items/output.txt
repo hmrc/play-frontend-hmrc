@@ -13,7 +13,7 @@
         Sign in with Government Gateway
       </label>
           <div id="government-gateway-item-hint" class="govuk-hint govuk-checkboxes__hint">
-        You’ll have a user ID if you’ve registered for Self Assessment or filed a tax return online before.
+        You&#39;ll have a user ID if you&#39;ve registered for Self Assessment or filed a tax return online before.
       </div>
         </div>
         <div class="govuk-checkboxes__item">
@@ -22,9 +22,10 @@
         Sign in with GOV.UK Verify
       </label>
           <div id="govuk-verify-item-hint" class="govuk-hint govuk-checkboxes__hint">
-        You’ll have an account if you’ve already proved your identity with either Barclays, CitizenSafe, Digidentity, Experian, Post Office, Royal Mail or SecureIdentity.
+        You&#39;ll have an account if you&#39;ve already proved your identity with either Barclays, CitizenSafe, Digidentity, Experian, Post Office, Royal Mail or SecureIdentity.
       </div>
         </div>
   </div>
+
 </fieldset>
 </div>

@@ -54,7 +54,7 @@
 </dl>
 
 @actionLink(action: ActionItem) = {
-  <a class="@toClasses("govuk-link", action.classes)" href="@action.href"> @actionContent(action)</a>
+  <a class="@toClasses("govuk-link", action.classes)" href="@action.href" @toAttributes(action.attributes)> @actionContent(action)</a>
 }
 
 @actionContent(action: ActionItem) = {@action.content.asHtml@action.visuallyHiddenText.mapNonEmpty { visuallyHiddenText =><span class="govuk-visually-hidden"> @visuallyHiddenText</span> }}

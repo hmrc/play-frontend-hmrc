@@ -1,0 +1,8 @@
+{
+  "rows" : [ [ {
+    "text" : "Foo",
+    "attributes" : {
+      "data-fizz" : "buzz"
+    }
+  } ] ]
+}

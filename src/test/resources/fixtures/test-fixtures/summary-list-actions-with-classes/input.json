@@ -1,0 +1,10 @@
+{
+  "rows" : [ {
+    "actions" : {
+      "classes" : "app-custom-class",
+      "items" : [ {
+        "text" : "Edit"
+      } ]
+    }
+  } ]
+}

@@ -5,17 +5,6 @@
     },
     "value" : {
       "text" : "Firstname Lastname"
-    },
-    "actions" : {
-      "items" : [ {
-        "href" : "#",
-        "text" : "Edit",
-        "visuallyHiddenText" : "name"
-      }, {
-        "href" : "#",
-        "text" : "Delete",
-        "visuallyHiddenText" : "name"
-      } ]
     }
   }, {
     "key" : {
@@ -23,31 +12,13 @@
     },
     "value" : {
       "text" : "13/08/1980"
-    },
-    "actions" : {
-      "items" : [ {
-        "href" : "#",
-        "text" : "Change",
-        "visuallyHiddenText" : "date of birth"
-      } ]
     }
   }, {
     "key" : {
       "text" : "Contact information"
     },
     "value" : {
-      "html" : "<p class=\"govuk-body\">\n email@email.com\n</p>\n<p class=\"govuk-body\">\n  Address line 1<br>\n  Address line 2<br>\n  Address line 3<br>\n  Address line 4<br>\n  Address line 5\n</p>\n"
-    },
-    "actions" : {
-      "items" : [ {
-        "href" : "#",
-        "text" : "Edit",
-        "visuallyHiddenText" : "contact information"
-      }, {
-        "href" : "#",
-        "text" : "Change",
-        "visuallyHiddenText" : "contact information"
-      } ]
+      "html" : "<p class=\"govuk-body\">\n  email@email.com\n</p>\n<p class=\"govuk-body\">\n  Address line 1<br>\n  Address line 2<br>\n  Address line 3<br>\n  Address line 4<br>\n  Address line 5\n</p>\n"
     }
   } ]
 }

@@ -1,0 +1,8 @@
+<div class="govuk-form-group govuk-form-group--error">
+  
+  <span id="select-with-error-error" class="govuk-error-message">
+  <span class="govuk-visually-hidden">Error:</span> Error message
+  </span>
+  <select class="govuk-select govuk-select--error" id="select-with-error" name="" aria-describedby="some-id select-with-error-error">
+  </select>
+</div>

@@ -20,7 +20,7 @@ import play.api.libs.functional.syntax._
 import play.api.libs.json._
 import uk.gov.hmrc.govukfrontend.views.html.components._
 import uk.gov.hmrc.govukfrontend.views.viewmodels.CommonJsonFormats._
-import uk.gov.hmrc.govukfrontend.views.viewmodels.JsonDefaultValueFormatter
+import uk.gov.hmrc.govukfrontend.views.viewmodels.{JsonDefaultValueFormatter}
 
 case class Select(
   id: String                         = "",
@@ -43,14 +43,14 @@ object Select extends JsonDefaultValueFormatter[Select] {
     (
       (__ \ "id").read[String] and
         (__ \ "name").read[String] and
-        (__ \ "items").read[Seq[SelectItem]] and
+        (__ \ "items").read[Seq[SelectItem]](forgivingSeqReads[SelectItem]) and
         (__ \ "describedBy").readNullable[String] and
         (__ \ "label").read[Label] and
         (__ \ "hint").readNullable[Hint] and
         (__ \ "errorMessage").readNullable[ErrorMessage] and
         readsFormGroupClasses and
         (__ \ "classes").read[String] and
-        (__ \ "attributes").read[Map[String, String]]
+        (__ \ "attributes").read[Map[String, String]](attributesReads)
     )(Select.apply _)
 
   override implicit def jsonWrites: OWrites[Select] =

@@ -1,0 +1,5 @@
+<div class="govuk-tabs" data-module="govuk-tabs">
+  <h2 class="govuk-tabs__title">
+    Custom title for Contents
+  </h2>
+</div>

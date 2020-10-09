@@ -48,9 +48,9 @@ object Checkboxes extends JsonDefaultValueFormatter[Checkboxes] {
         readsFormGroupClasses and
         (__ \ "idPrefix").readNullable[String] and
         (__ \ "name").read[String] and
-        (__ \ "items").read[Seq[CheckboxItem]] and
+        (__ \ "items").read[Seq[CheckboxItem]](forgivingSeqReads[CheckboxItem]) and
         (__ \ "classes").read[String] and
-        (__ \ "attributes").read[Map[String, String]]
+        (__ \ "attributes").read[Map[String, String]](attributesReads)
     )(Checkboxes.apply _)
 
   override implicit def jsonWrites: OWrites[Checkboxes] =

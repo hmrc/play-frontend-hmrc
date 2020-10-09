@@ -1,0 +1,7 @@
+<div class="govuk-form-group">
+  
+  <div id="undefined-hint" class="govuk-hint">
+    It’s on your National Insurance card, benefit letter, payslip or P60. For example, ‘QQ 12 34 56 C’.
+  </div>
+  <textarea class="govuk-textarea" id="" name="" rows="5" aria-describedby="some-id undefined-hint"></textarea>
+</div>

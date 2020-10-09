@@ -1,0 +1,23 @@
+<div class="govuk-tabs" data-module="govuk-tabs">
+  <h2 class="govuk-tabs__title">
+    Contents
+  </h2>
+  <ul class="govuk-tabs__list">
+        <li class="govuk-tabs__list-item govuk-tabs__list-item--selected">
+          <a class="govuk-tabs__tab" href="#-1">
+            Tab 1
+          </a>
+        </li>
+        <li class="govuk-tabs__list-item">
+          <a class="govuk-tabs__tab" href="#-2">
+            Tab 2
+          </a>
+        </li>
+  </ul>
+      <div class="govuk-tabs__panel" id="-1">
+        <p>Panel 1 content</p>
+      </div>
+      <div class="govuk-tabs__panel govuk-tabs__panel--hidden" id="-2">
+        <p>Panel 2 content</p>
+      </div>
+</div>

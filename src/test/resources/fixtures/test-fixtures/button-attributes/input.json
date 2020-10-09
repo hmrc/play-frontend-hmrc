@@ -1,0 +1,7 @@
+{
+  "element" : "button",
+  "attributes" : {
+    "aria-controls" : "example-id",
+    "data-tracking-dimension" : 123
+  }
+}

@@ -4,5 +4,4 @@
     </label>
     
   </h1>
-  <input class="govuk-input" id="input-with-page-heading" name="test-name" type="text">
-</div>
+<input class="govuk-input" id="input-with-page-heading" name="test-name" type="text"></div>

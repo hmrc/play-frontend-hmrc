@@ -1,0 +1,12 @@
+{
+  "serviceName" : "Service Name",
+  "serviceUrl" : "/components/header",
+  "navigation" : [ {
+    "html" : "<em>Navigation item 1</em>",
+    "active" : true
+  }, {
+    "html" : "<em>Navigation item 2</em>"
+  }, {
+    "html" : "<em>Navigation item 3</em>"
+  } ]
+}

@@ -1,0 +1,6 @@
+{
+  "attributes" : {
+    "data-some-data-attribute" : "i-love-data",
+    "another-attribute" : true
+  }
+}

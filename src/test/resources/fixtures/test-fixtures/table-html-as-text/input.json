@@ -1,0 +1,8 @@
+{
+  "head" : [ {
+    "text" : "Foo <script>hacking.do(1337)</script>"
+  } ],
+  "rows" : [ [ {
+    "text" : "Foo <script>hacking.do(1337)</script>"
+  } ] ]
+}

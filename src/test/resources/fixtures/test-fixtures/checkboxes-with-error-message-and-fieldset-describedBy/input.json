@@ -1,0 +1,12 @@
+{
+  "name" : "example",
+  "errorMessage" : {
+    "text" : "Please select an option"
+  },
+  "fieldset" : {
+    "describedBy" : "some-id",
+    "legend" : {
+      "text" : "What is your nationality?"
+    }
+  }
+}

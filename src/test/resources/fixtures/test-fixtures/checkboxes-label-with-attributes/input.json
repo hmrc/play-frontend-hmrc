@@ -1,0 +1,13 @@
+{
+  "name" : "example-name",
+  "items" : [ {
+    "value" : 1,
+    "html" : "<b>Option 1</b>",
+    "label" : {
+      "attributes" : {
+        "data-attribute" : "value",
+        "data-second-attribute" : "second-value"
+      }
+    }
+  } ]
+}

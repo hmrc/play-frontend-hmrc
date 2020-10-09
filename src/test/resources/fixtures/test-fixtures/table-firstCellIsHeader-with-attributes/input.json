@@ -1,0 +1,9 @@
+{
+  "firstCellIsHeader" : true,
+  "rows" : [ [ {
+    "text" : "Foo",
+    "attributes" : {
+      "data-fizz" : "buzz"
+    }
+  } ] ]
+}

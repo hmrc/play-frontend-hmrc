@@ -1,0 +1,11 @@
+
+<div class="govuk-form-group">
+<fieldset class="govuk-fieldset">
+  <legend class="govuk-fieldset__legend">
+    What is your <b>nationality</b>?
+  </legend>
+  <div class="govuk-checkboxes">
+  </div>
+
+</fieldset>
+</div>

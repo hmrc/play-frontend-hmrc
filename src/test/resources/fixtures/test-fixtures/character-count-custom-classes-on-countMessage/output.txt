@@ -1,0 +1,12 @@
+
+<div class="govuk-character-count" data-module="govuk-character-count">
+  <div class="govuk-form-group">
+  
+  <textarea class="govuk-textarea govuk-js-character-count" id="" name="" rows="5" aria-describedby="undefined-info"></textarea>
+</div>
+
+  <div id="undefined-info" class="govuk-hint govuk-character-count__message app-custom-count-message" aria-live="polite">
+  You can enter up to undefined characters
+</div>
+
+</div>

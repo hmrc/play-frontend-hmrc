@@ -1,0 +1,10 @@
+<details class="govuk-details" data-module="govuk-details" data-some-data-attribute="i-love-data" another-attribute="true">
+  <summary class="govuk-details__summary">
+    <span class="govuk-details__summary-text">
+      
+    </span>
+  </summary>
+  <div class="govuk-details__text">
+    
+  </div>
+</details>

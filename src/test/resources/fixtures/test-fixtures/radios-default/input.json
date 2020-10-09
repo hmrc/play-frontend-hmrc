@@ -1,11 +1,5 @@
 {
-  "idPrefix" : "example",
-  "name" : "example",
-  "fieldset" : {
-    "legend" : {
-      "text" : "Have you changed your name?"
-    }
-  },
+  "name" : "example-default",
   "hint" : {
     "text" : "This includes changing your last name or spelling your name differently."
   },

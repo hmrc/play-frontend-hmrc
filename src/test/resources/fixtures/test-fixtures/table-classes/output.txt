@@ -1,0 +1,4 @@
+<table class="govuk-table custom-class-goes-here">
+  <tbody class="govuk-table__body">
+  </tbody>
+</table>

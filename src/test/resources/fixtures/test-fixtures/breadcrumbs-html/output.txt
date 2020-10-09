@@ -1,0 +1,8 @@
+<div class="govuk-breadcrumbs ">
+  <ol class="govuk-breadcrumbs__list">
+    <li class="govuk-breadcrumbs__list-item" aria-current="page"><em>Section 1</em></li>
+    <li class="govuk-breadcrumbs__list-item">
+      <a class="govuk-breadcrumbs__link" href="/section-2"><em>Section 2</em></a>
+    </li>
+  </ol>
+</div>

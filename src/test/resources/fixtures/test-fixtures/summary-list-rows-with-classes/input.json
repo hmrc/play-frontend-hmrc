@@ -1,0 +1,8 @@
+{
+  "rows" : [ {
+    "key" : {
+      "text" : "Name"
+    },
+    "classes" : "app-custom-class"
+  } ]
+}

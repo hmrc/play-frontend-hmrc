@@ -1,12 +1,5 @@
 
 <div class="govuk-form-group">
-<fieldset class="govuk-fieldset" aria-describedby="nationality-hint">
-  <legend class="govuk-fieldset__legend">
-    What is your nationality?
-  </legend>
-  <div id="nationality-hint" class="govuk-hint">
-    If you have dual nationality, select all options that are relevant to you.
-  </div>
   <div class="govuk-checkboxes">
         <div class="govuk-checkboxes__item">
           <input class="govuk-checkboxes__input" id="nationality" name="nationality" type="checkbox" value="british">
@@ -27,5 +20,4 @@
       </label>
         </div>
   </div>
-</fieldset>
 </div>

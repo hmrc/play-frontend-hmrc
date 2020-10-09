@@ -1,0 +1,13 @@
+{
+  "name" : "example-conditional",
+  "items" : [ {
+    "value" : "yes",
+    "text" : "Yes",
+    "conditional" : {
+      "html" : false
+    }
+  }, {
+    "value" : "no",
+    "text" : "No"
+  } ]
+}

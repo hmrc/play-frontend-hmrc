@@ -1,0 +1,11 @@
+{
+  "rows" : [ {
+    "actions" : {
+      "items" : [ {
+        "text" : "Edit",
+        "href" : "#",
+        "classes" : "govuk-link--no-visited-state"
+      } ]
+    }
+  } ]
+}

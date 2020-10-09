@@ -59,6 +59,9 @@ trait Aliases {
   type Input = viewmodels.input.Input
   val Input = viewmodels.input.Input
 
+  type PrefixOrSuffix = viewmodels.input.PrefixOrSuffix
+  val PrefixOrSuffix = viewmodels.input.PrefixOrSuffix
+
   type Details = viewmodels.details.Details
   val Details = viewmodels.details.Details
 

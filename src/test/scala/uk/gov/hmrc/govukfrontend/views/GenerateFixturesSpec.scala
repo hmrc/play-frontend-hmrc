@@ -25,6 +25,9 @@ import scala.util.Try
 class GenerateFixturesSpec extends WordSpec with Matchers {
   val dir         = s"/fixtures/test-fixtures"
   val fixturesDir = Try(File(Resource.my.getUrl(dir)))
+  val knownEmptyOutput = Seq(
+    "label-empty"
+  )
 
   "generateFixtures" should {
     "create a VERSION.txt file" in {
@@ -40,9 +43,11 @@ class GenerateFixturesSpec extends WordSpec with Matchers {
     }
 
     fixturesDir.get.children.filter(_.isDirectory).foreach { example =>
-      s"create a non-empty output.txt in ${example.name}" in {
-        (example / "output.txt").exists                  shouldBe true
-        (example / "output.txt").contentAsString.isEmpty shouldBe false
+      if(!knownEmptyOutput.contains(example.name)) {
+        s"create a non-empty output.txt in ${example.name}" in {
+          (example / "output.txt").exists                  shouldBe true
+          (example / "output.txt").contentAsString.isEmpty shouldBe false
+        }
       }
 
       s"create a valid component.json in ${example.name}" in {

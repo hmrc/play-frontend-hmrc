@@ -1,0 +1,8 @@
+{
+  "name" : "example-name",
+  "fieldset" : {
+    "legend" : {
+      "html" : "What is your <b>nationality</b>?"
+    }
+  }
+}

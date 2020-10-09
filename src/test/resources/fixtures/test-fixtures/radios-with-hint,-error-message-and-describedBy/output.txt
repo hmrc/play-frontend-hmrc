@@ -1,0 +1,17 @@
+
+<div class="govuk-form-group govuk-form-group--error">
+<fieldset class="govuk-fieldset" aria-describedby="some-id example-error-message-hint-hint example-error-message-hint-error">
+  <legend class="govuk-fieldset__legend">
+    Have you changed your name?
+  </legend>
+  <div id="example-error-message-hint-hint" class="govuk-hint">
+    This includes changing your last name or spelling your name differently.
+  </div>
+  <span id="example-error-message-hint-error" class="govuk-error-message">
+  <span class="govuk-visually-hidden">Error:</span> Please select an option
+  </span>
+  <div class="govuk-radios">
+  </div>
+
+</fieldset>
+</div>

@@ -1,0 +1,7 @@
+{
+  "name" : "example-error-message",
+  "idPrefix" : "id-prefix",
+  "errorMessage" : {
+    "text" : "Please select an option"
+  }
+}

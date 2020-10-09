@@ -48,7 +48,9 @@ final case class Header(
   navigationClasses: String                 = "",
   containerClasses: Option[String]          = None,
   classes: String                           = "",
-  attributes: Map[String, String]           = Map.empty
+  attributes: Map[String, String]           = Map.empty,
+  menuButtonLabel: Option[String]           = None,
+  navigationLabel: Option[String]           = None
 )
 
 object Header extends JsonDefaultValueFormatter[Header] {

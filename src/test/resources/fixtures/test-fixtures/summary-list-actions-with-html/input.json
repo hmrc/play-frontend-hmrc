@@ -1,0 +1,9 @@
+{
+  "rows" : [ {
+    "actions" : {
+      "items" : [ {
+        "html" : "Edit<span class=\"visually-hidden\"> name</span>"
+      } ]
+    }
+  } ]
+}

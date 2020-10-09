@@ -1,0 +1,3 @@
+<strong class="govuk-tag" data-test="attribute" id="my-tag">
+  Tag with attributes
+</strong>

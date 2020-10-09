@@ -48,6 +48,35 @@ class UtilsSpec extends WordSpec with Matchers with ScalaCheckPropertyChecks wit
           case (_, n)   => toAttributes(attrsMap, n).body.drop(1)           shouldBe toAttributes(attrsMap, n - 1).body
         }
       }
+
+    }
+    "return attributes provided" in {
+      val html = toAttributes(Map(
+        "id" -> "my-navigation",
+        "role" -> "navigation"
+      ))
+      html.toString() shouldBe " id=\"my-navigation\" role=\"navigation\""
+    }
+    "return attributes in order (a)" in {
+      val html = toAttributes(Map(
+        "abcd" -> "first",
+        "efgh" -> "second"
+      ))
+      html.toString() shouldBe " abcd=\"first\" efgh=\"second\""
+    }
+    "return attributes in order (b)" in {
+      val html = toAttributes(Map(
+        "efgh" -> "first",
+        "abcd" -> "second"
+      ))
+      html.toString() shouldBe " efgh=\"first\" abcd=\"second\""
+    }
+    "return true for a non-empty string" in {
+      val html = toAttributes(Map(
+        "id" -> "my-navigation",
+        "role" -> "navigation"
+      ))
+      html.toString() shouldBe " id=\"my-navigation\" role=\"navigation\""
     }
 
     "isNonEmptyOptionString" should {

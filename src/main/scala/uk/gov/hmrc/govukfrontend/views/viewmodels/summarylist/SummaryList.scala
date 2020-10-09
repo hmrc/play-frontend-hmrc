@@ -16,8 +16,10 @@
 
 package uk.gov.hmrc.govukfrontend.views.viewmodels.summarylist
 
-import play.api.libs.json.{Json, OWrites, Reads}
-import uk.gov.hmrc.govukfrontend.views.viewmodels.JsonDefaultValueFormatter
+import play.api.libs.json._
+import play.api.libs.functional.syntax._
+import uk.gov.hmrc.govukfrontend.views.viewmodels.CommonJsonFormats._
+import uk.gov.hmrc.govukfrontend.views.viewmodels.{JsonDefaultValueFormatter}
 
 case class SummaryList(
   rows: Seq[SummaryListRow]       = Nil,
@@ -29,7 +31,11 @@ object SummaryList extends JsonDefaultValueFormatter[SummaryList] {
 
   override def defaultObject: SummaryList = SummaryList()
 
-  override def defaultReads: Reads[SummaryList] = Json.reads[SummaryList]
+  override def defaultReads: Reads[SummaryList] = (
+    (__ \ "rows").read[Seq[SummaryListRow]](forgivingSeqReads[SummaryListRow]) and
+      (__ \ "classes").read[String] and
+      (__ \ "attributes").read[Map[String, String]](attributesReads)
+  )(SummaryList.apply _)
 
   override implicit def jsonWrites: OWrites[SummaryList] = Json.writes[SummaryList]
 }

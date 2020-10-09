@@ -1,0 +1,10 @@
+{
+  "rows" : [ {
+    "actions" : {
+      "items" : [ {
+        "text" : "First action",
+        "href" : "#"
+      } ]
+    }
+  } ]
+}

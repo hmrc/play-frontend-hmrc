@@ -1,0 +1,8 @@
+
+<div class="govuk-form-group govuk-form-group--error">
+  <span id="example-error-message-error" class="govuk-error-message">
+  <span class="govuk-visually-hidden">Error:</span> Please select an option
+  </span>
+  <div class="govuk-radios">
+  </div>
+</div>

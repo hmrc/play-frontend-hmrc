@@ -1,0 +1,10 @@
+{
+  "name" : "example-label-classes",
+  "items" : [ {
+    "value" : "yes",
+    "text" : "Yes",
+    "label" : {
+      "classes" : "bold"
+    }
+  } ]
+}

@@ -1,0 +1,10 @@
+{
+  "id" : "my-date-input",
+  "items" : [ {
+    "name" : "day"
+  }, {
+    "name" : "month"
+  }, {
+    "name" : "year"
+  } ]
+}

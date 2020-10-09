@@ -14,25 +14,23 @@
         <label class="govuk-label govuk-date-input__label" for="dob-with-input-attributes-day">
           Day
         </label>
-        <input class="govuk-input govuk-date-input__input govuk-input--width-2" id="dob-with-input-attributes-day" name="dob-with-input-attributes-day" type="text" pattern="[0-9]*" inputmode="numeric" data-example-day="day">
-      </div>
+      <input class="govuk-input govuk-date-input__input govuk-input--width-2" id="dob-with-input-attributes-day" name="dob-with-input-attributes-day" type="text" pattern="[0-9]*" inputmode="numeric" data-example-day="day"></div>
     </div>
     <div class="govuk-date-input__item">
       <div class="govuk-form-group">
         <label class="govuk-label govuk-date-input__label" for="dob-with-input-attributes-month">
           Month
         </label>
-        <input class="govuk-input govuk-date-input__input govuk-input--width-2" id="dob-with-input-attributes-month" name="dob-with-input-attributes-month" type="text" pattern="[0-9]*" inputmode="numeric" data-example-month="month">
-      </div>
+      <input class="govuk-input govuk-date-input__input govuk-input--width-2" id="dob-with-input-attributes-month" name="dob-with-input-attributes-month" type="text" pattern="[0-9]*" inputmode="numeric" data-example-month="month"></div>
     </div>
     <div class="govuk-date-input__item">
       <div class="govuk-form-group">
         <label class="govuk-label govuk-date-input__label" for="dob-with-input-attributes-year">
           Year
         </label>
-        <input class="govuk-input govuk-date-input__input govuk-input--width-4" id="dob-with-input-attributes-year" name="dob-with-input-attributes-year" type="text" pattern="[0-9]*" inputmode="numeric" data-example-year="year">
-      </div>
+      <input class="govuk-input govuk-date-input__input govuk-input--width-4" id="dob-with-input-attributes-year" name="dob-with-input-attributes-year" type="text" pattern="[0-9]*" inputmode="numeric" data-example-year="year"></div>
     </div>
   </div>
+
 </fieldset>
 </div>

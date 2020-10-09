@@ -1,0 +1,6 @@
+{
+  "id" : "select-with-hint",
+  "hint" : {
+    "text" : "Hint text goes here"
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "items" : [ {
+    "heading" : {
+      "text" : "Section A"
+    },
+    "content" : {
+      "text" : "Some content"
+    }
+  }, false, "", null, {
+    "heading" : {
+      "text" : "Section B"
+    },
+    "content" : {
+      "text" : "Some content"
+    }
+  } ]
+}

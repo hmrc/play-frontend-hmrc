@@ -1,0 +1,18 @@
+{
+  "name" : "example-name",
+  "items" : [ {
+    "value" : 1,
+    "text" : "Option 1",
+    "attributes" : {
+      "data-attribute" : "ABC",
+      "data-second-attribute" : "DEF"
+    }
+  }, {
+    "value" : 2,
+    "text" : "Option 2",
+    "attributes" : {
+      "data-attribute" : "GHI",
+      "data-second-attribute" : "JKL"
+    }
+  } ]
+}

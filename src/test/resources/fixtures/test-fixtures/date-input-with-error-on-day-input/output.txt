@@ -17,25 +17,23 @@
         <label class="govuk-label govuk-date-input__label" for="dob-day-error-day">
           Day
         </label>
-        <input class="govuk-input govuk-date-input__input govuk-input--width-2 govuk-input--error" id="dob-day-error-day" name="dob-day-error-day" type="text" pattern="[0-9]*" inputmode="numeric">
-      </div>
+      <input class="govuk-input govuk-date-input__input govuk-input--width-2 govuk-input--error" id="dob-day-error-day" name="dob-day-error-day" type="text" pattern="[0-9]*" inputmode="numeric"></div>
     </div>
     <div class="govuk-date-input__item">
       <div class="govuk-form-group">
         <label class="govuk-label govuk-date-input__label" for="dob-day-error-month">
           Month
         </label>
-        <input class="govuk-input govuk-date-input__input govuk-input--width-2" id="dob-day-error-month" name="dob-day-error-month" type="text" pattern="[0-9]*" inputmode="numeric">
-      </div>
+      <input class="govuk-input govuk-date-input__input govuk-input--width-2" id="dob-day-error-month" name="dob-day-error-month" type="text" pattern="[0-9]*" inputmode="numeric"></div>
     </div>
     <div class="govuk-date-input__item">
       <div class="govuk-form-group">
         <label class="govuk-label govuk-date-input__label" for="dob-day-error-year">
           Year
         </label>
-        <input class="govuk-input govuk-date-input__input govuk-input--width-4" id="dob-day-error-year" name="dob-day-error-year" type="text" pattern="[0-9]*" inputmode="numeric">
-      </div>
+      <input class="govuk-input govuk-date-input__input govuk-input--width-4" id="dob-day-error-year" name="dob-day-error-year" type="text" pattern="[0-9]*" inputmode="numeric"></div>
     </div>
   </div>
+
 </fieldset>
 </div>

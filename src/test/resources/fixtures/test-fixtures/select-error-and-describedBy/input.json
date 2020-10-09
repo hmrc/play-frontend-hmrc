@@ -1,0 +1,7 @@
+{
+  "id" : "select-with-error",
+  "describedBy" : "some-id",
+  "errorMessage" : {
+    "text" : "Error message"
+  }
+}

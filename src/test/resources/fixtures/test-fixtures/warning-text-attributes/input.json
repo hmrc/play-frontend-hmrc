@@ -1,0 +1,6 @@
+{
+  "attributes" : {
+    "id" : "my-warning-text",
+    "data-test" : "attribute"
+  }
+}

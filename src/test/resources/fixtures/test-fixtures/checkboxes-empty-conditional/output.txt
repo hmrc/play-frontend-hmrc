@@ -1,0 +1,11 @@
+
+<div class="govuk-form-group">
+  <div class="govuk-checkboxes">
+        <div class="govuk-checkboxes__item">
+          <input class="govuk-checkboxes__input" id="example-conditional" name="example-conditional" type="checkbox" value="foo">
+          <label class="govuk-label govuk-checkboxes__label" for="example-conditional">
+        Foo
+      </label>
+        </div>
+  </div>
+</div>

@@ -1,5 +1,5 @@
 
-<div class="govuk-accordion myClass" data-module="govuk-accordion" id="default-example" data-attribute="value">
+<div class="govuk-accordion" data-module="govuk-accordion" id="default-example">
       <div class="govuk-accordion__section ">
         <div class="govuk-accordion__section-header">
           <h2 class="govuk-accordion__section-heading">

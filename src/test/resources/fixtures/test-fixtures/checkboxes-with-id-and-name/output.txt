@@ -20,6 +20,13 @@
         Irish
       </label>
         </div>
+        <div class="govuk-checkboxes__item">
+          <input class="govuk-checkboxes__input" id="with-id-and-name-3" name="custom-name-scottish" type="checkbox" value="scottish">
+          <label class="govuk-label govuk-checkboxes__label" for="with-id-and-name-3">
+        Scottish
+      </label>
+        </div>
   </div>
+
 </fieldset>
 </div>

@@ -1,0 +1,7 @@
+{
+  "describedBy" : "some-id",
+  "id" : "textarea-with-error",
+  "errorMessage" : {
+    "text" : "Error message"
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "name" : "example-error-message",
+  "errorMessage" : {
+    "text" : "Please select an option"
+  }
+}

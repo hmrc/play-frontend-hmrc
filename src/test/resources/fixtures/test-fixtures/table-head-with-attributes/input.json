@@ -1,0 +1,7 @@
+{
+  "head" : [ {
+    "attributes" : {
+      "data-fizz" : "buzz"
+    }
+  } ]
+}

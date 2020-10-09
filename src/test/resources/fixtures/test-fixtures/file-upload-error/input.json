@@ -1,0 +1,6 @@
+{
+  "id" : "file-upload-with-error",
+  "errorMessage" : {
+    "text" : "Error message"
+  }
+}
