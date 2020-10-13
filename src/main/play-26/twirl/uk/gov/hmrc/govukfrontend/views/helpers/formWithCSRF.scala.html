@@ -21,7 +21,7 @@
 @(action: play.api.mvc.Call,
   args: (Symbol,String)*
 )(body: => Html)(implicit request: RequestHeader, messages: Messages)
-<form action="@action.path" method="@action.method" @toHtmlArgs(args.toMap)>
+<form action="@action.path" method="@action.method" novalidate @toHtmlArgs(args.toMap)>
   @if(play.filters.csrf.CSRF.getToken.isDefined) {
     @CSRF.formField
   }
