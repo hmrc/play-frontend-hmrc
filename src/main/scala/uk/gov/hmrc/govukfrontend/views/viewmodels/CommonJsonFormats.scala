@@ -61,38 +61,30 @@ object CommonJsonFormats {
   val attributesReads: Reads[Map[String, String]] = new Reads[Map[String, String]] {
     override def reads(json: JsValue): JsResult[Map[String, String]] = {
       val keyValueTuples = json.as[JsObject].keys.map { key =>
-        val maybeValue: Option[String] = (json \ key).asOpt[String].orElse {
-          (json \ key).asOpt[Int].map(_.toString).orElse {
-            (json \ key).asOpt[Boolean].map(_.toString)
-          }
-        }
-        maybeValue.map(v => (key, v))
+        asOptString(json(key))
+          .map(stringValue => (key, stringValue))
       }
       JsSuccess(keyValueTuples.flatten.toMap)
     }
   }
 
   val forgivingOptStringReads: Reads[Option[String]] = new Reads[Option[String]] {
-    override def reads(json: JsValue): JsResult[Option[String]] = {
-      val maybeString = json.asOpt[String].orElse {
-        json.asOpt[Int].map(_.toString).orElse {
-          json.asOpt[Boolean].map(_.toString)
-        }
-      }
-      JsSuccess(maybeString)
-    }
+    override def reads(json: JsValue): JsResult[Option[String]] =
+      JsSuccess(asOptString(json))
   }
 
   val forgivingStringReads: Reads[String] = new Reads[String] {
-    override def reads(json: JsValue): JsResult[String] = {
-      val maybeString = json.asOpt[String].orElse {
-        json.asOpt[Int].map(_.toString).orElse {
-          json.asOpt[Boolean].map(_.toString)
-        }
-      }
-      maybeString match {
+    override def reads(json: JsValue): JsResult[String] =
+      asOptString(json) match {
         case Some(validString) => JsSuccess(validString)
         case _ => JsError("error.expected.jsstring")
+      }
+  }
+
+  private def asOptString(json: JsValue): Option[String] = {
+    json.asOpt[String].orElse {
+      json.asOpt[Int].map(_.toString).orElse {
+        json.asOpt[Boolean].map(_.toString)
       }
     }
   }
