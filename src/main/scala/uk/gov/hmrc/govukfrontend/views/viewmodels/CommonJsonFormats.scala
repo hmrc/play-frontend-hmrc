@@ -61,7 +61,7 @@ object CommonJsonFormats {
   val attributesReads: Reads[Map[String, String]] = new Reads[Map[String, String]] {
     override def reads(json: JsValue): JsResult[Map[String, String]] = {
       val keyValueTuples = json.as[JsObject].keys.map { key =>
-        asOptString(json(key))
+        asOptString((json \ key).as[JsValue])
           .map(stringValue => (key, stringValue))
       }
       JsSuccess(keyValueTuples.flatten.toMap)
