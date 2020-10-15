@@ -86,8 +86,8 @@ object Input extends JsonDefaultValueFormatter[Input] {
         (__ \ "pattern").writeNullable[String] and
         (__ \ "attributes").write[Map[String, String]] and
         (__ \ "spellcheck").writeNullable[Boolean] and
-        (__ \ "prefix").writeNullable[PrefixOrSuffix] and  //TODO: Make sure this actually writes (write a test for it)
-        (__ \ "suffix").writeNullable[PrefixOrSuffix] //TODO: Make sure this actually writes (write a test for it)
+        (__ \ "prefix").writeNullable[PrefixOrSuffix] and
+        (__ \ "suffix").writeNullable[PrefixOrSuffix]
     )(unlift(Input.unapply))
 
 }
