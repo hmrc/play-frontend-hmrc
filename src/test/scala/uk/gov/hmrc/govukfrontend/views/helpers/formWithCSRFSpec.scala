@@ -53,6 +53,22 @@ class formWithCSRFSpec extends WordSpec with Matchers with JsoupHelpers with Mes
       form.attr("method") shouldBe "GET"
     }
 
+    "render with the novalidate attribute" in {
+      val getCall = Call(method = "GET", url = "/the-post-url")
+
+      val form =
+        FormWithCSRF.apply(action = getCall)(HtmlFormat.empty)
+          .select("form")
+
+      form.hasAttr("novalidate") shouldBe true
+    }
+
+    "not render duplicate novalidate attributes" in {
+      val form =
+        FormWithCSRF.apply(action = postAction, 'novalidate -> "novalidate")(HtmlFormat.empty)
+
+      form.toString should include("<form action=\"/the-post-url\" method=\"POST\" novalidate>")
+    }
     "render the passed attributes" in {
       val form =
         FormWithCSRF.apply(action = postAction, 'attribute1 -> "value1")(HtmlFormat.empty)
