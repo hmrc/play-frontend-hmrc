@@ -1,0 +1,6 @@
+{
+  "describedBy" : "some-id",
+  "errorMessage" : {
+    "text" : "Error message"
+  }
+}

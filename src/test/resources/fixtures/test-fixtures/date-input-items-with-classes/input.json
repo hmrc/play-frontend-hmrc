@@ -1,0 +1,12 @@
+{
+  "items" : [ {
+    "name" : "day",
+    "classes" : "app-date-input__day"
+  }, {
+    "name" : "month",
+    "classes" : "app-date-input__month"
+  }, {
+    "name" : "year",
+    "classes" : "app-date-input__year"
+  } ]
+}

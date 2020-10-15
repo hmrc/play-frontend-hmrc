@@ -1,0 +1,6 @@
+{
+  "legend" : {
+    "text" : "What is your address?",
+    "classes" : "my-custom-class"
+  }
+}

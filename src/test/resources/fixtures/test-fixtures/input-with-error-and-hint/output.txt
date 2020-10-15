@@ -1,0 +1,9 @@
+<div class="govuk-form-group govuk-form-group--error">
+  
+  <div id="undefined-hint" class="govuk-hint">
+    Hint
+  </div>
+  <span id="undefined-error" class="govuk-error-message">
+  <span class="govuk-visually-hidden">Error:</span> Error message
+  </span>
+<input class="govuk-input govuk-input--error" id="" name="" type="text" aria-describedby="undefined-hint undefined-error"></div>

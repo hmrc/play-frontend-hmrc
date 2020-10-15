@@ -9,13 +9,13 @@
   "items" : [ {
     "value" : "email",
     "text" : "Email",
+    "checked" : true,
     "conditional" : {
-      "html" : "<label class=\"govuk-label\" for=\"context-email\">Mobile phone number</label>\n<input class=\"govuk-input govuk-!-width-one-third\" name=\"context-email\" type=\"text\" id=\"context-email\">\n"
+      "html" : "<label class=\"govuk-label\" for=\"context-email\">Email</label>\n<input class=\"govuk-input govuk-!-width-one-third\" name=\"context-email\" type=\"text\" id=\"context-email\">\n"
     }
   }, {
     "value" : "phone",
     "text" : "Phone",
-    "checked" : true,
     "conditional" : {
       "html" : "<label class=\"govuk-label\" for=\"contact-phone\">Phone number</label>\n<input class=\"govuk-input govuk-!-width-one-third\" name=\"contact-phone\" type=\"text\" id=\"contact-phone\">\n"
     }

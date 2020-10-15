@@ -1,0 +1,10 @@
+{
+  "errorList" : [ {
+    "text" : "Error-1",
+    "href" : "#item",
+    "attributes" : {
+      "data-attribute" : "my-attribute",
+      "data-attribute-2" : "my-attribute-2"
+    }
+  } ]
+}

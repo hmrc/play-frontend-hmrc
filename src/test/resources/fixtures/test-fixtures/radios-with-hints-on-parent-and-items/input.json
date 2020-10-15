@@ -1,0 +1,20 @@
+{
+  "name" : "example-multiple-hints",
+  "fieldset" : {
+    "legend" : {
+      "text" : "Have you changed your name?"
+    }
+  },
+  "hint" : {
+    "text" : "This includes changing your last name or spelling your name differently."
+  },
+  "items" : [ {
+    "hint" : {
+      "text" : "Hint for yes option here"
+    }
+  }, {
+    "hint" : {
+      "text" : "Hint for no option here"
+    }
+  } ]
+}

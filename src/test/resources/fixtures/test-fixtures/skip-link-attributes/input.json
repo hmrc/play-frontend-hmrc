@@ -1,0 +1,6 @@
+{
+  "attributes" : {
+    "data-test" : "attribute",
+    "aria-label" : "Skip to content"
+  }
+}

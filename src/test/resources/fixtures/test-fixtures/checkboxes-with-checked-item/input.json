@@ -1,0 +1,15 @@
+{
+  "name" : "example-name",
+  "items" : [ {
+    "value" : 1,
+    "text" : "Option 1"
+  }, {
+    "value" : 2,
+    "text" : "Option 2",
+    "checked" : true
+  }, {
+    "value" : 3,
+    "text" : "Option 3",
+    "checked" : true
+  } ]
+}

@@ -1,0 +1,7 @@
+{
+  "text" : "Tag with attributes",
+  "attributes" : {
+    "data-test" : "attribute",
+    "id" : "my-tag"
+  }
+}

@@ -25,88 +25,88 @@
       </a>
     </div>
     <div class="govuk-header__content">
-    <button type="button" class="govuk-header__menu-button govuk-js-header-toggle" aria-controls="navigation" aria-label="Show or hide Top Level Navigation">Menu</button>
+    <button type="button" class="govuk-header__menu-button govuk-js-header-toggle" aria-controls="navigation" aria-label="Show or hide navigation menu">Menu</button>
     <nav>
-      <ul id="navigation" class="govuk-header__navigation " aria-label="Top Level Navigation">
+      <ul id="navigation" class="govuk-header__navigation " aria-label="Navigation menu">
             <li class="govuk-header__navigation-item">
-              <a class="govuk-header__link" href="/browse/benefits">
+                <a class="govuk-header__link" href="/browse/benefits">
                 Benefits
-              </a>
+                </a>
             </li>
             <li class="govuk-header__navigation-item">
-              <a class="govuk-header__link" href="/browse/births-deaths-marriages">
+                <a class="govuk-header__link" href="/browse/births-deaths-marriages">
                 Births, deaths, marriages and care
-              </a>
+                </a>
             </li>
             <li class="govuk-header__navigation-item">
-              <a class="govuk-header__link" href="/browse/business">
+                <a class="govuk-header__link" href="/browse/business">
                 Business and self-employed
-              </a>
+                </a>
             </li>
             <li class="govuk-header__navigation-item">
-              <a class="govuk-header__link" href="/browse/childcare-parenting">
+                <a class="govuk-header__link" href="/browse/childcare-parenting">
                 Childcare and parenting
-              </a>
+                </a>
             </li>
             <li class="govuk-header__navigation-item">
-              <a class="govuk-header__link" href="/browse/citizenship">
+                <a class="govuk-header__link" href="/browse/citizenship">
                 Citizenship and living in the UK
-              </a>
+                </a>
             </li>
             <li class="govuk-header__navigation-item">
-              <a class="govuk-header__link" href="/browse/justice">
+                <a class="govuk-header__link" href="/browse/justice">
                 Crime, justice and the law
-              </a>
+                </a>
             </li>
             <li class="govuk-header__navigation-item">
-              <a class="govuk-header__link" href="/browse/disabilities">
+                <a class="govuk-header__link" href="/browse/disabilities">
                 Disabled people
-              </a>
+                </a>
             </li>
             <li class="govuk-header__navigation-item">
-              <a class="govuk-header__link" href="/browse/driving">
+                <a class="govuk-header__link" href="/browse/driving">
                 Driving and transport
-              </a>
+                </a>
             </li>
             <li class="govuk-header__navigation-item">
-              <a class="govuk-header__link" href="/browse/education">
+                <a class="govuk-header__link" href="/browse/education">
                 Education and learning
-              </a>
+                </a>
             </li>
             <li class="govuk-header__navigation-item">
-              <a class="govuk-header__link" href="/browse/employing-people">
+                <a class="govuk-header__link" href="/browse/employing-people">
                 Employing people
-              </a>
+                </a>
             </li>
             <li class="govuk-header__navigation-item">
-              <a class="govuk-header__link" href="/browse/environment-countryside">
+                <a class="govuk-header__link" href="/browse/environment-countryside">
                 Environment and countryside
-              </a>
+                </a>
             </li>
             <li class="govuk-header__navigation-item">
-              <a class="govuk-header__link" href="/browse/housing-local-services">
+                <a class="govuk-header__link" href="/browse/housing-local-services">
                 Housing and local services
-              </a>
+                </a>
             </li>
             <li class="govuk-header__navigation-item">
-              <a class="govuk-header__link" href="/browse/tax">
+                <a class="govuk-header__link" href="/browse/tax">
                 Money and tax
-              </a>
+                </a>
             </li>
             <li class="govuk-header__navigation-item">
-              <a class="govuk-header__link" href="/browse/abroad">
+                <a class="govuk-header__link" href="/browse/abroad">
                 Passports, travel and living abroad
-              </a>
+                </a>
             </li>
             <li class="govuk-header__navigation-item">
-              <a class="govuk-header__link" href="/browse/visas-immigration">
+                <a class="govuk-header__link" href="/browse/visas-immigration">
                 Visas and immigration
-              </a>
+                </a>
             </li>
             <li class="govuk-header__navigation-item">
-              <a class="govuk-header__link" href="/browse/working">
+                <a class="govuk-header__link" href="/browse/working">
                 Working, jobs and pensions
-              </a>
+                </a>
             </li>
       </ul>
     </nav>

@@ -1,0 +1,6 @@
+{
+  "head" : [ {
+    "text" : "Foo",
+    "classes" : "my-custom-class"
+  } ]
+}

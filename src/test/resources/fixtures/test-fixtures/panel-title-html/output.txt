@@ -1,0 +1,5 @@
+<div class="govuk-panel govuk-panel--confirmation">
+  <h1 class="govuk-panel__title">
+    Application <strong>not</strong> complete
+  </h1>
+</div>

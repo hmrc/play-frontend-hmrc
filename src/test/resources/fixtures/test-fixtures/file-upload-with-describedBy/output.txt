@@ -1,0 +1,4 @@
+<div class="govuk-form-group">
+  
+  <input class="govuk-file-upload" id="" name="" type="file" aria-describedby="some-id">
+</div>

@@ -1,0 +1,21 @@
+{
+  "idPrefix" : "example",
+  "name" : "example",
+  "errorMessage" : {
+    "text" : "Please select an option"
+  },
+  "fieldset" : {
+    "describedBy" : "some-id",
+    "legend" : {
+      "text" : "Have you changed your name?"
+    }
+  },
+  "items" : [ {
+    "value" : "yes",
+    "text" : "Yes"
+  }, {
+    "value" : "no",
+    "text" : "No",
+    "checked" : true
+  } ]
+}

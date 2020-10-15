@@ -1,0 +1,13 @@
+
+
+<div class="govuk-form-group">
+  <div class="govuk-date-input">
+    <div class="govuk-date-input__item">
+      <div class="govuk-form-group">
+        <label class="govuk-label govuk-date-input__label" for="undefined-day">
+          Day
+        </label>
+      <input class="govuk-input govuk-date-input__input " id="undefined-day" name="day" type="text" pattern="[0-8]*" inputmode="numeric"></div>
+    </div>
+  </div>
+</div>

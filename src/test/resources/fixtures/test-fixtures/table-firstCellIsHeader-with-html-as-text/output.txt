@@ -1,0 +1,7 @@
+<table class="govuk-table">
+  <tbody class="govuk-table__body">
+        <tr class="govuk-table__row">
+          <th scope="row" class="govuk-table__header">Foo &lt;script&gt;hacking.do(1337)&lt;/script&gt;</th>
+        </tr>
+  </tbody>
+</table>

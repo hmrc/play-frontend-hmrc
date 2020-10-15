@@ -1,0 +1,13 @@
+{
+  "items" : [ {
+    "label" : "Tab 1",
+    "panel" : {
+      "text" : "<p>Panel 1 content</p>"
+    }
+  }, {
+    "label" : "Tab 2",
+    "panel" : {
+      "text" : "<p>Panel 2 content</p>"
+    }
+  } ]
+}

@@ -1,0 +1,5 @@
+
+<label class="govuk-label" first-attribute="true" second-attribute="false">
+  National Insurance number
+</label>
+

@@ -1,0 +1,15 @@
+<div class="govuk-tabs" data-module="govuk-tabs">
+  <h2 class="govuk-tabs__title">
+    Contents
+  </h2>
+  <ul class="govuk-tabs__list">
+        <li class="govuk-tabs__list-item govuk-tabs__list-item--selected">
+          <a class="govuk-tabs__tab" href="#tab-1" data-attribute="my-attribute" data-attribute-2="my-attribute-2">
+            Tab 1
+          </a>
+        </li>
+  </ul>
+      <div class="govuk-tabs__panel" id="tab-1">
+        
+      </div>
+</div>

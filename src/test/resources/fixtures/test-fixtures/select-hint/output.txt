@@ -1,0 +1,8 @@
+<div class="govuk-form-group">
+  
+  <div id="select-with-hint-hint" class="govuk-hint">
+    Hint text goes here
+  </div>
+  <select class="govuk-select" id="select-with-hint" name="" aria-describedby="select-with-hint-hint">
+  </select>
+</div>

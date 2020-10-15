@@ -1,0 +1,7 @@
+<div class="govuk-form-group">
+  
+  <div id="undefined-hint" class="govuk-hint">
+    Your photo may be in your Pictures, Photos, Downloads or Desktop folder. Or in an app like iPhoto.
+  </div>
+  <input class="govuk-file-upload" id="" name="" type="file" aria-describedby="some-id undefined-hint">
+</div>

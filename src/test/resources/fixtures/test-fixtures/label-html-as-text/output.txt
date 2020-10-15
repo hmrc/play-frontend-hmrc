@@ -1,0 +1,5 @@
+
+<label class="govuk-label">
+  National Insurance number, &lt;em&gt;NINO&lt;/em&gt;
+</label>
+

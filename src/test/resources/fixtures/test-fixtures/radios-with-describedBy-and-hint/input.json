@@ -1,0 +1,12 @@
+{
+  "name" : "example-hint-describedby",
+  "fieldset" : {
+    "describedBy" : "some-id",
+    "legend" : {
+      "text" : "Have you changed your name?"
+    }
+  },
+  "hint" : {
+    "text" : "This includes changing your last name or spelling your name differently."
+  }
+}

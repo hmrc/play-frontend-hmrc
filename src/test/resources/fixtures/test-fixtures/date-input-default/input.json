@@ -1,22 +1,3 @@
 {
-  "id" : "dob",
-  "namePrefix" : "dob",
-  "fieldset" : {
-    "legend" : {
-      "text" : "What is your date of birth?"
-    }
-  },
-  "hint" : {
-    "text" : "For example, 31 3 1980"
-  },
-  "items" : [ {
-    "name" : "day",
-    "classes" : "govuk-input--width-2"
-  }, {
-    "name" : "month",
-    "classes" : "govuk-input--width-2"
-  }, {
-    "name" : "year",
-    "classes" : "govuk-input--width-4"
-  } ]
+  "id" : "dob"
 }

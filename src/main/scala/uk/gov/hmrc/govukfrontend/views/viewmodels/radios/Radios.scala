@@ -20,7 +20,7 @@ import play.api.libs.functional.syntax._
 import play.api.libs.json._
 import uk.gov.hmrc.govukfrontend.views.html.components._
 import uk.gov.hmrc.govukfrontend.views.viewmodels.CommonJsonFormats._
-import uk.gov.hmrc.govukfrontend.views.viewmodels.JsonDefaultValueFormatter
+import uk.gov.hmrc.govukfrontend.views.viewmodels.{JsonDefaultValueFormatter}
 
 case class Radios(
   fieldset: Option[Fieldset]         = None,
@@ -45,9 +45,9 @@ object Radios extends JsonDefaultValueFormatter[Radios] {
         readsFormGroupClasses and
         (__ \ "idPrefix").readNullable[String] and
         (__ \ "name").read[String] and
-        (__ \ "items").read[Seq[RadioItem]] and
+        (__ \ "items").read[Seq[RadioItem]](forgivingSeqReads[RadioItem]) and
         (__ \ "classes").read[String] and
-        (__ \ "attributes").read[Map[String, String]]
+        (__ \ "attributes").read[Map[String, String]](attributesReads)
     )(Radios.apply _)
 
   override implicit def jsonWrites: OWrites[Radios] =

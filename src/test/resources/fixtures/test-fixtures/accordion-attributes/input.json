@@ -1,0 +1,13 @@
+{
+  "attributes" : {
+    "data-attribute" : "value"
+  },
+  "items" : [ {
+    "heading" : {
+      "text" : "Section A"
+    },
+    "content" : {
+      "text" : "Some content"
+    }
+  } ]
+}

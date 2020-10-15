@@ -1,0 +1,27 @@
+
+
+<div class="govuk-form-group">
+  <div class="govuk-date-input app-date-input--custom-modifier">
+    <div class="govuk-date-input__item">
+      <div class="govuk-form-group">
+        <label class="govuk-label govuk-date-input__label" for="undefined-day">
+          Day
+        </label>
+      <input class="govuk-input govuk-date-input__input govuk-input--width-2" id="undefined-day" name="day" type="text" pattern="[0-9]*" inputmode="numeric"></div>
+    </div>
+    <div class="govuk-date-input__item">
+      <div class="govuk-form-group">
+        <label class="govuk-label govuk-date-input__label" for="undefined-month">
+          Month
+        </label>
+      <input class="govuk-input govuk-date-input__input govuk-input--width-2" id="undefined-month" name="month" type="text" pattern="[0-9]*" inputmode="numeric"></div>
+    </div>
+    <div class="govuk-date-input__item">
+      <div class="govuk-form-group">
+        <label class="govuk-label govuk-date-input__label" for="undefined-year">
+          Year
+        </label>
+      <input class="govuk-input govuk-date-input__input govuk-input--width-4" id="undefined-year" name="year" type="text" pattern="[0-9]*" inputmode="numeric"></div>
+    </div>
+  </div>
+</div>

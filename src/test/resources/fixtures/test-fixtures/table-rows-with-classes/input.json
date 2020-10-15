@@ -1,0 +1,6 @@
+{
+  "rows" : [ [ {
+    "text" : "Foo",
+    "classes" : "my-custom-class"
+  } ] ]
+}

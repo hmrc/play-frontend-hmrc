@@ -8,5 +8,4 @@
   <span id="input-with-error-message-error" class="govuk-error-message">
   <span class="govuk-visually-hidden">Error:</span> Error message goes here
   </span>
-  <input class="govuk-input govuk-input--error" id="input-with-error-message" name="test-name-3" type="text" aria-describedby="input-with-error-message-hint input-with-error-message-error">
-</div>
+<input class="govuk-input govuk-input--error" id="input-with-error-message" name="test-name-3" type="text" aria-describedby="input-with-error-message-hint input-with-error-message-error"></div>

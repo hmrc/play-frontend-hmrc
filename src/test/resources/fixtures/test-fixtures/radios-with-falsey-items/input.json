@@ -1,0 +1,10 @@
+{
+  "name" : "example-name",
+  "items" : [ {
+    "value" : "yes",
+    "text" : "Yes"
+  }, null, false, {
+    "value" : "no",
+    "text" : "No"
+  } ]
+}

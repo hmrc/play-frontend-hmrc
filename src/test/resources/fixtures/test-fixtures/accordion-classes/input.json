@@ -1,0 +1,11 @@
+{
+  "classes" : "myClass",
+  "items" : [ {
+    "heading" : {
+      "text" : "Section A"
+    },
+    "content" : {
+      "text" : "Some content"
+    }
+  } ]
+}

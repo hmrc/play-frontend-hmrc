@@ -1,0 +1,12 @@
+{
+  "id" : "dob-errors",
+  "fieldset" : {
+    "describedBy" : "some-id",
+    "legend" : {
+      "text" : "What is your date of birth?"
+    }
+  },
+  "hint" : {
+    "text" : "For example, 31 3 1980"
+  }
+}

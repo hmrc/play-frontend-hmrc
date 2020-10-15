@@ -1,0 +1,11 @@
+
+<div class="govuk-form-group govuk-form-group--error">
+<fieldset class="govuk-fieldset app-fieldset--custom-modifier" aria-describedby="example-name-error" data-attribute="value" data-second-attribute="second-value">
+  <span id="example-name-error" class="govuk-error-message">
+  <span class="govuk-visually-hidden">Error:</span> Please select an option
+  </span>
+  <div class="govuk-checkboxes">
+  </div>
+
+</fieldset>
+</div>

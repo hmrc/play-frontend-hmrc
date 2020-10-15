@@ -2,5 +2,4 @@
   <label class="govuk-label" for="input-with-spellcheck-disabled">
     Spellcheck is disabled
   </label>
-  <input class="govuk-input" id="input-with-spellcheck-disabled" name="spellcheck" type="text" spellcheck="false">
-</div>
+<input class="govuk-input" id="input-with-spellcheck-disabled" name="spellcheck" type="text" spellcheck="false"></div>

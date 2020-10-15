@@ -1,0 +1,16 @@
+{
+  "name" : "example-name",
+  "errorMessage" : {
+    "text" : "Please select an option"
+  },
+  "legend" : {
+    "text" : "What is your nationality?"
+  },
+  "fieldset" : {
+    "classes" : "app-fieldset--custom-modifier",
+    "attributes" : {
+      "data-attribute" : "value",
+      "data-second-attribute" : "second-value"
+    }
+  }
+}

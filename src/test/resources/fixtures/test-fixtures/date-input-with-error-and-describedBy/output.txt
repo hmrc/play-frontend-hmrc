@@ -1,0 +1,36 @@
+
+
+<div class="govuk-form-group govuk-form-group--error">
+<fieldset class="govuk-fieldset" role="group" aria-describedby="some-id dob-errors-error">
+  <legend class="govuk-fieldset__legend">
+    What is your date of birth?
+  </legend>
+  <span id="dob-errors-error" class="govuk-error-message">
+  <span class="govuk-visually-hidden">Error:</span> Error message goes here
+  </span>
+  <div class="govuk-date-input" id="dob-errors">
+    <div class="govuk-date-input__item">
+      <div class="govuk-form-group">
+        <label class="govuk-label govuk-date-input__label" for="dob-errors-day">
+          Day
+        </label>
+      <input class="govuk-input govuk-date-input__input govuk-input--width-2" id="dob-errors-day" name="day" type="text" pattern="[0-9]*" inputmode="numeric"></div>
+    </div>
+    <div class="govuk-date-input__item">
+      <div class="govuk-form-group">
+        <label class="govuk-label govuk-date-input__label" for="dob-errors-month">
+          Month
+        </label>
+      <input class="govuk-input govuk-date-input__input govuk-input--width-2" id="dob-errors-month" name="month" type="text" pattern="[0-9]*" inputmode="numeric"></div>
+    </div>
+    <div class="govuk-date-input__item">
+      <div class="govuk-form-group">
+        <label class="govuk-label govuk-date-input__label" for="dob-errors-year">
+          Year
+        </label>
+      <input class="govuk-input govuk-date-input__input govuk-input--width-4" id="dob-errors-year" name="year" type="text" pattern="[0-9]*" inputmode="numeric"></div>
+    </div>
+  </div>
+
+</fieldset>
+</div>

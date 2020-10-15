@@ -1,0 +1,4 @@
+<table class="govuk-table" data-foo="bar">
+  <tbody class="govuk-table__body">
+  </tbody>
+</table>

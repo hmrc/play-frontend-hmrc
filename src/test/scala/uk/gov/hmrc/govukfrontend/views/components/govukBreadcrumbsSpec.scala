@@ -19,6 +19,8 @@ package uk.gov.hmrc.govukfrontend.views.components
 import play.twirl.api.HtmlFormat
 import uk.gov.hmrc.govukfrontend.views.TemplateUnitSpec
 import uk.gov.hmrc.govukfrontend.views.html.components._
+import uk.gov.hmrc.govukfrontend.views.viewmodels.breadcrumbs.Breadcrumbs
+
 import scala.util.Try
 
 class govukBreadcrumbsSpec extends TemplateUnitSpec[Breadcrumbs]("govukBreadcrumbs") {
@@ -31,4 +33,27 @@ class govukBreadcrumbsSpec extends TemplateUnitSpec[Breadcrumbs]("govukBreadcrum
     */
   override def render(templateParams: Breadcrumbs): Try[HtmlFormat.Appendable] =
     Try(GovukBreadcrumbs(templateParams))
+
+  "breadcrumb" should {
+
+    "render the attributes in order" in {
+      val params = Breadcrumbs(attributes = Map(
+        "id" -> "my-navigation",
+        "role" -> "navigation"
+      ))
+      val component = GovukBreadcrumbs(params)
+
+      component.body should include("<div class=\"govuk-breadcrumbs \" id=\"my-navigation\" role=\"navigation\">")
+    }
+
+    "render the attributes in order when input is reversed" in {
+      val params = Breadcrumbs(attributes = Map(
+        "role" -> "navigation",
+        "id" -> "my-navigation"
+      ))
+      val component = GovukBreadcrumbs(params)
+
+      component.body should include("<div class=\"govuk-breadcrumbs \" role=\"navigation\" id=\"my-navigation\">")
+    }
+  }
 }

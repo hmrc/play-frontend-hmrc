@@ -20,6 +20,7 @@ import play.api.libs.json._
 import play.twirl.api.Html
 
 import scala.collection.Seq
+import scala.util.Try
 
 object CommonJsonFormats {
   val readsFormGroupClasses: Reads[String] =
@@ -55,5 +56,53 @@ object CommonJsonFormats {
   val writesConditionalHtml: OWrites[Option[Html]] = new OWrites[Option[Html]] {
     override def writes(o: Option[Html]): JsObject =
       o.map(o => Json.obj("conditional" -> Json.obj("html" -> o.body))).getOrElse(Json.obj())
+  }
+
+  val attributesReads: Reads[Map[String, String]] = new Reads[Map[String, String]] {
+    override def reads(json: JsValue): JsResult[Map[String, String]] = {
+      val keyValueTuples = json.as[JsObject].keys.map { key =>
+        asOptString((json \ key).as[JsValue])
+          .map(stringValue => (key, stringValue))
+      }
+      JsSuccess(keyValueTuples.flatten.toMap)
+    }
+  }
+
+  val forgivingOptStringReads: Reads[Option[String]] = new Reads[Option[String]] {
+    override def reads(json: JsValue): JsResult[Option[String]] =
+      JsSuccess(asOptString(json))
+  }
+
+  val forgivingStringReads: Reads[String] = new Reads[String] {
+    override def reads(json: JsValue): JsResult[String] =
+      asOptString(json) match {
+        case Some(validString) => JsSuccess(validString)
+        case _ => JsError("error.expected.jsstring")
+      }
+  }
+
+  private def asOptString(json: JsValue): Option[String] = {
+    json.asOpt[String].orElse {
+      json.asOpt[Int].map(_.toString).orElse {
+        json.asOpt[Boolean].map(_.toString)
+      }
+    }
+  }
+
+  def forgivingSeqReads[T](implicit readsT: Reads[T]): Reads[Seq[T]] = new Reads[Seq[T]] {
+    override def reads(json: JsValue): JsResult[Seq[T]] = {
+      json.validate[Seq[JsValue]].map { jsValues =>
+        forgivingSeqValidates(jsValues)(readsT)
+      }
+    }
+  }
+
+  private def forgivingSeqValidates[T](jsValues: Seq[JsValue])
+                                      (implicit readsT: Reads[T]): Seq[T] = {
+    jsValues flatMap { jsValue =>
+      val maybeValidated: Option[JsResult[T]] =
+        Try(jsValue.validate[T](readsT)).toOption
+      maybeValidated.flatMap(_.asOpt)
+    }
   }
 }

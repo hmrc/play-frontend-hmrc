@@ -1,0 +1,7 @@
+<table class="govuk-table">
+  <tbody class="govuk-table__body">
+        <tr class="govuk-table__row">
+          <td class="govuk-table__cell" data-fizz="buzz">Foo</td>
+        </tr>
+  </tbody>
+</table>

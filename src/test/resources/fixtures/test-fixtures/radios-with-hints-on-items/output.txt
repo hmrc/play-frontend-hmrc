@@ -8,23 +8,24 @@
   </legend>
   <div class="govuk-radios">
         <div class="govuk-radios__item">
-          <input class="govuk-radios__input" id="gov" name="gov" type="radio" value="gateway" aria-describedby="gov-item-hint">
-          <label class="govuk-label govuk-radios__label" for="gov">
+          <input class="govuk-radios__input" id="gateway" name="gov" type="radio" value="gateway" aria-describedby="gateway-item-hint">
+          <label class="govuk-label govuk-radios__label" for="gateway">
         Sign in with Government Gateway
       </label>
-          <div id="gov-item-hint" class="govuk-hint govuk-radios__hint">
+          <div id="gateway-item-hint" class="govuk-hint govuk-radios__hint">
         You’ll have a user ID if you’ve registered for Self Assessment or filed a tax return online before.
       </div>
         </div>
         <div class="govuk-radios__item">
-          <input class="govuk-radios__input" id="gov-2" name="gov" type="radio" value="verify" aria-describedby="gov-2-item-hint">
-          <label class="govuk-label govuk-radios__label" for="gov-2">
+          <input class="govuk-radios__input" id="verify" name="gov" type="radio" value="verify" aria-describedby="verify-item-hint">
+          <label class="govuk-label govuk-radios__label" for="verify">
         Sign in with GOV.UK Verify
       </label>
-          <div id="gov-2-item-hint" class="govuk-hint govuk-radios__hint">
+          <div id="verify-item-hint" class="govuk-hint govuk-radios__hint">
         You’ll have an account if you’ve already proved your identity with either Barclays, CitizenSafe, Digidentity, Experian, Post Office, Royal Mail or SecureIdentity.
       </div>
         </div>
   </div>
+
 </fieldset>
 </div>

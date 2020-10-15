@@ -1,0 +1,6 @@
+{
+  "id" : "select-with-error",
+  "errorMessage" : {
+    "text" : "Error message"
+  }
+}

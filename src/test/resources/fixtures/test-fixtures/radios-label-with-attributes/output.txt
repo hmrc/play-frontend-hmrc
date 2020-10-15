@@ -1,0 +1,11 @@
+
+<div class="govuk-form-group">
+  <div class="govuk-radios">
+        <div class="govuk-radios__item">
+          <input class="govuk-radios__input" id="" name="" type="radio" value="yes">
+          <label class="govuk-label govuk-radios__label" data-attribute="value" data-second-attribute="second-value">
+        Yes
+      </label>
+        </div>
+  </div>
+</div>

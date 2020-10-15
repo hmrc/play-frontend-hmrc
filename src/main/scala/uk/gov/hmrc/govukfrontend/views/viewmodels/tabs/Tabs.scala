@@ -16,7 +16,9 @@
 
 package uk.gov.hmrc.govukfrontend.views.viewmodels.tabs
 
-import play.api.libs.json.{Json, OWrites, Reads}
+import play.api.libs.functional.syntax._
+import play.api.libs.json._
+import uk.gov.hmrc.govukfrontend.views.viewmodels.CommonJsonFormats._
 import uk.gov.hmrc.govukfrontend.views.viewmodels.JsonDefaultValueFormatter
 
 case class Tabs(
@@ -31,7 +33,14 @@ object Tabs extends JsonDefaultValueFormatter[Tabs] {
 
   override def defaultObject: Tabs = Tabs()
 
-  override def defaultReads: Reads[Tabs] = Json.reads[Tabs]
+  override def defaultReads: Reads[Tabs] = (
+    (__ \ "id").readNullable[String] and
+    (__ \ "idPrefix").readNullable[String] and
+    (__ \ "title").read[String] and
+    (__ \ "items").read[Seq[TabItem]](forgivingSeqReads[TabItem]) and
+    (__ \ "classes").read[String] and
+    (__ \ "attributes").read[Map[String, String]](attributesReads)
+  )(Tabs.apply _)
 
   override implicit def jsonWrites: OWrites[Tabs] = Json.writes[Tabs]
 }

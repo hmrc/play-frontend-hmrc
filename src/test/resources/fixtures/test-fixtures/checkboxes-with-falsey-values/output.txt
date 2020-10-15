@@ -1,0 +1,17 @@
+
+<div class="govuk-form-group">
+  <div class="govuk-checkboxes">
+        <div class="govuk-checkboxes__item">
+          <input class="govuk-checkboxes__input" id="example-name" name="example-name" type="checkbox" value="1">
+          <label class="govuk-label govuk-checkboxes__label" for="example-name">
+        Option 1
+      </label>
+        </div>
+        <div class="govuk-checkboxes__item">
+          <input class="govuk-checkboxes__input" id="example-name-5" name="example-name" type="checkbox" value="2">
+          <label class="govuk-label govuk-checkboxes__label" for="example-name-5">
+        Option 2
+      </label>
+        </div>
+  </div>
+</div>

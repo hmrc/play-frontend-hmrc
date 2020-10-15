@@ -1,0 +1,23 @@
+
+<div class="govuk-form-group">
+<fieldset class="govuk-fieldset" aria-describedby="some-id example-name-hint">
+  <div id="example-name-hint" class="govuk-hint">
+    If you have dual nationality, select all options that are relevant to you.
+  </div>
+  <div class="govuk-checkboxes">
+        <div class="govuk-checkboxes__item">
+          <input class="govuk-checkboxes__input" id="example-name" name="example-name" type="checkbox" value="1">
+          <label class="govuk-label govuk-checkboxes__label" for="example-name">
+        Option 1
+      </label>
+        </div>
+        <div class="govuk-checkboxes__item">
+          <input class="govuk-checkboxes__input" id="example-name-2" name="example-name" type="checkbox" value="2">
+          <label class="govuk-label govuk-checkboxes__label" for="example-name-2">
+        Option 2
+      </label>
+        </div>
+  </div>
+
+</fieldset>
+</div>

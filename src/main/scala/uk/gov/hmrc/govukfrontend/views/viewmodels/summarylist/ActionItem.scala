@@ -25,7 +25,8 @@ final case class ActionItem(
   href: String                       = "",
   content: Content                   = Empty,
   visuallyHiddenText: Option[String] = None,
-  classes: String                    = "")
+  classes: String                    = "",
+  attributes: Map[String, String] = Map.empty)
 
 object ActionItem extends JsonDefaultValueFormatter[ActionItem] {
 
@@ -36,7 +37,8 @@ object ActionItem extends JsonDefaultValueFormatter[ActionItem] {
       (__ \ "href").read[String] and
         Content.reads and
         (__ \ "visuallyHiddenText").readNullable[String] and
-        (__ \ "classes").read[String]
+        (__ \ "classes").read[String] and
+        (__ \ "attributes").read[Map[String, String]]
     )(ActionItem.apply _)
 
   override implicit def jsonWrites: OWrites[ActionItem] =
@@ -44,7 +46,8 @@ object ActionItem extends JsonDefaultValueFormatter[ActionItem] {
       (__ \ "href").write[String] and
         Content.writes and
         (__ \ "visuallyHiddenText").writeNullable[String] and
-        (__ \ "classes").write[String]
+        (__ \ "classes").write[String] and
+        (__ \ "attributes").write[Map[String, String]]
     )(unlift(ActionItem.unapply))
 
 }

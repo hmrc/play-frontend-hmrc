@@ -1,0 +1,11 @@
+
+<div class="govuk-form-group">
+  <div class="govuk-checkboxes">
+        <div class="govuk-checkboxes__item">
+          <input class="govuk-checkboxes__input" id="example-label-classes" name="example-label-classes" type="checkbox" value="yes">
+          <label class="govuk-label govuk-checkboxes__label bold" for="example-label-classes">
+        Yes
+      </label>
+        </div>
+  </div>
+</div>

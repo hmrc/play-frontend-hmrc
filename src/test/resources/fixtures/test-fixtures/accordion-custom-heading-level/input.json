@@ -1,0 +1,11 @@
+{
+  "headingLevel" : 3,
+  "items" : [ {
+    "heading" : {
+      "text" : "Section A"
+    },
+    "content" : {
+      "text" : "Some content"
+    }
+  } ]
+}

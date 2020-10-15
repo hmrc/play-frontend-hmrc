@@ -1,9 +1,5 @@
 {
   "id" : "default-example",
-  "classes" : "myClass",
-  "attributes" : {
-    "data-attribute" : "value"
-  },
   "items" : [ {
     "heading" : {
       "text" : "Section A"

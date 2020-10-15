@@ -19,6 +19,7 @@ package uk.gov.hmrc.govukfrontend.views.viewmodels.button
 import play.api.libs.functional.syntax._
 import play.api.libs.json._
 import uk.gov.hmrc.govukfrontend.views.html.components._
+import uk.gov.hmrc.govukfrontend.views.viewmodels.CommonJsonFormats._
 import uk.gov.hmrc.govukfrontend.views.viewmodels.JsonDefaultValueFormatter
 
 case class Button(
@@ -48,7 +49,7 @@ object Button extends JsonDefaultValueFormatter[Button] {
         (__ \ "disabled").read[Boolean] and
         (__ \ "href").readNullable[String] and
         (__ \ "classes").read[String] and
-        (__ \ "attributes").read[Map[String, String]] and
+        (__ \ "attributes").read[Map[String, String]](attributesReads) and
         (__ \ "preventDoubleClick").read[Boolean] and
         (__ \ "isStartButton").read[Boolean] and
         Content.reads
