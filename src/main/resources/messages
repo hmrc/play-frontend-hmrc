@@ -7,3 +7,9 @@ footer.termsConditions.url = /help/terms-and-conditions
 footer.govukHelp.text = Help using GOV.UK
 footer.govukHelp.url = https://www.gov.uk/help
 footer.accessibility.text = Accessibility statement
+
+footer.supportLinks = Support links
+footer.ogl.part1 = All content is available under the
+footer.ogl.part2 = Open Government Licence v3.0
+footer.ogl.part3 = , except where otherwise stated
+footer.crownCopyright = Crown copyright
