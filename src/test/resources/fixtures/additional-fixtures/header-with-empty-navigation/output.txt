@@ -29,5 +29,3 @@
 		</div>
 	</div>
 </header>
-<div class="govuk-width-container">
-</div>
