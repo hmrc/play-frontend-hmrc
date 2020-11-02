@@ -19,6 +19,7 @@ package html
 
 import play.api.Play
 import uk.gov.hmrc.govukfrontend.views.html.components.{GovukErrorMessage, GovukFooter, GovukHint, GovukLabel}
+import uk.gov.hmrc.helpers.html.hmrcFooterHelper
 import uk.gov.hmrc.hmrcfrontend.config.AccessibilityStatementConfig
 import uk.gov.hmrc.hmrcfrontend.views.config.HmrcFooterItems
 
@@ -46,9 +47,9 @@ package object components extends Utils with Aliases {
   @deprecated(message = "Use DI", since = "Play 2.6")
   lazy val HmrcFooterItems = new HmrcFooterItems(accessibilityStatementConfig)
 
-  type HmrcFooter = hmrcFooter
+  type HmrcFooterHelper = hmrcFooterHelper
   @deprecated(message = "Use DI", since = "Play 2.6")
-  lazy val HmrcFooter = new hmrcFooter(GovukFooter, HmrcFooterItems)
+  lazy val HmrcFooterHelper = new hmrcFooterHelper(GovukFooter, HmrcFooterItems)
 
   type HmrcInternalHeader = hmrcInternalHeader
   @deprecated(message = "Use DI", since = "Play 2.6")

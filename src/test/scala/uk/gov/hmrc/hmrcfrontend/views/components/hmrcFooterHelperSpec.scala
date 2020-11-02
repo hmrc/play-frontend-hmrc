@@ -34,7 +34,7 @@ import org.scalatestplus.play.guice.GuiceOneAppPerSuite
 import play.api.{Application, Play}
 import uk.gov.hmrc.hmrcfrontend.MessagesSupport
 
-class hmrcFooterSpec extends WordSpec with Matchers with JsoupHelpers with MessagesSupport with GuiceOneAppPerSuite {
+class hmrcFooterHelperSpec extends WordSpec with Matchers with JsoupHelpers with MessagesSupport with GuiceOneAppPerSuite {
 
   override def fakeApplication(): Application =
     new GuiceApplicationBuilder().configure(Map("play.allowGlobalApplication" -> "true")).build()
@@ -68,7 +68,7 @@ class hmrcFooterSpec extends WordSpec with Matchers with JsoupHelpers with Messa
     "generate the correct list of links" in {
       implicit val app = buildApp()
 
-      val content  = contentAsString(HmrcFooter()(messages, fakeRequest))
+      val content  = contentAsString(HmrcFooterHelper()(messages, fakeRequest))
       val document = Jsoup.parse(content)
       val links    = document.getElementsByTag("a")
 
@@ -79,7 +79,7 @@ class hmrcFooterSpec extends WordSpec with Matchers with JsoupHelpers with Messa
       implicit val app  = buildApp()
       val welshMessages = messagesApi.preferred(Seq(Lang("cy")))
 
-      val content  = contentAsString(HmrcFooter()(welshMessages, fakeRequest))
+      val content  = contentAsString(HmrcFooterHelper()(welshMessages, fakeRequest))
       val document = Jsoup.parse(content)
       val links    = document.getElementsByTag("a")
 
