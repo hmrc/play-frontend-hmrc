@@ -14,28 +14,32 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.hmrcfrontend.views.components
+package uk.gov.hmrc.hmrcfrontend.views.helpers
+
+import org.scalatest.{Matchers, WordSpecLike}
 
 import org.jsoup.Jsoup
-import org.scalatest.{Matchers, WordSpec}
 import play.api.i18n.Lang
 import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.test.FakeRequest
 import play.api.test.Helpers.contentAsString
 import play.api.test.Helpers._
-import uk.gov.hmrc.hmrcfrontend.views.JsoupHelpers
+import uk.gov.hmrc.hmrcfrontend.views.{JsoupHelpers, TemplateUnitSpec}
 import uk.gov.hmrc.hmrcfrontend.views.html.components._
-import uk.gov.hmrc.hmrcfrontend.views.html.helpers._
 
 import scala.collection.immutable.List
 import scala.collection.JavaConverters._
 import java.util.{List => JavaList}
 
 import org.scalatestplus.play.guice.GuiceOneAppPerSuite
-import play.api.{Application, Play}
+import play.api.Application
+import play.twirl.api.HtmlFormat
 import uk.gov.hmrc.hmrcfrontend.MessagesSupport
 
-class hmrcFooterHelperSpec extends WordSpec with Matchers with JsoupHelpers with MessagesSupport with GuiceOneAppPerSuite {
+import scala.util.Try
+
+class hmrcFooterHelperSpec extends WordSpecLike with Matchers with MessagesSupport with GuiceOneAppPerSuite {
+  implicit val fakeRequest = FakeRequest("GET", "/foo")
 
   override def fakeApplication(): Application =
     new GuiceApplicationBuilder().configure(Map("play.allowGlobalApplication" -> "true")).build()
@@ -44,8 +48,6 @@ class hmrcFooterHelperSpec extends WordSpec with Matchers with JsoupHelpers with
     new GuiceApplicationBuilder()
       .configure(Map("play.i18n.langs" -> List("en", "cy")) ++ properties)
       .build()
-
-  implicit val fakeRequest = FakeRequest("GET", "/foo")
 
   val englishLinkTextEntries: JavaList[String] = List(
     "Cookies",
@@ -61,11 +63,11 @@ class hmrcFooterHelperSpec extends WordSpec with Matchers with JsoupHelpers with
     "Polisi preifatrwydd",
     "Telerau ac Amodau",
     "Help wrth ddefnyddio GOV.UK",
-    "Open Government Licence v3.0",
-    "© Crown copyright"
+    "y Drwydded Llywodraeth Agored v3.0",
+    "© Hawlfraint y Goron"
   ).asJava
 
-  "HmrcFooterLinks" should {
+  "HmrcFooterHelperLinks" should {
     "generate the correct list of links" in {
       implicit val app = buildApp()
 
@@ -85,6 +87,28 @@ class hmrcFooterHelperSpec extends WordSpec with Matchers with JsoupHelpers with
       val links    = document.getElementsByTag("a")
 
       links.eachText() should be(welshLinkTextEntries)
+    }
+
+    "generate the correct copyright message in Welsh" in {
+      implicit val app  = buildApp()
+      val welshMessages = messagesApi.preferred(Seq(Lang("cy")))
+
+      val content  = contentAsString(HmrcFooterHelper()(welshMessages, fakeRequest))
+      val document = Jsoup.parse(content)
+      val elements    = document.getElementsByClass("govuk-footer__licence-description")
+
+      elements.first.text should be("Mae‘r holl gynnwys ar gael o dan y Drwydded Llywodraeth Agored v3.0, oni nodir yn wahanol")
+    }
+
+    "generate the correct visually hidden support links message in Welsh" in {
+      implicit val app  = buildApp()
+      val welshMessages = messagesApi.preferred(Seq(Lang("cy")))
+
+      val content  = contentAsString(HmrcFooterHelper()(welshMessages, fakeRequest))
+      val document = Jsoup.parse(content)
+      val elements    = document.getElementsByClass("govuk-visually-hidden")
+
+      elements.first.text should be("Cysylltiadau cymorth")
     }
   }
 }

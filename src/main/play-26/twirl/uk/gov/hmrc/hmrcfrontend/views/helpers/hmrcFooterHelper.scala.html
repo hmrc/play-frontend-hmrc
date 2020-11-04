@@ -14,12 +14,13 @@
  * limitations under the License.
  *@
 
-@import uk.gov.hmrc.govukfrontend.views.html.components.GovukFooter
-@import uk.gov.hmrc.govukfrontend.views.viewmodels.footer.{Footer, Meta}
+@import uk.gov.hmrc.hmrcfrontend.views.html.components.HmrcFooter
+@import uk.gov.hmrc.hmrcfrontend.views.viewmodels.footer.{Footer, Meta}
 @import uk.gov.hmrc.hmrcfrontend.views.config.HmrcFooterItems
 @import uk.gov.hmrc.hmrcfrontend.views.html.components.HmrcFooterItems
+@import uk.gov.hmrc.hmrcfrontend.views.viewmodels.language.{Cy, En}
 
-@this(govukFooter: GovukFooter, hmrcFooterItems: HmrcFooterItems)
+@this(hmrcFooter: HmrcFooter, hmrcFooterItems: HmrcFooterItems)
 
 @()(implicit messages: Messages, request: RequestHeader)
-@GovukFooter(new Footer(meta = Some(Meta(items = Some(HmrcFooterItems.get)))))
+@HmrcFooter(new Footer(meta = Some(Meta(items = Some(HmrcFooterItems.get))), language = if (messages.lang.code == "cy") Cy else En))@import uk.gov.hmrc.hmrcfrontend.views.html.components.HmrcFooter

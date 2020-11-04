@@ -19,7 +19,7 @@ package uk.gov.hmrc.hmrcfrontend.views.config
 import javax.inject.Inject
 import play.api.i18n.Messages
 import play.api.mvc.RequestHeader
-import uk.gov.hmrc.govukfrontend.views.viewmodels.footer.FooterItem
+import uk.gov.hmrc.hmrcfrontend.views.viewmodels.footer.FooterItem
 import uk.gov.hmrc.hmrcfrontend.config.AccessibilityStatementConfig
 
 class HmrcFooterItems @Inject()(accessibilityStatementConfig: AccessibilityStatementConfig) {
