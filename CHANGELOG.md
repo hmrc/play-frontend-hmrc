@@ -5,7 +5,24 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
-## [0.19.0] - 2020-09-23
+## [0.21.0] - 2020-11-05
+
+### Updated
+
+- hmrcFooter
+
+### Fixed
+
+- Moved the footer helper into a new `helpers` package and renamed it `HmrcFooterHelper`
+- Ported the `hmrcFooter` from `hmrc-frontend`
+
+### Compatible with
+
+- [hmrc/hmrc-frontend v1.19.0](https://github.com/hmrc/hmrc-frontend/releases/tag/v1.19.0)
+- [hmrc/play-frontend-govuk v0.49.0](https://github.com/hmrc/play-frontend-govuk/releases/tag/v0.49.0)
+- [alphagov/govuk-frontend v3.7.0](https://github.com/alphagov/govuk-frontend/releases/tag/v3.7.0)
+
+## [0.20.0] - 2020-09-23
 
 ### Updated
 
@@ -16,6 +33,18 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Compatible with
 
 - [hmrc/hmrc-frontend v1.17.0](https://github.com/hmrc/hmrc-frontend/releases/tag/v1.17.0)
+- [hmrc/play-frontend-govuk v0.49.0](https://github.com/hmrc/play-frontend-govuk/releases/tag/v0.49.0)
+- [alphagov/govuk-frontend v3.7.0](https://github.com/alphagov/govuk-frontend/releases/tag/v3.7.0)
+
+## [0.19.0] - 2020-09-10
+
+### Fixed
+
+- Added helper for Footers with standard configuration
+
+### Compatible with
+
+- [hmrc/hmrc-frontend v1.15.1](https://github.com/hmrc/hmrc-frontend/releases/tag/v1.15.1)
 - [hmrc/play-frontend-govuk v0.49.0](https://github.com/hmrc/play-frontend-govuk/releases/tag/v0.49.0)
 - [alphagov/govuk-frontend v3.7.0](https://github.com/alphagov/govuk-frontend/releases/tag/v3.7.0)
 
