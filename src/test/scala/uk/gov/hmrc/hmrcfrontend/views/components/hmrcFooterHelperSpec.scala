@@ -25,6 +25,7 @@ import play.api.test.Helpers.contentAsString
 import play.api.test.Helpers._
 import uk.gov.hmrc.hmrcfrontend.views.JsoupHelpers
 import uk.gov.hmrc.hmrcfrontend.views.html.components._
+import uk.gov.hmrc.hmrcfrontend.views.html.helpers._
 
 import scala.collection.immutable.List
 import scala.collection.JavaConverters._

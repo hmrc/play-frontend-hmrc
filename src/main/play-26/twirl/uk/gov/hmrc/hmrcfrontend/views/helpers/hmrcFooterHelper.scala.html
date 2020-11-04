@@ -17,8 +17,9 @@
 @import uk.gov.hmrc.govukfrontend.views.html.components.GovukFooter
 @import uk.gov.hmrc.govukfrontend.views.viewmodels.footer.{Footer, Meta}
 @import uk.gov.hmrc.hmrcfrontend.views.config.HmrcFooterItems
+@import uk.gov.hmrc.hmrcfrontend.views.html.components.HmrcFooterItems
 
 @this(govukFooter: GovukFooter, hmrcFooterItems: HmrcFooterItems)
 
 @()(implicit messages: Messages, request: RequestHeader)
-@GovukFooter(new Footer(meta = Some(Meta(items = Some(hmrcFooterItems.get)))))
+@GovukFooter(new Footer(meta = Some(Meta(items = Some(HmrcFooterItems.get)))))
