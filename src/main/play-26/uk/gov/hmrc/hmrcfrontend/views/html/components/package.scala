@@ -44,6 +44,10 @@ package object components extends Utils with Aliases {
   @deprecated(message = "Use DI", since = "Play 2.6")
   lazy val HmrcHeader = new hmrcHeader(HmrcBanner)
 
+  type HmrcFooter = hmrcFooter
+  @deprecated(message = "Use DI", since = "Play 2.6")
+  lazy val HmrcFooter = new hmrcFooter()
+
   @deprecated(message = "Use DI", since = "Play 2.6")
   lazy val HmrcFooterItems = new HmrcFooterItems(accessibilityStatementConfig)
 

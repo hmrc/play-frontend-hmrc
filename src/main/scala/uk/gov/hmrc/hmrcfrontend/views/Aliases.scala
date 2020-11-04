@@ -36,6 +36,9 @@ trait Aliases {
   type Header = viewmodels.header.Header
   val Header = viewmodels.header.Header
 
+  type Footer = viewmodels.footer.Footer
+  val Footer = viewmodels.footer.Footer
+
   type InternalHeader = viewmodels.internalheader.InternalHeader
   val InternalHeader = viewmodels.internalheader.InternalHeader
 

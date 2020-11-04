@@ -1,0 +1,107 @@
+@*
+ * Copyright 2020 HM Revenue & Customs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *@
+
+@this()
+
+@(params: Footer = Footer())
+@import params._
+<footer class="govuk-footer @classes" role="contentinfo"@toAttributes(attributes)>
+ <div class="govuk-width-container @containerClasses">
+  @if(navigation.nonEmpty){
+   <div class="govuk-footer__navigation">
+   @for(nav <- navigation) {
+    <div class="govuk-footer__section">
+     <h2 class="govuk-footer__heading govuk-heading-m">@nav.title</h2>
+     @if(nav.items.nonEmpty) {
+      <ul class="govuk-footer__list @if(nav.columns.exists(_ > 0)) { govuk-footer__list--columns-@nav.columns}">
+      @for(item <- nav.items) {
+       @(item.href, item.text) match {
+        case (Some(NonEmptyString(itemHref)), Some(NonEmptyString(itemText))) => {
+         <li class="govuk-footer__list-item">
+          <a class="govuk-footer__link" href="@itemHref"@toAttributes(item.attributes)>
+          @itemText
+          </a>
+         </li>
+        }
+        case _ => {}
+       }
+      }
+      </ul>
+     }
+    </div>
+   }
+   </div>
+   <hr class="govuk-footer__section-break">
+  }
+  <div class="govuk-footer__meta">
+   <div class="govuk-footer__meta-item govuk-footer__meta-item--grow">
+    @meta.map { meta =>
+     <h2 class="govuk-visually-hidden">@HtmlFormat.escape(meta.visuallyHiddenTitle.getOrElse(if (language.code == "cy") { "Cysylltiadau cymorth" } else { "Support links" }))</h2>
+    @meta.items.map { metaItems =>
+     @if(metaItems.nonEmpty) {
+      <ul class="govuk-footer__inline-list">
+      @for(item <- metaItems) {
+       <li class="govuk-footer__inline-list-item">
+        <a class="govuk-footer__link" href="@item.href"@toAttributes(item.attributes)>
+        @item.text
+        </a>
+       </li>
+      }
+      </ul>
+     }
+    }
+    @if(meta.content.nonEmpty) {
+     <div class="govuk-footer__meta-custom">
+     @meta.content.asHtml
+     </div>
+    }
+    }
+    @* The SVG needs `focusable="false"` so that Internet Explorer does not
+    treat it as an interactive element - without this it will be
+    'focusable' when using the keyboard to navigate. *@
+    <svg
+    aria-hidden="true"
+    focusable="false"
+    class="govuk-footer__licence-logo"
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 483.2 195.7"
+    height="17"
+    width="41"
+    >
+     <path
+     fill="currentColor"
+     d="M421.5 142.8V.1l-50.7 32.3v161.1h112.4v-50.7zm-122.3-9.6A47.12 47.12 0 0 1 221 97.8c0-26 21.1-47.1 47.1-47.1 16.7 0 31.4 8.7 39.7 21.8l42.7-27.2A97.63 97.63 0 0 0 268.1 0c-36.5 0-68.3 20.1-85.1 49.7A98 98 0 0 0 97.8 0C43.9 0 0 43.9 0 97.8s43.9 97.8 97.8 97.8c36.5 0 68.3-20.1 85.1-49.7a97.76 97.76 0 0 0 149.6 25.4l19.4 22.2h3v-87.8h-80l24.3 27.5zM97.8 145c-26 0-47.1-21.1-47.1-47.1s21.1-47.1 47.1-47.1 47.2 21 47.2 47S123.8 145 97.8 145"
+     />
+    </svg>
+    <span class="govuk-footer__licence-description">
+     @if(language.code == "cy"){Mae‘r holl gynnwys ar gael o dan} else {All content is available under the}
+     <a
+     class="govuk-footer__link"
+     href="https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/"
+     rel="license"
+     >@if(language.code == "cy"){y Drwydded Llywodraeth Agored} else {Open Government Licence} v3.0</a>, @if(language.code == "cy"){oni nodir yn wahanol} else {except where otherwise stated}
+    </span>
+   </div>
+   <div class="govuk-footer__meta-item">
+    <a
+    class="govuk-footer__link govuk-footer__copyright-logo"
+    href="https://www.nationalarchives.gov.uk/information-management/re-using-public-sector-information/uk-government-licensing-framework/crown-copyright/"
+    >© @if(language.code == "cy"){Hawlfraint y Goron} else {Crown copyright}</a>
+   </div>
+  </div>
+ </div>
+</footer>
+
