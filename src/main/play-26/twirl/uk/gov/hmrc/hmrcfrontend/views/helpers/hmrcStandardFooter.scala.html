@@ -23,4 +23,7 @@
 @this(hmrcFooter: HmrcFooter, hmrcFooterItems: HmrcFooterItems)
 
 @()(implicit messages: Messages, request: RequestHeader)
-@HmrcFooter(new Footer(meta = Some(Meta(items = Some(HmrcFooterItems.get))), language = if (messages.lang.code == "cy") Cy else En))@import uk.gov.hmrc.hmrcfrontend.views.html.components.HmrcFooter
+@HmrcFooter(new Footer(
+  meta = Some(Meta(items = Some(HmrcFooterItems.get))),
+  language = if (messages.lang.code == "cy") Cy else En
+))

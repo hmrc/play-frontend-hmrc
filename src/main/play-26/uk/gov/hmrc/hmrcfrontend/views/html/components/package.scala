@@ -17,11 +17,7 @@
 package uk.gov.hmrc.hmrcfrontend.views
 package html
 
-import play.api.Play
 import uk.gov.hmrc.govukfrontend.views.html.components.{GovukErrorMessage, GovukHint, GovukLabel}
-import uk.gov.hmrc.hmrcfrontend.views.html.helpers.hmrcStandardFooter
-import uk.gov.hmrc.hmrcfrontend.config.AccessibilityStatementConfig
-import uk.gov.hmrc.hmrcfrontend.views.config.{HmrcFooterItems => HmrcFooterItemsType}
 
 package object components extends Utils with Aliases {
 

@@ -20,8 +20,8 @@ import play.api.libs.json._
 import uk.gov.hmrc.govukfrontend.views.viewmodels.JsonDefaultValueFormatter
 
 final case class FooterNavigation(
-  title: Option[String] = None,
-  columns: Option[Int]  = None,
+  title: Option[String]  = None,
+  columns: Option[Int]   = None,
   items: Seq[FooterItem] = Seq.empty
 )
 
