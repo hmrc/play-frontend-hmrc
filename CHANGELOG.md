@@ -13,7 +13,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Fixed
 
-- Moved the footer helper into a new `helpers` package and renamed it `HmrcFooterHelper`
+- Moved the footer helper into a new `helpers` package and renamed it `HmrcStandardFooter`
 - Ported the `hmrcFooter` from `hmrc-frontend`
 
 ### Compatible with

@@ -129,7 +129,7 @@ Same button using DI:
 
 ### Accessibility Statements
 
-The [hmrcFooter](src/main/play-26/twirl/uk/gov/hmrc/hmrcfrontend/views/helpers/hmrcFooterHelper.scala.html) component,
+The [hmrcStandardFooter](src/main/play-26/twirl/uk/gov/hmrc/hmrcfrontend/views/helpers/hmrcStandardFooter.scala.html) component,
  generates the standard Gov.UK footer including the standard list of footer links.
 
 To configure this component to link to the new 

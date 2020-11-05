@@ -19,7 +19,7 @@ package html
 
 import play.api.Play
 import uk.gov.hmrc.govukfrontend.views.html.components.{GovukErrorMessage, GovukHint, GovukLabel}
-import uk.gov.hmrc.hmrcfrontend.views.html.helpers.hmrcFooterHelper
+import uk.gov.hmrc.hmrcfrontend.views.html.helpers.hmrcStandardFooter
 import uk.gov.hmrc.hmrcfrontend.config.AccessibilityStatementConfig
 import uk.gov.hmrc.hmrcfrontend.views.config.{HmrcFooterItems => HmrcFooterItemsType}
 
@@ -29,8 +29,6 @@ package object components extends Utils with Aliases {
     * Top-level implicits for all components
     */
   object implicits extends Implicits
-
-  private lazy val accessibilityStatementConfig = Play.current.injector.instanceOf[AccessibilityStatementConfig]
 
   type HmrcAccountMenu = hmrcAccountMenu
   @deprecated(message = "Use DI", since = "Play 2.6")
@@ -47,14 +45,6 @@ package object components extends Utils with Aliases {
   type HmrcFooter = hmrcFooter
   @deprecated(message = "Use DI", since = "Play 2.6")
   lazy val HmrcFooter = new hmrcFooter()
-
-  type HmrcFooterItems = HmrcFooterItemsType
-  @deprecated(message = "Use DI", since = "Play 2.6")
-  lazy val HmrcFooterItems = new HmrcFooterItems(accessibilityStatementConfig)
-
-  type HmrcFooterHelper = hmrcFooterHelper
-  @deprecated(message = "Use DI", since = "Play 2.6")
-  lazy val HmrcFooterHelper = new hmrcFooterHelper(HmrcFooter, HmrcFooterItems)
 
   type HmrcInternalHeader = hmrcInternalHeader
   @deprecated(message = "Use DI", since = "Play 2.6")

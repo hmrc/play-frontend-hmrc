@@ -24,8 +24,8 @@ import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.test.FakeRequest
 import play.api.test.Helpers.contentAsString
 import play.api.test.Helpers._
-import uk.gov.hmrc.hmrcfrontend.views.{JsoupHelpers, TemplateUnitSpec}
 import uk.gov.hmrc.hmrcfrontend.views.html.components._
+import uk.gov.hmrc.hmrcfrontend.views.html.helpers._
 
 import scala.collection.immutable.List
 import scala.collection.JavaConverters._
@@ -33,12 +33,9 @@ import java.util.{List => JavaList}
 
 import org.scalatestplus.play.guice.GuiceOneAppPerSuite
 import play.api.Application
-import play.twirl.api.HtmlFormat
 import uk.gov.hmrc.hmrcfrontend.MessagesSupport
 
-import scala.util.Try
-
-class hmrcFooterHelperSpec extends WordSpecLike with Matchers with MessagesSupport with GuiceOneAppPerSuite {
+class hmrcStandardFooterSpec extends WordSpecLike with Matchers with MessagesSupport with GuiceOneAppPerSuite {
   implicit val fakeRequest = FakeRequest("GET", "/foo")
 
   override def fakeApplication(): Application =
@@ -67,11 +64,11 @@ class hmrcFooterHelperSpec extends WordSpecLike with Matchers with MessagesSuppo
     "© Hawlfraint y Goron"
   ).asJava
 
-  "HmrcFooterHelperLinks" should {
+  "HmrcStandardFooterLinks" should {
     "generate the correct list of links" in {
       implicit val app = buildApp()
 
-      val content  = contentAsString(HmrcFooterHelper()(messages, fakeRequest))
+      val content  = contentAsString(HmrcStandardFooter()(messages, fakeRequest))
       val document = Jsoup.parse(content)
       val links    = document.getElementsByTag("a")
 
@@ -82,7 +79,7 @@ class hmrcFooterHelperSpec extends WordSpecLike with Matchers with MessagesSuppo
       implicit val app  = buildApp()
       val welshMessages = messagesApi.preferred(Seq(Lang("cy")))
 
-      val content  = contentAsString(HmrcFooterHelper()(welshMessages, fakeRequest))
+      val content  = contentAsString(HmrcStandardFooter()(welshMessages, fakeRequest))
       val document = Jsoup.parse(content)
       val links    = document.getElementsByTag("a")
 
@@ -93,7 +90,7 @@ class hmrcFooterHelperSpec extends WordSpecLike with Matchers with MessagesSuppo
       implicit val app  = buildApp()
       val welshMessages = messagesApi.preferred(Seq(Lang("cy")))
 
-      val content  = contentAsString(HmrcFooterHelper()(welshMessages, fakeRequest))
+      val content  = contentAsString(HmrcStandardFooter()(welshMessages, fakeRequest))
       val document = Jsoup.parse(content)
       val elements    = document.getElementsByClass("govuk-footer__licence-description")
 
@@ -104,7 +101,7 @@ class hmrcFooterHelperSpec extends WordSpecLike with Matchers with MessagesSuppo
       implicit val app  = buildApp()
       val welshMessages = messagesApi.preferred(Seq(Lang("cy")))
 
-      val content  = contentAsString(HmrcFooterHelper()(welshMessages, fakeRequest))
+      val content  = contentAsString(HmrcStandardFooter()(welshMessages, fakeRequest))
       val document = Jsoup.parse(content)
       val elements    = document.getElementsByClass("govuk-visually-hidden")
 
