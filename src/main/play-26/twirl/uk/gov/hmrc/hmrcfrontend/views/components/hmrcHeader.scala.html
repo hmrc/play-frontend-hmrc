@@ -144,6 +144,8 @@
     } else {}
   </div>
 </header>
-<div class="govuk-width-container">
-  @if(displayHmrcBanner){@hmrcBanner(Banner(language))}else{}
-</div>
+@if(displayHmrcBanner){
+  <div class="govuk-width-container">
+    @hmrcBanner(Banner(language))
+  </div>
+}

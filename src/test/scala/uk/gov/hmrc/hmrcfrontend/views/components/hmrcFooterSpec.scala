@@ -14,76 +14,23 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.hmrcfrontend.views.components
+package uk.gov.hmrc.hmrcfrontend.views
+package components
 
-import org.jsoup.Jsoup
-import org.scalatest.{Matchers, WordSpec}
-import play.api.i18n.Lang
-import play.api.inject.guice.GuiceApplicationBuilder
-import play.api.test.FakeRequest
-import play.api.test.Helpers.contentAsString
-import play.api.test.Helpers._
-import uk.gov.hmrc.hmrcfrontend.views.JsoupHelpers
+import play.twirl.api.HtmlFormat
 import uk.gov.hmrc.hmrcfrontend.views.html.components._
+import uk.gov.hmrc.hmrcfrontend.views.viewmodels.footer.Footer
 
-import scala.collection.immutable.List
-import scala.collection.JavaConverters._
-import java.util.{List => JavaList}
+import scala.util.Try
 
-import org.scalatestplus.play.guice.GuiceOneAppPerSuite
-import play.api.{Application, Play}
-import uk.gov.hmrc.hmrcfrontend.MessagesSupport
+class hmrcFooterSpec extends TemplateUnitSpec[Footer]("hmrcFooter") {
 
-class hmrcFooterSpec extends WordSpec with Matchers with JsoupHelpers with MessagesSupport with GuiceOneAppPerSuite {
-
-  override def fakeApplication(): Application =
-    new GuiceApplicationBuilder().configure(Map("play.allowGlobalApplication" -> "true")).build()
-
-  def buildApp(properties: Map[String, String] = Map.empty): Application =
-    new GuiceApplicationBuilder()
-      .configure(Map("play.i18n.langs" -> List("en", "cy")) ++ properties)
-      .build()
-
-  implicit val fakeRequest = FakeRequest("GET", "/foo")
-
-  val englishLinkTextEntries: JavaList[String] = List(
-    "Cookies",
-    "Privacy policy",
-    "Terms and conditions",
-    "Help using GOV.UK",
-    "Open Government Licence v3.0",
-    "© Crown copyright"
-  ).asJava
-
-  val welshLinkTextEntries: JavaList[String] = List(
-    "Cwcis",
-    "Polisi preifatrwydd",
-    "Telerau ac Amodau",
-    "Help wrth ddefnyddio GOV.UK",
-    "Open Government Licence v3.0",
-    "© Crown copyright"
-  ).asJava
-
-  "HmrcFooterLinks" should {
-    "generate the correct list of links" in {
-      implicit val app = buildApp()
-
-      val content  = contentAsString(HmrcFooter()(messages, fakeRequest))
-      val document = Jsoup.parse(content)
-      val links    = document.getElementsByTag("a")
-
-      links.eachText() should be(englishLinkTextEntries)
-    }
-
-    "generate the correct list of links in Welsh" in {
-      implicit val app  = buildApp()
-      val welshMessages = messagesApi.preferred(Seq(Lang("cy")))
-
-      val content  = contentAsString(HmrcFooter()(welshMessages, fakeRequest))
-      val document = Jsoup.parse(content)
-      val links    = document.getElementsByTag("a")
-
-      links.eachText() should be(welshLinkTextEntries)
-    }
-  }
+  /**
+   * Calls the Twirl template with the given parameters and returns the resulting markup
+   *
+   * @param templateParams
+   * @return [[Try[HtmlFormat.Appendable]]] containing the markup
+   */
+  override def render(templateParams: Footer): Try[HtmlFormat.Appendable] =
+    Try(HmrcFooter(templateParams))
 }

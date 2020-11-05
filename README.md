@@ -129,10 +129,10 @@ Same button using DI:
 
 ### Accessibility Statements
 
-The [hmrcFooter](src/main/play-26/twirl/uk/gov/hmrc/hmrcfrontend/views/components/hmrcFooter.scala.html) component,
+The [hmrcStandardFooter](src/main/play-26/twirl/uk/gov/hmrc/hmrcfrontend/views/helpers/hmrcStandardFooter.scala.html) helper,
  generates the standard Gov.UK footer including the standard list of footer links.
 
-To configure this component to link to the new 
+To configure this helper to link to the new 
 [Accessibility Statement service](https://www.github.com/hmrc/accessibility-statement-frontend), provide the key 
 `accessibility-statement.service-path` in your `application.conf`. This key is the path to your 
 accessibility statement under https://www.tax.service.gov.uk/accessibility-statement.
