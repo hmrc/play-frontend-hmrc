@@ -65,7 +65,7 @@ class TrackingConsentConfigSpec extends WordSpec with Matchers {
   "trackingUrl" should {
     implicit val request: FakeRequest[AnyContentAsEmpty.type] = FakeRequest("GET", "/foo")
 
-    "return the correct url to tracking consent when running locally" in {
+    "return the correct url to tracking consent when running locally i.e. without platform.frontend.host defined" in {
       implicit val application: Application = buildApp(
         Map(
           "tracking-consent-frontend.gtm.container" -> "a"
@@ -74,7 +74,7 @@ class TrackingConsentConfigSpec extends WordSpec with Matchers {
       config.trackingUrl should equal(Some("http://localhost:12345/tracking-consent/tracking.js"))
     }
 
-    "return the correct url to tracking consent when running in an MDTP environment" in {
+    "return the correct url to tracking consent when running in an MDTP environment i.e. with platform.frontend.host defined" in {
       implicit val application: Application = buildApp(
         Map(
           "platform.frontend.host"                  -> "https://www.tax.service.gov.uk",
@@ -94,7 +94,7 @@ class TrackingConsentConfigSpec extends WordSpec with Matchers {
   "optimizelyGtmUrl" should {
     implicit val request: FakeRequest[AnyContentAsEmpty.type] = FakeRequest("GET", "/foo")
 
-    "return the correct url to the optimizely gtm snippet when running locally" in {
+    "return the correct url to the optimizely gtm snippet when running locally i.e. without platform.frontend.host defined" in {
       implicit val application: Application = buildApp(
         Map(
           "tracking-consent-frontend.gtm.container" -> "a"
@@ -103,7 +103,7 @@ class TrackingConsentConfigSpec extends WordSpec with Matchers {
       config.optimizelyGtmUrl should equal(Some("http://localhost:12345/tracking-consent/tracking/optimizely.js"))
     }
 
-    "return the correct url to the optimizely gtm snippet when running in an MDTP environment" in {
+    "return the correct url to the optimizely gtm snippet when running in an MDTP environment i.e. with platform.frontend.host defined" in {
       implicit val application: Application = buildApp(
         Map(
           "platform.frontend.host"                  -> "https://www.tax.service.gov.uk",
