@@ -18,14 +18,18 @@ package uk.gov.hmrc.hmrcfrontend.views
 package html
 
 import play.api.Play
-import uk.gov.hmrc.hmrcfrontend.config.AccessibilityStatementConfig
+import uk.gov.hmrc.hmrcfrontend.config.{AccessibilityStatementConfig, TrackingConsentConfig}
 import uk.gov.hmrc.hmrcfrontend.views.config.HmrcFooterItems
-import uk.gov.hmrc.hmrcfrontend.views.html.helpers.HmrcStandardFooter
+import uk.gov.hmrc.hmrcfrontend.views.html.helpers.{HmrcStandardFooter, HmrcTrackingConsentSnippet}
 
 package object helpers {
   private lazy val accessibilityStatementConfig = Play.current.injector.instanceOf[AccessibilityStatementConfig]
 
+  lazy val TrackingConsentConfig = Play.current.injector.instanceOf[TrackingConsentConfig]
+
   lazy val HmrcFooterItems = new HmrcFooterItems(accessibilityStatementConfig)
 
   lazy val HmrcStandardFooter = hmrcStandardFooter
+
+  lazy val HmrcTrackingConsentSnippet = hmrcTrackingConsentSnippet
 }
