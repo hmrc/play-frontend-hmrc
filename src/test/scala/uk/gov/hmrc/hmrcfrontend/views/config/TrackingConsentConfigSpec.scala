@@ -30,7 +30,39 @@ class TrackingConsentConfigSpec extends WordSpec with Matchers {
       .configure(properties)
       .build()
 
-  "url" should {
+  "optimizelyUrl" should {
+    implicit val request: FakeRequest[AnyContentAsEmpty.type] = FakeRequest("GET", "/foo")
+
+    "return the correct optimizely url if optimizely.url and optimizely.projectId are defined" in {
+      implicit val application: Application = buildApp(
+        Map(
+          "optimizely.url"       -> "http://optimizely.com/",
+          "optimizely.projectId" -> "1234567"
+        ))
+      val config = application.injector.instanceOf[TrackingConsentConfig]
+      config.optimizelyUrl should equal(Some("http://optimizely.com/1234567.js"))
+    }
+
+    "return None if optimizely.projectId is not defined" in {
+      implicit val application: Application = buildApp(
+        Map(
+          "optimizely.url"               -> "http://optimizely.com/"
+        ))
+      val config = application.injector.instanceOf[TrackingConsentConfig]
+      config.optimizelyUrl should equal(None)
+    }
+
+    "return None if optimizely.url is not defined" in {
+      implicit val application: Application = buildApp(
+        Map(
+          "optimizely.projectId" -> "1234567"
+        ))
+      val config = application.injector.instanceOf[TrackingConsentConfig]
+      config.optimizelyUrl should equal(None)
+    }
+  }
+
+  "trackingUrl" should {
     implicit val request: FakeRequest[AnyContentAsEmpty.type] = FakeRequest("GET", "/foo")
 
     "return the correct url to tracking consent when running locally" in {
@@ -39,7 +71,7 @@ class TrackingConsentConfigSpec extends WordSpec with Matchers {
           "tracking-consent-frontend.gtm.container" -> "a"
         ))
       val config = application.injector.instanceOf[TrackingConsentConfig]
-      config.url should equal(Some("http://localhost:12345/tracking-consent/tracking.js"))
+      config.trackingUrl should equal(Some("http://localhost:12345/tracking-consent/tracking.js"))
     }
 
     "return the correct url to tracking consent when running in an MDTP environment" in {
@@ -49,13 +81,13 @@ class TrackingConsentConfigSpec extends WordSpec with Matchers {
           "tracking-consent-frontend.gtm.container" -> "a"
         ))
       val config = application.injector.instanceOf[TrackingConsentConfig]
-      config.url should equal(Some("https://www.tax.service.gov.uk/tracking-consent/tracking.js"))
+      config.trackingUrl should equal(Some("https://www.tax.service.gov.uk/tracking-consent/tracking.js"))
     }
 
     "return None if an tracking-consent-frontend.gtm.container does not exist in application.conf" in {
       implicit val application: Application = buildApp(Map.empty)
       val config                            = application.injector.instanceOf[TrackingConsentConfig]
-      config.url should equal(None)
+      config.trackingUrl should equal(None)
     }
   }
 

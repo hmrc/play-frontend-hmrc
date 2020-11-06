@@ -17,14 +17,13 @@
 package uk.gov.hmrc.hmrcfrontend.views.html
 
 import play.api.Play
-import uk.gov.hmrc.hmrcfrontend.config.{AccessibilityStatementConfig, TrackingConsentConfig, OptimizelyConfig}
+import uk.gov.hmrc.hmrcfrontend.config.{AccessibilityStatementConfig, TrackingConsentConfig}
 import uk.gov.hmrc.hmrcfrontend.views.config.{HmrcFooterItems => HmrcFooterItemsType}
 import uk.gov.hmrc.hmrcfrontend.views.html.components.HmrcFooter
 
 package object helpers {
   private lazy val accessibilityStatementConfig = Play.current.injector.instanceOf[AccessibilityStatementConfig]
   lazy val TrackingConsentConfig = Play.current.injector.instanceOf[TrackingConsentConfig]
-  lazy val OptimizelyConfig = Play.current.injector.instanceOf[OptimizelyConfig]
 
   type HmrcFooterItems = HmrcFooterItemsType
   @deprecated(message = "Use DI", since = "Play 2.6")
@@ -36,5 +35,5 @@ package object helpers {
 
   type HmrcTrackingConsentSnippet = hmrcTrackingConsentSnippet
   @deprecated(message = "Use DI", since = "Play 2.6")
-  lazy val HmrcTrackingConsentSnippet = new hmrcTrackingConsentSnippet(TrackingConsentConfig, OptimizelyConfig)
+  lazy val HmrcTrackingConsentSnippet = new hmrcTrackingConsentSnippet(TrackingConsentConfig)
 }

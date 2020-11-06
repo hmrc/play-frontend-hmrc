@@ -30,7 +30,7 @@ class TrackingConsentConfig @Inject()(config: Configuration) {
     config.getOptional[String]("tracking-consent-frontend.optimizely-gtm-path")
   val gtmContainer: Option[String] = config.getOptional[String]("tracking-consent-frontend.gtm.container")
 
-  def url(): Option[String] =
+  def trackingUrl(): Option[String] =
     for {
       host <- trackingConsentHost
       path <- trackingConsentPath
@@ -38,6 +38,15 @@ class TrackingConsentConfig @Inject()(config: Configuration) {
     } yield {
       s"$host$path"
     }
+
+  def optimizelyUrl: Option[String] = {
+    for {
+      baseUrl   <- config.getOptional[String]("optimizely.url")
+      projectId <- config.getOptional[String]("optimizely.projectId")
+    } yield {
+      s"$baseUrl$projectId.js"
+    }
+  }
 
   def optimizelyGtmUrl(): Option[String] =
     for {
