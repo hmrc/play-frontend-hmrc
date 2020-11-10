@@ -37,19 +37,19 @@ class TrackingConsentSnippetSpec extends WordSpec with Matchers with GuiceOneApp
   "TrackingConsentSnippet" should {
 
     "include the tracking consent script tag" in {
-      val content = HmrcTrackingConsentSnippet(None)
+      val content = HmrcTrackingConsentSnippet()
       val scripts = content.select("script#tracking-consent-script-tag")
       scripts should have size 1
     }
 
     "include the tracking consent script tag with the correct container attribute" in {
-      val content = HmrcTrackingConsentSnippet(None)
+      val content = HmrcTrackingConsentSnippet()
       val scripts = content.select("script#tracking-consent-script-tag")
       scripts.first.attr("data-gtm-container") should be("d")
     }
 
     "include the tracking script first" in {
-      val content = HmrcTrackingConsentSnippet(None)
+      val content = HmrcTrackingConsentSnippet()
       val scripts = content.select("script")
 
       scripts.get(0).attr("id")  should be("tracking-consent-script-tag")
@@ -57,14 +57,14 @@ class TrackingConsentSnippetSpec extends WordSpec with Matchers with GuiceOneApp
     }
 
     "include the optimizely script tag" in {
-      val content = HmrcTrackingConsentSnippet(None)
+      val content = HmrcTrackingConsentSnippet()
       val scripts = content.select("script")
 
       scripts.get(1).attr("src") should be("https://cdn.optimizely.com/1234567.js")
     }
 
     "include the optimizely gtm script tag" in {
-      val content = HmrcTrackingConsentSnippet(None)
+      val content = HmrcTrackingConsentSnippet()
       val scripts = content.select("script")
 
       scripts.get(2).attr("src") should be("http://localhost:12345/tracking-consent/tracking/optimizely.js")
@@ -79,7 +79,7 @@ class TrackingConsentSnippetSpec extends WordSpec with Matchers with GuiceOneApp
     }
 
     "not include script tags with any nonce attributes if nonce is not defined" in {
-      val scripts = HmrcTrackingConsentSnippet(None).select("script")
+      val scripts = HmrcTrackingConsentSnippet().select("script")
       scripts.get(0).attr("nonce") should be("")
       scripts.get(1).attr("nonce") should be("")
       scripts.get(2).attr("nonce") should be("")
