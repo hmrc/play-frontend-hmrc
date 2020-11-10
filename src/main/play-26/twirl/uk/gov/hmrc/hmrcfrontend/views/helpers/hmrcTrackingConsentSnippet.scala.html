@@ -19,7 +19,7 @@
 
 @this(TrackingConsentConfig: TrackingConsentConfig)
 
-@(nonce: Option[String])
+@(nonce: Option[String] = None)
 @nonceAttribute = { @nonce.map {n => nonce="@n"} }
 @TrackingConsentConfig.trackingUrl.map { url =>
   <!--[if !IE]>-->
