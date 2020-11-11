@@ -29,9 +29,9 @@
   <legend class="govuk-fieldset__legend govuk-fieldset__legend govuk-fieldset__legend--m">
     Do you need to add another item?
   </legend>
-  <span id="add-another-hint" class="govuk-hint">
+  <div id="add-another-hint" class="govuk-hint">
     
-  </span>
+  </div>
   <div class="govuk-radios govuk-radios--inline">
         <div class="govuk-radios__item">
           <input class="govuk-radios__input" id="add-another" name="add-another" type="radio" value="Yes">
@@ -46,6 +46,7 @@
       </label>
         </div>
   </div>
+
 </fieldset>
 </div>
 
