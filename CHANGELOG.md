@@ -13,9 +13,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Compatible with
 
-- [hmrc/hmrc-frontend v1.19.1](https://github.com/hmrc/hmrc-frontend/releases/tag/v1.19.0)
-- [hmrc/play-frontend-govuk v0.53.0](https://github.com/hmrc/play-frontend-govuk/releases/tag/v0.49.0)
-- [alphagov/govuk-frontend v3.8.1](https://github.com/alphagov/govuk-frontend/releases/tag/v3.7.0)
+- [hmrc/hmrc-frontend v1.19.1](https://github.com/hmrc/hmrc-frontend/releases/tag/v1.19.1)
+- [hmrc/play-frontend-govuk v0.53.0](https://github.com/hmrc/play-frontend-govuk/releases/tag/v0.53.0)
+- [alphagov/govuk-frontend v3.9.1](https://github.com/alphagov/govuk-frontend/releases/tag/v3.9.1)
 
 ## [0.23.0] - 2020-11-10
 
