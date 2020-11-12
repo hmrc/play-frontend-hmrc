@@ -18,11 +18,15 @@ package uk.gov.hmrc.hmrcfrontend.views.viewmodels.reporttechnicalissue
 
 import play.api.libs.json.{Json, OWrites, Reads}
 import uk.gov.hmrc.hmrcfrontend.views.viewmodels.JsonDefaultValueFormatter
+import uk.gov.hmrc.hmrcfrontend.views.viewmodels.language.Language
+import uk.gov.hmrc.hmrcfrontend.views.viewmodels.language.{En, Language}
 
-case class ReportTechnicalIssue (
-  serviceCode: String       = "",
-  language: Option[String]  = None,
-  classList: Option[String] = None
+case class ReportTechnicalIssue(
+  serviceCode: String         = "",
+  language: Language          = En,
+  classes: Option[String]     = None,
+  referrerUrl: Option[String] = None,
+  baseUrl: Option[String]     = None
 )
 
 object ReportTechnicalIssue extends JsonDefaultValueFormatter[ReportTechnicalIssue] {

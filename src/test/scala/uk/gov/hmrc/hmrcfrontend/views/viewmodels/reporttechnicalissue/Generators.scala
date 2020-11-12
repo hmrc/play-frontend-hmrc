@@ -18,19 +18,24 @@ package uk.gov.hmrc.hmrcfrontend.views.viewmodels.reporttechnicalissue
 
 import org.scalacheck.{Arbitrary, Gen}
 import uk.gov.hmrc.hmrcfrontend.views.viewmodels.Generators._
+import uk.gov.hmrc.hmrcfrontend.views.viewmodels.language.Generators.arbLanguage
 
 object Generators {
 
   implicit val arbReportTechnicalIssue: Arbitrary[ReportTechnicalIssue] = Arbitrary {
     for {
-      text      <- genAlphaStr()
-      language  <- Gen.option(genAlphaStr())
-      classList <- Gen.option(genClasses())
+      text        <- genAlphaStr()
+      language    <- arbLanguage.arbitrary
+      classes     <- Gen.option(genClasses())
+      baseUrl     <- Gen.option(genAlphaStr())
+      referrerUrl <- Gen.option(genAlphaStr())
     } yield
       ReportTechnicalIssue(
         serviceCode = text,
-        language  = language,
-        classList = classList
+        language    = language,
+        classes     = classes,
+        baseUrl     = baseUrl,
+        referrerUrl = referrerUrl
       )
   }
 }
