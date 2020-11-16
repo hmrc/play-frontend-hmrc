@@ -1,0 +1,4 @@
+{
+  "serviceCode" : "my-local-service",
+  "baseUrl" : "http://localhost:9250"
+}

@@ -59,4 +59,13 @@ class UtilsSpec extends WordSpec with Matchers with ScalaCheckPropertyChecks wit
       }.toMap
     }
   }
+
+  "urlEncode" should {
+    "should encode spaces with the old-style longhand" in {
+      urlEncode("ABC DEF") shouldBe "ABC%20DEF"
+    }
+    "should encode URLs as expected" in {
+      urlEncode("https://www.tax.service.gov.uk/pay?abc=def&ghi=jkl") shouldBe "https%3A%2F%2Fwww.tax.service.gov.uk%2Fpay%3Fabc%3Ddef%26ghi%3Djkl"
+    }
+  }
 }

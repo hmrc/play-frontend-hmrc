@@ -56,9 +56,8 @@ abstract class TemplateUnitSpec[T: Reads](hmrcComponentName: String)
             case Failure(TemplateValidationException(message)) =>
               println(s"Failed to validate the parameters for the $hmrcComponentName template")
               println(s"Exception: $message")
-              println(s"Skipping test $exampleName")
 
-              succeed
+              fail
             case Failure(exception) => fail(exception)
           }
         }
@@ -93,7 +92,7 @@ abstract class TemplateUnitSpec[T: Reads](hmrcComponentName: String)
       fixtureDir =>
         getExampleFolders(fixtureDir, hmrcComponentName).map(
           exampleDir => (fixtureDir, exampleDir)
-        ))
+      ))
 
     val examples = for ((fixtureDir, exampleDir) <- exampleFolders) yield (fixtureDir, exampleDir.name)
 
