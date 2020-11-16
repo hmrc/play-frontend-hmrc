@@ -31,7 +31,7 @@ class AccessibilityStatementConfigSpec extends WordSpec with Matchers with Messa
       .build()
 
   "url" should {
-    implicit val request: FakeRequest[_] = FakeRequest("GET", "/foo")
+    implicit val request: FakeRequest[_] = FakeRequest("GET", "/foo?bar=baz")
 
     "return the correct url to the service's accessibility statement" in {
       implicit val application: Application = buildApp(
@@ -40,7 +40,7 @@ class AccessibilityStatementConfigSpec extends WordSpec with Matchers with Messa
           "accessibility-statement.service-path" -> "/bar"
         ))
       val config = application.injector.instanceOf[AccessibilityStatementConfig]
-      config.url should equal(Some("http://localhost:12346/accessibility-statement/bar?referrerUrl=%2Ffoo"))
+      config.url should equal(Some("http://localhost:12346/accessibility-statement/bar?referrerUrl=%2Ffoo%3Fbar%3Dbaz"))
     }
 
     "return None if an accessibility-statement.service-path key does not exist in application.conf" in {
@@ -60,7 +60,7 @@ class AccessibilityStatementConfigSpec extends WordSpec with Matchers with Messa
           ))
       val config = application.injector.instanceOf[AccessibilityStatementConfig]
       config.url should equal(Some(
-        "https://www.tax.service.gov.uk/accessibility-statement/bar?referrerUrl=https%3A%2F%2Fwww.tax.service.gov.uk%2Ffoo"))
+        "https://www.tax.service.gov.uk/accessibility-statement/bar?referrerUrl=https%3A%2F%2Fwww.tax.service.gov.uk%2Ffoo%3Fbar%3Dbaz"))
     }
 
     "return a url including a relative referrerUrl if platform.frontend.host is not defined" in {
@@ -70,7 +70,7 @@ class AccessibilityStatementConfigSpec extends WordSpec with Matchers with Messa
             "accessibility-statement.path"         -> "/accessibility-statement",
             "accessibility-statement.service-path" -> "/bar"))
       val config = application.injector.instanceOf[AccessibilityStatementConfig]
-      config.url should equal(Some("http://localhost:12346/accessibility-statement/bar?referrerUrl=%2Ffoo"))
+      config.url should equal(Some("http://localhost:12346/accessibility-statement/bar?referrerUrl=%2Ffoo%3Fbar%3Dbaz"))
     }
   }
 }

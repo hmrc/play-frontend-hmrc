@@ -1,5 +1,5 @@
 {
-  "serviceCode" : "the-url-safe-service-name",
+  "serviceId" : "the-url-safe-service-id",
   "classes" : "govuk-!-font-weight-bold my-custom-class",
   "language" : "cy"
 }

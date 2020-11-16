@@ -22,6 +22,7 @@ import uk.gov.hmrc.hmrcfrontend.views.viewmodels.language.Language
 import uk.gov.hmrc.hmrcfrontend.views.viewmodels.language.{En, Language}
 
 case class ReportTechnicalIssue(
+  serviceId: String           = "",
   serviceCode: String         = "",
   language: Language          = En,
   classes: Option[String]     = None,

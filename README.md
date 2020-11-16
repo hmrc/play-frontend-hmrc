@@ -16,6 +16,7 @@ This library complements and should be used in conjunction with
 
 - [Getting started](#getting-started)
 - [Play framework compatibility](#play-framework-compatibility)
+- [Helping users report technical issues](#helping-users-report-technical-issues)
 - [Accessibility statements](#accessibility-statements)
 - [Integrating with tracking consent](#integrating-with-tracking-consent)
 - [Warning users before timing them out](#warning-users-before-timing-them-out)
@@ -156,6 +157,35 @@ We provide example templates using the Twirl components through a `Chrome` exten
 
 With the extension installed, you should be able to go to the [HMRC Design System](https://design.tax.service.gov.uk/hmrc-design-patterns/), 
 click on a component on the sidebar and see the `Twirl` examples matching the provided `Nunjucks` templates.
+
+### Helping users report technical issues
+
+The [hmrcReportTechnicalIssueHelper](src/main/play-26/twirl/uk/gov/hmrc/hmrcfrontend/views/helpers/hmrcReportTechnicalIssueHelper.scala.html) component 
+generates a link that allows users to report technical issues with your service.
+
+To configure this helper, add the following configuration to your `application.conf`
+
+```
+contact-frontend.serviceId = "<any-service-id>"
+```
+
+serviceId helps identify your service when members of the public report technical issues. 
+If your service is *not* already integrating with contact-frontend, we advise choosing an
+ identifier that is specific to your service and unlikely to be used by any other service, avoiding any special characters
+ or whitespace.
+
+The component should be added to the bottom of each page on your service by including it in 
+your service's main page template,
+
+```scala
+@import uk.gov.hmrc.hmrcfrontend.views.html.helpers._
+
+@this(hmrcReportTechnicalIssueHelper: HmrcReportTechnicalIssueHelper)
+
+...
+
+@hmrcReportTechnicalIssueHelper()
+```
 
 ## Accessibility statements
 

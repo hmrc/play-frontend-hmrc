@@ -1,4 +1,4 @@
 {
-  "serviceCode" : "my-production-service",
+  "serviceId" : "my-production-service",
   "baseUrl" : "https://www.tax.service.gov.uk"
 }

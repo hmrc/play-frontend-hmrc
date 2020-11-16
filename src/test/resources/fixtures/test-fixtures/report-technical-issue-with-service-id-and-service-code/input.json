@@ -1,4 +1,5 @@
 {
+  "serviceCode" : "the-url-safe-service-code",
   "serviceId" : "the-url-safe-service-id",
   "language" : "en"
 }

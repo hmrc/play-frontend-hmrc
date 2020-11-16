@@ -1,4 +1,4 @@
 {
-  "serviceCode" : "pay",
+  "serviceId" : "pay",
   "referrerUrl" : "http://localhost:9123/my-service"
 }
