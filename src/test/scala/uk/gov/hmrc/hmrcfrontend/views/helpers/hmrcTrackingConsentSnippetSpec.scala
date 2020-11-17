@@ -19,11 +19,13 @@ package uk.gov.hmrc.hmrcfrontend.views.helpers
 import org.scalatest.{Matchers, WordSpec}
 import org.scalatestplus.play.guice.GuiceOneAppPerSuite
 import play.api.Application
+import play.api.i18n.{Lang, Messages}
 import play.api.inject.guice.GuiceApplicationBuilder
+import uk.gov.hmrc.hmrcfrontend.MessagesSupport
 import uk.gov.hmrc.hmrcfrontend.views.JsoupHelpers
 import uk.gov.hmrc.hmrcfrontend.views.html.helpers.HmrcTrackingConsentSnippet
 
-class TrackingConsentSnippetSpec extends WordSpec with Matchers with GuiceOneAppPerSuite with JsoupHelpers {
+class TrackingConsentSnippetSpec extends WordSpec with Matchers with GuiceOneAppPerSuite with JsoupHelpers with MessagesSupport {
   override def fakeApplication(): Application =
     new GuiceApplicationBuilder()
       .configure(Map(
@@ -46,6 +48,20 @@ class TrackingConsentSnippetSpec extends WordSpec with Matchers with GuiceOneApp
       val content = HmrcTrackingConsentSnippet()
       val scripts = content.select("script#tracking-consent-script-tag")
       scripts.first.attr("data-gtm-container") should be("d")
+    }
+
+    "include the tracking consent script tag with the correct language attribute" in {
+      val content = HmrcTrackingConsentSnippet()
+      val scripts = content.select("script#tracking-consent-script-tag")
+      scripts.first.attr("data-language") should be("en")
+    }
+
+    "include the tracking consent script tag with the correct language attribute when Welsh" in {
+      val welshMessages: Messages = messagesApi.preferred(Seq(Lang("cy")))
+
+      val content = HmrcTrackingConsentSnippet()(welshMessages)
+      val scripts = content.select("script#tracking-consent-script-tag")
+      scripts.first.attr("data-language") should be("cy")
     }
 
     "include the tracking script first" in {

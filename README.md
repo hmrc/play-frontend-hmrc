@@ -15,6 +15,8 @@ See [HMRC Design Patterns](https://design.tax.service.gov.uk/hmrc-design-pattern
 - [Background](#background)
 - [Getting Started](#getting-started)
 - [Usage](#usage)
+- [Accessibility Statements](#accessibility-statements)
+- [Integrating with Tracking Consent](#integrating-with-tracking-consent)
 - [Dependencies](#dependencies)
 - [Getting Help](#getting-help)
 - [Contributing](#contributing)
@@ -146,10 +148,11 @@ accessibility-statement.service-path = "/discounted-icecreams"
 
 ### Integrating with Tracking Consent
 
-The [hmrcTrackingConsentSnippet](src/main/play-26/twirl/uk/gov/hmrc/hmrcfrontend/views/components/hmrcTrackingConsentSnippet.scala.html)
-component generates the HTML SCRIPT tags necessary to integrate with [tracking-consent-frontend](https//www.github.com/hmrc/tracking-consent-frontend)
+If you intend to use Google Analytics to measure usage of your service, you will need to integrate with tracking
+consent. The [hmrcTrackingConsentSnippet](src/main/play-26/twirl/uk/gov/hmrc/hmrcfrontend/views/helpers/hmrcTrackingConsentSnippet.scala.html)
+component generates the HTML SCRIPT tags necessary to integrate with [tracking-consent-frontend](https://www.github.com/hmrc/tracking-consent-frontend)
 
-Before integrating, it is important to remove any hardcoded snippets relating to GTM, GA or Optimizely. Tracking consent
+Before integrating, it is important to remove any existing snippets relating to GTM or Optimizely. Tracking consent
 manages the enabling of these third-party solutions based on the user's tracking preferences. If they are not removed
 there is a risk the user's tracking preferences will not be honoured.
 
@@ -161,6 +164,9 @@ tracking-consent-frontend {
   gtm.container = "a"
 }
 ```
+
+`gtm.container` can be one of: `transitional`, `a`, `b`, `c`, `d`, `e`, `f` or `sdes`. Consult with the CIPSAGA team 
+to understand which GTM container you should be using in your service.
 
 Locate in your frontend code the location where the play-frontend assets are added.
 
