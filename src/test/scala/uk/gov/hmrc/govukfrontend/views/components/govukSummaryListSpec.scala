@@ -32,4 +32,13 @@ class govukSummaryListSpec extends TemplateUnitSpec[SummaryList]("govukSummaryLi
   override def render(templateParams: _root_.uk.gov.hmrc.govukfrontend.views.html.components.SummaryList)
     : Try[HtmlFormat.Appendable] =
     Try(GovukSummaryList(templateParams))
+
+  "govukSummaryList" should {
+    "handle lists where some rows have no actions" in {
+      val rowWithNoAction = SummaryListRow(key = Key(HtmlContent("foo")), value = Value(HtmlContent("FOO")), actions = None)
+      val rowWithAction = SummaryListRow(key = Key(HtmlContent("bar")), value = Value(HtmlContent("BAR")), actions = Some(Actions(items = List(ActionItem(content = HtmlContent("link"))))))
+      val html = GovukSummaryList(SummaryList(rowWithNoAction :: rowWithAction :: Nil))
+      println(html)
+    }
+  }
 }
