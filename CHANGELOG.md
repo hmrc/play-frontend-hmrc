@@ -5,18 +5,65 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [0.54.0] - 2020-11-19
+
+### Fixed
+
+- Bug with govukSummaryList
+
+### Compatible with
+
+- [alphagov/govuk-frontend v3.9.1](https://github.com/alphagov/govuk-frontend/releases/tag/v3.9.1)
+
+## [0.53.0] - 2020-10-15
+
+### Changed
+
+- FormWithCSRF to toggle novalidate on by default
+
+### Compatible with
+
+- [alphagov/govuk-frontend v3.9.1](https://github.com/alphagov/govuk-frontend/releases/tag/v3.9.1)
+
+## [0.52.0] - 2020-10-15
+
+### Added
+
+- Upgrade to govuk-frontend v3.9.1
+
+### Compatible with
+
+- [alphagov/govuk-frontend v3.9.1](https://github.com/alphagov/govuk-frontend/releases/tag/v3.9.1)
+
+## [0.51.0] - 2020-10-15
+
+### Fixed
+
+- Missing lang attribute from govukLayout
+
+### Compatible with
+
+- [alphagov/govuk-frontend v3.8.1](https://github.com/alphagov/govuk-frontend/releases/tag/v3.8.1)
+
 ## [0.50.0] - 2020-08-14
 
 ### Added
 
-- Upgrade to govuk-frontend v3.8.0
 - Upgrade to govuk-frontend v3.8.1
+
+### Compatible with
+
+- [alphagov/govuk-frontend v3.8.1](https://github.com/alphagov/govuk-frontend/releases/tag/v3.8.1)
 
 ## [0.49.0] - 2020-07-03
 
 ### Added
 
 - Set the default GOVUK link to the main GOVUK homepage
+
+### Compatible with
+
+- [alphagov/govuk-frontend v3.7.0](https://github.com/alphagov/govuk-frontend/releases/tag/v3.7.0)
 
 ## [0.48.0] - 2020-06-19
 
