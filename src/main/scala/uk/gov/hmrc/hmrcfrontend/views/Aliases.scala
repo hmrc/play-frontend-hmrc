@@ -39,6 +39,15 @@ trait Aliases {
   type Footer = viewmodels.footer.Footer
   val Footer = viewmodels.footer.Footer
 
+  type FooterNavigation = viewmodels.footer.FooterNavigation
+  val FooterNavigation = viewmodels.footer.FooterNavigation
+
+  type Meta = viewmodels.footer.Meta
+  val Meta = viewmodels.footer.Meta
+
+  type FooterItem = viewmodels.footer.FooterItem
+  val FooterItem = viewmodels.footer.FooterItem
+
   type InternalHeader = viewmodels.internalheader.InternalHeader
   val InternalHeader = viewmodels.internalheader.InternalHeader
 

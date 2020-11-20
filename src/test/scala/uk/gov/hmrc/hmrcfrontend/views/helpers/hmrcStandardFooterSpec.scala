@@ -33,6 +33,7 @@ import java.util.{List => JavaList}
 
 import org.scalatestplus.play.guice.GuiceOneAppPerSuite
 import play.api.Application
+import uk.gov.hmrc.hmrcfrontend.views.Aliases.FooterItem
 import uk.gov.hmrc.hmrcfrontend.MessagesSupport
 
 class hmrcStandardFooterSpec extends WordSpecLike with Matchers with MessagesSupport with GuiceOneAppPerSuite {
@@ -73,6 +74,38 @@ class hmrcStandardFooterSpec extends WordSpecLike with Matchers with MessagesSup
       val links    = document.getElementsByTag("a")
 
       links.eachText() should be(englishLinkTextEntries)
+    }
+
+    "allow additional links to be added" in {
+      implicit val app = buildApp()
+
+      val additionalFooterItems = Seq(
+        FooterItem(
+          Some("Service specific link 1"),
+          Some("/any-service/link-1")
+        ),
+        FooterItem(
+          Some("Service specific link 2"),
+          Some("/any-service/link-2")
+        )
+      )
+
+      val content =
+        contentAsString(HmrcStandardFooter(additionalFooterItems)(messages, fakeRequest))
+      val document = Jsoup.parse(content)
+      val links    = document.getElementsByTag("a")
+
+      links.eachText() should be(
+        List(
+          "Cookies",
+          "Privacy policy",
+          "Terms and conditions",
+          "Help using GOV.UK",
+          "Service specific link 1",
+          "Service specific link 2",
+          "Open Government Licence v3.0",
+          "© Crown copyright"
+        ).asJava)
     }
 
     "generate the correct list of links in Welsh" in {
