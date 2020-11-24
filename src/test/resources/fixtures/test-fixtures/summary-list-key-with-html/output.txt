@@ -5,7 +5,7 @@
           <b>Name</b>
         </dt>
         <dd class="govuk-summary-list__value">
-          
+          <strong>Firstname Lastname</strong>
         </dd>
       </div>
 </dl>

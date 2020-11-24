@@ -4,5 +4,17 @@
   <span class="govuk-visually-hidden">Error:</span> Please select an option
   </span>
   <div class="govuk-radios">
+        <div class="govuk-radios__item">
+          <input class="govuk-radios__input" id="id-prefix" name="example-error-message" type="radio" value="yes">
+          <label class="govuk-label govuk-radios__label" for="id-prefix">
+        Yes
+      </label>
+        </div>
+        <div class="govuk-radios__item">
+          <input class="govuk-radios__input" id="id-prefix-2" name="example-error-message" type="radio" value="no">
+          <label class="govuk-label govuk-radios__label" for="id-prefix-2">
+        No
+      </label>
+        </div>
   </div>
 </div>

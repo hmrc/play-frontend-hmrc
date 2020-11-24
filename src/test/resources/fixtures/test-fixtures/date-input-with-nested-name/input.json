@@ -1,4 +1,5 @@
 {
+  "id" : "with-nested-name",
   "items" : [ {
     "name" : "day[dd]"
   }, {

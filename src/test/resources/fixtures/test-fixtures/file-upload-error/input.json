@@ -1,5 +1,9 @@
 {
   "id" : "file-upload-with-error",
+  "name" : "file-upload-with-error",
+  "label" : {
+    "text" : "Upload a file"
+  },
   "errorMessage" : {
     "text" : "Error message"
   }

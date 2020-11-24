@@ -1,4 +1,5 @@
 {
+  "name" : "with-hints-on-items",
   "fieldset" : {
     "legend" : {
       "text" : "How do you want to sign in?",

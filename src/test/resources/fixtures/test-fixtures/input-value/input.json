@@ -1,3 +1,8 @@
 {
+  "id" : "with-value",
+  "name" : "with-value",
+  "label" : {
+    "text" : "With value"
+  },
   "value" : "QQ 12 34 56 C"
 }

@@ -2,5 +2,8 @@
   "attributes" : {
     "id" : "my-navigation",
     "role" : "navigation"
-  }
+  },
+  "items" : [ {
+    "text" : "Home"
+  } ]
 }

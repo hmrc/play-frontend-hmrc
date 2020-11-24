@@ -8,5 +8,12 @@
     "legend" : {
       "text" : "What is your nationality?"
     }
-  }
+  },
+  "items" : [ {
+    "value" : "british",
+    "text" : "British"
+  }, {
+    "value" : "irish",
+    "text" : "Irish"
+  } ]
 }

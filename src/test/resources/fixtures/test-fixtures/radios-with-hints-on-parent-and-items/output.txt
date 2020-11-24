@@ -9,15 +9,19 @@
   </div>
   <div class="govuk-radios">
         <div class="govuk-radios__item">
-          <input class="govuk-radios__input" id="example-multiple-hints" name="example-multiple-hints" type="radio" value="" aria-describedby="example-multiple-hints-item-hint">
-          
+          <input class="govuk-radios__input" id="example-multiple-hints" name="example-multiple-hints" type="radio" value="yes" aria-describedby="example-multiple-hints-item-hint">
+          <label class="govuk-label govuk-radios__label" for="example-multiple-hints">
+        Yes
+      </label>
           <div id="example-multiple-hints-item-hint" class="govuk-hint govuk-radios__hint">
         Hint for yes option here
       </div>
         </div>
         <div class="govuk-radios__item">
-          <input class="govuk-radios__input" id="example-multiple-hints-2" name="example-multiple-hints" type="radio" value="" aria-describedby="example-multiple-hints-2-item-hint">
-          
+          <input class="govuk-radios__input" id="example-multiple-hints-2" name="example-multiple-hints" type="radio" value="no" aria-describedby="example-multiple-hints-2-item-hint">
+          <label class="govuk-label govuk-radios__label" for="example-multiple-hints-2">
+        No
+      </label>
           <div id="example-multiple-hints-2-item-hint" class="govuk-hint govuk-radios__hint">
         Hint for no option here
       </div>

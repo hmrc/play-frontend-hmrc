@@ -1,10 +1,12 @@
 <div class="govuk-form-group govuk-form-group--error">
-  
-  <div id="undefined-hint" class="govuk-hint">
+  <label class="govuk-label" for="with-hint-error-describedby">
+    With hint, error and describedBy
+  </label>
+  <div id="with-hint-error-describedby-hint" class="govuk-hint">
     Hint
   </div>
-  <span id="undefined-error" class="govuk-error-message">
+  <span id="with-hint-error-describedby-error" class="govuk-error-message">
   <span class="govuk-visually-hidden">Error:</span> Error message
   </span>
-  <textarea class="govuk-textarea govuk-textarea--error" id="" name="" rows="5" aria-describedby="some-id undefined-hint undefined-error"></textarea>
+  <textarea class="govuk-textarea govuk-textarea--error" id="with-hint-error-describedby" name="with-hint-error-describedby" rows="5" aria-describedby="some-id with-hint-error-describedby-hint with-hint-error-describedby-error"></textarea>
 </div>

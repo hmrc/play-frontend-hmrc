@@ -1,3 +1,5 @@
 <div class="govuk-form-group">
-  
-<input class="govuk-input app-input--custom-modifier" id="" name="" type="text"></div>
+  <label class="govuk-label" for="with-classes">
+    With classes
+  </label>
+<input class="govuk-input app-input--custom-modifier" id="with-classes" name="with-classes" type="text"></div>

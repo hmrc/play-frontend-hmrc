@@ -1,4 +1,5 @@
 {
+  "titleText" : "There is a problem",
   "errorList" : [ {
     "html" : "Descriptive link to the <b>question</b> with an error",
     "href" : "#error-1"

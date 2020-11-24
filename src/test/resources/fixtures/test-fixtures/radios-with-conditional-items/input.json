@@ -10,7 +10,7 @@
     "value" : "email",
     "text" : "Email",
     "conditional" : {
-      "html" : "<label class=\"govuk-label\" for=\"context-email\">Mobile phone number</label>\n<input class=\"govuk-input govuk-!-width-one-third\" name=\"context-email\" type=\"text\" id=\"context-email\">\n"
+      "html" : "<label class=\"govuk-label\" for=\"context-email\">Email address</label>\n<input class=\"govuk-input govuk-!-width-one-third\" name=\"context-email\" type=\"text\" id=\"context-email\">\n"
     }
   }, {
     "value" : "phone",

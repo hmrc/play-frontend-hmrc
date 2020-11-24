@@ -5,7 +5,7 @@
           Name
         </dt>
         <dd class="govuk-summary-list__value">
-          
+          Firstname Lastname
         </dd>
       </div>
       <div class="govuk-summary-list__row">
@@ -13,7 +13,7 @@
           Name 2
         </dt>
         <dd class="govuk-summary-list__value">
-          
+          Firstname2 Lastname2
         </dd>
       </div>
 </dl>

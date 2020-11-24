@@ -1,7 +1,9 @@
 <div class="govuk-form-group govuk-form-group--error">
-  
+  <label class="govuk-label" for="file-upload-with-error">
+    Upload a file
+  </label>
   <span id="file-upload-with-error-error" class="govuk-error-message">
   <span class="govuk-visually-hidden">Error:</span> Error message
   </span>
-  <input class="govuk-file-upload govuk-file-upload--error" id="file-upload-with-error" name="" type="file" aria-describedby="file-upload-with-error-error">
+  <input class="govuk-file-upload govuk-file-upload--error" id="file-upload-with-error" name="file-upload-with-error" type="file" aria-describedby="file-upload-with-error-error">
 </div>

@@ -21,14 +21,15 @@ import play.api.libs.functional.syntax._
 import play.api.libs.json._
 
 final case class InputItem(
-  id: String                     = "",
+  id: String                      = "",
   name: String                    = "",
   label: Option[String]           = None,
   value: Option[String]           = None,
   autocomplete: Option[String]    = None,
   pattern: Option[String]         = None,
   classes: String                 = "",
-  attributes: Map[String, String] = Map.empty
+  attributes: Map[String, String] = Map.empty,
+  inputmode: Option[String]       = None
 )
 
 object InputItem extends JsonDefaultValueFormatter[InputItem] {
@@ -44,7 +45,8 @@ object InputItem extends JsonDefaultValueFormatter[InputItem] {
         (__ \ "autocomplete").readNullable[String] and
         (__ \ "pattern").readNullable[String] and
         (__ \ "classes").read[String] and
-        (__ \ "attributes").read[Map[String, String]]
+        (__ \ "attributes").read[Map[String, String]] and
+        (__ \ "inputmode").readNullable[String]
     )(InputItem.apply _)
 
   override implicit def jsonWrites: OWrites[InputItem] =
@@ -56,7 +58,8 @@ object InputItem extends JsonDefaultValueFormatter[InputItem] {
         (__ \ "autocomplete").writeNullable[String] and
         (__ \ "pattern").writeNullable[String] and
         (__ \ "classes").write[String] and
-        (__ \ "attributes").write[Map[String, String]]
+        (__ \ "attributes").write[Map[String, String]] and
+        (__ \ "inputmode").writeNullable[String]
     )(unlift(InputItem.unapply))
 
 }

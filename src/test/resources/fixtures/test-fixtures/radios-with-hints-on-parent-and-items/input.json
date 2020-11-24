@@ -9,10 +9,14 @@
     "text" : "This includes changing your last name or spelling your name differently."
   },
   "items" : [ {
+    "value" : "yes",
+    "text" : "Yes",
     "hint" : {
       "text" : "Hint for yes option here"
     }
   }, {
+    "value" : "no",
+    "text" : "No",
     "hint" : {
       "text" : "Hint for no option here"
     }

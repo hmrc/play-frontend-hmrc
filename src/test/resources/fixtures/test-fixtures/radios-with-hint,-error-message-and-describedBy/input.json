@@ -11,5 +11,12 @@
   },
   "hint" : {
     "text" : "This includes changing your last name or spelling your name differently."
-  }
+  },
+  "items" : [ {
+    "value" : "yes",
+    "text" : "Yes"
+  }, {
+    "value" : "no",
+    "text" : "No"
+  } ]
 }

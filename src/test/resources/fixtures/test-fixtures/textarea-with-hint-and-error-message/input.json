@@ -1,4 +1,9 @@
 {
+  "id" : "with-hint-error",
+  "name" : "with-hint-error",
+  "label" : {
+    "text" : "With hint and error"
+  },
   "errorMessage" : {
     "text" : "Error message"
   },

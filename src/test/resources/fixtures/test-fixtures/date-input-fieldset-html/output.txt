@@ -5,27 +5,27 @@
   <legend class="govuk-fieldset__legend">
     What is your <b>date of birth</b>?
   </legend>
-  <div class="govuk-date-input">
+  <div class="govuk-date-input" id="with-fieldset-html">
     <div class="govuk-date-input__item">
       <div class="govuk-form-group">
-        <label class="govuk-label govuk-date-input__label" for="undefined-day">
+        <label class="govuk-label govuk-date-input__label" for="with-fieldset-html-day">
           Day
         </label>
-      <input class="govuk-input govuk-date-input__input govuk-input--width-2" id="undefined-day" name="day" type="text" pattern="[0-9]*" inputmode="numeric"></div>
+      <input class="govuk-input govuk-date-input__input govuk-input--width-2" id="with-fieldset-html-day" name="day" type="text" pattern="[0-9]*" inputmode="numeric"></div>
     </div>
     <div class="govuk-date-input__item">
       <div class="govuk-form-group">
-        <label class="govuk-label govuk-date-input__label" for="undefined-month">
+        <label class="govuk-label govuk-date-input__label" for="with-fieldset-html-month">
           Month
         </label>
-      <input class="govuk-input govuk-date-input__input govuk-input--width-2" id="undefined-month" name="month" type="text" pattern="[0-9]*" inputmode="numeric"></div>
+      <input class="govuk-input govuk-date-input__input govuk-input--width-2" id="with-fieldset-html-month" name="month" type="text" pattern="[0-9]*" inputmode="numeric"></div>
     </div>
     <div class="govuk-date-input__item">
       <div class="govuk-form-group">
-        <label class="govuk-label govuk-date-input__label" for="undefined-year">
+        <label class="govuk-label govuk-date-input__label" for="with-fieldset-html-year">
           Year
         </label>
-      <input class="govuk-input govuk-date-input__input govuk-input--width-4" id="undefined-year" name="year" type="text" pattern="[0-9]*" inputmode="numeric"></div>
+      <input class="govuk-input govuk-date-input__input govuk-input--width-4" id="with-fieldset-html-year" name="year" type="text" pattern="[0-9]*" inputmode="numeric"></div>
     </div>
   </div>
 

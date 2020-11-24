@@ -1,4 +1,6 @@
 {
+  "id" : "with-item-attributes",
+  "name" : "with-item-attributes",
   "value" : 2,
   "items" : [ {
     "text" : "Option 1",

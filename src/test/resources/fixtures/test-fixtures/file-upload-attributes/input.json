@@ -1,4 +1,9 @@
 {
+  "id" : "file-upload-attributes",
+  "name" : "file-upload-attributes",
+  "label" : {
+    "text" : "Upload a file"
+  },
   "attributes" : {
     "accept" : ".jpg, .jpeg, .png"
   }
