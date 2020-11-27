@@ -3,5 +3,12 @@
   "idPrefix" : "id-prefix",
   "errorMessage" : {
     "text" : "Please select an option"
-  }
+  },
+  "items" : [ {
+    "value" : "yes",
+    "text" : "Yes"
+  }, {
+    "value" : "no",
+    "text" : "No"
+  } ]
 }

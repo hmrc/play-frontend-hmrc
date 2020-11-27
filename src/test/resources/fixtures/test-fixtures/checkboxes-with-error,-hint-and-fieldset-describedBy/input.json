@@ -11,5 +11,12 @@
   },
   "hint" : {
     "text" : "If you have dual nationality, select all options that are relevant to you."
-  }
+  },
+  "items" : [ {
+    "value" : "british",
+    "text" : "British"
+  }, {
+    "value" : "irish",
+    "text" : "Irish"
+  } ]
 }

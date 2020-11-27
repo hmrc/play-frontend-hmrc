@@ -1,6 +1,6 @@
 <div class="govuk-form-group">
   
-  <select class="govuk-select" id="" name="">
+  <select class="govuk-select" id="with-item-attributes" name="with-item-attributes">
       <option value="" data-attribute="ABC" data-second-attribute="DEF">Option 1</option>
       <option value="" data-attribute="GHI" data-second-attribute="JKL">Option 2</option>
   </select>

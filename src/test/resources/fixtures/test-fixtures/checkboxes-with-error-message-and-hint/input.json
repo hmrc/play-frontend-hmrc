@@ -1,5 +1,12 @@
 {
   "name" : "example",
+  "items" : [ {
+    "value" : "british",
+    "text" : "British"
+  }, {
+    "value" : "irish",
+    "text" : "Irish"
+  } ],
   "errorMessage" : {
     "text" : "Please select an option"
   },

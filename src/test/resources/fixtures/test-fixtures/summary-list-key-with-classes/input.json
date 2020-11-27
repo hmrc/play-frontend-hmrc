@@ -3,6 +3,9 @@
     "key" : {
       "text" : "Name",
       "classes" : "app-custom-class"
+    },
+    "value" : {
+      "text" : "Firstname Lastname"
     }
   } ]
 }

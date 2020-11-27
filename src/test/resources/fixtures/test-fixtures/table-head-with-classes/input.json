@@ -2,5 +2,10 @@
   "head" : [ {
     "text" : "Foo",
     "classes" : "my-custom-class"
-  } ]
+  } ],
+  "rows" : [ [ {
+    "text" : "Jan"
+  }, {
+    "text" : "Feb"
+  } ] ]
 }

@@ -1,9 +1,16 @@
 {
   "rows" : [ {
+    "key" : {
+      "text" : "Name"
+    },
+    "value" : {
+      "text" : "Firstname Lastname"
+    },
     "actions" : {
       "classes" : "app-custom-class",
       "items" : [ {
-        "text" : "Edit"
+        "text" : "Edit",
+        "href" : "/edit"
       } ]
     }
   } ]

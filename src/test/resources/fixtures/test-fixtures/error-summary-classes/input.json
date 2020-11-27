@@ -1,3 +1,7 @@
 {
-  "classes" : "extra-class one-more-class"
+  "titleText" : "There is a problem",
+  "classes" : "extra-class one-more-class",
+  "errorList" : [ {
+    "text" : "Invalid username or password"
+  } ]
 }

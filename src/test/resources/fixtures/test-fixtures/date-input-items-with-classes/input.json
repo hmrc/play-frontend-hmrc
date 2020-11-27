@@ -1,4 +1,5 @@
 {
+  "id" : "with-item-classes",
   "items" : [ {
     "name" : "day",
     "classes" : "app-date-input__day"

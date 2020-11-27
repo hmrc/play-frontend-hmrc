@@ -1,9 +1,11 @@
 <div class="govuk-form-group govuk-form-group--error">
-  
-  <div id="undefined-hint" class="govuk-hint">
+  <label class="govuk-label" for="with-error-hint-describedby">
+    With error, hint and describedBy
+  </label>
+  <div id="with-error-hint-describedby-hint" class="govuk-hint">
     Hint
   </div>
-  <span id="undefined-error" class="govuk-error-message">
+  <span id="with-error-hint-describedby-error" class="govuk-error-message">
   <span class="govuk-visually-hidden">Error:</span> Error message
   </span>
-<input class="govuk-input govuk-input--error" id="" name="" type="text" aria-describedby="some-id undefined-hint undefined-error"></div>
+<input class="govuk-input govuk-input--error" id="with-error-hint-describedby" name="with-error-hint-describedby" type="text" aria-describedby="some-id with-error-hint-describedby-hint with-error-hint-describedby-error"></div>

@@ -1,15 +1,17 @@
 
-<div class="govuk-character-count" data-module="govuk-character-count">
+<div class="govuk-character-count" data-module="govuk-character-count" data-maxlength="10">
   <div class="govuk-form-group govuk-form-group--error">
-  
-  <span id="undefined-error" class="govuk-error-message">
+  <label class="govuk-label" for="with-custom-error-class">
+    With custom error class
+  </label>
+  <span id="with-custom-error-class-error" class="govuk-error-message">
   <span class="govuk-visually-hidden">Error:</span> Error message
   </span>
-  <textarea class="govuk-textarea govuk-textarea--error govuk-js-character-count govuk-textarea--error app-character-count--custom-modifier" id="" name="" rows="5" aria-describedby="undefined-info undefined-error"></textarea>
+  <textarea class="govuk-textarea govuk-textarea--error govuk-js-character-count govuk-textarea--error app-character-count--custom-modifier" id="with-custom-error-class" name="with-custom-error-class" rows="5" aria-describedby="with-custom-error-class-info with-custom-error-class-error"></textarea>
 </div>
 
-  <div id="undefined-info" class="govuk-hint govuk-character-count__message" aria-live="polite">
-  You can enter up to undefined characters
+  <div id="with-custom-error-class-info" class="govuk-hint govuk-character-count__message" aria-live="polite">
+  You can enter up to 10 characters
 </div>
 
 </div>

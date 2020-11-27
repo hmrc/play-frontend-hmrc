@@ -5,6 +5,18 @@
   <span class="govuk-visually-hidden">Error:</span> Please select an option
   </span>
   <div class="govuk-checkboxes">
+        <div class="govuk-checkboxes__item">
+          <input class="govuk-checkboxes__input" id="example-name" name="example-name" type="checkbox" value="british">
+          <label class="govuk-label govuk-checkboxes__label" for="example-name">
+        British
+      </label>
+        </div>
+        <div class="govuk-checkboxes__item">
+          <input class="govuk-checkboxes__input" id="example-name-2" name="example-name" type="checkbox" value="irish">
+          <label class="govuk-label govuk-checkboxes__label" for="example-name-2">
+        Irish
+      </label>
+        </div>
   </div>
 
 </fieldset>

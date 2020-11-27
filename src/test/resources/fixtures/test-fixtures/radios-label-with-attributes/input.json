@@ -1,4 +1,5 @@
 {
+  "name" : "with-label-attributes",
   "items" : [ {
     "value" : "yes",
     "text" : "Yes",

@@ -1,10 +1,12 @@
 <div class="govuk-form-group govuk-form-group--error">
-  
-  <div id="undefined-hint" class="govuk-hint">
+  <label class="govuk-label" for="file-upload-error-describedby-hint">
+    Upload a file
+  </label>
+  <div id="file-upload-error-describedby-hint-hint" class="govuk-hint">
     hint
   </div>
-  <span id="undefined-error" class="govuk-error-message">
+  <span id="file-upload-error-describedby-hint-error" class="govuk-error-message">
   <span class="govuk-visually-hidden">Error:</span> Error message
   </span>
-  <input class="govuk-file-upload govuk-file-upload--error" id="" name="" type="file" aria-describedby="some-id undefined-hint undefined-error">
+  <input class="govuk-file-upload govuk-file-upload--error" id="file-upload-error-describedby-hint" name="file-upload-error-describedby-hint" type="file" aria-describedby="some-id file-upload-error-describedby-hint-hint file-upload-error-describedby-hint-error">
 </div>

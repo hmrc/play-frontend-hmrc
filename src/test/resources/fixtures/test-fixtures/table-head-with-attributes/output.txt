@@ -5,5 +5,9 @@
     </tr>
   </thead>
   <tbody class="govuk-table__body">
+        <tr class="govuk-table__row">
+          <td class="govuk-table__cell">Jan</td>
+          <td class="govuk-table__cell">Feb</td>
+        </tr>
   </tbody>
 </table>

@@ -85,7 +85,7 @@
           id = item.id.toOption.getNonEmptyOrElse(id + "-" + item.name),
           name = namePrefix.foldNonEmpty(item.name)(_ + "-" + item.name),
           inputType = "text",
-          inputmode = Some("numeric"),
+          inputmode = Some(item.inputmode.getOrElse("numeric")),
           value = item.value,
           label =
             Label(

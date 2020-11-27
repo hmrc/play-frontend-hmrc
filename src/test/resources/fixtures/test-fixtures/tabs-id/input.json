@@ -1,3 +1,10 @@
 {
-  "id" : "my-tabs"
+  "id" : "my-tabs",
+  "items" : [ {
+    "label" : "Tab 1",
+    "id" : "tab-1",
+    "panel" : {
+      "text" : "Information about tabs"
+    }
+  } ]
 }

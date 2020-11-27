@@ -1,3 +1,6 @@
 {
-  "titleText" : "Alert, <em>alert</em>"
+  "titleText" : "Alert, <em>alert</em>",
+  "errorList" : [ {
+    "text" : "Invalid username or password"
+  } ]
 }

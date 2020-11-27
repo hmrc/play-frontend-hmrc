@@ -1,3 +1,7 @@
 {
-  "descriptionHtml" : "See <span>errors</span> below"
+  "titleText" : "There is a problem",
+  "descriptionHtml" : "See <span>errors</span> below",
+  "errorList" : [ {
+    "text" : "Invalid username or password"
+  } ]
 }

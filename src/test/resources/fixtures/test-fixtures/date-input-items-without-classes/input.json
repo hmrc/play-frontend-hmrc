@@ -1,4 +1,5 @@
 {
+  "id" : "without-item-classes",
   "items" : [ {
     "name" : "day"
   }, {

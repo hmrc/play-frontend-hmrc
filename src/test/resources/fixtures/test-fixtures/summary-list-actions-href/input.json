@@ -1,8 +1,15 @@
 {
   "rows" : [ {
+    "key" : {
+      "text" : "Name"
+    },
+    "value" : {
+      "text" : "Firstname Lastname"
+    },
     "actions" : {
       "items" : [ {
-        "href" : "https://www.gov.uk"
+        "href" : "https://www.gov.uk",
+        "text" : "Go to GOV.UK"
       } ]
     }
   } ]

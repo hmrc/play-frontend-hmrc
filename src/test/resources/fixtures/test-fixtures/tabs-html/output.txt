@@ -4,20 +4,20 @@
   </h2>
   <ul class="govuk-tabs__list">
         <li class="govuk-tabs__list-item govuk-tabs__list-item--selected">
-          <a class="govuk-tabs__tab" href="#-1">
+          <a class="govuk-tabs__tab" href="#tab-1">
             Tab 1
           </a>
         </li>
         <li class="govuk-tabs__list-item">
-          <a class="govuk-tabs__tab" href="#-2">
+          <a class="govuk-tabs__tab" href="#tab-2">
             Tab 2
           </a>
         </li>
   </ul>
-      <div class="govuk-tabs__panel" id="-1">
+      <div class="govuk-tabs__panel" id="tab-1">
         <p>Panel 1 content</p>
       </div>
-      <div class="govuk-tabs__panel govuk-tabs__panel--hidden" id="-2">
+      <div class="govuk-tabs__panel govuk-tabs__panel--hidden" id="tab-2">
         <p>Panel 2 content</p>
       </div>
 </div>

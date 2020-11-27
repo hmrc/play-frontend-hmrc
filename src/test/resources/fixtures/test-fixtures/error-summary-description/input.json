@@ -1,3 +1,7 @@
 {
-  "descriptionText" : "Lorem ipsum"
+  "titleText" : "There is a problem",
+  "descriptionText" : "Lorem ipsum",
+  "errorList" : [ {
+    "text" : "Invalid username or password"
+  } ]
 }

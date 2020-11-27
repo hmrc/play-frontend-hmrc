@@ -1,4 +1,6 @@
 {
+  "id" : "with-falsey-values",
+  "name" : "with-falsey-values",
   "items" : [ {
     "text" : "Option 1"
   }, null, false, "", {

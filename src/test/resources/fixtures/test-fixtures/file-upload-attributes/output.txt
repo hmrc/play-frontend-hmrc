@@ -1,4 +1,6 @@
 <div class="govuk-form-group">
-  
-  <input class="govuk-file-upload" id="" name="" type="file" accept=".jpg, .jpeg, .png">
+  <label class="govuk-label" for="file-upload-attributes">
+    Upload a file
+  </label>
+  <input class="govuk-file-upload" id="file-upload-attributes" name="file-upload-attributes" type="file" accept=".jpg, .jpeg, .png">
 </div>

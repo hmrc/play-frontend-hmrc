@@ -1,4 +1,9 @@
 {
+  "id" : "with-attributes",
+  "name" : "with-attributes",
+  "label" : {
+    "text" : "With attributes"
+  },
   "attributes" : {
     "data-attribute" : "my data value"
   }
