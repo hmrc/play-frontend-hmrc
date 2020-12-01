@@ -17,6 +17,7 @@
 package uk.gov.hmrc.hmrcfrontend.config
 
 import java.net.URLEncoder
+
 import javax.inject.Inject
 import play.api.Configuration
 import play.api.mvc.RequestHeader
