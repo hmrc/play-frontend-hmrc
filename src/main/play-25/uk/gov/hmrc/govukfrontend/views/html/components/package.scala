@@ -81,4 +81,6 @@ package object components extends Utils with Aliases with Helpers with Layouts {
   lazy val GovukTable = govukTable
 
   lazy val GovukTabs = govukTabs
+
+  lazy val GovukNotificationBanner = govukNotificationBanner
 }
