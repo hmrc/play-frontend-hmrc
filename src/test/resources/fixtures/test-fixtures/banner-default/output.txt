@@ -1,4 +1,4 @@
-<div class="hmrc-banner" role="banner">
+<div class="hmrc-banner">
   <div class="hmrc-organisation-logo">
     <p class="govuk-body-s">        HM Revenue &amp; Customs
 </p>
