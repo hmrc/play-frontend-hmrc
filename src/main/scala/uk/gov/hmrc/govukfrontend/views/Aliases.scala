@@ -185,6 +185,8 @@ trait Aliases {
   type WarningText = viewmodels.warningtext.WarningText
   val WarningText = viewmodels.warningtext.WarningText
 
+  type NotificationBanner = viewmodels.notificationbanner.NotificationBanner
+  val NotificationBanner = viewmodels.notificationbanner.NotificationBanner
 }
 
 object Aliases extends Aliases
