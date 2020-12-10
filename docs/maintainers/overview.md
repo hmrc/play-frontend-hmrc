@@ -6,6 +6,7 @@
 - [Upgrading](#upgrading)
 - [Translation Decisions](#translation-decisions)
 - [Play Versioning](#play-versioning)
+- [Architectural decision records](#architectural-decision-records)
 - [Useful Links](#useful-links)
 
 ## Testing
@@ -170,6 +171,34 @@ since there is no template named `input.scala.html`.
 Due to the aforementioned differences between the `Twirl` compilers in `Play 2.5` and `Play 2.6` and the auto-generation
 feature, templates should not be written with backwards incompatible features only introduced in `Play 2.6`, such as
 [@if else if](https://github.com/playframework/twirl/issues/33).   
+
+## Architectural decision records 
+
+We are using MADRs to record architecturally significant decisions in this service. To find out more
+visit [MADR](https://github.com/adr/madr)
+
+See our [architectural decision log](adr/index.md) (ADL) for a list of past decisions.
+
+## How to create a new ADR
+
+1. Install [Node](https://nodejs.org/en/download/) if you do not have this already. Node includes
+npm.
+
+1. Install `adr-log` if you do not have this already
+
+    ```shell script
+    npm install -g adr-log
+    ```
+
+1. Copy [template.md](adr/template.md) as NNNN-title-of-decision.md, and fill
+in the fields. Do not feel you have to fill in all the fields, only fill in fields
+that are strictly necessary. Some decisions will merit more detail than others.
+
+1. To re-generate the table of contents, run
+
+    ```shell script
+    ./generate-adl.sh
+    ```
 
 ## Useful Links
 - [x-govuk-component-renderer](https://github.com/hmrc/x-govuk-component-renderer) - service that returns HTML for `govuk-frontend` and `hmrc-frontend` component input parameters in the form of JSON objects - useful for confirming Twirl HTML outputs in integration tests
