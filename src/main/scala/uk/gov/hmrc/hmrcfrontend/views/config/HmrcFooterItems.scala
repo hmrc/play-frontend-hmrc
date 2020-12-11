@@ -29,7 +29,9 @@ class HmrcFooterItems @Inject()(accessibilityStatementConfig: AccessibilityState
       accessibilityLink,
       footerItemForKey("privacy"),
       footerItemForKey("termsConditions"),
-      footerItemForKey("govukHelp")
+      footerItemForKey("govukHelp"),
+      footerItemForKey("contact"),
+      footerItemForKey("welshHelp")
     ).flatten
 
   private def accessibilityLink(implicit messages: Messages, request: RequestHeader): Option[FooterItem] =

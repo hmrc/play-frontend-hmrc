@@ -7,3 +7,7 @@ footer.termsConditions.url = /help/terms-and-conditions
 footer.govukHelp.text = Help using GOV.UK
 footer.govukHelp.url = https://www.gov.uk/help
 footer.accessibility.text = Accessibility statement
+footer.contact.text = Contact
+footer.contact.url = https://www.gov.uk/government/organisations/hm-revenue-customs/contact
+footer.welshHelp.text = Rhestr o Wasanaethau Cymraeg
+footer.welshHelp.url = https://www.gov.uk/cymraeg

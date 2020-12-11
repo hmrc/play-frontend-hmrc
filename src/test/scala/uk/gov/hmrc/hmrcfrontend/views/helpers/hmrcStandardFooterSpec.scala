@@ -51,6 +51,8 @@ class hmrcStandardFooterSpec extends WordSpecLike with Matchers with MessagesSup
     "Privacy policy",
     "Terms and conditions",
     "Help using GOV.UK",
+    "Contact",
+    "Rhestr o Wasanaethau Cymraeg",
     "Open Government Licence v3.0",
     "© Crown copyright"
   ).asJava
@@ -60,11 +62,13 @@ class hmrcStandardFooterSpec extends WordSpecLike with Matchers with MessagesSup
     "Polisi preifatrwydd",
     "Telerau ac Amodau",
     "Help wrth ddefnyddio GOV.UK",
+    "Cysylltu",
+    "Rhestr o Wasanaethau Cymraeg",
     "y Drwydded Llywodraeth Agored v3.0",
     "© Hawlfraint y Goron"
   ).asJava
 
-  "HmrcStandardFooterLinks" should {
+  "HmrcStandardFooter" should {
     "generate the correct list of links" in {
       implicit val app = buildApp()
 
@@ -100,6 +104,8 @@ class hmrcStandardFooterSpec extends WordSpecLike with Matchers with MessagesSup
           "Privacy policy",
           "Terms and conditions",
           "Help using GOV.UK",
+          "Contact",
+          "Rhestr o Wasanaethau Cymraeg",
           "Service specific link 1",
           "Service specific link 2",
           "Open Government Licence v3.0",
