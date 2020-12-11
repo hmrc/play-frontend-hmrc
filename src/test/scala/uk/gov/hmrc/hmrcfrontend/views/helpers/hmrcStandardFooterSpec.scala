@@ -24,7 +24,6 @@ import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.test.FakeRequest
 import play.api.test.Helpers.contentAsString
 import play.api.test.Helpers._
-import uk.gov.hmrc.hmrcfrontend.views.html.components._
 import uk.gov.hmrc.hmrcfrontend.views.html.helpers._
 
 import scala.collection.immutable.List
@@ -125,9 +124,10 @@ class hmrcStandardFooterSpec extends WordSpecLike with Matchers with MessagesSup
 
       val content  = contentAsString(HmrcStandardFooter()(welshMessages, fakeRequest))
       val document = Jsoup.parse(content)
-      val elements    = document.getElementsByClass("govuk-footer__licence-description")
+      val elements = document.getElementsByClass("govuk-footer__licence-description")
 
-      elements.first.text should be("Mae‘r holl gynnwys ar gael o dan y Drwydded Llywodraeth Agored v3.0, oni nodir yn wahanol")
+      elements.first.text should be(
+        "Mae‘r holl gynnwys ar gael o dan y Drwydded Llywodraeth Agored v3.0, oni nodir yn wahanol")
     }
 
     "generate the correct visually hidden support links message in Welsh" in {
@@ -136,7 +136,7 @@ class hmrcStandardFooterSpec extends WordSpecLike with Matchers with MessagesSup
 
       val content  = contentAsString(HmrcStandardFooter()(welshMessages, fakeRequest))
       val document = Jsoup.parse(content)
-      val elements    = document.getElementsByClass("govuk-visually-hidden")
+      val elements = document.getElementsByClass("govuk-visually-hidden")
 
       elements.first.text should be("Cysylltiadau cymorth")
     }

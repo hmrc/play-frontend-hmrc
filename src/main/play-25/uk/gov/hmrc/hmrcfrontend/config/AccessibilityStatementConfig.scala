@@ -40,8 +40,9 @@ class AccessibilityStatementConfig @Inject()(config: Configuration) {
     } yield {
       s"$host$path$servicePath$query"
     }
+
   private def query(implicit request: RequestHeader): String = {
-    val referrerUrl = URLEncoder.encode(s"${platformHost.getOrElse("")}${request.path}", "UTF-8")
+    val referrerUrl = URLEncoder.encode(s"${platformHost.getOrElse("")}${pathWithQuerystring(request)}", "UTF-8")
     s"?referrerUrl=$referrerUrl"
   }
 }
