@@ -23,7 +23,7 @@ class TrackingConsentConfig @Inject()(config: Configuration) {
   val platformHost: Option[String] =
     config.getString("platform.frontend.host")
   val trackingConsentHost: Option[String] =
-    platformHost.orElse(config.getString("tracking-consent-frontend.host"))
+    platformHost.map(_ => "").orElse(config.getString("tracking-consent-frontend.host"))
   val trackingConsentPath: Option[String] =
     config.getString("tracking-consent-frontend.path")
   val optimizelyGtmPath: Option[String] =
