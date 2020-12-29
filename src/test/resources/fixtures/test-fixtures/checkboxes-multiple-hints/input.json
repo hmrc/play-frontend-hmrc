@@ -13,6 +13,7 @@
     "value" : "irish",
     "text" : "Irish"
   }, {
+    "value" : "other",
     "hint" : {
       "text" : "Hint for other option here"
     }

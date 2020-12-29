@@ -1,4 +1,4 @@
-<div class="govuk-panel govuk-panel--confirmation" first-attribute="true" second-attribute="false">
+<div class="govuk-panel govuk-panel--confirmation" first-attribute="foo" second-attribute="bar">
   <h1 class="govuk-panel__title">
     Application complete
   </h1>

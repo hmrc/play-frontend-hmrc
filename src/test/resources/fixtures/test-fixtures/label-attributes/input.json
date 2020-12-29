@@ -1,7 +1,7 @@
 {
   "text" : "National Insurance number",
   "attributes" : {
-    "first-attribute" : "true",
-    "second-attribute" : "false"
+    "first-attribute" : "foo",
+    "second-attribute" : "bar"
   }
 }

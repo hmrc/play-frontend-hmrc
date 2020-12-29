@@ -1,4 +1,4 @@
-<div class="govuk-phase-banner" first-attribute="true" second-attribute="false">
+<div class="govuk-phase-banner" first-attribute="foo" second-attribute="bar">
   <p class="govuk-phase-banner__content">
     <strong class="govuk-tag govuk-phase-banner__content__tag">
       
