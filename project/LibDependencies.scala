@@ -33,17 +33,6 @@ object LibDependencies {
 
       compile ++ test
     },
-    play25 = {
-      val compile = Seq(
-        "uk.gov.hmrc" %% "play-frontend-govuk" % s"${playFrontendGovukVersion}-play-25"
-      )
-
-      val test = Seq(
-        "org.scalatestplus.play" %% "scalatestplus-play" % "2.0.1"
-      ).map(_ % Test)
-
-      compile ++ test
-    },
     play26 = {
       val compile = Seq(
         "uk.gov.hmrc" %% "play-frontend-govuk" % s"${playFrontendGovukVersion}-play-26"
@@ -66,10 +55,4 @@ object LibDependencies {
       compile ++ test
     }
   )
-
-  lazy val overrides: Set[ModuleID] = dependencies(
-    play25 = Seq(
-      "com.typesafe.play" %% "twirl-api" % "1.1.1"
-    )
-  ).toSet
 }
