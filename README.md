@@ -27,10 +27,10 @@ The following figure illustrates the components and their dependencies (zoom in 
 ## Getting started
 1.  Add [Twirl](https://github.com/hmrc/play-frontend-govuk/releases) library in the App dependencies.
     ```sbt
-    //build.sbt for Play 2.5
-    libraryDependencies += "uk.gov.hmrc" %% "play-frontend-govuk" % "x.y.z-play-25"
-    //or Play 2.6
+    //build.sbt for Play 2.6
     libraryDependencies += "uk.gov.hmrc" %% "play-frontend-govuk" % "x.y.z-play-26"
+    //or Play 2.7
+    libraryDependencies += "uk.gov.hmrc" %% "play-frontend-govuk" % "x.y.z-play-27"
     ```
 
 1.  Add SASS assets to app/assets/stylesheets in application.scss to inherit / extend GovUk style assets / elements, e.g.:
@@ -178,24 +178,9 @@ A reference implementation can be found in [play-mtp-twirl-frontend](https://git
 
 ## Usage
 
-The library is cross-compiled for `Play 2.5` and `Play 2.6`, the main difference between the two versions being that the latter
-supports dependency injection of Twirl templates.
+The library is cross-compiled for `Play 2.6` and `Play 2.7`.
 
-### Play 2.5
-
-The namespace `uk.gov.hmrc.govukfrontend.views.html.components` exposes the components' templates as values with the prefix
-`Govuk`, ex: a `govukButton` is available as `GovukButton`.
-
-Ex: a disabled button
-```scala
-@import uk.gov.hmrc.govukfrontend.views.html.components._
-
-@()
-@GovukButton(Button(
-  disabled = true,
-  content = Text("Disabled button")
-))
-```
+**As of v0.57.0 (January 2021), this library will no longer be cross-compiled against Play 2.5.**
 
 ### Play 2.6
 
