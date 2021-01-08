@@ -33,7 +33,9 @@ in your `project/AppDependencies.scala` file. For example,
     libraryDependencies += "uk.gov.hmrc" %% "play-frontend-hmrc" % "x.y.z-play-27"
     ```
     
-    The library is cross-compiled for Play 2.5, 2.6 and 2.7.
+    The library is cross-compiled for Play 2.6 and 2.7.
+
+    **As of v0.35.0 (January 2021), this library will no be cross-compiled against Play 2.5.**
 
 1.  Import the required styles in your `app/assets/stylesheets/application.scss` file:
     ```scss
@@ -113,24 +115,7 @@ You can find working examples of the use of play-frontend-hmrc in the following 
 
 ## Play Framework compatibility
 
-The library is cross-compiled for `Play 2.5`, `Play 2.6` and `Play 2.7`. The Play 2.5 version does not support dependency
-injection.
-
-### Play 2.5
-
-The namespace `uk.gov.hmrc.hmrcfrontend.views.html.components` exposes the components' templates as values with the prefix
-`Hmrc`, ex: an `hmrcPageHeading` is available as `HmrcPageHeading`.
-
-For example, a page heading with a corresponding section
-```scala
-@import uk.gov.hmrc.hmrcfrontend.views.html.components._
-
-@()
-@HmrcPageHeading(PageHeading(
-  text = "Foo",
-  section = Some("Section bar")
-))
-```
+The library is cross-compiled for `Play 2.6` and `Play 2.7`.
 
 ### Play 2.6 and 2.7
 

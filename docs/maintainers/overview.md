@@ -121,57 +121,7 @@ When writing a new template from an existing `Nunjucks` template it is necessary
    Another example is the representation of `Javascript`'s `undefined`, which maps nicely to `Scala`'s `None`.
    The need to represent `undefined`  sometimes gives rise to unusual types like `Option[List[T]]`.
    The most correct type here would be `Option[NonEmptyList[T]]` but we opted not to use [refinement types](https://github.com/fthomas/refined) yet.
-
-## Play Versioning
-
-### Play 2.5 / Play 2.6 Cross-Compilation
-
-Regarding [dependency injection for templates](https://www.playframework.com/documentation/2.6.x/ScalaTemplatesDependencyInjection), `Play 2.6`
-introduced breaking changes in the syntax of `Twirl` templates.  For this reason, for every `Play 2.6` template implementing a component, we have
- to provide an almost identical `Play 2.5-compatible` template, differing only in the dependency injection declaration.
-
-To automate this manual effort, the library uses an `sbt` task to auto-generate the `Play 2.5` templates from the `Play 2.6` ones:
-
-```sbt
-lazy val generatePlay25TemplatesTask = taskKey[Seq[File]]("Generate Play 2.5 templates")
-```
-  
-* this task is a dependency for `twirl-compile-templates` in both `Compile` and `Test` configurations
-* the auto-generated `Play 2.5` templates are not version controlled and should not be edited
-
-### Naming Conventions for Injected Templates in Play 2.6
-
-The automatic generation of `Play 2.5` templates works by stripping out the `@this` declaration
-from a `Play 2.6` template.
-This means that the name of an injected template should match the name of the `Twirl` template file that
-implements it.
-
-Ex: Given a hypothetical new component injecting `HmrcInput` we should name the parameter `hmrcInput`.
-When the `Play 2.5` auto-generated template gets compiled it is able to find the `hmrcInput` object
-that implements the template (defined in the file `hmrcInput.scala.html`).
-```scala
-@this(hmrcInput: HmrcInput)
-
-@()
-@hmrcInput(<params for hmrcInput template>)
-```  
-
-The auto-generated `Play 2.5` template will be:
-```scala
-@()
-@hmrcInput(<params for hmrcInput template>)
-```
-
-`hmrcInput` is the name of the Scala object that implements the compiled `hmrcInput.scala.html` template.
-Had we named the injected component something else, for example `input`, the auto-generated template would fail to compile
-since there is no template named `input.scala.html`.
-
-### Backwards Compatibility in Play 2.6 Templates
-
-Due to the aforementioned differences between the `Twirl` compilers in `Play 2.5` and `Play 2.6` and the auto-generation
-feature, templates should not be written with backwards incompatible features only introduced in `Play 2.6`, such as
-[@if else if](https://github.com/playframework/twirl/issues/33).   
-
+   
 ## Architectural decision records 
 
 We are using MADRs to record architecturally significant decisions in this service. To find out more
