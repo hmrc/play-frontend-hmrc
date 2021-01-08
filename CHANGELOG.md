@@ -5,6 +5,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [0.57.0] - 2020-12-07
+
+### Changed
+
+- Removed support for Play 2.5
+- Updated HMRC headers to 2021
+
+### Compatible with
+
+- [alphagov/govuk-frontend v3.10.1](https://github.com/alphagov/govuk-frontend/releases/tag/v3.10.1)
+
 ## [0.56.0] - 2020-12-07
 
 ### Fixed
