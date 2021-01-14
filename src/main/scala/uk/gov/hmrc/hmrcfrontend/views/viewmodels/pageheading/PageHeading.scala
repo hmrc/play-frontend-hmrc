@@ -17,18 +17,13 @@
 package uk.gov.hmrc.hmrcfrontend.views.viewmodels.pageheading
 
 import play.api.libs.json._
-import uk.gov.hmrc.hmrcfrontend.views.viewmodels.JsonDefaultValueFormatter
 
 case class PageHeading(
   text: String            = "",
   section: Option[String] = None
 )
 
-object PageHeading extends JsonDefaultValueFormatter[PageHeading] {
+object PageHeading {
 
-  override def defaultObject: PageHeading = PageHeading()
-
-  override def defaultReads: Reads[PageHeading] = Json.reads[PageHeading]
-
-  override implicit def jsonWrites: OWrites[PageHeading] = Json.writes[PageHeading]
+  implicit def jsonFormats: OFormat[PageHeading] = Json.using[Json.WithDefaultValues].format[PageHeading]
 }

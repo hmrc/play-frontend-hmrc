@@ -16,9 +16,7 @@
 
 package uk.gov.hmrc.hmrcfrontend.views.viewmodels.footer
 
-import play.api.libs.functional.syntax._
 import play.api.libs.json._
-import uk.gov.hmrc.govukfrontend.views.viewmodels.JsonDefaultValueFormatter
 import uk.gov.hmrc.hmrcfrontend.views.viewmodels.language.{En, Language}
 
 case class Footer(
@@ -30,28 +28,7 @@ case class Footer(
   language: Language                = En
 )
 
-object Footer extends JsonDefaultValueFormatter[Footer] {
+object Footer {
 
-  override def defaultObject: Footer = Footer()
-
-  override def defaultReads: Reads[Footer] =
-    (
-      (__ \ "meta").readNullable[Meta] and
-        (__ \ "navigation").read[Seq[FooterNavigation]] and
-        (__ \ "containerClasses").read[String] and
-        (__ \ "classes").read[String] and
-        (__ \ "attributes").read[Map[String, String]] and
-        (__ \ "language").read[Language]
-    )(Footer.apply _)
-
-  override implicit def jsonWrites: OWrites[Footer] =
-    (
-      (__ \ "meta").writeNullable[Meta] and
-        (__ \ "navigation").write[Seq[FooterNavigation]] and
-        (__ \ "containerClasses").write[String] and
-        (__ \ "classes").write[String] and
-        (__ \ "attributes").write[Map[String, String]] and
-        (__ \ "language").write[Language]
-    )(unlift(Footer.unapply))
-
+  implicit def jsonFormats: Format[Footer] = Json.using[Json.WithDefaultValues].format[Footer]
 }

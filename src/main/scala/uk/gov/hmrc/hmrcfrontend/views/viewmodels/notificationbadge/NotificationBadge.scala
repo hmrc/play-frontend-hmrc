@@ -17,20 +17,16 @@
 package uk.gov.hmrc.hmrcfrontend.views.viewmodels.notificationbadge
 
 import play.api.libs.json._
-import uk.gov.hmrc.hmrcfrontend.views.viewmodels.JsonDefaultValueFormatter
-import play.api.libs.functional.syntax._
 
 case class NotificationBadge(
                               text: String = ""
                             )
 
-object NotificationBadge extends JsonDefaultValueFormatter[NotificationBadge] {
+object NotificationBadge {
 
   def apply(text: Int): NotificationBadge = new NotificationBadge(text.toString)
 
-  override def defaultObject: NotificationBadge = NotificationBadge()
-
-  override def defaultReads: Reads[NotificationBadge] = new Reads[NotificationBadge] {
+  implicit def jsonReads: Reads[NotificationBadge] = new Reads[NotificationBadge] {
     override def reads(json: JsValue): JsResult[NotificationBadge] = {
       (json \ "text").asOpt[String] orElse (json \ "text").asOpt[Int].map(_.toString) match {
         case Some(text) => JsSuccess(NotificationBadge(text))
@@ -39,5 +35,5 @@ object NotificationBadge extends JsonDefaultValueFormatter[NotificationBadge] {
     }
   }
 
-  override implicit def jsonWrites: OWrites[NotificationBadge] = Json.writes[NotificationBadge]
+  implicit def jsonWrites: OWrites[NotificationBadge] = Json.writes[NotificationBadge]
 }

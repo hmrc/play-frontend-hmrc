@@ -16,35 +16,34 @@
 
 package uk.gov.hmrc.hmrcfrontend.views.viewmodels.header
 
-import uk.gov.hmrc.govukfrontend.views.viewmodels.JsonDefaultValueFormatter
 import uk.gov.hmrc.govukfrontend.views.viewmodels.content.{Content, Empty, Text}
 import play.api.libs.functional.syntax._
 import play.api.libs.json._
 import uk.gov.hmrc.govukfrontend.views.viewmodels.content.Content.writesContent
 
 final case class NavigationItem(
-                                   content: Content                                                                     = Empty,
-                                   href: Option[String]                                                                 = None,
-                                   active: Boolean                                                                      = false,
-                                   attributes: Map[String, String]                                                      = Map.empty
-                                 )
+                                 content: Content = Empty,
+                                 href: Option[String] = None,
+                                 active: Boolean = false,
+                                 attributes: Map[String, String] = Map.empty
+                               )
 
-object NavigationItem extends JsonDefaultValueFormatter[NavigationItem] {
+object NavigationItem {
 
-  override def defaultObject: NavigationItem = NavigationItem(Empty)
+  def defaultObject: NavigationItem = NavigationItem(Empty)
 
-  override def defaultReads: Reads[NavigationItem] =
+  implicit def jsonReads: Reads[NavigationItem] =
     (
-        Content.reads and
+      (Content.reads or Reads.pure(defaultObject.content)) and
         (__ \ "href").readNullable[String] and
-        (__ \ "active").read[Boolean] and
-        (__ \ "attributes").read[Map[String, String]]
-      )(NavigationItem.apply _)
+        (__ \ "active").readWithDefault[Boolean](defaultObject.active) and
+        (__ \ "attributes").readWithDefault[Map[String, String]](defaultObject.attributes)
+      ) (NavigationItem.apply _)
 
-  override implicit def jsonWrites: OWrites[NavigationItem] = OWrites { hn =>
+  implicit def jsonWrites: OWrites[NavigationItem] = OWrites { hn =>
     Json.obj(
-      "href"       -> hn.href,
-      "active"     -> hn.active,
+      "href" -> hn.href,
+      "active" -> hn.active,
       "attributes" -> hn.attributes
     ) ++ writesContent().writes(hn.content)
   }

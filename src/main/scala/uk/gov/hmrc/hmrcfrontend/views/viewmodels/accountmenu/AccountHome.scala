@@ -17,18 +17,13 @@
 package uk.gov.hmrc.hmrcfrontend.views.viewmodels.accountmenu
 
 import play.api.libs.json._
-import uk.gov.hmrc.hmrcfrontend.views.viewmodels.JsonDefaultValueFormatter
 
 case class AccountHome(
                         href: String = "#",
                         active: Boolean = false
                       )
 
-object AccountHome extends JsonDefaultValueFormatter[AccountHome] {
+object AccountHome {
 
-  override def defaultObject: AccountHome = AccountHome()
-
-  override def defaultReads: Reads[AccountHome] = Json.reads[AccountHome]
-
-  override implicit def jsonWrites: OWrites[AccountHome] = Json.writes[AccountHome]
+  implicit def jsonFormats: OFormat[AccountHome] = Json.using[Json.WithDefaultValues].format[AccountHome]
 }

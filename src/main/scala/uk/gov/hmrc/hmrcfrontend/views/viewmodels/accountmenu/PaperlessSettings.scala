@@ -17,17 +17,12 @@
 package uk.gov.hmrc.hmrcfrontend.views.viewmodels.accountmenu
 
 import play.api.libs.json._
-import uk.gov.hmrc.hmrcfrontend.views.viewmodels.JsonDefaultValueFormatter
 
 case class PaperlessSettings(
                               href: String = "#"
                             )
 
-object PaperlessSettings extends JsonDefaultValueFormatter[PaperlessSettings] {
+object PaperlessSettings {
 
-  override def defaultObject: PaperlessSettings = PaperlessSettings()
-
-  override def defaultReads: Reads[PaperlessSettings] = Json.reads[PaperlessSettings]
-
-  override implicit def jsonWrites: OWrites[PaperlessSettings] = Json.writes[PaperlessSettings]
+  implicit def jsonFormats: OFormat[PaperlessSettings] = Json.using[Json.WithDefaultValues].format[PaperlessSettings]
 }

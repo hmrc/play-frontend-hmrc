@@ -17,7 +17,6 @@
 package uk.gov.hmrc.hmrcfrontend.views.viewmodels.timeoutdialog
 
 import play.api.libs.json._
-import uk.gov.hmrc.hmrcfrontend.views.viewmodels.JsonDefaultValueFormatter
 
 case class TimeoutDialog(
   name: String                        = "",
@@ -34,11 +33,7 @@ case class TimeoutDialog(
   signOutButtonText: Option[String]   = None
 )
 
-object TimeoutDialog extends JsonDefaultValueFormatter[TimeoutDialog] {
+object TimeoutDialog {
 
-  override def defaultObject: TimeoutDialog = TimeoutDialog()
-
-  override def defaultReads: Reads[TimeoutDialog] = Json.reads[TimeoutDialog]
-
-  override implicit def jsonWrites: OWrites[TimeoutDialog] = Json.writes[TimeoutDialog]
+  implicit def jsonFormats: OFormat[TimeoutDialog] = Json.using[Json.WithDefaultValues].format[TimeoutDialog]
 }

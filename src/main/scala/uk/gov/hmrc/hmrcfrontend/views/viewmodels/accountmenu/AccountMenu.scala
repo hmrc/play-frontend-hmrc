@@ -17,7 +17,6 @@
 package uk.gov.hmrc.hmrcfrontend.views.viewmodels.accountmenu
 
 import play.api.libs.json._
-import uk.gov.hmrc.hmrcfrontend.views.viewmodels.JsonDefaultValueFormatter
 import uk.gov.hmrc.hmrcfrontend.views.viewmodels.language.{En, Language}
 
 case class AccountMenu(
@@ -30,11 +29,7 @@ case class AccountMenu(
                         language: Language = En
                       )
 
-object AccountMenu extends JsonDefaultValueFormatter[AccountMenu] {
+object AccountMenu {
 
-  override def defaultObject: AccountMenu = AccountMenu()
-
-  override def defaultReads: Reads[AccountMenu] = Json.reads[AccountMenu]
-
-  override implicit def jsonWrites: OWrites[AccountMenu] = Json.writes[AccountMenu]
+  implicit def jsonFormats: OFormat[AccountMenu] = Json.using[Json.WithDefaultValues].format[AccountMenu]
 }
