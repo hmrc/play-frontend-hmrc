@@ -5,6 +5,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [0.36.0] - 2021-01-15
+
+### Changed
+
+- Removed JsonDefaultValueFormatter following on from removal of Play 2.5
+
+### Compatible with
+
+- [hmrc/hmrc-frontend v1.23.0](https://github.com/hmrc/hmrc-frontend/releases/tag/v1.23.0)
+- [hmrc/play-frontend-govuk v0.57.0](https://github.com/hmrc/play-frontend-govuk/releases/tag/v0.57.0)
+- [alphagov/govuk-frontend v3.10.1](https://github.com/alphagov/govuk-frontend/releases/tag/v3.10.1)
+
 ## [0.35.0] - 2021-01-07
 
 ### Changed
