@@ -19,7 +19,6 @@ package uk.gov.hmrc.govukfrontend.views.viewmodels.skiplink
 import play.api.libs.functional.syntax._
 import play.api.libs.json._
 import uk.gov.hmrc.govukfrontend.views.html.components._
-import uk.gov.hmrc.govukfrontend.views.viewmodels.JsonDefaultValueFormatter
 
 case class SkipLink(
   href: String                    = "",
@@ -28,19 +27,19 @@ case class SkipLink(
   content: Content                = Empty
 )
 
-object SkipLink extends JsonDefaultValueFormatter[SkipLink] {
+object SkipLink {
 
-  override def defaultObject: SkipLink = SkipLink()
+  def defaultObject: SkipLink = SkipLink()
 
-  override def defaultReads: Reads[SkipLink] =
+  implicit def jsonReads: Reads[SkipLink] =
     (
-      (__ \ "href").read[String] and
-        (__ \ "classes").read[String] and
-        (__ \ "attributes").read[Map[String, String]] and
+      (__ \ "href").readWithDefault[String](defaultObject.href) and
+        (__ \ "classes").readWithDefault[String](defaultObject.classes) and
+        (__ \ "attributes").readWithDefault[Map[String, String]](defaultObject.attributes) and
         Content.reads
     )(SkipLink.apply _)
 
-  override implicit def jsonWrites: OWrites[SkipLink] =
+  implicit def jsonWrites: OWrites[SkipLink] =
     (
       (__ \ "href").write[String] and
         (__ \ "classes").write[String] and

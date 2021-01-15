@@ -20,7 +20,6 @@ import play.api.libs.functional.syntax._
 import play.api.libs.json._
 import uk.gov.hmrc.govukfrontend.views.html.components._
 import uk.gov.hmrc.govukfrontend.views.viewmodels.CommonJsonFormats._
-import uk.gov.hmrc.govukfrontend.views.viewmodels.{JsonDefaultValueFormatter}
 
 case class Radios(
   fieldset: Option[Fieldset]         = None,
@@ -33,24 +32,24 @@ case class Radios(
   classes: String                    = "",
   attributes: Map[String, String]    = Map.empty)
 
-object Radios extends JsonDefaultValueFormatter[Radios] {
+object Radios {
 
-  override def defaultObject: Radios = Radios()
+  def defaultObject: Radios = Radios()
 
-  override def defaultReads: Reads[Radios] =
+  implicit def jsonReads: Reads[Radios] =
     (
       (__ \ "fieldset").readNullable[Fieldset] and
         (__ \ "hint").readNullable[Hint] and
         (__ \ "errorMessage").readNullable[ErrorMessage] and
         readsFormGroupClasses and
         (__ \ "idPrefix").readNullable[String] and
-        (__ \ "name").read[String] and
-        (__ \ "items").read[Seq[RadioItem]](forgivingSeqReads[RadioItem]) and
-        (__ \ "classes").read[String] and
-        (__ \ "attributes").read[Map[String, String]](attributesReads)
+        (__ \ "name").readWithDefault[String](defaultObject.name) and
+        (__ \ "items").readWithDefault[Seq[RadioItem]](defaultObject.items)(forgivingSeqReads[RadioItem]) and
+        (__ \ "classes").readWithDefault[String](defaultObject.classes) and
+        (__ \ "attributes").readWithDefault[Map[String, String]](defaultObject.attributes)(attributesReads)
     )(Radios.apply _)
 
-  override implicit def jsonWrites: OWrites[Radios] =
+  implicit def jsonWrites: OWrites[Radios] =
     (
       (__ \ "fieldset").writeNullable[Fieldset] and
         (__ \ "hint").writeNullable[Hint] and

@@ -29,20 +29,20 @@ final case class SelectItem(
   attributes: Map[String, String] = Map.empty
 )
 
-object SelectItem extends JsonDefaultValueFormatter[SelectItem] {
+object SelectItem {
 
-  override def defaultObject: SelectItem = SelectItem()
+  def defaultObject: SelectItem = SelectItem()
 
-  override def defaultReads: Reads[SelectItem] = (
+  implicit def jsonReads: Reads[SelectItem] = (
     (__ \ "value").readsJsValueToString.map(Option[String]).orElse(Reads.pure(None)) and
-      (__ \ "text").read[String] and
-      (__ \ "selected").read[Boolean] and
-      (__ \ "disabled").read[Boolean] and
-      (__ \ "attributes").read[Map[String, String]]
+      (__ \ "text").readWithDefault[String](defaultObject.text) and
+      (__ \ "selected").readWithDefault[Boolean](defaultObject.selected) and
+      (__ \ "disabled").readWithDefault[Boolean](defaultObject.disabled) and
+      (__ \ "attributes").readWithDefault[Map[String, String]](defaultObject.attributes)
     )(SelectItem.apply _)
 
 
-  override implicit def jsonWrites: OWrites[SelectItem] = (
+  implicit def jsonWrites: OWrites[SelectItem] = (
     (__ \ "value").writeNullable[String] and
       (__ \ "text").write[String] and
       (__ \ "selected").write[Boolean] and

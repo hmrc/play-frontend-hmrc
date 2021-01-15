@@ -27,18 +27,18 @@ final case class ErrorLink(
   attributes: Map[String, String] = Map.empty
 )
 
-object ErrorLink extends JsonDefaultValueFormatter[ErrorLink] {
+object ErrorLink {
 
-  override def defaultObject: ErrorLink = ErrorLink()
+  def defaultObject: ErrorLink = ErrorLink()
 
-  override def defaultReads: Reads[ErrorLink] =
+  implicit def jsonReads: Reads[ErrorLink] =
     (
       (__ \ "href").readNullable[String] and
         Content.reads and
-        (__ \ "attributes").read[Map[String, String]]
+        (__ \ "attributes").readWithDefault[Map[String, String]](defaultObject.attributes)
     )(ErrorLink.apply _)
 
-  override implicit def jsonWrites: OWrites[ErrorLink] =
+  implicit def jsonWrites: OWrites[ErrorLink] =
     (
       (__ \ "href").writeNullable[String] and
         Content.writes and

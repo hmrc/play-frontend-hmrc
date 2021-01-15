@@ -20,7 +20,6 @@ import play.api.libs.functional.syntax._
 import play.api.libs.json._
 import uk.gov.hmrc.govukfrontend.views.html.components._
 import uk.gov.hmrc.govukfrontend.views.viewmodels.CommonJsonFormats._
-import uk.gov.hmrc.govukfrontend.views.viewmodels.{JsonDefaultValueFormatter}
 
 case class Select(
   id: String                         = "",
@@ -35,25 +34,25 @@ case class Select(
   attributes: Map[String, String]    = Map.empty
 )
 
-object Select extends JsonDefaultValueFormatter[Select] {
+object Select {
 
-  override def defaultObject: Select = Select()
+  def defaultObject: Select = Select()
 
-  override def defaultReads: Reads[Select] =
+  implicit def jsonReads: Reads[Select] =
     (
-      (__ \ "id").read[String] and
-        (__ \ "name").read[String] and
-        (__ \ "items").read[Seq[SelectItem]](forgivingSeqReads[SelectItem]) and
+      (__ \ "id").readWithDefault[String](defaultObject.id) and
+        (__ \ "name").readWithDefault[String](defaultObject.name) and
+        (__ \ "items").readWithDefault[Seq[SelectItem]](defaultObject.items)(forgivingSeqReads[SelectItem]) and
         (__ \ "describedBy").readNullable[String] and
-        (__ \ "label").read[Label] and
+        (__ \ "label").readWithDefault[Label](defaultObject.label) and
         (__ \ "hint").readNullable[Hint] and
         (__ \ "errorMessage").readNullable[ErrorMessage] and
         readsFormGroupClasses and
-        (__ \ "classes").read[String] and
-        (__ \ "attributes").read[Map[String, String]](attributesReads)
+        (__ \ "classes").readWithDefault[String](defaultObject.classes) and
+        (__ \ "attributes").readWithDefault[Map[String, String]](defaultObject.attributes)(attributesReads)
     )(Select.apply _)
 
-  override implicit def jsonWrites: OWrites[Select] =
+  implicit def jsonWrites: OWrites[Select] =
     (
       (__ \ "id").write[String] and
         (__ \ "name").write[String] and

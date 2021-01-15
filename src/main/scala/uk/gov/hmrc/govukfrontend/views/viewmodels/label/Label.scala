@@ -29,20 +29,20 @@ final case class Label(
   content: Content                = Empty
 )
 
-object Label extends JsonDefaultValueFormatter[Label] {
+object Label {
 
-  override def defaultObject: Label = Label()
+  def defaultObject: Label = Label()
 
-  override def defaultReads: Reads[Label] =
+  implicit def jsonReads: Reads[Label] =
     (
       (__ \ "for").readNullable[String] and
-        (__ \ "isPageHeading").read[Boolean] and
-        (__ \ "classes").read[String] and
-        (__ \ "attributes").read[Map[String, String]] and
+        (__ \ "isPageHeading").readWithDefault[Boolean](defaultObject.isPageHeading) and
+        (__ \ "classes").readWithDefault[String](defaultObject.classes) and
+        (__ \ "attributes").readWithDefault[Map[String, String]](defaultObject.attributes) and
         Content.reads
     )(Label.apply _)
 
-  override implicit def jsonWrites: OWrites[Label] =
+  implicit def jsonWrites: OWrites[Label] =
     (
       (__ \ "for").writeNullable[String] and
         (__ \ "isPageHeading").write[Boolean] and

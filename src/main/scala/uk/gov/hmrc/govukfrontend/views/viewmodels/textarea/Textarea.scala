@@ -21,7 +21,6 @@ import play.api.libs.json._
 import uk.gov.hmrc.govukfrontend.views.html.components._
 import uk.gov.hmrc.govukfrontend.views.IntString
 import uk.gov.hmrc.govukfrontend.views.viewmodels.CommonJsonFormats._
-import uk.gov.hmrc.govukfrontend.views.viewmodels.JsonDefaultValueFormatter
 
 case class Textarea(
   id: String                         = "",
@@ -40,29 +39,29 @@ case class Textarea(
   spellcheck: Option[Boolean]        = None)
 
 
-object Textarea extends JsonDefaultValueFormatter[Textarea] {
+object Textarea {
 
-  override def defaultObject: Textarea = Textarea()
+  def defaultObject: Textarea = Textarea()
 
-  override def defaultReads: Reads[Textarea] =
+  implicit def jsonReads: Reads[Textarea] =
     (
-      (__ \ "id").read[String] and
-        (__ \ "name").read[String] and
-        (__ \ "rows").read[IntString].int and
+      (__ \ "id").readWithDefault[String](defaultObject.id) and
+        (__ \ "name").readWithDefault[String](defaultObject.name) and
+        (__ \ "rows").readWithDefault[IntString](IntString(defaultObject.rows)).int and
         (__ \ "value").readNullable[String] and
         (__ \ "describedBy").readNullable[String] and
-        (__ \ "label").read[Label] and
+        (__ \ "label").readWithDefault[Label](defaultObject.label) and
         (__ \ "hint").readNullable[Hint] and
         (__ \ "errorMessage").readNullable[ErrorMessage] and
         readsFormGroupClasses and
-        (__ \ "classes").read[String] and
+        (__ \ "classes").readWithDefault[String](defaultObject.classes) and
         (__ \ "autocomplete").readNullable[String] and
-        (__ \ "attributes").read[Map[String, String]] and
+        (__ \ "attributes").readWithDefault[Map[String, String]](defaultObject.attributes) and
         readsCountMessageClasses and
         (__ \ "spellcheck").readNullable[Boolean]
     )(Textarea.apply _)
 
-  override implicit def jsonWrites: OWrites[Textarea] =
+   implicit def jsonWrites: OWrites[Textarea] =
     (
       (__ \ "id").write[String] and
         (__ \ "name").write[String] and

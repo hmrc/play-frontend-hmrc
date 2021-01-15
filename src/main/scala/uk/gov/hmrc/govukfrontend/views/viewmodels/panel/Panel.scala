@@ -20,7 +20,6 @@ import play.api.libs.functional.syntax._
 import play.api.libs.json._
 import uk.gov.hmrc.govukfrontend.views.IntString
 import uk.gov.hmrc.govukfrontend.views.viewmodels.CommonJsonFormats._
-import uk.gov.hmrc.govukfrontend.views.viewmodels.JsonDefaultValueFormatter
 import uk.gov.hmrc.govukfrontend.views.viewmodels.content.{Content, Empty}
 
 case class Panel(
@@ -30,20 +29,20 @@ case class Panel(
   title: Content                  = Empty,
   content: Content                = Empty)
 
-object Panel extends JsonDefaultValueFormatter[Panel] {
+object Panel {
 
-  override def defaultObject: Panel = Panel()
+  def defaultObject: Panel = Panel()
 
-  override def defaultReads: Reads[Panel] =
+  implicit def jsonReads: Reads[Panel] =
     (
-      (__ \ "headingLevel").read[IntString].int and
-        (__ \ "classes").read[String] and
-        (__ \ "attributes").read[Map[String, String]](attributesReads) and
+      (__ \ "headingLevel").readWithDefault[IntString](IntString(defaultObject.headingLevel)).int and
+        (__ \ "classes").readWithDefault[String](defaultObject.classes) and
+        (__ \ "attributes").readWithDefault[Map[String, String]](defaultObject.attributes)(attributesReads) and
         Content.readsHtmlOrText((__ \ "titleHtml"), (__ \ "titleText")) and
         Content.reads
     )(Panel.apply _)
 
-  override implicit def jsonWrites: OWrites[Panel] =
+  implicit def jsonWrites: OWrites[Panel] =
     (
       (__ \ "headingLevel").write[Int] and
         (__ \ "classes").write[String] and

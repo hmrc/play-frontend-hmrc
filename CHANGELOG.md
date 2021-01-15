@@ -5,6 +5,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [0.58.0] - 2020-12-15
+
+### Changed
+
+- Removed JsonDefaultValueFormatter
+
+### Compatible with
+
+- [alphagov/govuk-frontend v3.10.1](https://github.com/alphagov/govuk-frontend/releases/tag/v3.10.1)
+
 ## [0.57.0] - 2020-12-07
 
 ### Changed

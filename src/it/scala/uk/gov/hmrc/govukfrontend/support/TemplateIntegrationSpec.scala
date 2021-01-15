@@ -2,7 +2,6 @@ package uk.gov.hmrc.govukfrontend.support
 
 import org.jsoup.Jsoup
 import org.scalacheck.Prop.{forAll, secure}
-import org.scalacheck.Test.TestCallback
 import org.scalacheck.{Arbitrary, Properties, ShrinkLowPriority, Test}
 import org.scalatest.concurrent.{IntegrationPatience, ScalaFutures}
 import play.api.libs.json.{Json, OWrites}

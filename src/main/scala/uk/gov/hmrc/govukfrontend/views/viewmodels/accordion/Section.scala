@@ -29,19 +29,19 @@ final case class Section(
   expanded: Boolean       = false
 )
 
-object Section extends JsonDefaultValueFormatter[Section] {
+object Section {
 
-  override def defaultObject: Section = Section()
+  def defaultObject: Section = Section()
 
-  override def defaultReads: Reads[Section] =
+  implicit def jsonReads: Reads[Section] =
     (
       readsHtmlOrText((__ \ "heading" \ "html"), (__ \ "heading" \ "text")) and
         readsHtmlOrText((__ \ "summary" \ "html"), (__ \ "summary" \ "text")) and
         readsHtmlOrText((__ \ "content" \ "html"), (__ \ "content" \ "text")) and
-        (__ \ "expanded").read[Boolean]
+        (__ \ "expanded").readWithDefault[Boolean](defaultObject.expanded)
     )(Section.apply _)
 
-  override implicit def jsonWrites: OWrites[Section] = new OWrites[Section] {
+  implicit def jsonWrites: OWrites[Section] = new OWrites[Section] {
     override def writes(section: Section): JsObject = Json.obj(
       "heading"  -> writesContent().writes(section.headingContent),
       "summary"  -> writesContent().writes(section.summaryContent),

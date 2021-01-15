@@ -19,7 +19,6 @@ package uk.gov.hmrc.govukfrontend.views.viewmodels.summarylist
 import play.api.libs.json._
 import play.api.libs.functional.syntax._
 import uk.gov.hmrc.govukfrontend.views.viewmodels.CommonJsonFormats._
-import uk.gov.hmrc.govukfrontend.views.viewmodels.{JsonDefaultValueFormatter}
 
 case class SummaryList(
   rows: Seq[SummaryListRow]       = Nil,
@@ -27,15 +26,15 @@ case class SummaryList(
   attributes: Map[String, String] = Map.empty
 )
 
-object SummaryList extends JsonDefaultValueFormatter[SummaryList] {
+object SummaryList {
 
-  override def defaultObject: SummaryList = SummaryList()
+  def defaultObject: SummaryList = SummaryList()
 
-  override def defaultReads: Reads[SummaryList] = (
-    (__ \ "rows").read[Seq[SummaryListRow]](forgivingSeqReads[SummaryListRow]) and
-      (__ \ "classes").read[String] and
-      (__ \ "attributes").read[Map[String, String]](attributesReads)
+  implicit def jsonReads: Reads[SummaryList] = (
+    (__ \ "rows").readWithDefault[Seq[SummaryListRow]](defaultObject.rows)(forgivingSeqReads[SummaryListRow]) and
+      (__ \ "classes").readWithDefault[String](defaultObject.classes) and
+      (__ \ "attributes").readWithDefault[Map[String, String]](defaultObject.attributes)(attributesReads)
   )(SummaryList.apply _)
 
-  override implicit def jsonWrites: OWrites[SummaryList] = Json.writes[SummaryList]
+  implicit def jsonWrites: OWrites[SummaryList] = Json.writes[SummaryList]
 }

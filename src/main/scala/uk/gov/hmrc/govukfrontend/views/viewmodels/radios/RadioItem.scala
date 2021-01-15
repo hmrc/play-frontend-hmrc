@@ -36,11 +36,11 @@ final case class RadioItem(
   attributes: Map[String, String] = Map.empty
 )
 
-object RadioItem extends JsonDefaultValueFormatter[RadioItem] {
+object RadioItem {
 
-  override def defaultObject: RadioItem = RadioItem()
+  def defaultObject: RadioItem = RadioItem()
 
-  override def defaultReads: Reads[RadioItem] =
+  implicit def jsonReads: Reads[RadioItem] =
     (
       Content.reads and
         (__ \ "id").readNullable[String] and
@@ -48,13 +48,13 @@ object RadioItem extends JsonDefaultValueFormatter[RadioItem] {
         (__ \ "label").readNullable[Label] and
         (__ \ "hint").readNullable[Hint] and
         (__ \ "divider").readNullable[String] and
-        (__ \ "checked").read[Boolean] and
+        (__ \ "checked").readWithDefault[Boolean](defaultObject.checked) and
         readsConditionalHtml and
-        (__ \ "disabled").read[Boolean] and
-        (__ \ "attributes").read[Map[String, String]]
+        (__ \ "disabled").readWithDefault[Boolean](defaultObject.disabled) and
+        (__ \ "attributes").readWithDefault[Map[String, String]](defaultObject.attributes)
     )(RadioItem.apply _)
 
-  override implicit def jsonWrites: OWrites[RadioItem] =
+  implicit def jsonWrites: OWrites[RadioItem] =
     (
       Content.writes and
         (__ \ "id").writeNullable[String] and

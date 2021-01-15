@@ -31,21 +31,21 @@ final case class HeadCell(
   attributes: Map[String, String] = Map.empty
 )
 
-object HeadCell extends JsonDefaultValueFormatter[HeadCell] {
+object HeadCell extends {
 
-  override def defaultObject: HeadCell = HeadCell()
+  def defaultObject: HeadCell = HeadCell()
 
-  override def defaultReads: Reads[HeadCell] =
+  implicit def jsonReads: Reads[HeadCell] =
     (
       Content.reads and
         (__ \ "format").readNullable[String] and
-        (__ \ "classes").read[String] and
+        (__ \ "classes").readWithDefault[String](defaultObject.classes) and
         (__ \ "colspan").readNullable[IntString].int and
         (__ \ "rowspan").readNullable[IntString].int and
-        (__ \ "attributes").read[Map[String, String]]
+        (__ \ "attributes").readWithDefault[Map[String, String]](defaultObject.attributes)
     )(HeadCell.apply _)
 
-  override implicit def jsonWrites: OWrites[HeadCell] =
+  implicit def jsonWrites: OWrites[HeadCell] =
     (
       Content.writes and
         (__ \ "format").writeNullable[String] and

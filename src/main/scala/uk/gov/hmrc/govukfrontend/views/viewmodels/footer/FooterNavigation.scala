@@ -17,7 +17,6 @@
 package uk.gov.hmrc.govukfrontend.views.viewmodels.footer
 
 import play.api.libs.json._
-import uk.gov.hmrc.govukfrontend.views.viewmodels.JsonDefaultValueFormatter
 
 final case class FooterNavigation(
   title: Option[String] = None,
@@ -25,11 +24,8 @@ final case class FooterNavigation(
   items: Seq[FooterItem] = Seq.empty
 )
 
-object FooterNavigation extends JsonDefaultValueFormatter[FooterNavigation] {
+object FooterNavigation {
 
-  override def defaultObject: FooterNavigation = FooterNavigation()
-
-  override def defaultReads: Reads[FooterNavigation] = Json.reads[FooterNavigation]
-
-  override implicit def jsonWrites: OWrites[FooterNavigation] = Json.writes[FooterNavigation]
+  implicit def jsonFormats: OFormat[FooterNavigation] =
+    Json.using[Json.WithDefaultValues].format[FooterNavigation]
 }

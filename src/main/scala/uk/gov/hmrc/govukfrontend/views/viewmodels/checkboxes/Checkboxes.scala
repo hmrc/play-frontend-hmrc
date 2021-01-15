@@ -20,7 +20,6 @@ import play.api.libs.functional.syntax._
 import play.api.libs.json._
 import uk.gov.hmrc.govukfrontend.views.html.components._
 import uk.gov.hmrc.govukfrontend.views.viewmodels.CommonJsonFormats._
-import uk.gov.hmrc.govukfrontend.views.viewmodels.JsonDefaultValueFormatter
 
 case class Checkboxes(
   describedBy: Option[String]        = None,
@@ -35,11 +34,11 @@ case class Checkboxes(
   attributes: Map[String, String]    = Map.empty
 )
 
-object Checkboxes extends JsonDefaultValueFormatter[Checkboxes] {
+object Checkboxes {
 
-  override def defaultObject: Checkboxes = Checkboxes()
+  def defaultObject: Checkboxes = Checkboxes()
 
-  override def defaultReads: Reads[Checkboxes] =
+  implicit def jsonReads: Reads[Checkboxes] =
     (
       (__ \ "describedBy").readNullable[String] and
         (__ \ "fieldset").readNullable[Fieldset] and
@@ -47,13 +46,13 @@ object Checkboxes extends JsonDefaultValueFormatter[Checkboxes] {
         (__ \ "errorMessage").readNullable[ErrorMessage] and
         readsFormGroupClasses and
         (__ \ "idPrefix").readNullable[String] and
-        (__ \ "name").read[String] and
-        (__ \ "items").read[Seq[CheckboxItem]](forgivingSeqReads[CheckboxItem]) and
-        (__ \ "classes").read[String] and
-        (__ \ "attributes").read[Map[String, String]](attributesReads)
+        (__ \ "name").readWithDefault[String](defaultObject.name) and
+        (__ \ "items").readWithDefault[Seq[CheckboxItem]](defaultObject.items)(forgivingSeqReads[CheckboxItem]) and
+        (__ \ "classes").readWithDefault[String](defaultObject.classes) and
+        (__ \ "attributes").readWithDefault[Map[String, String]](defaultObject.attributes)(attributesReads)
     )(Checkboxes.apply _)
 
-  override implicit def jsonWrites: OWrites[Checkboxes] =
+  implicit def jsonWrites: OWrites[Checkboxes] =
     (
       (__ \ "describedBy").writeNullable[String] and
         (__ \ "fieldset").writeNullable[Fieldset] and

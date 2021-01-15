@@ -26,11 +26,8 @@ final case class SummaryListRow(
   actions: Option[Actions] = None
 )
 
-object SummaryListRow extends JsonDefaultValueFormatter[SummaryListRow] {
+object SummaryListRow {
 
-  override def defaultObject: SummaryListRow = SummaryListRow()
-
-  override def defaultReads: Reads[SummaryListRow] = Json.reads[SummaryListRow]
-
-  override implicit def jsonWrites: OWrites[SummaryListRow] = Json.writes[SummaryListRow]
+  implicit def jsonFormats: OFormat[SummaryListRow] =
+    Json.using[Json.WithDefaultValues].format[SummaryListRow]
 }

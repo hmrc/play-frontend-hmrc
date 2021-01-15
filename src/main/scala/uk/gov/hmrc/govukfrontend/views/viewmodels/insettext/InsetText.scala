@@ -18,7 +18,6 @@ package uk.gov.hmrc.govukfrontend.views.viewmodels.insettext
 
 import play.api.libs.functional.syntax._
 import play.api.libs.json._
-import uk.gov.hmrc.govukfrontend.views.viewmodels.JsonDefaultValueFormatter
 import uk.gov.hmrc.govukfrontend.views.viewmodels.content.{Content, Empty}
 
 case class InsetText(
@@ -28,19 +27,19 @@ case class InsetText(
   content: Content                = Empty
 )
 
-object InsetText extends JsonDefaultValueFormatter[InsetText] {
+object InsetText {
 
-  override def defaultObject: InsetText = InsetText()
+  def defaultObject: InsetText = InsetText()
 
-  override def defaultReads: Reads[InsetText] =
+  implicit def jsonReads: Reads[InsetText] =
     (
       (__ \ "id").readNullable[String] and
-        (__ \ "classes").read[String] and
-        (__ \ "attributes").read[Map[String, String]] and
+        (__ \ "classes").readWithDefault[String](defaultObject.classes) and
+        (__ \ "attributes").readWithDefault[Map[String, String]](defaultObject.attributes) and
         Content.reads
     )(InsetText.apply _)
 
-  override implicit def jsonWrites: OWrites[InsetText] =
+  implicit def jsonWrites: OWrites[InsetText] =
     (
       (__ \ "id").writeNullable[String] and
         (__ \ "classes").write[String] and

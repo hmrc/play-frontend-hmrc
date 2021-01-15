@@ -20,7 +20,6 @@ import play.api.libs.functional.syntax._
 import play.api.libs.json._
 import uk.gov.hmrc.govukfrontend.views.html.components._
 import uk.gov.hmrc.govukfrontend.views.viewmodels.CommonJsonFormats._
-import uk.gov.hmrc.govukfrontend.views.viewmodels.JsonDefaultValueFormatter
 
 case class PhaseBanner(
   tag: Option[Tag]                = None,
@@ -28,19 +27,19 @@ case class PhaseBanner(
   attributes: Map[String, String] = Map.empty,
   content: Content                = Empty)
 
-object PhaseBanner extends JsonDefaultValueFormatter[PhaseBanner] {
+object PhaseBanner {
 
-  override def defaultObject: PhaseBanner = PhaseBanner()
+  def defaultObject: PhaseBanner = PhaseBanner()
 
-  override def defaultReads: Reads[PhaseBanner] =
+  implicit def jsonReads: Reads[PhaseBanner] =
     (
       (__ \ "tag").readNullable[Tag] and
-        (__ \ "classes").read[String] and
-        (__ \ "attributes").read[Map[String, String]](attributesReads) and
+        (__ \ "classes").readWithDefault[String](defaultObject.classes) and
+        (__ \ "attributes").readWithDefault[Map[String, String]](defaultObject.attributes)(attributesReads) and
         Content.reads
     )(PhaseBanner.apply _)
 
-  override implicit def jsonWrites: OWrites[PhaseBanner] =
+  implicit def jsonWrites: OWrites[PhaseBanner] =
     (
       (__ \ "tag").writeNullable[Tag] and
         (__ \ "classes").write[String] and

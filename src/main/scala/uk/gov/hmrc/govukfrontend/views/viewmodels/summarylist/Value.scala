@@ -23,17 +23,17 @@ import uk.gov.hmrc.govukfrontend.views.viewmodels.content.{Content, Empty}
 
 final case class Value(content: Content = Empty, classes: String = "")
 
-object Value extends JsonDefaultValueFormatter[Value] {
+object Value {
 
-  override def defaultObject: Value = Value()
+  def defaultObject: Value = Value()
 
-  override def defaultReads: Reads[Value] =
+  implicit def jsonReads: Reads[Value] =
     (
       Content.reads and
-        (__ \ "classes").read[String]
+        (__ \ "classes").readWithDefault[String](defaultObject.classes)
     )(Value.apply _)
 
-  override implicit def jsonWrites: OWrites[Value] =
+  implicit def jsonWrites: OWrites[Value] =
     (
       Content.writes and
         (__ \ "classes").write[String]

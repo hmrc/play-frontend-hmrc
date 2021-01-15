@@ -19,7 +19,6 @@ package uk.gov.hmrc.govukfrontend.views.viewmodels.warningtext
 import play.api.libs.functional.syntax._
 import play.api.libs.json._
 import uk.gov.hmrc.govukfrontend.views.html.components._
-import uk.gov.hmrc.govukfrontend.views.viewmodels.JsonDefaultValueFormatter
 
 case class WarningText(
   iconFallbackText: String        = "",
@@ -28,19 +27,19 @@ case class WarningText(
   content: Content                = Empty
 )
 
-object WarningText extends JsonDefaultValueFormatter[WarningText] {
+object WarningText {
 
-  override def defaultObject: WarningText = WarningText()
+  def defaultObject: WarningText = WarningText()
 
-  override def defaultReads: Reads[WarningText] =
+  implicit def jsonReads: Reads[WarningText] =
     (
-      (__ \ "iconFallbackText").read[String] and
-        (__ \ "classes").read[String] and
-        (__ \ "attributes").read[Map[String, String]] and
+      (__ \ "iconFallbackText").readWithDefault[String](defaultObject.iconFallbackText) and
+        (__ \ "classes").readWithDefault[String](defaultObject.classes) and
+        (__ \ "attributes").readWithDefault[Map[String, String]](defaultObject.attributes) and
         Content.reads
     )(WarningText.apply _)
 
-  override implicit def jsonWrites: OWrites[WarningText] =
+  implicit def jsonWrites: OWrites[WarningText] =
     (
       (__ \ "iconFallbackText").write[String] and
         (__ \ "classes").write[String] and
