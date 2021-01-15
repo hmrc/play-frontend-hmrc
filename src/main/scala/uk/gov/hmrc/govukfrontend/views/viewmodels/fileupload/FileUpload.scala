@@ -19,7 +19,6 @@ package uk.gov.hmrc.govukfrontend.views.viewmodels.fileupload
 import play.api.libs.functional.syntax._
 import play.api.libs.json._
 import uk.gov.hmrc.govukfrontend.views.viewmodels.CommonJsonFormats._
-import uk.gov.hmrc.govukfrontend.views.viewmodels.JsonDefaultValueFormatter
 import uk.gov.hmrc.govukfrontend.views.viewmodels.errormessage.ErrorMessage
 import uk.gov.hmrc.govukfrontend.views.viewmodels.hint.Hint
 import uk.gov.hmrc.govukfrontend.views.viewmodels.label.Label
@@ -37,25 +36,25 @@ case class FileUpload(
   attributes: Map[String, String]    = Map.empty
 )
 
-object FileUpload extends JsonDefaultValueFormatter[FileUpload] {
+object FileUpload {
 
-  override def defaultObject: FileUpload = FileUpload()
+  def defaultObject: FileUpload = FileUpload()
 
-  override def defaultReads: Reads[FileUpload] =
+  implicit def jsonReads: Reads[FileUpload] =
     (
-      (__ \ "name").read[String] and
-        (__ \ "id").read[String] and
+      (__ \ "name").readWithDefault[String](defaultObject.name) and
+        (__ \ "id").readWithDefault[String](defaultObject.id) and
         (__ \ "value").readNullable[String] and
         (__ \ "describedBy").readNullable[String] and
-        (__ \ "label").read[Label] and
+        (__ \ "label").readWithDefault[Label](defaultObject.label) and
         (__ \ "hint").readNullable[Hint] and
         (__ \ "errorMessage").readNullable[ErrorMessage] and
         readsFormGroupClasses and
-        (__ \ "classes").read[String] and
-        (__ \ "attributes").read[Map[String, String]]
+        (__ \ "classes").readWithDefault[String](defaultObject.classes) and
+        (__ \ "attributes").readWithDefault[Map[String, String]](defaultObject.attributes)
     )(FileUpload.apply _)
 
-  override implicit def jsonWrites: OWrites[FileUpload] =
+  implicit def jsonWrites: OWrites[FileUpload] =
     (
       (__ \ "name").write[String] and
         (__ \ "id").write[String] and

@@ -17,7 +17,6 @@
 package uk.gov.hmrc.govukfrontend.views.viewmodels.header
 
 import play.api.libs.json._
-import uk.gov.hmrc.govukfrontend.views.viewmodels.JsonDefaultValueFormatter
 
 /***
   * We removed assets path since the Twirl implementation of <code>govukHeader</code> uses
@@ -53,11 +52,8 @@ final case class Header(
   navigationLabel: Option[String]           = None
 )
 
-object Header extends JsonDefaultValueFormatter[Header] {
+object Header {
 
-  override def defaultObject: Header = Header()
-
-  override def defaultReads: Reads[Header] = Json.reads[Header]
-
-  override implicit def jsonWrites: OWrites[Header] = Json.writes[Header]
+  implicit def jsonFormats: OFormat[Header] =
+    Json.using[Json.WithDefaultValues].format[Header]
 }

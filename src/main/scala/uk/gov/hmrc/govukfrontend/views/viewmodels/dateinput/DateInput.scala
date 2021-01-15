@@ -20,7 +20,6 @@ import play.api.libs.functional.syntax._
 import play.api.libs.json._
 import uk.gov.hmrc.govukfrontend.views.html.components._
 import uk.gov.hmrc.govukfrontend.views.viewmodels.CommonJsonFormats._
-import uk.gov.hmrc.govukfrontend.views.viewmodels.JsonDefaultValueFormatter
 
 case class DateInput(
   id: String                         = "",
@@ -34,24 +33,24 @@ case class DateInput(
   attributes: Map[String, String]    = Map.empty
 )
 
-object DateInput extends JsonDefaultValueFormatter[DateInput] {
+object DateInput {
 
-  override def defaultObject: DateInput = DateInput()
+  def defaultObject: DateInput = DateInput()
 
-  override def defaultReads: Reads[DateInput] =
+  implicit def jsonReads: Reads[DateInput] =
     (
-      (__ \ "id").read[String] and
+      (__ \ "id").readWithDefault[String](defaultObject.id) and
         (__ \ "namePrefix").readNullable[String] and
-        (__ \ "items").read[Seq[InputItem]] and
+        (__ \ "items").readWithDefault[Seq[InputItem]](defaultObject.items) and
         (__ \ "hint").readNullable[Hint] and
         (__ \ "errorMessage").readNullable[ErrorMessage] and
         readsFormGroupClasses and
         (__ \ "fieldset").readNullable[Fieldset] and
-        (__ \ "classes").read[String] and
-        (__ \ "attributes").read[Map[String, String]]
+        (__ \ "classes").readWithDefault[String](defaultObject.classes) and
+        (__ \ "attributes").readWithDefault[Map[String, String]](defaultObject.attributes)
     )(DateInput.apply _)
 
-  override implicit def jsonWrites: OWrites[DateInput] =
+  implicit def jsonWrites: OWrites[DateInput] =
     (
       (__ \ "id").write[String] and
         (__ \ "namePrefix").writeNullable[String] and

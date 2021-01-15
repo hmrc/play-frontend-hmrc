@@ -20,7 +20,6 @@ import play.api.libs.functional.syntax._
 import play.api.libs.json._
 import uk.gov.hmrc.govukfrontend.views.html.components._
 import uk.gov.hmrc.govukfrontend.views.viewmodels.CommonJsonFormats._
-import uk.gov.hmrc.govukfrontend.views.viewmodels.JsonDefaultValueFormatter
 
 case class Button(
   element: Option[String]         = None,
@@ -36,26 +35,26 @@ case class Button(
   content: Content                = Empty
 )
 
-object Button extends JsonDefaultValueFormatter[Button] {
+object Button {
 
-  override def defaultObject: Button = Button()
+  def defaultObject: Button = Button()
 
-  override def defaultReads: Reads[Button] =
+  implicit def jsonReads: Reads[Button] =
     (
       (__ \ "element").readNullable[String] and
         (__ \ "name").readNullable[String] and
         (__ \ "type").readNullable[String] and
         (__ \ "value").readNullable[String] and
-        (__ \ "disabled").read[Boolean] and
+        (__ \ "disabled").readWithDefault[Boolean](defaultObject.disabled) and
         (__ \ "href").readNullable[String] and
-        (__ \ "classes").read[String] and
-        (__ \ "attributes").read[Map[String, String]](attributesReads) and
-        (__ \ "preventDoubleClick").read[Boolean] and
-        (__ \ "isStartButton").read[Boolean] and
+        (__ \ "classes").readWithDefault[String](defaultObject.classes) and
+        (__ \ "attributes").readWithDefault[Map[String, String]](defaultObject.attributes)(attributesReads) and
+        (__ \ "preventDoubleClick").readWithDefault[Boolean](defaultObject.preventDoubleClick) and
+        (__ \ "isStartButton").readWithDefault[Boolean](defaultObject.isStartButton) and
         Content.reads
     )(Button.apply _)
 
-  override implicit def jsonWrites: OWrites[Button] =
+  implicit def jsonWrites: OWrites[Button] =
     (
       (__ \ "element").writeNullable[String] and
         (__ \ "name").writeNullable[String] and

@@ -27,18 +27,18 @@ final case class Legend(
   isPageHeading: Boolean = false
 )
 
-object Legend extends JsonDefaultValueFormatter[Legend] {
+object Legend {
 
-  override def defaultObject: Legend = Legend()
+  def defaultObject: Legend = Legend()
 
-  override def defaultReads: Reads[Legend] =
+  implicit def jsonReads: Reads[Legend] =
     (
       Content.reads and
-        (__ \ "classes").read[String] and
-        (__ \ "isPageHeading").read[Boolean]
+        (__ \ "classes").readWithDefault[String](defaultObject.classes) and
+        (__ \ "isPageHeading").readWithDefault[Boolean](defaultObject.isPageHeading)
     )(Legend.apply _)
 
-  override implicit def jsonWrites: OWrites[Legend] =
+  implicit def jsonWrites: OWrites[Legend] =
     (
       Content.writes and
         (__ \ "classes").write[String] and

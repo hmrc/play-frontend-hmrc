@@ -18,7 +18,6 @@ package uk.gov.hmrc.govukfrontend.views.viewmodels.footer
 
 import play.api.libs.functional.syntax._
 import play.api.libs.json._
-import uk.gov.hmrc.govukfrontend.views.viewmodels.JsonDefaultValueFormatter
 
 case class Footer(
   meta: Option[Meta] = None,
@@ -28,20 +27,20 @@ case class Footer(
   attributes: Map[String, String]   = Map.empty
 )
 
-object Footer extends JsonDefaultValueFormatter[Footer] {
+object Footer {
 
-  override def defaultObject: Footer = Footer()
+  def defaultObject: Footer = Footer()
 
-  override def defaultReads: Reads[Footer] =
+  implicit def jsonReads: Reads[Footer] =
     (
       (__ \ "meta").readNullable[Meta] and
-        (__ \ "navigation").read[Seq[FooterNavigation]] and
-        (__ \ "containerClasses").read[String] and
-        (__ \ "classes").read[String] and
-        (__ \ "attributes").read[Map[String, String]]
+        (__ \ "navigation").readWithDefault[Seq[FooterNavigation]](defaultObject.navigation) and
+        (__ \ "containerClasses").readWithDefault[String](defaultObject.containerClasses) and
+        (__ \ "classes").readWithDefault[String](defaultObject.classes) and
+        (__ \ "attributes").readWithDefault[Map[String, String]](defaultObject.attributes)
     )(Footer.apply _)
 
-  override implicit def jsonWrites: OWrites[Footer] =
+  implicit def jsonWrites: OWrites[Footer] =
     (
       (__ \ "meta").writeNullable[Meta] and
         (__ \ "navigation").write[Seq[FooterNavigation]] and

@@ -16,7 +16,6 @@
 
 package uk.gov.hmrc.govukfrontend.views.viewmodels.header
 
-import uk.gov.hmrc.govukfrontend.views.viewmodels.JsonDefaultValueFormatter
 import uk.gov.hmrc.govukfrontend.views.viewmodels.content.{Content, Empty, Text}
 import play.api.libs.functional.syntax._
 import play.api.libs.json._
@@ -30,20 +29,20 @@ final case class HeaderNavigation(
   content: Content                                                                     = Empty
 )
 
-object HeaderNavigation extends JsonDefaultValueFormatter[HeaderNavigation] {
+object HeaderNavigation {
 
-  override def defaultObject: HeaderNavigation = HeaderNavigation()
+  def defaultObject: HeaderNavigation = HeaderNavigation()
 
-  override def defaultReads: Reads[HeaderNavigation] =
+  implicit def jsonReads: Reads[HeaderNavigation] =
     (
       Reads.pure(None) and
         (__ \ "href").readNullable[String] and
-        (__ \ "active").read[Boolean] and
-        (__ \ "attributes").read[Map[String, String]] and
+        (__ \ "active").readWithDefault[Boolean](defaultObject.active) and
+        (__ \ "attributes").readWithDefault[Map[String, String]](defaultObject.attributes) and
         Content.reads
     )(HeaderNavigation.apply _)
 
-  override implicit def jsonWrites: OWrites[HeaderNavigation] = OWrites { hn =>
+  implicit def jsonWrites: OWrites[HeaderNavigation] = OWrites { hn =>
     val content = hn.content match {
       case Empty => hn.text.map(Text).getOrElse(Empty)
       case _ => hn.content

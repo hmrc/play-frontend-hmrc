@@ -38,25 +38,25 @@ final case class CheckboxItem(
   attributes: Map[String, String] = Map.empty
 )
 
-object CheckboxItem extends JsonDefaultValueFormatter[CheckboxItem] {
+object CheckboxItem {
 
-  override def defaultObject: CheckboxItem = CheckboxItem()
+  def defaultObject: CheckboxItem = CheckboxItem()
 
-  override def defaultReads: Reads[CheckboxItem] =
+  implicit def jsonReads: Reads[CheckboxItem] =
     (
       Content.reads and
         (__ \ "id").readNullable[String] and
         (__ \ "name").readNullable[String] and
-        (__ \ "value").read[String](CommonJsonFormats.forgivingStringReads) and
+        (__ \ "value").readWithDefault[String](defaultObject.value)(CommonJsonFormats.forgivingStringReads) and
         (__ \ "label").readNullable[Label] and
         (__ \ "hint").readNullable[Hint] and
-        (__ \ "checked").read[Boolean] and
+        (__ \ "checked").readWithDefault[Boolean](defaultObject.checked) and
         readsConditionalHtml and
-        (__ \ "disabled").read[Boolean] and
-        (__ \ "attributes").read[Map[String, String]](CommonJsonFormats.attributesReads)
+        (__ \ "disabled").readWithDefault[Boolean](defaultObject.disabled) and
+        (__ \ "attributes").readWithDefault[Map[String, String]](defaultObject.attributes)(CommonJsonFormats.attributesReads)
     )(CheckboxItem.apply _)
 
-  override implicit def jsonWrites: OWrites[CheckboxItem] =
+  implicit def jsonWrites: OWrites[CheckboxItem] =
     (
       Content.writes and
         (__ \ "id").writeNullable[String] and

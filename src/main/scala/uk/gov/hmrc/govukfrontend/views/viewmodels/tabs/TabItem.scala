@@ -17,7 +17,6 @@
 package uk.gov.hmrc.govukfrontend.views.viewmodels.tabs
 
 import play.api.libs.json._
-import uk.gov.hmrc.govukfrontend.views.viewmodels.JsonDefaultValueFormatter
 
 final case class TabItem(
   id: Option[String]              = None,
@@ -26,11 +25,9 @@ final case class TabItem(
   panel: TabPanel                 = TabPanel()
 )
 
-object TabItem extends JsonDefaultValueFormatter[TabItem] {
+object TabItem {
 
-  override def defaultObject: TabItem = TabItem()
+  implicit def jsonFormats: OFormat[TabItem] =
+    Json.using[Json.WithDefaultValues].format[TabItem]
 
-  override def defaultReads: Reads[TabItem] = Json.reads[TabItem]
-
-  override implicit def jsonWrites: OWrites[TabItem] = Json.writes[TabItem]
 }

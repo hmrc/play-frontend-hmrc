@@ -18,7 +18,6 @@ package uk.gov.hmrc.govukfrontend.views.viewmodels.errorsummary
 
 import play.api.libs.functional.syntax._
 import play.api.libs.json._
-import uk.gov.hmrc.govukfrontend.views.viewmodels.JsonDefaultValueFormatter
 import uk.gov.hmrc.govukfrontend.views.viewmodels.content.{Content, Empty}
 
 case class ErrorSummary(
@@ -29,20 +28,20 @@ case class ErrorSummary(
   description: Content            = Empty
 )
 
-object ErrorSummary extends JsonDefaultValueFormatter[ErrorSummary] {
+object ErrorSummary {
 
-  override def defaultObject: ErrorSummary = ErrorSummary()
+  def defaultObject: ErrorSummary = ErrorSummary()
 
-  override def defaultReads: Reads[ErrorSummary] =
+  implicit def jsonReads: Reads[ErrorSummary] =
     (
-      (__ \ "errorList").read[Seq[ErrorLink]] and
-        (__ \ "classes").read[String] and
-        (__ \ "attributes").read[Map[String, String]] and
+      (__ \ "errorList").readWithDefault[Seq[ErrorLink]](defaultObject.errorList) and
+        (__ \ "classes").readWithDefault[String](defaultObject.classes) and
+        (__ \ "attributes").readWithDefault[Map[String, String]](defaultObject.attributes) and
         Content.readsHtmlOrText((__ \ "titleHtml"), (__ \ "titleText")) and
         Content.readsHtmlOrText((__ \ "descriptionHtml"), (__ \ "descriptionText"))
     )(ErrorSummary.apply _)
 
-  override implicit def jsonWrites: OWrites[ErrorSummary] =
+  implicit def jsonWrites: OWrites[ErrorSummary] =
     (
       (__ \ "errorList").write[Seq[ErrorLink]] and
         (__ \ "classes").write[String] and

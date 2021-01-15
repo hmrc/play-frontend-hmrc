@@ -28,19 +28,19 @@ final case class Hint(
   content: Content                = Empty
 )
 
-object Hint extends JsonDefaultValueFormatter[Hint] {
+object Hint {
 
-  override def defaultObject: Hint = Hint()
+  def defaultObject: Hint = Hint()
 
-  override def defaultReads: Reads[Hint] =
+  implicit def jsonReads: Reads[Hint] =
     (
       (__ \ "id").readNullable[String] and
-        (__ \ "classes").read[String] and
-        (__ \ "attributes").read[Map[String, String]] and
+        (__ \ "classes").readWithDefault[String](defaultObject.classes) and
+        (__ \ "attributes").readWithDefault[Map[String, String]](defaultObject.attributes) and
         Content.reads
     )(Hint.apply _)
 
-  override implicit def jsonWrites: OWrites[Hint] =
+  implicit def jsonWrites: OWrites[Hint] =
     (
       (__ \ "id").writeNullable[String] and
         (__ \ "classes").write[String] and

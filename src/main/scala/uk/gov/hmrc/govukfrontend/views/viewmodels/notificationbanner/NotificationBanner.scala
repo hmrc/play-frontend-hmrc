@@ -19,7 +19,6 @@ package uk.gov.hmrc.govukfrontend.views.viewmodels.notificationbanner
 import play.api.libs.functional.syntax._
 import play.api.libs.json.{OWrites, Reads, __}
 import uk.gov.hmrc.govukfrontend.views.viewmodels.CommonJsonFormats.attributesReads
-import uk.gov.hmrc.govukfrontend.views.viewmodels.JsonDefaultValueFormatter
 import uk.gov.hmrc.govukfrontend.views.viewmodels.content.{Content, Empty}
 
 case class NotificationBanner(
@@ -34,11 +33,11 @@ case class NotificationBanner(
   attributes: Map[String, String]   = Map.empty
 )
 
-object NotificationBanner extends JsonDefaultValueFormatter[NotificationBanner] {
+object NotificationBanner {
 
-  override def defaultObject: NotificationBanner = NotificationBanner()
+  def defaultObject: NotificationBanner = NotificationBanner()
 
-  override def defaultReads: Reads[NotificationBanner] =
+  implicit def jsonReads: Reads[NotificationBanner] =
     (
       Content.reads and
         (__ \ "type").readNullable[String] and
@@ -48,10 +47,10 @@ object NotificationBanner extends JsonDefaultValueFormatter[NotificationBanner] 
         (__ \ "disableAutoFocus").readNullable[Boolean] and
         (__ \ "classes").readNullable[String] and
         (__ \ "titleHeadingLevel").readNullable[Int] and
-        (__ \ "attributes").read[Map[String, String]](attributesReads)
+        (__ \ "attributes").readWithDefault[Map[String, String]](defaultObject.attributes)(attributesReads)
     )(NotificationBanner.apply _)
 
-  override implicit def jsonWrites: OWrites[NotificationBanner] =
+  implicit def jsonWrites: OWrites[NotificationBanner] =
     (
       Content.writes and
         (__ \ "type").writeNullable[String] and

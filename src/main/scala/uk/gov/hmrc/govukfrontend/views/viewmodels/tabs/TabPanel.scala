@@ -26,17 +26,17 @@ final case class TabPanel(
   attributes: Map[String, String] = Map.empty
 )
 
-object TabPanel extends JsonDefaultValueFormatter[TabPanel] {
+object TabPanel {
 
-  override def defaultObject: TabPanel = TabPanel()
+  def defaultObject: TabPanel = TabPanel()
 
-  override def defaultReads: Reads[TabPanel] =
+  implicit def jsonReads: Reads[TabPanel] =
     (
       Content.reads and
-        (__ \ "attributes").read[Map[String, String]]
+        (__ \ "attributes").readWithDefault[Map[String, String]](defaultObject.attributes)
     )(TabPanel.apply _)
 
-  override implicit def jsonWrites: OWrites[TabPanel] =
+  implicit def jsonWrites: OWrites[TabPanel] =
     (
       Content.writes and
         (__ \ "attributes").write[Map[String, String]]

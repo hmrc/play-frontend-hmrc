@@ -32,24 +32,24 @@ final case class InputItem(
   inputmode: Option[String]       = None
 )
 
-object InputItem extends JsonDefaultValueFormatter[InputItem] {
+object InputItem {
 
-  override def defaultObject: InputItem = InputItem()
+  def defaultObject: InputItem = InputItem()
 
-  override def defaultReads: Reads[InputItem] =
+  implicit def jsonReads: Reads[InputItem] =
     (
-      (__ \ "id").read[String] and
-        (__ \ "name").read[String] and
+      (__ \ "id").readWithDefault[String](defaultObject.id) and
+        (__ \ "name").readWithDefault[String](defaultObject.name) and
         (__ \ "label").readNullable[String] and
         (__ \ "value").readNullable[String] and
         (__ \ "autocomplete").readNullable[String] and
         (__ \ "pattern").readNullable[String] and
-        (__ \ "classes").read[String] and
-        (__ \ "attributes").read[Map[String, String]] and
+        (__ \ "classes").readWithDefault[String](defaultObject.classes) and
+        (__ \ "attributes").readWithDefault[Map[String, String]](defaultObject.attributes) and
         (__ \ "inputmode").readNullable[String]
     )(InputItem.apply _)
 
-  override implicit def jsonWrites: OWrites[InputItem] =
+  implicit def jsonWrites: OWrites[InputItem] =
     (
       (__ \ "id").write[String] and
         (__ \ "name").write[String] and

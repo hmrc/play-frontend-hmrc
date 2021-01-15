@@ -20,7 +20,6 @@ import play.api.libs.functional.syntax._
 import play.api.libs.json._
 import uk.gov.hmrc.govukfrontend.views.IntString
 import uk.gov.hmrc.govukfrontend.views.viewmodels.CommonJsonFormats._
-import uk.gov.hmrc.govukfrontend.views.viewmodels.JsonDefaultValueFormatter
 import uk.gov.hmrc.govukfrontend.views.viewmodels.errormessage.ErrorMessage
 import uk.gov.hmrc.govukfrontend.views.viewmodels.hint.Hint
 import uk.gov.hmrc.govukfrontend.views.viewmodels.label.Label
@@ -41,29 +40,29 @@ case class CharacterCount(
   attributes: Map[String, String]    = Map.empty,
   countMessageClasses: String        = "")
 
-object CharacterCount extends JsonDefaultValueFormatter[CharacterCount] {
+object CharacterCount {
 
-  override def defaultObject: CharacterCount = CharacterCount()
+  def defaultObject: CharacterCount = CharacterCount()
 
-  override def defaultReads: Reads[CharacterCount] =
+  implicit def jsonReads: Reads[CharacterCount] =
     (
-      (__ \ "id").read[String] and
-        (__ \ "name").read[String] and
-        (__ \ "rows").read[IntString].int and
+      (__ \ "id").readWithDefault[String](defaultObject.id) and
+        (__ \ "name").readWithDefault[String](defaultObject.name) and
+        (__ \ "rows").readWithDefault[IntString](IntString(defaultObject.rows)).int and
         (__ \ "value").readNullable[String] and
         (__ \ "maxlength").readNullable[IntString].int and
         (__ \ "maxwords").readNullable[IntString].int and
         (__ \ "threshold").readNullable[IntString].int and
-        (__ \ "label").read[Label] and
+        (__ \ "label").readWithDefault[Label](defaultObject.label) and
         (__ \ "hint").readNullable[Hint] and
         (__ \ "errorMessage").readNullable[ErrorMessage] and
         readsFormGroupClasses and
-        (__ \ "classes").read[String] and
-        (__ \ "attributes").read[Map[String, String]] and
+        (__ \ "classes").readWithDefault[String](defaultObject.classes) and
+        (__ \ "attributes").readWithDefault[Map[String, String]](defaultObject.attributes) and
         readsCountMessageClasses
     )(CharacterCount.apply _)
 
-  override implicit def jsonWrites: OWrites[CharacterCount] =
+  implicit def jsonWrites: OWrites[CharacterCount] =
     (
       (__ \ "id").write[String] and
         (__ \ "name").write[String] and

@@ -18,7 +18,6 @@ package uk.gov.hmrc.govukfrontend.views.viewmodels.input
 
 import play.api.libs.functional.syntax._
 import play.api.libs.json._
-import uk.gov.hmrc.govukfrontend.views.viewmodels.JsonDefaultValueFormatter
 import uk.gov.hmrc.govukfrontend.views.viewmodels.content.{Content, Empty}
 
 case class PrefixOrSuffix(
@@ -27,18 +26,18 @@ case class PrefixOrSuffix(
                      content: Content                = Empty
                    )
 
-object PrefixOrSuffix extends JsonDefaultValueFormatter[PrefixOrSuffix] {
+object PrefixOrSuffix {
 
-  override def defaultObject: PrefixOrSuffix = PrefixOrSuffix()
+  def defaultObject: PrefixOrSuffix = PrefixOrSuffix()
 
-  override def defaultReads: Reads[PrefixOrSuffix] =
+  implicit def jsonReads: Reads[PrefixOrSuffix] =
     (
-      (__ \ "classes").read[String] and
-        (__ \ "attributes").read[Map[String, String]] and
+      (__ \ "classes").readWithDefault[String](defaultObject.classes) and
+        (__ \ "attributes").readWithDefault[Map[String, String]](defaultObject.attributes) and
         Content.reads
       )(PrefixOrSuffix.apply _)
 
-  override implicit def jsonWrites: OWrites[PrefixOrSuffix] =
+  implicit def jsonWrites: OWrites[PrefixOrSuffix] =
     (
       (__ \ "classes").write[String] and
         (__ \ "attributes").write[Map[String, String]] and

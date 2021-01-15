@@ -19,7 +19,6 @@ package uk.gov.hmrc.govukfrontend.views.viewmodels.input
 import play.api.libs.functional.syntax._
 import play.api.libs.json._
 import uk.gov.hmrc.govukfrontend.views.viewmodels.CommonJsonFormats._
-import uk.gov.hmrc.govukfrontend.views.viewmodels.JsonDefaultValueFormatter
 import uk.gov.hmrc.govukfrontend.views.viewmodels.errormessage.ErrorMessage
 import uk.gov.hmrc.govukfrontend.views.viewmodels.hint.Hint
 import uk.gov.hmrc.govukfrontend.views.viewmodels.label.Label
@@ -44,32 +43,32 @@ case class Input(
                   suffix: Option[PrefixOrSuffix]     = None
 )
 
-object Input extends JsonDefaultValueFormatter[Input] {
+object Input {
 
-  override def defaultObject: Input = Input()
+  def defaultObject: Input = Input()
 
-  override def defaultReads: Reads[Input] =
+  implicit def jsonReads: Reads[Input] =
     (
-      (__ \ "id").read[String] and
-        (__ \ "name").read[String] and
-        (__ \ "type").read[String] and
+      (__ \ "id").readWithDefault[String](defaultObject.id) and
+        (__ \ "name").readWithDefault[String](defaultObject.name) and
+        (__ \ "type").readWithDefault[String](defaultObject.inputType) and
         (__ \ "inputmode").readNullable[String] and
         (__ \ "describedBy").readNullable[String] and
         (__ \ "value").readNullable[String] and
-        (__ \ "label").read[Label] and
+        (__ \ "label").readWithDefault[Label](defaultObject.label) and
         (__ \ "hint").readNullable[Hint] and
         (__ \ "errorMessage").readNullable[ErrorMessage] and
         readsFormGroupClasses and
-        (__ \ "classes").read[String] and
+        (__ \ "classes").readWithDefault[String](defaultObject.classes) and
         (__ \ "autocomplete").readNullable[String] and
         (__ \ "pattern").readNullable[String] and
-        (__ \ "attributes").read[Map[String, String]] and
+        (__ \ "attributes").readWithDefault[Map[String, String]](defaultObject.attributes) and
         (__ \ "spellcheck").readNullable[Boolean] and
         (__ \ "prefix").readNullable[PrefixOrSuffix] and
         (__ \ "suffix").readNullable[PrefixOrSuffix]
     )(Input.apply _)
 
-  override implicit def jsonWrites: OWrites[Input] =
+  implicit def jsonWrites: OWrites[Input] =
     (
       (__ \ "id").write[String] and
         (__ \ "name").write[String] and

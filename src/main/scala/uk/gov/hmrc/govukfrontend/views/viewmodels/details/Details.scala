@@ -19,7 +19,6 @@ package uk.gov.hmrc.govukfrontend.views.viewmodels.details
 import play.api.libs.functional.syntax._
 import play.api.libs.json._
 import uk.gov.hmrc.govukfrontend.views.viewmodels.CommonJsonFormats._
-import uk.gov.hmrc.govukfrontend.views.viewmodels.JsonDefaultValueFormatter
 import uk.gov.hmrc.govukfrontend.views.viewmodels.content.{Content, Empty}
 
 case class Details(
@@ -31,21 +30,21 @@ case class Details(
   content: Content                = Empty
 )
 
-object Details extends JsonDefaultValueFormatter[Details] {
+object Details {
 
-  override def defaultObject: Details = Details()
+  def defaultObject: Details = Details()
 
-  override def defaultReads: Reads[Details] =
+  implicit def jsonReads: Reads[Details] =
     (
       (__ \ "id").readNullable[String] and
-        (__ \ "open").read[Boolean] and
-        (__ \ "classes").read[String] and
-        (__ \ "attributes").read[Map[String, String]](attributesReads) and
+        (__ \ "open").readWithDefault[Boolean](defaultObject.open) and
+        (__ \ "classes").readWithDefault[String](defaultObject.classes) and
+        (__ \ "attributes").readWithDefault[Map[String, String]](defaultObject.attributes)(attributesReads) and
         Content.readsHtmlOrText((__ \ "summaryHtml"), (__ \ "summaryText")) and
         Content.reads
     )(Details.apply _)
 
-  override implicit def jsonWrites: OWrites[Details] =
+  implicit def jsonWrites: OWrites[Details] =
     (
       (__ \ "id").writeNullable[String] and
         (__ \ "open").write[Boolean] and

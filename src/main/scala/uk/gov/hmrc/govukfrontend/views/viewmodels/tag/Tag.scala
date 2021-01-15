@@ -27,18 +27,18 @@ final case class Tag(
   attributes: Map[String, String] = Map.empty
 )
 
-object Tag extends JsonDefaultValueFormatter[Tag] {
+object Tag  {
 
-  override def defaultObject: Tag = Tag()
+  def defaultObject: Tag = Tag()
 
-  override def defaultReads: Reads[Tag] =
+  implicit def jsonReads: Reads[Tag] =
     (
       Content.reads and
-        (__ \ "classes").read[String] and
-        (__ \ "attributes").read[Map[String, String]]
+        (__ \ "classes").readWithDefault[String](defaultObject.classes) and
+        (__ \ "attributes").readWithDefault[Map[String, String]](defaultObject.attributes)
     )(Tag.apply _)
 
-  override implicit def jsonWrites: OWrites[Tag] =
+  implicit def jsonWrites: OWrites[Tag] =
     (
       Content.writes and
         (__ \ "classes").write[String] and

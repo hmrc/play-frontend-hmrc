@@ -28,20 +28,20 @@ final case class ActionItem(
   classes: String                    = "",
   attributes: Map[String, String] = Map.empty)
 
-object ActionItem extends JsonDefaultValueFormatter[ActionItem] {
+object ActionItem {
 
-  override def defaultObject: ActionItem = ActionItem()
+  def defaultObject: ActionItem = ActionItem()
 
-  override def defaultReads: Reads[ActionItem] =
+  implicit def jsonReads: Reads[ActionItem] =
     (
-      (__ \ "href").read[String] and
+      (__ \ "href").readWithDefault[String](defaultObject.href) and
         Content.reads and
         (__ \ "visuallyHiddenText").readNullable[String] and
-        (__ \ "classes").read[String] and
-        (__ \ "attributes").read[Map[String, String]]
+        (__ \ "classes").readWithDefault[String](defaultObject.classes) and
+        (__ \ "attributes").readWithDefault[Map[String, String]](defaultObject.attributes)
     )(ActionItem.apply _)
 
-  override implicit def jsonWrites: OWrites[ActionItem] =
+  implicit def jsonWrites: OWrites[ActionItem] =
     (
       (__ \ "href").write[String] and
         Content.writes and
