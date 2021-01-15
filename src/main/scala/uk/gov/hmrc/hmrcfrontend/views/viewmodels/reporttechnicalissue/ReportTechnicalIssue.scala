@@ -16,9 +16,7 @@
 
 package uk.gov.hmrc.hmrcfrontend.views.viewmodels.reporttechnicalissue
 
-import play.api.libs.json.{Json, OWrites, Reads}
-import uk.gov.hmrc.hmrcfrontend.views.viewmodels.JsonDefaultValueFormatter
-import uk.gov.hmrc.hmrcfrontend.views.viewmodels.language.Language
+import play.api.libs.json._
 import uk.gov.hmrc.hmrcfrontend.views.viewmodels.language.{En, Language}
 
 case class ReportTechnicalIssue(
@@ -30,11 +28,7 @@ case class ReportTechnicalIssue(
   baseUrl: Option[String]     = None
 )
 
-object ReportTechnicalIssue extends JsonDefaultValueFormatter[ReportTechnicalIssue] {
+object ReportTechnicalIssue {
 
-  override def defaultObject: ReportTechnicalIssue = ReportTechnicalIssue()
-
-  override def defaultReads: Reads[ReportTechnicalIssue] = Json.reads[ReportTechnicalIssue]
-
-  override implicit def jsonWrites: OWrites[ReportTechnicalIssue] = Json.writes[ReportTechnicalIssue]
+  implicit def jsonFormats: OFormat[ReportTechnicalIssue] = Json.using[Json.WithDefaultValues].format[ReportTechnicalIssue]
 }

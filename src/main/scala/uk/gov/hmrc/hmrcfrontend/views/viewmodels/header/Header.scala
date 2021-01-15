@@ -18,7 +18,6 @@ package uk.gov.hmrc.hmrcfrontend.views.viewmodels.header
 
 import play.api.libs.functional.syntax._
 import play.api.libs.json._
-import uk.gov.hmrc.hmrcfrontend.views.viewmodels.JsonDefaultValueFormatter
 import uk.gov.hmrc.hmrcfrontend.views.viewmodels.language.{Cy, En, Language, LanguageToggle}
 
 import scala.collection.immutable.SortedMap
@@ -53,29 +52,29 @@ case class Header(
   }
 }
 
-object Header extends JsonDefaultValueFormatter[Header] {
+object Header {
 
-  override def defaultObject: Header = Header()
+  def defaultObject: Header = Header()
 
-  override def defaultReads: Reads[Header] =
+  implicit def jsonReads: Reads[Header] =
     (
-      (__ \ "homepageUrl").read[String] and
-        (__ \ "assetsPath").read[String] and
+      (__ \ "homepageUrl").readWithDefault[String](defaultObject.homepageUrl) and
+        (__ \ "assetsPath").readWithDefault[String](defaultObject.assetsPath) and
         (__ \ "productName").readNullable[String] and
         (__ \ "serviceName").readNullable[String] and
-        (__ \ "serviceUrl").read[String] and
+        (__ \ "serviceUrl").readWithDefault[String](defaultObject.serviceUrl) and
         (__ \ "navigation").readNullable[Seq[NavigationItem]] and
-        (__ \ "navigationClasses").read[String] and
-        (__ \ "containerClasses").read[String] and
-        (__ \ "classes").read[String] and
-        (__ \ "attributes").read[Map[String, String]] and
-        (__ \ "language").read[Language] and
-        (__ \ "displayHmrcBanner").read[Boolean] and
+        (__ \ "navigationClasses").readWithDefault[String](defaultObject.navigationClasses) and
+        (__ \ "containerClasses").readWithDefault[String](defaultObject.containerClasses) and
+        (__ \ "classes").readWithDefault[String](defaultObject.classes) and
+        (__ \ "attributes").readWithDefault[Map[String, String]](defaultObject.attributes) and
+        (__ \ "language").readWithDefault[Language](defaultObject.language) and
+        (__ \ "displayHmrcBanner").readWithDefault[Boolean](defaultObject.displayHmrcBanner) and
         (__ \ "signOutHref").readNullable[String] and
         (__ \ "languageToggle").readNullable[LanguageToggle]
       ) (Header.apply _)
 
-  override implicit def jsonWrites: OWrites[Header] =
+  implicit def jsonWrites: OWrites[Header] =
     (
       (__ \ "homepageUrl").write[String] and
         (__ \ "assetsPath").write[String] and

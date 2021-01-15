@@ -16,8 +16,7 @@
 
 package uk.gov.hmrc.hmrcfrontend.views.viewmodels.newtablink
 
-import play.api.libs.json.{Json, OWrites, Reads}
-import uk.gov.hmrc.hmrcfrontend.views.viewmodels.JsonDefaultValueFormatter
+import play.api.libs.json.{Format, Json, OFormat}
 
 case class NewTabLink(
   text: String              = "",
@@ -26,11 +25,7 @@ case class NewTabLink(
   classList: Option[String] = None
 )
 
-object NewTabLink extends JsonDefaultValueFormatter[NewTabLink] {
+object NewTabLink  {
 
-  override def defaultObject: NewTabLink = NewTabLink()
-
-  override def defaultReads: Reads[NewTabLink] = Json.reads[NewTabLink]
-
-  override implicit def jsonWrites: OWrites[NewTabLink] = Json.writes[NewTabLink]
+  implicit def jsonFormats: OFormat[NewTabLink] = Json.using[Json.WithDefaultValues].format[NewTabLink]
 }

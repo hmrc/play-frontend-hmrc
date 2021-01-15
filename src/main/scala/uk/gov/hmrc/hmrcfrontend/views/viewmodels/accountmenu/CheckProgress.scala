@@ -17,18 +17,13 @@
 package uk.gov.hmrc.hmrcfrontend.views.viewmodels.accountmenu
 
 import play.api.libs.json._
-import uk.gov.hmrc.hmrcfrontend.views.viewmodels.JsonDefaultValueFormatter
 
 case class CheckProgress(
                           href: String = "#",
                           active: Boolean = false
                         )
 
-object CheckProgress extends JsonDefaultValueFormatter[CheckProgress] {
+object CheckProgress {
 
-  override def defaultObject: CheckProgress = CheckProgress()
-
-  override def defaultReads: Reads[CheckProgress] = Json.reads[CheckProgress]
-
-  override implicit def jsonWrites: OWrites[CheckProgress] = Json.writes[CheckProgress]
+  implicit def jsonFormats: OFormat[CheckProgress] = Json.using[Json.WithDefaultValues].format[CheckProgress]
 }

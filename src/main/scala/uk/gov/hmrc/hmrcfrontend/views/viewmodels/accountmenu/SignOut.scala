@@ -17,17 +17,12 @@
 package uk.gov.hmrc.hmrcfrontend.views.viewmodels.accountmenu
 
 import play.api.libs.json._
-import uk.gov.hmrc.hmrcfrontend.views.viewmodels.JsonDefaultValueFormatter
 
 case class SignOut(
                     href: String = "#"
                   )
 
-object SignOut extends JsonDefaultValueFormatter[SignOut] {
+object SignOut {
 
-  override def defaultObject: SignOut = SignOut()
-
-  override def defaultReads: Reads[SignOut] = Json.reads[SignOut]
-
-  override implicit def jsonWrites: OWrites[SignOut] = Json.writes[SignOut]
+  implicit def jsonFormats: OFormat[SignOut] = Json.using[Json.WithDefaultValues].format[SignOut]
 }

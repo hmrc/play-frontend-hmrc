@@ -17,7 +17,6 @@
 package uk.gov.hmrc.hmrcfrontend.views.viewmodels.internalheader
 
 import play.api.libs.json._
-import uk.gov.hmrc.hmrcfrontend.views.viewmodels.JsonDefaultValueFormatter
 
 case class InternalHeader(
                            homepageUrl: String = "/",
@@ -25,11 +24,7 @@ case class InternalHeader(
                            serviceUrl: String = ""
                          )
 
-object InternalHeader extends JsonDefaultValueFormatter[InternalHeader] {
+object InternalHeader {
 
-  override def defaultObject: InternalHeader = InternalHeader()
-
-  override def defaultReads: Reads[InternalHeader] = Json.reads[InternalHeader]
-
-  override implicit def jsonWrites: OWrites[InternalHeader] = Json.writes[InternalHeader]
+  implicit def jsonFormats: OFormat[InternalHeader] = Json.using[Json.WithDefaultValues].format[InternalHeader]
 }

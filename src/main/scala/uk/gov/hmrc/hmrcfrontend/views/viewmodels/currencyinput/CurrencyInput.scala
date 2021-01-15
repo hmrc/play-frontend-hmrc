@@ -17,7 +17,6 @@
 package uk.gov.hmrc.hmrcfrontend.views.viewmodels.currencyinput
 
 import play.api.libs.json._
-import uk.gov.hmrc.hmrcfrontend.views.viewmodels.JsonDefaultValueFormatter
 import uk.gov.hmrc.govukfrontend.views.viewmodels.hint.Hint
 import uk.gov.hmrc.govukfrontend.views.viewmodels.label.Label
 import uk.gov.hmrc.govukfrontend.views.viewmodels.errormessage.ErrorMessage
@@ -35,11 +34,7 @@ case class CurrencyInput(
   attributes: Map[String, String]    = Map.empty
 )
 
-object CurrencyInput extends JsonDefaultValueFormatter[CurrencyInput] {
+object CurrencyInput {
 
-  override def defaultObject: CurrencyInput = CurrencyInput()
-
-  override def defaultReads: Reads[CurrencyInput] = Json.reads[CurrencyInput]
-
-  override implicit def jsonWrites: OWrites[CurrencyInput] = Json.writes[CurrencyInput]
+  implicit def jsonFormats: OFormat[CurrencyInput] = Json.using[Json.WithDefaultValues].format[CurrencyInput]
 }
