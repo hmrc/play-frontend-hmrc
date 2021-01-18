@@ -5,6 +5,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [0.59.0] - 2021-01-18
+
+### Changed
+
+- Uplift SBT to 1.4.6 and associated plugins
+
+### Compatible with
+
+- [alphagov/govuk-frontend v3.10.1](https://github.com/alphagov/govuk-frontend/releases/tag/v3.10.1)
+
 ## [0.58.0] - 2020-12-15
 
 ### Changed
