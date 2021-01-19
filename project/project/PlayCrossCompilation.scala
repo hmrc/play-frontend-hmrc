@@ -7,6 +7,4 @@ object PlayCrossCompilation extends AbstractPlayCrossCompilation(defaultPlayVers
     case Play26 => "2.6.23"
     case Play25 => throw new IllegalArgumentException("Play 2.5 is no longer supported by this library")
   }
-
-  val sbtPlayCrossCompilationVersion = "0.20.0"
 }

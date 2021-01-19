@@ -1,5 +1,5 @@
 import sbt._
-import PlayCrossCompilation.dependencies
+import PlayCrossCompilation._
 import sbt.ModuleID
 import play.sbt.PlayImport.ws
 
@@ -8,7 +8,6 @@ object LibDependencies {
 
   lazy val libDependencies: Seq[ModuleID] = dependencies(
     shared = {
-      import PlayCrossCompilation.playRevision
 
       val compile = Seq(
         "com.typesafe.play" %% "play"            % playRevision,
