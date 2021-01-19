@@ -20,7 +20,7 @@
       </label>
         </div>
         <div class="govuk-checkboxes__item">
-          <input class="govuk-checkboxes__input" id="example-multiple-hints-3" name="example-multiple-hints" type="checkbox" value="" aria-describedby="example-multiple-hints-hint example-multiple-hints-3-item-hint">
+          <input class="govuk-checkboxes__input" id="example-multiple-hints-3" name="example-multiple-hints" type="checkbox" value="other" aria-describedby="example-multiple-hints-hint example-multiple-hints-3-item-hint">
           
           <div id="example-multiple-hints-3-item-hint" class="govuk-hint govuk-checkboxes__hint">
         Hint for other option here

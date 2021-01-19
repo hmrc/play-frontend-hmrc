@@ -1,5 +1,5 @@
 
-<label class="govuk-label" first-attribute="true" second-attribute="false">
+<label class="govuk-label" first-attribute="foo" second-attribute="bar">
   National Insurance number
 </label>
 
