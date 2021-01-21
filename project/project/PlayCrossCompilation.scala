@@ -6,6 +6,4 @@ object PlayCrossCompilation extends AbstractPlayCrossCompilation(defaultPlayVers
     case Play26 => "2.6.23"
     case Play27 => "2.7.5"
   }
-
-  val sbtPlayCrossCompilationVersion = "0.20.0"
 }
