@@ -38,8 +38,8 @@ class hmrcReportTechnicalIssueHelperSpec
       .configure(Map("play.allowGlobalApplication" -> "true") ++ properties)
       .build()
 
-  "HmrcReportTechnicalIssueHelperDependencyInjection" should {
-    "render link with configured serviceId" in {
+  "HmrcReportTechnicalIssueHelper" should {
+    "render link with the configured serviceId" in {
       implicit val fakeRequest = FakeRequest("GET", "/foo")
       implicit val app = buildApp(
         Map(
@@ -54,7 +54,8 @@ class hmrcReportTechnicalIssueHelperSpec
       links                    should have size 1
       links.first.attr("href") shouldBe "https://www.tax.service.gov.uk/contact/problem_reports_nonjs?newTab=true&service=online-payments&referrerUrl=https%3A%2F%2Fwww.tax.service.gov.uk%2Ffoo"
     }
-    "use platform host when both platform and contact-frontend hosts are set" in {
+
+    "use the platform host when both platform and contact-frontend hosts are set" in {
       implicit val fakeRequest = FakeRequest("GET", "/foo")
       implicit val app = buildApp(
         Map(
@@ -70,7 +71,8 @@ class hmrcReportTechnicalIssueHelperSpec
       links                    should have size 1
       links.first.attr("href") shouldBe "https://www.tax.service.gov.uk/contact/problem_reports_nonjs?newTab=true&service=online-payments&referrerUrl=https%3A%2F%2Fwww.tax.service.gov.uk%2Ffoo"
     }
-    "use contact-frontend host if platform host set" in {
+
+    "use contact-frontend host if platform host is not set" in {
       implicit val fakeRequest = FakeRequest("GET", "/foo")
       implicit val app = buildApp(
         Map(
@@ -85,7 +87,8 @@ class hmrcReportTechnicalIssueHelperSpec
       links                    should have size 1
       links.first.attr("href") shouldBe "http://localhost:9999/contact/problem_reports_nonjs?newTab=true&service=online-payments&referrerUrl=%2Ffoo"
     }
-    "display link in english by default" in {
+
+    "display link in English by default" in {
       implicit val fakeRequest = FakeRequest("GET", "/foo")
       implicit val app = buildApp(
         Map(
@@ -101,7 +104,8 @@ class hmrcReportTechnicalIssueHelperSpec
       links            should have size 1
       links.first.text shouldBe "Is this page not working properly? (opens in new tab)"
     }
-    "display link in welsh" in {
+
+    "display link in Welsh" in {
       implicit val fakeRequest = FakeRequest("GET", "/foo")
       implicit val app = buildApp(
         Map(
@@ -117,6 +121,7 @@ class hmrcReportTechnicalIssueHelperSpec
       links            should have size 1
       links.first.text shouldBe "A yw’r dudalen hon yn gweithio’n iawn? (yn agor mewn tab newydd)"
     }
+
     "render no link when serviceId is not set" in {
       implicit val fakeRequest = FakeRequest("GET", "/foo")
       implicit val app         = buildApp()
