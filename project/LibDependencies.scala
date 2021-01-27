@@ -4,7 +4,7 @@ import play.sbt.PlayImport.ws
 import sbt.ModuleID
 
 object LibDependencies {
-  lazy val hmrcFrontendVersion = "1.23.1"
+  lazy val hmrcFrontendVersion = "1.24.0"
   private val playFrontendGovukVersion = "0.60.0"
 
   lazy val libDependencies: Seq[ModuleID] = dependencies(
