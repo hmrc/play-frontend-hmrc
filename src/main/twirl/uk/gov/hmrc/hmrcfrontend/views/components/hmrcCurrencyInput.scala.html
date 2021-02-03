@@ -21,7 +21,7 @@
 @import uk.gov.hmrc.govukfrontend.views.viewmodels.hint.Hint
 @import uk.gov.hmrc.govukfrontend.views.viewmodels.errormessage.ErrorMessage
 
-@this(GovukErrorMessage: GovukErrorMessage, GovukHint: GovukHint, GovukLabel: GovukLabel)
+@this(govukErrorMessage: GovukErrorMessage, govukHint: GovukHint, govukLabel: GovukLabel)
 
 @(params: CurrencyInput)
 @import params._
@@ -32,7 +32,7 @@
     val hintId = s"$id-hint"
     val describedBy1 = s"$describedBy $hintId".ltrim
     val hintHtml =
-      GovukHint(Hint(
+      govukHint(Hint(
         id = Some(hintId),
         classes = hint.classes,
         attributes = hint.attributes,
@@ -47,7 +47,7 @@
     val errorId = s"$id-error"
     val describedBy1 = s"$describedBy $errorId".ltrim
     val errorMessageHtml =
-      GovukErrorMessage(ErrorMessage(
+      govukErrorMessage(ErrorMessage(
         id = Some(errorId),
         classes = errorMessage.classes,
         attributes = errorMessage.attributes,
@@ -82,7 +82,7 @@
 }
 
 <div class="@toClasses("govuk-form-group", errorMessage.fold("")(_ => "govuk-form-group--error"))">
-    @GovukLabel(Label(
+    @govukLabel(Label(
         forAttr = Some(id),
         isPageHeading = label.isPageHeading,
         classes = label.classes,

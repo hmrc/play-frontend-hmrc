@@ -15,18 +15,17 @@
  *@
 
 @import uk.gov.hmrc.hmrcfrontend.config.ContactFrontendConfig
-@import uk.gov.hmrc.hmrcfrontend.views.html.helpers.ContactFrontendConfig
 @import uk.gov.hmrc.hmrcfrontend.views.Aliases.{Cy, En, ReportTechnicalIssue}
 @import uk.gov.hmrc.hmrcfrontend.views.html.components.HmrcReportTechnicalIssue
 
-@this(hmrcReportTechnicalIssue: HmrcReportTechnicalIssue, ContactFrontendConfig: ContactFrontendConfig)
+@this(hmrcReportTechnicalIssue: HmrcReportTechnicalIssue, contactFrontendConfig: ContactFrontendConfig)
 
 @()(implicit messages: Messages, request: RequestHeader)
-@ContactFrontendConfig.serviceId.map { serviceId =>
-    @HmrcReportTechnicalIssue(ReportTechnicalIssue(
+@contactFrontendConfig.serviceId.map { serviceId =>
+    @hmrcReportTechnicalIssue(ReportTechnicalIssue(
         serviceId = serviceId,
         language = if(messages.lang.code == "cy") Cy else En,
-        referrerUrl = ContactFrontendConfig.referrerUrl,
-        baseUrl = ContactFrontendConfig.baseUrl
+        referrerUrl = contactFrontendConfig.referrerUrl,
+        baseUrl = contactFrontendConfig.baseUrl
     ))
 }

@@ -14,25 +14,24 @@
  * limitations under the License.
  *@
 
-@import uk.gov.hmrc.hmrcfrontend.config.{TrackingConsentConfig}
-@import uk.gov.hmrc.hmrcfrontend.views.html.helpers.{TrackingConsentConfig}
+@import uk.gov.hmrc.hmrcfrontend.config.TrackingConsentConfig
 
-@this(TrackingConsentConfig: TrackingConsentConfig)
+@this(trackingConsentConfig: TrackingConsentConfig)
 
 @(nonce: Option[String] = None)(implicit messages: Messages)
 @nonceAttribute = { @nonce.map {n => nonce="@n"} }
-@TrackingConsentConfig.trackingUrl.map { url =>
+@trackingConsentConfig.trackingUrl.map { url =>
   <!--[if !IE]>-->
   <script
     @nonceAttribute
     src="@url"
     id="tracking-consent-script-tag"
-    data-gtm-container="@TrackingConsentConfig.gtmContainer"
+    data-gtm-container="@trackingConsentConfig.gtmContainer"
     data-language="@messages.lang.code"
   ></script>
-  @TrackingConsentConfig.optimizelyUrl.map { optimizelyUrl =>
+  @trackingConsentConfig.optimizelyUrl.map { optimizelyUrl =>
     <script @nonceAttribute src='@optimizelyUrl'></script>
-    <script @nonceAttribute src="@TrackingConsentConfig.optimizelyGtmUrl"></script>
+    <script @nonceAttribute src="@trackingConsentConfig.optimizelyGtmUrl"></script>
   }
   <!--<![endif]-->
 }
