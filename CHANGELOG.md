@@ -5,6 +5,30 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [0.39.0] - 2021-01-29
+
+### Added
+
+- ADR for adding compiled assets to hmrc-frontend
+
+### Compatible with
+
+- [hmrc/hmrc-frontend v1.23.0](https://github.com/hmrc/hmrc-frontend/releases/tag/v1.23.0)
+- [hmrc/play-frontend-govuk v0.58.0](https://github.com/hmrc/play-frontend-govuk/releases/tag/v0.58.0)
+- [alphagov/govuk-frontend v3.10.1](https://github.com/alphagov/govuk-frontend/releases/tag/v3.10.1)
+
+## [0.38.0] - 2021-01-21
+
+### Changed
+
+- SBT uplifted to 1.4.6
+
+### Compatible with
+
+- [hmrc/hmrc-frontend v1.23.0](https://github.com/hmrc/hmrc-frontend/releases/tag/v1.23.0)
+- [hmrc/play-frontend-govuk v0.58.0](https://github.com/hmrc/play-frontend-govuk/releases/tag/v0.58.0)
+- [alphagov/govuk-frontend v3.10.1](https://github.com/alphagov/govuk-frontend/releases/tag/v3.10.1)
+
 ## [0.37.0] - 2021-01-16
 
 ### Changed
