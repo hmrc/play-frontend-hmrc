@@ -17,13 +17,12 @@
 @import uk.gov.hmrc.hmrcfrontend.views.html.components.HmrcFooter
 @import uk.gov.hmrc.hmrcfrontend.views.viewmodels.footer.{Footer, FooterItem, Meta}
 @import uk.gov.hmrc.hmrcfrontend.views.config.HmrcFooterItems
-@import uk.gov.hmrc.hmrcfrontend.views.html.helpers.HmrcFooterItems
 @import uk.gov.hmrc.hmrcfrontend.views.viewmodels.language.{Cy, En}
 
-@this(HmrcFooter: HmrcFooter, HmrcFooterItems: HmrcFooterItems)
+@this(hmrcFooter: HmrcFooter, hmrcFooterItems: HmrcFooterItems)
 
 @(additionalFooterItems: Seq[FooterItem] = Seq.empty)(implicit messages: Messages, request: RequestHeader)
-@HmrcFooter(new Footer(
-  meta = Some(Meta(items = Some(HmrcFooterItems.get ++ additionalFooterItems))),
+@hmrcFooter(new Footer(
+  meta = Some(Meta(items = Some(hmrcFooterItems.get ++ additionalFooterItems))),
   language = if (messages.lang.code == "cy") Cy else En
 ))

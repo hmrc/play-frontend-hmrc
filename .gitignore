@@ -22,3 +22,4 @@ yarn-debug.log
 yarn-error.log
 .DS_Store
 src/main/play-25/twirl/**/*.scala.html
+.bsp/
