@@ -146,7 +146,7 @@ click on a component on the sidebar and see the `Twirl` examples matching the pr
 
 ## Standard HMRC header
 
-The [hmrcHeader](src/main/play-26/twirl/uk/gov/hmrc/hmrcfrontend/views/components/hmrcHeader.scala.html) component 
+The [hmrcStandardHeader](src/main/twirl/uk/gov/hmrc/hmrcfrontend/views/helpers/hmrcStandardHeader.scala.html) helper 
 generates the GOV.UK header standardised for HMRC with Welsh translations, and a screen-reader friendly option to
 include the HMRC banner for services that require it.
 
@@ -158,20 +158,18 @@ To use this component,
     ``` 
 1. If your service requires users to sign in, identify the URL that users should use to sign out of your service. If you have a
  dedicated sign out controller you can use its reverse controller. This url should be passed to the
- `signOutHref` parameter.
+ `signOutUrl` parameter.
 
-1. Pass the output of hmrcHeader into the headerBlock parameter of govukLayout in your main template. For example,
+1. Pass the output of hmrcStandardHeader into the headerBlock parameter of govukLayout in your main template. For example,
 
 ```scala
 @govukLayout(
   pageTitle = pageTitle,
   headBlock = Some(head(headBlock)),
-  headerBlock = Some(hmrcHeader(Header(
-    homepageUrl = "https://www.gov.uk",
-    serviceName = Some(messages("service.name")),
-    serviceUrl = controllers.routes.IndexController.index().url,
-    signOutHref = Some(controllers.routes.SignOutController.signOut().url)
-  ))),
+  headerBlock = Some(hmrcStandardHeader(
+    serviceUrl = Some(controllers.routes.IndexController.index().url),
+    signOutUrl = Some(controllers.routes.SignOutController.signOut().url)
+  )),
   scriptsBlock = scriptsBlock,
   beforeContentBlock = Some(languageSelect()),
   footerBlock = Some(hmrcStandardFooter())
@@ -179,28 +177,14 @@ To use this component,
 ```
 
 If you additionally need the [HMRC banner](https://design.tax.service.gov.uk/hmrc-design-patterns/hmrc-banner/) –
-most services do not – set displayHmrcBanner to true:
+most services do not – set the `displayHmrcBanner` to true.
 
-```scala
-@govukLayout(
-  pageTitle = pageTitle,
-  headBlock = Some(head(headBlock)),
-  headerBlock = Some(hmrcHeader(Header(
-    homepageUrl = "https://www.gov.uk",
-    serviceName = Some(messages("service.name")),
-    serviceUrl = controllers.routes.IndexController.index().url,
-    signOutHref = Some(controllers.routes.SignOutController.signOut().url),
-    displayHmrcBanner = true
-  ))),
-  scriptsBlock = scriptsBlock,
-  beforeContentBlock = Some(languageSelect()),
-  footerBlock = Some(hmrcStandardFooter())
-)(contentBlock)
-```
+In the exceptional case that you have a frontend microservice that has a dynamic service name, for example, because it hosts
+more than one public-facing service, you can override the service name using the `serviceName` parameter.
 
 ## Helping users report technical issues
 
-The [hmrcReportTechnicalIssueHelper](src/main/play-26/twirl/uk/gov/hmrc/hmrcfrontend/views/helpers/hmrcReportTechnicalIssueHelper.scala.html) component 
+The [hmrcReportTechnicalIssueHelper](src/main/twirl/uk/gov/hmrc/hmrcfrontend/views/helpers/hmrcReportTechnicalIssueHelper.scala.html) component 
 generates a link that allows users to report technical issues with your service.
 
 To configure this helper, add the following configuration to your `application.conf`
@@ -229,7 +213,7 @@ your service's main page template,
 
 ## Standard HMRC footer and accessibility statements
 
-The [hmrcStandardFooter](src/main/play-26/twirl/uk/gov/hmrc/hmrcfrontend/views/helpers/hmrcStandardFooter.scala.html) helper
+The [hmrcStandardFooter](src/main/twirl/uk/gov/hmrc/hmrcfrontend/views/helpers/hmrcStandardFooter.scala.html) helper
  generates the standard Gov.UK footer including the standard list of footer links for HMRC.
 
 To configure this helper to link to the new 
@@ -248,7 +232,7 @@ accessibility-statement.service-path = "/discounted-icecreams"
 
 If you intend to use Google Analytics or Optimizely to measure usage of your service, you will need to integrate with 
 [tracking-consent-frontend](https://www.github.com/hmrc/tracking-consent-frontend). The 
-[hmrcTrackingConsentSnippet](src/main/play-26/twirl/uk/gov/hmrc/hmrcfrontend/views/helpers/hmrcTrackingConsentSnippet.scala.html) 
+[hmrcTrackingConsentSnippet](src/main/twirl/uk/gov/hmrc/hmrcfrontend/views/helpers/hmrcTrackingConsentSnippet.scala.html) 
 component generates the necessary HTML SCRIPT tags that must be injected into the HEAD element for every page on your service.
  
 Before integrating, it is important to remove any existing snippets relating to GTM or Optimizely. Tracking consent
@@ -294,11 +278,11 @@ requires that users are able to turn off, adjust or extend the time limit, givin
  a simple action.
 
 On MDTP, users are, by default, automatically timed out of any authenticated service after 15 minutes
- of inactivity. This mechanism, implemented in [SessionTimeoutFilter](https://github.com/hmrc/bootstrap-play/blob/master/bootstrap-frontend-play-26/src/main/scala/uk/gov/hmrc/play/bootstrap/frontend/filters/SessionTimeoutFilter.scala), 
+ of inactivity. This mechanism, implemented in [SessionTimeoutFilter](https://github.com/hmrc/bootstrap-play/blob/master/bootstrap-frontend-src/main/scala/uk/gov/hmrc/play/bootstrap/frontend/filters/SessionTimeoutFilter.scala), 
  clears all non-allow-listed session keys after the timeout duration has elapsed. Services can override this default by adjusting the
 `session.timeout` configuration key in `conf/application.conf`.
 
-The [hmrcTimeoutDialog](src/main/play-26/twirl/uk/gov/hmrc/hmrcfrontend/views/components/hmrcTimeoutDialog.scala.html)
+The [hmrcTimeoutDialog](src/main/twirl/uk/gov/hmrc/hmrcfrontend/views/components/hmrcTimeoutDialog.scala.html)
  component helps services meet this accessibility obligation by delivering an accessible timeout warning
 inside a modal dialog a configurable number of seconds before they are due to be timed out. The dialog warns the user with the message
 'For your security, we will sign you out in X minutes.' which is updated every minute until 60 seconds are remaining, at
@@ -313,7 +297,7 @@ The instructions below assume you have set up play-frontend-hmrc as indicated ab
 initialisation of hmrc-frontend to your local scripts template.
 
 1. Identify a `signOutUrl` that will be used when users click 'Sign Out' on the timeout dialog. A good choice for this is the
-url that may already supplied as the `signOutHref` parameter to the `hmrcHeader` component, which controls the sign 
+url that may already supplied as the `signOutUrl` parameter to the `hmrcStandardHeader` helper, which controls the sign 
 out link in the gov.uk header. See related guidance above.
 
 1. Identify a `keepAliveUrl`, a side effect free endpoint that can be used by the timeout dialog Javascript code 
