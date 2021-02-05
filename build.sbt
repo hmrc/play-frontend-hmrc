@@ -1,7 +1,7 @@
 import GenerateFixtures.generateFixtures
 import play.sbt.PlayImport.PlayKeys._
 
-val libName = "play-frontend-hmrc-spike-1"
+val libName = "play-frontend-hmrc-spike-2"
 val silencerVersion = "1.4.4"
 
 lazy val playDir = "play-26"
