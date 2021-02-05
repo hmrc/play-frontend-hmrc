@@ -5,7 +5,7 @@ import sbt.ModuleID
 
 object LibDependencies {
   lazy val hmrcFrontendVersion = "1.23.1"
-  private val playFrontendGovukVersion = "0.60.0"
+  private val playFrontendGovukVersion = "0.61.0"
 
   lazy val libDependencies: Seq[ModuleID] = dependencies(
     shared = {
@@ -35,7 +35,7 @@ object LibDependencies {
     },
     play26 = {
       val compile = Seq(
-        "uk.gov.hmrc" %% "play-frontend-govuk" % s"${playFrontendGovukVersion}-play-26"
+        "uk.gov.hmrc" %% "play-frontend-govuk-spike-1" % s"${playFrontendGovukVersion}-play-26-SNAPSHOT"
       )
 
       val test = Seq(
@@ -46,7 +46,7 @@ object LibDependencies {
     },
     play27 = {
       val compile = Seq(
-        "uk.gov.hmrc" %% "play-frontend-govuk" % s"${playFrontendGovukVersion}-play-27"
+        "uk.gov.hmrc" %% "play-frontend-govuk-spike-1" % s"${playFrontendGovukVersion}-play-27-SNAPSHOT"
       )
       val test = Seq(
         "org.scalatestplus.play" %% "scalatestplus-play" % "4.0.3"
