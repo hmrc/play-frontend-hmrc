@@ -1,3 +1,4 @@
+header.govuk.url = https://www.gov.uk
 footer.cookies.text = Cookies
 footer.cookies.url = /help/cookies
 footer.privacy.text = Privacy policy
