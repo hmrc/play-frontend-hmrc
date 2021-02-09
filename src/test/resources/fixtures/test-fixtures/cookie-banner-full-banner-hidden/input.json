@@ -1,0 +1,39 @@
+{
+  "hidden" : true,
+  "classes" : "hide-cookie-banner",
+  "attributes" : {
+    "data-hide-cookie-banner" : "true"
+  },
+  "messages" : [ {
+    "headingText" : "Cookies on this service",
+    "text" : "We use cookies to help understand how users use our service.",
+    "actions" : [ {
+      "text" : "Accept analytics cookies",
+      "type" : "submit",
+      "name" : "cookies",
+      "value" : "accept"
+    }, {
+      "text" : "Reject analytics cookies",
+      "type" : "submit",
+      "name" : "cookies",
+      "value" : "reject"
+    }, {
+      "text" : "View cookie preferences",
+      "href" : "/cookie-preferences"
+    } ]
+  }, {
+    "text" : "Your cookie preferences have been saved. You have accepted cookies.",
+    "role" : "alert",
+    "actions" : [ {
+      "text" : "Hide this message",
+      "type" : "button"
+    } ]
+  }, {
+    "text" : "Your cookie preferences have been saved. You have rejected cookies.",
+    "role" : "alert",
+    "actions" : [ {
+      "text" : "Hide this message",
+      "type" : "button"
+    } ]
+  } ]
+}
