@@ -35,7 +35,7 @@ object LibDependencies {
     },
     play26 = {
       val compile = Seq(
-        "uk.gov.hmrc" %% "play-frontend-govuk-spike-3" % s"${playFrontendGovukVersion}-play-26-SNAPSHOT"
+        "uk.gov.hmrc" %% "play-frontend-govuk-spike-4" % s"${playFrontendGovukVersion}-play-26-SNAPSHOT"
       )
 
       val test = Seq(
@@ -46,7 +46,7 @@ object LibDependencies {
     },
     play27 = {
       val compile = Seq(
-        "uk.gov.hmrc" %% "play-frontend-govuk-spike-3" % s"${playFrontendGovukVersion}-play-27-SNAPSHOT"
+        "uk.gov.hmrc" %% "play-frontend-govuk-spike-4" % s"${playFrontendGovukVersion}-play-27-SNAPSHOT"
       )
       val test = Seq(
         "org.scalatestplus.play" %% "scalatestplus-play" % "4.0.3"
