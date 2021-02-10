@@ -18,9 +18,7 @@ package uk.gov.hmrc.govukfrontend.views.viewmodels.cookiebanner
 
 import play.api.libs.functional.syntax._
 import play.api.libs.json._
-import uk.gov.hmrc.govukfrontend.views.html.components.{Content, Hint, Label}
 import uk.gov.hmrc.govukfrontend.views.viewmodels.CommonJsonFormats._
-import uk.gov.hmrc.govukfrontend.views.viewmodels.radios.RadioItem
 
 case class Action(
   text: String                    = "",

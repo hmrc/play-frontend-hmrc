@@ -20,11 +20,11 @@ import scala.util.Try
 import play.twirl.api.HtmlFormat
 import uk.gov.hmrc.govukfrontend.support.TemplateIntegrationSpec
 import uk.gov.hmrc.govukfrontend.views.html.components._
-import uk.gov.hmrc.govukfrontend.views.viewmodels.cookiebanner.Generators._
+import uk.gov.hmrc.govukfrontend.views.viewmodels.notificationbanner.Generators._
 
-object govukCookieBannerIntegrationSpec
-    extends TemplateIntegrationSpec[CookieBanner](govukComponentName = "govukCookieBanner", seed = None) {
+object govukNotificationBannerIntegrationSpec
+    extends TemplateIntegrationSpec[NotificationBanner](govukComponentName = "govukNotificationBanner", seed = None) {
 
-  override def render(cookieBanner: CookieBanner): Try[HtmlFormat.Appendable] =
-    Try(GovukCookieBanner(cookieBanner))
+  override def render(notificationBanner: NotificationBanner): Try[HtmlFormat.Appendable] =
+    Try(GovukNotificationBanner(notificationBanner))
 }
