@@ -187,6 +187,9 @@ trait Aliases {
 
   type NotificationBanner = viewmodels.notificationbanner.NotificationBanner
   val NotificationBanner = viewmodels.notificationbanner.NotificationBanner
+
+  type CookieBanner = viewmodels.cookiebanner.CookieBanner
+  val CookieBanner = viewmodels.cookiebanner.CookieBanner
 }
 
 object Aliases extends Aliases

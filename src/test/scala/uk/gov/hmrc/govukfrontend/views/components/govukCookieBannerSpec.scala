@@ -19,9 +19,11 @@ package uk.gov.hmrc.govukfrontend.views.components
 import play.twirl.api.HtmlFormat
 import uk.gov.hmrc.govukfrontend.views.TemplateUnitSpec
 import uk.gov.hmrc.govukfrontend.views.html.components._
+import uk.gov.hmrc.govukfrontend.views.viewmodels.cookiebanner.CookieBanner
+
 import scala.util.Try
 
-class govukSummaryListSpec extends TemplateUnitSpec[SummaryList]("govukSummaryList") {
+class govukCookieBannerSpec extends TemplateUnitSpec[CookieBanner]("govukCookieBanner") {
 
   /**
     * Calls the Twirl template with the given parameters and returns the resulting markup
@@ -29,15 +31,6 @@ class govukSummaryListSpec extends TemplateUnitSpec[SummaryList]("govukSummaryLi
     * @param templateParams
     * @return [[Try[HtmlFormat.Appendable]]] containing the markup
     */
-  override def render(templateParams: _root_.uk.gov.hmrc.govukfrontend.views.html.components.SummaryList)
-    : Try[HtmlFormat.Appendable] =
-    Try(GovukSummaryList(templateParams))
-
-  "govukSummaryList" should {
-    "handle lists where some rows have no actions" in {
-      val rowWithNoAction = SummaryListRow(key = Key(HtmlContent("foo")), value = Value(HtmlContent("FOO")), actions = None)
-      val rowWithAction = SummaryListRow(key = Key(HtmlContent("bar")), value = Value(HtmlContent("BAR")), actions = Some(Actions(items = List(ActionItem(content = HtmlContent("link"))))))
-      val html = GovukSummaryList(SummaryList(rowWithNoAction :: rowWithAction :: Nil))
-    }
-  }
+  override def render(templateParams: CookieBanner): Try[HtmlFormat.Appendable] =
+    Try(GovukCookieBanner(templateParams))
 }

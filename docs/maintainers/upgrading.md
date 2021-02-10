@@ -79,13 +79,15 @@ failures for new components which have been added to `govuk-frontend` but which 
 Therefore, it is important to look at the diffs between versions of `govuk-frontend`, and read the changelog.
 
 To add a new component in `play-frontend-govuk`, the following steps need to be followed:
-- Add the viewmodel as a Scala case class in the folder: `src/main/scala/uk/gov/hmrc/govukfrontend/views/viewmodels`
-- Add the Twirl template in the folder: `src/main/play-26/twirl/uk/gov/hmrc/govukfrontend/views/components`
-- Add to the package objects for Play 2.5 and Play 2.6 in: `src/main/play-25/uk/gov/hmrc/govukfrontend/views/html/components/package.scala`
-and `src/main/play-26/uk/gov/hmrc/govukfrontend/views/html/components/package.scala`
-- Add the aliases in: `src/main/scala/uk/gov/hmrc/govukfrontend/views/Aliases.scala`
+- Add the view model as a Scala case class in the folder: `src/main/scala/uk/gov/hmrc/govukfrontend/views/viewmodels`
+- Add an alias to the view model in `src/main/scala/uk/gov/hmrc/govukfrontend/views/Aliases.scala`
+- Add the Twirl template in the folder: `src/main/twirl/uk/gov/hmrc/govukfrontend/views/components`
+- Add to the package objects in: `src/main/scala/uk/gov/hmrc/govukfrontend/views/html/components/package.scala`
 - Add the template unit test: `src/test/scala/uk/gov/hmrc/govukfrontend/views/components`. This should extend 
 `TemplateUnitSpec[YourViewModel]("yourTwirlTemplate")`
+- Add the template integration test: `src/it/scala/uk/gov/hmrc/govukfrontend/views/components`. This should extend
+`TemplateIntegrationSpec[YourViewModel]("yourTwirlTemplate")`. You will need to create new Generator
+classes in `src/test/scala/uk/gov/hmrc/govukfrontend/views/viewmodels`
 
 ## Useful Links
 - [x-govuk-component-renderer](https://github.com/hmrc/x-govuk-component-renderer)  - service that returns HTML for `govuk-frontend` and `hmrc-frontend` component input parameters in the form of JSON objects - useful for confirming Twirl HTML outputs in integration tests

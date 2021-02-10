@@ -143,4 +143,8 @@ package object components extends  Utils with Aliases with Layouts with Helpers 
   type GovukNotificationBanner = govukNotificationBanner
   @deprecated(message="Use DI", since="Play 2.6")
   val GovukNotificationBanner = new govukNotificationBanner()
+
+  type GovukCookieBanner = govukCookieBanner
+  @deprecated(message="Use DI", since="Play 2.6")
+  val GovukCookieBanner = new govukCookieBanner(GovukButton)
 }

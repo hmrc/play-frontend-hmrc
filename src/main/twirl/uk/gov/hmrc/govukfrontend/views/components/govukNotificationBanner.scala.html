@@ -49,7 +49,7 @@
         case emptyContent             => <p class="govuk-notification-banner__heading"></p>
     }}
 
-<div class="govuk-notification-banner@{if(classes.isDefined)" " + classes.get}@{if(bannerType.contains("success"))" govuk-notification-banner--success"}"
+<div class="@toClasses("govuk-notification-banner", classes, if(bannerType.contains("success"))" govuk-notification-banner--success" else "")"
     role="@{bannerRole}"
     aria-labelledby="@{headingAndTitleId}"
     data-module="govuk-notification-banner"@if(disableAutoFocus.getOrElse(false)){ data-disable-auto-focus="true"}@toAttributes(attributes)>

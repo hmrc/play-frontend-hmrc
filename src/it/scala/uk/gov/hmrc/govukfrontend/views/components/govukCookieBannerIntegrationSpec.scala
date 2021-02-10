@@ -14,13 +14,18 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.govukfrontend.support
+package uk.gov.hmrc.govukfrontend.views.components
 
-import play.api.libs.ws.WSResponse
+import play.twirl.api.HtmlFormat
+import uk.gov.hmrc.govukfrontend.support.TemplateIntegrationSpec
+import uk.gov.hmrc.govukfrontend.views.html.components._
+import uk.gov.hmrc.govukfrontend.views.viewmodels.cookiebanner.Generators._
 
-object Implicits {
+import scala.util.Try
 
-  implicit class RichWSResponse(response: WSResponse) {
-    def bodyAsString: String = response.body[String]
-  }
+object govukCookieBannerIntegrationSpec
+    extends TemplateIntegrationSpec[CookieBanner](govukComponentName = "govukCookieBanner", seed = None) {
+
+  override def render(cookieBanner: CookieBanner): Try[HtmlFormat.Appendable] =
+    Try(GovukCookieBanner(cookieBanner))
 }
