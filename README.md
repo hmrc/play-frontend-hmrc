@@ -291,7 +291,7 @@ On MDTP, users are, by default, automatically timed out of any authenticated ser
  clears all non-allow-listed session keys after the timeout duration has elapsed. Services can override this default by adjusting the
 `session.timeout` configuration key in `conf/application.conf`.
 
-The [hmrcTimeoutDialog](src/main/twirl/uk/gov/hmrc/hmrcfrontend/views/components/hmrcTimeoutDialog.scala.html)
+The [hmrcTimeoutDialogHelper](src/main/twirl/uk/gov/hmrc/hmrcfrontend/views/helpers/hmrcTimeoutDialogHelper.scala.html)
  component helps services meet this accessibility obligation by delivering an accessible timeout warning
 inside a modal dialog a configurable number of seconds before they are due to be timed out. The dialog warns the user with the message
 'For your security, we will sign you out in X minutes.' which is updated every minute until 60 seconds are remaining, at
@@ -302,59 +302,65 @@ returning them to the supplied `signOutUrl`.
 
 ### How to integrate with the timeout dialog
 
-The instructions below assume you have set up play-frontend-hmrc as indicated above including adding the required
-initialisation of hmrc-frontend to your local scripts template.
+The instructions below assume you have set up play-frontend-hmrc as indicated above.
 
-1. Identify a `signOutUrl` that will be used when users click 'Sign Out' on the timeout dialog. A good choice for this is the
-url that may already supplied as the `signOutUrl` parameter to the `hmrcStandardHeader` component, which controls the sign 
-out link in the gov.uk header. See related guidance above.
+1. Identify the `signOutUrl` that will be used when users click 'Sign Out' on the timeout dialog. A sensible choice for this is the
+url that is already supplied as the `signOutUrl` parameter to the `hmrcStandardHeader` component, which controls the sign 
+out link in the GOV.UK header. See related guidance above.
 
-1. Identify a `keepAliveUrl`, a side effect free endpoint that can be used by the timeout dialog Javascript code 
-to perform an XHR GET request to refresh the user's session and keep them logged into the service. A good practice is
- to have a dedicated controller and route defined for this so its use for this purpose is explicit. This url
- will be supplied in the `keepAliveUrl` parameter to `hmrcTimeoutDialog`.
-  
-1. Add configuration keys into your `conf/application.conf` for the timeout duration applicable to your service and `countdown`, 
-the number of seconds before that the timeout dialog will be displayed:
+1. Update your page template to include the hmrcTimeoutDialogHelper in the HEAD element, supplying the signOutUrl as
+a parameter. For example,
+
     ```scala
-    timeoutDialog {
-      timeout = 900
-      countdown = 120
-    }
-    ```
+    @signOutUrl = @{ Some(controllers.routes.SignOutController.signOut().url) }
 
-1. Add configuration methods into your `AppConfig.scala` file:
-    ```scala
-    val timeoutDialogTimeout: Int = servicesConfig.getInt("timeoutDialog.timeout")
-    val timeoutDialogCountdown: Int = servicesConfig.getInt("timeoutDialog.countdown")
-    ```
-
-    Note, the above uses the getInt helper in ServicesConfig from bootstrap-play.
-
-1. Optionally, identify a `timeoutUrl` that will sign out users if they do nothing and are timed out by the timeout dialog. If this 
-is not supplied, the timeout dialog will use the `signOutUrl`.
-
-1. Update your page template to include the hmrcTimeoutDialog component, supplying the parameters identified above. For example,
-    
-    ```scala
-    @timeoutDialog = {
-      @hmrcTimeoutDialog(TimeoutDialog(
-        timeout = Some(appConfig.timeoutDialogTimeout),
-        countdown = Some(appConfig.timeoutDialogCountdown),
-        keepAliveUrl = Some(routes.KeepAliveController.keepAlive().url),
-        signOutUrl = Some(controllers.routes.SignOutController.signOut().url),
-        timeoutUrl = Some(controllers.routes.SignOutController.signOut().url),
-        language = Some(messages.lang.code)
-      ))
-    }
-          
     @govukLayout(
-        pageTitle = Some(pageTitle),
-        headBlock = Some(hmrcHead(headBlock = Some(timeoutDialog), nonce = CSPNonce.get)),
-        scriptsBlock = Some(hmrcScripts()),
-        footerBlock = Some(hmrcStandardFooter())
+      pageTitle = Some(pageTitle),
+      headBlock = Some(hmrcHead(
+        headBlock = Some(hmrcTimeoutDialogHelper(signOutUrl = signOutUrl)),
+        nonce = CSPNonce.get
+      )),
+      headerBlock = Some(hmrcStandardHeader(
+        serviceUrl = Some(controllers.routes.IndexController.index().url),
+        signOutUrl = signOutUrl
+      )),
+      scriptsBlock = Some(hmrcScripts()),
+      footerBlock = Some(hmrcStandardFooter())
     )(contentBlock)
     ```
+
+#### Customisation ####
+By default, the timeout dialog will redirect to the supplied signOutUrl if they do nothing after the timeout duration
+has elapsed. If you wish users to be redirected to a different URL, a separate `timeoutUrl` can be supplied.
+
+If your service has a timeout duration different to that configured in the `session.timeout` configuration key
+ used by bootstrap-play, it can be overridden using the `timeout` parameter. Likewise, the 
+ number of seconds warning can be adjusted using the `countdown` parameter. 
+
+If you need to perform special logic to keep the user's session alive, the default keep alive mechanism can 
+be overridden using the `keepAliveUrl` parameter. This must be a side effect free endpoint that implements
+HTTP GET and can be called via an XHR request from the timeout dialog Javascript code. A good practice is to 
+have a dedicated controller and route defined for this so its use for this purpose is explicit. This url
+ will be supplied in the `keepAliveUrl` parameter to `hmrcTimeoutDialog`. Do not use `#` in case the current URL
+ does not implement HTTP GET.
+
+| Parameter      | Description                                                   | Example |
+| -------------- | ------------------------------------------------------------- | ------- |
+| `signOutUrl`   | The url that will be used when users click 'Sign Out'         | Some(controllers.routes.SignOutController.signOut().url) |
+| `timeoutUrl`   | The url that the timeout dialog will redirect to following timeout. Defaults to the `signOutUrl`. | Some(controllers.routes.TimeoutController.timeOut().url) |
+| `keepAliveUrl` | A endpoint used to keep the user's session alive | Some(controllers.routes.KeepAliveController.keepAlive().url)
+| `timeout`      | The timeout duration where this differs from `session.timeout` | 1800 |
+| `countdown`    | The number of seconds before timeout the dialog is displayed. The default is 120.| 240 |
+
+The timeout dialog's content can be customised using the following Play message keys:
+
+| Message Key                             | Description                                                   |
+| --------------------------------------- | ------------------------------------------------------------- |
+| `hmrc-timeout-dialog.title`             | The text to use as a title for the dialog                     |
+| `hmrc-timeout-dialog.message`           | The message displayed to the user                             |
+| `hmrc-timeout-dialog.message-suffix`    | Any additional text to be displayed after the timer           |
+| `hmrc-timeout-dialog.keep-alive-button` | The text on the button that keeps the user signed in          |
+| `hmrc-timeout-dialog.sign-out-button`   | The text for the link which takes the user to a sign out page |
 
 ## Getting help
 
