@@ -16,12 +16,13 @@
 
 package uk.gov.hmrc.govukfrontend.views
 
-import play.api.data.FormError
+import play.api.data.{Field, FormError}
 import play.api.i18n.Messages
 import play.twirl.api.{Html, HtmlFormat}
 import uk.gov.hmrc.govukfrontend.views.viewmodels.content.{Content, HtmlContent, Text}
 import uk.gov.hmrc.govukfrontend.views.viewmodels.errormessage.ErrorMessage
 import uk.gov.hmrc.govukfrontend.views.viewmodels.errorsummary.ErrorLink
+import uk.gov.hmrc.govukfrontend.views.viewmodels.radios.{RadioItem, Radios}
 
 trait Implicits {
 
@@ -43,6 +44,7 @@ trait Implicits {
 
     /**
       * Based on the behaviour of [[https://mozilla.github.io/nunjucks/templating.html#indent]]
+      *
       * @param n
       * @param indentFirstLine
       */
@@ -64,6 +66,7 @@ trait Implicits {
 
     /**
       * Indent a (multiline) string <code>n</code> spaces.
+      *
       * @param n Number of spaces to indent the string. It can be a negative value, in which case it attempts to unindent
       *          n spaces, as much as possible until it hits the margin.
       * @param indentFirstLine
@@ -76,7 +79,7 @@ trait Implicits {
         case m => recurse(math.abs(m) - 1, indent1(math.signum(n), lines))
       }
 
-      val lines         = s.split("\n", -1).toSeq // limit=-1 so if a line ends with \n include the trailing blank line
+      val lines = s.split("\n", -1).toSeq // limit=-1 so if a line ends with \n include the trailing blank line
       val linesToIndent = if (indentFirstLine) lines else if (lines.length > 1) lines.tail else Nil
       val indentedLines = recurse(n, linesToIndent)
 
@@ -163,8 +166,8 @@ trait Implicits {
       asErrorMessage(Text.apply, messageSelector)
 
     private[views] def asErrorMessage(
-      contentConstructor: String => Content,
-      messageSelector: String): Option[ErrorMessage] =
+                                       contentConstructor: String => Content,
+                                       messageSelector: String): Option[ErrorMessage] =
       formErrors
         .find(_.message == messageSelector)
         .map { formError =>
@@ -178,8 +181,8 @@ trait Implicits {
       asErrorMessageForField(Text.apply, fieldKey)
 
     private[views] def asErrorMessageForField(
-      contentConstructor: String => Content,
-      fieldKey: String): Option[ErrorMessage] =
+                                               contentConstructor: String => Content,
+                                               fieldKey: String): Option[ErrorMessage] =
       formErrors
         .find(_.key == fieldKey)
         .map { formError =>
@@ -187,6 +190,56 @@ trait Implicits {
         }
 
     private def errorMessage(formError: FormError) = messages(formError.message, formError.args: _*)
+  }
+
+
+  implicit class RichRadios(radios: Radios)(implicit messages: Messages) {
+
+    /**
+      * Extension method to allow a Play form Field to be used to add certain parameters in a Radios,
+      * specifically errorMessage, idPrefix, name, and checked (for a specific RadioItem). Note these
+      * values will only be added from the Field if they are not specifically defined in the Radios object.
+      *
+      * @param field
+      * @param messages
+      */
+    def withFormField(field: Field): Radios = {
+      radios
+        .withErrorMessage(field)
+        .withIdPrefix(field)
+        .withName(field)
+        .withItemsChecked(field)
+    }
+
+    private[views] def withErrorMessage(field: Field): Radios =
+      if (radios.errorMessage == Radios.defaultObject.errorMessage) {
+        radios.copy(
+          errorMessage = field.error.map(formError =>
+            ErrorMessage(content = Text(messages(formError.message, formError.args: _*)))
+          )
+        )
+      } else radios
+
+    private[views] def withIdPrefix(field: Field): Radios =
+      if (radios.idPrefix == Radios.defaultObject.idPrefix) radios.copy(idPrefix = Some(field.name))
+      else radios
+
+    private[views] def withName(field: Field): Radios =
+      if (radios.name == Radios.defaultObject.name) radios.copy(name = field.name)
+      else radios
+
+    private[views] def withItemsChecked(field: Field): Radios =
+      radios.copy(
+        items = radios.items.map(radioItem => withItemChecked(radioItem, field))
+      )
+
+    private def withItemChecked(radioItem: RadioItem, field: Field): RadioItem = {
+      if (radioItem.checked == RadioItem.defaultObject.checked) {
+        val isChecked = radioItem.value == field.value
+        radioItem.copy(checked = isChecked)
+      }
+      else radioItem
+    }
   }
 }
 

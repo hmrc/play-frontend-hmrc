@@ -138,57 +138,26 @@ When writing a new template from an existing `Nunjucks` template it is necessary
    Another example is the representation of `Javascript`'s `undefined`, which maps nicely to `Scala`'s `None`.
    The need to represent `undefined`  sometimes gives rise to unusual types like `Option[List[T]]`.
    The most correct type here would be `Option[NonEmptyList[T]]` but we opted not to use [refinement types](https://github.com/fthomas/refined) yet.
+   
+## How to create a new ADR
 
-## Play Versioning
+1. Install [Node](https://nodejs.org/en/download/) if you do not have this already. Node includes
+   npm.
 
-### Play 2.5 / Play 2.6 Cross-Compilation
+1. Install `adr-log` if you do not have this already
 
-[dependency injection for templates](https://www.playframework.com/documentation/2.6.x/ScalaTemplatesDependencyInjection), `Play 2.6`
-introduced breaking changes in the syntax of `Twirl` templates.  For this reason, for every `Play 2.6` template implementing a component, we have
- to provide an almost identical `Play 2.5-compatible` template, differing only in the dependency injection declaration.
+    ```shell script
+    npm install -g adr-log
+    ```
 
-To automate this manual effort, the library uses an `sbt` task to auto-generate the `Play 2.5` templates from the `Play 2.6` ones:
+1. Copy [template.md](adr/template.md) as NNNN-title-of-decision.md, and fill
+   in the fields. Do not feel you have to fill in all the fields, only fill in fields
+   that are strictly necessary. Some decisions will merit more detail than others.
 
-```sbt
-lazy val generatePlay25TemplatesTask = taskKey[Seq[File]]("Generate Play 2.5 templates")
-```
-  
-* this task is a dependency for `twirl-compile-templates` in both `Compile` and `Test` configurations
-* the auto-generated `Play 2.5` templates are not version controlled and should not be edited
-* the `Play 2.5` templates for the examples consumed by the [Chrome extension plugin](https://github.com/hmrc/play-frontend-govuk-extension) are also auto-generated but they are version controlled
+1. To re-generate the table of contents, run
 
-#### Naming Conventions for Injected Templates in Play 2.6
-
-The automatic generation of `Play 2.5` templates works by stripping out the `@this` declaration
-from a `Play 2.6` template.
-This means that the name of an injected template should match the name of the `Twirl` template file that
-implements it.
-
-Ex: Given a hypothetical new component injecting `GovukInput` we should name the parameter `govukInput`.
-When the `Play 2.5` auto-generated template gets compiled it is able to find the `govukInput` object
-that implements the template (defined in the file `govukInput.scala.html`).
-```scala
-@this(govukInput: GovukInput)
-
-@()
-@govukInput(<params for govukInput template>)
-```  
-
-The auto-generated `Play 2.5` template will be:
-```scala
-@()
-@govukInput(<params for govukInput template>)
-```
-
-`govukInput` is the name of the Scala object that implements the compiled `govukInput.scala.html` template.
-Had we named the injected component something else, for example `input`, the auto-generated template would fail to compile
-since there is no template named `input.scala.html`.
-
-#### Backwards Compatibility in Play 2.6 Templates
-
-Due to the aforementioned differences between the `Twirl` compilers in `Play 2.5` and `Play 2.6` and the auto-generation
-feature, templates should not be written with backwards incompatible features only introduced in `Play 2.6`, such as
-[@if else if](https://github.com/playframework/twirl/issues/33).   
+    ```shell script
+    ./generate-adl.sh
 
 ## Useful Links
 - [x-govuk-component-renderer](https://github.com/hmrc/x-govuk-component-renderer) - service that returns HTML for `govuk-frontend` and `hmrc-frontend` component input parameters in the form of JSON objects - useful for confirming Twirl HTML outputs in integration tests
