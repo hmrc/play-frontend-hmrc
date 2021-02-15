@@ -17,7 +17,7 @@
 package uk.gov.hmrc.hmrcfrontend.views.html
 
 import play.api.Play
-import uk.gov.hmrc.hmrcfrontend.config.{AccessibilityStatementConfig, ContactFrontendConfig, TrackingConsentConfig}
+import uk.gov.hmrc.hmrcfrontend.config.{AccessibilityStatementConfig, ContactFrontendConfig, TrackingConsentConfig, AssetsConfig}
 import uk.gov.hmrc.hmrcfrontend.views.config.{HmrcFooterItems => HmrcFooterItemsType}
 import uk.gov.hmrc.hmrcfrontend.views.html.components.{HmrcFooter, HmrcHeader, HmrcReportTechnicalIssue}
 
@@ -30,6 +30,9 @@ package object helpers {
 
   @deprecated(message = "Use DI", since = "Play 2.6")
   lazy val TrackingConsentConfig: TrackingConsentConfig = Play.current.injector.instanceOf[TrackingConsentConfig]
+
+  @deprecated(message = "Use DI", since = "Play 2.6")
+  lazy val AssetsConfig = Play.current.injector.instanceOf[AssetsConfig]
 
   type HmrcFooterItems = HmrcFooterItemsType
   @deprecated(message = "Use DI", since = "Play 2.6")
@@ -51,4 +54,12 @@ package object helpers {
   type HmrcStandardHeader = hmrcStandardHeader
   @deprecated(message = "Use DI", since = "Play 2.6")
   lazy val HmrcStandardHeader = new hmrcStandardHeader(HmrcHeader)
+
+  type HmrcHead = hmrcHead
+  @deprecated(message = "Use DI", since = "Play 2.6")
+  lazy val HmrcHead = new hmrcHead(HmrcTrackingConsentSnippet, AssetsConfig)
+
+  type HmrcScripts = hmrcScripts
+  @deprecated(message = "Use DI", since = "Play 2.6")
+  lazy val HmrcScripts = new hmrcScripts(AssetsConfig)
 }

@@ -1,16 +1,20 @@
 # play-frontend-hmrc
 
-This library provides a number of HMRC-specific Twirl components and helpers for Scala frontend microservices running on
-MDTP. It is organised into two packages:
+This library contains all the Twirl components and helpers needed to implement frontend microservices on the HMRC
+digital tax platform.
+
+The library transitively depends on [play-frontend-govuk](https://github.com/hmrc/play-frontend-govuk/) which is a Twirl
+port of [alphagov/govuk-frontend](https://www.github.com/alphagov/govuk-frontend), 
+adding to it HMRC-specific Twirl components as well as Play and platform aware helpers that make the process 
+of implementing frontend microservices straightforward and idiomatic for Scala developers.
+
+The library comprises two packages:
 
 1. components - a set of Twirl templates providing a direct port of the Nunjucks components from 
 [hmrc/hmrc-frontend](https://www.github.com/hmrc/hmrc-frontend)
 1. helpers
     1. wrappers designed to make using the hmrc-frontend components more straightforward and idiomatic in Scala/Play
     1. a collection of markup snippets required by MDTP microservices
-
-This library complements and should be used in conjunction with
-[play-frontend-govuk](https://github.com/hmrc/play-frontend-govuk/)
 
 ## Table of Contents
 
@@ -33,52 +37,55 @@ in your `project/AppDependencies.scala` file. For example,
     libraryDependencies += "uk.gov.hmrc" %% "play-frontend-hmrc" % "x.y.z-play-27"
     ```
     
-    The library is cross-compiled for Play 2.6 and 2.7.
+    The library is cross-compiled for Play 2.6 and 2.7. Note, because this library transitively depends on play-frontend-govuk
+    there is no need to add this as a separate dependency. If it is already included, it can be removed.
 
-    **As of v0.35.0 (January 2021), this library will no be cross-compiled against Play 2.5.**
-
-1.  Import the required styles in your `app/assets/stylesheets/application.scss` file:
-    ```scss
-    $govuk-assets-path: "/<route-to-your-service>/assets/lib/govuk-frontend/govuk/assets/";
-    $hmrc-assets-path: "/<route-to-your-service>/assets/lib/hmrc-frontend/hmrc/";
-    
-    @import "lib/govuk-frontend/govuk/all";
-    @import "lib/hmrc-frontend/hmrc/all";
-    ```
-
-1.  Add routes for hmrc-frontend assets in `conf/app.routes`:
+1.  Add routes for hmrc-frontend and govuk-frontend assets in `conf/app.routes`:
     ```scala
     ->         /govuk-frontend                     govuk.Routes
     ->         /hmrc-frontend                      hmrcfrontend.Routes
     ```
 
-1. Ensure you have the correct routing for all other static assets including the compiled Javascript and images provided 
-by the hmrc-frontend webjar:
-    ```
-    GET        /assets/*file                        controllers.Assets.versioned(path = "/public", file: Asset)
-    ```
-
-1. Update your scripts template to include the hmrc-frontend javascript assets:
+1. Ensure you have your service name defined in your messages files. For example,
     ```scala
-    @this()
-    
-    @()
-    <script src='@routes.Assets.versioned("lib/govuk-frontend/govuk/all.js")'></script>
-    <script src='@routes.Assets.versioned("lib/hmrc-frontend/hmrc/all.js")'></script>
-    <script src='@routes.Assets.versioned("javascripts/application.js")'></script>
-    ```
-   
-    The scripts template generates the markup passed to the `scriptsBlock` parameter of the `govukLayout` component
-    and injected immediately before the BODY end tag.
+    service.name = Any tax service
+    ``` 
 
-1. Initialise the hmrc-frontend components in your `app/assets/javascripts/application.js` file after
-initialising govuk-frontend:
-    ```js
-    window.GOVUKFrontend.initAll();
-    window.HMRCFrontend.initAll();
+1. Create a layout template using govukLayout that you can use in all of your service pages. For example,
+
+    ```scala
+    @import uk.gov.hmrc.hmrcfrontend.views.html.helpers.{HmrcStandardFooter, HmrcStandardHeader, HmrcHead, HmrcScripts}
+
+    @this(
+        govukLayout: GovukLayout,
+        hmrcHead: HmrcHead,
+        hmrcStandardHeader: HmrcStandardHeader,
+        hmrcStandardFooter: HmrcStandardFooter,
+        hmrcScripts: HmrcScripts
+    )
+    
+    @(pageTitle: String)(contentBlock: Html)(implicit request: RequestHeader, messages: Messages)
+    
+    @govukLayout(
+        pageTitle = Some(pageTitle),
+        headBlock = Some(hmrcHead()),
+        headerBlock = Some(hmrcStandardHeader(
+          serviceUrl = Some(controllers.routes.IndexController.index().url)
+        )),
+        scriptsBlock = Some(hmrcScripts()),
+        footerBlock = Some(hmrcStandardFooter())
+    )(contentBlock)
     ```
    
-   Without this step, components such as the HMRC timeout dialog will not be enabled in your service.
+   If using Play 2.7 and CSPFilter, the nonce can be passed to hmrcHead as follows:
+   
+   ```
+    @govukLayout(
+        ...
+        headBlock = Some(hmrcHead(nonce = CSPNonce.get)),
+        ...
+    )(contentBlock)
+   ```
 
 1.  Optionally, add `TwirlKeys.templateImports` in `build.sbt`:
     ```sbt
@@ -117,8 +124,6 @@ You can find working examples of the use of play-frontend-hmrc in the following 
 
 The library is cross-compiled for `Play 2.6` and `Play 2.7`.
 
-### Play 2.6 and 2.7
-
 The same namespace exposes type aliases prefixed with `Hmrc` (ex: the type `HmrcPageHeading`) so that components can be injected into 
 a controller or template. It also exposes values of the same name (ex: `HmrcPageHeading`) if you wish to use the component template directly, 
 though it is preferable to use dependency injection.
@@ -154,8 +159,9 @@ To use this component,
 
 1. Ensure you have your service name defined in your messages files. For example,
     ```scala
-    service.name = Tax service
+    service.name = Any tax service
     ``` 
+
 1. If your service requires users to sign in, identify the URL that users should use to sign out of your service. If you have a
  dedicated sign out controller you can use its reverse controller. This url should be passed to the
  `signOutUrl` parameter.
@@ -165,19 +171,19 @@ To use this component,
 ```scala
 @govukLayout(
   pageTitle = pageTitle,
-  headBlock = Some(head(headBlock)),
+  headBlock = Some(hmrcHead(nonce = CSPNonce.get)),
   headerBlock = Some(hmrcStandardHeader(
     serviceUrl = Some(controllers.routes.IndexController.index().url),
     signOutUrl = Some(controllers.routes.SignOutController.signOut().url)
   )),
-  scriptsBlock = scriptsBlock,
   beforeContentBlock = Some(languageSelect()),
-  footerBlock = Some(hmrcStandardFooter())
+  footerBlock = Some(hmrcStandardFooter()),
+  scriptsBlock = Some(hmrcScripts())
 )(contentBlock)
 ```
 
 If you additionally need the [HMRC banner](https://design.tax.service.gov.uk/hmrc-design-patterns/hmrc-banner/) –
-most services do not – set the `displayHmrcBanner` to true.
+most services do not – set `displayHmrcBanner` to true.
 
 In the exceptional case that you have a frontend microservice that has a dynamic service name, for example, because it hosts
 more than one public-facing service, you can override the service name using the `serviceName` parameter.
@@ -234,6 +240,9 @@ If you intend to use Google Analytics or Optimizely to measure usage of your ser
 [tracking-consent-frontend](https://www.github.com/hmrc/tracking-consent-frontend). The 
 [hmrcTrackingConsentSnippet](src/main/twirl/uk/gov/hmrc/hmrcfrontend/views/helpers/hmrcTrackingConsentSnippet.scala.html) 
 component generates the necessary HTML SCRIPT tags that must be injected into the HEAD element for every page on your service.
+
+If you are using the hmrcHead() component to integrate with play-frontend-hmrc, then this component is already being
+added to your microservice – all that is additionally required is a configuration key to set the GTM container.
  
 Before integrating, it is important to remove any existing snippets relating to GTM or Optimizely. Tracking consent
 manages the enabling of these third-party solutions based on the user's tracking preferences. If they are not removed
@@ -251,15 +260,15 @@ tracking-consent-frontend {
 `gtm.container` can be one of: `transitional`, `a`, `b`, `c`, `d`, `e`, `f` or `sdes`. Consult with the CIPSAGA team 
 to identify which GTM container you should be using in your service.
 
-Update your head template to include the hmrcTrackingConsentSnippet component:
+If your page template is already using hmrcHead then no further work is required. Otherwise, add hmrcTrackingConsentSnippet
+above any other assets imported in your HEAD element. For example,
     
     ```scala
     @this(hmrcTrackingConsentSnippet: HmrcTrackingConsentSnippet)
     
     @()(implicit appConfig: AppConfig, messages: Messages)
     @hmrcTrackingConsentSnippet()
-    <!--[if lte IE 8]><link href='@routes.Assets.versioned("stylesheets/application-ie-8.css")' rel="stylesheet" type="text/css" /><![endif]-->
-    <!--[if gt IE 8]><!--><link href='@routes.Assets.versioned("stylesheets/application.css")' media="screen" rel="stylesheet" type="text/css" /><!--<![endif]-->
+    ...
     ```
 
 If using Play 2.7 and CSPFilter, the nonce can be passed to tracking consent as follows:
@@ -297,7 +306,7 @@ The instructions below assume you have set up play-frontend-hmrc as indicated ab
 initialisation of hmrc-frontend to your local scripts template.
 
 1. Identify a `signOutUrl` that will be used when users click 'Sign Out' on the timeout dialog. A good choice for this is the
-url that may already supplied as the `signOutUrl` parameter to the `hmrcStandardHeader` helper, which controls the sign 
+url that may already supplied as the `signOutUrl` parameter to the `hmrcStandardHeader` component, which controls the sign 
 out link in the gov.uk header. See related guidance above.
 
 1. Identify a `keepAliveUrl`, a side effect free endpoint that can be used by the timeout dialog Javascript code 
@@ -325,22 +334,26 @@ the number of seconds before that the timeout dialog will be displayed:
 1. Optionally, identify a `timeoutUrl` that will sign out users if they do nothing and are timed out by the timeout dialog. If this 
 is not supplied, the timeout dialog will use the `signOutUrl`.
 
-1. Update your head template to include the hmrcTimeoutDialog component, supplying the parameters identified above. For example,
+1. Update your page template to include the hmrcTimeoutDialog component, supplying the parameters identified above. For example,
     
     ```scala
-    @this(hmrcTimeoutDialog: HmrcTimeoutDialog)
-    
-    @()(implicit appConfig: AppConfig, messages: Messages)
-    <!--[if lte IE 8]><link href='@routes.Assets.versioned("stylesheets/application-ie-8.css")' rel="stylesheet" type="text/css" /><![endif]-->
-    <!--[if gt IE 8]><!--><link href='@routes.Assets.versioned("stylesheets/application.css")' media="screen" rel="stylesheet" type="text/css" /><!--<![endif]-->
-    @hmrcTimeoutDialog(TimeoutDialog(
-      timeout = Some(appConfig.timeoutDialogTimeout),
-      countdown = Some(appConfig.timeoutDialogCountdown),
-      keepAliveUrl = Some(routes.KeepAliveController.keepAlive().url),
-      signOutUrl = Some(controllers.routes.SignOutController.signOut().url),
-      timeoutUrl = Some(controllers.routes.SignOutController.signOut().url),
-      language = Some(messages.lang.code)
-    ))
+    @timeoutDialog = {
+      @hmrcTimeoutDialog(TimeoutDialog(
+        timeout = Some(appConfig.timeoutDialogTimeout),
+        countdown = Some(appConfig.timeoutDialogCountdown),
+        keepAliveUrl = Some(routes.KeepAliveController.keepAlive().url),
+        signOutUrl = Some(controllers.routes.SignOutController.signOut().url),
+        timeoutUrl = Some(controllers.routes.SignOutController.signOut().url),
+        language = Some(messages.lang.code)
+      ))
+    }
+          
+    @govukLayout(
+        pageTitle = Some(pageTitle),
+        headBlock = Some(hmrcHead(headBlock = Some(timeoutDialog), nonce = CSPNonce.get)),
+        scriptsBlock = Some(hmrcScripts()),
+        footerBlock = Some(hmrcStandardFooter())
+    )(contentBlock)
     ```
 
 ## Getting help
