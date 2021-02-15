@@ -5,6 +5,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [0.61.0] - 2021-02-15
+
+### Changed
+
+- Added a RichRadios implicit helper class, to enhance Radios with a `.withFormField(field: Field)` method
+
+### Compatible with
+
+- [alphagov/govuk-frontend v3.10.2](https://github.com/alphagov/govuk-frontend/releases/tag/v3.10.2)
+
 ## [0.60.0] - 2021-01-19
 
 ### Changed
