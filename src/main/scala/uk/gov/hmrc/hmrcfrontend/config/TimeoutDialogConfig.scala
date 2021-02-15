@@ -24,7 +24,7 @@ class TimeoutDialogConfig @Inject()(configuration: Configuration) {
     configuration
       .getOptional[Int]("session.timeoutSeconds")
       .orElse(configuration.getOptional[scala.concurrent.duration.Duration]("session.timeout").map(_.toSeconds.toInt))
-      .getOrElse(configuration.get[Int]("timeout.dialog.defaultTimeoutInSeconds"))
+      .getOrElse(configuration.get[Int]("hmrc-timeout-dialog.defaultTimeoutInSeconds"))
 
-  def countdownInSeconds: Int = configuration.get[Int]("timeout.dialog.defaultCountdownInSeconds")
+  def countdownInSeconds: Int = configuration.get[Int]("hmrc-timeout-dialog.defaultCountdownInSeconds")
 }

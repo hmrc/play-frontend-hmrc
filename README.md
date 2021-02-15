@@ -352,15 +352,15 @@ have a dedicated controller and route defined for this so its use for this purpo
 | `timeout`      | The timeout duration where this differs from `session.timeout` | 1800 |
 | `countdown`    | The number of seconds before timeout the dialog is displayed. The default is 120.| 240 |
 
-The timeout dialog's content can be customised using the following Play message keys:
+The timeout dialog's content can be customised using the following parameters:
 
-| Message Key                             | Description                                                   |
-| --------------------------------------- | ------------------------------------------------------------- |
-| `hmrc-timeout-dialog.title`             | The text to use as a title for the dialog                     |
-| `hmrc-timeout-dialog.message`           | The message displayed to the user                             |
-| `hmrc-timeout-dialog.message-suffix`    | Any additional text to be displayed after the timer           |
-| `hmrc-timeout-dialog.keep-alive-button` | The text on the button that keeps the user signed in          |
-| `hmrc-timeout-dialog.sign-out-button`   | The text for the link which takes the user to a sign out page |
+| Parameter             | Description                                                   | Example |
+| --------------------- | ------------------------------------------------------------- | ------- |
+| `title`               | The text to use as a title for the dialog                     | Some(messages("hmrc-timeout-dialog.title")) |
+| `message`             | The message displayed to the user                             | Some(messages("hmrc-timeout-dialog.message")) |
+| `messageSuffix`       | Any additional text to be displayed after the timer           | Some(messages("hmrc-timeout-dialog.message-suffix")) |
+| `keepAliveButtonText` | The text on the button that keeps the user signed in          | Some(messages("hmrc-timeout-dialog.keep-alive-button-text")) |
+| `signOutButtonText`   | The text for the link which takes the user to a sign out page | Some(messages("hmrc-timeout-dialog.sign-out-button-text")) |
 
 ## Getting help
 

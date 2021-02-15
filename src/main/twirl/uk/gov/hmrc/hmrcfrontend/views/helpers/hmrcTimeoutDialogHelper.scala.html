@@ -25,7 +25,12 @@
   keepAliveUrl: Option[String] = None,
   timeoutUrl: Option[String] = None,
   timeout: Option[Int] = None,
-  countdown: Option[Int] = None
+  countdown: Option[Int] = None,
+  title: Option[String] = None,
+  message: Option[String] = None,
+  messageSuffix: Option[String] = None,
+  keepAliveButtonText: Option[String] = None,
+  signOutButtonText: Option[String] = None
 )(implicit messages: Messages, request: RequestHeader)
 @hmrcTimeoutDialog(TimeoutDialog(
   signOutUrl = Some(signOutUrl),
@@ -33,10 +38,10 @@
   countdown = Some(countdown.getOrElse(timeoutDialogConfig.countdownInSeconds)),
   keepAliveUrl = keepAliveUrl.orElse(Some(uk.gov.hmrc.hmrcfrontend.controllers.routes.KeepAliveController.keepAlive.url)),
   timeoutUrl = timeoutUrl,
-  title = Some(messages("hmrc-timeout-dialog.title")),
-  message = Some(messages("hmrc-timeout-dialog.message")),
-  messageSuffix = Some(messages("hmrc-timeout-dialog.message-suffix")),
-  keepAliveButtonText = Some(messages("hmrc-timeout-dialog.keep-alive-button-text")),
-  signOutButtonText = Some(messages("hmrc-timeout-dialog.sign-out-button-text")),
+  title = title,
+  message = message,
+  messageSuffix = messageSuffix,
+  keepAliveButtonText = keepAliveButtonText,
+  signOutButtonText = signOutButtonText,
   language = Some(messages.lang.code)
 ))

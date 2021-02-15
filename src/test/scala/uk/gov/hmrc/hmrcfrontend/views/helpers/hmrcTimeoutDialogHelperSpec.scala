@@ -179,11 +179,27 @@ class hmrcTimeoutDialogHelperSpec extends WordSpecLike with Matchers with JsoupH
       metas.first.attr("data-timeout-url") should be("/time-out")
     }
 
-    "render an alternative title attribute if the messages key exists" in {
+    "render empty content data attributes by default" in {
       val hmrcTimeoutDialogHelper = buildApp().injector.instanceOf[HmrcTimeoutDialogHelper]
 
-      val messages = getMessages(Map("en" -> Map("hmrc-timeout-dialog.title" -> "Foo Title")))
+      val messages = getMessages()
       val content  = contentAsString(hmrcTimeoutDialogHelper(signOutUrl = "/sign-out")(messages, fakeRequest))
+      val document = Jsoup.parse(content)
+      val metas    = document.select("meta")
+
+      metas should have size 1
+      metas.first.attr("data-title") should be("")
+      metas.first.attr("data-message") should be("")
+      metas.first.attr("data-message-suffix") should be("")
+      metas.first.attr("data-keep-alive-button-text") should be("")
+      metas.first.attr("data-sign-out-button-text") should be("")
+    }
+
+    "render an alternative title attribute if passed" in {
+      val hmrcTimeoutDialogHelper = buildApp().injector.instanceOf[HmrcTimeoutDialogHelper]
+
+      val messages = getMessages()
+      val content  = contentAsString(hmrcTimeoutDialogHelper(signOutUrl = "/sign-out", title = Some("Foo Title"))(messages, fakeRequest))
       val document = Jsoup.parse(content)
       val metas    = document.select("meta")
 
@@ -191,23 +207,11 @@ class hmrcTimeoutDialogHelperSpec extends WordSpecLike with Matchers with JsoupH
       metas.first.attr("data-title") should be("Foo Title")
     }
 
-    "render the title in Welsh if a messages key exists" in {
-      val hmrcTimeoutDialogHelper = buildApp().injector.instanceOf[HmrcTimeoutDialogHelper]
-
-      val messages = getMessages(Map("cy" -> Map("hmrc-timeout-dialog.title" -> "Welsh Title")), Lang("cy"))
-      val content  = contentAsString(hmrcTimeoutDialogHelper(signOutUrl = "/sign-out")(messages, fakeRequest))
-      val document = Jsoup.parse(content)
-      val metas    = document.select("meta")
-
-      metas should have size 1
-      metas.first.attr("data-title") should be("Welsh Title")
-    }
-
     "render the message data attribute" in {
       val hmrcTimeoutDialogHelper = buildApp().injector.instanceOf[HmrcTimeoutDialogHelper]
 
-      val messages = getMessages(Map("en" -> Map("hmrc-timeout-dialog.message" -> "Foo Message")))
-      val content  = contentAsString(hmrcTimeoutDialogHelper(signOutUrl = "/sign-out")(messages, fakeRequest))
+      val messages = getMessages()
+      val content  = contentAsString(hmrcTimeoutDialogHelper(signOutUrl = "/sign-out", message = Some("Foo Message"))(messages, fakeRequest))
       val document = Jsoup.parse(content)
       val metas    = document.select("meta")
 
@@ -218,8 +222,8 @@ class hmrcTimeoutDialogHelperSpec extends WordSpecLike with Matchers with JsoupH
     "render the message suffix data attribute" in {
       val hmrcTimeoutDialogHelper = buildApp().injector.instanceOf[HmrcTimeoutDialogHelper]
 
-      val messages = getMessages(Map("en" -> Map("hmrc-timeout-dialog.message-suffix" -> "suffix")))
-      val content  = contentAsString(hmrcTimeoutDialogHelper(signOutUrl = "/sign-out")(messages, fakeRequest))
+      val messages = getMessages()
+      val content  = contentAsString(hmrcTimeoutDialogHelper(signOutUrl = "/sign-out", messageSuffix = Some("suffix"))(messages, fakeRequest))
       val document = Jsoup.parse(content)
       val metas    = document.select("meta")
 
@@ -230,8 +234,8 @@ class hmrcTimeoutDialogHelperSpec extends WordSpecLike with Matchers with JsoupH
     "render the keep alive button text data attribute" in {
       val hmrcTimeoutDialogHelper = buildApp().injector.instanceOf[HmrcTimeoutDialogHelper]
 
-      val messages = getMessages(Map("en" -> Map("hmrc-timeout-dialog.keep-alive-button-text" -> "Keep Alive")))
-      val content  = contentAsString(hmrcTimeoutDialogHelper(signOutUrl = "/sign-out")(messages, fakeRequest))
+      val messages = getMessages()
+      val content  = contentAsString(hmrcTimeoutDialogHelper(signOutUrl = "/sign-out", keepAliveButtonText = Some("Keep Alive"))(messages, fakeRequest))
       val document = Jsoup.parse(content)
       val metas    = document.select("meta")
 
@@ -242,8 +246,8 @@ class hmrcTimeoutDialogHelperSpec extends WordSpecLike with Matchers with JsoupH
     "render the sign out button text data attribute" in {
       val hmrcTimeoutDialogHelper = buildApp().injector.instanceOf[HmrcTimeoutDialogHelper]
 
-      val messages = getMessages(Map("en" -> Map("hmrc-timeout-dialog.sign-out-button-text" -> "Logout")))
-      val content  = contentAsString(hmrcTimeoutDialogHelper(signOutUrl = "/sign-out")(messages, fakeRequest))
+      val messages = getMessages()
+      val content  = contentAsString(hmrcTimeoutDialogHelper(signOutUrl = "/sign-out", signOutButtonText = Some("Logout"))(messages, fakeRequest))
       val document = Jsoup.parse(content)
       val metas    = document.select("meta")
 
