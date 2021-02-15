@@ -100,20 +100,20 @@ When writing a new template from an existing `Nunjucks` template it is necessary
 1. validation:
 
    The lack of validation in the `govuk-frontend` `Nunjucks` templates sometimes poses some difficulties and it is better to
-[raise issues](https://github.com/alphagov/govuk-frontend/issues/1557) to confirm assumptions about the validity of parameters
- that could break parity of features.
+   [raise issues](https://github.com/alphagov/govuk-frontend/issues/1557) to confirm assumptions about the validity of parameters
+   that could break parity of features.
   
    That said, some Twirl components in the library add validation by using `scala` assertions such as 
- [require](https://www.scala-lang.org/api/current/scala/Predef$.html#require(requirement:Boolean,message:=%3EAny):Unit),
-  which means **`Play` controllers should be handling potential `IllegalArgumentException`** thrown from views.
+   [require](https://www.scala-lang.org/api/current/scala/Predef$.html#require(requirement:Boolean,message:=%3EAny):Unit),
+   which means **`Play` controllers should be handling potential `IllegalArgumentException`** thrown from views.
 
-2. representing required and optional parameters (as documented in the `yaml` for a component in `govuk-frontend`):
+1. representing required and optional parameters (as documented in the `yaml` for a component in `govuk-frontend`):
    
    In some instances a parameter is documented incorrectly as `required` when it is `optional`, so the disambiguation comes
    from looking at its usage in the template.
    We opted to map optional parameters as `Option` types because it is the most natural mapping.
    
-3. mapping from untyped `Javascript` to `Scala`:
+1. mapping from untyped `Javascript` to `Scala`:
 
    `Javascript` makes liberal use of boolean-like types, the so called `truthy` and `falsy` values.
    Special care is needed to translate conditions involving these types correctly.
@@ -138,6 +138,13 @@ When writing a new template from an existing `Nunjucks` template it is necessary
    Another example is the representation of `Javascript`'s `undefined`, which maps nicely to `Scala`'s `None`.
    The need to represent `undefined`  sometimes gives rise to unusual types like `Option[List[T]]`.
    The most correct type here would be `Option[NonEmptyList[T]]` but we opted not to use [refinement types](https://github.com/fthomas/refined) yet.
+   
+   To date, the following conventions have been followed for view model case class fields:
+   
+   * `classes` are of type `String`, normally defaulting to `""`, rather than `Option[String]` defaulting to `None`
+   * boolean attributes are `Option`-wrapped only if the Nunjucks template distinguishes between `null`/`undefined` 
+     values and `true`/`false` values
+   * `id` can be either `Option[String]` or `String` - FIXME
    
 ## How to create a new ADR
 
