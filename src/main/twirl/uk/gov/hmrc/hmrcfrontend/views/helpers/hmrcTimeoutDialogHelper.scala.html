@@ -1,0 +1,47 @@
+@*
+ * Copyright 2021 HM Revenue & Customs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *@
+
+@import uk.gov.hmrc.hmrcfrontend.views.html.components.HmrcTimeoutDialog
+@import uk.gov.hmrc.hmrcfrontend.views.Aliases.TimeoutDialog
+@import uk.gov.hmrc.hmrcfrontend.config.TimeoutDialogConfig
+
+@this(hmrcTimeoutDialog: HmrcTimeoutDialog, timeoutDialogConfig: TimeoutDialogConfig)
+
+@(
+  signOutUrl: String,
+  keepAliveUrl: Option[String] = None,
+  timeoutUrl: Option[String] = None,
+  timeout: Option[Int] = None,
+  countdown: Option[Int] = None,
+  title: Option[String] = None,
+  message: Option[String] = None,
+  messageSuffix: Option[String] = None,
+  keepAliveButtonText: Option[String] = None,
+  signOutButtonText: Option[String] = None
+)(implicit messages: Messages, request: RequestHeader)
+@hmrcTimeoutDialog(TimeoutDialog(
+  signOutUrl = Some(signOutUrl),
+  timeout = Some(timeout.getOrElse(timeoutDialogConfig.timeoutInSeconds)),
+  countdown = Some(countdown.getOrElse(timeoutDialogConfig.countdownInSeconds)),
+  keepAliveUrl = keepAliveUrl.orElse(Some(uk.gov.hmrc.hmrcfrontend.controllers.routes.KeepAliveController.keepAlive.url)),
+  timeoutUrl = timeoutUrl,
+  title = title,
+  message = message,
+  messageSuffix = messageSuffix,
+  keepAliveButtonText = keepAliveButtonText,
+  signOutButtonText = signOutButtonText,
+  language = Some(messages.lang.code)
+))

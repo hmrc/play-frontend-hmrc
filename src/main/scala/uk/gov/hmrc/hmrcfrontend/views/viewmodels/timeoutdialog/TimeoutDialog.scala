@@ -19,7 +19,6 @@ package uk.gov.hmrc.hmrcfrontend.views.viewmodels.timeoutdialog
 import play.api.libs.json._
 
 case class TimeoutDialog(
-  name: String                        = "",
   language: Option[String]            = None,
   timeout: Option[Int]                = None,
   countdown: Option[Int]              = None,

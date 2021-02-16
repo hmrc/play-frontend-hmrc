@@ -5,7 +5,19 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
-## [0.42.0] - 2021-02-09
+## [0.43.0] - 2021-02-15
+
+### Added
+
+- hmrcTimeoutDialogHelper
+
+### Compatible with
+
+- [hmrc/hmrc-frontend v1.24.0](https://github.com/hmrc/hmrc-frontend/releases/tag/v1.24.0)
+- [hmrc/play-frontend-govuk v0.62.0](https://github.com/hmrc/play-frontend-govuk/releases/tag/v0.62.0)
+- [alphagov/govuk-frontend v3.11.0](https://github.com/alphagov/govuk-frontend/releases/tag/v3.11.0)
+
+## [0.42.0] - 2021-02-15
 
 ### Added
 
@@ -13,7 +25,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Compatible with
 
-- [hmrc/hmrc-frontend v1.23.1](https://github.com/hmrc/hmrc-frontend/releases/tag/v1.23.1)
+- [hmrc/hmrc-frontend v1.24.0](https://github.com/hmrc/hmrc-frontend/releases/tag/v1.24.0)
 - [hmrc/play-frontend-govuk v0.60.0](https://github.com/hmrc/play-frontend-govuk/releases/tag/v0.60.0)
 - [alphagov/govuk-frontend v3.10.2](https://github.com/alphagov/govuk-frontend/releases/tag/v3.10.2)
 

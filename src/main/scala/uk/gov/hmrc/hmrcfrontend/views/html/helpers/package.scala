@@ -17,9 +17,9 @@
 package uk.gov.hmrc.hmrcfrontend.views.html
 
 import play.api.Play
-import uk.gov.hmrc.hmrcfrontend.config.{AccessibilityStatementConfig, ContactFrontendConfig, TrackingConsentConfig, AssetsConfig}
+import uk.gov.hmrc.hmrcfrontend.config.{AccessibilityStatementConfig, AssetsConfig, ContactFrontendConfig, TimeoutDialogConfig, TrackingConsentConfig}
 import uk.gov.hmrc.hmrcfrontend.views.config.{HmrcFooterItems => HmrcFooterItemsType}
-import uk.gov.hmrc.hmrcfrontend.views.html.components.{HmrcFooter, HmrcHeader, HmrcReportTechnicalIssue}
+import uk.gov.hmrc.hmrcfrontend.views.html.components.{HmrcFooter, HmrcHeader, HmrcReportTechnicalIssue, HmrcTimeoutDialog}
 
 package object helpers {
   @deprecated(message = "Use DI", since = "Play 2.6")
@@ -33,6 +33,9 @@ package object helpers {
 
   @deprecated(message = "Use DI", since = "Play 2.6")
   lazy val AssetsConfig = Play.current.injector.instanceOf[AssetsConfig]
+
+  @deprecated(message = "Use DI", since = "Play 2.6")
+  lazy val TimeoutDialogConfig = Play.current.injector.instanceOf[TimeoutDialogConfig]
 
   type HmrcFooterItems = HmrcFooterItemsType
   @deprecated(message = "Use DI", since = "Play 2.6")
@@ -62,4 +65,8 @@ package object helpers {
   type HmrcScripts = hmrcScripts
   @deprecated(message = "Use DI", since = "Play 2.6")
   lazy val HmrcScripts = new hmrcScripts(AssetsConfig)
+
+  type HmrcTimeoutDialogHelper = hmrcTimeoutDialogHelper
+  @deprecated(message = "Use DI", since = "Play 2.6")
+  lazy val HmrcTimeoutDialogHelper = new hmrcTimeoutDialogHelper(HmrcTimeoutDialog, TimeoutDialogConfig)
 }

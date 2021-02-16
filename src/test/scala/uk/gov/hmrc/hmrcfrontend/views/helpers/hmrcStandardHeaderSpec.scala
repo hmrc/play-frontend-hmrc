@@ -165,7 +165,7 @@ class hmrcStandardHeaderSpec extends WordSpecLike with Matchers with JsoupHelper
     "render the svg fallback image correctly" in {
       // simulate including the govuk routes in a frontend microservice via
       // ->         /govuk-frontend           govuk.Routes
-      govuk.RoutesPrefix.setPrefix("/some-service")
+      govuk.RoutesPrefix.setPrefix("/some-service/govuk-frontend")
       val hmrcStandardHeader = buildApp().injector.instanceOf[HmrcStandardHeader]
 
       val messages = getMessages()
@@ -174,7 +174,7 @@ class hmrcStandardHeaderSpec extends WordSpecLike with Matchers with JsoupHelper
       val fallbackImages    = document.select(".govuk-header__logotype-crown-fallback-image")
 
       fallbackImages should have size 1
-      fallbackImages.first.attr("src") should be ("/some-service/assets/images/govuk-logotype-crown.png")
+      fallbackImages.first.attr("src") should be ("/some-service/govuk-frontend/assets/images/govuk-logotype-crown.png")
     }
 
     "render the hmrc banner" in {
