@@ -28,7 +28,7 @@ case class NotificationBanner(
   title: Content                    = Empty,
   titleId: Option[String]           = None,
   disableAutoFocus: Option[Boolean] = None,
-  classes: Option[String]           = None,
+  classes: String                   = "",
   titleHeadingLevel: Option[Int]    = None,
   attributes: Map[String, String]   = Map.empty
 )
@@ -45,7 +45,7 @@ object NotificationBanner {
         Content.readsHtmlOrText((__ \ "titleHtml"), (__ \ "titleText")) and
         (__ \ "titleId").readNullable[String] and
         (__ \ "disableAutoFocus").readNullable[Boolean] and
-        (__ \ "classes").readNullable[String] and
+        (__ \ "classes").readWithDefault[String](defaultObject.classes) and
         (__ \ "titleHeadingLevel").readNullable[Int] and
         (__ \ "attributes").readWithDefault[Map[String, String]](defaultObject.attributes)(attributesReads)
     )(NotificationBanner.apply _)
@@ -58,7 +58,7 @@ object NotificationBanner {
         Content.writesContent("titleHtml", "titleText") and
         (__ \ "titleId").writeNullable[String] and
         (__ \ "disableAutoFocus").writeNullable[Boolean] and
-        (__ \ "classes").writeNullable[String] and
+        (__ \ "classes").write[String] and
         (__ \ "titleHeadingLevel").writeNullable[Int] and
         (__ \ "attributes").write[Map[String, String]]
     )(unlift(NotificationBanner.unapply))

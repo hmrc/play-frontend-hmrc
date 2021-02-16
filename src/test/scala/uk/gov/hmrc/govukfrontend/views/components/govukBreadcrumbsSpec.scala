@@ -43,7 +43,7 @@ class govukBreadcrumbsSpec extends TemplateUnitSpec[Breadcrumbs]("govukBreadcrum
       ))
       val component = GovukBreadcrumbs(params)
 
-      component.body should include("<div class=\"govuk-breadcrumbs \" id=\"my-navigation\" role=\"navigation\">")
+      component.body should include("<div class=\"govuk-breadcrumbs\" id=\"my-navigation\" role=\"navigation\">")
     }
 
     "render the attributes in order when input is reversed" in {
@@ -53,7 +53,7 @@ class govukBreadcrumbsSpec extends TemplateUnitSpec[Breadcrumbs]("govukBreadcrum
       ))
       val component = GovukBreadcrumbs(params)
 
-      component.body should include("<div class=\"govuk-breadcrumbs \" role=\"navigation\" id=\"my-navigation\">")
+      component.body should include("<div class=\"govuk-breadcrumbs\" role=\"navigation\" id=\"my-navigation\">")
     }
   }
 }

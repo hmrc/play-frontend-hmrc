@@ -1,0 +1,10 @@
+{
+  "messages" : [ {
+    "actions" : [ {
+      "text" : "This is a link",
+      "href" : "/link",
+      "value" : "cookies",
+      "name" : "link"
+    } ]
+  } ]
+}

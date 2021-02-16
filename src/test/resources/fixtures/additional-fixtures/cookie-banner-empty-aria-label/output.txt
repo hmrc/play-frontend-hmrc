@@ -1,0 +1,14 @@
+<div class="govuk-cookie-banner " role="region" aria-label="">
+    <div class="govuk-cookie-banner__message govuk-width-container">
+
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-two-thirds">
+        <h2 class="govuk-cookie-banner__heading govuk-heading-m">Cookies on this government service</h2>
+
+        <div class="govuk-cookie-banner__content"><p class="govuk-body">We use analytics cookies to help understand how users use our service.</p></div>
+      </div>
+    </div>
+
+      <div class="govuk-button-group"></div>
+    </div>
+</div>

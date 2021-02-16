@@ -5,6 +5,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [0.62.0] - 2021-02-16
+
+### Changed
+
+- Upgrade to govuk-frontend v3.11.0
+
+### Compatible with
+
+- [alphagov/govuk-frontend v3.11.0](https://github.com/alphagov/govuk-frontend/releases/tag/v3.11.0)
+
 ## [0.61.0] - 2021-02-15
 
 ### Changed

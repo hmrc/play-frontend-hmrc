@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 HM Revenue & Customs
+ * Copyright 2021 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,13 +14,9 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.govukfrontend.support
+package uk.gov.hmrc.govukfrontend.views.viewmodels.cookiebanner
 
-import play.api.libs.ws.WSResponse
+import uk.gov.hmrc.govukfrontend.views.viewmodels.JsonRoundtripSpec
+import uk.gov.hmrc.govukfrontend.views.viewmodels.cookiebanner.Generators._
 
-object Implicits {
-
-  implicit class RichWSResponse(response: WSResponse) {
-    def bodyAsString: String = response.body[String]
-  }
-}
+class CookieBannerSpec extends JsonRoundtripSpec[CookieBanner]
