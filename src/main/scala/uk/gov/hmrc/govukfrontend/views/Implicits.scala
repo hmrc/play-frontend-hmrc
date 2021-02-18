@@ -19,10 +19,15 @@ package uk.gov.hmrc.govukfrontend.views
 import play.api.data.{Field, FormError}
 import play.api.i18n.Messages
 import play.twirl.api.{Html, HtmlFormat}
+import uk.gov.hmrc.govukfrontend.views.viewmodels.charactercount.CharacterCount
+import uk.gov.hmrc.govukfrontend.views.viewmodels.checkboxes.{CheckboxItem, Checkboxes}
 import uk.gov.hmrc.govukfrontend.views.viewmodels.content.{Content, HtmlContent, Text}
 import uk.gov.hmrc.govukfrontend.views.viewmodels.errormessage.ErrorMessage
 import uk.gov.hmrc.govukfrontend.views.viewmodels.errorsummary.ErrorLink
+import uk.gov.hmrc.govukfrontend.views.viewmodels.input.Input
 import uk.gov.hmrc.govukfrontend.views.viewmodels.radios.{RadioItem, Radios}
+import uk.gov.hmrc.govukfrontend.views.viewmodels.select.{Select, SelectItem}
+import uk.gov.hmrc.govukfrontend.views.viewmodels.textarea.Textarea
 
 trait Implicits {
 
@@ -192,8 +197,7 @@ trait Implicits {
     private def errorMessage(formError: FormError) = messages(formError.message, formError.args: _*)
   }
 
-
-  implicit class RichRadios(radios: Radios)(implicit messages: Messages) {
+  implicit class RichRadios(radios: Radios)(implicit val messages: Messages) extends ImplicitsSupport[Radios] {
 
     /**
       * Extension method to allow a Play form Field to be used to add certain parameters in a Radios,
@@ -203,44 +207,281 @@ trait Implicits {
       * @param field
       * @param messages
       */
-    def withFormField(field: Field): Radios = {
+    override def withFormField(field: Field): Radios =
       radios
-        .withErrorMessage(field)
-        .withIdPrefix(field)
         .withName(field)
+        .withIdPrefix(field)
         .withItemsChecked(field)
-    }
-
-    private[views] def withErrorMessage(field: Field): Radios =
-      if (radios.errorMessage == Radios.defaultObject.errorMessage) {
-        radios.copy(
-          errorMessage = field.error.map(formError =>
-            ErrorMessage(content = Text(messages(formError.message, formError.args: _*)))
-          )
-        )
-      } else radios
-
-    private[views] def withIdPrefix(field: Field): Radios =
-      if (radios.idPrefix == Radios.defaultObject.idPrefix) radios.copy(idPrefix = Some(field.name))
-      else radios
+        .withErrorMessage(field)
 
     private[views] def withName(field: Field): Radios =
-      if (radios.name == Radios.defaultObject.name) radios.copy(name = field.name)
-      else radios
+      underlyingWithName(field, radios.name, radios)((rds, nm) => rds.copy(name = nm))
+
+    private[views] def withIdPrefix(field: Field): Radios =
+      underlyingWithIdPrefix(field, radios.idPrefix, radios)((rds, ip) => rds.copy(idPrefix = ip))
+
+    private[views] def withErrorMessage(field: Field): Radios =
+      underlyingWithErrorMessage(field, radios.errorMessage, radios)(
+        (rds, errorMsg) => rds.copy(errorMessage = errorMsg)
+      )
 
     private[views] def withItemsChecked(field: Field): Radios =
       radios.copy(
-        items = radios.items.map(radioItem => withItemChecked(radioItem, field))
+        items = radios.items.map { radioItem =>
+          if (radioItem.checked == RadioItem.defaultObject.checked) {
+            val isChecked = radioItem.value == field.value
+            radioItem.copy(checked = isChecked)
+          }
+          else radioItem
+        }
+      )
+  }
+
+  implicit class RichInput(input: Input)(implicit val messages: Messages) extends ImplicitsSupport[Input] {
+
+    /**
+      * Extension method to allow a Play form Field to be used to add certain parameters in an Input,
+      * specifically errorMessage, idPrefix, name, and value. Note these
+      * values will only be added from the Field if they are not specifically defined in the Input object.
+      *
+      * @param field
+      * @param messages
+      */
+    override def withFormField(field: Field): Input =
+      input
+        .withName(field)
+        .withId(field)
+        .withValue(field)
+        .withErrorMessage(field)
+
+    private[views] def withName(field: Field): Input =
+      underlyingWithName(field, input.name, input)((ipt, nm) => ipt.copy(name = nm))
+
+    private[views] def withId(field: Field): Input =
+      underlyingWithId(field, input.id, input)((ipt, id) => ipt.copy(id = id))
+
+    private[views] def withValue(field: Field): Input =
+      underlyingWithValue(field, input.value, input)((ipt, vl) => ipt.copy(value = vl))
+
+    private[views] def withErrorMessage(field: Field): Input =
+      underlyingWithErrorMessage(field, input.errorMessage, input)(
+        (ipt, errorMsg) => ipt.copy(errorMessage = errorMsg)
+      )
+  }
+
+  implicit class RichCheckboxes(checkboxes: Checkboxes)(implicit val messages: Messages) extends ImplicitsSupport[Checkboxes] {
+
+    /**
+      * Extension method to allow a Play form Field to be used to add certain parameters in a Checkboxes,
+      * specifically errorMessage, idPrefix, name, and checked (for a specific CheckboxItem). Note these
+      * values will only be added from the Field if they are not specifically defined in the Checkboxes object.
+      *
+      * @param field
+      * @param messages
+      */
+    override def withFormField(field: Field): Checkboxes =
+      checkboxes
+        .withName(field)
+        .withIdPrefix(field)
+        .withErrorMessage(field)
+        .withItemsChecked(field)
+
+    private[views] def withName(field: Field): Checkboxes =
+      underlyingWithName(field, checkboxes.name, checkboxes)((cb, nm) => cb.copy(name = nm))
+
+    private[views] def withIdPrefix(field: Field): Checkboxes =
+      underlyingWithIdPrefix(field, checkboxes.idPrefix, checkboxes)((cb, ip) => cb.copy(idPrefix = ip))
+
+    private[views] def withErrorMessage(field: Field): Checkboxes =
+      underlyingWithErrorMessage(field, checkboxes.errorMessage, checkboxes)(
+        (cb, errorMsg) => cb.copy(errorMessage = errorMsg)
       )
 
-    private def withItemChecked(radioItem: RadioItem, field: Field): RadioItem = {
-      if (radioItem.checked == RadioItem.defaultObject.checked) {
-        val isChecked = radioItem.value == field.value
-        radioItem.copy(checked = isChecked)
-      }
-      else radioItem
-    }
+    private[views] def withItemsChecked(field: Field): Checkboxes =
+      checkboxes.copy(
+        items = checkboxes.items.map { checkboxItem =>
+          if (checkboxItem.checked == CheckboxItem.defaultObject.checked) {
+            val isChecked = field.value.contains(checkboxItem.value)
+            checkboxItem.copy(checked = isChecked)
+          }
+          else checkboxItem
+        }
+      )
   }
+
+  implicit class RichSelect(select: Select)(implicit val messages: Messages) extends ImplicitsSupport[Select] {
+
+    /**
+      * Extension method to allow a Play form Field to be used to add certain parameters in a Select,
+      * specifically errorMessage, idPrefix, name, and selected (for a specific SelectItem). Note these
+      * values will only be added from the Field if they are not specifically defined in the Select object.
+      *
+      * @param field
+      * @param messages
+      */
+    override def withFormField(field: Field): Select =
+      select
+        .withName(field)
+        .withId(field)
+        .withErrorMessage(field)
+        .withItemSelected(field)
+
+    private[views] def withName(field: Field): Select =
+      underlyingWithName(field, select.name, select)((sct, nm) => sct.copy(name = nm))
+
+    private[views] def withId(field: Field): Select =
+      underlyingWithId(field, select.id, select)((sct, id) => sct.copy(id = id))
+
+    private[views] def withErrorMessage(field: Field): Select =
+      underlyingWithErrorMessage(field, select.errorMessage, select)(
+        (sct, errorMsg) => sct.copy(errorMessage = errorMsg)
+      )
+
+    private[views] def withItemSelected(field: Field): Select =
+      select.copy(
+        items = select.items.map { selectItem =>
+          if (selectItem.selected == SelectItem.defaultObject.selected) {
+            val isSelected = selectItem.value == field.value
+            selectItem.copy(selected = isSelected)
+          }
+          else selectItem
+        }
+      )
+  }
+
+  implicit class RichTextarea(textArea: Textarea)(implicit val messages: Messages) extends ImplicitsSupport[Textarea] {
+
+    /**
+      * Extension method to allow a Play form Field to be used to add certain parameters in an Textarea,
+      * specifically errorMessage, idPrefix, name, and value. Note these
+      * values will only be added from the Field if they are not specifically defined in the Textarea object.
+      *
+      * @param field
+      * @param messages
+      */
+    override def withFormField(field: Field): Textarea =
+      textArea
+        .withName(field)
+        .withId(field)
+        .withValue(field)
+        .withErrorMessage(field)
+
+    private[views] def withName(field: Field): Textarea =
+      underlyingWithName(field, textArea.name, textArea)((ta, nm) => ta.copy(name = nm))
+
+    private[views] def withId(field: Field): Textarea =
+      underlyingWithId(field, textArea.id, textArea)((ta, id) => ta.copy(id = id))
+
+    private[views] def withValue(field: Field): Textarea =
+      underlyingWithValue(field, textArea.value, textArea)((ta, vl) => ta.copy(value = vl))
+
+    private[views] def withErrorMessage(field: Field): Textarea =
+      underlyingWithErrorMessage(field, textArea.errorMessage, textArea)(
+        (ta, errorMsg) => ta.copy(errorMessage = errorMsg)
+      )
+  }
+
+  implicit class RichCharacterCount(characterCount: CharacterCount)(implicit val messages: Messages) extends ImplicitsSupport[CharacterCount] {
+
+    /**
+      * Extension method to allow a Play form Field to be used to add certain parameters in an CharacterCount,
+      * specifically errorMessage, idPrefix, name, and value. Note these
+      * values will only be added from the Field if they are not specifically defined in the CharacterCount object.
+      *
+      * @param field
+      * @param messages
+      */
+    override def withFormField(field: Field): CharacterCount =
+      characterCount
+        .withName(field)
+        .withId(field)
+        .withValue(field)
+        .withErrorMessage(field)
+
+    private[views] def withName(field: Field): CharacterCount =
+      underlyingWithName(field, characterCount.name, characterCount)((cc, nm) => cc.copy(name = nm))
+
+    private[views] def withId(field: Field): CharacterCount =
+      underlyingWithId(field, characterCount.id, characterCount)((cc, id) => cc.copy(id = id))
+
+    private[views] def withValue(field: Field): CharacterCount =
+      underlyingWithValue(field, characterCount.value, characterCount)((cc, vl) => cc.copy(value = vl))
+
+    private[views] def withErrorMessage(field: Field): CharacterCount =
+      underlyingWithErrorMessage(field, characterCount.errorMessage, characterCount)(
+        (cc, errorMsg) => cc.copy(errorMessage = errorMsg)
+      )
+  }
+
 }
 
 object Implicits extends Implicits
+
+trait ImplicitsSupport[T] {
+
+  implicit val messages: Messages
+
+  def withFormField(field: Field): T
+
+  protected[views] def underlyingWithErrorMessage(field: Field,
+                                                  currentErrorMessage: Option[ErrorMessage],
+                                                  currentFormInput: T)(update: (T, Option[ErrorMessage]) => T): T =
+    withProperty[Option[ErrorMessage], T](
+      propertyFromField = fieldToErrorMessage(field),
+      propertyFromUnderlying = currentErrorMessage,
+      default = None,
+      formInput = currentFormInput)(update)
+
+  protected[views] def underlyingWithName(field: Field,
+                                          currentName: String,
+                                          currentFormInput: T)(update: (T, String) => T): T =
+    withProperty[String, T](
+      propertyFromField = field.name,
+      propertyFromUnderlying = currentName,
+      default = "",
+      formInput = currentFormInput)(update)
+
+  protected[views] def underlyingWithId(field: Field,
+                                        currentId: String,
+                                        currentFormInput: T)(update: (T, String) => T): T = {
+    withProperty[String, T](
+      propertyFromField = field.name,
+      propertyFromUnderlying = currentId,
+      default = "",
+      formInput = currentFormInput)(update)
+  }
+
+  protected[views] def underlyingWithValue(field: Field,
+                                           currentValue: Option[String],
+                                           currentFormInput: T)(update: (T, Option[String]) => T): T =
+    withProperty[Option[String], T](
+      propertyFromField = field.value,
+      propertyFromUnderlying = currentValue,
+      default = None,
+      formInput = currentFormInput)(update)
+
+  protected[views] def underlyingWithIdPrefix(field: Field,
+                                              currentIdPrefix: Option[String],
+                                              currentFormInput: T)(update: (T, Option[String]) => T): T =
+    withProperty[Option[String], T](
+      propertyFromField = Option(field.name),
+      propertyFromUnderlying = currentIdPrefix,
+      default = None,
+      formInput = currentFormInput)(update)
+
+  private[views] def withProperty[A, T](propertyFromField: A,
+                                        propertyFromUnderlying: A,
+                                        default: A,
+                                        formInput: T)
+                                       (update: (T, A) => T): T = {
+    if (propertyFromUnderlying == default) update(formInput, propertyFromField)
+    else formInput
+  }
+
+  private def fieldToErrorMessage(field: Field): Option[ErrorMessage] = {
+    field.error
+      .map(formError =>
+        ErrorMessage(content = Text(messages(formError.message, formError.args: _*)))
+      )
+  }
+}

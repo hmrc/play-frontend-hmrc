@@ -17,29 +17,12 @@
 package uk.gov.hmrc.govukfrontend.views
 
 import org.scalatest.{Matchers, WordSpec}
-import play.api.data.Forms.{mapping, text}
-import play.api.data.{Field, Form, FormError}
 import uk.gov.hmrc.govukfrontend.views.html.components.implicits._
 import uk.gov.hmrc.govukfrontend.views.viewmodels.content.Text
 import uk.gov.hmrc.govukfrontend.views.viewmodels.errormessage.ErrorMessage
 import uk.gov.hmrc.govukfrontend.views.viewmodels.radios.{RadioItem, Radios}
 
-class RichRadiosSpec extends WordSpec with Matchers with MessagesHelpers {
-
-  val field: Field = Field(
-    form = TestFormBind.form.bind(Map(
-      "user-name" -> "Test Name",
-      "user-email" -> "test@example.com"
-    )),
-    name = "Form Name",
-    constraints = Nil,
-    format = None,
-    errors = Seq(
-      FormError(key = "user-name", "Not valid name"),
-      FormError(key = "user-email", "Not valid email")
-    ),
-    value = Some("bad")
-  )
+class RichRadiosSpec extends WordSpec with Matchers with MessagesHelpers with RichFormInputHelpers {
 
   "Given a Radios object, calling withFormField" should {
     "use the Field name as the Radios name if no Radios name provided" in {
@@ -107,15 +90,4 @@ class RichRadiosSpec extends WordSpec with Matchers with MessagesHelpers {
       )
     }
   }
-
-  case class TestForm(name: String, email: String)
-
-  object TestFormBind {
-    def form: Form[TestForm] = Form[TestForm](
-      mapping(
-        "user-name" -> text,
-        "user-email" -> text
-      )(TestForm.apply)(TestForm.unapply))
-  }
-
 }
