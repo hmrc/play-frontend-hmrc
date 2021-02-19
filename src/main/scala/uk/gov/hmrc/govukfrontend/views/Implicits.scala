@@ -241,7 +241,7 @@ trait Implicits {
 
     /**
       * Extension method to allow a Play form Field to be used to add certain parameters in an Input,
-      * specifically errorMessage, idPrefix, name, and value. Note these
+      * specifically errorMessage, id, name, and value. Note these
       * values will only be added from the Field if they are not specifically defined in the Input object.
       *
       * @param field
@@ -313,7 +313,7 @@ trait Implicits {
 
     /**
       * Extension method to allow a Play form Field to be used to add certain parameters in a Select,
-      * specifically errorMessage, idPrefix, name, and selected (for a specific SelectItem). Note these
+      * specifically errorMessage, id, name, and selected (for a specific SelectItem). Note these
       * values will only be added from the Field if they are not specifically defined in the Select object.
       *
       * @param field
@@ -353,7 +353,7 @@ trait Implicits {
 
     /**
       * Extension method to allow a Play form Field to be used to add certain parameters in an Textarea,
-      * specifically errorMessage, idPrefix, name, and value. Note these
+      * specifically errorMessage, id, name, and value. Note these
       * values will only be added from the Field if they are not specifically defined in the Textarea object.
       *
       * @param field
@@ -385,7 +385,7 @@ trait Implicits {
 
     /**
       * Extension method to allow a Play form Field to be used to add certain parameters in an CharacterCount,
-      * specifically errorMessage, idPrefix, name, and value. Note these
+      * specifically errorMessage, id, name, and value. Note these
       * values will only be added from the Field if they are not specifically defined in the CharacterCount object.
       *
       * @param field
