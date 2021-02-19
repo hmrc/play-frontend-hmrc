@@ -215,13 +215,13 @@ trait Implicits {
         .withErrorMessage(field)
 
     private[views] def withName(field: Field): Radios =
-      underlyingWithName(field, radios.name, radios)((rds, nm) => rds.copy(name = nm))
+      withStringProperty(field.name, radios.name, radios)((rds, nm) => rds.copy(name = nm))
 
     private[views] def withIdPrefix(field: Field): Radios =
-      underlyingWithIdPrefix(field, radios.idPrefix, radios)((rds, ip) => rds.copy(idPrefix = ip))
+      withOptStringProperty(Some(field.name), radios.idPrefix, radios)((rds, ip) => rds.copy(idPrefix = ip))
 
     private[views] def withErrorMessage(field: Field): Radios =
-      underlyingWithErrorMessage(field, radios.errorMessage, radios)(
+      withOptErrorMessageProperty(field.error, radios.errorMessage, radios)(
         (rds, errorMsg) => rds.copy(errorMessage = errorMsg)
       )
 
@@ -255,16 +255,16 @@ trait Implicits {
         .withErrorMessage(field)
 
     private[views] def withName(field: Field): Input =
-      underlyingWithName(field, input.name, input)((ipt, nm) => ipt.copy(name = nm))
+      withStringProperty(field.name, input.name, input)((ipt, nm) => ipt.copy(name = nm))
 
     private[views] def withId(field: Field): Input =
-      underlyingWithId(field, input.id, input)((ipt, id) => ipt.copy(id = id))
+      withStringProperty(field.name, input.id, input)((ipt, id) => ipt.copy(id = id))
 
     private[views] def withValue(field: Field): Input =
-      underlyingWithValue(field, input.value, input)((ipt, vl) => ipt.copy(value = vl))
+      withOptStringProperty(field.value, input.value, input)((ipt, vl) => ipt.copy(value = vl))
 
     private[views] def withErrorMessage(field: Field): Input =
-      underlyingWithErrorMessage(field, input.errorMessage, input)(
+      withOptErrorMessageProperty(field.error, input.errorMessage, input)(
         (ipt, errorMsg) => ipt.copy(errorMessage = errorMsg)
       )
   }
@@ -287,13 +287,13 @@ trait Implicits {
         .withItemsChecked(field)
 
     private[views] def withName(field: Field): Checkboxes =
-      underlyingWithName(field, checkboxes.name, checkboxes)((cb, nm) => cb.copy(name = nm))
+      withStringProperty(field.name, checkboxes.name, checkboxes)((cb, nm) => cb.copy(name = nm))
 
     private[views] def withIdPrefix(field: Field): Checkboxes =
-      underlyingWithIdPrefix(field, checkboxes.idPrefix, checkboxes)((cb, ip) => cb.copy(idPrefix = ip))
+      withOptStringProperty(Some(field.name), checkboxes.idPrefix, checkboxes)((cb, ip) => cb.copy(idPrefix = ip))
 
     private[views] def withErrorMessage(field: Field): Checkboxes =
-      underlyingWithErrorMessage(field, checkboxes.errorMessage, checkboxes)(
+      withOptErrorMessageProperty(field.error, checkboxes.errorMessage, checkboxes)(
         (cb, errorMsg) => cb.copy(errorMessage = errorMsg)
       )
 
@@ -327,13 +327,13 @@ trait Implicits {
         .withItemSelected(field)
 
     private[views] def withName(field: Field): Select =
-      underlyingWithName(field, select.name, select)((sct, nm) => sct.copy(name = nm))
+      withStringProperty(field.name, select.name, select)((sct, nm) => sct.copy(name = nm))
 
     private[views] def withId(field: Field): Select =
-      underlyingWithId(field, select.id, select)((sct, id) => sct.copy(id = id))
+      withStringProperty(field.name, select.id, select)((sct, id) => sct.copy(id = id))
 
     private[views] def withErrorMessage(field: Field): Select =
-      underlyingWithErrorMessage(field, select.errorMessage, select)(
+      withOptErrorMessageProperty(field.error, select.errorMessage, select)(
         (sct, errorMsg) => sct.copy(errorMessage = errorMsg)
       )
 
@@ -367,16 +367,16 @@ trait Implicits {
         .withErrorMessage(field)
 
     private[views] def withName(field: Field): Textarea =
-      underlyingWithName(field, textArea.name, textArea)((ta, nm) => ta.copy(name = nm))
+      withStringProperty(field.name, textArea.name, textArea)((ta, nm) => ta.copy(name = nm))
 
     private[views] def withId(field: Field): Textarea =
-      underlyingWithId(field, textArea.id, textArea)((ta, id) => ta.copy(id = id))
+      withStringProperty(field.name, textArea.id, textArea)((ta, id) => ta.copy(id = id))
 
     private[views] def withValue(field: Field): Textarea =
-      underlyingWithValue(field, textArea.value, textArea)((ta, vl) => ta.copy(value = vl))
+      withOptStringProperty(field.value, textArea.value, textArea)((ta, vl) => ta.copy(value = vl))
 
     private[views] def withErrorMessage(field: Field): Textarea =
-      underlyingWithErrorMessage(field, textArea.errorMessage, textArea)(
+      withOptErrorMessageProperty(field.error, textArea.errorMessage, textArea)(
         (ta, errorMsg) => ta.copy(errorMessage = errorMsg)
       )
   }
@@ -399,16 +399,16 @@ trait Implicits {
         .withErrorMessage(field)
 
     private[views] def withName(field: Field): CharacterCount =
-      underlyingWithName(field, characterCount.name, characterCount)((cc, nm) => cc.copy(name = nm))
+      withStringProperty(field.name, characterCount.name, characterCount)((cc, nm) => cc.copy(name = nm))
 
     private[views] def withId(field: Field): CharacterCount =
-      underlyingWithId(field, characterCount.id, characterCount)((cc, id) => cc.copy(id = id))
+      withStringProperty(field.name, characterCount.id, characterCount)((cc, id) => cc.copy(id = id))
 
     private[views] def withValue(field: Field): CharacterCount =
-      underlyingWithValue(field, characterCount.value, characterCount)((cc, vl) => cc.copy(value = vl))
+      withOptStringProperty(field.value, characterCount.value, characterCount)((cc, vl) => cc.copy(value = vl))
 
     private[views] def withErrorMessage(field: Field): CharacterCount =
-      underlyingWithErrorMessage(field, characterCount.errorMessage, characterCount)(
+      withOptErrorMessageProperty(field.error, characterCount.errorMessage, characterCount)(
         (cc, errorMsg) => cc.copy(errorMessage = errorMsg)
       )
   }
@@ -423,49 +423,32 @@ trait ImplicitsSupport[T] {
 
   def withFormField(field: Field): T
 
-  protected[views] def underlyingWithErrorMessage(field: Field,
-                                                  currentErrorMessage: Option[ErrorMessage],
-                                                  currentFormInput: T)(update: (T, Option[ErrorMessage]) => T): T =
-    withProperty[Option[ErrorMessage], T](
-      propertyFromField = fieldToErrorMessage(field),
-      propertyFromUnderlying = currentErrorMessage,
-      default = None,
-      formInput = currentFormInput)(update)
-
-  protected[views] def underlyingWithName(field: Field,
-                                          currentName: String,
-                                          currentFormInput: T)(update: (T, String) => T): T =
+  protected[views] def withStringProperty(propFromField: String,
+                                          currentProp: String,
+                                          currentFormInput: T)(update: (T, String) => T): T = {
     withProperty[String, T](
-      propertyFromField = field.name,
-      propertyFromUnderlying = currentName,
-      default = "",
-      formInput = currentFormInput)(update)
-
-  protected[views] def underlyingWithId(field: Field,
-                                        currentId: String,
-                                        currentFormInput: T)(update: (T, String) => T): T = {
-    withProperty[String, T](
-      propertyFromField = field.name,
-      propertyFromUnderlying = currentId,
+      propertyFromField = propFromField,
+      propertyFromUnderlying = currentProp,
       default = "",
       formInput = currentFormInput)(update)
   }
 
-  protected[views] def underlyingWithValue(field: Field,
-                                           currentValue: Option[String],
-                                           currentFormInput: T)(update: (T, Option[String]) => T): T =
+  protected[views] def withOptStringProperty(propFromField: Option[String],
+                                             currentProp: Option[String],
+                                             currentFormInput: T)(update: (T, Option[String]) => T): T = {
     withProperty[Option[String], T](
-      propertyFromField = field.value,
-      propertyFromUnderlying = currentValue,
+      propertyFromField = propFromField,
+      propertyFromUnderlying = currentProp,
       default = None,
       formInput = currentFormInput)(update)
+  }
 
-  protected[views] def underlyingWithIdPrefix(field: Field,
-                                              currentIdPrefix: Option[String],
-                                              currentFormInput: T)(update: (T, Option[String]) => T): T =
-    withProperty[Option[String], T](
-      propertyFromField = Option(field.name),
-      propertyFromUnderlying = currentIdPrefix,
+  protected[views] def withOptErrorMessageProperty(formError: Option[FormError],
+                                                   currentProp: Option[ErrorMessage],
+                                                   currentFormInput: T)(update: (T, Option[ErrorMessage]) => T): T =
+    withProperty[Option[ErrorMessage], T](
+      propertyFromField = formErrorToErrorMessage(formError),
+      propertyFromUnderlying = currentProp,
       default = None,
       formInput = currentFormInput)(update)
 
@@ -478,10 +461,9 @@ trait ImplicitsSupport[T] {
     else formInput
   }
 
-  private def fieldToErrorMessage(field: Field): Option[ErrorMessage] = {
-    field.error
-      .map(formError =>
-        ErrorMessage(content = Text(messages(formError.message, formError.args: _*)))
-      )
+  private def formErrorToErrorMessage(formError: Option[FormError]): Option[ErrorMessage] = {
+    formError.map(formError =>
+      ErrorMessage(content = Text(messages(formError.message, formError.args: _*)))
+    )
   }
 }
