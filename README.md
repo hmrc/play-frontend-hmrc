@@ -227,6 +227,42 @@ _Note: Currently there are examples only for the following components:_
 
 ## API
 
+As of v0.63.0, a method `withFormField(field: play.api.data.Field)` method has been added to the following classes:
+* CharacterCount
+* Checkboxes
+* Input
+* Radios
+* Select
+* Textarea
+
+This new method allows a Play forms Field to be passed through when creating an instance of `play-frontend-govuk` form input,
+which will enrich the input with the following:
+* Using the `Field` name for the input name
+* Using the `Field` name for the input id or idPrefix
+* Using the `Field` error message
+* Using the `Field` value as pre-filled value (for `CharacterCount`, `Input`, `Textarea`) or pre-selected value 
+  (`Checkboxes`, `Radios`, `Select`)
+  
+The methods can be used as methods in a Twirl template as demonstrated below:
+```
+@import uk.gov.hmrc.govukfrontend.views.html.components.implicits._
+
+@this(govukInput)
+
+@(label: String, field: Field)(implicit messages: Messages)
+
+@govukInput(
+  Input(
+    label = Label(classes = labelClasses, content = Text(label))
+  ).withFormField(field)
+)
+```
+
+If a value is passed though to the input `.apply()` method during construction, it will NOT be overwritten by the 
+`Field` values. These are only used if the object parameters are not set to the default parameters.
+
+Note that you will need to pass through an implicit `Messages` to your template.
+
 TODO: link to scaladoc
 
 ## Dependencies
