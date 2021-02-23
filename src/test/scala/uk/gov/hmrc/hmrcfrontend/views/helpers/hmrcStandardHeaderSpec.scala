@@ -193,10 +193,11 @@ class hmrcStandardHeaderSpec extends WordSpecLike with Matchers with JsoupHelper
 
     "render the phase banner" in {
       val hmrcStandardHeader = buildApp().injector.instanceOf[HmrcStandardHeader]
+      val standardPhaseBanner = buildApp().injector.instanceOf[StandardPhaseBanner]
 
       implicit val messages = getMessages()
       val content  = contentAsString(hmrcStandardHeader(
-        phaseBanner = Some(StandardPhaseBanner(phase = "alpha", url = "/foo"))
+        phaseBanner = Some(standardPhaseBanner(phase = "alpha", url = "/foo"))
       ))
       val document = Jsoup.parse(content)
       val banners    = document.select(".govuk-phase-banner")

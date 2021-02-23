@@ -17,14 +17,17 @@
 package uk.gov.hmrc.hmrcfrontend.views.config
 
 import org.scalatest.{MustMatchers, WordSpec}
+import org.scalatestplus.play.guice.GuiceOneAppPerSuite
 import play.api.i18n.{Lang, Messages}
 import uk.gov.hmrc.govukfrontend.views.Aliases.{HtmlContent, PhaseBanner, Tag, Text}
 import uk.gov.hmrc.hmrcfrontend.MessagesSupport
 
-class StandardPhaseBannerSpec extends WordSpec with MustMatchers with MessagesSupport {
+class StandardPhaseBannerSpec extends WordSpec with MustMatchers with MessagesSupport with GuiceOneAppPerSuite {
   "StandardPhaseBanner" must {
+    val standardPhaseBanner = app.injector.instanceOf[StandardPhaseBanner]
+
     "Return the correct PhaseBanner object for the given phase and url" in {
-      val phaseBanner = StandardPhaseBanner(phase = "alpha", url = "/feedback")
+      val phaseBanner = standardPhaseBanner(phase = "alpha", url = "/feedback")
 
       phaseBanner mustBe (PhaseBanner(
         tag = Some(Tag(content = Text("alpha"))),
@@ -33,7 +36,7 @@ class StandardPhaseBannerSpec extends WordSpec with MustMatchers with MessagesSu
     }
 
     "Return the correct PhaseBanner object for a different phase and url" in {
-      val phaseBanner = StandardPhaseBanner(phase = "beta", url = "/other-feedback")
+      val phaseBanner = standardPhaseBanner(phase = "beta", url = "/other-feedback")
 
       phaseBanner mustBe (PhaseBanner(
         tag = Some(Tag(content = Text("beta"))),
@@ -41,10 +44,19 @@ class StandardPhaseBannerSpec extends WordSpec with MustMatchers with MessagesSu
       ))
     }
 
+    "properly escape the url" in {
+      val phaseBanner = standardPhaseBanner(phase = "beta", url = "\"><script>console.log('evil');</script><a href=\"")
+
+      phaseBanner mustBe (PhaseBanner(
+        tag = Some(Tag(content = Text("beta"))),
+        content = HtmlContent("This is a new service – your <a class=\"govuk-link\" href=\"&quot;&gt;&lt;script&gt;console.log(&#x27;evil&#x27;);&lt;/script&gt;&lt;a href=&quot;\">feedback</a> will help us to improve it.")
+      ))
+    }
+
     "Return the correct Welsh content" in {
       implicit val messages: Messages = messagesApi.preferred(Seq(Lang("cy")))
 
-      val phaseBanner = StandardPhaseBanner(phase = "alpha", url = "/feedback")
+      val phaseBanner = standardPhaseBanner(phase = "alpha", url = "/feedback")
 
       phaseBanner mustBe (PhaseBanner(
         tag = Some(Tag(content = Text("alpha"))),

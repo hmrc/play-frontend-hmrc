@@ -15,16 +15,17 @@
  */
 
 package uk.gov.hmrc.hmrcfrontend.views.config
-
+import javax.inject.Inject
 import play.api.i18n.Messages
-import uk.gov.hmrc.govukfrontend.views.Aliases.{Text, HtmlContent, PhaseBanner, Tag}
+import play.twirl.api.HtmlFormat
+import uk.gov.hmrc.govukfrontend.views.Aliases.{HtmlContent, PhaseBanner, Tag, Text}
 
-object StandardPhaseBanner {
+class StandardPhaseBanner @Inject()() {
   def apply(phase: String, url: String)(implicit messages: Messages): PhaseBanner =
     PhaseBanner(
       tag = Some(Tag(content = Text(phase))),
       content = HtmlContent(
-        s"""${messages("phase.banner.before")} <a class=\"govuk-link\" href=\"$url\">${messages("phase.banner.link")}</a> ${messages("phase.banner.after")}"""
+        s"""${messages("phase.banner.before")} <a class=\"govuk-link\" href=\"${HtmlFormat.escape(url)}\">${messages("phase.banner.link")}</a> ${messages("phase.banner.after")}"""
       )
     )
 }
