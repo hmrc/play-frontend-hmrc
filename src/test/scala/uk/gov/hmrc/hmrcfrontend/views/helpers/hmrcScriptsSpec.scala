@@ -16,13 +16,15 @@
 
 package uk.gov.hmrc.hmrcfrontend.views.helpers
 
+import org.jsoup.Jsoup
 import org.scalatest.{Matchers, WordSpec}
 import org.scalatestplus.play.guice.GuiceOneAppPerSuite
 import play.api.test.FakeRequest
+import play.api.test.Helpers.contentAsString
 import play.twirl.api.Html
 import uk.gov.hmrc.hmrcfrontend.MessagesSupport
 import uk.gov.hmrc.hmrcfrontend.views.JsoupHelpers
-import uk.gov.hmrc.hmrcfrontend.views.html.helpers.HmrcScripts
+import uk.gov.hmrc.hmrcfrontend.views.html.helpers.{HmrcScripts, HmrcTimeoutDialogHelper}
 
 class hmrcScriptsSpec extends WordSpec with Matchers with GuiceOneAppPerSuite with JsoupHelpers with MessagesSupport {
   implicit val request = FakeRequest("GET", "/foo")
@@ -45,6 +47,17 @@ class hmrcScriptsSpec extends WordSpec with Matchers with GuiceOneAppPerSuite wi
       scripts should have size 2
       scripts.get(0).attr("src") should include ("hmrc-frontend")
       scripts.get(1).attr("id") should be ("foo-script-tag")
+    }
+
+    "render the correct url even if AssetsConfig has already been instantiated" in {
+      val hmrcScripts = app.injector.instanceOf[HmrcScripts]
+      hmrcfrontend.RoutesPrefix.setPrefix("/foo-service/hmrc-frontend")
+
+      val scripts = hmrcScripts().select("script")
+
+      scripts should have size 1
+      scripts.first.attr("src") should fullyMatch regex
+        """/foo-service/hmrc-frontend/assets/hmrc-frontend-\d+.\d+.\d+.min.js""".r
     }
   }
 }

@@ -5,6 +5,19 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [0.46.0] - 2021-02-23
+
+### Fixed
+
+- Bug with hmrcHead and hmrcScripts where asset routes are not configured correctly due to
+the static nature of the initialisation of reverse routers.
+
+### Compatible with
+
+- [hmrc/hmrc-frontend v1.25.0](https://github.com/hmrc/hmrc-frontend/releases/tag/v1.25.0)
+- [hmrc/play-frontend-govuk v0.63.0](https://github.com/hmrc/play-frontend-govuk/releases/tag/v0.63.0)
+- [alphagov/govuk-frontend v3.11.0](https://github.com/alphagov/govuk-frontend/releases/tag/v3.11.0)
+
 ## [0.45.0] - 2021-02-23
 
 ### Fixed
@@ -14,7 +27,7 @@ both play-frontend-govuk and play-frontend-hmrc are dependencies.
 
 ### Compatible with
 
-- [hmrc/hmrc-frontend v1.25.0](https://github.com/hmrc/hmrc-frontend/releases/tag/v1.24.0)
+- [hmrc/hmrc-frontend v1.25.0](https://github.com/hmrc/hmrc-frontend/releases/tag/v1.25.0)
 - [hmrc/play-frontend-govuk v0.63.0](https://github.com/hmrc/play-frontend-govuk/releases/tag/v0.63.0)
 - [alphagov/govuk-frontend v3.11.0](https://github.com/alphagov/govuk-frontend/releases/tag/v3.11.0)
 
