@@ -46,7 +46,8 @@ lazy val root = Project(libName, file("."))
     buildInfoKeys ++= Seq[BuildInfoKey](
       "playVersion" -> PlayCrossCompilation.playVersion,
       sources in (Compile, TwirlKeys.compileTemplates)
-    )
+    ),
+    buildInfoPackage := "hmrcfrontendbuildinfo"
   )
   .settings(inConfig(IntegrationTest)(itSettings): _*)
 
