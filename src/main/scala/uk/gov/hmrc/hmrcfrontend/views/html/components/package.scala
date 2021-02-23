@@ -17,7 +17,7 @@
 package uk.gov.hmrc.hmrcfrontend.views
 package html
 
-import uk.gov.hmrc.govukfrontend.views.html.components.{GovukErrorMessage, GovukHint, GovukLabel}
+import uk.gov.hmrc.govukfrontend.views.html.components.{GovukErrorMessage, GovukHint, GovukLabel, GovukPhaseBanner}
 
 package object components extends Utils with Aliases {
 
@@ -34,9 +34,13 @@ package object components extends Utils with Aliases {
   @deprecated(message = "Use DI", since = "Play 2.6")
   lazy val HmrcBanner = new hmrcBanner()
 
+  type HmrcUserResearchBanner = hmrcUserResearchBanner
+  @deprecated(message = "Use DI", since = "Play 2.6")
+  lazy val HmrcUserResearchBanner = new hmrcUserResearchBanner()
+
   type HmrcHeader = hmrcHeader
   @deprecated(message = "Use DI", since = "Play 2.6")
-  lazy val HmrcHeader = new hmrcHeader(HmrcBanner)
+  lazy val HmrcHeader = new hmrcHeader(HmrcBanner, HmrcUserResearchBanner, GovukPhaseBanner)
 
   type HmrcFooter = hmrcFooter
   @deprecated(message = "Use DI", since = "Play 2.6")

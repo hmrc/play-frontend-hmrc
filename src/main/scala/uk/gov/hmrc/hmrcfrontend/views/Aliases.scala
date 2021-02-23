@@ -92,6 +92,9 @@ trait Aliases {
 
   type CurrencyInput = viewmodels.currencyinput.CurrencyInput
   val CurrencyInput = viewmodels.currencyinput.CurrencyInput
+
+  type UserResearchBanner = viewmodels.userresearchbanner.UserResearchBanner
+  val UserResearchBanner = viewmodels.userresearchbanner.UserResearchBanner
 }
 
 object Aliases extends Aliases

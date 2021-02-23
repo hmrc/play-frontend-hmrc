@@ -18,7 +18,9 @@ package uk.gov.hmrc.hmrcfrontend.views.viewmodels.header
 
 import play.api.libs.functional.syntax._
 import play.api.libs.json._
+import uk.gov.hmrc.govukfrontend.views.viewmodels.phasebanner.PhaseBanner
 import uk.gov.hmrc.hmrcfrontend.views.viewmodels.language.{Cy, En, Language, LanguageToggle}
+import uk.gov.hmrc.hmrcfrontend.views.viewmodels.userresearchbanner.UserResearchBanner
 
 import scala.collection.immutable.SortedMap
 
@@ -36,7 +38,9 @@ case class Header(
                    language: Language = En,
                    displayHmrcBanner: Boolean = false,
                    signOutHref: Option[String] = None,
-                   private val inputLanguageToggle: Option[LanguageToggle] = None
+                   private val inputLanguageToggle: Option[LanguageToggle] = None,
+                   userResearchBanner: Option[UserResearchBanner] = None,
+                   phaseBanner: Option[PhaseBanner] = None
                  ) {
 
   // We use this method instead of using the input language toggle directly
@@ -71,7 +75,9 @@ object Header {
         (__ \ "language").readWithDefault[Language](defaultObject.language) and
         (__ \ "displayHmrcBanner").readWithDefault[Boolean](defaultObject.displayHmrcBanner) and
         (__ \ "signOutHref").readNullable[String] and
-        (__ \ "languageToggle").readNullable[LanguageToggle]
+        (__ \ "languageToggle").readNullable[LanguageToggle] and
+        (__ \ "userResearchBanner").readNullable[UserResearchBanner] and
+        (__ \ "phaseBanner").readNullable[PhaseBanner]
       ) (Header.apply _)
 
   implicit def jsonWrites: OWrites[Header] =
@@ -89,6 +95,8 @@ object Header {
         (__ \ "language").write[Language] and
         (__ \ "displayHmrcBanner").write[Boolean] and
         (__ \ "signOutHref").writeNullable[String] and
-        (__ \ "languageToggle").writeNullable[LanguageToggle]
+        (__ \ "languageToggle").writeNullable[LanguageToggle] and
+        (__ \ "userResearchBanner").writeNullable[UserResearchBanner] and
+        (__ \ "phaseBanner").writeNullable[PhaseBanner]
       ) (header => unlift(Header.unapply)(header.copy(inputLanguageToggle = header.languageToggle)))
 }

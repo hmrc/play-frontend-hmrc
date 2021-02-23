@@ -14,13 +14,20 @@
  * limitations under the License.
  *@
 
-@import uk.gov.hmrc.hmrcfrontend.views.viewmodels.header.Header
 @import uk.gov.hmrc.hmrcfrontend.views.html.components.HmrcHeader
-@import uk.gov.hmrc.hmrcfrontend.views.Aliases.{Cy, En}
+@import uk.gov.hmrc.hmrcfrontend.views.Aliases.{Cy, En, Header, UserResearchBanner}
+@import uk.gov.hmrc.govukfrontend.views.Aliases.PhaseBanner
 
 @this(hmrcHeader: HmrcHeader)
 
-@(serviceName: Option[String] = None, serviceUrl: Option[String] = None, signOutUrl: Option[String] = None, displayHmrcBanner: Boolean = false)(implicit messages: Messages, request: RequestHeader)
+@(
+  serviceName: Option[String] = None,
+  serviceUrl: Option[String] = None,
+  signOutUrl: Option[String] = None,
+  userResearchBanner: Option[UserResearchBanner] = None,
+  phaseBanner: Option[PhaseBanner] = None,
+  displayHmrcBanner: Boolean = false
+)(implicit messages: Messages, request: RequestHeader)
 @defining("service.name") { serviceNameKey =>
   @defining(if(messages.isDefinedAt(serviceNameKey)) Some(messages(serviceNameKey)) else None) { serviceNameFromMessages =>
     @hmrcHeader(Header(
@@ -30,6 +37,8 @@
       signOutHref = signOutUrl,
       language = if(messages.lang.code == "cy") Cy else En,
       assetsPath = uk.gov.hmrc.govukfrontend.controllers.routes.Assets.at("images").url,
+      userResearchBanner = userResearchBanner,
+      phaseBanner = phaseBanner,
       displayHmrcBanner = displayHmrcBanner
     ))
   }
