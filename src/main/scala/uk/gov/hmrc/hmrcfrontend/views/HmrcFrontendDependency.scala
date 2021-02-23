@@ -17,7 +17,7 @@
 package uk.gov.hmrc.hmrcfrontend.views
 
 import scala.util.matching.Regex
-import buildinfo.BuildInfo
+import hmrcfrontendbuildinfo.BuildInfo
 
 object HmrcFrontendDependency {
   val hmrcFrontendVersionRegex: Regex = """org\.webjars\.npm:hmrc-frontend:(\d+\.\d+\.\d+)""".r
