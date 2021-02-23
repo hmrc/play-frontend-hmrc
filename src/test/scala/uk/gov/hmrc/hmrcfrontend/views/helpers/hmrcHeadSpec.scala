@@ -70,11 +70,22 @@ class hmrcHeadSpec extends WordSpec with Matchers with GuiceOneAppPerSuite with 
     }
 
     "include the supplied headBlock" in {
-      val hmrcScripts = app.injector.instanceOf[HmrcScripts]
-      val content = hmrcScripts(scriptsBlock = Some(Html("""<meta name="author" content="John Doe">""")))
+      val hmrcHead = app.injector.instanceOf[HmrcHead]
+      val content = hmrcHead(headBlock = Some(Html("""<meta name="author" content="John Doe">""")))
 
       val metaTags = content.select("meta[name=author]")
       metaTags should have size 1
+    }
+
+    "render the correct url even if AssetsConfig has already been instantiated" in {
+      val hmrcHead = app.injector.instanceOf[HmrcHead]
+      hmrcfrontend.RoutesPrefix.setPrefix("/foo-service/hmrc-frontend")
+
+      val links = hmrcHead().select("link")
+
+      links should have size 1
+      links.first.attr("href") should fullyMatch regex
+        """/foo-service/hmrc-frontend/assets/hmrc-frontend-\d+.\d+.\d+.min.css""".r
     }
   }
 }
