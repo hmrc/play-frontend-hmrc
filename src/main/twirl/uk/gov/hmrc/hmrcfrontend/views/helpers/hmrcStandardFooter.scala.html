@@ -21,8 +21,11 @@
 
 @this(hmrcFooter: HmrcFooter, hmrcFooterItems: HmrcFooterItems)
 
-@(additionalFooterItems: Seq[FooterItem] = Seq.empty)(implicit messages: Messages, request: RequestHeader)
+@(
+  additionalFooterItems: Seq[FooterItem] = Seq.empty,
+  accessibilityStatementUrl: Option[String] = None
+)(implicit messages: Messages, request: RequestHeader)
 @hmrcFooter(new Footer(
-  meta = Some(Meta(items = Some(hmrcFooterItems.get ++ additionalFooterItems))),
+  meta = Some(Meta(items = Some(hmrcFooterItems.getWithAccessibilityStatementUrl(accessibilityStatementUrl = accessibilityStatementUrl) ++ additionalFooterItems))),
   language = if (messages.lang.code == "cy") Cy else En
 ))

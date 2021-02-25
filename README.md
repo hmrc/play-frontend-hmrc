@@ -245,6 +245,10 @@ this property must be set to `/discounted-icecreams` as follows:
 accessibility-statement.service-path = "/discounted-icecreams"
 ```
 
+In the exceptional case that you need to link to an accessibility statement not hosted
+ within accessibility-statement-frontend, the default behaviour can be overridden by supplying an
+ `accessibilityStatementUrl` parameter to `hmrcStandardFooter`.
+
 ## Integrating with tracking consent
 
 If you intend to use Google Analytics or Optimizely to measure usage of your service, you will need to integrate with 

@@ -65,6 +65,44 @@ class HmrcFooterItemsSpec extends WordSpec with MustMatchers with MessagesSuppor
       )
     }
 
+    "Return the correct links including a manually defined accesibility statement link" in {
+      val app             = buildApp()
+      val hmrcFooterItems = app.injector.instanceOf[HmrcFooterItems]
+
+      hmrcFooterItems.getWithAccessibilityStatementUrl(accessibilityStatementUrl = Some("https://www.example.com/accessibility-statement")) mustBe Seq(
+        FooterItem(
+          Some("Cookies"),
+          Some("/help/cookies")
+        ),
+        FooterItem(
+          Some("Accessibility statement"),
+          Some(
+            "https://www.example.com/accessibility-statement"
+          )
+        ),
+        FooterItem(
+          Some("Privacy policy"),
+          Some("/help/privacy")
+        ),
+        FooterItem(
+          Some("Terms and conditions"),
+          Some("/help/terms-and-conditions")
+        ),
+        FooterItem(
+          Some("Help using GOV.UK"),
+          Some("https://www.gov.uk/help")
+        ),
+        FooterItem(
+          Some("Contact"),
+          Some("https://www.gov.uk/government/organisations/hm-revenue-customs/contact")
+        ),
+        FooterItem(
+          Some("Rhestr o Wasanaethau Cymraeg"),
+          Some("https://www.gov.uk/cymraeg")
+        )
+      )
+    }
+
     "Return the accessibility link if defined" in {
       val app = buildApp(
         Map(

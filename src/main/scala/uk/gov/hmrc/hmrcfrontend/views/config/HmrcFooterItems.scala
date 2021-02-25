@@ -24,9 +24,12 @@ import uk.gov.hmrc.hmrcfrontend.config.AccessibilityStatementConfig
 
 class HmrcFooterItems @Inject()(accessibilityStatementConfig: AccessibilityStatementConfig) {
   def get(implicit messages: Messages, request: RequestHeader): Seq[FooterItem] =
+    getWithAccessibilityStatementUrl(None)
+
+  private[views] def getWithAccessibilityStatementUrl(accessibilityStatementUrl: Option[String] = None)(implicit messages: Messages, request: RequestHeader): Seq[FooterItem] =
     Seq(
       footerItemForKey("cookies"),
-      accessibilityLink,
+      accessibilityLink(accessibilityStatementUrl),
       footerItemForKey("privacy"),
       footerItemForKey("termsConditions"),
       footerItemForKey("govukHelp"),
@@ -34,8 +37,8 @@ class HmrcFooterItems @Inject()(accessibilityStatementConfig: AccessibilityState
       footerItemForKey("welshHelp")
     ).flatten
 
-  private def accessibilityLink(implicit messages: Messages, request: RequestHeader): Option[FooterItem] =
-    accessibilityStatementConfig.url
+  private def accessibilityLink(accessibilityStatementUrl: Option[String] = None)(implicit messages: Messages, request: RequestHeader): Option[FooterItem] =
+    accessibilityStatementUrl.orElse(accessibilityStatementConfig.url)
       .map(
         href => FooterItem(Some(messages("footer.accessibility.text")), Some(href))
       )
