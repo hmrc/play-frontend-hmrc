@@ -25,7 +25,7 @@ import play.api.mvc.MessagesRequest
 import play.api.test.FakeRequest
 import play.api.test.Helpers.{contentAsString, _}
 import uk.gov.hmrc.hmrcfrontend.views.JsoupHelpers
-import uk.gov.hmrc.hmrcfrontend.views.config.StandardPhaseBanner
+import uk.gov.hmrc.hmrcfrontend.views.config.StandardBetaBanner
 import uk.gov.hmrc.hmrcfrontend.views.html.helpers.HmrcStandardHeader
 import uk.gov.hmrc.hmrcfrontend.views.viewmodels.userresearchbanner.UserResearchBanner
 
@@ -193,11 +193,11 @@ class hmrcStandardHeaderSpec extends WordSpecLike with Matchers with JsoupHelper
 
     "render the phase banner" in {
       val hmrcStandardHeader = buildApp().injector.instanceOf[HmrcStandardHeader]
-      val standardPhaseBanner = buildApp().injector.instanceOf[StandardPhaseBanner]
+      val standardBetaBanner = buildApp().injector.instanceOf[StandardBetaBanner]
 
       implicit val messages = getMessages()
       val content  = contentAsString(hmrcStandardHeader(
-        phaseBanner = Some(standardPhaseBanner(phase = "alpha", url = "/foo"))
+        phaseBanner = Some(standardBetaBanner(url = "/foo"))
       ))
       val document = Jsoup.parse(content)
       val banners    = document.select(".govuk-phase-banner")

@@ -18,6 +18,7 @@
 
 @(params: UserResearchBanner)
 @import params._
+@require(url.nonEmpty, s"failed requirements for hmrcUserResearchBanner: url should not be empty. url=[$url]")
 
 <div class="hmrc-user-research-banner" data-module="hmrc-user-research-banner">
  <div class="hmrc-user-research-banner__container govuk-width-container">

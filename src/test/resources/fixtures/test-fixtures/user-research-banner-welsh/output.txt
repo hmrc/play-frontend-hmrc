@@ -4,7 +4,7 @@
         <div class="hmrc-user-research-banner__title govuk-!-font-weight-bold">
             Helpwch i wella gwasanaethau CThEM
         </div>
-        <a class="govuk-link hmrc-user-research-banner__link" href="" target="_blank">
+        <a class="govuk-link hmrc-user-research-banner__link" href="https://www.example.com/user-research" target="_blank">
             Cofrestrwch i gymryd rhan mewn ymchwil defnyddwyr (yn agor tab newydd)
         </a>
     </div>

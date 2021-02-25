@@ -32,4 +32,14 @@ class hmrcUserResearchBannerSpec extends TemplateUnitSpec[UserResearchBanner]("h
    */
   override def render(templateParams: UserResearchBanner): Try[HtmlFormat.Appendable] =
     Try(HmrcUserResearchBanner(templateParams))
+
+  "hmrcUserResearchBanner" should {
+    """throw an exception if a url is not supplied""" in {
+      val params = UserResearchBanner()
+      val componentTry = Try(HmrcUserResearchBanner(params))
+
+      componentTry should be a 'failure
+      componentTry.failure.exception should have message("requirement failed: failed requirements for hmrcUserResearchBanner: url should not be empty. url=[]")
+    }
+  }
 }

@@ -23,45 +23,58 @@ import uk.gov.hmrc.govukfrontend.views.Aliases.{HtmlContent, PhaseBanner, Tag, T
 import uk.gov.hmrc.hmrcfrontend.MessagesSupport
 
 class StandardPhaseBannerSpec extends WordSpec with MustMatchers with MessagesSupport with GuiceOneAppPerSuite {
-  "StandardPhaseBanner" must {
-    val standardPhaseBanner = app.injector.instanceOf[StandardPhaseBanner]
+  "StandardBetaBanner" must {
+    val standardBetaBanner = app.injector.instanceOf[StandardBetaBanner]
 
     "Return the correct PhaseBanner object for the given phase and url" in {
-      val phaseBanner = standardPhaseBanner(phase = "alpha", url = "/feedback")
+      val phaseBanner = standardBetaBanner(url = "/feedback")
 
-      phaseBanner mustBe (PhaseBanner(
-        tag = Some(Tag(content = Text("alpha"))),
+      phaseBanner mustBe PhaseBanner(
+        tag = Some(Tag(content = Text("beta"))),
         content = HtmlContent("This is a new service – your <a class=\"govuk-link\" href=\"/feedback\">feedback</a> will help us to improve it.")
-      ))
+      )
     }
 
     "Return the correct PhaseBanner object for a different phase and url" in {
-      val phaseBanner = standardPhaseBanner(phase = "beta", url = "/other-feedback")
+      val phaseBanner = standardBetaBanner(url = "/other-feedback")
 
-      phaseBanner mustBe (PhaseBanner(
+      phaseBanner mustBe PhaseBanner(
         tag = Some(Tag(content = Text("beta"))),
         content = HtmlContent("This is a new service – your <a class=\"govuk-link\" href=\"/other-feedback\">feedback</a> will help us to improve it.")
-      ))
+      )
     }
 
     "properly escape the url" in {
-      val phaseBanner = standardPhaseBanner(phase = "beta", url = "\"><script>console.log('evil');</script><a href=\"")
+      val phaseBanner = standardBetaBanner(url = "\"><script>console.log('evil');</script><a href=\"")
 
-      phaseBanner mustBe (PhaseBanner(
+      phaseBanner mustBe PhaseBanner(
         tag = Some(Tag(content = Text("beta"))),
         content = HtmlContent("This is a new service – your <a class=\"govuk-link\" href=\"&quot;&gt;&lt;script&gt;console.log(&#x27;evil&#x27;);&lt;/script&gt;&lt;a href=&quot;\">feedback</a> will help us to improve it.")
-      ))
+      )
     }
 
     "Return the correct Welsh content" in {
       implicit val messages: Messages = messagesApi.preferred(Seq(Lang("cy")))
 
-      val phaseBanner = standardPhaseBanner(phase = "alpha", url = "/feedback")
+      val phaseBanner = standardBetaBanner(url = "/feedback")
 
-      phaseBanner mustBe (PhaseBanner(
-        tag = Some(Tag(content = Text("alpha"))),
+      phaseBanner mustBe PhaseBanner(
+        tag = Some(Tag(content = Text("beta"))),
         content = HtmlContent("Gwasanaeth newydd yw hwn – bydd eich <a class=\"govuk-link\" href=\"/feedback\">adborth</a> yn ein helpu i’w wella.")
-      ))
+      )
+    }
+  }
+
+  "StandardAlphaBanner" must {
+    val standardAlphaBanner = app.injector.instanceOf[StandardAlphaBanner]
+
+    "Return the correct PhaseBanner object for the given url" in {
+      val phaseBanner = standardAlphaBanner(url = "/feedback")
+
+      phaseBanner mustBe PhaseBanner(
+        tag = Some(Tag(content = Text("alpha"))),
+        content = HtmlContent("This is a new service – your <a class=\"govuk-link\" href=\"/feedback\">feedback</a> will help us to improve it.")
+      )
     }
   }
 }

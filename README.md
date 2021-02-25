@@ -178,7 +178,7 @@ To use this component,
   )),
   beforeContentBlock = Some(languageSelect()),
   footerBlock = Some(hmrcStandardFooter()),
-  scriptsBlock = Some(hmrcScripts())
+  scriptsBlock = Some(hmrcScripts(nonce = CSPNonce.get))
 )(contentBlock)
 ```
 
@@ -190,7 +190,7 @@ recruitment banner and the [HMRC banner](https://design.tax.service.gov.uk/hmrc-
 hmrcStandardHeader(
   serviceUrl = Some(controllers.routes.IndexController.index().url),
   signOutUrl = Some(controllers.routes.SignOutController.signOut().url),
-  phaseBanner = Some(StandardPhaseBanner(phase = "alpha", url = appConfig.feedbackUrl)),
+  phaseBanner = Some(standardBetaBanner(url = appConfig.feedbackUrl)),
   userResearchBanner = Some(UserResearchBanner(url = appConfig.userResearchUrl)),
   displayHmrcBanner = true
 )
@@ -335,7 +335,7 @@ a parameter. For example,
         serviceUrl = Some(controllers.routes.IndexController.index().url),
         signOutUrl = signOutUrl
       )),
-      scriptsBlock = Some(hmrcScripts()),
+      scriptsBlock = Some(hmrcScripts(nonce = CSPNonce.get)),
       footerBlock = Some(hmrcStandardFooter())
     )(contentBlock)
     ```
