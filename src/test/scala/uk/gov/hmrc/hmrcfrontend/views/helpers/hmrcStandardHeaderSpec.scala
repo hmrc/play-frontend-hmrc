@@ -25,7 +25,10 @@ import play.api.mvc.MessagesRequest
 import play.api.test.FakeRequest
 import play.api.test.Helpers.{contentAsString, _}
 import uk.gov.hmrc.hmrcfrontend.views.JsoupHelpers
+import uk.gov.hmrc.hmrcfrontend.views.config.StandardBetaBanner
 import uk.gov.hmrc.hmrcfrontend.views.html.helpers.HmrcStandardHeader
+import uk.gov.hmrc.hmrcfrontend.views.viewmodels.userresearchbanner.UserResearchBanner
+
 import scala.collection.immutable.List
 
 class hmrcStandardHeaderSpec extends WordSpecLike with Matchers with JsoupHelpers {
@@ -186,6 +189,49 @@ class hmrcStandardHeaderSpec extends WordSpecLike with Matchers with JsoupHelper
       val banners    = document.select(".hmrc-banner")
 
       banners should have size 1
+    }
+
+    "render the phase banner" in {
+      val hmrcStandardHeader = buildApp().injector.instanceOf[HmrcStandardHeader]
+      val standardBetaBanner = buildApp().injector.instanceOf[StandardBetaBanner]
+
+      implicit val messages = getMessages()
+      val content  = contentAsString(hmrcStandardHeader(
+        phaseBanner = Some(standardBetaBanner(url = "/foo"))
+      ))
+      val document = Jsoup.parse(content)
+      val banners    = document.select(".govuk-phase-banner")
+
+      banners should have size 1
+    }
+
+    "render the user research banner" in {
+      val hmrcStandardHeader = buildApp().injector.instanceOf[HmrcStandardHeader]
+
+      implicit val messages = getMessages()
+      val content  = contentAsString(hmrcStandardHeader(
+        userResearchBanner = Some(UserResearchBanner(url = "/foo"))
+      ))
+      val document = Jsoup.parse(content)
+      val banners    = document.select(".hmrc-user-research-banner")
+
+      banners should have size 1
+      banners.first.text should include("Help improve HMRC services")
+
+    }
+
+    "render the user research banner in Welsh" in {
+      val hmrcStandardHeader = buildApp().injector.instanceOf[HmrcStandardHeader]
+
+      implicit val messages = getMessages(lang = Lang("cy"))
+      val content  = contentAsString(hmrcStandardHeader(
+        userResearchBanner = Some(UserResearchBanner(url = "/foo"))
+      ))
+      val document = Jsoup.parse(content)
+      val banners    = document.select(".hmrc-user-research-banner")
+
+      banners should have size 1
+      banners.first.text should include("Helpwch i wella gwasanaethau CThEM")
     }
   }
 }

@@ -71,6 +71,24 @@ index 51d2d346..713db75d 100644
    required: true
 ```
 
+#### Adding New Components
+When running the above steps, there will be test failures if existing components have changed. However, there will be no
+failures for new components which have been added to `hmrc-frontend` but which have not yet been implemented in 
+`play-frontend-hmrc`.
+
+Therefore, it is important to look at the diffs between versions of `govuk-frontend`, and read the changelog.
+
+To add a new component in `play-frontend-hmrc`, the following steps need to be followed:
+- Add the view model as a Scala case class in the folder: `src/main/scala/uk/gov/hmrc/hmrcfrontend/views/viewmodels`
+- Add an alias to the view model in `src/main/scala/uk/gov/hmrc/hmrcfrontend/views/Aliases.scala`
+- Add the Twirl template in the folder: `src/main/twirl/uk/gov/hmrc/hmrcfrontend/views/components`
+- Add to the package objects in: `src/main/scala/uk/gov/hmrc/hmrcfrontend/views/html/components/package.scala`
+- Add the template unit test: `src/test/scala/uk/gov/hmrc/hmrcfrontend/views/components`. This should extend 
+`TemplateUnitSpec[YourViewModel]("yourTwirlTemplate")`
+- Add the template integration test: `src/it/scala/uk/gov/hmrc/hmrcfrontend/views/components`. This should extend
+`TemplateIntegrationSpec[YourViewModel]("yourTwirlTemplate")`. You will need to create new Generator
+classes in `src/test/scala/uk/gov/hmrc/hmrcfrontend/views/viewmodels`
+
 ## Useful Links
 - [x-govuk-component-renderer](https://github.com/hmrc/x-govuk-component-renderer) - service that returns HTML for `govuk-frontend` and `hmrc-frontend` component input parameters in the form of JSON objects - useful for confirming Twirl HTML outputs in integration tests
 - [hmrc-frontend](https://github.com/hmrc/hmrc-frontend/) - reusable Nunjucks HTML components for HMRC design patterns

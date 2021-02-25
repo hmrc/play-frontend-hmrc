@@ -14,14 +14,13 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.hmrcfrontend.views.config
+package uk.gov.hmrc.hmrcfrontend.config
 
 import org.scalatest.{Matchers, WordSpec}
 import play.api.Application
 import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.test.FakeRequest
 import uk.gov.hmrc.hmrcfrontend.MessagesSupport
-import uk.gov.hmrc.hmrcfrontend.config.AccessibilityStatementConfig
 
 class AccessibilityStatementConfigSpec extends WordSpec with Matchers with MessagesSupport {
 

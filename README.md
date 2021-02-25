@@ -107,7 +107,7 @@ in your `project/AppDependencies.scala` file. For example,
 
 ### Useful implicits
 
-The following import will summon [implicits](https://github.com/hmrc/play-frontend-hmrc/blob/master/src/main/scala/uk/gov/hmrc/hmrcfrontend/views/Implicits.scala) that provide extension methods on `Play's` [Html](https://www.playframework.com/documentation/2.6.x/api/scala/play/twirl/api/Html.html) objects.
+The following import will summon [implicits](https://github.com/hmrc/play-frontend-hmrc/blob/master/src/main/scala/uk/gov/hmrc/hmrcfrontend/views/Implicits.scala) that provide extension methods on `Play’s` [Html](https://www.playframework.com/documentation/2.6.x/api/scala/play/twirl/api/Html.html) objects.
 This includes useful HTML trims, pads, indents and handling HTML emptiness.
 ```scala
 @import uk.gov.hmrc.hmrcfrontend.views.html.components.implicits._
@@ -144,7 +144,7 @@ Same button using DI:
 ### Example Templates
 
 We provide example templates using the Twirl components through a `Chrome` extension. Please refer to the 
-[extension's github repository](https://github.com/hmrc/play-frontend-govuk-extension) for installation instructions.
+[extension’s github repository](https://github.com/hmrc/play-frontend-govuk-extension) for installation instructions.
 
 With the extension installed, you should be able to go to the [HMRC Design System](https://design.tax.service.gov.uk/hmrc-design-patterns/), 
 click on a component on the sidebar and see the `Twirl` examples matching the provided `Nunjucks` templates.
@@ -178,12 +178,23 @@ To use this component,
   )),
   beforeContentBlock = Some(languageSelect()),
   footerBlock = Some(hmrcStandardFooter()),
-  scriptsBlock = Some(hmrcScripts())
+  scriptsBlock = Some(hmrcScripts(nonce = CSPNonce.get))
 )(contentBlock)
 ```
 
-If you additionally need the [HMRC banner](https://design.tax.service.gov.uk/hmrc-design-patterns/hmrc-banner/) –
-most services do not – set `displayHmrcBanner` to true.
+hmrcStandardHeader can also be configured to generate the GOV.UK phase banner, HMRC user research 
+recruitment banner and the [HMRC banner](https://design.tax.service.gov.uk/hmrc-design-patterns/hmrc-banner/)
+ inside the HEADER tag. For example,
+
+```
+hmrcStandardHeader(
+  serviceUrl = Some(controllers.routes.IndexController.index().url),
+  signOutUrl = Some(controllers.routes.SignOutController.signOut().url),
+  phaseBanner = Some(standardBetaBanner(url = appConfig.feedbackUrl)),
+  userResearchBanner = Some(UserResearchBanner(url = appConfig.userResearchUrl)),
+  displayHmrcBanner = true
+)
+```
 
 In the exceptional case that you have a frontend microservice that has a dynamic service name, for example, because it hosts
 more than one public-facing service, you can override the service name using the `serviceName` parameter.
@@ -205,7 +216,7 @@ If your service is *not* already integrating with contact-frontend, we advise ch
  or whitespace.
 
 The component should be added to the bottom of each page on your service by including it in 
-your service's main page template,
+your service’s main page template,
 
 ```scala
 @import uk.gov.hmrc.hmrcfrontend.views.html.helpers._
@@ -241,14 +252,14 @@ If you intend to use Google Analytics or Optimizely to measure usage of your ser
 [hmrcTrackingConsentSnippet](src/main/twirl/uk/gov/hmrc/hmrcfrontend/views/helpers/hmrcTrackingConsentSnippet.scala.html) 
 component generates the necessary HTML SCRIPT tags that must be injected into the HEAD element for every page on your service.
 
-If you are using the hmrcHead() component to integrate with play-frontend-hmrc, then this component is already being
-added to your microservice – all that is additionally required is a configuration key to set the GTM container.
- 
-Before integrating, it is important to remove any existing snippets relating to GTM or Optimizely. Tracking consent
-manages the enabling of these third-party solutions based on the user's tracking preferences. If they are not removed
-there is a risk the user's tracking preferences will not be honoured.
+If you are using the `hmrcHead` component to integrate with play-frontend-hmrc, then this component is already being
+added to your microservice – all that is additionally required is a configuration key to set the GTM container (see below).
 
-Configure your service's GTM container in `conf/application.conf`. For example, if you have been
+Before integrating, it is important to remove any existing snippets relating to GTM or Optimizely. Tracking consent
+manages the enabling of these third-party solutions based on the user’s tracking preferences. If they are not removed
+there is a risk the user’s tracking preferences will not be honoured.
+
+Configure your service’s GTM container in `conf/application.conf`. For example, if you have been
 instructed to use GTM container `a`, the configuration would appear as:
 
 ```
@@ -324,7 +335,7 @@ a parameter. For example,
         serviceUrl = Some(controllers.routes.IndexController.index().url),
         signOutUrl = signOutUrl
       )),
-      scriptsBlock = Some(hmrcScripts()),
+      scriptsBlock = Some(hmrcScripts(nonce = CSPNonce.get)),
       footerBlock = Some(hmrcStandardFooter())
     )(contentBlock)
     ```
@@ -337,7 +348,7 @@ If your service has a timeout duration different to that configured in the `sess
  used by bootstrap-play, it can be overridden using the `timeout` parameter. Likewise, the 
  number of seconds warning can be adjusted using the `countdown` parameter. 
 
-If you need to perform special logic to keep the user's session alive, the default keep alive mechanism can 
+If you need to perform special logic to keep the user’s session alive, the default keep alive mechanism can 
 be overridden using the `keepAliveUrl` parameter. This must be a side effect free endpoint that implements
 HTTP GET and can be called via an XHR request from the timeout dialog Javascript code. A good practice is to 
 have a dedicated controller and route defined for this so its use for this purpose is explicit. This url
@@ -348,11 +359,11 @@ have a dedicated controller and route defined for this so its use for this purpo
 | -------------- | ------------------------------------------------------------- | ------- |
 | `signOutUrl`   | The url that will be used when users click 'Sign Out'         | Some(controllers.routes.SignOutController.signOut().url) |
 | `timeoutUrl`   | The url that the timeout dialog will redirect to following timeout. Defaults to the `signOutUrl`. | Some(controllers.routes.TimeoutController.timeOut().url) |
-| `keepAliveUrl` | A endpoint used to keep the user's session alive | Some(controllers.routes.KeepAliveController.keepAlive().url)
+| `keepAliveUrl` | A endpoint used to keep the user’s session alive | Some(controllers.routes.KeepAliveController.keepAlive().url)
 | `timeout`      | The timeout duration where this differs from `session.timeout` | 1800 |
 | `countdown`    | The number of seconds before timeout the dialog is displayed. The default is 120.| 240 |
 
-The timeout dialog's content can be customised using the following parameters:
+The timeout dialog’s content can be customised using the following parameters:
 
 | Parameter             | Description                                                   | Example |
 | --------------------- | ------------------------------------------------------------- | ------- |

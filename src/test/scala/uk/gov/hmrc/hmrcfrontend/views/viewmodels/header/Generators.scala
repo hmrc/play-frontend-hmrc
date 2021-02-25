@@ -21,8 +21,28 @@ import org.scalacheck.Arbitrary.arbBool
 import uk.gov.hmrc.hmrcfrontend.views.viewmodels.Generators._
 import uk.gov.hmrc.hmrcfrontend.views.viewmodels.content.Generators._
 import uk.gov.hmrc.hmrcfrontend.views.viewmodels.language.Generators._
+import uk.gov.hmrc.hmrcfrontend.views.viewmodels.userresearchbanner.Generators._
+import uk.gov.hmrc.govukfrontend.views.viewmodels.phasebanner.PhaseBanner
+import uk.gov.hmrc.govukfrontend.views.viewmodels.tag.Tag
 
 object Generators {
+
+  implicit val arbTag: Arbitrary[Tag] = Arbitrary {
+    for {
+      content    <- arbContent.arbitrary
+      classes    <- genClasses()
+      attributes <- genAttributes()
+    } yield Tag(content = content, classes = classes, attributes = attributes)
+  }
+
+  implicit val arbPhaseBanner: Arbitrary[PhaseBanner] = Arbitrary {
+    for {
+      tag        <- Gen.option(arbTag.arbitrary)
+      classes    <- genClasses()
+      attributes <- genAttributes()
+      content    <- arbContent.arbitrary
+    } yield PhaseBanner(tag = tag, classes = classes, attributes = attributes, content = content)
+  }
 
   implicit val arbNavigationItem: Arbitrary[NavigationItem] = Arbitrary {
     for {
@@ -40,21 +60,39 @@ object Generators {
 
   implicit val arbHeader: Arbitrary[Header] = Arbitrary {
     for {
-      homepageUrl       <- genAlphaStr()
-      assetsPath        <- genAlphaStr()
-      productName       <- Gen.option(genAlphaStr())
-      serviceName       <- Gen.option(genAlphaStr())
-      serviceUrl        <- genAlphaStr()
-      navigation        <- Gen.option(genNavigationItems())
-      navigationClasses <- genAlphaStr()
-      containerClasses  <- genAlphaStr()
-      classes           <- genAlphaStr()
-      attributes        <- genAttributes()
-      language          <- arbLanguage.arbitrary
-      displayHmrcBanner <- arbBool.arbitrary
-      signOutHref       <- Gen.option(genAlphaStr())
-      languageToggle    <- Gen.option(arbLanguageToggle.arbitrary)
-    } yield Header(homepageUrl = homepageUrl, assetsPath = assetsPath, productName = productName, serviceName = serviceName, serviceUrl = serviceUrl, navigation = navigation, navigationClasses = navigationClasses, containerClasses = containerClasses, classes = classes, attributes = attributes, language = language, displayHmrcBanner = displayHmrcBanner , signOutHref = signOutHref, inputLanguageToggle = languageToggle)
+      homepageUrl        <- genAlphaStr()
+      assetsPath         <- genAlphaStr()
+      productName        <- Gen.option(genAlphaStr())
+      serviceName        <- Gen.option(genAlphaStr())
+      serviceUrl         <- genAlphaStr()
+      navigation         <- Gen.option(genNavigationItems())
+      navigationClasses  <- genAlphaStr()
+      containerClasses   <- genAlphaStr()
+      classes            <- genAlphaStr()
+      attributes         <- genAttributes()
+      language           <- arbLanguage.arbitrary
+      displayHmrcBanner  <- arbBool.arbitrary
+      signOutHref        <- Gen.option(genAlphaStr())
+      languageToggle     <- Gen.option(arbLanguageToggle.arbitrary)
+      phaseBanner        <- Gen.option(arbPhaseBanner.arbitrary)
+      userResearchBanner <- Gen.option(arbUserResearchBanner.arbitrary)
+    } yield Header(
+      homepageUrl = homepageUrl,
+      assetsPath = assetsPath,
+      productName = productName,
+      serviceName = serviceName,
+      serviceUrl = serviceUrl,
+      navigation = navigation,
+      navigationClasses = navigationClasses,
+      containerClasses = containerClasses,
+      classes = classes,
+      attributes = attributes,
+      language = language,
+      displayHmrcBanner = displayHmrcBanner,
+      signOutHref = signOutHref,
+      inputLanguageToggle = languageToggle,
+      phaseBanner = phaseBanner,
+      userResearchBanner = userResearchBanner
+    )
   }
-
 }

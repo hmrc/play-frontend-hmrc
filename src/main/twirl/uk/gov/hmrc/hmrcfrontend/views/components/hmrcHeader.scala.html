@@ -14,7 +14,10 @@
  * limitations under the License.
  *@
 
-@this(hmrcBanner: HmrcBanner)
+@import uk.gov.hmrc.govukfrontend.views.viewmodels.phasebanner.PhaseBanner
+@import uk.gov.hmrc.govukfrontend.views.html.components.GovukPhaseBanner
+
+@this(hmrcBanner: HmrcBanner, hmrcUserResearchBanner: HmrcUserResearchBanner, govukPhaseBanner: GovukPhaseBanner)
 
 @(params: Header)
 @import params._
@@ -145,6 +148,14 @@
         } else {}
       </div>
     </div>
+    @userResearchBanner.map { urb =>
+      @hmrcUserResearchBanner(UserResearchBanner(language, urb.url))
+    }
+    @phaseBanner.map { pb =>
+      <div class="govuk-width-container">
+        @govukPhaseBanner(pb)
+      </div>
+    }
     @if(displayHmrcBanner){
       <div class="govuk-width-container">
         @hmrcBanner(Banner(language))

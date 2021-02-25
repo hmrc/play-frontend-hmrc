@@ -1,0 +1,46 @@
+@*
+ * Copyright 2021 HM Revenue & Customs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *@
+
+@this()
+
+@(params: UserResearchBanner)
+@import params._
+@require(url.nonEmpty, s"failed requirements for hmrcUserResearchBanner: url should not be empty. url=[$url]")
+
+<div class="hmrc-user-research-banner" data-module="hmrc-user-research-banner">
+ <div class="hmrc-user-research-banner__container govuk-width-container">
+  <div class="hmrc-user-research-banner__text">
+   <div class="hmrc-user-research-banner__title govuk-!-font-weight-bold">
+    @language match {
+     case Cy => {Helpwch i wella gwasanaethau CThEM}
+     case _ => {Help improve HMRC services}
+    }
+   </div>
+   <a class="govuk-link hmrc-user-research-banner__link" href="@url" target="_blank">
+    @language match {
+     case Cy => {Cofrestrwch i gymryd rhan mewn ymchwil defnyddwyr (yn agor tab newydd)}
+     case _ => {Sign up to take part in user research (opens in new tab)}
+    }
+   </a>
+  </div>
+  <button class="govuk-link hmrc-user-research-banner__close">
+   @language match {
+    case Cy => {Dim diolch}
+    case _ => {No thanks}
+   }
+  </button>
+ </div>
+</div>
