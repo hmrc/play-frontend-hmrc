@@ -16,13 +16,15 @@
 
 package uk.gov.hmrc.hmrcfrontend.views.config
 
-import org.scalatest.{MustMatchers, WordSpec}
+import org.scalatest.matchers.must.Matchers
+import org.scalatest.wordspec.AnyWordSpec
 import org.scalatestplus.play.guice.GuiceOneAppPerSuite
 import play.api.i18n.{Lang, Messages}
 import uk.gov.hmrc.govukfrontend.views.Aliases.{HtmlContent, PhaseBanner, Tag, Text}
 import uk.gov.hmrc.hmrcfrontend.MessagesSupport
 
-class StandardPhaseBannerSpec extends WordSpec with MustMatchers with MessagesSupport with GuiceOneAppPerSuite {
+class StandardPhaseBannerSpec extends AnyWordSpec
+  with Matchers with MessagesSupport with GuiceOneAppPerSuite {
   "StandardBetaBanner" must {
     val standardBetaBanner = app.injector.instanceOf[StandardBetaBanner]
 

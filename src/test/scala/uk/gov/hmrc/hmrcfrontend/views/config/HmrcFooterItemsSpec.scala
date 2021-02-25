@@ -16,7 +16,8 @@
 
 package uk.gov.hmrc.hmrcfrontend.views.config
 
-import org.scalatest.{MustMatchers, WordSpec}
+import org.scalatest.matchers.must.Matchers
+import org.scalatest.wordspec.AnyWordSpec
 import play.api.Application
 import play.api.i18n.{Lang, Messages}
 import play.api.test.FakeRequest
@@ -24,7 +25,11 @@ import play.api.inject.guice.GuiceApplicationBuilder
 import uk.gov.hmrc.hmrcfrontend.views.viewmodels.footer.FooterItem
 import uk.gov.hmrc.hmrcfrontend.MessagesSupport
 
-class HmrcFooterItemsSpec extends WordSpec with MustMatchers with MessagesSupport {
+class HmrcFooterItemsSpec
+  extends AnyWordSpec
+    with Matchers
+    with MessagesSupport {
+
   implicit val request: FakeRequest[_] = FakeRequest("GET", "/foo")
 
   def buildApp(properties: Map[String, String] = Map.empty): Application =

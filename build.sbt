@@ -2,7 +2,7 @@ import GenerateFixtures.generateFixtures
 import play.sbt.PlayImport.PlayKeys._
 
 val libName = "play-frontend-hmrc"
-val silencerVersion = "1.4.4"
+val silencerVersion = "1.7.1"
 
 lazy val playDir = "play-26"
 
@@ -10,14 +10,13 @@ lazy val IntegrationTest = config("it") extend Test
 
 lazy val root = Project(libName, file("."))
   .enablePlugins(PlayScala, SbtAutoBuildPlugin, SbtGitVersioning, SbtTwirl, BuildInfoPlugin)
-  .disablePlugins(PlayLayoutPlugin)
+   .disablePlugins(PlayLayoutPlugin)
   .configs(IntegrationTest)
   .settings(
     name := libName,
     majorVersion := 0,
-    scalaVersion := "2.12.10",
-    crossScalaVersions := List("2.11.12", "2.12.10"),
-    libraryDependencies ++= LibDependencies.libDependencies,
+    scalaVersion := "2.12.13",
+    libraryDependencies ++= LibDependencies(),
     resolvers :=
       Seq(
         "HMRC Releases" at "https://dl.bintray.com/hmrc/releases",

@@ -16,10 +16,15 @@
 
 package uk.gov.hmrc.hmrcfrontend.views
 
-import org.scalatest.{Matchers, OptionValues, WordSpec}
+import org.scalatest.matchers.should.Matchers
+import org.scalatest.wordspec.AnyWordSpec
+import org.scalatest.OptionValues
 import uk.gov.hmrc.hmrcfrontend.views.HmrcFrontendDependency._
 
-class HmrcFrontendDependencySpec extends WordSpec with Matchers with OptionValues {
+class HmrcFrontendDependencySpec
+  extends AnyWordSpec
+    with Matchers
+    with OptionValues {
 
   "findFirstMatch" should {
     "find the first match of a regular expression in a Seq" in {

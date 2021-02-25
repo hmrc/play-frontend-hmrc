@@ -17,7 +17,8 @@
 package uk.gov.hmrc.hmrcfrontend.views.helpers
 
 import org.jsoup.Jsoup
-import org.scalatest.{Matchers, WordSpecLike}
+import org.scalatest.matchers.should.Matchers
+import org.scalatest.wordspec.AnyWordSpecLike
 import play.api.Application
 import play.api.i18n.{DefaultLangs, Lang}
 import play.api.inject.guice.GuiceApplicationBuilder
@@ -29,7 +30,11 @@ import uk.gov.hmrc.hmrcfrontend.views.html.helpers.HmrcTimeoutDialogHelper
 
 import scala.collection.immutable.List
 
-class hmrcTimeoutDialogHelperSpec extends WordSpecLike with Matchers with JsoupHelpers {
+class hmrcTimeoutDialogHelperSpec
+  extends AnyWordSpecLike
+    with Matchers
+    with JsoupHelpers {
+
   implicit val fakeRequest = FakeRequest("GET", "/foo")
 
   def buildApp(properties: Map[String, String] = Map.empty): Application =

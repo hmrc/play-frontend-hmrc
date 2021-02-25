@@ -18,13 +18,15 @@ package uk.gov.hmrc.hmrcfrontend.views
 
 import org.scalacheck.Arbitrary._
 import org.scalacheck.{Gen, ShrinkLowPriority}
-import org.scalatest.{Matchers, OptionValues, WordSpec}
+import org.scalatest.matchers.should.Matchers
+import org.scalatest.wordspec.AnyWordSpec
+import org.scalatest.OptionValues
 import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks
 import play.twirl.api.{Html, HtmlFormat}
 import uk.gov.hmrc.hmrcfrontend.views.html.components.implicits._
 
 class ImplicitsSpec
-    extends WordSpec
+  extends AnyWordSpec
     with Matchers
     with OptionValues
     with ScalaCheckPropertyChecks

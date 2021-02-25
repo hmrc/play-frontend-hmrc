@@ -17,7 +17,8 @@
 package uk.gov.hmrc.hmrcfrontend.views.helpers
 
 import org.jsoup.Jsoup
-import org.scalatest.{Matchers, WordSpecLike}
+import org.scalatest.wordspec.AnyWordSpecLike
+import org.scalatest.matchers.should.Matchers
 import org.scalatestplus.play.guice.GuiceOneAppPerSuite
 import play.api.Application
 import play.api.i18n.Lang
@@ -28,7 +29,7 @@ import uk.gov.hmrc.hmrcfrontend.MessagesSupport
 import uk.gov.hmrc.hmrcfrontend.views.html.helpers._
 
 class hmrcReportTechnicalIssueHelperSpec
-    extends WordSpecLike
+    extends AnyWordSpecLike
     with Matchers
     with MessagesSupport
     with GuiceOneAppPerSuite {

@@ -16,14 +16,18 @@
 
 package uk.gov.hmrc.hmrcfrontend.views
 
-import org.scalatest.{Matchers, WordSpec}
+import org.scalatest.matchers.should.Matchers
+import org.scalatest.wordspec.AnyWordSpec
 import org.scalatestplus.scalacheck.ScalaCheckDrivenPropertyChecks
 import play.api.libs.json._
 
 import scala.util.Try
 
 
-class IntStringSpec extends WordSpec with Matchers with ScalaCheckDrivenPropertyChecks {
+class IntStringSpec
+  extends AnyWordSpec
+    with Matchers
+    with ScalaCheckDrivenPropertyChecks {
 
   "fields for IntString" should {
     "return int for int field" in {

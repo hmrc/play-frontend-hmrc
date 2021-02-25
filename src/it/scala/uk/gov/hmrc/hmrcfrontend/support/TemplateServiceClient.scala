@@ -1,6 +1,6 @@
 package uk.gov.hmrc.hmrcfrontend.support
 
-import org.scalatest.WordSpecLike
+import org.scalatest.AnyWordSpecLike
 import org.scalatestplus.play.PortNumber
 import org.scalatestplus.play.guice.GuiceOneAppPerSuite
 import play.api.libs.json.{Json, OWrites}
