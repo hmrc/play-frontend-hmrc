@@ -16,13 +16,17 @@
 
 package uk.gov.hmrc.govukfrontend.views
 
-import org.scalatest.{Matchers, WordSpec}
+import org.scalatest.matchers.should.Matchers
+import org.scalatest.wordspec.AnyWordSpec
 import uk.gov.hmrc.govukfrontend.views.html.components.implicits._
 import uk.gov.hmrc.govukfrontend.views.viewmodels.content.Text
 import uk.gov.hmrc.govukfrontend.views.viewmodels.errormessage.ErrorMessage
 import uk.gov.hmrc.govukfrontend.views.viewmodels.textarea.Textarea
 
-class RichTextareaSpec extends WordSpec with Matchers with MessagesHelpers with RichFormInputHelpers {
+class RichTextareaSpec
+  extends AnyWordSpec
+    with Matchers
+    with MessagesHelpers with RichFormInputHelpers {
 
   "Given an Textarea object, calling withFormField" should {
     "use the Field name as the Textarea name if no Textarea name provided" in {

@@ -16,10 +16,14 @@
 
 package uk.gov.hmrc.govukfrontend.views
 
-import org.scalatest.{Matchers, WordSpec}
 import CharacterReferenceUtils.toDecimal
+import org.scalatest.matchers.should.Matchers
+import org.scalatest.wordspec.AnyWordSpec
 
-class CharacterReferenceUtilsSpec extends WordSpec with Matchers {
+class CharacterReferenceUtilsSpec
+  extends AnyWordSpec
+    with Matchers {
+
 
   "toDecimal" should {
     "handle empty strings" in {

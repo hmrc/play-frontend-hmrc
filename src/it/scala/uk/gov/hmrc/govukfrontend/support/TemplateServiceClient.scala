@@ -1,6 +1,6 @@
 package uk.gov.hmrc.govukfrontend.support
 
-import org.scalatest.WordSpecLike
+import org.scalatest.wordspec.AnyWordSpecLike
 import org.scalatestplus.play.PortNumber
 import org.scalatestplus.play.guice.GuiceOneAppPerSuite
 import play.api.libs.json.{Json, OWrites}
@@ -8,7 +8,7 @@ import play.api.libs.ws.{WSClient, WSResponse}
 import uk.gov.hmrc.govukfrontend.views.GovukFrontendDependency.govukFrontendVersion
 import scala.concurrent.Future
 
-trait TemplateServiceClient extends WordSpecLike with WSScalaTestClient with GuiceOneAppPerSuite {
+trait TemplateServiceClient extends AnyWordSpecLike with WSScalaTestClient with GuiceOneAppPerSuite {
 
   implicit val portNumber: PortNumber = PortNumber(3000)
 

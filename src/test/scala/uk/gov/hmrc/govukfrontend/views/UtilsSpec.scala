@@ -17,13 +17,18 @@
 package uk.gov.hmrc.govukfrontend.views
 
 import org.scalacheck._
-import org.scalatest.{Matchers, WordSpec}
+import org.scalatest.matchers.should.Matchers
+import org.scalatest.wordspec.AnyWordSpec
 import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks
 import play.twirl.api.{Html, HtmlFormat}
 import uk.gov.hmrc.govukfrontend.views.Utils._
 import viewmodels.Generators._
 
-class UtilsSpec extends WordSpec with Matchers with ScalaCheckPropertyChecks with ShrinkLowPriority {
+class UtilsSpec
+  extends AnyWordSpec
+    with Matchers
+    with ScalaCheckPropertyChecks
+    with ShrinkLowPriority {
 
   implicit override val generatorDrivenConfig: PropertyCheckConfiguration =
     PropertyCheckConfiguration(minSuccessful = 50)

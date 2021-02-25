@@ -16,13 +16,18 @@
 
 package uk.gov.hmrc.govukfrontend.views
 
-import org.scalatest.{Matchers, WordSpec}
+import org.scalatest.matchers.should.Matchers
+import org.scalatest.wordspec.AnyWordSpec
 import uk.gov.hmrc.govukfrontend.views.html.components.implicits._
 import uk.gov.hmrc.govukfrontend.views.viewmodels.content.Text
 import uk.gov.hmrc.govukfrontend.views.viewmodels.errormessage.ErrorMessage
 import uk.gov.hmrc.govukfrontend.views.viewmodels.charactercount.CharacterCount
 
-class RichCharacterCountSpec extends WordSpec with Matchers with MessagesHelpers with RichFormInputHelpers {
+class RichCharacterCountSpec
+  extends AnyWordSpec
+    with Matchers
+    with MessagesHelpers
+    with RichFormInputHelpers {
 
   "Given an CharacterCount object, calling withFormField" should {
     "use the Field name as the CharacterCount name if no CharacterCount name provided" in {

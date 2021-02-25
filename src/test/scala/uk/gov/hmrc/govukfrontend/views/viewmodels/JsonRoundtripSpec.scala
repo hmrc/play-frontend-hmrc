@@ -17,13 +17,16 @@
 package uk.gov.hmrc.govukfrontend.views.viewmodels
 
 import org.scalacheck.{Arbitrary, ShrinkLowPriority}
-import org.scalatest.{Matchers, OptionValues, WordSpec}
+import org.scalatest.OptionValues
+import org.scalatest.matchers.should.Matchers
+import org.scalatest.wordspec.AnyWordSpec
 import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks
 import play.api.libs.json.{Json, Reads, Writes}
+
 import scala.reflect.ClassTag
 
 class JsonRoundtripSpec[T: Reads: Writes: Arbitrary: ClassTag]
-    extends WordSpec
+  extends AnyWordSpec
     with Matchers
     with OptionValues
     with ScalaCheckPropertyChecks
