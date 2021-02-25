@@ -20,12 +20,13 @@ import org.scalatest.{Matchers, WordSpec}
 import org.scalatestplus.play.guice.GuiceOneAppPerSuite
 import play.api.Application
 import play.api.inject.guice.GuiceApplicationBuilder
+import play.api.mvc.AnyContentAsEmpty
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import play.twirl.api.Html
 import uk.gov.hmrc.hmrcfrontend.MessagesSupport
 import uk.gov.hmrc.hmrcfrontend.views.JsoupHelpers
-import uk.gov.hmrc.hmrcfrontend.views.html.helpers.{HmrcHead, HmrcScripts}
+import uk.gov.hmrc.hmrcfrontend.views.html.helpers.HmrcHead
 
 class hmrcHeadSpec extends WordSpec with Matchers with GuiceOneAppPerSuite with JsoupHelpers with MessagesSupport {
   override def fakeApplication(): Application =
@@ -37,7 +38,7 @@ class hmrcHeadSpec extends WordSpec with Matchers with GuiceOneAppPerSuite with 
       ))
       .build()
 
-  implicit val request = FakeRequest("GET", "/foo")
+  implicit val request: FakeRequest[AnyContentAsEmpty.type] = FakeRequest("GET", "/foo")
 
   "hmrcHead" should {
     "include the tracking consent script tag" in {
@@ -48,13 +49,31 @@ class hmrcHeadSpec extends WordSpec with Matchers with GuiceOneAppPerSuite with 
       scripts should have size 1
     }
 
+    "include a nonce in each script tag if supplied" in {
+      val hmrcHead = app.injector.instanceOf[HmrcHead]
+      val content = hmrcHead(nonce = Some("a-nonce"))
+
+      val scripts = content.select("script#tracking-consent-script-tag")
+      scripts should have size 1
+      scripts.first.attr("nonce") should be("a-nonce")
+    }
+
+    "include a nonce in the IE9+ link tag if supplied" in {
+      val hmrcHead = app.injector.instanceOf[HmrcHead]
+      val content = hmrcHead(nonce = Some("a-nonce"))
+
+      val links = content.select("link")
+      links should have size 1
+      links.first.attr("nonce") should be("a-nonce")
+    }
+
     "include the hmrc-frontend minified css bundle" in {
       val hmrcHead = app.injector.instanceOf[HmrcHead]
       val content = contentAsString(hmrcHead())
 
       content should include regex
         """<!--\[if gt IE 8\]><!-->
-          |<link href='/assets/hmrc-frontend-\d+.\d+.\d+.min.css' media="all" rel="stylesheet" type="text/css" />
+          |<link href="/assets/hmrc-frontend-\d+.\d+.\d+.min.css" media="all" rel="stylesheet" type="text/css" />
           |<!--<!\[endif\]-->""".stripMargin.r
     }
 
@@ -64,8 +83,8 @@ class hmrcHeadSpec extends WordSpec with Matchers with GuiceOneAppPerSuite with 
 
       content should include regex
         """<!--\[if lte IE 8\]>
-          |<script src='/assets/vendor/html5shiv.min.js'></script>
-          |<link href='/assets/hmrc-frontend-ie8-\d+.\d+.\d+.min.css' media="all" rel="stylesheet" type="text/css" />
+          |<script src="/assets/vendor/html5shiv.min.js"></script>
+          |<link href="/assets/hmrc-frontend-ie8-\d+.\d+.\d+.min.css" media="all" rel="stylesheet" type="text/css" />
           |<!\[endif\]-->""".stripMargin.r
     }
 

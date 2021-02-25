@@ -16,18 +16,17 @@
 
 package uk.gov.hmrc.hmrcfrontend.views.helpers
 
-import org.jsoup.Jsoup
 import org.scalatest.{Matchers, WordSpec}
 import org.scalatestplus.play.guice.GuiceOneAppPerSuite
+import play.api.mvc.AnyContentAsEmpty
 import play.api.test.FakeRequest
-import play.api.test.Helpers.contentAsString
 import play.twirl.api.Html
 import uk.gov.hmrc.hmrcfrontend.MessagesSupport
 import uk.gov.hmrc.hmrcfrontend.views.JsoupHelpers
-import uk.gov.hmrc.hmrcfrontend.views.html.helpers.{HmrcScripts, HmrcTimeoutDialogHelper}
+import uk.gov.hmrc.hmrcfrontend.views.html.helpers.HmrcScripts
 
 class hmrcScriptsSpec extends WordSpec with Matchers with GuiceOneAppPerSuite with JsoupHelpers with MessagesSupport {
-  implicit val request = FakeRequest("GET", "/foo")
+  implicit val request: FakeRequest[AnyContentAsEmpty.type] = FakeRequest("GET", "/foo")
 
   "hmrcScripts" should {
     "include the hmrc-frontend script tag" in {
@@ -39,9 +38,17 @@ class hmrcScriptsSpec extends WordSpec with Matchers with GuiceOneAppPerSuite wi
         """/assets/hmrc-frontend-\d+.\d+.\d+.min.js""".r
     }
 
+    "include a nonce in each script tag if supplied" in {
+      val hmrcScripts = app.injector.instanceOf[HmrcScripts]
+      val scripts = hmrcScripts(nonce = Some("a-nonce")).select("script")
+
+      scripts should have size 1
+      scripts.first.attr("nonce") should be("a-nonce")
+    }
+
     "include the supplied scriptsBlock after the hmrc-frontend script tag" in {
       val hmrcScripts = app.injector.instanceOf[HmrcScripts]
-      val content = hmrcScripts(scriptsBlock = Some(Html("<script id='foo-script-tag' src='/foo'></script>")))
+      val content = hmrcScripts(scriptsBlock = Some(Html("""<script id="foo-script-tag" src="/foo"></script>""")))
 
       val scripts = content.select("script")
       scripts should have size 2
