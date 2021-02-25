@@ -22,10 +22,10 @@
 @(headBlock: Option[Html] = None, nonce: Option[String] = None)(implicit request: RequestHeader, messages: Messages)
 @hmrcTrackingConsentSnippet(nonce)
 <!--[if lte IE 8]>
-<script src='@assetsConfig.html5ShivJsUrl'></script>
-<link href='@assetsConfig.hmrcFrontendIe8CssUrl' media="all" rel="stylesheet" type="text/css" />
+<script src="@assetsConfig.html5ShivJsUrl"></script>
+<link href="@assetsConfig.hmrcFrontendIe8CssUrl" media="all" rel="stylesheet" type="text/css" />
 <![endif]-->
 <!--[if gt IE 8]><!-->
-<link href='@assetsConfig.hmrcFrontendCssUrl' media="all" rel="stylesheet" type="text/css" />
+<link href="@assetsConfig.hmrcFrontendCssUrl" media="all" rel="stylesheet" type="text/css"@nonce.map {n=>nonce="@n"} />
 <!--<![endif]-->
 @headBlock
