@@ -26,7 +26,7 @@ class HmrcFooterItems @Inject()(accessibilityStatementConfig: AccessibilityState
   def get(implicit messages: Messages, request: RequestHeader): Seq[FooterItem] =
     getWithAccessibilityStatementUrl(None)
 
-  private[views] def getWithAccessibilityStatementUrl(accessibilityStatementUrl: Option[String] = None)(implicit messages: Messages, request: RequestHeader): Seq[FooterItem] =
+  private[views] def getWithAccessibilityStatementUrl(accessibilityStatementUrl: Option[String])(implicit messages: Messages, request: RequestHeader): Seq[FooterItem] =
     Seq(
       footerItemForKey("cookies"),
       accessibilityLink(accessibilityStatementUrl),
