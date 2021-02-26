@@ -113,6 +113,30 @@ class hmrcStandardFooterSpec extends WordSpecLike with Matchers with MessagesSup
         ).asJava)
     }
 
+    "generate a link to an accessibility statement" in {
+      implicit val app = buildApp()
+
+      val content =
+        contentAsString(HmrcStandardFooter(accessibilityStatementUrl = Some("https://www.example.com/accessibility-statement"))(messages, fakeRequest))
+      val document = Jsoup.parse(content)
+      val links    = document.getElementsByTag("a")
+
+      links.eachText() should be(
+        List(
+          "Cookies",
+          "Accessibility statement",
+          "Privacy policy",
+          "Terms and conditions",
+          "Help using GOV.UK",
+          "Contact",
+          "Rhestr o Wasanaethau Cymraeg",
+          "Open Government Licence v3.0",
+          "© Crown copyright"
+        ).asJava)
+
+      links.get(1).attr("href") should be("https://www.example.com/accessibility-statement")
+    }
+
     "generate the correct list of links in Welsh" in {
       implicit val app  = buildApp()
       val welshMessages = messagesApi.preferred(Seq(Lang("cy")))
