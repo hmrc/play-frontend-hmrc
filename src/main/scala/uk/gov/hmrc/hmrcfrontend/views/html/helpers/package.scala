@@ -16,57 +16,17 @@
 
 package uk.gov.hmrc.hmrcfrontend.views.html
 
-import play.api.Play
-import uk.gov.hmrc.hmrcfrontend.config.{AccessibilityStatementConfig, AssetsConfig, ContactFrontendConfig, TimeoutDialogConfig, TrackingConsentConfig}
 import uk.gov.hmrc.hmrcfrontend.views.config.{HmrcFooterItems => HmrcFooterItemsType}
-import uk.gov.hmrc.hmrcfrontend.views.html.components.{HmrcFooter, HmrcHeader, HmrcReportTechnicalIssue, HmrcTimeoutDialog}
 
 package object helpers {
-  @deprecated(message = "Use DI", since = "Play 2.6")
-  lazy val AccessibilityStatementConfig: AccessibilityStatementConfig = Play.current.injector.instanceOf[AccessibilityStatementConfig]
-
-  @deprecated(message = "Use DI", since = "Play 2.6")
-  lazy val ContactFrontendConfig: ContactFrontendConfig = Play.current.injector.instanceOf[ContactFrontendConfig]
-
-  @deprecated(message = "Use DI", since = "Play 2.6")
-  lazy val TrackingConsentConfig: TrackingConsentConfig = Play.current.injector.instanceOf[TrackingConsentConfig]
-
-  @deprecated(message = "Use DI", since = "Play 2.6")
-  lazy val AssetsConfig = Play.current.injector.instanceOf[AssetsConfig]
-
-  @deprecated(message = "Use DI", since = "Play 2.6")
-  lazy val TimeoutDialogConfig = Play.current.injector.instanceOf[TimeoutDialogConfig]
 
   type HmrcFooterItems = HmrcFooterItemsType
-  @deprecated(message = "Use DI", since = "Play 2.6")
-  lazy val HmrcFooterItems = new HmrcFooterItems(AccessibilityStatementConfig)
-
   type HmrcStandardFooter = hmrcStandardFooter
-  @deprecated(message = "Use DI", since = "Play 2.6")
-  lazy val HmrcStandardFooter = new hmrcStandardFooter(HmrcFooter, HmrcFooterItems)
-
   type HmrcTrackingConsentSnippet = hmrcTrackingConsentSnippet
-  @deprecated(message = "Use DI", since = "Play 2.6")
-  lazy val HmrcTrackingConsentSnippet = new hmrcTrackingConsentSnippet(TrackingConsentConfig)
-
   type HmrcReportTechnicalIssueHelper = hmrcReportTechnicalIssueHelper
-  @deprecated(message = "Use DI", since = "Play 2.6")
-  lazy val HmrcReportTechnicalIssueHelper =
-    new HmrcReportTechnicalIssueHelper(HmrcReportTechnicalIssue, ContactFrontendConfig)
-
   type HmrcStandardHeader = hmrcStandardHeader
-  @deprecated(message = "Use DI", since = "Play 2.6")
-  lazy val HmrcStandardHeader = new hmrcStandardHeader(HmrcHeader)
-
   type HmrcHead = hmrcHead
-  @deprecated(message = "Use DI", since = "Play 2.6")
-  lazy val HmrcHead = new hmrcHead(HmrcTrackingConsentSnippet, AssetsConfig)
-
   type HmrcScripts = hmrcScripts
-  @deprecated(message = "Use DI", since = "Play 2.6")
-  lazy val HmrcScripts = new hmrcScripts(AssetsConfig)
-
   type HmrcTimeoutDialogHelper = hmrcTimeoutDialogHelper
-  @deprecated(message = "Use DI", since = "Play 2.6")
-  lazy val HmrcTimeoutDialogHelper = new hmrcTimeoutDialogHelper(HmrcTimeoutDialog, TimeoutDialogConfig)
+
 }

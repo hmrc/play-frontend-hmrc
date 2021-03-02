@@ -1,5 +1,6 @@
 import GenerateFixtures.generateFixtures
 import play.sbt.PlayImport.PlayKeys._
+import uk.gov.hmrc.playcrosscompilation.PlayVersion
 
 val libName = "play-frontend-hmrc"
 val silencerVersion = "1.7.1"
@@ -33,6 +34,10 @@ lazy val root = Project(libName, file("."))
       compilerPlugin("com.github.ghik" % "silencer-plugin" % silencerVersion cross CrossVersion.full),
       "com.github.ghik" % "silencer-lib" % silencerVersion % Provided cross CrossVersion.full
     ),
+    excludeFilter in unmanagedSources := {
+      if (PlayCrossCompilation.playVersion == PlayVersion.Play28) "helpers.scala" else ""
+    }
+    ,
     // ***************
     (sourceDirectories in (Compile, TwirlKeys.compileTemplates)) +=
       baseDirectory.value / "src" / "main" / playDir / "twirl",

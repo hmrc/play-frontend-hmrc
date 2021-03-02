@@ -24,14 +24,14 @@ import play.api.i18n.{Lang, Messages}
 import play.api.inject.guice.GuiceApplicationBuilder
 import uk.gov.hmrc.hmrcfrontend.MessagesSupport
 import uk.gov.hmrc.hmrcfrontend.views.JsoupHelpers
-import uk.gov.hmrc.hmrcfrontend.views.html.helpers.HmrcTrackingConsentSnippet
 
 class TrackingConsentSnippetSpec
   extends AnyWordSpecLike
     with Matchers
     with GuiceOneAppPerSuite
     with JsoupHelpers
-    with MessagesSupport {
+    with MessagesSupport
+    with HelpersInstances {
 
   override def fakeApplication(): Application =
     new GuiceApplicationBuilder()
