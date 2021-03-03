@@ -3,9 +3,9 @@ resolvers += Resolver.bintrayRepo("hmrc", "releases")
 
 addSbtPlugin(
   sys.env.get("PLAY_VERSION") match {
-    case Some("2.6") => "com.typesafe.play" % "sbt-plugin" % "2.6.25"
+    case Some("2.8") => "com.typesafe.play" % "sbt-plugin" % "2.8.7"
     case Some("2.7") => "com.typesafe.play" % "sbt-plugin" % "2.7.9"
-    case _           => "com.typesafe.play" % "sbt-plugin" % "2.8.7"
+    case _           => "com.typesafe.play" % "sbt-plugin" % "2.6.25"
   }
 )
 

@@ -22,6 +22,9 @@ import uk.gov.hmrc.hmrcfrontend.views.html.components.{HmrcFooter, HmrcHeader, H
 import uk.gov.hmrc.hmrcfrontend.views.html.helpers._
 import uk.gov.hmrc.hmrcfrontend.views.config.{HmrcFooterItems => HmrcFooterItemsType}
 
+/*
+
+*/
 object helpers {
   @deprecated(message = "Use DI", since = "Play 2.6")
   lazy val AccessibilityStatementConfig: AccessibilityStatementConfig = Play.current.injector.instanceOf[AccessibilityStatementConfig]

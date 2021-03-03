@@ -35,7 +35,7 @@ lazy val root = Project(libName, file("."))
       "com.github.ghik" % "silencer-lib" % silencerVersion % Provided cross CrossVersion.full
     ),
     excludeFilter in unmanagedSources := {
-      if (PlayCrossCompilation.playVersion == PlayVersion.Play28) "helpers.scala" else ""
+      if (PlayCrossCompilation.playVersion == PlayVersion.Play28) "deprecatedPlay26Helpers.scala" else ""
     }
     ,
     // ***************
