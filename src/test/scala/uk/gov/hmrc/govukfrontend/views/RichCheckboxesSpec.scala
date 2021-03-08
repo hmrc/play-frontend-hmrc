@@ -16,13 +16,18 @@
 
 package uk.gov.hmrc.govukfrontend.views
 
-import org.scalatest.{Matchers, WordSpec}
+import org.scalatest.matchers.should.Matchers
+import org.scalatest.wordspec.AnyWordSpec
 import uk.gov.hmrc.govukfrontend.views.html.components.implicits._
 import uk.gov.hmrc.govukfrontend.views.viewmodels.content.Text
 import uk.gov.hmrc.govukfrontend.views.viewmodels.errormessage.ErrorMessage
 import uk.gov.hmrc.govukfrontend.views.viewmodels.checkboxes.{CheckboxItem, Checkboxes}
 
-class RichCheckboxesSpec extends WordSpec with Matchers with MessagesHelpers with RichFormInputHelpers {
+class RichCheckboxesSpec
+  extends AnyWordSpec
+    with Matchers
+    with MessagesHelpers
+    with RichFormInputHelpers {
 
   "Given a Checkboxes object, calling withFormField" should {
     "use the Field name as the Checkboxes name if no Checkboxes name provided" in {

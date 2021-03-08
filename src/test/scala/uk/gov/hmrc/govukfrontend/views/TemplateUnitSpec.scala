@@ -17,7 +17,9 @@
 package uk.gov.hmrc.govukfrontend.views
 
 import better.files._
-import org.scalatest.{Matchers, TryValues, WordSpecLike}
+import org.scalatest.TryValues
+import org.scalatest.wordspec.AnyWordSpecLike
+import org.scalatest.matchers.should.Matchers
 import play.api.libs.json._
 import scala.util.{Failure, Success, Try}
 
@@ -33,7 +35,7 @@ abstract class TemplateUnitSpec[T: Reads](govukComponentName: String)
     extends TwirlRenderer[T]
     with PreProcessor
     with JsoupHelpers
-    with WordSpecLike
+    with AnyWordSpecLike
     with Matchers
     with TryValues {
 

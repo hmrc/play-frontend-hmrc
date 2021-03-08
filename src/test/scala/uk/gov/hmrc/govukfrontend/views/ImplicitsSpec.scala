@@ -19,7 +19,9 @@ package uk.gov.hmrc.govukfrontend.views
 import java.util.UUID
 import org.scalacheck.Arbitrary._
 import org.scalacheck.{Gen, ShrinkLowPriority}
-import org.scalatest.{Matchers, OptionValues, WordSpec}
+import org.scalatest.OptionValues
+import org.scalatest.wordspec.AnyWordSpec
+import org.scalatest.matchers.should.Matchers
 import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks
 import play.api.data.FormError
 import play.twirl.api.{Html, HtmlFormat}
@@ -32,7 +34,7 @@ import scala.collection.immutable
 import scala.util.Random
 
 class ImplicitsSpec
-    extends WordSpec
+    extends AnyWordSpec
     with Matchers
     with OptionValues
     with ScalaCheckPropertyChecks

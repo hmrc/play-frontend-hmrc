@@ -18,10 +18,14 @@ package uk.gov.hmrc.govukfrontend.views
 
 import better.files._
 import org.bitbucket.cowwoc.diffmatchpatch.DiffMatchPatch
-import org.scalatest.{Matchers, WordSpec}
+import org.scalatest.matchers.should.Matchers
+import org.scalatest.wordspec.AnyWordSpec
+
 import scala.collection.JavaConverters._
 
-class DiffWrapperSpec extends WordSpec with Matchers {
+class DiffWrapperSpec
+  extends AnyWordSpec
+    with Matchers {
 
   "diff" should {
     "compute the diff between two strings" in new Setup {

@@ -16,14 +16,21 @@
 
 package uk.gov.hmrc.govukfrontend.views.helpers
 
-import org.scalatest.{Matchers, WordSpec}
+import org.scalatest.matchers.should.Matchers
+import org.scalatest.wordspec.AnyWordSpec
 import play.api.mvc.{AnyContentAsEmpty, Call}
 import play.api.test.FakeRequest
 import play.twirl.api.{Html, HtmlFormat}
 import uk.gov.hmrc.govukfrontend.views.html.components._
 import uk.gov.hmrc.govukfrontend.views.{JsoupHelpers, MessagesHelpers}
 
-class formWithCSRFSpec extends WordSpec with Matchers with JsoupHelpers with MessagesHelpers with CSRFSpec {
+class formWithCSRFSpec
+  extends AnyWordSpec
+    with Matchers
+    with JsoupHelpers
+    with MessagesHelpers
+    with CSRFSpec {
+
   "formWithCSRF" should {
     val postAction = Call(method = "POST", url = "/the-post-url")
 

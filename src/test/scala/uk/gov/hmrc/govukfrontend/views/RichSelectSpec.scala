@@ -16,13 +16,18 @@
 
 package uk.gov.hmrc.govukfrontend.views
 
-import org.scalatest.{Matchers, WordSpec}
+import org.scalatest.matchers.should.Matchers
+import org.scalatest.wordspec.AnyWordSpec
 import uk.gov.hmrc.govukfrontend.views.html.components.implicits._
 import uk.gov.hmrc.govukfrontend.views.viewmodels.select.{Select, SelectItem}
 import uk.gov.hmrc.govukfrontend.views.viewmodels.content.Text
 import uk.gov.hmrc.govukfrontend.views.viewmodels.errormessage.ErrorMessage
 
-class RichSelectSpec extends WordSpec with Matchers with MessagesHelpers with RichFormInputHelpers {
+class RichSelectSpec
+  extends AnyWordSpec
+    with Matchers
+    with MessagesHelpers
+    with RichFormInputHelpers {
 
   "Given a Select object, calling withFormField" should {
     "use the Field name as the Select name if no Select name provided" in {

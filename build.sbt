@@ -1,30 +1,23 @@
 import GenerateFixtures.generateFixtures
-import play.sbt.PlayImport.PlayKeys._
+import play.sbt.PlayImport.PlayKeys
 import sbt.CrossVersion
 
 val libName = "play-frontend-govuk"
-val silencerVersion = "1.4.4"
+val silencerVersion = "1.7.2"
 
 lazy val playDir = "play-26"
 
 lazy val IntegrationTest = config("it") extend Test
 
 lazy val root = Project(libName, file("."))
-  .enablePlugins(PlayScala, SbtAutoBuildPlugin, SbtGitVersioning, SbtTwirl, SbtArtifactory, BuildInfoPlugin)
+  .enablePlugins(PlayScala, SbtAutoBuildPlugin, SbtGitVersioning, SbtTwirl, BuildInfoPlugin)
   .disablePlugins(PlayLayoutPlugin)
   .configs(IntegrationTest)
   .settings(
     name := libName,
     majorVersion := 0,
-    scalaVersion := "2.12.10",
-    crossScalaVersions := List("2.11.12", "2.12.10"),
-    libraryDependencies ++= LibDependencies.libDependencies,
-    resolvers :=
-      Seq(
-        "HMRC Releases" at "https://dl.bintray.com/hmrc/releases",
-        "typesafe-releases" at "https://repo.typesafe.com/typesafe/releases/",
-        "bintray" at "https://dl.bintray.com/webjars/maven"
-      ),
+    scalaVersion := "2.12.13",
+    libraryDependencies ++= LibDependencies(),
     TwirlKeys.templateImports := templateImports,
     PlayCrossCompilation.playCrossCompilationSettings,
     makePublicallyAvailableOnBintray := true,
@@ -42,7 +35,7 @@ lazy val root = Project(libName, file("."))
       generateFixtures(baseDirectory.value / "src/test/resources", LibDependencies.govukFrontendVersion)
     },
     parallelExecution in sbt.Test := false,
-    playMonitoredFiles ++= (sourceDirectories in (Compile, TwirlKeys.compileTemplates)).value,
+    PlayKeys.playMonitoredFiles ++= (sourceDirectories in (Compile, TwirlKeys.compileTemplates)).value,
     unmanagedResourceDirectories in Test ++= Seq(baseDirectory(_ / "target/web/public/test").value),
     buildInfoKeys ++= Seq[BuildInfoKey](
       "playVersion" -> PlayCrossCompilation.playVersion,
