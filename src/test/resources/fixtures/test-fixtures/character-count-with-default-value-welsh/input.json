@@ -1,0 +1,10 @@
+{
+  "id" : "with-default-value-welsh",
+  "name" : "default-value-welsh",
+  "maxlength" : 100,
+  "label" : {
+    "text" : "Full address"
+  },
+  "value" : "221B Baker Street\nLondon\nNW1 6XE\n",
+  "language" : "cy"
+}

@@ -1,0 +1,11 @@
+{
+  "id" : "with-attributes",
+  "name" : "with-attributes",
+  "maxlength" : 10,
+  "label" : {
+    "text" : "With attributes"
+  },
+  "attributes" : {
+    "data-attribute" : "my data value"
+  }
+}

@@ -1,0 +1,16 @@
+
+<div class="hmrc-character-count" data-module="hmrc-character-count" data-language="cy" data-maxwords="10">
+  <div class="govuk-form-group">
+  <label class="govuk-label" for="word-count">
+    Full address
+  </label>
+  <textarea class="govuk-textarea hmrc-js-character-count" id="word-count" name="word-count" rows="5" aria-describedby="word-count-info"></textarea>
+</div>
+
+      <div id="word-count-info" class="govuk-hint hmrc-character-count__message" aria-live="polite">
+  Gallwch nodi hyd at 10 o eiriau
+</div>
+
+</div>
+
+

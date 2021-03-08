@@ -1,0 +1,63 @@
+@*
+ * Copyright 2021 HM Revenue & Customs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *@
+
+@import uk.gov.hmrc.govukfrontend.views.html.components.GovukTextarea
+@import uk.gov.hmrc.govukfrontend.views.viewmodels.textarea.Textarea
+@import uk.gov.hmrc.govukfrontend.views.viewmodels.content.Text
+@import uk.gov.hmrc.govukfrontend.views.html.components.GovukHint
+@import uk.gov.hmrc.hmrcfrontend.views.viewmodels.language.Cy
+@import uk.gov.hmrc.govukfrontend.views.viewmodels.hint.Hint
+
+@this(govukTextarea: GovukTextarea, govukHint: GovukHint)
+@(params: CharacterCount)
+@import params._
+
+<div class="hmrc-character-count" data-module="hmrc-character-count" data-language="@{params.language.code}"
+ @if(params.maxLength.isDefined){ data-maxlength="@{params.maxLength.get}"}
+ @if(params.threshold.isDefined){ data-threshold="@{params.threshold.get}"}
+ @if(params.maxWords.isDefined){ data-maxwords="@{params.maxWords.get}"}
+>
+@govukTextarea(Textarea(
+ id = params.id,
+ name = params.name,
+ describedBy = Some(params.id + "-info"),
+ rows = params.rows,
+ spellcheck = {if (params.spellcheck.isDefined) Some(params.spellcheck.get) else None},
+ value = params.value,
+ formGroupClasses = params.formGroupClasses,
+ classes = "hmrc-js-character-count" + {if (params.errorMessage.isDefined) " govuk-textarea--error" else ""} + {if (params.classes == "") "" else " " + params.classes},
+ label = params.label,
+ hint = params.hint,
+ errorMessage = params.errorMessage,
+ attributes = params.attributes
+))
+
+@if(params.language == Cy) {
+ @govukHint(Hint(
+  content = Text("Gallwch nodi hyd at " + params.maxLength.getOrElse(params.maxWords.getOrElse(0)) + {if(params.maxWords.isDefined) " o eiriau" else " o gymeriadau"}),
+  id = Some(params.id + "-info"),
+  classes = "hmrc-character-count__message" + {if (params.countMessageClasses == "") "" else " " + params.countMessageClasses},
+  attributes = Map("aria-live" -> "polite")
+ ))
+} else {
+ @govukHint(Hint(
+  content = Text("You can enter up to " + params.maxLength.getOrElse(params.maxWords.getOrElse(0)) + {if(params.maxWords.isDefined) " words" else " characters"}),
+  id = Some(params.id + "-info"),
+  classes = "hmrc-character-count__message" + {if (params.countMessageClasses == "") "" else " " + params.countMessageClasses},
+  attributes = Map("aria-live" -> "polite")
+ ))
+}
+</div>

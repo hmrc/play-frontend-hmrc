@@ -1,0 +1,16 @@
+
+<div class="hmrc-character-count" data-module="hmrc-character-count" data-language="en" data-maxlength="10">
+  <div class="govuk-form-group app-character-count--custom-modifier">
+  <label class="govuk-label" for="with-formgroup">
+    With formgroup
+  </label>
+  <textarea class="govuk-textarea hmrc-js-character-count" id="with-formgroup" name="with-formgroup" rows="5" aria-describedby="with-formgroup-info"></textarea>
+</div>
+
+      <div id="with-formgroup-info" class="govuk-hint hmrc-character-count__message" aria-live="polite">
+  You can enter up to 10 characters
+</div>
+
+</div>
+
+
