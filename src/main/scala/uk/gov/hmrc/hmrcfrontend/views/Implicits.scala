@@ -16,7 +16,11 @@
 
 package uk.gov.hmrc.hmrcfrontend.views
 
+import play.api.data.Field
+import play.api.i18n.Messages
 import play.twirl.api.{Html, HtmlFormat}
+import uk.gov.hmrc.govukfrontend.views.ImplicitsSupport
+import uk.gov.hmrc.hmrcfrontend.views.viewmodels.charactercount.CharacterCount
 
 trait Implicits {
 
@@ -118,6 +122,38 @@ trait Implicits {
 
     def getNonEmptyOrElse[B >: String](default: => B): B =
       optString.filter(_.nonEmpty).getOrElse(default)
+  }
+
+  implicit class RichCharacterCount(characterCount: CharacterCount)(implicit val messages: Messages) extends ImplicitsSupport[CharacterCount] {
+
+    /**
+      * Extension method to allow a Play form Field to be used to add certain parameters in an CharacterCount,
+      * specifically errorMessage, id, name, and value. Note these
+      * values will only be added from the Field if they are not specifically defined in the CharacterCount object.
+      *
+      * @param field
+      * @param messages
+      */
+    override def withFormField(field: Field): CharacterCount =
+      characterCount
+        .withName(field)
+        .withId(field)
+        .withValue(field)
+        .withErrorMessage(field)
+
+    private[views] def withName(field: Field): CharacterCount =
+      withStringProperty(field.name, characterCount.name, characterCount)((cc, nm) => cc.copy(name = nm))
+
+    private[views] def withId(field: Field): CharacterCount =
+      withStringProperty(field.name, characterCount.id, characterCount)((cc, id) => cc.copy(id = id))
+
+    private[views] def withValue(field: Field): CharacterCount =
+      withOptStringProperty(field.value, characterCount.value, characterCount)((cc, vl) => cc.copy(value = vl))
+
+    private[views] def withErrorMessage(field: Field): CharacterCount =
+      withOptErrorMessageProperty(field.error, characterCount.errorMessage, characterCount)(
+        (cc, errorMsg) => cc.copy(errorMessage = errorMsg)
+      )
   }
 
 }

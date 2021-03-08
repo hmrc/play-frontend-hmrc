@@ -23,6 +23,7 @@ The library comprises two packages:
 - [Standard HMRC header](#standard-hmrc-header)
 - [Helping users report technical issues](#helping-users-report-technical-issues)
 - [Standard HMRC footer and accessibility statements](#standard-hmrc-footer-and-accessibility-statements)
+- [CharacterCount with Welsh language support](#charactercount-with-welsh-language-support)
 - [Integrating with tracking consent](#integrating-with-tracking-consent)
 - [Warning users before timing them out](#warning-users-before-timing-them-out)
 - [Getting help](#getting-help)
@@ -248,6 +249,26 @@ accessibility-statement.service-path = "/discounted-icecreams"
 In the exceptional case that you need to link to an accessibility statement not hosted
  within accessibility-statement-frontend, the default behaviour can be overridden by supplying an
  `accessibilityStatementUrl` parameter to `hmrcStandardFooter`.
+
+## CharacterCount with Welsh language support
+
+The [hmrcCharacterCount](src/main/twirl/uk/gov/hmrc/hmrcfrontend/views/components/hmrcCharacterCount.scala.html) is an
+implementation of the GOV.UK CharacterCount which translations the dynamic words / characters remaining
+text into English or Welsh using the Play framework Message API. You do not need to pass through the 
+language explicitly to this component, just pass through an implicit Messages.
+```
+@import uk.gov.hmrc.hmrcfrontend.views.viewmodels.charactercount.CharacterCount
+
+@this(hmrcCharacterCount: HmrcCharacterCount)
+
+@(implicit messages: Messages)
+@hmrcCharacterCount(CharacterCount(
+    name = "some-component-name",
+    id = "some-component-id",
+    maxWords = Some(1000),
+    label = Label(content = Text("Please enter your text")),
+))
+```
 
 ## Integrating with tracking consent
 

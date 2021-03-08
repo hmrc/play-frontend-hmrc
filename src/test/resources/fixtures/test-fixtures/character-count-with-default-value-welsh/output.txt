@@ -1,0 +1,19 @@
+
+<div class="hmrc-character-count" data-module="hmrc-character-count" data-language="cy" data-maxlength="100">
+  <div class="govuk-form-group">
+  <label class="govuk-label" for="with-default-value-welsh">
+    Full address
+  </label>
+  <textarea class="govuk-textarea hmrc-js-character-count" id="with-default-value-welsh" name="default-value-welsh" rows="5" aria-describedby="with-default-value-welsh-info">221B Baker Street
+London
+NW1 6XE
+</textarea>
+</div>
+
+      <div id="with-default-value-welsh-info" class="govuk-hint hmrc-character-count__message" aria-live="polite">
+  Gallwch nodi hyd at 100 o gymeriadau
+</div>
+
+</div>
+
+
