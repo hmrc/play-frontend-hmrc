@@ -16,7 +16,8 @@
 
 package uk.gov.hmrc.hmrcfrontend.views.helpers
 
-import org.scalatest.{Matchers, WordSpec}
+import org.scalatest.matchers.should.Matchers
+import org.scalatest.wordspec.AnyWordSpecLike
 import org.scalatestplus.play.guice.GuiceOneAppPerSuite
 import play.api.Application
 import play.api.inject.guice.GuiceApplicationBuilder
@@ -28,7 +29,13 @@ import uk.gov.hmrc.hmrcfrontend.MessagesSupport
 import uk.gov.hmrc.hmrcfrontend.views.JsoupHelpers
 import uk.gov.hmrc.hmrcfrontend.views.html.helpers.HmrcHead
 
-class hmrcHeadSpec extends WordSpec with Matchers with GuiceOneAppPerSuite with JsoupHelpers with MessagesSupport {
+class hmrcHeadSpec
+  extends AnyWordSpecLike
+    with Matchers
+    with GuiceOneAppPerSuite
+    with JsoupHelpers
+    with MessagesSupport {
+
   override def fakeApplication(): Application =
     new GuiceApplicationBuilder()
       .configure(Map(

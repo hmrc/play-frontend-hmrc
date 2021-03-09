@@ -18,7 +18,9 @@ package uk.gov.hmrc.hmrcfrontend.views.viewmodels.header
 
 import uk.gov.hmrc.hmrcfrontend.views.viewmodels.header.Generators._
 import org.scalacheck.ShrinkLowPriority
-import org.scalatest.{Matchers, OptionValues, WordSpec}
+import org.scalatest.OptionValues
+import org.scalatest.wordspec.AnyWordSpec
+import org.scalatest.matchers.should.Matchers
 import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks
 import play.api.libs.json.Json
 import uk.gov.hmrc.hmrcfrontend.views.viewmodels.language.{Cy, En, LanguageToggle}
@@ -35,7 +37,7 @@ import scala.reflect.ClassTag
 // values added.
 
 class HeaderSpec
-  extends WordSpec
+  extends AnyWordSpec
     with Matchers
     with OptionValues
     with ScalaCheckPropertyChecks

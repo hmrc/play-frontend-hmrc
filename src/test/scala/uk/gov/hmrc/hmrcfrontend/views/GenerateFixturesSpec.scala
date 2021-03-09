@@ -17,12 +17,16 @@
 package uk.gov.hmrc.hmrcfrontend.views
 
 import better.files.{File, Resource}
-import org.scalatest.{Matchers, WordSpec}
+import org.scalatest.matchers.should.Matchers
+import org.scalatest.wordspec.AnyWordSpec
 import play.api.libs.json.{JsObject, JsSuccess, Json}
 
 import scala.util.Try
 
-class GenerateFixturesSpec extends WordSpec with Matchers {
+class GenerateFixturesSpec
+  extends AnyWordSpec
+    with Matchers {
+
   val dir         = s"/fixtures/test-fixtures"
   val fixturesDir = Try(File(Resource.my.getUrl(dir)))
 

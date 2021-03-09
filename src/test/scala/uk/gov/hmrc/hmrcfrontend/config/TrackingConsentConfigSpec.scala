@@ -16,13 +16,16 @@
 
 package uk.gov.hmrc.hmrcfrontend.config
 
-import org.scalatest.{Matchers, WordSpec}
+import org.scalatest.matchers.should.Matchers
+import org.scalatest.wordspec.AnyWordSpec
 import play.api.Application
 import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.mvc.AnyContentAsEmpty
 import play.api.test.FakeRequest
 
-class TrackingConsentConfigSpec extends WordSpec with Matchers {
+class TrackingConsentConfigSpec
+  extends AnyWordSpec
+    with Matchers {
 
   def buildApp(properties: Map[String, String]) =
     new GuiceApplicationBuilder()

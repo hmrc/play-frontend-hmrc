@@ -16,6 +16,7 @@
 
 package uk.gov.hmrc.hmrcfrontend.views.viewmodels.language
 
+import org.scalatest.matchers.should.Matchers
 import uk.gov.hmrc.hmrcfrontend.views.viewmodels.JsonRoundtripSpec
 import uk.gov.hmrc.hmrcfrontend.views.viewmodels.language.Generators._
 

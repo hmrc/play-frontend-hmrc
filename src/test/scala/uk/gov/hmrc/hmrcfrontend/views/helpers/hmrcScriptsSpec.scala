@@ -16,7 +16,8 @@
 
 package uk.gov.hmrc.hmrcfrontend.views.helpers
 
-import org.scalatest.{Matchers, WordSpec}
+import org.scalatest.matchers.should.Matchers
+import org.scalatest.wordspec.AnyWordSpecLike
 import org.scalatestplus.play.guice.GuiceOneAppPerSuite
 import play.api.mvc.AnyContentAsEmpty
 import play.api.test.FakeRequest
@@ -25,7 +26,13 @@ import uk.gov.hmrc.hmrcfrontend.MessagesSupport
 import uk.gov.hmrc.hmrcfrontend.views.JsoupHelpers
 import uk.gov.hmrc.hmrcfrontend.views.html.helpers.HmrcScripts
 
-class hmrcScriptsSpec extends WordSpec with Matchers with GuiceOneAppPerSuite with JsoupHelpers with MessagesSupport {
+class hmrcScriptsSpec
+  extends AnyWordSpecLike
+    with Matchers
+    with GuiceOneAppPerSuite
+    with JsoupHelpers
+    with MessagesSupport {
+
   implicit val request: FakeRequest[AnyContentAsEmpty.type] = FakeRequest("GET", "/foo")
 
   "hmrcScripts" should {

@@ -16,27 +16,32 @@
 
 package uk.gov.hmrc.hmrcfrontend.views.helpers
 
-import org.scalatest.{Matchers, WordSpecLike}
-
 import org.jsoup.Jsoup
+import org.scalatest.matchers.should.Matchers
+import org.scalatest.wordspec.AnyWordSpecLike
 import play.api.i18n.Lang
 import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.test.FakeRequest
 import play.api.test.Helpers.contentAsString
 import play.api.test.Helpers._
-import uk.gov.hmrc.hmrcfrontend.views.html.helpers._
 
 import scala.collection.immutable.List
 import scala.collection.JavaConverters._
 import java.util.{List => JavaList}
-
 import org.scalatestplus.play.guice.GuiceOneAppPerSuite
 import play.api.Application
+import play.api.mvc.AnyContentAsEmpty
 import uk.gov.hmrc.hmrcfrontend.views.Aliases.FooterItem
 import uk.gov.hmrc.hmrcfrontend.MessagesSupport
 
-class hmrcStandardFooterSpec extends WordSpecLike with Matchers with MessagesSupport with GuiceOneAppPerSuite {
-  implicit val fakeRequest = FakeRequest("GET", "/foo")
+class hmrcStandardFooterSpec
+  extends AnyWordSpecLike
+    with Matchers
+    with MessagesSupport
+    with GuiceOneAppPerSuite
+    with HelpersInstances {
+
+  implicit val fakeRequest: FakeRequest[AnyContentAsEmpty.type] = FakeRequest("GET", "/foo")
 
   override def fakeApplication(): Application =
     new GuiceApplicationBuilder().configure(Map("play.allowGlobalApplication" -> "true")).build()

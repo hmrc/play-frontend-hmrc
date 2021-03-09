@@ -17,7 +17,8 @@
 package uk.gov.hmrc.hmrcfrontend.controllers
 
 import org.scalatest.TestData
-import org.scalatestplus.play._
+import org.scalatest.matchers.must.Matchers
+import org.scalatest.wordspec.AnyWordSpec
 import org.scalatestplus.play.guice.GuiceOneAppPerTest
 import play.api.Application
 import play.api.inject.guice.GuiceApplicationBuilder
@@ -25,7 +26,10 @@ import play.api.mvc._
 import play.api.test.Helpers._
 import play.api.test._
 
-class AssetsSpec extends PlaySpec with Results with GuiceOneAppPerTest {
+class AssetsSpec
+  extends AnyWordSpec
+    with Matchers
+    with Results with GuiceOneAppPerTest {
 
   override def newAppForTest(testData: TestData): Application =
     new GuiceApplicationBuilder()

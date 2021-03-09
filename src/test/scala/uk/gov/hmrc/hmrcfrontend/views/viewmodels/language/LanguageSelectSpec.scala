@@ -18,7 +18,9 @@ package uk.gov.hmrc.hmrcfrontend.views.viewmodels.language
 
 import uk.gov.hmrc.hmrcfrontend.views.viewmodels.language.Generators._
 import org.scalacheck.ShrinkLowPriority
-import org.scalatest.{Matchers, OptionValues, WordSpec}
+import org.scalatest.OptionValues
+import org.scalatest.matchers.should.Matchers
+import org.scalatest.wordspec.AnyWordSpec
 import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks
 import play.api.libs.json.Json
 
@@ -33,7 +35,7 @@ import scala.reflect.ClassTag
 // input, but rather the input with the default values added.
 
 class LanguageSelectSpec
-  extends WordSpec
+  extends AnyWordSpec
     with Matchers
     with OptionValues
     with ScalaCheckPropertyChecks

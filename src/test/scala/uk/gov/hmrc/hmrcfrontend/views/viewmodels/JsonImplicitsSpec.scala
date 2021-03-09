@@ -17,13 +17,15 @@
 package uk.gov.hmrc.hmrcfrontend.views.viewmodels
 
 import org.scalacheck.{Gen, ShrinkLowPriority}
-import org.scalatest.{Matchers, OptionValues, WordSpec}
+import org.scalatest.OptionValues
 import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks
 import play.api.libs.json._
 import JsonImplicits._
+import org.scalatest.matchers.should.Matchers
+import org.scalatest.wordspec.AnyWordSpec
 
 class JsonImplicitsSpec
-  extends WordSpec
+  extends AnyWordSpec
     with Matchers
     with OptionValues
     with ScalaCheckPropertyChecks
