@@ -49,6 +49,9 @@ undermining our test strategy and doing so will improve the developer experience
 
 ### Positive Consequences
 
+* There will be a single hmrcCharacterCount component with a meaningful name. There is less potential for confusion around deciding which of two similarly named components to use. 
+* The hmrcCharacterCount component and any future similar components will behave in a way that a Scala developer using the Play framework would expect in its use of internationalisation features.
+
 * There would be no need to create and maintain a separate wrapper for hmrcCharacterCount and
 future similar components.
 * Naming clashes requiring the use of the `Helper` component name suffix minimised
