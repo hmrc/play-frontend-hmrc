@@ -95,6 +95,9 @@ trait Aliases {
 
   type UserResearchBanner = viewmodels.userresearchbanner.UserResearchBanner
   val UserResearchBanner = viewmodels.userresearchbanner.UserResearchBanner
+
+  type CharacterCount = viewmodels.charactercount.CharacterCount
+  val CharacterCount = viewmodels.charactercount.CharacterCount
 }
 
 object Aliases extends Aliases

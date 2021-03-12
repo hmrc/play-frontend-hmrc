@@ -5,6 +5,31 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [0.51.0] - 2021-03-11
+
+### Changed
+
+- Added hmrcCharacterCount with support for Welsh language
+
+### Compatible with
+
+- [hmrc/hmrc-frontend v1.27.0](https://github.com/hmrc/hmrc-frontend/releases/tag/v1.27.0)
+- [hmrc/play-frontend-govuk v0.65.0](https://github.com/hmrc/play-frontend-govuk/releases/tag/v0.65.0)
+- [alphagov/govuk-frontend v3.11.0](https://github.com/alphagov/govuk-frontend/releases/tag/v3.11.0)
+
+
+## [0.50.0] - 2021-03-09
+
+### Changed
+
+- Added Play 2.8 support
+
+### Compatible with
+
+- [hmrc/hmrc-frontend v1.26.2](https://github.com/hmrc/hmrc-frontend/releases/tag/v1.26.2)
+- [hmrc/play-frontend-govuk v0.65.0](https://github.com/hmrc/play-frontend-govuk/releases/tag/v0.65.0)
+- [alphagov/govuk-frontend v3.11.0](https://github.com/alphagov/govuk-frontend/releases/tag/v3.11.0)
+
 ## [0.49.0] - 2021-02-25
 
 ### Changed
