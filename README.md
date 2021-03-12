@@ -253,7 +253,7 @@ In the exceptional case that you need to link to an accessibility statement not 
 ## CharacterCount with Welsh language support
 
 The [hmrcCharacterCount](src/main/twirl/uk/gov/hmrc/hmrcfrontend/views/components/hmrcCharacterCount.scala.html) is an
-implementation of the GOV.UK CharacterCount which translations the dynamic words / characters remaining
+implementation of the GOV.UK CharacterCount that translates the dynamic words / characters remaining
 text into English or Welsh using the Play framework Message API. You do not need to pass through the 
 language explicitly to this component, just pass through an implicit Messages.
 ```
