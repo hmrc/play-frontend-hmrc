@@ -18,7 +18,7 @@ package uk.gov.hmrc.hmrcfrontend.views.html.deprecated
 
 import play.api.Play
 import uk.gov.hmrc.hmrcfrontend.config._
-import uk.gov.hmrc.hmrcfrontend.views.html.components.{HmrcFooter, HmrcHeader, HmrcReportTechnicalIssue, HmrcTimeoutDialog}
+import uk.gov.hmrc.hmrcfrontend.views.html.components.{HmrcFooter, HmrcHeader, HmrcLanguageSelect, HmrcReportTechnicalIssue, HmrcTimeoutDialog}
 import uk.gov.hmrc.hmrcfrontend.views.html.helpers._
 import uk.gov.hmrc.hmrcfrontend.views.config.{HmrcFooterItems => HmrcFooterItemsType}
 
@@ -34,6 +34,9 @@ object helpers {
 
   @deprecated(message = "Use DI", since = "Play 2.6")
   lazy val TrackingConsentConfig: TrackingConsentConfig = Play.current.injector.instanceOf[TrackingConsentConfig]
+
+  @deprecated(message = "Use DI", since = "Play 2.6")
+  lazy val LanguageConfig: LanguageConfig = Play.current.injector.instanceOf[LanguageConfig]
 
   @deprecated(message = "Use DI", since = "Play 2.6")
   lazy val AssetsConfig = Play.current.injector.instanceOf[AssetsConfig]
@@ -73,4 +76,8 @@ object helpers {
   type HmrcTimeoutDialogHelper = hmrcTimeoutDialogHelper
   @deprecated(message = "Use DI", since = "Play 2.6")
   lazy val HmrcTimeoutDialogHelper = new hmrcTimeoutDialogHelper(HmrcTimeoutDialog, TimeoutDialogConfig)
+
+  type HmrcLanguageSelectHelper = hmrcLanguageSelectHelper
+  @deprecated(message = "Use DI", since = "Play 2.6")
+  lazy val HmrcLanguageSelectHelper = new hmrcLanguageSelectHelper(HmrcLanguageSelect, LanguageConfig)
 }

@@ -14,20 +14,14 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.hmrcfrontend.views.html
+package uk.gov.hmrc.hmrcfrontend.config
 
-import uk.gov.hmrc.hmrcfrontend.views.config.{HmrcFooterItems => HmrcFooterItemsType}
+import javax.inject.Inject
+import play.api.Configuration
 
-package object helpers {
+class LanguageConfig @Inject()(config: Configuration) {
+  val en: String = "en"
+  val cy: String = "cy"
 
-  type HmrcFooterItems = HmrcFooterItemsType
-  type HmrcStandardFooter = hmrcStandardFooter
-  type HmrcTrackingConsentSnippet = hmrcTrackingConsentSnippet
-  type HmrcReportTechnicalIssueHelper = hmrcReportTechnicalIssueHelper
-  type HmrcStandardHeader = hmrcStandardHeader
-  type HmrcHead = hmrcHead
-  type HmrcScripts = hmrcScripts
-  type HmrcTimeoutDialogHelper = hmrcTimeoutDialogHelper
-  type HmrcLanguageSelectHelper = hmrcLanguageSelectHelper
-
+  val fallbackURL: String = config.get[String]("language.fallback.url")
 }

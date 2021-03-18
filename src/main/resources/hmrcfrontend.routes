@@ -1,2 +1,3 @@
 GET        /assets/*file        uk.gov.hmrc.hmrcfrontend.controllers.Assets.at(path="/public/lib/hmrc-frontend/hmrc", file)
 GET        /keep-alive          uk.gov.hmrc.hmrcfrontend.controllers.KeepAliveController.keepAlive
+GET        /language/:lang      uk.gov.hmrc.hmrcfrontend.controllers.LanguageController.switchToLanguage(lang: String)
