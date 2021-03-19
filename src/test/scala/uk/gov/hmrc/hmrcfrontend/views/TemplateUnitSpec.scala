@@ -57,8 +57,8 @@ abstract class TemplateUnitSpec[T: Reads](hmrcComponentName: String)
             val tryTwirlHtml = renderExample(fixtureDir, exampleName)
 
             tryTwirlHtml match {
-              case Success(twirlHtml) =>
-                val preProcessedTwirlHtml = preProcess(twirlHtml)
+              case Success(twirlHtml)                            =>
+                val preProcessedTwirlHtml    = preProcess(twirlHtml)
                 val preProcessedNunjucksHtml = preProcess(nunjucksHtml(fixtureDir, exampleName).success.value)
 
                 preProcessedTwirlHtml shouldBe preProcessedNunjucksHtml
@@ -67,7 +67,7 @@ abstract class TemplateUnitSpec[T: Reads](hmrcComponentName: String)
                 println(s"Exception: $message")
 
                 fail
-              case Failure(exception) => fail(exception)
+              case Failure(exception)                            => fail(exception)
             }
           }
         }
@@ -78,13 +78,13 @@ abstract class TemplateUnitSpec[T: Reads](hmrcComponentName: String)
     for {
       inputJson    <- Try(readInputJson(fixturesDir, exampleName))
       inputJsValue <- Try(Json.parse(inputJson))
-      html <- inputJsValue.validate[T] match {
-               case JsSuccess(templateParams, _) =>
-                 render(templateParams)
-                   .transform(html => Success(html.body), f => Failure(new TemplateValidationException(f.getMessage)))
-               case e: JsError =>
-                 throw new RuntimeException(s"Failed to validate Json params: [$inputJsValue]\nException: [$e]")
-             }
+      html         <- inputJsValue.validate[T] match {
+                        case JsSuccess(templateParams, _) =>
+                          render(templateParams)
+                            .transform(html => Success(html.body), f => Failure(new TemplateValidationException(f.getMessage)))
+                        case e: JsError                   =>
+                          throw new RuntimeException(s"Failed to validate Json params: [$inputJsValue]\nException: [$e]")
+                      }
     } yield html
 
   private def nunjucksHtml(fixturesDir: File, exampleName: String): Try[String] =
@@ -98,11 +98,9 @@ abstract class TemplateUnitSpec[T: Reads](hmrcComponentName: String)
     *        fails if the fixtures folder is not defined
     */
   private def exampleNames(fixturesDirs: Seq[File], hmrcComponentName: String): Seq[(File, String)] = {
-    val exampleFolders = fixturesDirs.flatMap(
-      fixtureDir =>
-        getExampleFolders(fixtureDir, hmrcComponentName).map(
-          exampleDir => (fixtureDir, exampleDir)
-      ))
+    val exampleFolders = fixturesDirs.flatMap(fixtureDir =>
+      getExampleFolders(fixtureDir, hmrcComponentName).map(exampleDir => (fixtureDir, exampleDir))
+    )
 
     val examples = for ((fixtureDir, exampleDir) <- exampleFolders) yield (fixtureDir, exampleDir.name)
 
@@ -124,7 +122,7 @@ abstract class TemplateUnitSpec[T: Reads](hmrcComponentName: String)
   }
 
   private lazy val fixturesDirs: Seq[File] = {
-    val dir = s"/fixtures"
+    val dir         = s"/fixtures"
     val fixturesDir = Try(File(Resource.my.getUrl(dir)))
       .getOrElse(throw new RuntimeException(s"Test fixtures folder not found: $dir"))
 

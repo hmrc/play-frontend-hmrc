@@ -26,23 +26,23 @@ import uk.gov.hmrc.govukfrontend.views.viewmodels.label.Label
 import uk.gov.hmrc.hmrcfrontend.views.viewmodels.language.{En, Language}
 
 case class CharacterCount(
-                           id: String                         = "",
-                           name: String                       = "",
-                           rows: Int                          = 5,
-                           value: Option[String]              = None,
-                           maxLength: Option[Int]             = None,
-                           maxWords: Option[Int]              = None,
-                           threshold: Option[Int]             = None,
-                           label: Label                       = Label(),
-                           hint: Option[Hint]                 = None,
-                           errorMessage: Option[ErrorMessage] = None,
-                           formGroupClasses: String           = "",
-                           classes: String                    = "",
-                           attributes: Map[String, String]    = Map.empty,
-                           spellcheck: Option[Boolean]        = None,
-                           countMessageClasses: String        = "",
-                           language: Language                 = En
-                         )
+  id: String = "",
+  name: String = "",
+  rows: Int = 5,
+  value: Option[String] = None,
+  maxLength: Option[Int] = None,
+  maxWords: Option[Int] = None,
+  threshold: Option[Int] = None,
+  label: Label = Label(),
+  hint: Option[Hint] = None,
+  errorMessage: Option[ErrorMessage] = None,
+  formGroupClasses: String = "",
+  classes: String = "",
+  attributes: Map[String, String] = Map.empty,
+  spellcheck: Option[Boolean] = None,
+  countMessageClasses: String = "",
+  language: Language = En
+)
 
 object CharacterCount {
 
@@ -66,7 +66,7 @@ object CharacterCount {
         (__ \ "spellcheck").readNullable[Boolean] and
         readsCountMessageClasses and
         (__ \ "language").readWithDefault[Language](defaultObject.language)
-      )(CharacterCount.apply _)
+    )(CharacterCount.apply _)
 
   implicit def jsonWrites: OWrites[CharacterCount] =
     (
@@ -86,7 +86,6 @@ object CharacterCount {
         (__ \ "spellcheck").writeNullable[Boolean] and
         writesCountMessageClasses and
         (__ \ "language").write[Language]
-      )(unlift(CharacterCount.unapply))
+    )(unlift(CharacterCount.unapply))
 
 }
-

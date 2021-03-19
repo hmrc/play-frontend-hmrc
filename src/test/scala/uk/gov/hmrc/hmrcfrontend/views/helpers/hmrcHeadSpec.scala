@@ -30,7 +30,7 @@ import uk.gov.hmrc.hmrcfrontend.views.JsoupHelpers
 import uk.gov.hmrc.hmrcfrontend.views.html.helpers.HmrcHead
 
 class hmrcHeadSpec
-  extends AnyWordSpecLike
+    extends AnyWordSpecLike
     with Matchers
     with GuiceOneAppPerSuite
     with JsoupHelpers
@@ -38,11 +38,13 @@ class hmrcHeadSpec
 
   override def fakeApplication(): Application =
     new GuiceApplicationBuilder()
-      .configure(Map(
-        "optimizely.url"                          -> "https://cdn.optimizely.com/",
-        "optimizely.projectId"                    -> "1234567",
-        "tracking-consent-frontend.gtm.container" -> "d"
-      ))
+      .configure(
+        Map(
+          "optimizely.url"                          -> "https://cdn.optimizely.com/",
+          "optimizely.projectId"                    -> "1234567",
+          "tracking-consent-frontend.gtm.container" -> "d"
+        )
+      )
       .build()
 
   implicit val request: FakeRequest[AnyContentAsEmpty.type] = FakeRequest("GET", "/foo")
@@ -50,7 +52,7 @@ class hmrcHeadSpec
   "hmrcHead" should {
     "include the tracking consent script tag" in {
       val hmrcHead = app.injector.instanceOf[HmrcHead]
-      val content = hmrcHead()
+      val content  = hmrcHead()
 
       val scripts = content.select("script#tracking-consent-script-tag")
       scripts should have size 1
@@ -58,25 +60,25 @@ class hmrcHeadSpec
 
     "include a nonce in each script tag if supplied" in {
       val hmrcHead = app.injector.instanceOf[HmrcHead]
-      val content = hmrcHead(nonce = Some("a-nonce"))
+      val content  = hmrcHead(nonce = Some("a-nonce"))
 
       val scripts = content.select("script#tracking-consent-script-tag")
-      scripts should have size 1
+      scripts                     should have size 1
       scripts.first.attr("nonce") should be("a-nonce")
     }
 
     "include a nonce in the IE9+ link tag if supplied" in {
       val hmrcHead = app.injector.instanceOf[HmrcHead]
-      val content = hmrcHead(nonce = Some("a-nonce"))
+      val content  = hmrcHead(nonce = Some("a-nonce"))
 
       val links = content.select("link")
-      links should have size 1
+      links                     should have size 1
       links.first.attr("nonce") should be("a-nonce")
     }
 
     "include the hmrc-frontend minified css bundle" in {
       val hmrcHead = app.injector.instanceOf[HmrcHead]
-      val content = contentAsString(hmrcHead())
+      val content  = contentAsString(hmrcHead())
 
       content should include regex
         """<!--\[if gt IE 8\]><!-->
@@ -86,7 +88,7 @@ class hmrcHeadSpec
 
     "include the hmrc-frontend minified ie8 css bundle and minified html5shiv bundle" in {
       val hmrcHead = app.injector.instanceOf[HmrcHead]
-      val content = contentAsString(hmrcHead())
+      val content  = contentAsString(hmrcHead())
 
       content should include regex
         """<!--\[if lte IE 8\]>
@@ -97,7 +99,7 @@ class hmrcHeadSpec
 
     "include the supplied headBlock" in {
       val hmrcHead = app.injector.instanceOf[HmrcHead]
-      val content = hmrcHead(headBlock = Some(Html("""<meta name="author" content="John Doe">""")))
+      val content  = hmrcHead(headBlock = Some(Html("""<meta name="author" content="John Doe">""")))
 
       val metaTags = content.select("meta[name=author]")
       metaTags should have size 1
@@ -109,7 +111,7 @@ class hmrcHeadSpec
 
       val links = hmrcHead().select("link")
 
-      links should have size 1
+      links                    should have size 1
       links.first.attr("href") should fullyMatch regex
         """/foo-service/hmrc-frontend/assets/hmrc-frontend-\d+.\d+.\d+.min.css""".r
     }

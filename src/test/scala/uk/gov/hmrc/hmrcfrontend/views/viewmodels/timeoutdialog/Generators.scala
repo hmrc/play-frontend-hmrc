@@ -32,17 +32,16 @@ object Generators {
       messageSuffix       <- Gen.option(genAlphaStr())
       keepAliveButtonText <- Gen.option(genAlphaStr())
       signOutButtonText   <- Gen.option(genAlphaStr())
-    } yield
-      TimeoutDialog(
-        timeout             = timeout,
-        countdown           = countdown,
-        keepAliveUrl        = keepAliveUrl,
-        signOutUrl          = signOutUrl,
-        title               = title,
-        message             = message,
-        messageSuffix       = messageSuffix,
-        keepAliveButtonText = keepAliveButtonText,
-        signOutButtonText   = signOutButtonText
-      )
+    } yield TimeoutDialog(
+      timeout = timeout,
+      countdown = countdown,
+      keepAliveUrl = keepAliveUrl,
+      signOutUrl = signOutUrl,
+      title = title,
+      message = message,
+      messageSuffix = messageSuffix,
+      keepAliveButtonText = keepAliveButtonText,
+      signOutButtonText = signOutButtonText
+    )
   }
 }

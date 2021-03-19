@@ -27,7 +27,7 @@ import uk.gov.hmrc.hmrcfrontend.views.viewmodels.language.{Cy, En}
 import scala.util.Try
 
 class hmrcCharacterCountSpec
-  extends TemplateUnitSpec[CharacterCount]("hmrcCharacterCount")
+    extends TemplateUnitSpec[CharacterCount]("hmrcCharacterCount")
     with MessagesSupport
     with JsoupHelpers {
 
@@ -43,45 +43,45 @@ class hmrcCharacterCountSpec
   "hmrcCharacterCount" should {
     "set data-language from the Messages when specified as cy" in {
       val welshMessages: Messages = messagesApi.preferred(Seq(Lang("cy")))
-      val characterCount = CharacterCount(id = "some-id", name = "some-name", maxWords = Some(25))
+      val characterCount          = CharacterCount(id = "some-id", name = "some-name", maxWords = Some(25))
 
-      val content = HmrcCharacterCount(characterCount)(welshMessages)
+      val content           = HmrcCharacterCount(characterCount)(welshMessages)
       val characterCountDiv = content.select(".hmrc-character-count")
 
-      characterCountDiv.size() shouldBe 1
+      characterCountDiv.size()                shouldBe 1
       characterCountDiv.attr("data-language") shouldBe "cy"
     }
 
     "set data-language from the Messages when cy in Messages and en in viewmodel" in {
       val welshMessages: Messages = messagesApi.preferred(Seq(Lang("cy")))
-      val characterCount = CharacterCount(id = "some-id", name = "some-name", maxWords = Some(25), language = En)
+      val characterCount          = CharacterCount(id = "some-id", name = "some-name", maxWords = Some(25), language = En)
 
-      val content = HmrcCharacterCount(characterCount)(welshMessages)
+      val content           = HmrcCharacterCount(characterCount)(welshMessages)
       val characterCountDiv = content.select(".hmrc-character-count")
 
-      characterCountDiv.size() shouldBe 1
+      characterCountDiv.size()                shouldBe 1
       characterCountDiv.attr("data-language") shouldBe "cy"
     }
 
     "set data-language from the viewmodel when cy in viewmodel and en in Messages" in {
       val welshMessages: Messages = messagesApi.preferred(Seq(Lang("en")))
-      val characterCount = CharacterCount(id = "some-id", name = "some-name", maxWords = Some(25), language = Cy)
+      val characterCount          = CharacterCount(id = "some-id", name = "some-name", maxWords = Some(25), language = Cy)
 
-      val content = HmrcCharacterCount(characterCount)(welshMessages)
+      val content           = HmrcCharacterCount(characterCount)(welshMessages)
       val characterCountDiv = content.select(".hmrc-character-count")
 
-      characterCountDiv.size() shouldBe 1
+      characterCountDiv.size()                shouldBe 1
       characterCountDiv.attr("data-language") shouldBe "cy"
     }
 
     "set data-language from the viewmodel when none specified in messages" in {
       val welshMessages: Messages = messagesApi.preferred(Seq())
-      val characterCount = CharacterCount(id = "some-id", name = "some-name", maxWords = Some(25), language = En)
+      val characterCount          = CharacterCount(id = "some-id", name = "some-name", maxWords = Some(25), language = En)
 
-      val content = HmrcCharacterCount(characterCount)(welshMessages)
+      val content           = HmrcCharacterCount(characterCount)(welshMessages)
       val characterCountDiv = content.select(".hmrc-character-count")
 
-      characterCountDiv.size() shouldBe 1
+      characterCountDiv.size()                shouldBe 1
       characterCountDiv.attr("data-language") shouldBe "en"
     }
   }

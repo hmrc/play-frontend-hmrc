@@ -29,13 +29,12 @@ object Generators {
       classes     <- Gen.option(genClasses())
       baseUrl     <- Gen.option(genAlphaStr())
       referrerUrl <- Gen.option(genAlphaStr())
-    } yield
-      ReportTechnicalIssue(
-        serviceCode = text,
-        language    = language,
-        classes     = classes,
-        baseUrl     = baseUrl,
-        referrerUrl = referrerUrl
-      )
+    } yield ReportTechnicalIssue(
+      serviceCode = text,
+      language = language,
+      classes = classes,
+      baseUrl = baseUrl,
+      referrerUrl = referrerUrl
+    )
   }
 }

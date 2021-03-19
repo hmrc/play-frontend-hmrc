@@ -27,12 +27,11 @@ object Generators {
       href      <- Gen.option(genAlphaStr())
       language  <- Gen.option(genAlphaStr())
       classList <- Gen.option(genClasses())
-    } yield
-      NewTabLink(
-        text      = text,
-        href      = href,
-        language  = language,
-        classList = classList
-      )
+    } yield NewTabLink(
+      text = text,
+      href = href,
+      language = language,
+      classList = classList
+    )
   }
 }

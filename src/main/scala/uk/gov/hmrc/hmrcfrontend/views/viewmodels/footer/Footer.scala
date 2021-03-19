@@ -20,12 +20,12 @@ import play.api.libs.json._
 import uk.gov.hmrc.hmrcfrontend.views.viewmodels.language.{En, Language}
 
 case class Footer(
-  meta: Option[Meta]                = None,
+  meta: Option[Meta] = None,
   navigation: Seq[FooterNavigation] = Seq.empty,
-  containerClasses: String          = "",
-  classes: String                   = "",
-  attributes: Map[String, String]   = Map.empty,
-  language: Language                = En
+  containerClasses: String = "",
+  classes: String = "",
+  attributes: Map[String, String] = Map.empty,
+  language: Language = En
 )
 
 object Footer {

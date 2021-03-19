@@ -23,9 +23,7 @@ import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.mvc.AnyContentAsEmpty
 import play.api.test.FakeRequest
 
-class TrackingConsentConfigSpec
-  extends AnyWordSpec
-    with Matchers {
+class TrackingConsentConfigSpec extends AnyWordSpec with Matchers {
 
   def buildApp(properties: Map[String, String]) =
     new GuiceApplicationBuilder()
@@ -40,17 +38,19 @@ class TrackingConsentConfigSpec
         Map(
           "optimizely.url"       -> "http://optimizely.com/",
           "optimizely.projectId" -> "1234567"
-        ))
-      val config = application.injector.instanceOf[TrackingConsentConfig]
+        )
+      )
+      val config                            = application.injector.instanceOf[TrackingConsentConfig]
       config.optimizelyUrl should equal(Some("http://optimizely.com/1234567.js"))
     }
 
     "return None if optimizely.projectId is not defined" in {
       implicit val application: Application = buildApp(
         Map(
-          "optimizely.url"               -> "http://optimizely.com/"
-        ))
-      val config = application.injector.instanceOf[TrackingConsentConfig]
+          "optimizely.url" -> "http://optimizely.com/"
+        )
+      )
+      val config                            = application.injector.instanceOf[TrackingConsentConfig]
       config.optimizelyUrl should equal(None)
     }
 
@@ -58,8 +58,9 @@ class TrackingConsentConfigSpec
       implicit val application: Application = buildApp(
         Map(
           "optimizely.projectId" -> "1234567"
-        ))
-      val config = application.injector.instanceOf[TrackingConsentConfig]
+        )
+      )
+      val config                            = application.injector.instanceOf[TrackingConsentConfig]
       config.optimizelyUrl should equal(None)
     }
   }
@@ -71,8 +72,9 @@ class TrackingConsentConfigSpec
       implicit val application: Application = buildApp(
         Map(
           "tracking-consent-frontend.gtm.container" -> "a"
-        ))
-      val config = application.injector.instanceOf[TrackingConsentConfig]
+        )
+      )
+      val config                            = application.injector.instanceOf[TrackingConsentConfig]
       config.trackingUrl should equal(Some("http://localhost:12345/tracking-consent/tracking.js"))
     }
 
@@ -81,8 +83,9 @@ class TrackingConsentConfigSpec
         Map(
           "platform.frontend.host"                  -> "https://www.tax.service.gov.uk",
           "tracking-consent-frontend.gtm.container" -> "a"
-        ))
-      val config = application.injector.instanceOf[TrackingConsentConfig]
+        )
+      )
+      val config                            = application.injector.instanceOf[TrackingConsentConfig]
       config.trackingUrl should equal(Some("/tracking-consent/tracking.js"))
     }
 
@@ -100,8 +103,9 @@ class TrackingConsentConfigSpec
       implicit val application: Application = buildApp(
         Map(
           "tracking-consent-frontend.gtm.container" -> "a"
-        ))
-      val config = application.injector.instanceOf[TrackingConsentConfig]
+        )
+      )
+      val config                            = application.injector.instanceOf[TrackingConsentConfig]
       config.optimizelyGtmUrl should equal(Some("http://localhost:12345/tracking-consent/tracking/optimizely.js"))
     }
 
@@ -110,10 +114,10 @@ class TrackingConsentConfigSpec
         Map(
           "platform.frontend.host"                  -> "https://www.tax.service.gov.uk",
           "tracking-consent-frontend.gtm.container" -> "a"
-        ))
-      val config = application.injector.instanceOf[TrackingConsentConfig]
-      config.optimizelyGtmUrl should equal(
-        Some("/tracking-consent/tracking/optimizely.js"))
+        )
+      )
+      val config                            = application.injector.instanceOf[TrackingConsentConfig]
+      config.optimizelyGtmUrl should equal(Some("/tracking-consent/tracking/optimizely.js"))
     }
 
     "return None if an tracking-consent-frontend.gtm.container does not exist in application.conf" in {

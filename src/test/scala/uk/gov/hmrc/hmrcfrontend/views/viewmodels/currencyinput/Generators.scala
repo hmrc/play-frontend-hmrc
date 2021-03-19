@@ -25,28 +25,27 @@ import uk.gov.hmrc.hmrcfrontend.views.viewmodels.label.Generators._
 object Generators {
   implicit val arbCurrencyInput: Arbitrary[CurrencyInput] = Arbitrary {
     for {
-      id               <- genNonEmptyAlphaStr
-      name             <- genNonEmptyAlphaStr
-      describedBy      <- Gen.option(genAlphaStr())
-      value            <- Gen.option(genAlphaStr())
-      label            <- arbLabel.arbitrary
-      hint             <- Gen.option(arbHint.arbitrary)
-      errorMessage     <- Gen.option(arbErrorMessage.arbitrary)
-      classes          <- genClasses()
-      autocomplete     <- Gen.option(genAlphaStr())
-      attributes       <- genAttributes()
-    } yield
-      CurrencyInput(
-        id               = id,
-        name             = name,
-        describedBy      = describedBy,
-        value            = value,
-        label            = label,
-        hint             = hint,
-        errorMessage     = errorMessage,
-        classes          = classes,
-        autocomplete     = autocomplete,
-        attributes       = attributes
-      )
+      id           <- genNonEmptyAlphaStr
+      name         <- genNonEmptyAlphaStr
+      describedBy  <- Gen.option(genAlphaStr())
+      value        <- Gen.option(genAlphaStr())
+      label        <- arbLabel.arbitrary
+      hint         <- Gen.option(arbHint.arbitrary)
+      errorMessage <- Gen.option(arbErrorMessage.arbitrary)
+      classes      <- genClasses()
+      autocomplete <- Gen.option(genAlphaStr())
+      attributes   <- genAttributes()
+    } yield CurrencyInput(
+      id = id,
+      name = name,
+      describedBy = describedBy,
+      value = value,
+      label = label,
+      hint = hint,
+      errorMessage = errorMessage,
+      classes = classes,
+      autocomplete = autocomplete,
+      attributes = attributes
+    )
   }
 }

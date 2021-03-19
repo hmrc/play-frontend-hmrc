@@ -27,8 +27,7 @@ import uk.gov.hmrc.govukfrontend.views.viewmodels.errormessage.ErrorMessage
 import uk.gov.hmrc.hmrcfrontend.views.viewmodels.charactercount.CharacterCount
 import play.api.test.{Helpers => PlayHelpers}
 
-class RichCharacterCountSpec extends AnyWordSpec
-  with Matchers {
+class RichCharacterCountSpec extends AnyWordSpec with Matchers {
 
   implicit lazy val messagesApi: MessagesApi = {
     val langs = new DefaultLangs(Seq(Lang("en"), Lang("cy")))
@@ -40,10 +39,12 @@ class RichCharacterCountSpec extends AnyWordSpec
     PlayHelpers.stubMessages(messagesApi)
 
   val field: Field = Field(
-    form = TestFormBind.form.bind(Map(
-      "user-name" -> "Test Name",
-      "user-email" -> "test@example.com"
-    )),
+    form = TestFormBind.form.bind(
+      Map(
+        "user-name"  -> "Test Name",
+        "user-email" -> "test@example.com"
+      )
+    ),
     name = "Form Name",
     constraints = Nil,
     format = None,
@@ -59,9 +60,10 @@ class RichCharacterCountSpec extends AnyWordSpec
   object TestFormBind {
     def form: Form[TestForm] = Form[TestForm](
       mapping(
-        "user-name" -> text,
+        "user-name"  -> text,
         "user-email" -> text
-      )(TestForm.apply)(TestForm.unapply))
+      )(TestForm.apply)(TestForm.unapply)
+    )
   }
 
   "Given an CharacterCount object, calling withFormField" should {
@@ -112,7 +114,7 @@ class RichCharacterCountSpec extends AnyWordSpec
       characterCount.withFormField(field) shouldBe CharacterCount(
         name = "Form Name",
         id = "Form Name",
-        errorMessage =  Some(ErrorMessage(content = Text("Not valid name"))),
+        errorMessage = Some(ErrorMessage(content = Text("Not valid name"))),
         value = Some("bad")
       )
     }

@@ -24,7 +24,8 @@ import uk.gov.hmrc.hmrcfrontend.views.html.helpers._
 trait HelpersInstances {
   this: BaseOneAppPerSuite =>
 
-  lazy val AccessibilityStatementConfig: AccessibilityStatementConfig = app.injector.instanceOf[AccessibilityStatementConfig]
+  lazy val AccessibilityStatementConfig: AccessibilityStatementConfig =
+    app.injector.instanceOf[AccessibilityStatementConfig]
 
   lazy val ContactFrontendConfig: ContactFrontendConfig = app.injector.instanceOf[ContactFrontendConfig]
 

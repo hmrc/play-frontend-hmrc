@@ -28,11 +28,11 @@ object Generators {
       attributes         <- genAttributes()
       visuallyHiddenText <- Gen.option(genAlphaStr())
       content            <- arbContent.arbitrary
-    } yield
-      ErrorMessage(
-        classes            = classes,
-        attributes         = attributes,
-        visuallyHiddenText = visuallyHiddenText,
-        content            = content)
+    } yield ErrorMessage(
+      classes = classes,
+      attributes = attributes,
+      visuallyHiddenText = visuallyHiddenText,
+      content = content
+    )
   }
 }

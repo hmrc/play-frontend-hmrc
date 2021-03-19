@@ -24,11 +24,11 @@ import scala.util.Try
 class hmrcBannerSpec extends TemplateUnitSpec[Banner]("hmrcBanner") {
 
   /**
-   * Calls the Twirl template with the given parameters and returns the resulting markup
-   *
-   * @param templateParams
-   * @return [[Try[HtmlFormat.Appendable]]] containing the markup
-   */
+    * Calls the Twirl template with the given parameters and returns the resulting markup
+    *
+    * @param templateParams
+    * @return [[Try[HtmlFormat.Appendable]]] containing the markup
+    */
   override def render(templateParams: Banner): Try[HtmlFormat.Appendable] =
     Try(HmrcBanner(templateParams))
 }

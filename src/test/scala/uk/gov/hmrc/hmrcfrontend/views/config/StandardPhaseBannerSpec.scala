@@ -23,8 +23,7 @@ import play.api.i18n.{Lang, Messages}
 import uk.gov.hmrc.govukfrontend.views.Aliases.{HtmlContent, PhaseBanner, Tag, Text}
 import uk.gov.hmrc.hmrcfrontend.MessagesSupport
 
-class StandardPhaseBannerSpec extends AnyWordSpec
-  with Matchers with MessagesSupport with GuiceOneAppPerSuite {
+class StandardPhaseBannerSpec extends AnyWordSpec with Matchers with MessagesSupport with GuiceOneAppPerSuite {
   "StandardBetaBanner" must {
     val standardBetaBanner = app.injector.instanceOf[StandardBetaBanner]
 
@@ -33,7 +32,9 @@ class StandardPhaseBannerSpec extends AnyWordSpec
 
       phaseBanner mustBe PhaseBanner(
         tag = Some(Tag(content = Text("beta"))),
-        content = HtmlContent("This is a new service – your <a class=\"govuk-link\" href=\"/feedback\">feedback</a> will help us to improve it.")
+        content = HtmlContent(
+          "This is a new service – your <a class=\"govuk-link\" href=\"/feedback\">feedback</a> will help us to improve it."
+        )
       )
     }
 
@@ -42,7 +43,9 @@ class StandardPhaseBannerSpec extends AnyWordSpec
 
       phaseBanner mustBe PhaseBanner(
         tag = Some(Tag(content = Text("beta"))),
-        content = HtmlContent("This is a new service – your <a class=\"govuk-link\" href=\"/other-feedback\">feedback</a> will help us to improve it.")
+        content = HtmlContent(
+          "This is a new service – your <a class=\"govuk-link\" href=\"/other-feedback\">feedback</a> will help us to improve it."
+        )
       )
     }
 
@@ -51,7 +54,9 @@ class StandardPhaseBannerSpec extends AnyWordSpec
 
       phaseBanner mustBe PhaseBanner(
         tag = Some(Tag(content = Text("beta"))),
-        content = HtmlContent("This is a new service – your <a class=\"govuk-link\" href=\"&quot;&gt;&lt;script&gt;console.log(&#x27;evil&#x27;);&lt;/script&gt;&lt;a href=&quot;\">feedback</a> will help us to improve it.")
+        content = HtmlContent(
+          "This is a new service – your <a class=\"govuk-link\" href=\"&quot;&gt;&lt;script&gt;console.log(&#x27;evil&#x27;);&lt;/script&gt;&lt;a href=&quot;\">feedback</a> will help us to improve it."
+        )
       )
     }
 
@@ -62,7 +67,9 @@ class StandardPhaseBannerSpec extends AnyWordSpec
 
       phaseBanner mustBe PhaseBanner(
         tag = Some(Tag(content = Text("beta"))),
-        content = HtmlContent("Gwasanaeth newydd yw hwn – bydd eich <a class=\"govuk-link\" href=\"/feedback\">adborth</a> yn ein helpu i’w wella.")
+        content = HtmlContent(
+          "Gwasanaeth newydd yw hwn – bydd eich <a class=\"govuk-link\" href=\"/feedback\">adborth</a> yn ein helpu i’w wella."
+        )
       )
     }
   }
@@ -75,7 +82,9 @@ class StandardPhaseBannerSpec extends AnyWordSpec
 
       phaseBanner mustBe PhaseBanner(
         tag = Some(Tag(content = Text("alpha"))),
-        content = HtmlContent("This is a new service – your <a class=\"govuk-link\" href=\"/feedback\">feedback</a> will help us to improve it.")
+        content = HtmlContent(
+          "This is a new service – your <a class=\"govuk-link\" href=\"/feedback\">feedback</a> will help us to improve it."
+        )
       )
     }
   }

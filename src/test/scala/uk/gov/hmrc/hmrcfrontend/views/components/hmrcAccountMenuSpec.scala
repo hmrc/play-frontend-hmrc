@@ -24,11 +24,11 @@ import scala.util.Try
 class hmrcAccountMenuSpec extends TemplateUnitSpec[AccountMenu]("hmrcAccountMenu") {
 
   /**
-   * Calls the Twirl template with the given parameters and returns the resulting markup
-   *
-   * @param templateParams
-   * @return [[Try[HtmlFormat.Appendable]]] containing the markup
-   */
+    * Calls the Twirl template with the given parameters and returns the resulting markup
+    *
+    * @param templateParams
+    * @return [[Try[HtmlFormat.Appendable]]] containing the markup
+    */
   override def render(templateParams: AccountMenu): Try[HtmlFormat.Appendable] =
     Try(HmrcAccountMenu(templateParams))
 }

@@ -22,16 +22,16 @@ import uk.gov.hmrc.govukfrontend.views.viewmodels.label.Label
 import uk.gov.hmrc.govukfrontend.views.viewmodels.errormessage.ErrorMessage
 
 case class CurrencyInput(
-  id: String                         = "",
-  name: String                       = "",
-  describedBy: Option[String]        = None,
-  value: Option[String]              = None,
-  label: Label                       = Label(),
-  hint: Option[Hint]                 = None,
+  id: String = "",
+  name: String = "",
+  describedBy: Option[String] = None,
+  value: Option[String] = None,
+  label: Label = Label(),
+  hint: Option[Hint] = None,
   errorMessage: Option[ErrorMessage] = None,
-  classes: String                    = "",
-  autocomplete: Option[String]       = None,
-  attributes: Map[String, String]    = Map.empty
+  classes: String = "",
+  autocomplete: Option[String] = None,
+  attributes: Map[String, String] = Map.empty
 )
 
 object CurrencyInput {

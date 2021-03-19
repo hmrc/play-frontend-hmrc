@@ -19,8 +19,8 @@ package uk.gov.hmrc.hmrcfrontend.views.viewmodels.accountmenu
 import play.api.libs.json._
 
 case class SignOut(
-                    href: String = "#"
-                  )
+  href: String = "#"
+)
 
 object SignOut {
 

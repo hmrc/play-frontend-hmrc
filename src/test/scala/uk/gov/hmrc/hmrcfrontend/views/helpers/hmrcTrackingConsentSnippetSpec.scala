@@ -26,7 +26,7 @@ import uk.gov.hmrc.hmrcfrontend.MessagesSupport
 import uk.gov.hmrc.hmrcfrontend.views.JsoupHelpers
 
 class TrackingConsentSnippetSpec
-  extends AnyWordSpecLike
+    extends AnyWordSpecLike
     with Matchers
     with GuiceOneAppPerSuite
     with JsoupHelpers
@@ -35,12 +35,14 @@ class TrackingConsentSnippetSpec
 
   override def fakeApplication(): Application =
     new GuiceApplicationBuilder()
-      .configure(Map(
-        "play.allowGlobalApplication"             -> "true",
-        "optimizely.url"                          -> "https://cdn.optimizely.com/",
-        "optimizely.projectId"                    -> "1234567",
-        "tracking-consent-frontend.gtm.container" -> "d"
-      ))
+      .configure(
+        Map(
+          "play.allowGlobalApplication"             -> "true",
+          "optimizely.url"                          -> "https://cdn.optimizely.com/",
+          "optimizely.projectId"                    -> "1234567",
+          "tracking-consent-frontend.gtm.container" -> "d"
+        )
+      )
       .build()
 
   "TrackingConsentSnippet" should {

@@ -23,9 +23,7 @@ import org.scalatest.wordspec.AnyWordSpec
 
 import scala.collection.JavaConverters._
 
-class DiffWrapperSpec
-  extends AnyWordSpec
-    with Matchers {
+class DiffWrapperSpec extends AnyWordSpec with Matchers {
 
   "diff" should {
     "compute the diff between two strings" in new Setup {

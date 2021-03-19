@@ -23,9 +23,7 @@ import play.api.libs.json.{JsObject, JsSuccess, Json}
 
 import scala.util.Try
 
-class GenerateFixturesSpec
-  extends AnyWordSpec
-    with Matchers {
+class GenerateFixturesSpec extends AnyWordSpec with Matchers {
 
   val dir         = s"/fixtures/test-fixtures"
   val fixturesDir = Try(File(Resource.my.getUrl(dir)))
@@ -39,7 +37,7 @@ class GenerateFixturesSpec
     }
 
     "create example directories" in {
-      fixturesDir.isSuccess                         shouldBe true
+      fixturesDir.isSuccess                       shouldBe true
       fixturesDir.get.children.count(_.isDirectory) should be > 0
     }
 

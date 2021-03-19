@@ -23,17 +23,17 @@ object GenerateFixtures {
 
     attempt match {
       case Success(snapshot) => snapshot
-      case Failure(e) =>
+      case Failure(e)        =>
         println(s"Failed to fetch snapshot from Template Service at $endpoint. Details: [${e.getLocalizedMessage}].")
         Seq()
     }
   }
 
   def generateFixtures(javaResourcesDir: File, govukFrontendVersion: String): Unit = {
-    val resourcesDir = javaResourcesDir
-    val fixturesDir  = resourcesDir / "fixtures"
+    val resourcesDir    = javaResourcesDir
+    val fixturesDir     = resourcesDir / "fixtures"
     val testFixturesDir =
-      (fixturesDir / s"test-fixtures")
+      fixturesDir / s"test-fixtures"
 
     IO.delete(testFixturesDir)
     IO.createDirectory(testFixturesDir)
@@ -45,8 +45,8 @@ object GenerateFixtures {
       val componentJson = Json.obj(
         "name" -> componentName
       )
-      val inputJson  = (example \ "input").as[JsObject]
-      val exampleDir = testFixturesDir / (example \ "exampleId").as[String]
+      val inputJson     = (example \ "input").as[JsObject]
+      val exampleDir    = testFixturesDir / (example \ "exampleId").as[String]
 
       IO.createDirectory(exampleDir)
       IO.write((exampleDir / "input.json"), Json.prettyPrint(inputJson))

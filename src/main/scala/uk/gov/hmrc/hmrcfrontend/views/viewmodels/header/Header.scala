@@ -25,23 +25,23 @@ import uk.gov.hmrc.hmrcfrontend.views.viewmodels.userresearchbanner.UserResearch
 import scala.collection.immutable.SortedMap
 
 case class Header(
-                   homepageUrl: String = "/",
-                   assetsPath: String = "/assets/images",
-                   productName: Option[String] = None,
-                   serviceName: Option[String] = None,
-                   serviceUrl: String = "",
-                   navigation: Option[Seq[NavigationItem]] = None,
-                   navigationClasses: String = "",
-                   containerClasses: String = "govuk-width-container",
-                   classes: String = "",
-                   attributes: Map[String, String] = Map.empty,
-                   language: Language = En,
-                   displayHmrcBanner: Boolean = false,
-                   signOutHref: Option[String] = None,
-                   private val inputLanguageToggle: Option[LanguageToggle] = None,
-                   userResearchBanner: Option[UserResearchBanner] = None,
-                   phaseBanner: Option[PhaseBanner] = None
-                 ) {
+  homepageUrl: String = "/",
+  assetsPath: String = "/assets/images",
+  productName: Option[String] = None,
+  serviceName: Option[String] = None,
+  serviceUrl: String = "",
+  navigation: Option[Seq[NavigationItem]] = None,
+  navigationClasses: String = "",
+  containerClasses: String = "govuk-width-container",
+  classes: String = "",
+  attributes: Map[String, String] = Map.empty,
+  language: Language = En,
+  displayHmrcBanner: Boolean = false,
+  signOutHref: Option[String] = None,
+  private val inputLanguageToggle: Option[LanguageToggle] = None,
+  userResearchBanner: Option[UserResearchBanner] = None,
+  phaseBanner: Option[PhaseBanner] = None
+) {
 
   // We use this method instead of using the input language toggle directly
   // as the version in `hmrc-frontend` is less flexible, and sets a default
@@ -52,7 +52,7 @@ case class Header(
     case Some(x) =>
       val defaults: SortedMap[Language, String] = SortedMap(En -> "", Cy -> "")
       Some(LanguageToggle(defaults ++ x.linkMap))
-    case None => None
+    case None    => None
   }
 }
 
@@ -78,7 +78,7 @@ object Header {
         (__ \ "languageToggle").readNullable[LanguageToggle] and
         (__ \ "userResearchBanner").readNullable[UserResearchBanner] and
         (__ \ "phaseBanner").readNullable[PhaseBanner]
-      ) (Header.apply _)
+    )(Header.apply _)
 
   implicit def jsonWrites: OWrites[Header] =
     (
@@ -98,5 +98,5 @@ object Header {
         (__ \ "languageToggle").writeNullable[LanguageToggle] and
         (__ \ "userResearchBanner").writeNullable[UserResearchBanner] and
         (__ \ "phaseBanner").writeNullable[PhaseBanner]
-      ) (header => unlift(Header.unapply)(header.copy(inputLanguageToggle = header.languageToggle)))
+    )(header => unlift(Header.unapply)(header.copy(inputLanguageToggle = header.languageToggle)))
 }

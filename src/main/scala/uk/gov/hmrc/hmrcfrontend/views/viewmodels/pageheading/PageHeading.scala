@@ -19,7 +19,7 @@ package uk.gov.hmrc.hmrcfrontend.views.viewmodels.pageheading
 import play.api.libs.json._
 
 case class PageHeading(
-  text: String            = "",
+  text: String = "",
   section: Option[String] = None
 )
 

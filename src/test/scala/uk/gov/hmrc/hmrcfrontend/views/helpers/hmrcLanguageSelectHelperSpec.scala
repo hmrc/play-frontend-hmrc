@@ -28,26 +28,27 @@ import uk.gov.hmrc.hmrcfrontend.views.html.helpers.HmrcLanguageSelectHelper
 
 import scala.collection.immutable.List
 
-class hmrcLanguageSelectHelperSpec extends AnyWordSpec
-  with Matchers
-  with JsoupHelpers
-  with MessagesSupport
-  with GuiceOneAppPerSuite {
+class hmrcLanguageSelectHelperSpec
+    extends AnyWordSpec
+    with Matchers
+    with JsoupHelpers
+    with MessagesSupport
+    with GuiceOneAppPerSuite {
 
   override def fakeApplication(): Application =
     new GuiceApplicationBuilder().configure(Map("play.i18n.langs" -> List("en", "cy"))).build()
 
   "HmrcLanguageSelectHelper" must {
     "Return a language select" in {
-      val languageSelect                = app.injector.instanceOf[HmrcLanguageSelectHelper]
-      val content = languageSelect()
+      val languageSelect = app.injector.instanceOf[HmrcLanguageSelectHelper]
+      val content        = languageSelect()
 
       content.select(".hmrc-language-select") must have size 1
     }
 
     "Provide a link to Welsh by default" in {
-      val languageSelect                = app.injector.instanceOf[HmrcLanguageSelectHelper]
-      val content = languageSelect()
+      val languageSelect = app.injector.instanceOf[HmrcLanguageSelectHelper]
+      val content        = languageSelect()
 
       content
         .select(".govuk-link")
@@ -56,8 +57,8 @@ class hmrcLanguageSelectHelperSpec extends AnyWordSpec
 
     "Provide a link to English is language cookie is set to Welsh" in {
       implicit val welshMessages: Messages = messagesApi.preferred(Seq(Lang("cy")))
-      val languageSelect                = app.injector.instanceOf[HmrcLanguageSelectHelper]
-      val content = languageSelect()(welshMessages)
+      val languageSelect                   = app.injector.instanceOf[HmrcLanguageSelectHelper]
+      val content                          = languageSelect()(welshMessages)
 
       content
         .select(".govuk-link")

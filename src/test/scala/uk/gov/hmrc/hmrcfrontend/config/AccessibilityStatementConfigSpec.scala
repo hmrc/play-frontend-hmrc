@@ -23,10 +23,7 @@ import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.test.FakeRequest
 import uk.gov.hmrc.hmrcfrontend.MessagesSupport
 
-class AccessibilityStatementConfigSpec
-  extends AnyWordSpec
-    with Matchers
-    with MessagesSupport {
+class AccessibilityStatementConfigSpec extends AnyWordSpec with Matchers with MessagesSupport {
 
   def buildApp(properties: Map[String, String]): Application =
     new GuiceApplicationBuilder()
@@ -41,15 +38,16 @@ class AccessibilityStatementConfigSpec
         Map(
           "accessibility-statement.path"         -> "/accessibility-statement",
           "accessibility-statement.service-path" -> "/bar"
-        ))
-      val config = application.injector.instanceOf[AccessibilityStatementConfig]
+        )
+      )
+      val config                            = application.injector.instanceOf[AccessibilityStatementConfig]
       config.url should equal(Some("http://localhost:12346/accessibility-statement/bar?referrerUrl=%2Ffoo%3Fbar%3Dbaz"))
     }
 
     "return None if an accessibility-statement.service-path key does not exist in application.conf" in {
       implicit val application: Application =
         buildApp(Map("accessibility-statement.path" -> "/accessibility-statement"))
-      val config = application.injector.instanceOf[AccessibilityStatementConfig]
+      val config                            = application.injector.instanceOf[AccessibilityStatementConfig]
       config.url should equal(None)
     }
 
@@ -60,10 +58,14 @@ class AccessibilityStatementConfigSpec
             "accessibility-statement.path"         -> "/accessibility-statement",
             "accessibility-statement.service-path" -> "/bar",
             "platform.frontend.host"               -> "https://www.tax.service.gov.uk"
-          ))
-      val config = application.injector.instanceOf[AccessibilityStatementConfig]
-      config.url should equal(Some(
-        "https://www.tax.service.gov.uk/accessibility-statement/bar?referrerUrl=https%3A%2F%2Fwww.tax.service.gov.uk%2Ffoo%3Fbar%3Dbaz"))
+          )
+        )
+      val config                            = application.injector.instanceOf[AccessibilityStatementConfig]
+      config.url should equal(
+        Some(
+          "https://www.tax.service.gov.uk/accessibility-statement/bar?referrerUrl=https%3A%2F%2Fwww.tax.service.gov.uk%2Ffoo%3Fbar%3Dbaz"
+        )
+      )
     }
 
     "return a url including a relative referrerUrl if platform.frontend.host is not defined" in {
@@ -71,8 +73,10 @@ class AccessibilityStatementConfigSpec
         buildApp(
           Map(
             "accessibility-statement.path"         -> "/accessibility-statement",
-            "accessibility-statement.service-path" -> "/bar"))
-      val config = application.injector.instanceOf[AccessibilityStatementConfig]
+            "accessibility-statement.service-path" -> "/bar"
+          )
+        )
+      val config                            = application.injector.instanceOf[AccessibilityStatementConfig]
       config.url should equal(Some("http://localhost:12346/accessibility-statement/bar?referrerUrl=%2Ffoo%3Fbar%3Dbaz"))
     }
   }

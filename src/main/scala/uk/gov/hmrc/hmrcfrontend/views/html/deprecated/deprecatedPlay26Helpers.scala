@@ -24,10 +24,11 @@ import uk.gov.hmrc.hmrcfrontend.views.config.{HmrcFooterItems => HmrcFooterItems
 
 /*
 
-*/
+ */
 object helpers {
   @deprecated(message = "Use DI", since = "Play 2.6")
-  lazy val AccessibilityStatementConfig: AccessibilityStatementConfig = Play.current.injector.instanceOf[AccessibilityStatementConfig]
+  lazy val AccessibilityStatementConfig: AccessibilityStatementConfig =
+    Play.current.injector.instanceOf[AccessibilityStatementConfig]
 
   @deprecated(message = "Use DI", since = "Play 2.6")
   lazy val ContactFrontendConfig: ContactFrontendConfig = Play.current.injector.instanceOf[ContactFrontendConfig]

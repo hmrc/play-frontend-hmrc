@@ -25,7 +25,7 @@ object Generators {
   implicit val arbUserResearchBanner: Arbitrary[UserResearchBanner] = Arbitrary {
     for {
       language <- arbLanguage.arbitrary
-      url <- genAlphaStr()
+      url      <- genAlphaStr()
     } yield UserResearchBanner(language = language, url = url)
   }
 }
