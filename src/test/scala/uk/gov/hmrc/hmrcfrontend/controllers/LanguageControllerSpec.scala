@@ -26,8 +26,6 @@ import play.api.mvc.AnyContentAsEmpty
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
 
-import scala.collection.immutable.List
-
 class LanguageControllerSpec extends AnyWordSpec with Matchers with GuiceOneAppPerSuite {
   implicit lazy val fakeRequest: FakeRequest[AnyContentAsEmpty.type] = FakeRequest("GET", "/foo")
 
