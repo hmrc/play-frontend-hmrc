@@ -17,12 +17,15 @@ object LibDependencies {
       "org.scalaj"        %% "scalaj-http"         % "2.4.2"
     ),
     play26 = Seq(
+      "uk.gov.hmrc"       %% "play-language"       % "4.11.0-play-26",
       "uk.gov.hmrc"       %% "play-frontend-govuk" % s"${playFrontendGovukVersion}-play-26"
     ),
     play27 = Seq(
+      "uk.gov.hmrc"       %% "play-language"       % "4.11.0-play-27",
       "uk.gov.hmrc"       %% "play-frontend-govuk" % s"${playFrontendGovukVersion}-play-27"
     ),
     play28 = Seq(
+      "uk.gov.hmrc"       %% "play-language"       % "4.11.0-play-28",
       "uk.gov.hmrc"       %% "play-frontend-govuk" % s"${playFrontendGovukVersion}-play-28"
     )
   )

@@ -26,6 +26,7 @@ The library comprises two packages:
 - [CharacterCount with Welsh language support](#charactercount-with-welsh-language-support)
 - [Integrating with tracking consent](#integrating-with-tracking-consent)
 - [Warning users before timing them out](#warning-users-before-timing-them-out)
+- [Welsh language selection](#welsh-language-selection)
 - [Getting help](#getting-help)
 - [Useful links](#useful-links)
 - [Owning team readme](#owning-team-readme)
@@ -397,6 +398,30 @@ The timeout dialog’s content can be customised using the following parameters:
 | `messageSuffix`       | Any additional text to be displayed after the timer           | Some(messages("hmrc-timeout-dialog.message-suffix")) |
 | `keepAliveButtonText` | The text on the button that keeps the user signed in          | Some(messages("hmrc-timeout-dialog.keep-alive-button-text")) |
 | `signOutButtonText`   | The text for the link which takes the user to a sign out page | Some(messages("hmrc-timeout-dialog.sign-out-button-text")) |
+
+## Welsh language selection
+
+To support toggling between the English and Welsh language, add the `hmrcLanguageSelectHelper` in the
+beforeContentBlock parameter of `govukLayout` as follows:
+
+```scala
+@govukLayout(
+    pageTitle = Some(pageTitle),
+    headBlock = Some(hmrcHead(nonce = CSPNonce.get)),
+    headerBlock = Some(hmrcStandardHeader(
+      serviceUrl = Some(controllers.routes.IndexController.index().url)
+    )),
+    beforeContentBlock = Some(hmrcLanguageSelectHelper()),
+    scriptsBlock = Some(hmrcScripts(nonce = CSPNonce.get)),
+    footerBlock = Some(hmrcStandardFooter())
+)(contentBlock)
+```
+
+Internally, this functionality relies on a controller that uses the `Referer` header in order to 
+determine where to redirect the user when they toggle between languages. In the exceptional case 
+that the browser fails to send the `Referer` header, users are redirected to 
+`https://www.gov.uk/government/organisations/hm-revenue-customs`. If desired, this behaviour can be overridden by 
+setting the `language.fallback.url` configuration key in `application.conf`.
 
 ## Getting help
 
