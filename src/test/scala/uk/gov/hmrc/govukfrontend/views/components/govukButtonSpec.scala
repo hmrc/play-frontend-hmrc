@@ -30,7 +30,7 @@ class govukButtonSpec extends TemplateUnitSpec[Button]("govukButton") {
           .select(".govuk-button")
 
       component.first.tagName shouldBe "button"
-      component.text          should include("Save and continue")
+      component.text            should include("Save and continue")
     }
   }
 

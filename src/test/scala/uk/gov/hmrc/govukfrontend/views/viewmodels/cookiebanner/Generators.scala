@@ -24,64 +24,61 @@ import uk.gov.hmrc.govukfrontend.views.viewmodels.content.Generators.arbContent
 object Generators {
   implicit val arbAction: Arbitrary[Action] = Arbitrary {
     for {
-      text              <- genAlphaStr()
-      inputType         <- Gen.option(genAlphaStr())
-      href              <- Gen.option(genAlphaStr())
-      name              <- Gen.option(genAlphaStr())
-      value             <- Gen.option(genAlphaStr())
-      classes           <- genClasses()
-      attributes        <- genAttributes()
-    } yield
-      Action(
-        text       = text,
-        inputType  = inputType,
-        href       = href,
-        name       = name,
-        value      = value,
-        classes    = classes,
-        attributes = attributes
-      )
+      text       <- genAlphaStr()
+      inputType  <- Gen.option(genAlphaStr())
+      href       <- Gen.option(genAlphaStr())
+      name       <- Gen.option(genAlphaStr())
+      value      <- Gen.option(genAlphaStr())
+      classes    <- genClasses()
+      attributes <- genAttributes()
+    } yield Action(
+      text = text,
+      inputType = inputType,
+      href = href,
+      name = name,
+      value = value,
+      classes = classes,
+      attributes = attributes
+    )
   }
 
   implicit val arbMessage: Arbitrary[Message] = Arbitrary {
     for {
-      heading <- arbContent.arbitrary
-      content <- arbContent.arbitrary
-      n <- Gen.chooseNum(0, 3)
-      actions <- Gen.option(Gen.listOfN(n, arbAction.arbitrary))
-      hidden <- arbBool.arbitrary
-      role <- Gen.option(genAlphaStr())
-      classes <- genClasses()
+      heading    <- arbContent.arbitrary
+      content    <- arbContent.arbitrary
+      n          <- Gen.chooseNum(0, 3)
+      actions    <- Gen.option(Gen.listOfN(n, arbAction.arbitrary))
+      hidden     <- arbBool.arbitrary
+      role       <- Gen.option(genAlphaStr())
+      classes    <- genClasses()
       attributes <- genAttributes()
-    } yield
-      Message(
-        heading = heading,
-        content = content,
-        actions = actions,
-        hidden = hidden,
-        role = role,
-        classes = classes,
-        attributes = attributes
-      )
+    } yield Message(
+      heading = heading,
+      content = content,
+      actions = actions,
+      hidden = hidden,
+      role = role,
+      classes = classes,
+      attributes = attributes
+    )
   }
 
   implicit val arbCookieBanner: Arbitrary[CookieBanner] = Arbitrary {
     for {
-      id <- genAlphaStr()
-      classes <- genClasses()
+      id         <- genAlphaStr()
+      classes    <- genClasses()
       attributes <- genAttributes()
-      hidden <- arbBool.arbitrary
-      ariaLabel <- Gen.option(genAlphaStr())
-      n <- Gen.chooseNum(0, 3)
-      messages <- Gen.listOfN(n, arbMessage.arbitrary)
-    } yield
-      CookieBanner(
-        id = id,
-        classes = classes,
-        attributes = attributes,
-        hidden = hidden,
-        ariaLabel = ariaLabel,
-        messages = messages
-      )
+      hidden     <- arbBool.arbitrary
+      ariaLabel  <- Gen.option(genAlphaStr())
+      n          <- Gen.chooseNum(0, 3)
+      messages   <- Gen.listOfN(n, arbMessage.arbitrary)
+    } yield CookieBanner(
+      id = id,
+      classes = classes,
+      attributes = attributes,
+      hidden = hidden,
+      ariaLabel = ariaLabel,
+      messages = messages
+    )
   }
 }

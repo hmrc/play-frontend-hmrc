@@ -36,19 +36,18 @@ object Generators {
       preventDoubleClick <- arbBool.arbitrary
       isStartButton      <- arbBool.arbitrary
       content            <- arbContent.arbitrary
-    } yield
-      Button(
-        element            = element,
-        name               = name,
-        inputType          = inputType,
-        value              = value,
-        disabled           = disabled,
-        href               = href,
-        classes            = classes,
-        attributes         = attributes,
-        preventDoubleClick = preventDoubleClick,
-        isStartButton      = isStartButton,
-        content            = content
-      )
+    } yield Button(
+      element = element,
+      name = name,
+      inputType = inputType,
+      value = value,
+      disabled = disabled,
+      href = href,
+      classes = classes,
+      attributes = attributes,
+      preventDoubleClick = preventDoubleClick,
+      isStartButton = isStartButton,
+      content = content
+    )
   }
 }

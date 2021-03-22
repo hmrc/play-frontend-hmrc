@@ -21,8 +21,8 @@ import play.api.libs.functional.syntax._
 import uk.gov.hmrc.govukfrontend.views.viewmodels.CommonJsonFormats._
 
 case class SummaryList(
-  rows: Seq[SummaryListRow]       = Nil,
-  classes: String                 = "",
+  rows: Seq[SummaryListRow] = Nil,
+  classes: String = "",
   attributes: Map[String, String] = Map.empty
 )
 

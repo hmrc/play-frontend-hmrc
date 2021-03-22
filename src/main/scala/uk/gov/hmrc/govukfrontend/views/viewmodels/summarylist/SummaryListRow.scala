@@ -20,9 +20,9 @@ package summarylist
 import play.api.libs.json._
 
 final case class SummaryListRow(
-  key: Key                 = Key(),
-  value: Value             = Value(),
-  classes: String          = "",
+  key: Key = Key(),
+  value: Value = Value(),
+  classes: String = "",
   actions: Option[Actions] = None
 )
 

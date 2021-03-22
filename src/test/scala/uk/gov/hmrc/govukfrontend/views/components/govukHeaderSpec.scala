@@ -33,41 +33,53 @@ class govukHeaderSpec extends TemplateUnitSpec[Header]("govukHeader") {
   "not render link when content are not passed" in {
     val params    = Header(navigation = Some(Seq(HeaderNavigation(href = Some("#")))))
     val component = GovukHeader(params).select(".govuk-header__navigation-item .govuk-header__link")
-    component.size should be (0)
+    component.size should be(0)
   }
 
   "not render link when href is empty" in {
     val params    = Header(navigation = Some(Seq(HeaderNavigation(href = Some(""), content = HtmlContent("asdf")))))
     val component = GovukHeader(params).select(".govuk-header__navigation-item .govuk-header__link")
-    component.size should be (0)
+    component.size should be(0)
   }
 
   "render text when passed in text field" in {
     val params    = Header(navigation = Some(Seq(HeaderNavigation(text = Some("Regular text"), href = Some("#")))))
     val component = GovukHeader(params).select(".govuk-header__navigation-item .govuk-header__link")
 
-    component.html should include ("Regular text")
+    component.html should include("Regular text")
   }
 
   "render text when passed in content field" in {
     val params    = Header(navigation = Some(Seq(HeaderNavigation(href = Some("#"), content = Text("Some text")))))
     val component = GovukHeader(params).select(".govuk-header__navigation-item .govuk-header__link")
 
-    component.html should include ("Some text")
+    component.html should include("Some text")
   }
 
   "render html when passed" in {
-    val params    = Header(navigation = Some(Seq(HeaderNavigation(href = Some("#"), content = HtmlContent("<strong>Some HTML</strong>")))))
+    val params    = Header(navigation =
+      Some(Seq(HeaderNavigation(href = Some("#"), content = HtmlContent("<strong>Some HTML</strong>"))))
+    )
     val component = GovukHeader(params).select(".govuk-header__navigation-item .govuk-header__link")
 
-    component.html should include ("<strong>Some HTML</strong>")
+    component.html should include("<strong>Some HTML</strong>")
   }
 
   "render html if text and html are passed" in {
-    val params    = Header(navigation = Some(Seq(HeaderNavigation(href = Some("#"), text = Some("Alternate text"), content = HtmlContent("<strong>Some text</strong>")))))
+    val params    = Header(navigation =
+      Some(
+        Seq(
+          HeaderNavigation(
+            href = Some("#"),
+            text = Some("Alternate text"),
+            content = HtmlContent("<strong>Some text</strong>")
+          )
+        )
+      )
+    )
     val component = GovukHeader(params).select(".govuk-header__navigation-item .govuk-header__link")
 
-    component.html should include ("<strong>Some text</strong>")
+    component.html should include("<strong>Some text</strong>")
   }
 
   /**

@@ -34,8 +34,9 @@ class govukPhaseBannerBannerSpec extends TemplateUnitSpec[PhaseBanner]("govukPha
     }
 
     "render banner text" in {
-      val text = GovukPhaseBanner(PhaseBanner(
-        content = HtmlContent("This is a new service – your feedback will help us to improve it.")))
+      val text = GovukPhaseBanner(
+        PhaseBanner(content = HtmlContent("This is a new service – your feedback will help us to improve it."))
+      )
         .select(".govuk-phase-banner__text")
         .first()
         .text()

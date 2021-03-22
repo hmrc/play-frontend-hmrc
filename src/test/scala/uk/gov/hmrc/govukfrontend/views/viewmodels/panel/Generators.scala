@@ -29,7 +29,12 @@ object Generators {
       attributes   <- genAttributes()
       title        <- arbContent.arbitrary
       content      <- arbContent.arbitrary
-    } yield
-      Panel(headingLevel = headingLevel, classes = classes, attributes = attributes, title = title, content = content)
+    } yield Panel(
+      headingLevel = headingLevel,
+      classes = classes,
+      attributes = attributes,
+      title = title,
+      content = content
+    )
   }
 }

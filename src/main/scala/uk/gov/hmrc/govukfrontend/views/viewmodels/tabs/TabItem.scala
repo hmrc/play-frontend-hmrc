@@ -19,10 +19,10 @@ package uk.gov.hmrc.govukfrontend.views.viewmodels.tabs
 import play.api.libs.json._
 
 final case class TabItem(
-  id: Option[String]              = None,
-  label: String                   = "",
+  id: Option[String] = None,
+  label: String = "",
   attributes: Map[String, String] = Map.empty,
-  panel: TabPanel                 = TabPanel()
+  panel: TabPanel = TabPanel()
 )
 
 object TabItem {

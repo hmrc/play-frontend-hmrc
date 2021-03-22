@@ -84,7 +84,7 @@ trait Implicits {
         case m => recurse(math.abs(m) - 1, indent1(math.signum(n), lines))
       }
 
-      val lines = s.split("\n", -1).toSeq // limit=-1 so if a line ends with \n include the trailing blank line
+      val lines         = s.split("\n", -1).toSeq // limit=-1 so if a line ends with \n include the trailing blank line
       val linesToIndent = if (indentFirstLine) lines else if (lines.length > 1) lines.tail else Nil
       val indentedLines = recurse(n, linesToIndent)
 
@@ -171,8 +171,9 @@ trait Implicits {
       asErrorMessage(Text.apply, messageSelector)
 
     private[views] def asErrorMessage(
-                                       contentConstructor: String => Content,
-                                       messageSelector: String): Option[ErrorMessage] =
+      contentConstructor: String => Content,
+      messageSelector: String
+    ): Option[ErrorMessage] =
       formErrors
         .find(_.message == messageSelector)
         .map { formError =>
@@ -186,8 +187,9 @@ trait Implicits {
       asErrorMessageForField(Text.apply, fieldKey)
 
     private[views] def asErrorMessageForField(
-                                               contentConstructor: String => Content,
-                                               fieldKey: String): Option[ErrorMessage] =
+      contentConstructor: String => Content,
+      fieldKey: String
+    ): Option[ErrorMessage] =
       formErrors
         .find(_.key == fieldKey)
         .map { formError =>
@@ -221,8 +223,8 @@ trait Implicits {
       withOptStringProperty(Some(field.name), radios.idPrefix, radios)((rds, ip) => rds.copy(idPrefix = ip))
 
     private[views] def withErrorMessage(field: Field): Radios =
-      withOptErrorMessageProperty(field.error, radios.errorMessage, radios)(
-        (rds, errorMsg) => rds.copy(errorMessage = errorMsg)
+      withOptErrorMessageProperty(field.error, radios.errorMessage, radios)((rds, errorMsg) =>
+        rds.copy(errorMessage = errorMsg)
       )
 
     private[views] def withItemsChecked(field: Field): Radios =
@@ -231,8 +233,7 @@ trait Implicits {
           if (radioItem.checked == RadioItem.defaultObject.checked) {
             val isChecked = radioItem.value == field.value
             radioItem.copy(checked = isChecked)
-          }
-          else radioItem
+          } else radioItem
         }
       )
   }
@@ -264,12 +265,13 @@ trait Implicits {
       withOptStringProperty(field.value, input.value, input)((ipt, vl) => ipt.copy(value = vl))
 
     private[views] def withErrorMessage(field: Field): Input =
-      withOptErrorMessageProperty(field.error, input.errorMessage, input)(
-        (ipt, errorMsg) => ipt.copy(errorMessage = errorMsg)
+      withOptErrorMessageProperty(field.error, input.errorMessage, input)((ipt, errorMsg) =>
+        ipt.copy(errorMessage = errorMsg)
       )
   }
 
-  implicit class RichCheckboxes(checkboxes: Checkboxes)(implicit val messages: Messages) extends ImplicitsSupport[Checkboxes] {
+  implicit class RichCheckboxes(checkboxes: Checkboxes)(implicit val messages: Messages)
+      extends ImplicitsSupport[Checkboxes] {
 
     /**
       * Extension method to allow a Play form Field to be used to add certain parameters in a Checkboxes,
@@ -293,8 +295,8 @@ trait Implicits {
       withOptStringProperty(Some(field.name), checkboxes.idPrefix, checkboxes)((cb, ip) => cb.copy(idPrefix = ip))
 
     private[views] def withErrorMessage(field: Field): Checkboxes =
-      withOptErrorMessageProperty(field.error, checkboxes.errorMessage, checkboxes)(
-        (cb, errorMsg) => cb.copy(errorMessage = errorMsg)
+      withOptErrorMessageProperty(field.error, checkboxes.errorMessage, checkboxes)((cb, errorMsg) =>
+        cb.copy(errorMessage = errorMsg)
       )
 
     private[views] def withItemsChecked(field: Field): Checkboxes =
@@ -303,8 +305,7 @@ trait Implicits {
           if (checkboxItem.checked == CheckboxItem.defaultObject.checked) {
             val isChecked = field.value.contains(checkboxItem.value)
             checkboxItem.copy(checked = isChecked)
-          }
-          else checkboxItem
+          } else checkboxItem
         }
       )
   }
@@ -333,8 +334,8 @@ trait Implicits {
       withStringProperty(field.name, select.id, select)((sct, id) => sct.copy(id = id))
 
     private[views] def withErrorMessage(field: Field): Select =
-      withOptErrorMessageProperty(field.error, select.errorMessage, select)(
-        (sct, errorMsg) => sct.copy(errorMessage = errorMsg)
+      withOptErrorMessageProperty(field.error, select.errorMessage, select)((sct, errorMsg) =>
+        sct.copy(errorMessage = errorMsg)
       )
 
     private[views] def withItemSelected(field: Field): Select =
@@ -343,8 +344,7 @@ trait Implicits {
           if (selectItem.selected == SelectItem.defaultObject.selected) {
             val isSelected = selectItem.value == field.value
             selectItem.copy(selected = isSelected)
-          }
-          else selectItem
+          } else selectItem
         }
       )
   }
@@ -376,12 +376,13 @@ trait Implicits {
       withOptStringProperty(field.value, textArea.value, textArea)((ta, vl) => ta.copy(value = vl))
 
     private[views] def withErrorMessage(field: Field): Textarea =
-      withOptErrorMessageProperty(field.error, textArea.errorMessage, textArea)(
-        (ta, errorMsg) => ta.copy(errorMessage = errorMsg)
+      withOptErrorMessageProperty(field.error, textArea.errorMessage, textArea)((ta, errorMsg) =>
+        ta.copy(errorMessage = errorMsg)
       )
   }
 
-  implicit class RichCharacterCount(characterCount: CharacterCount)(implicit val messages: Messages) extends ImplicitsSupport[CharacterCount] {
+  implicit class RichCharacterCount(characterCount: CharacterCount)(implicit val messages: Messages)
+      extends ImplicitsSupport[CharacterCount] {
 
     /**
       * Extension method to allow a Play form Field to be used to add certain parameters in an CharacterCount,
@@ -408,8 +409,8 @@ trait Implicits {
       withOptStringProperty(field.value, characterCount.value, characterCount)((cc, vl) => cc.copy(value = vl))
 
     private[views] def withErrorMessage(field: Field): CharacterCount =
-      withOptErrorMessageProperty(field.error, characterCount.errorMessage, characterCount)(
-        (cc, errorMsg) => cc.copy(errorMessage = errorMsg)
+      withOptErrorMessageProperty(field.error, characterCount.errorMessage, characterCount)((cc, errorMsg) =>
+        cc.copy(errorMessage = errorMsg)
       )
   }
 
@@ -423,47 +424,46 @@ trait ImplicitsSupport[T] {
 
   def withFormField(field: Field): T
 
-  protected[views] def withStringProperty(propFromField: String,
-                                          currentProp: String,
-                                          currentFormInput: T)(update: (T, String) => T): T = {
+  protected[views] def withStringProperty(propFromField: String, currentProp: String, currentFormInput: T)(
+    update: (T, String) => T
+  ): T =
     withProperty[String, T](
       propertyFromField = propFromField,
       propertyFromUnderlying = currentProp,
       default = "",
-      formInput = currentFormInput)(update)
-  }
+      formInput = currentFormInput
+    )(update)
 
-  protected[views] def withOptStringProperty(propFromField: Option[String],
-                                             currentProp: Option[String],
-                                             currentFormInput: T)(update: (T, Option[String]) => T): T = {
+  protected[views] def withOptStringProperty(
+    propFromField: Option[String],
+    currentProp: Option[String],
+    currentFormInput: T
+  )(update: (T, Option[String]) => T): T =
     withProperty[Option[String], T](
       propertyFromField = propFromField,
       propertyFromUnderlying = currentProp,
       default = None,
-      formInput = currentFormInput)(update)
-  }
+      formInput = currentFormInput
+    )(update)
 
-  protected[views] def withOptErrorMessageProperty(formError: Option[FormError],
-                                                   currentProp: Option[ErrorMessage],
-                                                   currentFormInput: T)(update: (T, Option[ErrorMessage]) => T): T =
+  protected[views] def withOptErrorMessageProperty(
+    formError: Option[FormError],
+    currentProp: Option[ErrorMessage],
+    currentFormInput: T
+  )(update: (T, Option[ErrorMessage]) => T): T =
     withProperty[Option[ErrorMessage], T](
       propertyFromField = formErrorToErrorMessage(formError),
       propertyFromUnderlying = currentProp,
       default = None,
-      formInput = currentFormInput)(update)
+      formInput = currentFormInput
+    )(update)
 
-  private[views] def withProperty[A, T](propertyFromField: A,
-                                        propertyFromUnderlying: A,
-                                        default: A,
-                                        formInput: T)
-                                       (update: (T, A) => T): T = {
+  private[views] def withProperty[A, T](propertyFromField: A, propertyFromUnderlying: A, default: A, formInput: T)(
+    update: (T, A) => T
+  ): T =
     if (propertyFromUnderlying == default) update(formInput, propertyFromField)
     else formInput
-  }
 
-  private def formErrorToErrorMessage(formError: Option[FormError]): Option[ErrorMessage] = {
-    formError.map(formError =>
-      ErrorMessage(content = Text(messages(formError.message, formError.args: _*)))
-    )
-  }
+  private def formErrorToErrorMessage(formError: Option[FormError]): Option[ErrorMessage] =
+    formError.map(formError => ErrorMessage(content = Text(messages(formError.message, formError.args: _*))))
 }

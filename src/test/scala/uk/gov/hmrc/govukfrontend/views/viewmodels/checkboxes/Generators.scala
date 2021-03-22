@@ -39,19 +39,18 @@ object Generators {
       conditionalHtml <- Gen.option(arbHtml.arbitrary)
       disabled        <- arbBool.arbitrary
       attributes      <- genAttributes()
-    } yield
-      CheckboxItem(
-        content         = content,
-        id              = id,
-        name            = name,
-        value           = value,
-        label           = label,
-        hint            = hint,
-        checked         = checked,
-        conditionalHtml = conditionalHtml,
-        disabled        = disabled,
-        attributes      = attributes
-      )
+    } yield CheckboxItem(
+      content = content,
+      id = id,
+      name = name,
+      value = value,
+      label = label,
+      hint = hint,
+      checked = checked,
+      conditionalHtml = conditionalHtml,
+      disabled = disabled,
+      attributes = attributes
+    )
   }
 
   implicit val arbCheckboxes: Arbitrary[Checkboxes] = Arbitrary {
@@ -67,19 +66,18 @@ object Generators {
       items              <- Gen.listOfN(nItems, arbCheckboxItem.arbitrary)
       classes            <- genClasses()
       attributes         <- genAttributes()
-    } yield
-      Checkboxes(
-        describedBy      = describedBy,
-        fieldset         = fieldsetParams,
-        hint             = hintParams,
-        errorMessage     = errorMessageParams,
-        formGroupClasses = formGroupClasses,
-        idPrefix         = idPrefix,
-        name             = name,
-        items            = items,
-        classes          = classes,
-        attributes       = attributes
-      )
+    } yield Checkboxes(
+      describedBy = describedBy,
+      fieldset = fieldsetParams,
+      hint = hintParams,
+      errorMessage = errorMessageParams,
+      formGroupClasses = formGroupClasses,
+      idPrefix = idPrefix,
+      name = name,
+      items = items,
+      classes = classes,
+      attributes = attributes
+    )
   }
 
 }

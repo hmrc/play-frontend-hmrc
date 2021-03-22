@@ -22,10 +22,11 @@ import uk.gov.hmrc.govukfrontend.views.html.components._
 import uk.gov.hmrc.govukfrontend.views.viewmodels.CommonJsonFormats._
 
 case class PhaseBanner(
-  tag: Option[Tag]                = None,
-  classes: String                 = "",
+  tag: Option[Tag] = None,
+  classes: String = "",
   attributes: Map[String, String] = Map.empty,
-  content: Content                = Empty)
+  content: Content = Empty
+)
 
 object PhaseBanner {
 

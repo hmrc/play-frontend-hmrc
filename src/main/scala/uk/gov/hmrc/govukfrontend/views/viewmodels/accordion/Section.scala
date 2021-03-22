@@ -25,8 +25,8 @@ import uk.gov.hmrc.govukfrontend.views.viewmodels.content.{Content, Empty}
 final case class Section(
   headingContent: Content = Empty,
   summaryContent: Content = Empty,
-  content: Content        = Empty,
-  expanded: Boolean       = false
+  content: Content = Empty,
+  expanded: Boolean = false
 )
 
 object Section {

@@ -21,10 +21,10 @@ import play.api.libs.json._
 import uk.gov.hmrc.govukfrontend.views.html.components._
 
 case class WarningText(
-  iconFallbackText: String        = "",
-  classes: String                 = "",
+  iconFallbackText: String = "",
+  classes: String = "",
   attributes: Map[String, String] = Map.empty,
-  content: Content                = Empty
+  content: Content = Empty
 )
 
 object WarningText {

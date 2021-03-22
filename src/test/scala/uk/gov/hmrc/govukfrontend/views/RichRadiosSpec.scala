@@ -23,11 +23,7 @@ import uk.gov.hmrc.govukfrontend.views.viewmodels.content.Text
 import uk.gov.hmrc.govukfrontend.views.viewmodels.errormessage.ErrorMessage
 import uk.gov.hmrc.govukfrontend.views.viewmodels.radios.{RadioItem, Radios}
 
-class RichRadiosSpec
-  extends AnyWordSpec
-    with Matchers
-    with MessagesHelpers
-    with RichFormInputHelpers {
+class RichRadiosSpec extends AnyWordSpec with Matchers with MessagesHelpers with RichFormInputHelpers {
 
   "Given a Radios object, calling withFormField" should {
     "use the Field name as the Radios name if no Radios name provided" in {
@@ -51,8 +47,8 @@ class RichRadiosSpec
     }
 
     "check a RadioItem if the Field value matches the Radio value and no checked value in Radio" in {
-      val radioItemGood = RadioItem(content = Text("This is good"), value = Some("good"))
-      val radioItemBad = RadioItem(content = Text("This is bad"), value = Some("bad"))
+      val radioItemGood  = RadioItem(content = Text("This is good"), value = Some("good"))
+      val radioItemBad   = RadioItem(content = Text("This is bad"), value = Some("bad"))
       val radioItemWorst = RadioItem(content = Text("This is THE WORST"), value = Some("worst"))
 
       val radios = Radios(items = Seq(radioItemGood, radioItemBad, radioItemWorst)).withFormField(field)
@@ -76,8 +72,8 @@ class RichRadiosSpec
     }
 
     "correctly chain multiple Field properties provided to update a Radios" in {
-      val radioItemGood = RadioItem(content = Text("This is good"), value = Some("good"))
-      val radioItemBad = RadioItem(content = Text("This is bad"), value = Some("bad"))
+      val radioItemGood  = RadioItem(content = Text("This is good"), value = Some("good"))
+      val radioItemBad   = RadioItem(content = Text("This is bad"), value = Some("bad"))
       val radioItemWorst = RadioItem(content = Text("This is THE WORST"), value = Some("worst"))
 
       val radios = Radios(
@@ -86,7 +82,7 @@ class RichRadiosSpec
       radios.withFormField(field) shouldBe Radios(
         name = "Form Name",
         idPrefix = Some("Form Name"),
-        errorMessage =  Some(ErrorMessage(content = Text("Not valid name"))),
+        errorMessage = Some(ErrorMessage(content = Text("Not valid name"))),
         items = Seq(
           radioItemGood,
           radioItemBad.copy(checked = true),

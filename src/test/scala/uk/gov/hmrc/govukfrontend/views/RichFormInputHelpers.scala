@@ -22,10 +22,12 @@ import play.api.data.Forms.{mapping, text}
 trait RichFormInputHelpers {
 
   val field: Field = Field(
-    form = TestFormBind.form.bind(Map(
-      "user-name" -> "Test Name",
-      "user-email" -> "test@example.com"
-    )),
+    form = TestFormBind.form.bind(
+      Map(
+        "user-name"  -> "Test Name",
+        "user-email" -> "test@example.com"
+      )
+    ),
     name = "Form Name",
     constraints = Nil,
     format = None,
@@ -41,9 +43,10 @@ trait RichFormInputHelpers {
   object TestFormBind {
     def form: Form[TestForm] = Form[TestForm](
       mapping(
-        "user-name" -> text,
+        "user-name"  -> text,
         "user-email" -> text
-      )(TestForm.apply)(TestForm.unapply))
+      )(TestForm.apply)(TestForm.unapply)
+    )
   }
 
 }

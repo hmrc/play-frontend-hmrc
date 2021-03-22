@@ -29,7 +29,8 @@ class govukWarningTextSpec extends TemplateUnitSpec[WarningText]("govukWarningTe
     * @param templateParams
     * @return [[Try[HtmlFormat.Appendable]]] containing the markup
     */
-  override def render(templateParams: _root_.uk.gov.hmrc.govukfrontend.views.html.components.WarningText)
-    : Try[HtmlFormat.Appendable] =
+  override def render(
+    templateParams: _root_.uk.gov.hmrc.govukfrontend.views.html.components.WarningText
+  ): Try[HtmlFormat.Appendable] =
     Try(GovukWarningText(templateParams))
 }

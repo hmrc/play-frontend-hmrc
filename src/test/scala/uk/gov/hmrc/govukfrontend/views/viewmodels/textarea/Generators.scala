@@ -38,20 +38,19 @@ object Generators {
       classes          <- genClasses()
       autocomplete     <- Gen.option(genAlphaStr())
       attributes       <- genAttributes()
-    } yield
-      Textarea(
-        id               = id,
-        name             = name,
-        rows             = rows,
-        value            = value,
-        describedBy      = describedBy,
-        label            = label,
-        hint             = hint,
-        errorMessage     = errorMessage,
-        formGroupClasses = formGroupClasses,
-        classes          = classes,
-        autocomplete     = autocomplete,
-        attributes       = attributes
-      )
+    } yield Textarea(
+      id = id,
+      name = name,
+      rows = rows,
+      value = value,
+      describedBy = describedBy,
+      label = label,
+      hint = hint,
+      errorMessage = errorMessage,
+      formGroupClasses = formGroupClasses,
+      classes = classes,
+      autocomplete = autocomplete,
+      attributes = attributes
+    )
   }
 }

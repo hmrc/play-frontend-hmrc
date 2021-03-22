@@ -21,15 +21,15 @@ import play.api.libs.functional.syntax._
 import play.api.libs.json._
 
 final case class InputItem(
-  id: String                      = "",
-  name: String                    = "",
-  label: Option[String]           = None,
-  value: Option[String]           = None,
-  autocomplete: Option[String]    = None,
-  pattern: Option[String]         = None,
-  classes: String                 = "",
+  id: String = "",
+  name: String = "",
+  label: Option[String] = None,
+  value: Option[String] = None,
+  autocomplete: Option[String] = None,
+  pattern: Option[String] = None,
+  classes: String = "",
   attributes: Map[String, String] = Map.empty,
-  inputmode: Option[String]       = None
+  inputmode: Option[String] = None
 )
 
 object InputItem {

@@ -30,6 +30,7 @@ class govukTableSpec extends TemplateUnitSpec[Table]("govukTable") {
     * @return [[Try[HtmlFormat.Appendable]]] containing the markup
     */
   override def render(
-    templateParams: _root_.uk.gov.hmrc.govukfrontend.views.html.components.Table): Try[HtmlFormat.Appendable] =
+    templateParams: _root_.uk.gov.hmrc.govukfrontend.views.html.components.Table
+  ): Try[HtmlFormat.Appendable] =
     Try(GovukTable(templateParams))
 }

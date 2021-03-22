@@ -21,11 +21,11 @@ import play.api.libs.json._
 import uk.gov.hmrc.govukfrontend.views.viewmodels.content.{Content, Empty}
 
 case class ErrorSummary(
-  errorList: Seq[ErrorLink]       = Nil,
-  classes: String                 = "",
+  errorList: Seq[ErrorLink] = Nil,
+  classes: String = "",
   attributes: Map[String, String] = Map.empty,
-  title: Content                  = Empty,
-  description: Content            = Empty
+  title: Content = Empty,
+  description: Content = Empty
 )
 
 object ErrorSummary {

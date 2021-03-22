@@ -24,23 +24,23 @@ import uk.gov.hmrc.govukfrontend.views.viewmodels.hint.Hint
 import uk.gov.hmrc.govukfrontend.views.viewmodels.label.Label
 
 case class Input(
-                  id: String                         = "",
-                  name: String                       = "",
-                  inputType: String                  = "text",
-                  inputmode: Option[String]          = None,
-                  describedBy: Option[String]        = None,
-                  value: Option[String]              = None,
-                  label: Label                       = Label(),
-                  hint: Option[Hint]                 = None,
-                  errorMessage: Option[ErrorMessage] = None,
-                  formGroupClasses: String           = "",
-                  classes: String                    = "",
-                  autocomplete: Option[String]       = None,
-                  pattern: Option[String]            = None,
-                  attributes: Map[String, String]    = Map.empty,
-                  spellcheck: Option[Boolean]        = None,
-                  prefix: Option[PrefixOrSuffix]     = None,
-                  suffix: Option[PrefixOrSuffix]     = None
+  id: String = "",
+  name: String = "",
+  inputType: String = "text",
+  inputmode: Option[String] = None,
+  describedBy: Option[String] = None,
+  value: Option[String] = None,
+  label: Label = Label(),
+  hint: Option[Hint] = None,
+  errorMessage: Option[ErrorMessage] = None,
+  formGroupClasses: String = "",
+  classes: String = "",
+  autocomplete: Option[String] = None,
+  pattern: Option[String] = None,
+  attributes: Map[String, String] = Map.empty,
+  spellcheck: Option[Boolean] = None,
+  prefix: Option[PrefixOrSuffix] = None,
+  suffix: Option[PrefixOrSuffix] = None
 )
 
 object Input {

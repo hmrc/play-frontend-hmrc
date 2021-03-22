@@ -38,7 +38,12 @@ object Generators {
       classes     <- genClasses()
       role        <- Gen.option(genAlphaStr())
       attributes  <- genAttributes()
-    } yield
-      Fieldset(describedBy = describedBy, legend = legend, classes = classes, role = role, attributes = attributes)
+    } yield Fieldset(
+      describedBy = describedBy,
+      legend = legend,
+      classes = classes,
+      role = role,
+      attributes = attributes
+    )
   }
 }

@@ -22,17 +22,17 @@ import uk.gov.hmrc.govukfrontend.views.html.components._
 import uk.gov.hmrc.govukfrontend.views.viewmodels.CommonJsonFormats._
 
 case class Button(
-  element: Option[String]         = None,
-  name: Option[String]            = None,
-  inputType: Option[String]       = None,
-  value: Option[String]           = None,
-  disabled: Boolean               = false,
-  href: Option[String]            = None,
-  classes: String                 = "",
+  element: Option[String] = None,
+  name: Option[String] = None,
+  inputType: Option[String] = None,
+  value: Option[String] = None,
+  disabled: Boolean = false,
+  href: Option[String] = None,
+  classes: String = "",
   attributes: Map[String, String] = Map.empty,
-  preventDoubleClick: Boolean     = false,
-  isStartButton: Boolean          = false,
-  content: Content                = Empty
+  preventDoubleClick: Boolean = false,
+  isStartButton: Boolean = false,
+  content: Content = Empty
 )
 
 object Button {

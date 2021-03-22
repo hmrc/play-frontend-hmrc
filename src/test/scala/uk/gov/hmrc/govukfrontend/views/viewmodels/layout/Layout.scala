@@ -24,15 +24,15 @@ import uk.gov.hmrc.govukfrontend.views.viewmodels.footer.FooterItem
 import scala.collection.Seq
 
 final case class Layout(
-  pageTitle: Option[String]            = None,
-  head: Option[Html]                   = None,
-  header: Option[Html]                 = None,
-  beforeContent: Option[Html]          = None,
-  footer: Option[Html]                 = None,
+  pageTitle: Option[String] = None,
+  head: Option[Html] = None,
+  header: Option[Html] = None,
+  beforeContent: Option[Html] = None,
+  footer: Option[Html] = None,
   footerItems: Option[Seq[FooterItem]] = None,
-  bodyEnd: Option[Html]                = None,
-  scripts: Option[Html]                = None,
-  content: Option[Html]                = None
+  bodyEnd: Option[Html] = None,
+  scripts: Option[Html] = None,
+  content: Option[Html] = None
 )
 
 object Layout {

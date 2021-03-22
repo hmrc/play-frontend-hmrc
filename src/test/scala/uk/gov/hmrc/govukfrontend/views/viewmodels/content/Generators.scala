@@ -21,7 +21,7 @@ import uk.gov.hmrc.govukfrontend.views.viewmodels.Generators.{arbHtml, genHtmlSt
 
 object Generators {
 
-  implicit val arbEmpty: Arbitrary[Empty.type] = Arbitrary { Gen.const(Empty) }
+  implicit val arbEmpty: Arbitrary[Empty.type] = Arbitrary(Gen.const(Empty))
 
   implicit val arbHtmlContent: Arbitrary[HtmlContent] = Arbitrary {
     arbHtml.arbitrary.map(HtmlContent(_))

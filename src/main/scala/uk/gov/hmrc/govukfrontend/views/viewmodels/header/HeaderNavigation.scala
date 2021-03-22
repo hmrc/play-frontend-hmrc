@@ -23,10 +23,10 @@ import uk.gov.hmrc.govukfrontend.views.viewmodels.content.Content.writesContent
 
 final case class HeaderNavigation(
   @deprecated("Use content", "Since play-frontend-govuk v0.48.0") text: Option[String] = None,
-  href: Option[String]                                                                 = None,
-  active: Boolean                                                                      = false,
-  attributes: Map[String, String]                                                      = Map.empty,
-  content: Content                                                                     = Empty
+  href: Option[String] = None,
+  active: Boolean = false,
+  attributes: Map[String, String] = Map.empty,
+  content: Content = Empty
 )
 
 object HeaderNavigation {
@@ -45,7 +45,7 @@ object HeaderNavigation {
   implicit def jsonWrites: OWrites[HeaderNavigation] = OWrites { hn =>
     val content = hn.content match {
       case Empty => hn.text.map(Text).getOrElse(Empty)
-      case _ => hn.content
+      case _     => hn.content
     }
     Json.obj(
       "href"       -> hn.href,

@@ -23,11 +23,7 @@ import uk.gov.hmrc.govukfrontend.views.viewmodels.content.Text
 import uk.gov.hmrc.govukfrontend.views.viewmodels.errormessage.ErrorMessage
 import uk.gov.hmrc.govukfrontend.views.viewmodels.checkboxes.{CheckboxItem, Checkboxes}
 
-class RichCheckboxesSpec
-  extends AnyWordSpec
-    with Matchers
-    with MessagesHelpers
-    with RichFormInputHelpers {
+class RichCheckboxesSpec extends AnyWordSpec with Matchers with MessagesHelpers with RichFormInputHelpers {
 
   "Given a Checkboxes object, calling withFormField" should {
     "use the Field name as the Checkboxes name if no Checkboxes name provided" in {
@@ -51,11 +47,12 @@ class RichCheckboxesSpec
     }
 
     "check a RadioItem if the Field value matches the Radio value and no checked value in Radio" in {
-      val checkboxItemGood = CheckboxItem(content = Text("This is good"), value = "good")
-      val checkboxItemBad = CheckboxItem(content = Text("This is bad"), value = "bad")
+      val checkboxItemGood  = CheckboxItem(content = Text("This is good"), value = "good")
+      val checkboxItemBad   = CheckboxItem(content = Text("This is bad"), value = "bad")
       val checkboxItemWorst = CheckboxItem(content = Text("This is THE WORST"), value = "worst")
 
-      val checkboxes = Checkboxes(items = Seq(checkboxItemGood, checkboxItemBad, checkboxItemWorst)).withFormField(field)
+      val checkboxes =
+        Checkboxes(items = Seq(checkboxItemGood, checkboxItemBad, checkboxItemWorst)).withFormField(field)
       checkboxes.items shouldBe Seq(
         checkboxItemGood,
         checkboxItemBad.copy(checked = true),
@@ -76,8 +73,8 @@ class RichCheckboxesSpec
     }
 
     "correctly chain multiple Field properties provided to update a Checkboxes" in {
-      val checkboxItemGood = CheckboxItem(content = Text("This is good"), value = "good")
-      val checkboxItemBad = CheckboxItem(content = Text("This is bad"), value = "bad")
+      val checkboxItemGood  = CheckboxItem(content = Text("This is good"), value = "good")
+      val checkboxItemBad   = CheckboxItem(content = Text("This is bad"), value = "bad")
       val checkboxItemWorst = CheckboxItem(content = Text("This is THE WORST"), value = "worst")
 
       val checkboxes = Checkboxes(
@@ -86,7 +83,7 @@ class RichCheckboxesSpec
       checkboxes.withFormField(field) shouldBe Checkboxes(
         name = "Form Name",
         idPrefix = Some("Form Name"),
-        errorMessage =  Some(ErrorMessage(content = Text("Not valid name"))),
+        errorMessage = Some(ErrorMessage(content = Text("Not valid name"))),
         items = Seq(
           checkboxItemGood,
           checkboxItemBad.copy(checked = true),

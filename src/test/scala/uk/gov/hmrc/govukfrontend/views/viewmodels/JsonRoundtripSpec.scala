@@ -26,7 +26,7 @@ import play.api.libs.json.{Json, Reads, Writes}
 import scala.reflect.ClassTag
 
 class JsonRoundtripSpec[T: Reads: Writes: Arbitrary: ClassTag]
-  extends AnyWordSpec
+    extends AnyWordSpec
     with Matchers
     with OptionValues
     with ScalaCheckPropertyChecks

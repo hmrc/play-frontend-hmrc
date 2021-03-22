@@ -24,16 +24,16 @@ import uk.gov.hmrc.govukfrontend.views.viewmodels.hint.Hint
 import uk.gov.hmrc.govukfrontend.views.viewmodels.label.Label
 
 case class FileUpload(
-  name: String                       = "",
-  id: String                         = "",
-  value: Option[String]              = None,
-  describedBy: Option[String]        = None,
-  label: Label                       = Label(),
-  hint: Option[Hint]                 = None,
+  name: String = "",
+  id: String = "",
+  value: Option[String] = None,
+  describedBy: Option[String] = None,
+  label: Label = Label(),
+  hint: Option[Hint] = None,
   errorMessage: Option[ErrorMessage] = None,
-  formGroupClasses: String           = "",
-  classes: String                    = "",
-  attributes: Map[String, String]    = Map.empty
+  formGroupClasses: String = "",
+  classes: String = "",
+  attributes: Map[String, String] = Map.empty
 )
 
 object FileUpload {

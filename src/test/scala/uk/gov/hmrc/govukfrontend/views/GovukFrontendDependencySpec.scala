@@ -21,10 +21,7 @@ import org.scalatest.OptionValues
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpec
 
-class GovukFrontendDependencySpec
-  extends AnyWordSpec
-    with Matchers
-    with OptionValues {
+class GovukFrontendDependencySpec extends AnyWordSpec with Matchers with OptionValues {
 
   "findFirstMatch" should {
     "find the first match of a regular expression in a Seq" in {

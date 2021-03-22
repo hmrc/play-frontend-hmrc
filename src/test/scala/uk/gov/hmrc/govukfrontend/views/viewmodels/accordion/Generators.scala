@@ -29,8 +29,12 @@ object Generators {
       summaryContent <- arbContent.arbitrary
       content        <- arbContent.arbitrary
       expanded       <- arbBool.arbitrary
-    } yield
-      Section(headingContent = headingContent, summaryContent = summaryContent, content = content, expanded = expanded)
+    } yield Section(
+      headingContent = headingContent,
+      summaryContent = summaryContent,
+      content = content,
+      expanded = expanded
+    )
   }
 
   implicit val arbAccordion: Arbitrary[Accordion] = Arbitrary {

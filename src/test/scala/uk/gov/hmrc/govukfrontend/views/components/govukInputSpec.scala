@@ -22,6 +22,7 @@ import uk.gov.hmrc.govukfrontend.views.TemplateUnitSpec
 import scala.util.Try
 
 class govukInputSpec extends TemplateUnitSpec[Input]("govukInput") {
+
   /**
     * Calls the Twirl template with the given parameters and returns the resulting markup
     *

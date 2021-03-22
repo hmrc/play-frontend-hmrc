@@ -22,8 +22,8 @@ import play.api.libs.json._
 import uk.gov.hmrc.govukfrontend.views.viewmodels.content.{Content, Empty}
 
 final case class ErrorLink(
-  href: Option[String]            = None,
-  content: Content                = Empty,
+  href: Option[String] = None,
+  content: Content = Empty,
   attributes: Map[String, String] = Map.empty
 )
 

@@ -25,20 +25,21 @@ import uk.gov.hmrc.govukfrontend.views.viewmodels.hint.Hint
 import uk.gov.hmrc.govukfrontend.views.viewmodels.label.Label
 
 case class CharacterCount(
-  id: String                         = "",
-  name: String                       = "",
-  rows: Int                          = 5,
-  value: Option[String]              = None,
-  maxLength: Option[Int]             = None,
-  maxWords: Option[Int]              = None,
-  threshold: Option[Int]             = None,
-  label: Label                       = Label(),
-  hint: Option[Hint]                 = None,
+  id: String = "",
+  name: String = "",
+  rows: Int = 5,
+  value: Option[String] = None,
+  maxLength: Option[Int] = None,
+  maxWords: Option[Int] = None,
+  threshold: Option[Int] = None,
+  label: Label = Label(),
+  hint: Option[Hint] = None,
   errorMessage: Option[ErrorMessage] = None,
-  formGroupClasses: String           = "",
-  classes: String                    = "",
-  attributes: Map[String, String]    = Map.empty,
-  countMessageClasses: String        = "")
+  formGroupClasses: String = "",
+  classes: String = "",
+  attributes: Map[String, String] = Map.empty,
+  countMessageClasses: String = ""
+)
 
 object CharacterCount {
 

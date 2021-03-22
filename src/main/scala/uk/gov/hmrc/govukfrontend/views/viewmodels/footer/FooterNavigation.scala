@@ -20,7 +20,7 @@ import play.api.libs.json._
 
 final case class FooterNavigation(
   title: Option[String] = None,
-  columns: Option[Int]  = None,
+  columns: Option[Int] = None,
   items: Seq[FooterItem] = Seq.empty
 )
 

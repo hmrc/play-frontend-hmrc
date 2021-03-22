@@ -23,12 +23,10 @@ import play.api.libs.json.{JsObject, JsSuccess, Json}
 
 import scala.util.Try
 
-class GenerateFixturesSpec
-  extends AnyWordSpec
-    with Matchers {
+class GenerateFixturesSpec extends AnyWordSpec with Matchers {
 
-  val dir         = s"/fixtures/test-fixtures"
-  val fixturesDir = Try(File(Resource.my.getUrl(dir)))
+  val dir              = s"/fixtures/test-fixtures"
+  val fixturesDir      = Try(File(Resource.my.getUrl(dir)))
   val knownEmptyOutput = Seq(
     "label-empty"
   )
@@ -42,12 +40,12 @@ class GenerateFixturesSpec
     }
 
     "create example directories" in {
-      fixturesDir.isSuccess                         shouldBe true
+      fixturesDir.isSuccess                       shouldBe true
       fixturesDir.get.children.count(_.isDirectory) should be > 0
     }
 
     fixturesDir.get.children.filter(_.isDirectory).foreach { example =>
-      if(!knownEmptyOutput.contains(example.name)) {
+      if (!knownEmptyOutput.contains(example.name)) {
         s"create a non-empty output.txt in ${example.name}" in {
           (example / "output.txt").exists                  shouldBe true
           (example / "output.txt").contentAsString.isEmpty shouldBe false

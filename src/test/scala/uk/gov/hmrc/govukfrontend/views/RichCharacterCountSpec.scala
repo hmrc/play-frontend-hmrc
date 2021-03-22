@@ -23,11 +23,7 @@ import uk.gov.hmrc.govukfrontend.views.viewmodels.content.Text
 import uk.gov.hmrc.govukfrontend.views.viewmodels.errormessage.ErrorMessage
 import uk.gov.hmrc.govukfrontend.views.viewmodels.charactercount.CharacterCount
 
-class RichCharacterCountSpec
-  extends AnyWordSpec
-    with Matchers
-    with MessagesHelpers
-    with RichFormInputHelpers {
+class RichCharacterCountSpec extends AnyWordSpec with Matchers with MessagesHelpers with RichFormInputHelpers {
 
   "Given an CharacterCount object, calling withFormField" should {
     "use the Field name as the CharacterCount name if no CharacterCount name provided" in {
@@ -77,7 +73,7 @@ class RichCharacterCountSpec
       characterCount.withFormField(field) shouldBe CharacterCount(
         name = "Form Name",
         id = "Form Name",
-        errorMessage =  Some(ErrorMessage(content = Text("Not valid name"))),
+        errorMessage = Some(ErrorMessage(content = Text("Not valid name"))),
         value = Some("bad")
       )
     }

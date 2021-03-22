@@ -21,12 +21,12 @@ import play.api.libs.json._
 import play.twirl.api.{Html, HtmlFormat}
 
 final case class Fieldset(
-  describedBy: Option[String]     = None,
-  legend: Option[Legend]          = None,
-  classes: String                 = "",
-  role: Option[String]            = None,
+  describedBy: Option[String] = None,
+  legend: Option[Legend] = None,
+  classes: String = "",
+  role: Option[String] = None,
   attributes: Map[String, String] = Map.empty,
-  html: Html                      = HtmlFormat.empty
+  html: Html = HtmlFormat.empty
 )
 
 object Fieldset {

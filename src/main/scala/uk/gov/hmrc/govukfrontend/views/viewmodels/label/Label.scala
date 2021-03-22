@@ -22,11 +22,11 @@ import play.api.libs.json._
 import uk.gov.hmrc.govukfrontend.views.viewmodels.content.{Content, Empty}
 
 final case class Label(
-  forAttr: Option[String]         = None,
-  isPageHeading: Boolean          = false,
-  classes: String                 = "",
+  forAttr: Option[String] = None,
+  isPageHeading: Boolean = false,
+  classes: String = "",
   attributes: Map[String, String] = Map.empty,
-  content: Content                = Empty
+  content: Content = Empty
 )
 
 object Label {

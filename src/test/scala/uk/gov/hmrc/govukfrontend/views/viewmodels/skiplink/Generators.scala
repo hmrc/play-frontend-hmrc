@@ -24,10 +24,10 @@ object Generators {
 
   implicit val arbSkipLink: Arbitrary[SkipLink] = Arbitrary {
     for {
-      href <- genNonEmptyAlphaStr
-      classes      <- genClasses()
-      attributes   <- genAttributes()
-      content      <- arbContent.arbitrary
+      href       <- genNonEmptyAlphaStr
+      classes    <- genClasses()
+      attributes <- genAttributes()
+      content    <- arbContent.arbitrary
     } yield SkipLink(href, classes, attributes, content)
   }
 

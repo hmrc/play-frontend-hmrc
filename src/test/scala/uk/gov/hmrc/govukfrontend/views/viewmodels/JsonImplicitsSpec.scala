@@ -25,7 +25,7 @@ import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpec
 
 class JsonImplicitsSpec
-  extends AnyWordSpec
+    extends AnyWordSpec
     with Matchers
     with OptionValues
     with ScalaCheckPropertyChecks

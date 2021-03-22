@@ -20,4 +20,3 @@ import uk.gov.hmrc.govukfrontend.views.viewmodels.JsonRoundtripSpec
 import uk.gov.hmrc.govukfrontend.views.viewmodels.cookiebanner.Generators._
 
 class ActionSpec extends JsonRoundtripSpec[Action]
-

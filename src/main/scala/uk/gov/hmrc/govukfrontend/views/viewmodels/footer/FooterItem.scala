@@ -20,8 +20,8 @@ import play.api.libs.functional.syntax._
 import play.api.libs.json._
 
 final case class FooterItem(
-  text: Option[String]            = None,
-  href: Option[String]            = None,
+  text: Option[String] = None,
+  href: Option[String] = None,
   attributes: Map[String, String] = Map.empty
 )
 

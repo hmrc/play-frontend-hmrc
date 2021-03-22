@@ -74,8 +74,10 @@ class govukDetailsSpec extends TemplateUnitSpec[Details]("govukDetails") {
         GovukDetails(
           Details(
             attributes = Map("data-some-data-attribute" -> "i-love-data", "another-attribute" -> "true"),
-            summary    = Empty,
-            content    = Empty))
+            summary = Empty,
+            content = Empty
+          )
+        )
           .select(".govuk-details")
 
       details.attr("data-some-data-attribute") shouldBe "i-love-data"

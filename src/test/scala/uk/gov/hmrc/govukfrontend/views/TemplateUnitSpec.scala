@@ -39,11 +39,11 @@ abstract class TemplateUnitSpec[T: Reads](govukComponentName: String)
     with Matchers
     with TryValues {
 
-  val skipBecauseOfJsonValidation = Seq(
+  val skipBecauseOfJsonValidation             = Seq(
     "date-input-with-values",
     "summary-list-value-with-html"
   )
-  val skipBecauseOfAttributeOrdering = Seq(
+  val skipBecauseOfAttributeOrdering          = Seq(
     "details-attributes",
     "warning-text-attributes",
     "breadcrumbs-attributes"
@@ -109,12 +109,12 @@ abstract class TemplateUnitSpec[T: Reads](govukComponentName: String)
     "button-input-classes",
     "button-input-attributes"
   )
-  val skipBecauseChangesNeededWithGDS = Seq(
+  val skipBecauseChangesNeededWithGDS         = Seq(
     "checkboxes-with-falsey-values",
     "radios-with-falsey-items",
     "accordion-with-falsey-values"
   )
-  val skip = skipBecauseOfJsonValidation ++
+  val skip                                    = skipBecauseOfJsonValidation ++
     skipBecauseOfAttributeOrdering ++ skipBecauseRequiredItemsSeemToBeMissing ++
     skipBecauseChangesNeededWithGDS
 
@@ -145,13 +145,13 @@ abstract class TemplateUnitSpec[T: Reads](govukComponentName: String)
     for {
       inputJson    <- Try(readInputJson(fixturesDir, exampleName))
       inputJsValue <- Try(Json.parse(inputJson))
-      html <- inputJsValue.validate[T] match {
-               case JsSuccess(templateParams, _) =>
-                 render(templateParams)
-                   .transform(html => Success(html.body), f => Failure(new TemplateValidationException(f.getMessage)))
-               case e: JsError =>
-                 throw new RuntimeException(s"Failed to validate Json params: [$inputJsValue]\nException: [$e]")
-             }
+      html         <- inputJsValue.validate[T] match {
+                        case JsSuccess(templateParams, _) =>
+                          render(templateParams)
+                            .transform(html => Success(html.body), f => Failure(new TemplateValidationException(f.getMessage)))
+                        case e: JsError                   =>
+                          throw new RuntimeException(s"Failed to validate Json params: [$inputJsValue]\nException: [$e]")
+                      }
     } yield html
 
   private def nunjucksHtml(fixtureDir: File, exampleName: String): Try[String] =
@@ -165,11 +165,9 @@ abstract class TemplateUnitSpec[T: Reads](govukComponentName: String)
     *        fails if the fixtures folder is not defined
     */
   private def exampleNames(fixturesDirs: Seq[File], govukComponentName: String): Seq[(File, String)] = {
-    val exampleFolders = fixturesDirs.flatMap(
-      fixtureDir =>
-        getExampleFolders(fixtureDir, govukComponentName).map(
-          exampleDir => (fixtureDir, exampleDir)
-      ))
+    val exampleFolders = fixturesDirs.flatMap(fixtureDir =>
+      getExampleFolders(fixtureDir, govukComponentName).map(exampleDir => (fixtureDir, exampleDir))
+    )
 
     val examples = for ((fixtureDir, exampleDir) <- exampleFolders) yield (fixtureDir, exampleDir.name)
 
@@ -191,7 +189,7 @@ abstract class TemplateUnitSpec[T: Reads](govukComponentName: String)
   }
 
   private lazy val fixturesDirs: Seq[File] = {
-    val dir = s"/fixtures"
+    val dir         = s"/fixtures"
     val fixturesDir = Try(File(Resource.my.getUrl(dir)))
       .getOrElse(throw new RuntimeException(s"Test fixtures folder not found: $dir"))
 
