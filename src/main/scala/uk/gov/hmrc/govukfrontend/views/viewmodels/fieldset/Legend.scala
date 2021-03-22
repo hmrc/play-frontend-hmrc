@@ -22,8 +22,8 @@ import play.api.libs.json._
 import uk.gov.hmrc.govukfrontend.views.viewmodels.content.{Content, Empty}
 
 final case class Legend(
-  content: Content       = Empty,
-  classes: String        = "",
+  content: Content = Empty,
+  classes: String = "",
   isPageHeading: Boolean = false
 )
 

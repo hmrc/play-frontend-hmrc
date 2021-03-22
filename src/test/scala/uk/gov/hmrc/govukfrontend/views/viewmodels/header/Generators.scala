@@ -43,18 +43,17 @@ object Generators {
       containerClasses  <- Gen.option(genClasses())
       classes           <- genClasses()
       attributes        <- genAttributes()
-    } yield
-      Header(
-        homepageUrl       = homepageUrl,
-        productName       = productName,
-        serviceName       = serviceName,
-        serviceUrl        = serviceUrl,
-        navigation        = navigation,
-        navigationClasses = navigationClasses,
-        containerClasses  = containerClasses,
-        classes           = classes,
-        attributes        = attributes
-      )
+    } yield Header(
+      homepageUrl = homepageUrl,
+      productName = productName,
+      serviceName = serviceName,
+      serviceUrl = serviceUrl,
+      navigation = navigation,
+      navigationClasses = navigationClasses,
+      containerClasses = containerClasses,
+      classes = classes,
+      attributes = attributes
+    )
   }
 
 }

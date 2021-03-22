@@ -30,14 +30,14 @@ object Generators {
       colspan    <- Gen.option(Gen.chooseNum(0, 5))
       rowspan    <- Gen.option(Gen.chooseNum(0, 5))
       attributes <- genAttributes()
-    } yield
-      HeadCell(
-        content    = content,
-        format     = format,
-        classes    = classes,
-        colspan    = colspan,
-        rowspan    = rowspan,
-        attributes = attributes)
+    } yield HeadCell(
+      content = content,
+      format = format,
+      classes = classes,
+      colspan = colspan,
+      rowspan = rowspan,
+      attributes = attributes
+    )
   }
 
   implicit val arbTableRow: Arbitrary[TableRow] = Arbitrary {
@@ -48,20 +48,20 @@ object Generators {
       colspan    <- Gen.option(Gen.chooseNum(0, 5))
       rowspan    <- Gen.option(Gen.chooseNum(0, 5))
       attributes <- genAttributes()
-    } yield
-      TableRow(
-        content    = content,
-        format     = format,
-        classes    = classes,
-        colspan    = colspan,
-        rowspan    = rowspan,
-        attributes = attributes)
+    } yield TableRow(
+      content = content,
+      format = format,
+      classes = classes,
+      colspan = colspan,
+      rowspan = rowspan,
+      attributes = attributes
+    )
   }
 
   implicit val arbTable: Arbitrary[Table] = Arbitrary {
     for {
-      nTableRows <- Gen.chooseNum(0, 5)
-      tableRowsGen = Gen.listOfN(nTableRows, arbTableRow.arbitrary)
+      nTableRows        <- Gen.chooseNum(0, 5)
+      tableRowsGen       = Gen.listOfN(nTableRows, arbTableRow.arbitrary)
       nRows             <- Gen.chooseNum(0, 5)
       rows              <- Gen.listOfN(nRows, tableRowsGen)
       nHeadCells        <- Gen.chooseNum(0, 5)
@@ -71,15 +71,15 @@ object Generators {
       firstCellIsHeader <- Arbitrary.arbBool.arbitrary
       classes           <- genClasses()
       attributes        <- genAttributes()
-    } yield
-      Table(
-        rows              = rows,
-        head              = head,
-        caption           = caption,
-        captionClasses    = captionClasses,
-        firstCellIsHeader = firstCellIsHeader,
-        classes           = classes,
-        attributes        = attributes)
+    } yield Table(
+      rows = rows,
+      head = head,
+      caption = caption,
+      captionClasses = captionClasses,
+      firstCellIsHeader = firstCellIsHeader,
+      classes = classes,
+      attributes = attributes
+    )
   }
 
 }

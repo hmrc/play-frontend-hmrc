@@ -24,26 +24,25 @@ import uk.gov.hmrc.govukfrontend.views.viewmodels.content.Generators.arbContent
 object Generators {
   implicit val arbNotificationBanner: Arbitrary[NotificationBanner] = Arbitrary {
     for {
-      content <- arbContent.arbitrary
-      bannerType <- Gen.option(genAlphaStr())
-      role <- Gen.option(genAlphaStr())
-      title <- arbContent.arbitrary
-      titleId <- Gen.option(genAlphaStr())
-      disableAutoFocus <- Gen.option(arbBool.arbitrary)
-      classes <- genClasses()
+      content           <- arbContent.arbitrary
+      bannerType        <- Gen.option(genAlphaStr())
+      role              <- Gen.option(genAlphaStr())
+      title             <- arbContent.arbitrary
+      titleId           <- Gen.option(genAlphaStr())
+      disableAutoFocus  <- Gen.option(arbBool.arbitrary)
+      classes           <- genClasses()
       titleHeadingLevel <- Gen.option(Gen.chooseNum(1, 6))
-      attributes <- genAttributes()
-    } yield
-      NotificationBanner(
-        content = content,
-        bannerType = bannerType,
-        role = role,
-        title = title,
-        titleId = titleId,
-        disableAutoFocus = disableAutoFocus,
-        titleHeadingLevel = titleHeadingLevel,
-        classes = classes,
-        attributes = attributes
-      )
+      attributes        <- genAttributes()
+    } yield NotificationBanner(
+      content = content,
+      bannerType = bannerType,
+      role = role,
+      title = title,
+      titleId = titleId,
+      disableAutoFocus = disableAutoFocus,
+      titleHeadingLevel = titleHeadingLevel,
+      classes = classes,
+      attributes = attributes
+    )
   }
 }

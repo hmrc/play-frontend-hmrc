@@ -34,16 +34,16 @@ object Generators {
       pattern      <- Gen.option(genAlphaStr())
       classes      <- genClasses()
       attributes   <- genAttributes()
-    } yield
-      InputItem(
-        id           = id,
-        name         = name,
-        label        = label,
-        value        = value,
-        autocomplete = autocomplete,
-        pattern      = pattern,
-        classes      = classes,
-        attributes   = attributes)
+    } yield InputItem(
+      id = id,
+      name = name,
+      label = label,
+      value = value,
+      autocomplete = autocomplete,
+      pattern = pattern,
+      classes = classes,
+      attributes = attributes
+    )
   }
 
   implicit val arbDateInput: Arbitrary[DateInput] = Arbitrary {
@@ -58,17 +58,16 @@ object Generators {
       fieldset         <- Gen.option(arbFieldset.arbitrary)
       classes          <- genClasses()
       attributes       <- genAttributes()
-    } yield
-      DateInput(
-        id               = id,
-        namePrefix       = namePrefix,
-        items            = items,
-        hint             = hint,
-        errorMessage     = errorMessage,
-        formGroupClasses = formGroupClasses,
-        fieldset         = fieldset,
-        classes          = classes,
-        attributes       = attributes
-      )
+    } yield DateInput(
+      id = id,
+      namePrefix = namePrefix,
+      items = items,
+      hint = hint,
+      errorMessage = errorMessage,
+      formGroupClasses = formGroupClasses,
+      fieldset = fieldset,
+      classes = classes,
+      attributes = attributes
+    )
   }
 }

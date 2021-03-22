@@ -41,24 +41,23 @@ object Generators {
       autocomplete     <- Gen.option(genAlphaStr())
       pattern          <- Gen.option(genAlphaStr())
       attributes       <- genAttributes()
-      spellcheck    <- Gen.option(arbBool.arbitrary)
-    } yield
-      Input(
-        id               = id,
-        name             = name,
-        inputType        = inputType,
-        inputmode        = inputMode,
-        describedBy      = describedBy,
-        value            = value,
-        label            = label,
-        hint             = hint,
-        errorMessage     = errorMessage,
-        formGroupClasses = formGroupClasses,
-        classes          = classes,
-        autocomplete     = autocomplete,
-        pattern          = pattern,
-        attributes       = attributes,
-        spellcheck       = spellcheck
-      )
+      spellcheck       <- Gen.option(arbBool.arbitrary)
+    } yield Input(
+      id = id,
+      name = name,
+      inputType = inputType,
+      inputmode = inputMode,
+      describedBy = describedBy,
+      value = value,
+      label = label,
+      hint = hint,
+      errorMessage = errorMessage,
+      formGroupClasses = formGroupClasses,
+      classes = classes,
+      autocomplete = autocomplete,
+      pattern = pattern,
+      attributes = attributes,
+      spellcheck = spellcheck
+    )
   }
 }

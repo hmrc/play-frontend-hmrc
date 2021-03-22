@@ -39,25 +39,24 @@ object Generators {
       mainClasses   <- Gen.option(genClasses())
       beforeContent <- Gen.option(arbHtml.arbitrary)
       content       <- Gen.option(arbHtml.arbitrary)
-    } yield
-      Template(
-        htmlLang      = htmlLang,
-        pageTitleLang = pageTitleLang,
-        mainLang      = mainLang,
-        htmlClasses   = htmlClasses,
-        themeColor    = themeColor,
-        bodyClasses   = bodyClasses,
-        pageTitle     = pageTitle,
-        headIcons     = headIcons,
-        head          = head,
-        bodyStart     = bodyStart,
-        skipLink      = skipLink,
-        header        = header,
-        footer        = footer,
-        bodyEnd       = bodyEnd,
-        mainClasses   = mainClasses,
-        beforeContent = beforeContent,
-        content       = content
-      )
+    } yield Template(
+      htmlLang = htmlLang,
+      pageTitleLang = pageTitleLang,
+      mainLang = mainLang,
+      htmlClasses = htmlClasses,
+      themeColor = themeColor,
+      bodyClasses = bodyClasses,
+      pageTitle = pageTitle,
+      headIcons = headIcons,
+      head = head,
+      bodyStart = bodyStart,
+      skipLink = skipLink,
+      header = header,
+      footer = footer,
+      bodyEnd = bodyEnd,
+      mainClasses = mainClasses,
+      beforeContent = beforeContent,
+      content = content
+    )
   }
 }

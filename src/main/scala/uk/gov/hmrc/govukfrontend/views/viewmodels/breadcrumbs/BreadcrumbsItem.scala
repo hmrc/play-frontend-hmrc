@@ -22,8 +22,8 @@ import play.api.libs.json._
 import uk.gov.hmrc.govukfrontend.views.viewmodels.content.{Content, Empty}
 
 final case class BreadcrumbsItem(
-  content: Content                = Empty,
-  href: Option[String]            = None,
+  content: Content = Empty,
+  href: Option[String] = None,
   attributes: Map[String, String] = Map.empty
 )
 
@@ -35,11 +35,11 @@ object BreadcrumbsItem {
     Content.reads and
       (__ \ "href").readNullable[String] and
       (__ \ "attributes").readWithDefault[Map[String, String]](defaultObject.attributes)
-    )(BreadcrumbsItem.apply _)
+  )(BreadcrumbsItem.apply _)
 
   implicit def jsonWrites: OWrites[BreadcrumbsItem] = (
     Content.writes and
       (__ \ "href").writeNullable[String] and
       (__ \ "attributes").write[Map[String, String]]
-    )(unlift(BreadcrumbsItem.unapply))
+  )(unlift(BreadcrumbsItem.unapply))
 }

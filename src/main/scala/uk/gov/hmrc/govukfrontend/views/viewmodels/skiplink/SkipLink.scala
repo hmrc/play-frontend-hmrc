@@ -21,10 +21,10 @@ import play.api.libs.json._
 import uk.gov.hmrc.govukfrontend.views.html.components._
 
 case class SkipLink(
-  href: String                    = "",
-  classes: String                 = "",
+  href: String = "",
+  classes: String = "",
   attributes: Map[String, String] = Map.empty,
-  content: Content                = Empty
+  content: Content = Empty
 )
 
 object SkipLink {

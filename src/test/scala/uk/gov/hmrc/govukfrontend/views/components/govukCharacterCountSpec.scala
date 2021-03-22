@@ -23,13 +23,13 @@ import uk.gov.hmrc.govukfrontend.views.html.components._
 import scala.util.Try
 
 class govukCharacterCountSpec extends TemplateUnitSpec[CharacterCount]("govukCharacterCount") {
+
   /**
     * Calls the Twirl template with the given parameters and returns the resulting markup
     *
     * @param params
     * @return [[Try[HtmlFormat.Appendable]]] containing the markup
     */
-  override def render(params: CharacterCount): Try[HtmlFormat.Appendable] = {
+  override def render(params: CharacterCount): Try[HtmlFormat.Appendable] =
     Try(GovukCharacterCount(params))
-  }
 }

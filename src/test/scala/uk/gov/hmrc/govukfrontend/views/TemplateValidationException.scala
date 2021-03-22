@@ -22,4 +22,3 @@ object TemplateValidationException {
   def unapply(arg: TemplateValidationException): Option[String] =
     Some(arg.getMessage)
 }
-

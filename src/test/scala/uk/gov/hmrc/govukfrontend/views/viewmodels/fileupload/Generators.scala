@@ -36,19 +36,18 @@ object Generators {
       formGroupClasses <- genClasses()
       classes          <- genClasses()
       attributes       <- genAttributes()
-    } yield
-      FileUpload(
-        name             = name,
-        id               = id,
-        value            = value,
-        describedBy      = describedBy,
-        label            = label,
-        hint             = hint,
-        errorMessage     = errorMessage,
-        formGroupClasses = formGroupClasses,
-        classes          = classes,
-        attributes       = attributes
-      )
+    } yield FileUpload(
+      name = name,
+      id = id,
+      value = value,
+      describedBy = describedBy,
+      label = label,
+      hint = hint,
+      errorMessage = errorMessage,
+      formGroupClasses = formGroupClasses,
+      classes = classes,
+      attributes = attributes
+    )
   }
 
 }

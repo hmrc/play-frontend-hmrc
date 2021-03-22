@@ -20,4 +20,3 @@ import uk.gov.hmrc.govukfrontend.views.viewmodels.JsonRoundtripSpec
 import uk.gov.hmrc.govukfrontend.views.viewmodels.header.Generators._
 
 class HeaderSpec extends JsonRoundtripSpec[Header]
-

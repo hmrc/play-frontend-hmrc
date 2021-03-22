@@ -20,10 +20,7 @@ import CharacterReferenceUtils.toDecimal
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpec
 
-class CharacterReferenceUtilsSpec
-  extends AnyWordSpec
-    with Matchers {
-
+class CharacterReferenceUtilsSpec extends AnyWordSpec with Matchers {
 
   "toDecimal" should {
     "handle empty strings" in {

@@ -35,18 +35,19 @@ class govukLayoutSpec extends TemplateUnitSpec[Layout]("govukLayout") with Messa
     * @param layout
     * @return [[Try[HtmlFormat.Appendable]]] containing the markup
     */
-  override def render(layout: Layout): Try[HtmlFormat.Appendable] = {
-    Try(GovukLayout.apply(
-      pageTitle = layout.pageTitle,
-      headBlock = layout.head,
-      headerBlock = layout.header,
-      footerBlock = layout.footer,
-      footerItems = layout.footerItems.getOrElse(Seq.empty),
-      bodyEndBlock = layout.bodyEnd,
-      scriptsBlock = layout.scripts,
-      beforeContentBlock = layout.beforeContent)(layout.content.getOrElse(HtmlFormat.empty))
+  override def render(layout: Layout): Try[HtmlFormat.Appendable] =
+    Try(
+      GovukLayout.apply(
+        pageTitle = layout.pageTitle,
+        headBlock = layout.head,
+        headerBlock = layout.header,
+        footerBlock = layout.footer,
+        footerItems = layout.footerItems.getOrElse(Seq.empty),
+        bodyEndBlock = layout.bodyEnd,
+        scriptsBlock = layout.scripts,
+        beforeContentBlock = layout.beforeContent
+      )(layout.content.getOrElse(HtmlFormat.empty))
     )
-  }
 
   "govukLayout" should {
     "render the html lang as en by default" in {

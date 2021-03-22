@@ -37,20 +37,24 @@ class govukBreadcrumbsSpec extends TemplateUnitSpec[Breadcrumbs]("govukBreadcrum
   "breadcrumb" should {
 
     "render the attributes in order" in {
-      val params = Breadcrumbs(attributes = Map(
-        "id" -> "my-navigation",
-        "role" -> "navigation"
-      ))
+      val params    = Breadcrumbs(attributes =
+        Map(
+          "id"   -> "my-navigation",
+          "role" -> "navigation"
+        )
+      )
       val component = GovukBreadcrumbs(params)
 
       component.body should include("<div class=\"govuk-breadcrumbs\" id=\"my-navigation\" role=\"navigation\">")
     }
 
     "render the attributes in order when input is reversed" in {
-      val params = Breadcrumbs(attributes = Map(
-        "role" -> "navigation",
-        "id" -> "my-navigation"
-      ))
+      val params    = Breadcrumbs(attributes =
+        Map(
+          "role" -> "navigation",
+          "id"   -> "my-navigation"
+        )
+      )
       val component = GovukBreadcrumbs(params)
 
       component.body should include("<div class=\"govuk-breadcrumbs\" role=\"navigation\" id=\"my-navigation\">")

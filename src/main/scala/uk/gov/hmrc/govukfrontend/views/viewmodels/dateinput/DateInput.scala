@@ -22,15 +22,15 @@ import uk.gov.hmrc.govukfrontend.views.html.components._
 import uk.gov.hmrc.govukfrontend.views.viewmodels.CommonJsonFormats._
 
 case class DateInput(
-  id: String                         = "",
-  namePrefix: Option[String]         = None,
-  items: Seq[InputItem]              = Seq.empty,
-  hint: Option[Hint]                 = None,
+  id: String = "",
+  namePrefix: Option[String] = None,
+  items: Seq[InputItem] = Seq.empty,
+  hint: Option[Hint] = None,
   errorMessage: Option[ErrorMessage] = None,
-  formGroupClasses: String           = "",
-  fieldset: Option[Fieldset]         = None,
-  classes: String                    = "",
-  attributes: Map[String, String]    = Map.empty
+  formGroupClasses: String = "",
+  fieldset: Option[Fieldset] = None,
+  classes: String = "",
+  attributes: Map[String, String] = Map.empty
 )
 
 object DateInput {

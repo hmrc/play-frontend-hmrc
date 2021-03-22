@@ -23,11 +23,7 @@ import uk.gov.hmrc.govukfrontend.views.viewmodels.content.Text
 import uk.gov.hmrc.govukfrontend.views.viewmodels.errormessage.ErrorMessage
 import uk.gov.hmrc.govukfrontend.views.viewmodels.input.Input
 
-class RichInputSpec
-  extends AnyWordSpec
-    with Matchers
-    with MessagesHelpers
-    with RichFormInputHelpers {
+class RichInputSpec extends AnyWordSpec with Matchers with MessagesHelpers with RichFormInputHelpers {
 
   "Given an Input object, calling withFormField" should {
     "use the Field name as the Input name if no Input name provided" in {
@@ -77,7 +73,7 @@ class RichInputSpec
       input.withFormField(field) shouldBe Input(
         name = "Form Name",
         id = "Form Name",
-        errorMessage =  Some(ErrorMessage(content = Text("Not valid name"))),
+        errorMessage = Some(ErrorMessage(content = Text("Not valid name"))),
         value = Some("bad")
       )
     }

@@ -24,15 +24,15 @@ import uk.gov.hmrc.govukfrontend.views.html.components._
 import uk.gov.hmrc.govukfrontend.views.viewmodels.CommonJsonFormats._
 
 final case class RadioItem(
-  content: Content                = Empty,
-  id: Option[String]              = None,
-  value: Option[String]           = None,
-  label: Option[Label]            = None,
-  hint: Option[Hint]              = None,
-  divider: Option[String]         = None,
-  checked: Boolean                = false,
-  conditionalHtml: Option[Html]   = None,
-  disabled: Boolean               = false,
+  content: Content = Empty,
+  id: Option[String] = None,
+  value: Option[String] = None,
+  label: Option[Label] = None,
+  hint: Option[Hint] = None,
+  divider: Option[String] = None,
+  checked: Boolean = false,
+  conditionalHtml: Option[Html] = None,
+  disabled: Boolean = false,
   attributes: Map[String, String] = Map.empty
 )
 

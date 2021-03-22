@@ -26,15 +26,15 @@ import uk.gov.hmrc.govukfrontend.views.viewmodels.hint.Hint
 import uk.gov.hmrc.govukfrontend.views.viewmodels.label.Label
 
 final case class CheckboxItem(
-  content: Content                = Empty,
-  id: Option[String]              = None,
-  name: Option[String]            = None,
-  value: String                   = "",
-  label: Option[Label]            = None,
-  hint: Option[Hint]              = None,
-  checked: Boolean                = false,
-  conditionalHtml: Option[Html]   = None,
-  disabled: Boolean               = false,
+  content: Content = Empty,
+  id: Option[String] = None,
+  name: Option[String] = None,
+  value: String = "",
+  label: Option[Label] = None,
+  hint: Option[Hint] = None,
+  checked: Boolean = false,
+  conditionalHtml: Option[Html] = None,
+  disabled: Boolean = false,
   attributes: Map[String, String] = Map.empty
 )
 
@@ -53,7 +53,9 @@ object CheckboxItem {
         (__ \ "checked").readWithDefault[Boolean](defaultObject.checked) and
         readsConditionalHtml and
         (__ \ "disabled").readWithDefault[Boolean](defaultObject.disabled) and
-        (__ \ "attributes").readWithDefault[Map[String, String]](defaultObject.attributes)(CommonJsonFormats.attributesReads)
+        (__ \ "attributes").readWithDefault[Map[String, String]](defaultObject.attributes)(
+          CommonJsonFormats.attributesReads
+        )
     )(CheckboxItem.apply _)
 
   implicit def jsonWrites: OWrites[CheckboxItem] =

@@ -22,16 +22,16 @@ import uk.gov.hmrc.govukfrontend.views.html.components._
 import uk.gov.hmrc.govukfrontend.views.viewmodels.CommonJsonFormats._
 
 case class Checkboxes(
-  describedBy: Option[String]        = None,
-  fieldset: Option[Fieldset]         = None,
-  hint: Option[Hint]                 = None,
+  describedBy: Option[String] = None,
+  fieldset: Option[Fieldset] = None,
+  hint: Option[Hint] = None,
   errorMessage: Option[ErrorMessage] = None,
-  formGroupClasses: String           = "",
-  idPrefix: Option[String]           = None,
-  name: String                       = "",
-  items: Seq[CheckboxItem]           = Nil,
-  classes: String                    = "",
-  attributes: Map[String, String]    = Map.empty
+  formGroupClasses: String = "",
+  idPrefix: Option[String] = None,
+  name: String = "",
+  items: Seq[CheckboxItem] = Nil,
+  classes: String = "",
+  attributes: Map[String, String] = Map.empty
 )
 
 object Checkboxes {

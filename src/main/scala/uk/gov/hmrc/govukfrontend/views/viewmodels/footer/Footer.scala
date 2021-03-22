@@ -22,9 +22,9 @@ import play.api.libs.json._
 case class Footer(
   meta: Option[Meta] = None,
   navigation: Seq[FooterNavigation] = Seq.empty,
-  containerClasses: String          = "",
-  classes: String                   = "",
-  attributes: Map[String, String]   = Map.empty
+  containerClasses: String = "",
+  classes: String = "",
+  attributes: Map[String, String] = Map.empty
 )
 
 object Footer {

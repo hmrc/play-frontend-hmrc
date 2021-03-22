@@ -23,11 +23,7 @@ import uk.gov.hmrc.govukfrontend.views.viewmodels.select.{Select, SelectItem}
 import uk.gov.hmrc.govukfrontend.views.viewmodels.content.Text
 import uk.gov.hmrc.govukfrontend.views.viewmodels.errormessage.ErrorMessage
 
-class RichSelectSpec
-  extends AnyWordSpec
-    with Matchers
-    with MessagesHelpers
-    with RichFormInputHelpers {
+class RichSelectSpec extends AnyWordSpec with Matchers with MessagesHelpers with RichFormInputHelpers {
 
   "Given a Select object, calling withFormField" should {
     "use the Field name as the Select name if no Select name provided" in {
@@ -51,8 +47,8 @@ class RichSelectSpec
     }
 
     "select a SelectItem if the Field value matches the Select value and no selected value in Select" in {
-      val selectItemGood = SelectItem(text = "This is good", value = Some("good"))
-      val selectItemBad = SelectItem(text = "This is bad", value = Some("bad"))
+      val selectItemGood  = SelectItem(text = "This is good", value = Some("good"))
+      val selectItemBad   = SelectItem(text = "This is bad", value = Some("bad"))
       val selectItemWorst = SelectItem(text = "This is THE WORST", value = Some("worst"))
 
       val select = Select(items = Seq(selectItemGood, selectItemBad, selectItemWorst)).withFormField(field)
@@ -76,8 +72,8 @@ class RichSelectSpec
     }
 
     "correctly chain multiple Field properties provided to update a Select" in {
-      val selectItemGood = SelectItem(text = "This is good", value = Some("good"))
-      val selectItemBad = SelectItem(text = "This is bad", value = Some("bad"))
+      val selectItemGood  = SelectItem(text = "This is good", value = Some("good"))
+      val selectItemBad   = SelectItem(text = "This is bad", value = Some("bad"))
       val selectItemWorst = SelectItem(text = "This is THE WORST", value = Some("worst"))
 
       val select = Select(
@@ -86,7 +82,7 @@ class RichSelectSpec
       select.withFormField(field) shouldBe Select(
         name = "Form Name",
         id = "Form Name",
-        errorMessage =  Some(ErrorMessage(content = Text("Not valid name"))),
+        errorMessage = Some(ErrorMessage(content = Text("Not valid name"))),
         items = Seq(
           selectItemGood,
           selectItemBad.copy(selected = true),

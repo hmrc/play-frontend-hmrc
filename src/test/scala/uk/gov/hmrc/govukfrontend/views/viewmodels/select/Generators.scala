@@ -47,18 +47,17 @@ object Generators {
       formGroupClasses <- genClasses()
       classes          <- genClasses()
       attributes       <- genAttributes()
-    } yield
-      Select(
-        id               = id,
-        name             = name,
-        items            = items,
-        describedBy      = describedBy,
-        label            = label,
-        hint             = hint,
-        errorMessage     = errorMessage,
-        formGroupClasses = formGroupClasses,
-        classes          = classes,
-        attributes       = attributes
-      )
+    } yield Select(
+      id = id,
+      name = name,
+      items = items,
+      describedBy = describedBy,
+      label = label,
+      hint = hint,
+      errorMessage = errorMessage,
+      formGroupClasses = formGroupClasses,
+      classes = classes,
+      attributes = attributes
+    )
   }
 }

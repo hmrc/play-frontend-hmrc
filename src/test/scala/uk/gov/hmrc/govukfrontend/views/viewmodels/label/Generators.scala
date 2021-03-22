@@ -25,17 +25,17 @@ object Generators {
 
   implicit val arbLabel: Arbitrary[Label] = Arbitrary {
     for {
-      forAttr <- Gen.option(genAlphaStr())
+      forAttr       <- Gen.option(genAlphaStr())
       isPageHeading <- arbBool.arbitrary
-      classes <- genClasses()
-      attributes <- genAttributes()
-      content <- arbContent.arbitrary
-    } yield
-      Label(
-        forAttr = forAttr,
-        isPageHeading = isPageHeading,
-        classes = classes,
-        attributes = attributes,
-        content = content)
+      classes       <- genClasses()
+      attributes    <- genAttributes()
+      content       <- arbContent.arbitrary
+    } yield Label(
+      forAttr = forAttr,
+      isPageHeading = isPageHeading,
+      classes = classes,
+      attributes = attributes,
+      content = content
+    )
   }
 }

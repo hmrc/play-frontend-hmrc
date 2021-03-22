@@ -23,21 +23,21 @@ import uk.gov.hmrc.govukfrontend.views.IntString
 import uk.gov.hmrc.govukfrontend.views.viewmodels.CommonJsonFormats._
 
 case class Textarea(
-  id: String                         = "",
-  name: String                       = "",
-  rows: Int                          = 5,
-  value: Option[String]              = None,
-  describedBy: Option[String]        = None,
-  label: Label                       = Label(),
-  hint: Option[Hint]                 = None,
+  id: String = "",
+  name: String = "",
+  rows: Int = 5,
+  value: Option[String] = None,
+  describedBy: Option[String] = None,
+  label: Label = Label(),
+  hint: Option[Hint] = None,
   errorMessage: Option[ErrorMessage] = None,
-  formGroupClasses: String           = "",
-  classes: String                    = "",
-  autocomplete: Option[String]       = None,
-  attributes: Map[String, String]    = Map.empty,
-  countMessageClasses: String        = "",
-  spellcheck: Option[Boolean]        = None)
-
+  formGroupClasses: String = "",
+  classes: String = "",
+  autocomplete: Option[String] = None,
+  attributes: Map[String, String] = Map.empty,
+  countMessageClasses: String = "",
+  spellcheck: Option[Boolean] = None
+)
 
 object Textarea {
 
@@ -61,7 +61,7 @@ object Textarea {
         (__ \ "spellcheck").readNullable[Boolean]
     )(Textarea.apply _)
 
-   implicit def jsonWrites: OWrites[Textarea] =
+  implicit def jsonWrites: OWrites[Textarea] =
     (
       (__ \ "id").write[String] and
         (__ \ "name").write[String] and

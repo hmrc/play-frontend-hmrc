@@ -24,11 +24,7 @@ import play.twirl.api.{Html, HtmlFormat}
 import uk.gov.hmrc.govukfrontend.views.Utils._
 import viewmodels.Generators._
 
-class UtilsSpec
-  extends AnyWordSpec
-    with Matchers
-    with ScalaCheckPropertyChecks
-    with ShrinkLowPriority {
+class UtilsSpec extends AnyWordSpec with Matchers with ScalaCheckPropertyChecks with ShrinkLowPriority {
 
   implicit override val generatorDrivenConfig: PropertyCheckConfiguration =
     PropertyCheckConfiguration(minSuccessful = 50)
@@ -56,49 +52,57 @@ class UtilsSpec
 
     }
     "return attributes provided" in {
-      val html = toAttributes(Map(
-        "id" -> "my-navigation",
-        "role" -> "navigation"
-      ))
+      val html = toAttributes(
+        Map(
+          "id"   -> "my-navigation",
+          "role" -> "navigation"
+        )
+      )
       html.toString() shouldBe " id=\"my-navigation\" role=\"navigation\""
     }
     "return attributes in order (a)" in {
-      val html = toAttributes(Map(
-        "abcd" -> "first",
-        "efgh" -> "second"
-      ))
+      val html = toAttributes(
+        Map(
+          "abcd" -> "first",
+          "efgh" -> "second"
+        )
+      )
       html.toString() shouldBe " abcd=\"first\" efgh=\"second\""
     }
     "return attributes in order (b)" in {
-      val html = toAttributes(Map(
-        "efgh" -> "first",
-        "abcd" -> "second"
-      ))
+      val html = toAttributes(
+        Map(
+          "efgh" -> "first",
+          "abcd" -> "second"
+        )
+      )
       html.toString() shouldBe " efgh=\"first\" abcd=\"second\""
     }
     "return true for a non-empty string" in {
-      val html = toAttributes(Map(
-        "id" -> "my-navigation",
-        "role" -> "navigation"
-      ))
+      val html = toAttributes(
+        Map(
+          "id"   -> "my-navigation",
+          "role" -> "navigation"
+        )
+      )
       html.toString() shouldBe " id=\"my-navigation\" role=\"navigation\""
     }
 
     "isNonEmptyOptionString" should {
       "return true for a non-empty string" in {
-        isNonEmptyOptionString(Some("abc")) should be (true)
+        isNonEmptyOptionString(Some("abc")) should be(true)
       }
 
       "return true for a non-empty string containing only whitespace" in {
-        isNonEmptyOptionString(Some(" ")) should be (true)
+        isNonEmptyOptionString(Some(" ")) should be(true)
       }
 
       "return false for an empty string" in {
-        isNonEmptyOptionString(Some("")) should be (false)
+        isNonEmptyOptionString(Some("")) should be(false)
       }
 
       "return false for None" in {
-        isNonEmptyOptionString(None) should be (false)
+        isNonEmptyOptionString(None) should be(false)
       }
     }
 

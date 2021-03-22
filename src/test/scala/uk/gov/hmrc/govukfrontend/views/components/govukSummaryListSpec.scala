@@ -30,18 +30,24 @@ class govukSummaryListSpec extends TemplateUnitSpec[SummaryList]("govukSummaryLi
     * @param templateParams
     * @return [[Try[HtmlFormat.Appendable]]] containing the markup
     */
-  override def render(templateParams: _root_.uk.gov.hmrc.govukfrontend.views.html.components.SummaryList)
-    : Try[HtmlFormat.Appendable] =
+  override def render(
+    templateParams: _root_.uk.gov.hmrc.govukfrontend.views.html.components.SummaryList
+  ): Try[HtmlFormat.Appendable] =
     Try(GovukSummaryList(templateParams))
 
   "govukSummaryList" should {
     "handle lists where some rows have no actions" in {
-      val rowWithNoAction = SummaryListRow(key = Key(HtmlContent("foo")), value = Value(HtmlContent("FOO")), actions = None)
-      val rowWithAction = SummaryListRow(key = Key(HtmlContent("bar")), value = Value(HtmlContent("BAR")), actions = Some(Actions(items = List(ActionItem(content = HtmlContent("link"))))))
-      val html = GovukSummaryList(SummaryList(rowWithNoAction :: rowWithAction :: Nil))
+      val rowWithNoAction =
+        SummaryListRow(key = Key(HtmlContent("foo")), value = Value(HtmlContent("FOO")), actions = None)
+      val rowWithAction   = SummaryListRow(
+        key = Key(HtmlContent("bar")),
+        value = Value(HtmlContent("BAR")),
+        actions = Some(Actions(items = List(ActionItem(content = HtmlContent("link")))))
+      )
+      val html            = GovukSummaryList(SummaryList(rowWithNoAction :: rowWithAction :: Nil))
 
       html.select(".govuk-summary-list__row") should have size 2
-      html.select(".govuk-link") should have size 1
+      html.select(".govuk-link")              should have size 1
     }
   }
 }

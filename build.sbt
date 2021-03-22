@@ -2,7 +2,7 @@ import GenerateFixtures.generateFixtures
 import play.sbt.PlayImport.PlayKeys
 import sbt.CrossVersion
 
-val libName = "play-frontend-govuk"
+val libName         = "play-frontend-govuk"
 val silencerVersion = "1.7.2"
 
 lazy val playDir = "play-26"
@@ -50,18 +50,18 @@ lazy val itSettings = Defaults.itSettings ++ Seq(
 )
 
 lazy val templateImports: Seq[String] = Seq(
-    "_root_.play.twirl.api.Html",
-    "_root_.play.twirl.api.HtmlFormat",
-    "_root_.play.twirl.api.JavaScript",
-    "_root_.play.twirl.api.Txt",
-    "_root_.play.twirl.api.Xml",
-    "play.api.mvc._",
-    "play.api.data._",
-    "play.api.i18n._",
-    "play.api.templates.PlayMagic._",
-    "uk.gov.hmrc.govukfrontend.views.html.components.implicits._",
-    "_root_.play.twirl.api.TwirlFeatureImports._",
-    "_root_.play.twirl.api.TwirlHelperImports._"
-  )
+  "_root_.play.twirl.api.Html",
+  "_root_.play.twirl.api.HtmlFormat",
+  "_root_.play.twirl.api.JavaScript",
+  "_root_.play.twirl.api.Txt",
+  "_root_.play.twirl.api.Xml",
+  "play.api.mvc._",
+  "play.api.data._",
+  "play.api.i18n._",
+  "play.api.templates.PlayMagic._",
+  "uk.gov.hmrc.govukfrontend.views.html.components.implicits._",
+  "_root_.play.twirl.api.TwirlFeatureImports._",
+  "_root_.play.twirl.api.TwirlHelperImports._"
+)
 
 lazy val generateUnitTestFixtures = taskKey[Unit]("Generate unit test fixtures")

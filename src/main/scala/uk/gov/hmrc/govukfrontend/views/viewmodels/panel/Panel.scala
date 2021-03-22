@@ -23,11 +23,12 @@ import uk.gov.hmrc.govukfrontend.views.viewmodels.CommonJsonFormats._
 import uk.gov.hmrc.govukfrontend.views.viewmodels.content.{Content, Empty}
 
 case class Panel(
-  headingLevel: Int               = 1,
-  classes: String                 = "",
+  headingLevel: Int = 1,
+  classes: String = "",
   attributes: Map[String, String] = Map.empty,
-  title: Content                  = Empty,
-  content: Content                = Empty)
+  title: Content = Empty,
+  content: Content = Empty
+)
 
 object Panel {
 

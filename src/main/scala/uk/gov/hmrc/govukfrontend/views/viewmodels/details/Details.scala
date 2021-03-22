@@ -22,12 +22,12 @@ import uk.gov.hmrc.govukfrontend.views.viewmodels.CommonJsonFormats._
 import uk.gov.hmrc.govukfrontend.views.viewmodels.content.{Content, Empty}
 
 case class Details(
-  id: Option[String]              = None,
-  open: Boolean                   = false,
-  classes: String                 = "",
+  id: Option[String] = None,
+  open: Boolean = false,
+  classes: String = "",
   attributes: Map[String, String] = Map.empty,
-  summary: Content                = Empty,
-  content: Content                = Empty
+  summary: Content = Empty,
+  content: Content = Empty
 )
 
 object Details {

@@ -47,10 +47,11 @@ class govukErrorMessageSpec extends TemplateUnitSpec[ErrorMessage]("govukErrorMe
 
     "allow additional attributes to be specified" in {
       val component = GovukErrorMessage(
-        ErrorMessage(attributes = Map("data-test" -> "attribute", "id" -> "my-error-message"), content = Empty))
+        ErrorMessage(attributes = Map("data-test" -> "attribute", "id" -> "my-error-message"), content = Empty)
+      )
         .select(".govuk-error-message")
       component.attr("data-test") shouldBe "attribute"
-      component.attr("id")        shouldBe "my-error-message"
+      component.attr("id") shouldBe "my-error-message"
     }
 
     "include a visually hidden 'Error' prefix by default" in {
@@ -61,8 +62,7 @@ class govukErrorMessageSpec extends TemplateUnitSpec[ErrorMessage]("govukErrorMe
 
     "allow the visually hidden prefix to be customised" in {
       val component =
-        GovukErrorMessage(
-          ErrorMessage(visuallyHiddenText = Some("Gwall"), content = Text("Rhowch eich enw llawn")))
+        GovukErrorMessage(ErrorMessage(visuallyHiddenText = Some("Gwall"), content = Text("Rhowch eich enw llawn")))
           .select(".govuk-error-message")
       component.text.trim shouldBe "Gwall: Rhowch eich enw llawn"
     }

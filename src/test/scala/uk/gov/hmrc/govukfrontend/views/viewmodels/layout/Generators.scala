@@ -29,15 +29,14 @@ object Generators {
       bodyEnd       <- Gen.option(arbHtml.arbitrary)
       beforeContent <- Gen.option(arbHtml.arbitrary)
       content       <- Gen.option(arbHtml.arbitrary)
-    } yield
-      Layout(
-        pageTitle     = pageTitle,
-        head          = head,
-        header        = header,
-        footer        = footer,
-        bodyEnd       = bodyEnd,
-        beforeContent = beforeContent,
-        content       = content
-      )
+    } yield Layout(
+      pageTitle = pageTitle,
+      head = head,
+      header = header,
+      footer = footer,
+      bodyEnd = bodyEnd,
+      beforeContent = beforeContent,
+      content = content
+    )
   }
 }

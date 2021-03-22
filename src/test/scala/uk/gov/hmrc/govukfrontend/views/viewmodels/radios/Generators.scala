@@ -38,19 +38,18 @@ object Generators {
       conditionalHtml <- Gen.option(arbHtml.arbitrary)
       disabled        <- Arbitrary.arbBool.arbitrary
       attributes      <- genAttributes()
-    } yield
-      RadioItem(
-        content         = content,
-        id              = id,
-        value           = value,
-        label           = label,
-        hint            = hint,
-        divider         = divider,
-        checked         = checked,
-        conditionalHtml = conditionalHtml,
-        disabled        = disabled,
-        attributes      = attributes
-      )
+    } yield RadioItem(
+      content = content,
+      id = id,
+      value = value,
+      label = label,
+      hint = hint,
+      divider = divider,
+      checked = checked,
+      conditionalHtml = conditionalHtml,
+      disabled = disabled,
+      attributes = attributes
+    )
   }
 
   implicit val arbRadios: Arbitrary[Radios] = Arbitrary {
@@ -65,18 +64,17 @@ object Generators {
       items            <- Gen.listOfN(n, arbRadioItem.arbitrary)
       classes          <- genClasses()
       attributes       <- genAttributes()
-    } yield
-      Radios(
-        fieldset         = fieldset,
-        hint             = hint,
-        errorMessage     = errorMessage,
-        formGroupClasses = formGroupClasses,
-        idPrefix         = idPrefix,
-        name             = name,
-        items            = items,
-        classes          = classes,
-        attributes       = attributes
-      )
+    } yield Radios(
+      fieldset = fieldset,
+      hint = hint,
+      errorMessage = errorMessage,
+      formGroupClasses = formGroupClasses,
+      idPrefix = idPrefix,
+      name = name,
+      items = items,
+      classes = classes,
+      attributes = attributes
+    )
   }
 
 }

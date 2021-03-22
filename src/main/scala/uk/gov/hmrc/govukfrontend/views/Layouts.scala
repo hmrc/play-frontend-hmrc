@@ -22,10 +22,10 @@ import uk.gov.hmrc.govukfrontend.views.html.layouts._
 trait Layouts {
 
   type GovukLayout = govukLayout
-  @deprecated(message="Use DI", since="Play 2.6")
+  @deprecated(message = "Use DI", since = "Play 2.6")
   lazy val GovukLayout = new govukLayout(GovukTemplate, GovukHeader, GovukFooter, GovukBackLink)
 
   type GovukTemplate = govukTemplate
-  @deprecated(message="Use DI", since="Play 2.6")
+  @deprecated(message = "Use DI", since = "Play 2.6")
   lazy val GovukTemplate = new govukTemplate(GovukHeader, GovukFooter, GovukSkipLink)
 }

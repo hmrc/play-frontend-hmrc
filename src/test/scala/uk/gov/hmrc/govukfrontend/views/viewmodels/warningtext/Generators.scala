@@ -28,7 +28,11 @@ object Generators {
       classes          <- genClasses()
       attributes       <- genAttributes()
       content          <- arbContent.arbitrary
-    } yield
-      WarningText(iconFallbackText = iconFallbackText, classes = classes, attributes = attributes, content = content)
+    } yield WarningText(
+      iconFallbackText = iconFallbackText,
+      classes = classes,
+      attributes = attributes,
+      content = content
+    )
   }
 }

@@ -22,15 +22,15 @@ import uk.gov.hmrc.govukfrontend.views.viewmodels.CommonJsonFormats.attributesRe
 import uk.gov.hmrc.govukfrontend.views.viewmodels.content.{Content, Empty}
 
 case class NotificationBanner(
-  content: Content                  = Empty,
-  bannerType: Option[String]        = None,
-  role: Option[String]              = None,
-  title: Content                    = Empty,
-  titleId: Option[String]           = None,
+  content: Content = Empty,
+  bannerType: Option[String] = None,
+  role: Option[String] = None,
+  title: Content = Empty,
+  titleId: Option[String] = None,
   disableAutoFocus: Option[Boolean] = None,
-  classes: String                   = "",
-  titleHeadingLevel: Option[Int]    = None,
-  attributes: Map[String, String]   = Map.empty
+  classes: String = "",
+  titleHeadingLevel: Option[Int] = None,
+  attributes: Map[String, String] = Map.empty
 )
 
 object NotificationBanner {

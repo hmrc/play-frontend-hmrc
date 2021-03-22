@@ -24,7 +24,7 @@ trait PreProcessor {
 
   private lazy val compressor = new HtmlCompressor()
 
-  /***
+  /** *
     * Compresses markup to remove irrelevant whitespace differences.
     *
     * @param html
@@ -35,7 +35,7 @@ trait PreProcessor {
     compressor.compress(toDecimal(html))
   }
 
-  /***
+  /** *
     * Function to pre-process the markup before comparing.
     *
     * @param html

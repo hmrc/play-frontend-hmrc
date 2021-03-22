@@ -27,40 +27,44 @@ class HeaderNavigationSpec extends JsonRoundtripSpec[HeaderNavigation] {
       val testData =
         HeaderNavigation(None, Some("link"), active = true, Map("abc" -> "def"), HtmlContent("<strong>Html</strong>"))
 
-      val json = Json.toJson[HeaderNavigation](testData)
+      val json     = Json.toJson[HeaderNavigation](testData)
 
       json.as[HeaderNavigation] should be(
-        HeaderNavigation(None, Some("link"), active = true, Map("abc" -> "def"), HtmlContent("<strong>Html</strong>")))
+        HeaderNavigation(None, Some("link"), active = true, Map("abc" -> "def"), HtmlContent("<strong>Html</strong>"))
+      )
     }
 
     "round trip empty content successfully" in {
       val testData =
         HeaderNavigation(None, Some("link"), active = true, Map("abc" -> "def"), Empty)
 
-      val json = Json.toJson[HeaderNavigation](testData)
+      val json     = Json.toJson[HeaderNavigation](testData)
 
       json.as[HeaderNavigation] should be(
-        HeaderNavigation(None, Some("link"), active = true, Map("abc" -> "def"), Empty))
+        HeaderNavigation(None, Some("link"), active = true, Map("abc" -> "def"), Empty)
+      )
     }
 
     "round trip non-Empty content successfully" in {
       val testData =
         HeaderNavigation(None, Some("link"), active = true, Map("abc" -> "def"), HtmlContent(""))
 
-      val json = Json.toJson[HeaderNavigation](testData)
+      val json     = Json.toJson[HeaderNavigation](testData)
 
       json.as[HeaderNavigation] should be(
-        HeaderNavigation(None, Some("link"), active = true, Map("abc" -> "def"), HtmlContent("")))
+        HeaderNavigation(None, Some("link"), active = true, Map("abc" -> "def"), HtmlContent(""))
+      )
     }
 
     "move any text content to the content field" in {
       val testData =
         HeaderNavigation(Some("text"), Some("link"), active = true, Map("abc" -> "def"), Empty)
 
-      val json = Json.toJson[HeaderNavigation](testData)
+      val json     = Json.toJson[HeaderNavigation](testData)
 
       json.as[HeaderNavigation] should be(
-        HeaderNavigation(None, Some("link"), active = true, Map("abc" -> "def"), Text("text")))
+        HeaderNavigation(None, Some("link"), active = true, Map("abc" -> "def"), Text("text"))
+      )
     }
 
     "ignore any text in the text field if the content field is non-empty" in {
@@ -69,7 +73,8 @@ class HeaderNavigationSpec extends JsonRoundtripSpec[HeaderNavigation] {
       val json = Json.toJson[HeaderNavigation](testData)
 
       json.as[HeaderNavigation] should be(
-        HeaderNavigation(text = None, Some("link"), active = true, Map(), Text("content:text")))
+        HeaderNavigation(text = None, Some("link"), active = true, Map(), Text("content:text"))
+      )
     }
   }
 }

@@ -35,7 +35,7 @@ class govukBackLinkSpec extends TemplateUnitSpec[BackLink]("govukBackLink") {
     }
 
     "render classes correctly" in {
-      val params =
+      val params    =
         BackLink(href = "#", classes = "app-back-link--custom-class", content = HtmlContent("<b>Back</b>"))
       val component = GovukBackLink(params).select(".govuk-back-link")
 
@@ -71,10 +71,11 @@ class govukBackLinkSpec extends TemplateUnitSpec[BackLink]("govukBackLink") {
     }
 
     "render attributes correctly" in {
-      val params = BackLink(
-        href       = "#",
+      val params    = BackLink(
+        href = "#",
         attributes = Map("data-test" -> "attribute", "aria-label" -> "Back to home"),
-        content    = HtmlContent("Back"))
+        content = HtmlContent("Back")
+      )
       val component = GovukBackLink(params).select(".govuk-back-link")
 
       component.attr("data-test")  shouldBe "attribute"

@@ -56,12 +56,12 @@ object Generators {
       containerClasses <- genClasses()
       classes          <- genClasses()
       attributes       <- genAttributes()
-    } yield
-      Footer(
-        meta             = meta,
-        navigation       = navigation,
-        containerClasses = containerClasses,
-        classes          = classes,
-        attributes       = attributes)
+    } yield Footer(
+      meta = meta,
+      navigation = navigation,
+      containerClasses = containerClasses,
+      classes = classes,
+      attributes = attributes
+    )
   }
 }

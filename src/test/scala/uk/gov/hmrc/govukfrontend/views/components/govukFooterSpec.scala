@@ -22,6 +22,7 @@ import uk.gov.hmrc.govukfrontend.views.html.components._
 import scala.util.Try
 
 class govukFooterSpec extends TemplateUnitSpec[Footer]("govukFooter") {
+
   /**
     * Calls the Twirl template with the given parameters and returns the resulting markup
     *

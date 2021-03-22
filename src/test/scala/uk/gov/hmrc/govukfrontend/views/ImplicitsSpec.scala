@@ -48,29 +48,27 @@ class ImplicitsSpec
   "RichFormErrors" when {
     "asErrorLinks" should {
       "convert FormErrors to ErrorLinks with either text or html" in {
-        forAll(genFormErrorsAndMessages) {
-          case (formErrors, contentConstructor, messagesStub) =>
-            import messagesStub.messages
-            formErrors.asErrorLinks(contentConstructor).zipWithIndex.foreach {
-              case (errorLink, i) =>
-                errorLink shouldBe ErrorLink(
-                  href    = Some(s"#${formErrors(i).key}"),
-                  content = contentConstructor(messagesStub.messages(formErrors(i).message, formErrors(i).args: _*)))
-            }
+        forAll(genFormErrorsAndMessages) { case (formErrors, contentConstructor, messagesStub) =>
+          import messagesStub.messages
+          formErrors.asErrorLinks(contentConstructor).zipWithIndex.foreach { case (errorLink, i) =>
+            errorLink shouldBe ErrorLink(
+              href = Some(s"#${formErrors(i).key}"),
+              content = contentConstructor(messagesStub.messages(formErrors(i).message, formErrors(i).args: _*))
+            )
+          }
         }
       }
     }
 
     "asErrorMessages" should {
       "convert FormErrors to ErrorMessage either text or html" in {
-        forAll(genFormErrorsAndMessages) {
-          case (formErrors, contentConstructor, messagesStub) =>
-            import messagesStub.messages
-            formErrors.asErrorMessages(contentConstructor).zipWithIndex.foreach {
-              case (errorMessageParams, i) =>
-                errorMessageParams shouldBe ErrorMessage(
-                  content = contentConstructor(messagesStub.messages(formErrors(i).message, formErrors(i).args: _*)))
-            }
+        forAll(genFormErrorsAndMessages) { case (formErrors, contentConstructor, messagesStub) =>
+          import messagesStub.messages
+          formErrors.asErrorMessages(contentConstructor).zipWithIndex.foreach { case (errorMessageParams, i) =>
+            errorMessageParams shouldBe ErrorMessage(
+              content = contentConstructor(messagesStub.messages(formErrors(i).message, formErrors(i).args: _*))
+            )
+          }
         }
       }
     }
@@ -78,24 +76,23 @@ class ImplicitsSpec
     "asErrorMessage" when {
       "finds matching message" should {
         "convert FormErrors to ErrorMessage" in {
-          forAll(genFormErrorsAndMessages) {
-            case (formErrors, contentConstructor, messagesStub) =>
-              import messagesStub.messages
-              val i             = Random.nextInt(formErrors.length)
-              val randomMessage = formErrors(i).message //select random message
-              formErrors.asErrorMessage(contentConstructor, randomMessage).value shouldBe ErrorMessage(
-                content = contentConstructor(messagesStub.messages(formErrors(i).message, formErrors(i).args: _*)))
+          forAll(genFormErrorsAndMessages) { case (formErrors, contentConstructor, messagesStub) =>
+            import messagesStub.messages
+            val i             = Random.nextInt(formErrors.length)
+            val randomMessage = formErrors(i).message //select random message
+            formErrors.asErrorMessage(contentConstructor, randomMessage).value shouldBe ErrorMessage(
+              content = contentConstructor(messagesStub.messages(formErrors(i).message, formErrors(i).args: _*))
+            )
           }
         }
       }
 
       "doesn't find matching message" should {
         "return None" in {
-          forAll(genFormErrorsAndMessages) {
-            case (formErrors, contentConstructor, messagesStub) =>
-              import messagesStub.messages
-              val mismatchingMessage = UUID.randomUUID.toString
-              formErrors.asErrorMessage(contentConstructor, mismatchingMessage) shouldBe None
+          forAll(genFormErrorsAndMessages) { case (formErrors, contentConstructor, messagesStub) =>
+            import messagesStub.messages
+            val mismatchingMessage = UUID.randomUUID.toString
+            formErrors.asErrorMessage(contentConstructor, mismatchingMessage) shouldBe None
           }
         }
       }
@@ -104,40 +101,39 @@ class ImplicitsSpec
     "asErrorMessageForField" when {
       "finds matching message for field" should {
         "convert FormErrors to ErrorMessage" in {
-          forAll(genFormErrorsAndMessages) {
-            case (formErrors, contentConstructor, messagesStub) =>
-              import messagesStub.messages
-              val i        = Random.nextInt(formErrors.length)
-              val fieldKey = formErrors(i).key //select random message
-              formErrors.asErrorMessageForField(contentConstructor, fieldKey).value shouldBe ErrorMessage(
-                content = contentConstructor(messagesStub.messages(formErrors(i).message, formErrors(i).args: _*)))
+          forAll(genFormErrorsAndMessages) { case (formErrors, contentConstructor, messagesStub) =>
+            import messagesStub.messages
+            val i        = Random.nextInt(formErrors.length)
+            val fieldKey = formErrors(i).key //select random message
+            formErrors.asErrorMessageForField(contentConstructor, fieldKey).value shouldBe ErrorMessage(
+              content = contentConstructor(messagesStub.messages(formErrors(i).message, formErrors(i).args: _*))
+            )
           }
         }
       }
 
       "finds matching message for field" should {
         "convert FormErrors to ErrorMessage choosing first error when several errors are present for the same field" in {
-          forAll(genFormErrorsAndMessagesForSameFormField) {
-            case (formErrors, contentConstructor, messagesStub) =>
-              import messagesStub.messages
-              val i                  = Random.nextInt(formErrors.length)
-              val fieldKey           = formErrors(i).key //select random message
-              val firstErrorForField = formErrors.filter(_.key == fieldKey)(0)
-              formErrors.asErrorMessageForField(contentConstructor, fieldKey).value shouldBe ErrorMessage(
-                content =
-                  contentConstructor(messagesStub.messages(firstErrorForField.message, firstErrorForField.args: _*)))
+          forAll(genFormErrorsAndMessagesForSameFormField) { case (formErrors, contentConstructor, messagesStub) =>
+            import messagesStub.messages
+            val i                  = Random.nextInt(formErrors.length)
+            val fieldKey           = formErrors(i).key //select random message
+            val firstErrorForField = formErrors.filter(_.key == fieldKey)(0)
+            formErrors.asErrorMessageForField(contentConstructor, fieldKey).value shouldBe ErrorMessage(
+              content =
+                contentConstructor(messagesStub.messages(firstErrorForField.message, firstErrorForField.args: _*))
+            )
           }
         }
       }
 
       "finds matching message for field" should {
         "return None" in {
-          forAll(genFormErrorsAndMessagesForSameFormField) {
-            case (formErrors, contentConstructor, messagesStub) =>
-              import messagesStub.messages
-              val i        = Random.nextInt(formErrors.length)
-              val fieldKey = "" //select random message
-              formErrors.asErrorMessageForField(contentConstructor, fieldKey) shouldBe None
+          forAll(genFormErrorsAndMessagesForSameFormField) { case (formErrors, contentConstructor, messagesStub) =>
+            import messagesStub.messages
+            val i        = Random.nextInt(formErrors.length)
+            val fieldKey = "" //select random message
+            formErrors.asErrorMessageForField(contentConstructor, fieldKey) shouldBe None
           }
         }
       }
@@ -170,11 +166,10 @@ class ImplicitsSpec
   // indent(n) = indent(n+1).indent(-1) if n < 0
   "indent(n, _)" should {
     "be the same as indent(signum(n) * (abs(n)-1), _).indent(signum(n) * 1, _)" in {
-      forAll(genIndentArgs) {
-        case (s, n, indentFirstLine) =>
-          s.indent(n, indentFirstLine) shouldBe s
-            .indent(math.signum(n) * (math.abs(n) - 1), indentFirstLine)
-            .indent(math.signum(n) * 1, indentFirstLine)
+      forAll(genIndentArgs) { case (s, n, indentFirstLine) =>
+        s.indent(n, indentFirstLine) shouldBe s
+          .indent(math.signum(n) * (math.abs(n) - 1), indentFirstLine)
+          .indent(math.signum(n) * 1, indentFirstLine)
       }
     }
   }
@@ -187,28 +182,29 @@ class ImplicitsSpec
     val genIndentArgs: Gen[(String, Int, Boolean)] =
       for {
         // generate text to indent with a maximum of 8 lines
-        nLines <- Gen.choose(0, 8)
+        nLines               <- Gen.choose(0, 8)
         maxInitialIndentation = 10
         // Initial indentation for each line in the generated string: generate small indentations less often so we can test unindent more often
-        initialIndentations <- Gen.listOfN(nLines, Gen.frequency((10, Gen.oneOf(0 to 3)), (90, Gen.oneOf(4 to 10))))
+        initialIndentations  <- Gen.listOfN(nLines, Gen.frequency((10, Gen.oneOf(0 to 3)), (90, Gen.oneOf(4 to 10))))
         // indentation for each line
-        paddings = initialIndentations.map(" " * _)
+        paddings              = initialIndentations.map(" " * _)
         // maxIndentation > initialIndentation so we cover cases where we try to unindent (negative n) beyond the left margin
-        maxIndentation = maxInitialIndentation + 1
-        n <- Gen.chooseNum(-maxIndentation, maxIndentation)
+        maxIndentation        = maxInitialIndentation + 1
+        n                    <- Gen.chooseNum(-maxIndentation, maxIndentation)
         // Generate lines interspersed with blank space lines
-        lineGen  = Gen.frequency((70, Gen.alphaStr), (30, Gen.const(" ")))
-        padLines = (lines: Seq[String]) => paddings.zip(lines).map { case (padding, s) => padding + s }
-        str <- Gen.frequency(
-                (
-                  90,
-                  Gen
-                    .listOfN(nLines, lineGen)
-                    .map(padLines)
-                    .map(_.mkString("\n"))),
-                (10, Gen.const(""))
-              )
-        indentFirstLine <- arbBool.arbitrary
+        lineGen               = Gen.frequency((70, Gen.alphaStr), (30, Gen.const(" ")))
+        padLines              = (lines: Seq[String]) => paddings.zip(lines).map { case (padding, s) => padding + s }
+        str                  <- Gen.frequency(
+                                  (
+                                    90,
+                                    Gen
+                                      .listOfN(nLines, lineGen)
+                                      .map(padLines)
+                                      .map(_.mkString("\n"))
+                                  ),
+                                  (10, Gen.const(""))
+                                )
+        indentFirstLine      <- arbBool.arbitrary
       } yield (str, n, indentFirstLine)
 
     val genMessagePair: Gen[(String, String)] = for {
@@ -240,10 +236,13 @@ class ImplicitsSpec
       generatedMessages  <- genMessages
       messageKey         <- Gen.oneOf(generatedMessages.keys)
       errors             <- Gen.listOfN(n, genFormError(messageKey))
-    } yield
-      (errors, contentConstructor, new MessagesHelpers {
+    } yield (
+      errors,
+      contentConstructor,
+      new MessagesHelpers {
         override val messagesMap = Map("default" -> generatedMessages)
-      })
+      }
+    )
 
     val genFormErrorsAndMessagesForSameFormField: Gen[(immutable.Seq[FormError], String => Content, MessagesHelpers)] =
       for {
@@ -254,9 +253,12 @@ class ImplicitsSpec
         anotherMessageKey  <- Gen.oneOf(generatedMessages.keys)
         errors             <- Gen.listOfN(n, genFormErrorForSameFormField(messageKey))
         anotherSetOfErrors <- Gen.listOf(genFormErrorForSameFormField(anotherMessageKey))
-      } yield
-        (errors ++ anotherSetOfErrors, contentConstructor, new MessagesHelpers {
+      } yield (
+        errors ++ anotherSetOfErrors,
+        contentConstructor,
+        new MessagesHelpers {
           override val messagesMap = Map("default" -> generatedMessages)
-        })
+        }
+      )
   }
 }

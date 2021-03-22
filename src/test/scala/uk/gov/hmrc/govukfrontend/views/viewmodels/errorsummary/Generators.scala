@@ -38,12 +38,12 @@ object Generators {
       attributes  <- genAttributes()
       title       <- arbContent.arbitrary
       description <- arbContent.arbitrary
-    } yield
-      ErrorSummary(
-        errorList   = errorList,
-        classes     = classes,
-        attributes  = attributes,
-        title       = title,
-        description = description)
+    } yield ErrorSummary(
+      errorList = errorList,
+      classes = classes,
+      attributes = attributes,
+      title = title,
+      description = description
+    )
   }
 }

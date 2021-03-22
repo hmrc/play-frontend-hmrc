@@ -24,19 +24,15 @@ import play.twirl.api.{Html, HtmlFormat}
 import uk.gov.hmrc.govukfrontend.views.html.components._
 import uk.gov.hmrc.govukfrontend.views.{JsoupHelpers, MessagesHelpers}
 
-class formWithCSRFSpec
-  extends AnyWordSpec
-    with Matchers
-    with JsoupHelpers
-    with MessagesHelpers
-    with CSRFSpec {
+class formWithCSRFSpec extends AnyWordSpec with Matchers with JsoupHelpers with MessagesHelpers with CSRFSpec {
 
   "formWithCSRF" should {
     val postAction = Call(method = "POST", url = "/the-post-url")
 
     "render with the correct action attribute" in {
       val form =
-        FormWithCSRF.apply(action = postAction)(HtmlFormat.empty)
+        FormWithCSRF
+          .apply(action = postAction)(HtmlFormat.empty)
           .select("form")
 
       form.attr("action") shouldBe "/the-post-url"
@@ -44,7 +40,8 @@ class formWithCSRFSpec
 
     "render with the correct action including a fragment" in {
       val form =
-        FormWithCSRF.apply(action = postAction.withFragment("tab"))(HtmlFormat.empty)
+        FormWithCSRF
+          .apply(action = postAction.withFragment("tab"))(HtmlFormat.empty)
           .select("form")
 
       form.attr("action") shouldBe "/the-post-url#tab"
@@ -54,7 +51,8 @@ class formWithCSRFSpec
       val getCall = Call(method = "GET", url = "/the-post-url")
 
       val form =
-        FormWithCSRF.apply(action = getCall)(HtmlFormat.empty)
+        FormWithCSRF
+          .apply(action = getCall)(HtmlFormat.empty)
           .select("form")
 
       form.attr("method") shouldBe "GET"
@@ -64,7 +62,8 @@ class formWithCSRFSpec
       val getCall = Call(method = "GET", url = "/the-post-url")
 
       val form =
-        FormWithCSRF.apply(action = getCall)(HtmlFormat.empty)
+        FormWithCSRF
+          .apply(action = getCall)(HtmlFormat.empty)
           .select("form")
 
       form.hasAttr("novalidate") shouldBe true
@@ -78,7 +77,8 @@ class formWithCSRFSpec
     }
     "render the passed attributes" in {
       val form =
-        FormWithCSRF.apply(action = postAction, 'attribute1 -> "value1")(HtmlFormat.empty)
+        FormWithCSRF
+          .apply(action = postAction, 'attribute1 -> "value1")(HtmlFormat.empty)
           .select("form")
 
       form.attr("attribute1") shouldBe "value1"
@@ -86,7 +86,8 @@ class formWithCSRFSpec
 
     "render multiple attributes" in {
       val form =
-        FormWithCSRF.apply(action = postAction, 'attribute1 -> "value1", 'attribute2 -> "value2")(HtmlFormat.empty)
+        FormWithCSRF
+          .apply(action = postAction, 'attribute1 -> "value1", 'attribute2 -> "value2")(HtmlFormat.empty)
           .select("form")
 
       form.attr("attribute1") shouldBe "value1"
@@ -95,8 +96,9 @@ class formWithCSRFSpec
 
     "render the contents of the form" in {
       val content = Html("<p>Content</p>")
-      val form =
-        FormWithCSRF.apply(action = postAction)(content)
+      val form    =
+        FormWithCSRF
+          .apply(action = postAction)(content)
           .select("p")
 
       form.outerHtml shouldBe "<p>Content</p>"
@@ -104,7 +106,7 @@ class formWithCSRFSpec
 
     "not render the CSRF token if the request does not contain the token" in {
       implicit val request: FakeRequest[AnyContentAsEmpty.type] = FakeRequest()
-      val form =
+      val form                                                  =
         FormWithCSRF.apply(action = postAction)(HtmlFormat.empty)
 
       val input = form.select("input")
@@ -118,8 +120,8 @@ class formWithCSRFSpec
       val input = form.select("input")
       input.size shouldBe 1
 
-      input.attr("type")         shouldBe "hidden"
-      input.attr("name")         shouldBe "csrfToken"
+      input.attr("type")       shouldBe "hidden"
+      input.attr("name")       shouldBe "csrfToken"
       input.attr("value").length should be > 0
     }
   }

@@ -22,11 +22,11 @@ import play.api.libs.json._
 import uk.gov.hmrc.govukfrontend.views.viewmodels.content.{Content, Empty}
 
 final case class ErrorMessage(
-  id: Option[String]                 = None,
-  classes: String                    = "",
-  attributes: Map[String, String]    = Map.empty,
+  id: Option[String] = None,
+  classes: String = "",
+  attributes: Map[String, String] = Map.empty,
   visuallyHiddenText: Option[String] = Some("Error"),
-  content: Content                   = Empty
+  content: Content = Empty
 )
 
 object ErrorMessage {
@@ -36,7 +36,7 @@ object ErrorMessage {
   // [[https://github.com/alphagov/govuk-frontend/blob/v3.3.0/src/govuk/components/error-message/template.test.js#L82]]
   // When visuallyHiddenText is a falsy value we want to hide the text
   // If it is not provided we default to "Error"
-  val readsVisuallyHiddenText: Reads[Option[String]] = (
+  val readsVisuallyHiddenText: Reads[Option[String]] =
     (__ \ "visuallyHiddenText")
       .read[JsValue]
       .orElse(Reads.pure(JsString("Error")))
@@ -47,7 +47,6 @@ object ErrorMessage {
         case JsString(text)        => Some(text)
         case x                     => Some(x.toString) // not intended but that is how govuk-frontend behaves
       }
-  )
 
   val writesVisuallyHiddenText: OWrites[Option[String]] = new OWrites[Option[String]] {
     override def writes(o: Option[String]): JsObject = o match {

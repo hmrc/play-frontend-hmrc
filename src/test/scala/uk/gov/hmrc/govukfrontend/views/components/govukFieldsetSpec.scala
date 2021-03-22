@@ -22,6 +22,7 @@ import uk.gov.hmrc.govukfrontend.views.html.components._
 import scala.util.Try
 
 class govukFieldsetSpec extends TemplateUnitSpec[Fieldset]("govukFieldset") {
+
   /**
     * Calls the Twirl template with the given parameters and returns the resulting markup
     *

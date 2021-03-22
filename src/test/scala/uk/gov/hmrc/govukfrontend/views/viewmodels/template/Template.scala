@@ -21,23 +21,23 @@ import play.api.libs.json.{Json, OWrites, Reads}
 import play.twirl.api.Html
 
 final case class Template(
-  htmlLang: Option[String]      = None,
+  htmlLang: Option[String] = None,
   pageTitleLang: Option[String] = None,
-  mainLang: Option[String]      = None,
-  htmlClasses: Option[String]   = None,
-  themeColor: Option[String]    = None,
-  bodyClasses: Option[String]   = None,
-  pageTitle: Option[String]     = None,
-  headIcons: Option[Html]       = None,
-  head: Option[Html]            = None,
-  bodyStart: Option[Html]       = None,
-  skipLink: Option[Html]        = None,
-  header: Option[Html]          = None,
-  footer: Option[Html]          = None,
-  bodyEnd: Option[Html]         = None,
-  mainClasses: Option[String]   = None,
-  beforeContent: Option[Html]   = None,
-  content: Option[Html]         = None
+  mainLang: Option[String] = None,
+  htmlClasses: Option[String] = None,
+  themeColor: Option[String] = None,
+  bodyClasses: Option[String] = None,
+  pageTitle: Option[String] = None,
+  headIcons: Option[Html] = None,
+  head: Option[Html] = None,
+  bodyStart: Option[Html] = None,
+  skipLink: Option[Html] = None,
+  header: Option[Html] = None,
+  footer: Option[Html] = None,
+  bodyEnd: Option[Html] = None,
+  mainClasses: Option[String] = None,
+  beforeContent: Option[Html] = None,
+  content: Option[Html] = None
 )
 
 object Template {

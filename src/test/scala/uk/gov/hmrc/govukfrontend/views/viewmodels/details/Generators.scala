@@ -30,7 +30,13 @@ object Generators {
       attributes <- genAttributes()
       summary    <- arbContent.arbitrary
       content    <- arbContent.arbitrary
-    } yield
-      Details(id = id, open = open, classes = classes, attributes = attributes, summary = summary, content = content)
+    } yield Details(
+      id = id,
+      open = open,
+      classes = classes,
+      attributes = attributes,
+      summary = summary,
+      content = content
+    )
   }
 }

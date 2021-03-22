@@ -53,7 +53,7 @@ trait Utils {
 
   private[views] def isNonEmptyOptionString(value: Option[String]) = value match {
     case Some(NonEmptyString(_)) => true
-    case _ => false
+    case _                       => false
   }
 }
 

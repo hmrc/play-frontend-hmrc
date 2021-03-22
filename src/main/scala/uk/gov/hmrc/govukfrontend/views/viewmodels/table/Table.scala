@@ -21,12 +21,12 @@ import play.api.libs.json._
 import uk.gov.hmrc.govukfrontend.views.viewmodels.CommonJsonFormats._
 
 case class Table(
-  rows: Seq[Seq[TableRow]]        = Nil,
-  head: Option[Seq[HeadCell]]     = None,
-  caption: Option[String]         = None,
-  captionClasses: String          = "",
-  firstCellIsHeader: Boolean      = false,
-  classes: String                 = "",
+  rows: Seq[Seq[TableRow]] = Nil,
+  head: Option[Seq[HeadCell]] = None,
+  caption: Option[String] = None,
+  captionClasses: String = "",
+  firstCellIsHeader: Boolean = false,
+  classes: String = "",
   attributes: Map[String, String] = Map.empty
 )
 
@@ -39,7 +39,7 @@ object Table {
       forgivingSeqReads(forgivingSeqReads[TableRow])
 
     (
-        (__ \ "rows").readWithDefault[Seq[Seq[TableRow]]](defaultObject.rows)(readsRows) and
+      (__ \ "rows").readWithDefault[Seq[Seq[TableRow]]](defaultObject.rows)(readsRows) and
         (__ \ "head").readNullable[Seq[HeadCell]] and
         (__ \ "caption").readNullable[String] and
         (__ \ "captionClasses").readWithDefault[String](defaultObject.captionClasses) and

@@ -21,10 +21,10 @@ import play.api.libs.json._
 import uk.gov.hmrc.govukfrontend.views.viewmodels.content.{Content, Empty}
 
 case class PrefixOrSuffix(
-                     classes: String                 = "",
-                     attributes: Map[String, String] = Map.empty,
-                     content: Content                = Empty
-                   )
+  classes: String = "",
+  attributes: Map[String, String] = Map.empty,
+  content: Content = Empty
+)
 
 object PrefixOrSuffix {
 
@@ -35,12 +35,12 @@ object PrefixOrSuffix {
       (__ \ "classes").readWithDefault[String](defaultObject.classes) and
         (__ \ "attributes").readWithDefault[Map[String, String]](defaultObject.attributes) and
         Content.reads
-      )(PrefixOrSuffix.apply _)
+    )(PrefixOrSuffix.apply _)
 
   implicit def jsonWrites: OWrites[PrefixOrSuffix] =
     (
       (__ \ "classes").write[String] and
         (__ \ "attributes").write[Map[String, String]] and
         Content.writes
-      )(unlift(PrefixOrSuffix.unapply))
+    )(unlift(PrefixOrSuffix.unapply))
 }

@@ -32,23 +32,25 @@ class govukTemplateSpec extends TemplateUnitSpec[Template]("govukTemplate") {
     * @return [[Try[HtmlFormat.Appendable]]] containing the markup
     */
   override def render(template: Template): Try[HtmlFormat.Appendable] =
-    Try(GovukTemplate.apply(
-      htmlLang = template.htmlLang,
-      pageTitleLang = template.pageTitleLang,
-      mainLang = template.mainLang,
-      htmlClasses = template.htmlClasses,
-      themeColour = template.themeColor,
-      bodyClasses = template.bodyClasses,
-      pageTitle = template.pageTitle,
-      headIcons = template.headIcons,
-      headBlock = template.head,
-      bodyStart = template.bodyStart,
-      skipLinkBlock = template.skipLink,
-      headerBlock = template.header.getOrElse(GovukHeader()),
-      footerBlock = template.footer.getOrElse(GovukFooter()),
-      bodyEndBlock = template.bodyEnd,
-      mainClasses = template.mainClasses,
-      beforeContentBlock = template.beforeContent)(template.content.getOrElse(HtmlFormat.empty))
+    Try(
+      GovukTemplate.apply(
+        htmlLang = template.htmlLang,
+        pageTitleLang = template.pageTitleLang,
+        mainLang = template.mainLang,
+        htmlClasses = template.htmlClasses,
+        themeColour = template.themeColor,
+        bodyClasses = template.bodyClasses,
+        pageTitle = template.pageTitle,
+        headIcons = template.headIcons,
+        headBlock = template.head,
+        bodyStart = template.bodyStart,
+        skipLinkBlock = template.skipLink,
+        headerBlock = template.header.getOrElse(GovukHeader()),
+        footerBlock = template.footer.getOrElse(GovukFooter()),
+        bodyEndBlock = template.bodyEnd,
+        mainClasses = template.mainClasses,
+        beforeContentBlock = template.beforeContent
+      )(template.content.getOrElse(HtmlFormat.empty))
     )
 
   "template rendered with default values" should {
@@ -56,7 +58,7 @@ class govukTemplateSpec extends TemplateUnitSpec[Template]("govukTemplate") {
       val templateHtml =
         GovukTemplate
           .apply(htmlLang = None, htmlClasses = None, themeColour = None, bodyClasses = None)(HtmlFormat.empty)
-      val component = templateHtml.body
+      val component    = templateHtml.body
       component.charAt(0) shouldBe '<'
     }
   }

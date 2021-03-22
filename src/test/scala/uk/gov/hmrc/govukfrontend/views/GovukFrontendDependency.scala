@@ -29,10 +29,10 @@ object GovukFrontendDependency {
 
   def findFirstMatch(regex: Regex, xs: Seq[String]): Option[Regex.Match] =
     for {
-      x <- xs.find {
-            case regex(_*) => true
-            case _         => false
-          }
+      x          <- xs.find {
+                      case regex(_*) => true
+                      case _         => false
+                    }
       firstMatch <- regex.findFirstMatchIn(x)
     } yield firstMatch
 }

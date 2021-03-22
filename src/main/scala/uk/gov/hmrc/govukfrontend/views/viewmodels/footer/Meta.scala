@@ -23,10 +23,10 @@ import uk.gov.hmrc.govukfrontend.views.viewmodels.content.{Content, Empty}
 
 final case class Meta(
   visuallyHiddenTitle: Option[String] = None,
-  content: Content                    = Empty,
+  content: Content = Empty,
   //FIXME Option[Seq[T]] is used to represent the 3 possible types of values of javascript arrays: undefined, non-empty array, and empty array
   // once https://github.com/alphagov/govuk-frontend/issues/1618 is solved we can think of a better type
-  items: Option[Seq[FooterItem]]      = None
+  items: Option[Seq[FooterItem]] = None
 )
 
 object Meta {

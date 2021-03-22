@@ -22,12 +22,12 @@ import play.api.libs.json._
 import uk.gov.hmrc.govukfrontend.views.viewmodels.content.{Content, Empty}
 
 final case class Tag(
-  content: Content                = Empty,
-  classes: String                 = "",
+  content: Content = Empty,
+  classes: String = "",
   attributes: Map[String, String] = Map.empty
 )
 
-object Tag  {
+object Tag {
 
   def defaultObject: Tag = Tag()
 
