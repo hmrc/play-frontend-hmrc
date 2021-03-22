@@ -22,11 +22,11 @@ import play.api.libs.json._
 import uk.gov.hmrc.govukfrontend.views.viewmodels.content.Content.writesContent
 
 final case class NavigationItem(
-                                 content: Content = Empty,
-                                 href: Option[String] = None,
-                                 active: Boolean = false,
-                                 attributes: Map[String, String] = Map.empty
-                               )
+  content: Content = Empty,
+  href: Option[String] = None,
+  active: Boolean = false,
+  attributes: Map[String, String] = Map.empty
+)
 
 object NavigationItem {
 
@@ -38,12 +38,12 @@ object NavigationItem {
         (__ \ "href").readNullable[String] and
         (__ \ "active").readWithDefault[Boolean](defaultObject.active) and
         (__ \ "attributes").readWithDefault[Map[String, String]](defaultObject.attributes)
-      ) (NavigationItem.apply _)
+    )(NavigationItem.apply _)
 
   implicit def jsonWrites: OWrites[NavigationItem] = OWrites { hn =>
     Json.obj(
-      "href" -> hn.href,
-      "active" -> hn.active,
+      "href"       -> hn.href,
+      "active"     -> hn.active,
       "attributes" -> hn.attributes
     ) ++ writesContent().writes(hn.content)
   }

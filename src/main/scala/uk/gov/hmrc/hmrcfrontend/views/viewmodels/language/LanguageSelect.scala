@@ -40,22 +40,22 @@ object LanguageSelect {
   implicit object LanguageSelectOFormat extends OFormat[LanguageSelect] {
     override def reads(json: JsValue): JsResult[LanguageSelect] = json match {
       case JsObject(attributes) =>
-        val langResult: JsResult[Language] = {
+        val langResult: JsResult[Language] =
           attributes
             .get("language")
             .map(Json.fromJson[Language])
             .getOrElse(JsError(JsPath, "error.expected.language"))
-        }
 
-        val langToggleFields = JsObject(attributes.filterNot(_._1 == "language"))
+        val langToggleFields                           = JsObject(attributes.filterNot(_._1 == "language"))
         val langToggleResult: JsResult[LanguageToggle] = Json.fromJson[LanguageToggle](langToggleFields)
 
         val e = JsError(JsPath, "error.expected.languageselect")
         (langResult, langToggleResult) match {
-          case (JsSuccess(lang, _), JsSuccess(langToggle, _)) => JsSuccess(LanguageSelect(lang, langToggle.linkMap.toArray: _*))
-          case (e2@JsError(_), e3@JsError(_)) => Iterable(e2, e3).foldLeft(e)((l, r) => JsError.merge(l, r))
-          case (e2@JsError(_), _) => JsError.merge(e, e2)
-          case (_, e3@JsError(_)) => JsError.merge(e, e3)
+          case (JsSuccess(lang, _), JsSuccess(langToggle, _)) =>
+            JsSuccess(LanguageSelect(lang, langToggle.linkMap.toArray: _*))
+          case (e2 @ JsError(_), e3 @ JsError(_))             => Iterable(e2, e3).foldLeft(e)((l, r) => JsError.merge(l, r))
+          case (e2 @ JsError(_), _)                           => JsError.merge(e, e2)
+          case (_, e3 @ JsError(_))                           => JsError.merge(e, e3)
         }
 
       case _ => JsError("error.expected.jsobject")
@@ -63,10 +63,9 @@ object LanguageSelect {
 
     override def writes(o: LanguageSelect): JsObject = JsObject {
       val langEntry: (String, JsString) = "language" -> Json.toJson(o.language)(LanguageFormat).as[JsString]
-      val linkMap = o.languageToggle.linkMap.map {
-        case (k, v) =>
-          val lang: String = Json.toJson(k)(LanguageFormat).as[JsString].value
-          lang -> JsObject(Map("href" -> JsString(v)))
+      val linkMap                       = o.languageToggle.linkMap.map { case (k, v) =>
+        val lang: String = Json.toJson(k)(LanguageFormat).as[JsString].value
+        lang -> JsObject(Map("href" -> JsString(v)))
       }
       linkMap + langEntry
     }

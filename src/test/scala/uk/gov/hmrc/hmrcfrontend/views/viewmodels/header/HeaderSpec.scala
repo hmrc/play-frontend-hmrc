@@ -37,7 +37,7 @@ import scala.reflect.ClassTag
 // values added.
 
 class HeaderSpec
-  extends AnyWordSpec
+    extends AnyWordSpec
     with Matchers
     with OptionValues
     with ScalaCheckPropertyChecks
@@ -46,11 +46,9 @@ class HeaderSpec
   "Json reads/writes" should {
     s"do a roundtrip json serialisation of ${implicitly[ClassTag[Header]]}" in {
       forAll { v: Header =>
-        val linkMapWithDefaults: Option[LanguageToggle] = v.languageToggle.map {
-          x => {
-            val links = Map(En -> "", Cy -> "") ++ x.linkMap
-            LanguageToggle(links.toArray: _*)
-          }
+        val linkMapWithDefaults: Option[LanguageToggle] = v.languageToggle.map { x =>
+          val links = Map(En -> "", Cy -> "") ++ x.linkMap
+          LanguageToggle(links.toArray: _*)
         }
         Json.toJson(v).asOpt[Header].value shouldBe v.copy(inputLanguageToggle = linkMapWithDefaults)
       }

@@ -35,7 +35,7 @@ import uk.gov.hmrc.hmrcfrontend.views.Aliases.FooterItem
 import uk.gov.hmrc.hmrcfrontend.MessagesSupport
 
 class hmrcStandardFooterSpec
-  extends AnyWordSpecLike
+    extends AnyWordSpecLike
     with Matchers
     with MessagesSupport
     with GuiceOneAppPerSuite
@@ -43,7 +43,7 @@ class hmrcStandardFooterSpec
 
   implicit val fakeRequest: FakeRequest[AnyContentAsEmpty.type] = FakeRequest("GET", "/foo")
 
-  override def fakeApplication(): Application =
+  override def fakeApplication(): Application                            =
     new GuiceApplicationBuilder().configure(Map("play.allowGlobalApplication" -> "true")).build()
 
   def buildApp(properties: Map[String, String] = Map.empty): Application =
@@ -98,7 +98,7 @@ class hmrcStandardFooterSpec
         )
       )
 
-      val content =
+      val content  =
         contentAsString(HmrcStandardFooter(additionalFooterItems)(messages, fakeRequest))
       val document = Jsoup.parse(content)
       val links    = document.getElementsByTag("a")
@@ -115,14 +115,20 @@ class hmrcStandardFooterSpec
           "Service specific link 2",
           "Open Government Licence v3.0",
           "© Crown copyright"
-        ).asJava)
+        ).asJava
+      )
     }
 
     "generate a link to an accessibility statement" in {
       implicit val app = buildApp()
 
-      val content =
-        contentAsString(HmrcStandardFooter(accessibilityStatementUrl = Some("https://www.example.com/accessibility-statement"))(messages, fakeRequest))
+      val content  =
+        contentAsString(
+          HmrcStandardFooter(accessibilityStatementUrl = Some("https://www.example.com/accessibility-statement"))(
+            messages,
+            fakeRequest
+          )
+        )
       val document = Jsoup.parse(content)
       val links    = document.getElementsByTag("a")
 
@@ -137,7 +143,8 @@ class hmrcStandardFooterSpec
           "Rhestr o Wasanaethau Cymraeg",
           "Open Government Licence v3.0",
           "© Crown copyright"
-        ).asJava)
+        ).asJava
+      )
 
       links.get(1).attr("href") should be("https://www.example.com/accessibility-statement")
     }
@@ -162,7 +169,8 @@ class hmrcStandardFooterSpec
       val elements = document.getElementsByClass("govuk-footer__licence-description")
 
       elements.first.text should be(
-        "Mae‘r holl gynnwys ar gael o dan y Drwydded Llywodraeth Agored v3.0, oni nodir yn wahanol")
+        "Mae‘r holl gynnwys ar gael o dan y Drwydded Llywodraeth Agored v3.0, oni nodir yn wahanol"
+      )
     }
 
     "generate the correct visually hidden support links message in Welsh" in {

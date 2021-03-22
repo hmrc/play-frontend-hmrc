@@ -19,9 +19,9 @@ package uk.gov.hmrc.hmrcfrontend.views.viewmodels.accountmenu
 import play.api.libs.json._
 
 case class CheckProgress(
-                          href: String = "#",
-                          active: Boolean = false
-                        )
+  href: String = "#",
+  active: Boolean = false
+)
 
 object CheckProgress {
 

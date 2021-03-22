@@ -20,14 +20,14 @@ import uk.gov.hmrc.hmrcfrontend.views.config.{HmrcFooterItems => HmrcFooterItems
 
 package object helpers {
 
-  type HmrcFooterItems = HmrcFooterItemsType
-  type HmrcStandardFooter = hmrcStandardFooter
-  type HmrcTrackingConsentSnippet = hmrcTrackingConsentSnippet
+  type HmrcFooterItems                = HmrcFooterItemsType
+  type HmrcStandardFooter             = hmrcStandardFooter
+  type HmrcTrackingConsentSnippet     = hmrcTrackingConsentSnippet
   type HmrcReportTechnicalIssueHelper = hmrcReportTechnicalIssueHelper
-  type HmrcStandardHeader = hmrcStandardHeader
-  type HmrcHead = hmrcHead
-  type HmrcScripts = hmrcScripts
-  type HmrcTimeoutDialogHelper = hmrcTimeoutDialogHelper
-  type HmrcLanguageSelectHelper = hmrcLanguageSelectHelper
+  type HmrcStandardHeader             = hmrcStandardHeader
+  type HmrcHead                       = hmrcHead
+  type HmrcScripts                    = hmrcScripts
+  type HmrcTimeoutDialogHelper        = hmrcTimeoutDialogHelper
+  type HmrcLanguageSelectHelper       = hmrcLanguageSelectHelper
 
 }

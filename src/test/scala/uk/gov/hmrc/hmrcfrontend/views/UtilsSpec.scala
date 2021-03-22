@@ -24,11 +24,7 @@ import uk.gov.hmrc.hmrcfrontend.views.viewmodels.Generators._
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpec
 
-class UtilsSpec
-  extends AnyWordSpec
-    with Matchers
-    with ScalaCheckPropertyChecks
-    with ShrinkLowPriority {
+class UtilsSpec extends AnyWordSpec with Matchers with ScalaCheckPropertyChecks with ShrinkLowPriority {
 
   implicit override val generatorDrivenConfig: PropertyCheckConfiguration =
     PropertyCheckConfiguration(minSuccessful = 50)
@@ -70,7 +66,9 @@ class UtilsSpec
       urlEncode("ABC DEF") shouldBe "ABC%20DEF"
     }
     "should encode URLs as expected" in {
-      urlEncode("https://www.tax.service.gov.uk/pay?abc=def&ghi=jkl") shouldBe "https%3A%2F%2Fwww.tax.service.gov.uk%2Fpay%3Fabc%3Ddef%26ghi%3Djkl"
+      urlEncode(
+        "https://www.tax.service.gov.uk/pay?abc=def&ghi=jkl"
+      ) shouldBe "https%3A%2F%2Fwww.tax.service.gov.uk%2Fpay%3Fabc%3Ddef%26ghi%3Djkl"
     }
   }
 }

@@ -25,15 +25,15 @@ object Generators {
 
   val arbLangLinkVal: Arbitrary[(Language, String)] = Arbitrary {
     for {
-      language  <- arbLanguage.arbitrary
-      value     <- genAlphaStr()
+      language <- arbLanguage.arbitrary
+      value    <- genAlphaStr()
     } yield (language, value)
   }
 
   def genLanguageLinks(nLinks: Int = 5): Gen[Array[(Language, String)]] = for {
-      sz    <- Gen.chooseNum(0, nLinks)
-      links <- Gen.listOfN[(Language, String)](sz, arbLangLinkVal.arbitrary)
-    } yield links.toArray
+    sz    <- Gen.chooseNum(0, nLinks)
+    links <- Gen.listOfN[(Language, String)](sz, arbLangLinkVal.arbitrary)
+  } yield links.toArray
 
   implicit val arbLanguageToggle: Arbitrary[LanguageToggle] = Arbitrary {
     for {
@@ -43,8 +43,8 @@ object Generators {
 
   implicit val arbLanguageSelect: Arbitrary[LanguageSelect] = Arbitrary {
     for {
-      language       <- arbLanguage.arbitrary
-      languageLinks  <- genLanguageLinks()
+      language      <- arbLanguage.arbitrary
+      languageLinks <- genLanguageLinks()
     } yield LanguageSelect(language = language, languageLinks = languageLinks: _*)
   }
 }

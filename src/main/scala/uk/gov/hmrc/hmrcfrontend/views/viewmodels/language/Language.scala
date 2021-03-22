@@ -43,14 +43,13 @@ object Language {
   }
 
   implicit object LanguageOrdering extends Ordering[Language] { // Ordered/Ordering are invariant in type parameters, so cannot be mixed into trait to order implementations of the trait
-    def compare(x: Language, y: Language): Int = {
+    def compare(x: Language, y: Language): Int =
       (x, y) match {
         case (En, En) => 0
         case (En, _)  => -1
         case (_, En)  => 1
         case (_, _)   => x.name compare y.name
       }
-    }
   }
 
 }

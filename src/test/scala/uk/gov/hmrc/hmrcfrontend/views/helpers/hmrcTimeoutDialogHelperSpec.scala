@@ -30,10 +30,7 @@ import uk.gov.hmrc.hmrcfrontend.views.html.helpers.HmrcTimeoutDialogHelper
 
 import scala.collection.immutable.List
 
-class hmrcTimeoutDialogHelperSpec
-  extends AnyWordSpecLike
-    with Matchers
-    with JsoupHelpers {
+class hmrcTimeoutDialogHelperSpec extends AnyWordSpecLike with Matchers with JsoupHelpers {
 
   implicit val fakeRequest = FakeRequest("GET", "/foo")
 
@@ -67,7 +64,7 @@ class hmrcTimeoutDialogHelperSpec
       val document = Jsoup.parse(content)
       val metas    = document.select("meta")
 
-      metas should have size 1
+      metas                                 should have size 1
       metas.first.attr("data-sign-out-url") should be("/sign-out")
     }
 
@@ -79,35 +76,39 @@ class hmrcTimeoutDialogHelperSpec
       val document = Jsoup.parse(content)
       val metas    = document.select("meta")
 
-      metas should have size 1
+      metas                            should have size 1
       metas.first.attr("data-timeout") should be("900")
     }
 
     "render the timeout data attribute using the bootstrap-play session.timeoutSeconds key" in {
-      val hmrcTimeoutDialogHelper = buildApp(Map(
-        "session.timeoutSeconds" -> "600"
-      )).injector.instanceOf[HmrcTimeoutDialogHelper]
+      val hmrcTimeoutDialogHelper = buildApp(
+        Map(
+          "session.timeoutSeconds" -> "600"
+        )
+      ).injector.instanceOf[HmrcTimeoutDialogHelper]
 
       val messages = getMessages()
       val content  = contentAsString(hmrcTimeoutDialogHelper(signOutUrl = "/sign-out")(messages, fakeRequest))
       val document = Jsoup.parse(content)
       val metas    = document.select("meta")
 
-      metas should have size 1
+      metas                            should have size 1
       metas.first.attr("data-timeout") should be("600")
     }
 
     "render the timeout data attribute using the bootstrap-play session.timeout key" in {
-      val hmrcTimeoutDialogHelper = buildApp(Map(
-        "session.timeout" -> "30.minutes"
-      )).injector.instanceOf[HmrcTimeoutDialogHelper]
+      val hmrcTimeoutDialogHelper = buildApp(
+        Map(
+          "session.timeout" -> "30.minutes"
+        )
+      ).injector.instanceOf[HmrcTimeoutDialogHelper]
 
       val messages = getMessages()
       val content  = contentAsString(hmrcTimeoutDialogHelper(signOutUrl = "/sign-out")(messages, fakeRequest))
       val document = Jsoup.parse(content)
       val metas    = document.select("meta")
 
-      metas should have size 1
+      metas                            should have size 1
       metas.first.attr("data-timeout") should be("1800")
     }
 
@@ -115,11 +116,12 @@ class hmrcTimeoutDialogHelperSpec
       val hmrcTimeoutDialogHelper = buildApp().injector.instanceOf[HmrcTimeoutDialogHelper]
 
       val messages = getMessages()
-      val content  = contentAsString(hmrcTimeoutDialogHelper(signOutUrl = "/sign-out", timeout = Some(1800))(messages, fakeRequest))
+      val content  =
+        contentAsString(hmrcTimeoutDialogHelper(signOutUrl = "/sign-out", timeout = Some(1800))(messages, fakeRequest))
       val document = Jsoup.parse(content)
       val metas    = document.select("meta")
 
-      metas should have size 1
+      metas                            should have size 1
       metas.first.attr("data-timeout") should be("1800")
     }
 
@@ -131,7 +133,7 @@ class hmrcTimeoutDialogHelperSpec
       val document = Jsoup.parse(content)
       val metas    = document.select("meta")
 
-      metas should have size 1
+      metas                              should have size 1
       metas.first.attr("data-countdown") should be("120")
     }
 
@@ -139,11 +141,12 @@ class hmrcTimeoutDialogHelperSpec
       val hmrcTimeoutDialogHelper = buildApp().injector.instanceOf[HmrcTimeoutDialogHelper]
 
       val messages = getMessages()
-      val content  = contentAsString(hmrcTimeoutDialogHelper(signOutUrl = "/sign-out", countdown = Some(240))(messages, fakeRequest))
+      val content  =
+        contentAsString(hmrcTimeoutDialogHelper(signOutUrl = "/sign-out", countdown = Some(240))(messages, fakeRequest))
       val document = Jsoup.parse(content)
       val metas    = document.select("meta")
 
-      metas should have size 1
+      metas                              should have size 1
       metas.first.attr("data-countdown") should be("240")
     }
 
@@ -156,7 +159,7 @@ class hmrcTimeoutDialogHelperSpec
       val document = Jsoup.parse(content)
       val metas    = document.select("meta")
 
-      metas should have size 1
+      metas                                   should have size 1
       metas.first.attr("data-keep-alive-url") should be("/foo-service/hmrc-frontend/keep-alive")
     }
 
@@ -164,11 +167,13 @@ class hmrcTimeoutDialogHelperSpec
       val hmrcTimeoutDialogHelper = buildApp().injector.instanceOf[HmrcTimeoutDialogHelper]
 
       val messages = getMessages()
-      val content  = contentAsString(hmrcTimeoutDialogHelper(signOutUrl = "/sign-out", keepAliveUrl = Some("/keep-alive"))(messages, fakeRequest))
+      val content  = contentAsString(
+        hmrcTimeoutDialogHelper(signOutUrl = "/sign-out", keepAliveUrl = Some("/keep-alive"))(messages, fakeRequest)
+      )
       val document = Jsoup.parse(content)
       val metas    = document.select("meta")
 
-      metas should have size 1
+      metas                                   should have size 1
       metas.first.attr("data-keep-alive-url") should be("/keep-alive")
     }
 
@@ -176,11 +181,13 @@ class hmrcTimeoutDialogHelperSpec
       val hmrcTimeoutDialogHelper = buildApp().injector.instanceOf[HmrcTimeoutDialogHelper]
 
       val messages = getMessages()
-      val content  = contentAsString(hmrcTimeoutDialogHelper(signOutUrl = "/sign-out", timeoutUrl = Some("/time-out"))(messages, fakeRequest))
+      val content  = contentAsString(
+        hmrcTimeoutDialogHelper(signOutUrl = "/sign-out", timeoutUrl = Some("/time-out"))(messages, fakeRequest)
+      )
       val document = Jsoup.parse(content)
       val metas    = document.select("meta")
 
-      metas should have size 1
+      metas                                should have size 1
       metas.first.attr("data-timeout-url") should be("/time-out")
     }
 
@@ -192,23 +199,25 @@ class hmrcTimeoutDialogHelperSpec
       val document = Jsoup.parse(content)
       val metas    = document.select("meta")
 
-      metas should have size 1
-      metas.first.attr("data-title") should be("")
-      metas.first.attr("data-message") should be("")
-      metas.first.attr("data-message-suffix") should be("")
+      metas                                           should have size 1
+      metas.first.attr("data-title")                  should be("")
+      metas.first.attr("data-message")                should be("")
+      metas.first.attr("data-message-suffix")         should be("")
       metas.first.attr("data-keep-alive-button-text") should be("")
-      metas.first.attr("data-sign-out-button-text") should be("")
+      metas.first.attr("data-sign-out-button-text")   should be("")
     }
 
     "render an alternative title attribute if passed" in {
       val hmrcTimeoutDialogHelper = buildApp().injector.instanceOf[HmrcTimeoutDialogHelper]
 
       val messages = getMessages()
-      val content  = contentAsString(hmrcTimeoutDialogHelper(signOutUrl = "/sign-out", title = Some("Foo Title"))(messages, fakeRequest))
+      val content  = contentAsString(
+        hmrcTimeoutDialogHelper(signOutUrl = "/sign-out", title = Some("Foo Title"))(messages, fakeRequest)
+      )
       val document = Jsoup.parse(content)
       val metas    = document.select("meta")
 
-      metas should have size 1
+      metas                          should have size 1
       metas.first.attr("data-title") should be("Foo Title")
     }
 
@@ -216,11 +225,13 @@ class hmrcTimeoutDialogHelperSpec
       val hmrcTimeoutDialogHelper = buildApp().injector.instanceOf[HmrcTimeoutDialogHelper]
 
       val messages = getMessages()
-      val content  = contentAsString(hmrcTimeoutDialogHelper(signOutUrl = "/sign-out", message = Some("Foo Message"))(messages, fakeRequest))
+      val content  = contentAsString(
+        hmrcTimeoutDialogHelper(signOutUrl = "/sign-out", message = Some("Foo Message"))(messages, fakeRequest)
+      )
       val document = Jsoup.parse(content)
       val metas    = document.select("meta")
 
-      metas should have size 1
+      metas                            should have size 1
       metas.first.attr("data-message") should be("Foo Message")
     }
 
@@ -228,11 +239,13 @@ class hmrcTimeoutDialogHelperSpec
       val hmrcTimeoutDialogHelper = buildApp().injector.instanceOf[HmrcTimeoutDialogHelper]
 
       val messages = getMessages()
-      val content  = contentAsString(hmrcTimeoutDialogHelper(signOutUrl = "/sign-out", messageSuffix = Some("suffix"))(messages, fakeRequest))
+      val content  = contentAsString(
+        hmrcTimeoutDialogHelper(signOutUrl = "/sign-out", messageSuffix = Some("suffix"))(messages, fakeRequest)
+      )
       val document = Jsoup.parse(content)
       val metas    = document.select("meta")
 
-      metas should have size 1
+      metas                                   should have size 1
       metas.first.attr("data-message-suffix") should be("suffix")
     }
 
@@ -240,11 +253,16 @@ class hmrcTimeoutDialogHelperSpec
       val hmrcTimeoutDialogHelper = buildApp().injector.instanceOf[HmrcTimeoutDialogHelper]
 
       val messages = getMessages()
-      val content  = contentAsString(hmrcTimeoutDialogHelper(signOutUrl = "/sign-out", keepAliveButtonText = Some("Keep Alive"))(messages, fakeRequest))
+      val content  = contentAsString(
+        hmrcTimeoutDialogHelper(signOutUrl = "/sign-out", keepAliveButtonText = Some("Keep Alive"))(
+          messages,
+          fakeRequest
+        )
+      )
       val document = Jsoup.parse(content)
       val metas    = document.select("meta")
 
-      metas should have size 1
+      metas                                           should have size 1
       metas.first.attr("data-keep-alive-button-text") should be("Keep Alive")
     }
 
@@ -252,11 +270,13 @@ class hmrcTimeoutDialogHelperSpec
       val hmrcTimeoutDialogHelper = buildApp().injector.instanceOf[HmrcTimeoutDialogHelper]
 
       val messages = getMessages()
-      val content  = contentAsString(hmrcTimeoutDialogHelper(signOutUrl = "/sign-out", signOutButtonText = Some("Logout"))(messages, fakeRequest))
+      val content  = contentAsString(
+        hmrcTimeoutDialogHelper(signOutUrl = "/sign-out", signOutButtonText = Some("Logout"))(messages, fakeRequest)
+      )
       val document = Jsoup.parse(content)
       val metas    = document.select("meta")
 
-      metas should have size 1
+      metas                                         should have size 1
       metas.first.attr("data-sign-out-button-text") should be("Logout")
     }
 
@@ -268,7 +288,7 @@ class hmrcTimeoutDialogHelperSpec
       val document = Jsoup.parse(content)
       val metas    = document.select("meta")
 
-      metas should have size 1
+      metas                             should have size 1
       metas.first.attr("data-language") should be("cy")
     }
   }

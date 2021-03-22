@@ -35,7 +35,7 @@ import scala.reflect.ClassTag
 // input, but rather the input with the default values added.
 
 class LanguageSelectSpec
-  extends AnyWordSpec
+    extends AnyWordSpec
     with Matchers
     with OptionValues
     with ScalaCheckPropertyChecks

@@ -27,14 +27,14 @@ object Generators {
 
   implicit val arbCharacterCount: Arbitrary[CharacterCount] = Arbitrary {
     for {
-      id        <- genNonEmptyAlphaStr
-      name      <- genNonEmptyAlphaStr
-      rows      <- Gen.chooseNum(1, 5)
-      value     <- Gen.option(genAlphaStr())
-      maxLength <- Gen.option(Gen.chooseNum(1, 10))
-      maxWords <- Gen
-        .option(Gen.chooseNum(1, 10))
-        .retryUntil(optMaxWords => maxLength.nonEmpty || optMaxWords.nonEmpty)
+      id               <- genNonEmptyAlphaStr
+      name             <- genNonEmptyAlphaStr
+      rows             <- Gen.chooseNum(1, 5)
+      value            <- Gen.option(genAlphaStr())
+      maxLength        <- Gen.option(Gen.chooseNum(1, 10))
+      maxWords         <- Gen
+                            .option(Gen.chooseNum(1, 10))
+                            .retryUntil(optMaxWords => maxLength.nonEmpty || optMaxWords.nonEmpty)
       threshold        <- Gen.option(Gen.chooseNum(1, 5))
       label            <- arbLabel.arbitrary
       hint             <- Gen.option(arbHint.arbitrary)
@@ -42,24 +42,23 @@ object Generators {
       formGroupClasses <- genClasses()
       classes          <- genClasses()
       attributes       <- genAttributes()
-      language        <- arbLanguage.arbitrary
-    } yield
-      CharacterCount(
-        id               = id,
-        name             = name,
-        rows             = rows,
-        value            = value,
-        maxLength        = maxLength,
-        maxWords         = maxWords,
-        threshold        = threshold,
-        label            = label,
-        hint             = hint,
-        errorMessage     = errorMessage,
-        formGroupClasses = formGroupClasses,
-        classes          = classes,
-        attributes       = attributes,
-        language         = language
-      )
+      language         <- arbLanguage.arbitrary
+    } yield CharacterCount(
+      id = id,
+      name = name,
+      rows = rows,
+      value = value,
+      maxLength = maxLength,
+      maxWords = maxWords,
+      threshold = threshold,
+      label = label,
+      hint = hint,
+      errorMessage = errorMessage,
+      formGroupClasses = formGroupClasses,
+      classes = classes,
+      attributes = attributes,
+      language = language
+    )
 
   }
 }

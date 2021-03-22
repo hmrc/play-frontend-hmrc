@@ -25,11 +25,11 @@ import scala.util.Try
 class hmrcNewTabLinkSpec extends TemplateUnitSpec[NewTabLink]("hmrcNewTabLink") {
 
   /**
-   * Calls the Twirl template with the given parameters and returns the resulting markup
-   *
-   * @param templateParams
-   * @return [[Try[HtmlFormat.Appendable]]] containing the markup
-   */
+    * Calls the Twirl template with the given parameters and returns the resulting markup
+    *
+    * @param templateParams
+    * @return [[Try[HtmlFormat.Appendable]]] containing the markup
+    */
   override def render(templateParams: NewTabLink): Try[HtmlFormat.Appendable] =
     Try(HmrcNewTabLink(templateParams))
 }

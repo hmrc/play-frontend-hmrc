@@ -27,16 +27,14 @@ object Generators {
     for {
       href   <- genAlphaStr()
       active <- arbBool.arbitrary
-    } yield
-      AccountHome(href = href, active = active)
+    } yield AccountHome(href = href, active = active)
   }
 
   implicit val arbCheckProgress: Arbitrary[CheckProgress] = Arbitrary {
     for {
       href   <- genAlphaStr()
       active <- arbBool.arbitrary
-    } yield
-      CheckProgress(href = href, active = active)
+    } yield CheckProgress(href = href, active = active)
   }
 
   implicit val arbMessages: Arbitrary[AccountMessages] = Arbitrary {
@@ -44,29 +42,25 @@ object Generators {
       href         <- genAlphaStr()
       active       <- arbBool.arbitrary
       messageCount <- Gen.option(Gen.chooseNum(0, 5))
-    } yield
-      AccountMessages(href = href, active = active, messageCount = messageCount)
+    } yield AccountMessages(href = href, active = active, messageCount = messageCount)
   }
 
   implicit val arbPaperlessSettings: Arbitrary[PaperlessSettings] = Arbitrary {
     for {
       href <- genAlphaStr()
-    } yield
-      PaperlessSettings(href = href)
+    } yield PaperlessSettings(href = href)
   }
 
   implicit val arbPersonalDetails: Arbitrary[PersonalDetails] = Arbitrary {
     for {
       href <- genAlphaStr()
-    } yield
-      PersonalDetails(href = href)
+    } yield PersonalDetails(href = href)
   }
 
   implicit val arbSignOut: Arbitrary[SignOut] = Arbitrary {
     for {
       href <- genAlphaStr()
-    } yield
-      SignOut(href = href)
+    } yield SignOut(href = href)
   }
 
   implicit val arbAccountMenu: Arbitrary[AccountMenu] = Arbitrary {
@@ -78,7 +72,14 @@ object Generators {
       personalDetails   <- arbPersonalDetails.arbitrary
       signOut           <- arbSignOut.arbitrary
       language          <- arbLanguage.arbitrary
-    } yield
-      AccountMenu(accountHome = accountHome, messages = messages, checkProgress = checkProgress, paperlessSettings = paperlessSettings, personalDetails = personalDetails, signOut = signOut, language = language)
+    } yield AccountMenu(
+      accountHome = accountHome,
+      messages = messages,
+      checkProgress = checkProgress,
+      paperlessSettings = paperlessSettings,
+      personalDetails = personalDetails,
+      signOut = signOut,
+      language = language
+    )
   }
 }

@@ -35,14 +35,14 @@ class LanguageControllerSpec extends AnyWordSpec with Matchers with GuiceOneAppP
   "LanguageSwitchController" must {
     "return a 303" in {
       val controller = app.injector.instanceOf[LanguageController]
-      val result = controller.switchToLanguage("en")(fakeRequest)
+      val result     = controller.switchToLanguage("en")(fakeRequest)
 
       status(result) mustBe Status.SEE_OTHER
     }
 
     "set the PLAY_LANG cookie correctly for Welsh" in {
       val controller = app.injector.instanceOf[LanguageController]
-      val result = controller.switchToLanguage("cy")(fakeRequest)
+      val result     = controller.switchToLanguage("cy")(fakeRequest)
 
       cookies(result).get("PLAY_LANG").isDefined mustBe true
       cookies(result).get("PLAY_LANG").get.value mustBe "cy"
@@ -50,7 +50,7 @@ class LanguageControllerSpec extends AnyWordSpec with Matchers with GuiceOneAppP
 
     "set the PLAY_LANG cookie correctly for English" in {
       val controller = app.injector.instanceOf[LanguageController]
-      val result = controller.switchToLanguage("en")(fakeRequest)
+      val result     = controller.switchToLanguage("en")(fakeRequest)
 
       cookies(result).get("PLAY_LANG").isDefined mustBe true
       cookies(result).get("PLAY_LANG").get.value mustBe "en"
@@ -60,7 +60,7 @@ class LanguageControllerSpec extends AnyWordSpec with Matchers with GuiceOneAppP
       implicit val fakeRequestWithReferrer: FakeRequest[AnyContentAsEmpty.type] = fakeRequest.withHeaders(
         HeaderNames.REFERER -> "http://localhost:12345/my-service-page"
       )
-      val controller = app.injector.instanceOf[LanguageController]
+      val controller                                                            = app.injector.instanceOf[LanguageController]
       val result                                                                = controller.switchToLanguage("en")(fakeRequestWithReferrer)
       redirectLocation(result) mustBe Some("/my-service-page")
     }
@@ -68,7 +68,7 @@ class LanguageControllerSpec extends AnyWordSpec with Matchers with GuiceOneAppP
     "redirect to the default url if no REFERER header set" in {
       val controller = app.injector.instanceOf[LanguageController]
 
-      val result     = controller.switchToLanguage("en")(fakeRequest)
+      val result = controller.switchToLanguage("en")(fakeRequest)
       redirectLocation(result) mustBe Some("https://www.gov.uk/government/organisations/hm-revenue-customs")
     }
 
@@ -79,7 +79,7 @@ class LanguageControllerSpec extends AnyWordSpec with Matchers with GuiceOneAppP
 
       val controller = app.injector.instanceOf[LanguageController]
 
-      val result     = controller.switchToLanguage("en")(fakeRequest)
+      val result = controller.switchToLanguage("en")(fakeRequest)
       redirectLocation(result) mustBe Some("https://www.example.com/fallback")
     }
   }

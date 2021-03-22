@@ -24,7 +24,7 @@ import uk.gov.hmrc.hmrcfrontend.config.LanguageConfig
 import uk.gov.hmrc.play.language.{LanguageController => PlayLanguageController, LanguageUtils}
 
 @Singleton
-case class LanguageController @Inject()(
+case class LanguageController @Inject() (
   configuration: Configuration,
   languageUtils: LanguageUtils,
   cc: ControllerComponents,

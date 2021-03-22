@@ -27,28 +27,24 @@ class NotificationBadgeSpec extends JsonRoundtripSpec[NotificationBadge] {
 
       val json = Json.toJson[NotificationBadge](testData)
 
-      json.as[NotificationBadge] should be(
-        NotificationBadge("3"))
+      json.as[NotificationBadge] should be(NotificationBadge("3"))
     }
     "accept integers" in {
       val testData = NotificationBadge(1)
 
       val json = Json.toJson[NotificationBadge](testData)
 
-      json.as[NotificationBadge] should be(
-        NotificationBadge("1"))
+      json.as[NotificationBadge] should be(NotificationBadge("1"))
     }
     "accept integers via JSON" in {
       val json = Json.parse("{\"text\": 3}")
 
-      json.as[NotificationBadge] should be(
-        NotificationBadge("3"))
+      json.as[NotificationBadge] should be(NotificationBadge("3"))
     }
     "allow strings from JSON" in {
       val json = Json.parse("{\"text\": \"New\"}")
 
-      json.as[NotificationBadge] should be(
-        NotificationBadge("New"))
+      json.as[NotificationBadge] should be(NotificationBadge("New"))
     }
   }
 }

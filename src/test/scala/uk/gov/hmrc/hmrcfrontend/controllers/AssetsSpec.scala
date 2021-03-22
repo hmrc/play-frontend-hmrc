@@ -26,10 +26,7 @@ import play.api.mvc._
 import play.api.test.Helpers._
 import play.api.test._
 
-class AssetsSpec
-  extends AnyWordSpec
-    with Matchers
-    with Results with GuiceOneAppPerTest {
+class AssetsSpec extends AnyWordSpec with Matchers with Results with GuiceOneAppPerTest {
 
   override def newAppForTest(testData: TestData): Application =
     new GuiceApplicationBuilder()

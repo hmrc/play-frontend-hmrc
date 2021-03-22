@@ -2,7 +2,7 @@ import GenerateFixtures.generateFixtures
 import play.sbt.PlayImport.PlayKeys._
 import uk.gov.hmrc.playcrosscompilation.PlayVersion
 
-val libName = "play-frontend-hmrc"
+val libName         = "play-frontend-hmrc"
 val silencerVersion = "1.7.1"
 
 lazy val playDir = "play-26"
@@ -11,7 +11,7 @@ lazy val IntegrationTest = config("it") extend Test
 
 lazy val root = Project(libName, file("."))
   .enablePlugins(PlayScala, SbtAutoBuildPlugin, SbtGitVersioning, SbtTwirl, BuildInfoPlugin)
-   .disablePlugins(PlayLayoutPlugin)
+  .disablePlugins(PlayLayoutPlugin)
   .configs(IntegrationTest)
   .settings(
     name := libName,
@@ -36,8 +36,7 @@ lazy val root = Project(libName, file("."))
     ),
     excludeFilter in unmanagedSources := {
       if (PlayCrossCompilation.playVersion == PlayVersion.Play28) "deprecatedPlay26Helpers.scala" else ""
-    }
-    ,
+    },
     // ***************
     (sourceDirectories in (Compile, TwirlKeys.compileTemplates)) +=
       baseDirectory.value / "src" / "main" / playDir / "twirl",
@@ -61,18 +60,18 @@ lazy val itSettings = Defaults.itSettings ++ Seq(
 )
 
 lazy val templateImports: Seq[String] = Seq(
-    "_root_.play.twirl.api.Html",
-    "_root_.play.twirl.api.HtmlFormat",
-    "_root_.play.twirl.api.JavaScript",
-    "_root_.play.twirl.api.Txt",
-    "_root_.play.twirl.api.Xml",
-    "play.api.mvc._",
-    "play.api.data._",
-    "play.api.i18n._",
-    "play.api.templates.PlayMagic._",
-    "uk.gov.hmrc.hmrcfrontend.views.html.components.implicits._",
-    "_root_.play.twirl.api.TwirlFeatureImports._",
-    "_root_.play.twirl.api.TwirlHelperImports._"
-  )
+  "_root_.play.twirl.api.Html",
+  "_root_.play.twirl.api.HtmlFormat",
+  "_root_.play.twirl.api.JavaScript",
+  "_root_.play.twirl.api.Txt",
+  "_root_.play.twirl.api.Xml",
+  "play.api.mvc._",
+  "play.api.data._",
+  "play.api.i18n._",
+  "play.api.templates.PlayMagic._",
+  "uk.gov.hmrc.hmrcfrontend.views.html.components.implicits._",
+  "_root_.play.twirl.api.TwirlFeatureImports._",
+  "_root_.play.twirl.api.TwirlHelperImports._"
+)
 
 lazy val generateUnitTestFixtures = taskKey[Unit]("Generate unit test fixtures")

@@ -20,14 +20,14 @@ import play.api.libs.json._
 import uk.gov.hmrc.hmrcfrontend.views.viewmodels.language.{En, Language}
 
 case class AccountMenu(
-                        accountHome: AccountHome = AccountHome(),
-                        messages: AccountMessages = AccountMessages(),
-                        checkProgress: CheckProgress = CheckProgress(),
-                        paperlessSettings: PaperlessSettings = PaperlessSettings(),
-                        personalDetails: PersonalDetails = PersonalDetails(),
-                        signOut: SignOut = SignOut(),
-                        language: Language = En
-                      )
+  accountHome: AccountHome = AccountHome(),
+  messages: AccountMessages = AccountMessages(),
+  checkProgress: CheckProgress = CheckProgress(),
+  paperlessSettings: PaperlessSettings = PaperlessSettings(),
+  personalDetails: PersonalDetails = PersonalDetails(),
+  signOut: SignOut = SignOut(),
+  language: Language = En
+)
 
 object AccountMenu {
 

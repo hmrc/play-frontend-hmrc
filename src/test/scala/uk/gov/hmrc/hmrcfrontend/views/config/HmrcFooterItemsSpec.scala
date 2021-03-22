@@ -25,10 +25,7 @@ import play.api.inject.guice.GuiceApplicationBuilder
 import uk.gov.hmrc.hmrcfrontend.views.viewmodels.footer.FooterItem
 import uk.gov.hmrc.hmrcfrontend.MessagesSupport
 
-class HmrcFooterItemsSpec
-  extends AnyWordSpec
-    with Matchers
-    with MessagesSupport {
+class HmrcFooterItemsSpec extends AnyWordSpec with Matchers with MessagesSupport {
 
   implicit val request: FakeRequest[_] = FakeRequest("GET", "/foo")
 
@@ -74,7 +71,9 @@ class HmrcFooterItemsSpec
       val app             = buildApp()
       val hmrcFooterItems = app.injector.instanceOf[HmrcFooterItems]
 
-      hmrcFooterItems.getWithAccessibilityStatementUrl(accessibilityStatementUrl = Some("https://www.example.com/accessibility-statement")) mustBe Seq(
+      hmrcFooterItems.getWithAccessibilityStatementUrl(accessibilityStatementUrl =
+        Some("https://www.example.com/accessibility-statement")
+      ) mustBe Seq(
         FooterItem(
           Some("Cookies"),
           Some("/help/cookies")
@@ -109,11 +108,12 @@ class HmrcFooterItemsSpec
     }
 
     "Return the accessibility link if defined" in {
-      val app = buildApp(
+      val app             = buildApp(
         Map(
           "platform.frontend.host"               -> "https://www.tax.service.gov.uk",
           "accessibility-statement.service-path" -> "/bar"
-        ))
+        )
+      )
       val hmrcFooterItems = app.injector.instanceOf[HmrcFooterItems]
 
       hmrcFooterItems.get mustBe Seq(
@@ -124,7 +124,8 @@ class HmrcFooterItemsSpec
         FooterItem(
           Some("Accessibility statement"),
           Some(
-            "https://www.tax.service.gov.uk/accessibility-statement/bar?referrerUrl=https%3A%2F%2Fwww.tax.service.gov.uk%2Ffoo")
+            "https://www.tax.service.gov.uk/accessibility-statement/bar?referrerUrl=https%3A%2F%2Fwww.tax.service.gov.uk%2Ffoo"
+          )
         ),
         FooterItem(
           Some("Privacy policy"),
@@ -183,11 +184,12 @@ class HmrcFooterItemsSpec
     }
 
     "Return the correct links in Welsh including the accessibility statement link" in {
-      val app = buildApp(
+      val app                         = buildApp(
         Map(
           "platform.frontend.host"               -> "https://www.tax.service.gov.uk",
           "accessibility-statement.service-path" -> "/bar"
-        ))
+        )
+      )
       implicit val messages: Messages = messagesApi.preferred(Seq(Lang("cy")))
       val hmrcFooterItems             = app.injector.instanceOf[HmrcFooterItems]
 
@@ -199,7 +201,8 @@ class HmrcFooterItemsSpec
         FooterItem(
           Some("Datganiad hygyrchedd"),
           Some(
-            "https://www.tax.service.gov.uk/accessibility-statement/bar?referrerUrl=https%3A%2F%2Fwww.tax.service.gov.uk%2Ffoo")
+            "https://www.tax.service.gov.uk/accessibility-statement/bar?referrerUrl=https%3A%2F%2Fwww.tax.service.gov.uk%2Ffoo"
+          )
         ),
         FooterItem(
           Some("Polisi preifatrwydd"),

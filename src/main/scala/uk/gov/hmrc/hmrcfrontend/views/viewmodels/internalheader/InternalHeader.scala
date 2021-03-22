@@ -19,10 +19,10 @@ package uk.gov.hmrc.hmrcfrontend.views.viewmodels.internalheader
 import play.api.libs.json._
 
 case class InternalHeader(
-                           homepageUrl: String = "/",
-                           serviceName: Option[String] = None,
-                           serviceUrl: String = ""
-                         )
+  homepageUrl: String = "/",
+  serviceName: Option[String] = None,
+  serviceUrl: String = ""
+)
 
 object InternalHeader {
 

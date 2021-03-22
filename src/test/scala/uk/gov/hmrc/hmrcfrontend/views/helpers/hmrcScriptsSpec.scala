@@ -27,7 +27,7 @@ import uk.gov.hmrc.hmrcfrontend.views.JsoupHelpers
 import uk.gov.hmrc.hmrcfrontend.views.html.helpers.HmrcScripts
 
 class hmrcScriptsSpec
-  extends AnyWordSpecLike
+    extends AnyWordSpecLike
     with Matchers
     with GuiceOneAppPerSuite
     with JsoupHelpers
@@ -38,29 +38,29 @@ class hmrcScriptsSpec
   "hmrcScripts" should {
     "include the hmrc-frontend script tag" in {
       val hmrcScripts = app.injector.instanceOf[HmrcScripts]
-      val scripts = hmrcScripts().select("script")
+      val scripts     = hmrcScripts().select("script")
 
-      scripts should have size 1
+      scripts                   should have size 1
       scripts.first.attr("src") should fullyMatch regex
         """/assets/hmrc-frontend-\d+.\d+.\d+.min.js""".r
     }
 
     "include a nonce in each script tag if supplied" in {
       val hmrcScripts = app.injector.instanceOf[HmrcScripts]
-      val scripts = hmrcScripts(nonce = Some("a-nonce")).select("script")
+      val scripts     = hmrcScripts(nonce = Some("a-nonce")).select("script")
 
-      scripts should have size 1
+      scripts                     should have size 1
       scripts.first.attr("nonce") should be("a-nonce")
     }
 
     "include the supplied scriptsBlock after the hmrc-frontend script tag" in {
       val hmrcScripts = app.injector.instanceOf[HmrcScripts]
-      val content = hmrcScripts(scriptsBlock = Some(Html("""<script id="foo-script-tag" src="/foo"></script>""")))
+      val content     = hmrcScripts(scriptsBlock = Some(Html("""<script id="foo-script-tag" src="/foo"></script>""")))
 
       val scripts = content.select("script")
-      scripts should have size 2
-      scripts.get(0).attr("src") should include ("hmrc-frontend")
-      scripts.get(1).attr("id") should be ("foo-script-tag")
+      scripts                    should have size 2
+      scripts.get(0).attr("src") should include("hmrc-frontend")
+      scripts.get(1).attr("id")  should be("foo-script-tag")
     }
 
     "render the correct url even if AssetsConfig has already been instantiated" in {
@@ -69,7 +69,7 @@ class hmrcScriptsSpec
 
       val scripts = hmrcScripts().select("script")
 
-      scripts should have size 1
+      scripts                   should have size 1
       scripts.first.attr("src") should fullyMatch regex
         """/foo-service/hmrc-frontend/assets/hmrc-frontend-\d+.\d+.\d+.min.js""".r
     }

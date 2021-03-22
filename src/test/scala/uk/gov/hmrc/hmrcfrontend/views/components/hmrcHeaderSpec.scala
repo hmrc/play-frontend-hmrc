@@ -26,19 +26,18 @@ import scala.util.Try
 class hmrcHeaderSpec extends TemplateUnitSpec[Header]("hmrcHeader") {
 
   /**
-   * Calls the Twirl template with the given parameters and returns the resulting markup
-   *
-   * @param templateParams
-   * @return [[Try[HtmlFormat.Appendable]]] containing the markup
-   */
+    * Calls the Twirl template with the given parameters and returns the resulting markup
+    *
+    * @param templateParams
+    * @return [[Try[HtmlFormat.Appendable]]] containing the markup
+    */
   override def render(templateParams: Header): Try[HtmlFormat.Appendable] =
     Try(HmrcHeader(templateParams))
 
   "header" should {
     """not throw an exception if Some("") is passed as serviceName""" in {
-      val params = Header(serviceName = Some(""),
-        containerClasses = "govuk-width-container",
-        signOutHref = Some("/sign-out"))
+      val params       =
+        Header(serviceName = Some(""), containerClasses = "govuk-width-container", signOutHref = Some("/sign-out"))
       val componentTry = Try(HmrcHeader(params))
 
       componentTry should be a 'success

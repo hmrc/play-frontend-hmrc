@@ -32,10 +32,7 @@ import uk.gov.hmrc.hmrcfrontend.views.viewmodels.userresearchbanner.UserResearch
 
 import scala.collection.immutable.List
 
-class hmrcStandardHeaderSpec
-  extends AnyWordSpecLike
-    with Matchers
-    with JsoupHelpers {
+class hmrcStandardHeaderSpec extends AnyWordSpecLike with Matchers with JsoupHelpers {
 
   implicit val fakeRequest = FakeRequest("GET", "/foo")
 
@@ -56,7 +53,7 @@ class hmrcStandardHeaderSpec
       val messages = getMessages()
       val content  = contentAsString(hmrcStandardHeader()(messages, fakeRequest))
       val document = Jsoup.parse(content)
-      val headers    = document.select("header")
+      val headers  = document.select("header")
 
       headers should have size 1
     }
@@ -80,33 +77,37 @@ class hmrcStandardHeaderSpec
       val document = Jsoup.parse(content)
       val links    = document.select(".govuk-header__link--service-name")
 
-      links should have size 1
+      links                    should have size 1
       links.first.attr("href") should be("/foo")
-      links.first.text should be ("Foo Service")
+      links.first.text         should be("Foo Service")
     }
 
     "render the service name specified as a parameter" in {
       val hmrcStandardHeader = buildApp().injector.instanceOf[HmrcStandardHeader]
 
       val messages = getMessages()
-      val content  = contentAsString(hmrcStandardHeader(serviceUrl = Some("/foo"), serviceName = Some("Bam Service"))(messages, fakeRequest))
+      val content  = contentAsString(
+        hmrcStandardHeader(serviceUrl = Some("/foo"), serviceName = Some("Bam Service"))(messages, fakeRequest)
+      )
       val document = Jsoup.parse(content)
       val links    = document.select(".govuk-header__link--service-name")
 
-      links should have size 1
-      links.first.text should be ("Bam Service")
+      links            should have size 1
+      links.first.text should be("Bam Service")
     }
 
     "render the service name specified as a parameter even if a messages key exists" in {
       val hmrcStandardHeader = buildApp().injector.instanceOf[HmrcStandardHeader]
 
       val messages = getMessages(Map("en" -> Map("service.name" -> "Foo Service")))
-      val content  = contentAsString(hmrcStandardHeader(serviceUrl = Some("/foo"), serviceName = Some("Bar Service"))(messages, fakeRequest))
+      val content  = contentAsString(
+        hmrcStandardHeader(serviceUrl = Some("/foo"), serviceName = Some("Bar Service"))(messages, fakeRequest)
+      )
       val document = Jsoup.parse(content)
       val links    = document.select(".govuk-header__link--service-name")
 
-      links should have size 1
-      links.first.text should be ("Bar Service")
+      links            should have size 1
+      links.first.text should be("Bar Service")
     }
 
     "render the service name in Welsh if a messages key exists" in {
@@ -117,8 +118,8 @@ class hmrcStandardHeaderSpec
       val document = Jsoup.parse(content)
       val links    = document.select(".govuk-header__link--service-name")
 
-      links should have size 1
-      links.first.text should be ("Welsh Service")
+      links            should have size 1
+      links.first.text should be("Welsh Service")
     }
 
     "not render the sign out link by default" in {
@@ -140,9 +141,9 @@ class hmrcStandardHeaderSpec
       val document = Jsoup.parse(content)
       val links    = document.select(".hmrc-sign-out-nav__link")
 
-      links should have size 1
-      links.first.attr("href") should be ("/sign-out")
-      links.first.text should be ("Sign out")
+      links                    should have size 1
+      links.first.attr("href") should be("/sign-out")
+      links.first.text         should be("Sign out")
     }
 
     "render the sign out link in Welsh" in {
@@ -154,20 +155,20 @@ class hmrcStandardHeaderSpec
       val document = Jsoup.parse(content)
       val links    = document.select(".hmrc-sign-out-nav__link")
 
-      links should have size 1
-      links.first.text should be ("Allgofnodi")
+      links            should have size 1
+      links.first.text should be("Allgofnodi")
     }
 
     "render the correct gov.uk homepage link" in {
       val hmrcStandardHeader = buildApp().injector.instanceOf[HmrcStandardHeader]
 
-      val messages = getMessages(Map("en" -> Map("header.govuk.url" -> "/foo")))
-      val content  = contentAsString(hmrcStandardHeader()(messages, fakeRequest))
-      val document = Jsoup.parse(content)
-      val homepageLinks    = document.select(".govuk-header__link--homepage")
+      val messages      = getMessages(Map("en" -> Map("header.govuk.url" -> "/foo")))
+      val content       = contentAsString(hmrcStandardHeader()(messages, fakeRequest))
+      val document      = Jsoup.parse(content)
+      val homepageLinks = document.select(".govuk-header__link--homepage")
 
-      homepageLinks should have size 1
-      homepageLinks.first.attr("href") should be ("/foo")
+      homepageLinks                    should have size 1
+      homepageLinks.first.attr("href") should be("/foo")
     }
 
     "render the svg fallback image correctly" in {
@@ -176,13 +177,13 @@ class hmrcStandardHeaderSpec
       govuk.RoutesPrefix.setPrefix("/some-service/govuk-frontend")
       val hmrcStandardHeader = buildApp().injector.instanceOf[HmrcStandardHeader]
 
-      val messages = getMessages()
-      val content  = contentAsString(hmrcStandardHeader()(messages, fakeRequest))
-      val document = Jsoup.parse(content)
-      val fallbackImages    = document.select(".govuk-header__logotype-crown-fallback-image")
+      val messages       = getMessages()
+      val content        = contentAsString(hmrcStandardHeader()(messages, fakeRequest))
+      val document       = Jsoup.parse(content)
+      val fallbackImages = document.select(".govuk-header__logotype-crown-fallback-image")
 
-      fallbackImages should have size 1
-      fallbackImages.first.attr("src") should be ("/some-service/govuk-frontend/assets/images/govuk-logotype-crown.png")
+      fallbackImages                   should have size 1
+      fallbackImages.first.attr("src") should be("/some-service/govuk-frontend/assets/images/govuk-logotype-crown.png")
     }
 
     "render the hmrc banner" in {
@@ -191,7 +192,7 @@ class hmrcStandardHeaderSpec
       val messages = getMessages()
       val content  = contentAsString(hmrcStandardHeader(displayHmrcBanner = true)(messages, fakeRequest))
       val document = Jsoup.parse(content)
-      val banners    = document.select(".hmrc-banner")
+      val banners  = document.select(".hmrc-banner")
 
       banners should have size 1
     }
@@ -201,11 +202,13 @@ class hmrcStandardHeaderSpec
       val standardBetaBanner = buildApp().injector.instanceOf[StandardBetaBanner]
 
       implicit val messages = getMessages()
-      val content  = contentAsString(hmrcStandardHeader(
-        phaseBanner = Some(standardBetaBanner(url = "/foo"))
-      ))
-      val document = Jsoup.parse(content)
-      val banners    = document.select(".govuk-phase-banner")
+      val content           = contentAsString(
+        hmrcStandardHeader(
+          phaseBanner = Some(standardBetaBanner(url = "/foo"))
+        )
+      )
+      val document          = Jsoup.parse(content)
+      val banners           = document.select(".govuk-phase-banner")
 
       banners should have size 1
     }
@@ -214,13 +217,15 @@ class hmrcStandardHeaderSpec
       val hmrcStandardHeader = buildApp().injector.instanceOf[HmrcStandardHeader]
 
       implicit val messages = getMessages()
-      val content  = contentAsString(hmrcStandardHeader(
-        userResearchBanner = Some(UserResearchBanner(url = "/foo"))
-      ))
-      val document = Jsoup.parse(content)
-      val banners    = document.select(".hmrc-user-research-banner")
+      val content           = contentAsString(
+        hmrcStandardHeader(
+          userResearchBanner = Some(UserResearchBanner(url = "/foo"))
+        )
+      )
+      val document          = Jsoup.parse(content)
+      val banners           = document.select(".hmrc-user-research-banner")
 
-      banners should have size 1
+      banners            should have size 1
       banners.first.text should include("Help improve HMRC services")
 
     }
@@ -229,13 +234,15 @@ class hmrcStandardHeaderSpec
       val hmrcStandardHeader = buildApp().injector.instanceOf[HmrcStandardHeader]
 
       implicit val messages = getMessages(lang = Lang("cy"))
-      val content  = contentAsString(hmrcStandardHeader(
-        userResearchBanner = Some(UserResearchBanner(url = "/foo"))
-      ))
-      val document = Jsoup.parse(content)
-      val banners    = document.select(".hmrc-user-research-banner")
+      val content           = contentAsString(
+        hmrcStandardHeader(
+          userResearchBanner = Some(UserResearchBanner(url = "/foo"))
+        )
+      )
+      val document          = Jsoup.parse(content)
+      val banners           = document.select(".hmrc-user-research-banner")
 
-      banners should have size 1
+      banners            should have size 1
       banners.first.text should include("Helpwch i wella gwasanaethau CThEM")
     }
   }

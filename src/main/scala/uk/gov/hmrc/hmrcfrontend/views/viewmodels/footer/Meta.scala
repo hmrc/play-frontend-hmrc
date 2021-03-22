@@ -22,8 +22,8 @@ import uk.gov.hmrc.govukfrontend.views.viewmodels.content.{Content, Empty}
 
 final case class Meta(
   visuallyHiddenTitle: Option[String] = None,
-  content: Content                    = Empty,
-  items: Option[Seq[FooterItem]]      = None
+  content: Content = Empty,
+  items: Option[Seq[FooterItem]] = None
 )
 
 object Meta {

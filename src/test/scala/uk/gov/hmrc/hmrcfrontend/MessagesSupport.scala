@@ -33,9 +33,9 @@ trait MessagesSupport {
     val langs = new DefaultLangs(Seq(Lang("en"), Lang("cy")))
 
     new DefaultMessagesApiProvider(
-      environment       = environment,
-      config            = configuration,
-      langs             = langs,
+      environment = environment,
+      config = configuration,
+      langs = langs,
       httpConfiguration = new HttpConfiguration()
     ).get
   }

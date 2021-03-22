@@ -25,21 +25,21 @@ import scala.util.Try
 class hmrcUserResearchBannerSpec extends TemplateUnitSpec[UserResearchBanner]("hmrcUserResearchBanner") {
 
   /**
-   * Calls the Twirl template with the given parameters and returns the resulting markup
-   *
-   * @param templateParams
-   * @return [[Try[HtmlFormat.Appendable]]] containing the markup
-   */
+    * Calls the Twirl template with the given parameters and returns the resulting markup
+    *
+    * @param templateParams
+    * @return [[Try[HtmlFormat.Appendable]]] containing the markup
+    */
   override def render(templateParams: UserResearchBanner): Try[HtmlFormat.Appendable] =
     Try(HmrcUserResearchBanner(templateParams))
 
   "hmrcUserResearchBanner" should {
     """throw an exception if a url is not supplied""" in {
-      val params = UserResearchBanner()
+      val params       = UserResearchBanner()
       val componentTry = Try(HmrcUserResearchBanner(params))
 
-      componentTry should be a 'failure
-      componentTry.failure.exception should have message("requirement failed: failed requirements for hmrcUserResearchBanner: url should not be empty. url=[]")
+      componentTry                   should be a 'failure
+      componentTry.failure.exception should have message "requirement failed: failed requirements for hmrcUserResearchBanner: url should not be empty. url=[]"
     }
   }
 }

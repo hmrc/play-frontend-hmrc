@@ -19,7 +19,7 @@ package uk.gov.hmrc.hmrcfrontend.config
 import javax.inject.Inject
 import play.api.Configuration
 
-class TimeoutDialogConfig @Inject()(configuration: Configuration) {
+class TimeoutDialogConfig @Inject() (configuration: Configuration) {
   def timeoutInSeconds: Int =
     configuration
       .getOptional[Int]("session.timeoutSeconds")

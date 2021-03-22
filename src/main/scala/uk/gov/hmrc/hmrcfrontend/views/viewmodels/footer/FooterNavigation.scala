@@ -19,8 +19,8 @@ package uk.gov.hmrc.hmrcfrontend.views.viewmodels.footer
 import play.api.libs.json._
 
 final case class FooterNavigation(
-  title: Option[String]  = None,
-  columns: Option[Int]   = None,
+  title: Option[String] = None,
+  columns: Option[Int] = None,
   items: Seq[FooterItem] = Seq.empty
 )
 

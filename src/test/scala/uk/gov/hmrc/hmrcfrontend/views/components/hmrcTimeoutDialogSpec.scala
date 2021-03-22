@@ -24,11 +24,11 @@ import scala.util.Try
 class hmrcTimeoutDialogSpec extends TemplateUnitSpec[TimeoutDialog]("hmrcTimeoutDialog") {
 
   /**
-   * Calls the Twirl template with the given parameters and returns the resulting markup
-   *
-   * @param templateParams
-   * @return [[Try[HtmlFormat.Appendable]]] containing the markup
-   */
+    * Calls the Twirl template with the given parameters and returns the resulting markup
+    *
+    * @param templateParams
+    * @return [[Try[HtmlFormat.Appendable]]] containing the markup
+    */
   override def render(templateParams: TimeoutDialog): Try[HtmlFormat.Appendable] =
     Try(HmrcTimeoutDialog(templateParams))
 }
