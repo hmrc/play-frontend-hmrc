@@ -9,19 +9,7 @@
 * [ADR-0005](0005-include-govuk-frontend-in-compiled-assets.md) - Include GOV.UK frontend in compiled assets
 * [ADR-0006](0006-allow-service-name-to-be-specified-using-messages-or-a-parameter.md) - Allow service name to be specified using messages or a parameter
 * [ADR-0007](0007-bind-implicit-language-to-twirl-conponent.md) - Populate language parameter from implicit messages
+* [ADR-0008](0008-maintain-parity-with-hmrc-frontend.md) - Maintain 1-to-1 parity between govuk-frontend and play-frontend-govuk, and hmrc-frontend and play-frontend-hmrc
 
 <!-- adrlogstop -->
-
-
-
-
-
-
-
-
-
-
-
-
-
 
