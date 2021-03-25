@@ -5,6 +5,28 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [0.53.0] - 2021-03-19
+
+### Changed
+
+- Added class to hmrcReportTechnicalIssue to support browser testing and bring us in line with hmrc-frontend 1.29.0
+
+### Compatible with
+
+- [hmrc/hmrc-frontend v1.29.0](https://github.com/hmrc/hmrc-frontend/releases/tag/v1.29.0)
+- [hmrc/play-frontend-govuk v0.67.0](https://github.com/hmrc/play-frontend-govuk/releases/tag/v0.67.0)
+- [alphagov/govuk-frontend v3.11.0](https://github.com/alphagov/govuk-frontend/releases/tag/v3.11.0)
+
+## [0.54.0] - 2021-03-19
+
+Nothing changed in the software, this was a change to the documentation.
+
+## [0.53.0] - 2021-03-19
+
+### Changed
+
+- Added hmrcLanguageSelectHelper
+
 ## [0.52.0] - 2021-03-19
 
 ### Changed
