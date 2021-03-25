@@ -21,7 +21,7 @@
 @defining(if(serviceId.nonEmpty) serviceId else serviceCode) { service =>
   <a lang="@params.language.code"
     hreflang="@params.language.code"
-    class="@toClasses("govuk-link ", classes.getOrElse(""))"
+    class="@toClasses("govuk-link hmrc-report-technical-issue ", classes.getOrElse(""))"
     target="_blank"
     href="@params.baseUrl.getOrElse("")/contact/problem_reports_nonjs?newTab=true&amp;service=@urlEncode(service)@if(params.referrerUrl.nonEmpty) {&amp;referrerUrl=@urlEncode(params.referrerUrl.get)}"
   >@if(params.language.code == "cy") {
