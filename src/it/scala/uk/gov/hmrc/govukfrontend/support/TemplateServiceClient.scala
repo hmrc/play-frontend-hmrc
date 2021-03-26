@@ -21,7 +21,11 @@ trait TemplateServiceClient extends AnyWordSpecLike with WSScalaTestClient with 
     * @param templateParams
     * @return [[WSResponse]] with the rendered component
     */
-  def render[T: OWrites](govukComponentName: String, templateParams: T, govukVersion: String = govukFrontendVersion): Future[WSResponse] =
+  def render[T: OWrites](
+    govukComponentName: String,
+    templateParams: T,
+    govukVersion: String = govukFrontendVersion
+  ): Future[WSResponse] =
     wsUrl(s"component/govuk/$govukVersion/$govukComponentName")
       .post(Json.toJson(templateParams))
 }
