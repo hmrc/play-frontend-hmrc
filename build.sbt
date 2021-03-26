@@ -53,6 +53,7 @@ lazy val root = Project(libName, file("."))
     buildInfoPackage := "hmrcfrontendbuildinfo"
   )
   .settings(inConfig(IntegrationTest)(itSettings): _*)
+  .settings(inConfig(IntegrationTest)(org.scalafmt.sbt.ScalafmtPlugin.scalafmtConfigSettings))
 
 lazy val itSettings = Defaults.itSettings ++ Seq(
   unmanagedSourceDirectories += sourceDirectory.value / playDir,
