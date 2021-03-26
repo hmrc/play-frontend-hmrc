@@ -80,17 +80,17 @@ abstract class TemplateIntegrationSpec[T: OWrites: Arbitrary](hmrcComponentName:
 
         tryRenderTwirl match {
 
-          case Success(twirlOutputHtml) =>
+          case Success(twirlOutputHtml)                      =>
             val preProcessedTwirlHtml    = preProcess(twirlOutputHtml)
             val preProcessedNunjucksHtml = preProcess(nunJucksOutputHtml)
             val prop                     = preProcessedTwirlHtml == preProcessedNunjucksHtml
 
             if (!prop) {
               reportDiff(
-                preProcessedTwirlHtml    = preProcessedTwirlHtml,
+                preProcessedTwirlHtml = preProcessedTwirlHtml,
                 preProcessedNunjucksHtml = preProcessedNunjucksHtml,
-                templateParams           = templateParams,
-                templateParamsJson       = Json.prettyPrint(Json.toJson(templateParams))
+                templateParams = templateParams,
+                templateParamsJson = Json.prettyPrint(Json.toJson(templateParams))
               )
             }
 
@@ -109,13 +109,14 @@ abstract class TemplateIntegrationSpec[T: OWrites: Arbitrary](hmrcComponentName:
     preProcessedTwirlHtml: String,
     preProcessedNunjucksHtml: String,
     templateParams: T,
-    templateParamsJson: String): Unit = {
+    templateParamsJson: String
+  ): Unit = {
 
     val diffPath =
       templateDiffPath(
-        twirlOutputHtml    = preProcessedTwirlHtml,
+        twirlOutputHtml = preProcessedTwirlHtml,
         nunJucksOutputHtml = preProcessedNunjucksHtml,
-        diffFilePrefix     = Some(hmrcComponentName)
+        diffFilePrefix = Some(hmrcComponentName)
       )
 
     println(s"Diff between Twirl and Nunjucks outputs (please open diff HTML file in a browser): file://$diffPath\n")

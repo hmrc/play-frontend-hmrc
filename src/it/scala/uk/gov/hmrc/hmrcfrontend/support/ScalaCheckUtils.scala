@@ -18,10 +18,10 @@ object ScalaCheckUtils {
     */
   @scala.annotation.tailrec
   def classify(conditions: Stream[ClassifyParams])(prop: Prop): Prop = conditions match {
-    case Stream.Empty => prop
+    case Stream.Empty       => prop
     case h #:: Stream.Empty =>
       if (h._1) collect(h._2)(prop) else collect(h._3)(prop)
-    case h #:: t =>
+    case h #:: t            =>
       classify(t)(Prop.classify(h._1, h._2, h._3)(prop))
   }
 }

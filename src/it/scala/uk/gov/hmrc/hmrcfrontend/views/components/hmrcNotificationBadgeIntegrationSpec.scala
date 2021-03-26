@@ -25,7 +25,7 @@ import uk.gov.hmrc.hmrcfrontend.views.viewmodels.notificationbadge.Generators._
 import scala.util.Try
 
 object hmrcNotificationBadgeIntegrationSpec
-  extends TemplateIntegrationSpec[NotificationBadge](hmrcComponentName = "hmrcNotificationBadge", seed = None) {
+    extends TemplateIntegrationSpec[NotificationBadge](hmrcComponentName = "hmrcNotificationBadge", seed = None) {
 
   override def render(notificationBadge: NotificationBadge): Try[HtmlFormat.Appendable] =
     Try(HmrcNotificationBadge(notificationBadge))
