@@ -23,7 +23,8 @@ import uk.gov.hmrc.govukfrontend.views.viewmodels.fileupload.Generators._
 import uk.gov.hmrc.govukfrontend.views.viewmodels.fileupload.FileUpload
 import scala.util.Try
 
-object govukFileUploadIntegrationSpec extends TemplateIntegrationSpec[FileUpload](govukComponentName = "govukFileUpload", seed = None) {
+object govukFileUploadIntegrationSpec
+    extends TemplateIntegrationSpec[FileUpload](govukComponentName = "govukFileUpload", seed = None) {
 
   override def render(fileUpload: FileUpload): Try[HtmlFormat.Appendable] =
     Try(GovukFileUpload(fileUpload))

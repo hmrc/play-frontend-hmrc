@@ -23,7 +23,8 @@ import uk.gov.hmrc.govukfrontend.views.viewmodels.skiplink.Generators._
 import uk.gov.hmrc.govukfrontend.views.viewmodels.skiplink.SkipLink
 import scala.util.Try
 
-object govukSkipLinkIntegrationSpec extends TemplateIntegrationSpec[SkipLink](govukComponentName = "govukSkipLink", seed = None) {
+object govukSkipLinkIntegrationSpec
+    extends TemplateIntegrationSpec[SkipLink](govukComponentName = "govukSkipLink", seed = None) {
 
   override def render(skipLink: SkipLink): Try[HtmlFormat.Appendable] =
     Try(GovukSkipLink(skipLink))
