@@ -5,7 +5,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
-## [0.53.0] - 2021-03-19
+## [0.57.0] - 2021-03-19
+
+Updated documentation
+
+## [0.56.0] - 2021-03-19
+
+Test formatting
+
+## [0.55.0] - 2021-03-19
 
 ### Changed
 
