@@ -19,11 +19,8 @@ which handles SASS compilation, routing, etc. However, if you are unable to use 
     $govuk-assets-path: "/<your-project-context-root>/assets/lib/govuk-frontend/govuk/assets/";
     
     @import "lib/govuk-frontend/govuk/all";
-    
-    .app-reference-number {
-      display: block;
-      font-weight: bold;
-    }
+
+    \\ Add your custom styles here
     ```
 Ensure [sbt-sassify](https://github.com/irundaia/sbt-sassify) is added to plugins.sbt
 
@@ -53,6 +50,6 @@ Ensure [sbt-sassify](https://github.com/irundaia/sbt-sassify) is added to plugin
         pageTitle = pageTitle,
         headBlock = Some(head()),
         beforeContentBlock = beforeContentBlock,
-        footerItems = Seq(FooterItem(href = Some("https://govuk-prototype-kit.herokuapp.com/"), text = Some("GOV.UK Prototype Kit v9.1.0"))),
+        footerItems = Seq(FooterItem(href = Some("https://www.gov.uk/help"), text = Some("Help using GOV.UK"))),
         bodyEndBlock = Some(scripts()))(contentBlock)
     ```
