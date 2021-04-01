@@ -27,6 +27,7 @@ The library comprises two packages:
 - [Integrating with tracking consent](#integrating-with-tracking-consent)
 - [Warning users before timing them out](#warning-users-before-timing-them-out)
 - [Welsh language selection](#welsh-language-selection)
+- [Adding your own SASS compilation pipeline](#adding-your-own-sass-compilation-pipeline)
 - [Getting help](#getting-help)
 - [Useful links](#useful-links)
 - [Owning team readme](#owning-team-readme)
@@ -422,6 +423,11 @@ determine where to redirect the user when they toggle between languages. In the 
 that the browser fails to send the `Referer` header, users are redirected to 
 `https://www.gov.uk/government/organisations/hm-revenue-customs`. If desired, this behaviour can be overridden by 
 setting the `language.fallback.url` configuration key in `application.conf`.
+
+## Adding your own SASS compilation pipeline
+
+This library will manage SASS compilation for you. However, should you need for any reason to add your own SASS 
+compilation pipeline, follow the [steps detailed here](https://github.com/hmrc/play-frontend-hmrc/blob/master/docs/maintainers/sass-compilation.md).
 
 ## Getting help
 
