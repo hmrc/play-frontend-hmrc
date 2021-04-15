@@ -28,7 +28,7 @@ class RichCharacterCountSpec extends AnyWordSpec with Matchers with MessagesHelp
   "Given an CharacterCount object, calling withFormField" should {
     "use the Field name as the CharacterCount name if no CharacterCount name provided" in {
       val characterCount = CharacterCount().withFormField(field)
-      characterCount.name shouldBe "Form Name"
+      characterCount.name shouldBe "user-name"
     }
 
     "use the CharacterCount name over the Field name if both exist" in {
@@ -38,7 +38,7 @@ class RichCharacterCountSpec extends AnyWordSpec with Matchers with MessagesHelp
 
     "use the Field name as the id if no CharacterCount id provided" in {
       val characterCount = CharacterCount().withFormField(field)
-      characterCount.id shouldBe "Form Name"
+      characterCount.id shouldBe "user-name"
     }
 
     "use the CharacterCount id over the Field name if both exist" in {
@@ -71,8 +71,8 @@ class RichCharacterCountSpec extends AnyWordSpec with Matchers with MessagesHelp
     "correctly chain multiple Field properties provided to update an CharacterCount" in {
       val characterCount = CharacterCount()
       characterCount.withFormField(field) shouldBe CharacterCount(
-        name = "Form Name",
-        id = "Form Name",
+        name = "user-name",
+        id = "user-name",
         errorMessage = Some(ErrorMessage(content = Text("Not valid name"))),
         value = Some("bad")
       )

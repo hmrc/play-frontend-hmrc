@@ -289,7 +289,7 @@ trait Implicits {
         .withItemsChecked(field)
 
     private[views] def withName(field: Field): Checkboxes =
-      withStringProperty(field.name, checkboxes.name, checkboxes)((cb, nm) => cb.copy(name = nm))
+      withStringProperty(field.name, checkboxes.name, checkboxes)((cb, nm) => cb.copy(name = s"$nm[]"))
 
     private[views] def withIdPrefix(field: Field): Checkboxes =
       withOptStringProperty(Some(field.name), checkboxes.idPrefix, checkboxes)((cb, ip) => cb.copy(idPrefix = ip))
@@ -303,7 +303,9 @@ trait Implicits {
       checkboxes.copy(
         items = checkboxes.items.map { checkboxItem =>
           if (checkboxItem.checked == CheckboxItem.defaultObject.checked) {
-            val isChecked = field.value.contains(checkboxItem.value)
+            val checkedValues = field.indexes.flatMap((i: Int) => field(s"[$i]").value)
+
+            val isChecked = checkedValues.contains(checkboxItem.value)
             checkboxItem.copy(checked = isChecked)
           } else checkboxItem
         }

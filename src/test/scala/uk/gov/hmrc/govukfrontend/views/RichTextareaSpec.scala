@@ -28,7 +28,7 @@ class RichTextareaSpec extends AnyWordSpec with Matchers with MessagesHelpers wi
   "Given an Textarea object, calling withFormField" should {
     "use the Field name as the Textarea name if no Textarea name provided" in {
       val textarea = Textarea().withFormField(field)
-      textarea.name shouldBe "Form Name"
+      textarea.name shouldBe "user-name"
     }
 
     "use the Textarea name over the Field name if both exist" in {
@@ -38,7 +38,7 @@ class RichTextareaSpec extends AnyWordSpec with Matchers with MessagesHelpers wi
 
     "use the Field name as the id if no Textarea id provided" in {
       val textarea = Textarea().withFormField(field)
-      textarea.id shouldBe "Form Name"
+      textarea.id shouldBe "user-name"
     }
 
     "use the Textarea id over the Field name if both exist" in {
@@ -71,8 +71,8 @@ class RichTextareaSpec extends AnyWordSpec with Matchers with MessagesHelpers wi
     "correctly chain multiple Field properties provided to update an Textarea" in {
       val textarea = Textarea()
       textarea.withFormField(field) shouldBe Textarea(
-        name = "Form Name",
-        id = "Form Name",
+        name = "user-name",
+        id = "user-name",
         errorMessage = Some(ErrorMessage(content = Text("Not valid name"))),
         value = Some("bad")
       )

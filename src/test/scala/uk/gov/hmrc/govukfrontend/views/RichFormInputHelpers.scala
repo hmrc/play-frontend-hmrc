@@ -17,34 +17,48 @@
 package uk.gov.hmrc.govukfrontend.views
 
 import play.api.data.{Field, Form, FormError}
-import play.api.data.Forms.{mapping, text}
+import play.api.data.Forms.{mapping, set, text}
 
 trait RichFormInputHelpers {
 
+  val form = TestFormBind.form.bindFromRequest(
+    Map(
+      "user-name"                        -> Seq("Test Name"),
+      "user-email"                       -> Seq("test@example.com"),
+      "user-communication-preferences[]" -> Seq("post", "email")
+    )
+  )
+
   val field: Field = Field(
-    form = TestFormBind.form.bind(
-      Map(
-        "user-name"  -> "Test Name",
-        "user-email" -> "test@example.com"
-      )
-    ),
-    name = "Form Name",
+    form = form,
+    name = "user-name",
     constraints = Nil,
     format = None,
     errors = Seq(
-      FormError(key = "user-name", "Not valid name"),
-      FormError(key = "user-email", "Not valid email")
+      FormError(key = "user-name", "Not valid name")
     ),
     value = Some("bad")
   )
 
-  case class TestForm(name: String, email: String)
+  val repeatedField: Field = Field(
+    form = form,
+    name = "user-communication-preferences",
+    constraints = Nil,
+    format = None,
+    errors = Seq(
+      FormError(key = "user-communication-preferences", "Not valid preferences")
+    ),
+    value = None
+  )
+
+  case class TestForm(name: String, email: String, userMarketingPreferences: Set[String])
 
   object TestFormBind {
     def form: Form[TestForm] = Form[TestForm](
       mapping(
-        "user-name"  -> text,
-        "user-email" -> text
+        "user-name"                      -> text,
+        "user-email"                     -> text,
+        "user-communication-preferences" -> set(text)
       )(TestForm.apply)(TestForm.unapply)
     )
   }
