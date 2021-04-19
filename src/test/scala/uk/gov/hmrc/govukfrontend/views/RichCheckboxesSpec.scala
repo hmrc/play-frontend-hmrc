@@ -26,19 +26,19 @@ import uk.gov.hmrc.govukfrontend.views.viewmodels.checkboxes.{CheckboxItem, Chec
 class RichCheckboxesSpec extends AnyWordSpec with Matchers with MessagesHelpers with RichFormInputHelpers {
 
   "Given a Checkboxes object, calling withFormField" should {
-    "use the Field name as the Checkboxes name if no Checkboxes name provided" in {
+    "use the Field name, appending [], as the Checkboxes name if no Checkboxes name provided" in {
       val checkboxes = Checkboxes().withFormField(field)
-      checkboxes.name shouldBe "Form Name"
+      checkboxes.name shouldBe "user-name[]"
     }
 
     "use the Checkboxes name over the Field name if both exist" in {
-      val checkboxes = Checkboxes(name = "Checkboxes Name").withFormField(field)
-      checkboxes.name shouldBe "Checkboxes Name"
+      val checkboxes = Checkboxes(name = "checkboxesName").withFormField(field)
+      checkboxes.name shouldBe "checkboxesName"
     }
 
     "use the Field name as the idPrefix if no Checkboxes idPrefix provided" in {
       val checkboxes = Checkboxes().withFormField(field)
-      checkboxes.idPrefix shouldBe Some("Form Name")
+      checkboxes.idPrefix shouldBe Some("user-name")
     }
 
     "use the Checkboxes idPrefix over the Field name if both exist" in {
@@ -46,17 +46,17 @@ class RichCheckboxesSpec extends AnyWordSpec with Matchers with MessagesHelpers 
       checkboxes.idPrefix shouldBe Some("Checkboxes Prefix")
     }
 
-    "check a RadioItem if the Field value matches the Radio value and no checked value in Radio" in {
-      val checkboxItemGood  = CheckboxItem(content = Text("This is good"), value = "good")
-      val checkboxItemBad   = CheckboxItem(content = Text("This is bad"), value = "bad")
-      val checkboxItemWorst = CheckboxItem(content = Text("This is THE WORST"), value = "worst")
+    "check items that are present in the Field's repeating values" in {
+      val email = CheckboxItem(content = Text("Email"), value = "email")
+      val post  = CheckboxItem(content = Text("Post"), value = "post")
+      val phone = CheckboxItem(content = Text("Phone"), value = "phone")
 
       val checkboxes =
-        Checkboxes(items = Seq(checkboxItemGood, checkboxItemBad, checkboxItemWorst)).withFormField(field)
+        Checkboxes(items = Seq(email, post, phone)).withFormField(repeatedField)
       checkboxes.items shouldBe Seq(
-        checkboxItemGood,
-        checkboxItemBad.copy(checked = true),
-        checkboxItemWorst
+        email.copy(checked = true),
+        post.copy(checked = true),
+        phone
       )
     }
 
@@ -73,21 +73,21 @@ class RichCheckboxesSpec extends AnyWordSpec with Matchers with MessagesHelpers 
     }
 
     "correctly chain multiple Field properties provided to update a Checkboxes" in {
-      val checkboxItemGood  = CheckboxItem(content = Text("This is good"), value = "good")
-      val checkboxItemBad   = CheckboxItem(content = Text("This is bad"), value = "bad")
-      val checkboxItemWorst = CheckboxItem(content = Text("This is THE WORST"), value = "worst")
+      val email = CheckboxItem(content = Text("Email"), value = "email")
+      val post  = CheckboxItem(content = Text("Post"), value = "post")
+      val phone = CheckboxItem(content = Text("Phone"), value = "phone")
 
-      val checkboxes = Checkboxes(
-        items = Seq(checkboxItemGood, checkboxItemBad, checkboxItemWorst)
-      )
-      checkboxes.withFormField(field) shouldBe Checkboxes(
-        name = "Form Name",
-        idPrefix = Some("Form Name"),
-        errorMessage = Some(ErrorMessage(content = Text("Not valid name"))),
+      val checkboxes =
+        Checkboxes(items = Seq(email, post, phone)).withFormField(repeatedField)
+
+      checkboxes.withFormField(repeatedField) shouldBe Checkboxes(
+        name = "user-communication-preferences[]",
+        idPrefix = Some("user-communication-preferences"),
+        errorMessage = Some(ErrorMessage(content = Text("Not valid preferences"))),
         items = Seq(
-          checkboxItemGood,
-          checkboxItemBad.copy(checked = true),
-          checkboxItemWorst
+          email.copy(checked = true),
+          post.copy(checked = true),
+          phone
         )
       )
     }

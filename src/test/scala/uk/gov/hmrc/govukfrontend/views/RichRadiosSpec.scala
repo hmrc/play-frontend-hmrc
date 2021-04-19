@@ -28,7 +28,7 @@ class RichRadiosSpec extends AnyWordSpec with Matchers with MessagesHelpers with
   "Given a Radios object, calling withFormField" should {
     "use the Field name as the Radios name if no Radios name provided" in {
       val radios = Radios().withFormField(field)
-      radios.name shouldBe "Form Name"
+      radios.name shouldBe "user-name"
     }
 
     "use the Radios name over the Field name if both exist" in {
@@ -38,7 +38,7 @@ class RichRadiosSpec extends AnyWordSpec with Matchers with MessagesHelpers with
 
     "use the Field name as the idPrefix if no Radios idPrefix provided" in {
       val radios = Radios().withFormField(field)
-      radios.idPrefix shouldBe Some("Form Name")
+      radios.idPrefix shouldBe Some("user-name")
     }
 
     "use the Radios idPrefix over the Field name if both exist" in {
@@ -80,8 +80,8 @@ class RichRadiosSpec extends AnyWordSpec with Matchers with MessagesHelpers with
         items = Seq(radioItemGood, radioItemBad, radioItemWorst)
       )
       radios.withFormField(field) shouldBe Radios(
-        name = "Form Name",
-        idPrefix = Some("Form Name"),
+        name = "user-name",
+        idPrefix = Some("user-name"),
         errorMessage = Some(ErrorMessage(content = Text("Not valid name"))),
         items = Seq(
           radioItemGood,

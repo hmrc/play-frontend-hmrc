@@ -28,7 +28,7 @@ class RichInputSpec extends AnyWordSpec with Matchers with MessagesHelpers with 
   "Given an Input object, calling withFormField" should {
     "use the Field name as the Input name if no Input name provided" in {
       val input = Input().withFormField(field)
-      input.name shouldBe "Form Name"
+      input.name shouldBe "user-name"
     }
 
     "use the Input name over the Field name if both exist" in {
@@ -38,7 +38,7 @@ class RichInputSpec extends AnyWordSpec with Matchers with MessagesHelpers with 
 
     "use the Field name as the id if no Input id provided" in {
       val input = Input().withFormField(field)
-      input.id shouldBe "Form Name"
+      input.id shouldBe "user-name"
     }
 
     "use the Input id over the Field name if both exist" in {
@@ -71,8 +71,8 @@ class RichInputSpec extends AnyWordSpec with Matchers with MessagesHelpers with 
     "correctly chain multiple Field properties provided to update an Input" in {
       val input = Input()
       input.withFormField(field) shouldBe Input(
-        name = "Form Name",
-        id = "Form Name",
+        name = "user-name",
+        id = "user-name",
         errorMessage = Some(ErrorMessage(content = Text("Not valid name"))),
         value = Some("bad")
       )

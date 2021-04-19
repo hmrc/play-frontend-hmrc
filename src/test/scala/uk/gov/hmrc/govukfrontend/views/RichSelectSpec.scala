@@ -28,7 +28,7 @@ class RichSelectSpec extends AnyWordSpec with Matchers with MessagesHelpers with
   "Given a Select object, calling withFormField" should {
     "use the Field name as the Select name if no Select name provided" in {
       val select = Select().withFormField(field)
-      select.name shouldBe "Form Name"
+      select.name shouldBe "user-name"
     }
 
     "use the Select name over the Field name if both exist" in {
@@ -38,7 +38,7 @@ class RichSelectSpec extends AnyWordSpec with Matchers with MessagesHelpers with
 
     "use the Field name as the id if no Select id provided" in {
       val select = Select().withFormField(field)
-      select.id shouldBe "Form Name"
+      select.id shouldBe "user-name"
     }
 
     "use the Select id over the Field name if both exist" in {
@@ -80,8 +80,8 @@ class RichSelectSpec extends AnyWordSpec with Matchers with MessagesHelpers with
         items = Seq(selectItemGood, selectItemBad, selectItemWorst)
       )
       select.withFormField(field) shouldBe Select(
-        name = "Form Name",
-        id = "Form Name",
+        name = "user-name",
+        id = "user-name",
         errorMessage = Some(ErrorMessage(content = Text("Not valid name"))),
         items = Seq(
           selectItemGood,
