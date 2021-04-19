@@ -5,6 +5,26 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [0.71.0] - 2021-04-19
+
+### Updated
+
+- Changelog update
+
+### Compatible with
+
+- [alphagov/govuk-frontend v3.11.0](https://github.com/alphagov/govuk-frontend/releases/tag/v3.11.0)
+
+## [0.70.0] - 2021-04-19
+
+### Fixed
+
+- RichCheckboxes to take into account multiple values
+
+### Compatible with
+
+- [alphagov/govuk-frontend v3.11.0](https://github.com/alphagov/govuk-frontend/releases/tag/v3.11.0)
+
 ## [0.69.0] - 2021-03-29
 
 ### Changed
