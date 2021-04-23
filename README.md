@@ -28,6 +28,7 @@ The library comprises two packages:
 - [Warning users before timing them out](#warning-users-before-timing-them-out)
 - [Welsh language selection](#welsh-language-selection)
 - [Adding your own SASS compilation pipeline](#adding-your-own-sass-compilation-pipeline)
+- [Play Framework and Scala compatibility notes](#play-framework-and-scala-compatibility-notes)
 - [Getting help](#getting-help)
 - [Useful links](#useful-links)
 - [Owning team readme](#owning-team-readme)
@@ -428,6 +429,11 @@ setting the `language.fallback.url` configuration key in `application.conf`.
 
 This library will manage SASS compilation for you. However, should you need for any reason to add your own SASS 
 compilation pipeline, follow the [steps detailed here](https://github.com/hmrc/play-frontend-hmrc/blob/master/docs/maintainers/sass-compilation.md).
+
+## Play Framework and Scala compatibility notes
+This library is currently compatible with:
+* Scala 2.12
+* Play 2.6, Play 2.7, Play 2.8
 
 ## Getting help
 
