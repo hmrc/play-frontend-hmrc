@@ -5,6 +5,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [0.59.0] - 2021-04-23
+
+### Changed
+
+- Add Scala and Play framework compatibility notes to README
+
+### Compatible with
+
+- [hmrc/hmrc-frontend v1.29.0](https://github.com/hmrc/hmrc-frontend/releases/tag/v1.29.0)
+- [hmrc/play-frontend-govuk v0.71.0](https://github.com/hmrc/play-frontend-govuk/releases/tag/v0.71.0)
+- [alphagov/govuk-frontend v3.11.0](https://github.com/alphagov/govuk-frontend/releases/tag/v3.11.0)
+
 ## [0.58.0] - 2021-04-19
 
 ### Changed
