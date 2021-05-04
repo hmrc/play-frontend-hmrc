@@ -62,7 +62,11 @@ class HmrcFooterItemsSpec extends AnyWordSpec with Matchers with MessagesSupport
         ),
         FooterItem(
           Some("Rhestr o Wasanaethau Cymraeg"),
-          Some("https://www.gov.uk/cymraeg")
+          Some("https://www.gov.uk/cymraeg"),
+          attributes = Map(
+            "lang"     -> "cy",
+            "hreflang" -> "cy"
+          )
         )
       )
     }
@@ -102,7 +106,11 @@ class HmrcFooterItemsSpec extends AnyWordSpec with Matchers with MessagesSupport
         ),
         FooterItem(
           Some("Rhestr o Wasanaethau Cymraeg"),
-          Some("https://www.gov.uk/cymraeg")
+          Some("https://www.gov.uk/cymraeg"),
+          attributes = Map(
+            "lang"     -> "cy",
+            "hreflang" -> "cy"
+          )
         )
       )
     }
@@ -145,7 +153,11 @@ class HmrcFooterItemsSpec extends AnyWordSpec with Matchers with MessagesSupport
         ),
         FooterItem(
           Some("Rhestr o Wasanaethau Cymraeg"),
-          Some("https://www.gov.uk/cymraeg")
+          Some("https://www.gov.uk/cymraeg"),
+          attributes = Map(
+            "lang"     -> "cy",
+            "hreflang" -> "cy"
+          )
         )
       )
     }
@@ -178,7 +190,11 @@ class HmrcFooterItemsSpec extends AnyWordSpec with Matchers with MessagesSupport
         ),
         FooterItem(
           Some("Rhestr o Wasanaethau Cymraeg"),
-          Some("https://www.gov.uk/cymraeg")
+          Some("https://www.gov.uk/cymraeg"),
+          attributes = Map(
+            "lang"     -> "cy",
+            "hreflang" -> "cy"
+          )
         )
       )
     }
@@ -222,7 +238,11 @@ class HmrcFooterItemsSpec extends AnyWordSpec with Matchers with MessagesSupport
         ),
         FooterItem(
           Some("Rhestr o Wasanaethau Cymraeg"),
-          Some("https://www.gov.uk/cymraeg")
+          Some("https://www.gov.uk/cymraeg"),
+          attributes = Map(
+            "lang"     -> "cy",
+            "hreflang" -> "cy"
+          )
         )
       )
     }

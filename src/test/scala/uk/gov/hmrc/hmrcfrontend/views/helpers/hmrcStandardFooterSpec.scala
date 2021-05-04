@@ -84,6 +84,17 @@ class hmrcStandardFooterSpec
       links.eachText() should be(englishLinkTextEntries)
     }
 
+    "add a lang and hreflang attribute to the Welsh language information link" in {
+      implicit val app = buildApp()
+
+      val content  = contentAsString(HmrcStandardFooter()(messages, fakeRequest))
+      val document = Jsoup.parse(content)
+      val links    = document.getElementsByTag("a")
+
+      links.get(5).attr("lang")     should be("cy")
+      links.get(5).attr("hreflang") should be("cy")
+    }
+
     "allow additional links to be added" in {
       implicit val app = buildApp()
 

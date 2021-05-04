@@ -36,7 +36,7 @@ class HmrcFooterItems @Inject() (accessibilityStatementConfig: AccessibilityStat
       footerItemForKey("termsConditions"),
       footerItemForKey("govukHelp"),
       footerItemForKey("contact"),
-      footerItemForKey("welshHelp")
+      footerItemForKey("welshHelp", attributes = Map("lang" -> "cy", "hreflang" -> "cy"))
     ).flatten
 
   private def accessibilityLink(
@@ -46,11 +46,14 @@ class HmrcFooterItems @Inject() (accessibilityStatementConfig: AccessibilityStat
       .orElse(accessibilityStatementConfig.url)
       .map(href => FooterItem(Some(messages("footer.accessibility.text")), Some(href)))
 
-  private def footerItemForKey(item: String)(implicit messages: Messages): Option[FooterItem] =
+  private def footerItemForKey(item: String, attributes: Map[String, String] = Map.empty)(implicit
+    messages: Messages
+  ): Option[FooterItem] =
     Some(
       FooterItem(
         text = Some(messages(s"footer.$item.text")),
-        href = Some(messages(s"footer.$item.url"))
+        href = Some(messages(s"footer.$item.url")),
+        attributes = attributes
       )
     )
 }
