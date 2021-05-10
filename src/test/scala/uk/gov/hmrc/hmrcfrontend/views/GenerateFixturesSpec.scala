@@ -43,8 +43,10 @@ class GenerateFixturesSpec extends AnyWordSpec with Matchers {
 
     fixturesDir.get.children.filter(_.isDirectory).foreach { example =>
       s"create a non-empty output.txt in ${example.name}" in {
-        (example / "output.txt").exists                  shouldBe true
-        (example / "output.txt").contentAsString.isEmpty shouldBe false
+        (example / "output.txt").exists shouldBe true
+        if (example.name != "timeline-default") {
+          (example / "output.txt").contentAsString.isEmpty shouldBe false
+        }
       }
 
       s"create a valid component.json in ${example.name}" in {

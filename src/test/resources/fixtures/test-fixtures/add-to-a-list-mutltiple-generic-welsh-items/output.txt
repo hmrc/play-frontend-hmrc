@@ -1,43 +1,43 @@
 <h1 class="govuk-heading-xl">Rydych wedi ychwanegu 2 o eitemau</h1>
 <div class="govuk-form-group">
-  <ul class="hmrc-add-to-a-list hmrc-add-to-a-list--short">
+  <dl class="hmrc-add-to-a-list hmrc-add-to-a-list--short">
     
-    <li class="hmrc-add-to-a-list__contents">
-      <span class="hmrc-add-to-a-list__identifier hmrc-add-to-a-list__identifier--light">
+    <div class="hmrc-add-to-a-list__contents">
+      <dt class="hmrc-add-to-a-list__identifier hmrc-add-to-a-list__identifier--light">
         Eitem un
-      </span>
-      <span class="hmrc-add-to-a-list__change">
+      </dt>
+      <dd class="hmrc-add-to-a-list__change">
         <a class="govuk-link" href="#c1url">
           <span aria-hidden="true">Newid</span>
           <span class="govuk-visually-hidden">Newid Eitem un</span>
         </a>
-      </span>
-      <span class="hmrc-add-to-a-list__remove">
+      </dd>
+      <dd class="hmrc-add-to-a-list__remove">
         <a class="govuk-link" href="#r1url">
           <span aria-hidden="true">Dileu</span>
           <span class="govuk-visually-hidden">Dileu’r Eitem un o’r rhestr</span>
         </a>
-      </span>
-    </li>
-    <li class="hmrc-add-to-a-list__contents">
-      <span class="hmrc-add-to-a-list__identifier hmrc-add-to-a-list__identifier--light">
+      </dd>
+    </div>
+    <div class="hmrc-add-to-a-list__contents">
+      <dt class="hmrc-add-to-a-list__identifier hmrc-add-to-a-list__identifier--light">
         Eitem dau
-      </span>
-      <span class="hmrc-add-to-a-list__change">
+      </dt>
+      <dd class="hmrc-add-to-a-list__change">
         <a class="govuk-link" href="#c2url">
           <span aria-hidden="true">Newid</span>
           <span class="govuk-visually-hidden">Newid Eitem dau</span>
         </a>
-      </span>
-      <span class="hmrc-add-to-a-list__remove">
+      </dd>
+      <dd class="hmrc-add-to-a-list__remove">
         <a class="govuk-link" href="#r2url">
           <span aria-hidden="true">Dileu</span>
           <span class="govuk-visually-hidden">Dileu’r Eitem dau o’r rhestr</span>
         </a>
-      </span>
-    </li>
+      </dd>
+    </div>
     
-  </ul>
+  </dl>
 </div>
 <form method="post" action="#addItem">
   
