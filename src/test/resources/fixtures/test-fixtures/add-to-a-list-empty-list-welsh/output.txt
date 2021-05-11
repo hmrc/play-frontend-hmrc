@@ -1,10 +1,10 @@
 <h1 class="govuk-heading-xl">Nid ydych wedi ychwanegu unrhyw eitemau</h1>
 <div class="govuk-form-group">
-  <ul class="hmrc-add-to-a-list hmrc-add-to-a-list--short">
+  <dl class="hmrc-add-to-a-list hmrc-add-to-a-list--short">
     
       
     
-  </ul>
+  </dl>
 </div>
 <form method="post" action="">
   

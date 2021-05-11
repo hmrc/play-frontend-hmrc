@@ -1,43 +1,43 @@
 <h1 class="govuk-heading-xl">You have added 2 directors</h1>
 <div class="govuk-form-group">
-  <ul class="hmrc-add-to-a-list hmrc-add-to-a-list--short">
+  <dl class="hmrc-add-to-a-list hmrc-add-to-a-list--short">
     
-    <li class="hmrc-add-to-a-list__contents">
-      <span class="hmrc-add-to-a-list__identifier hmrc-add-to-a-list__identifier--light">
+    <div class="hmrc-add-to-a-list__contents">
+      <dt class="hmrc-add-to-a-list__identifier hmrc-add-to-a-list__identifier--light">
         Director One
-      </span>
-      <span class="hmrc-add-to-a-list__change">
+      </dt>
+      <dd class="hmrc-add-to-a-list__change">
         <a class="govuk-link" href="#change-item-1">
           <span aria-hidden="true">Change</span>
           <span class="govuk-visually-hidden">Change Director One</span>
         </a>
-      </span>
-      <span class="hmrc-add-to-a-list__remove">
+      </dd>
+      <dd class="hmrc-add-to-a-list__remove">
         <a class="govuk-link" href="#remove-item-1">
           <span aria-hidden="true">Remove</span>
           <span class="govuk-visually-hidden">Remove Director One from the list</span>
         </a>
-      </span>
-    </li>
-    <li class="hmrc-add-to-a-list__contents">
-      <span class="hmrc-add-to-a-list__identifier hmrc-add-to-a-list__identifier--light">
+      </dd>
+    </div>
+    <div class="hmrc-add-to-a-list__contents">
+      <dt class="hmrc-add-to-a-list__identifier hmrc-add-to-a-list__identifier--light">
         Director Two
-      </span>
-      <span class="hmrc-add-to-a-list__change">
+      </dt>
+      <dd class="hmrc-add-to-a-list__change">
         <a class="govuk-link" href="#change-item-2">
           <span aria-hidden="true">Change</span>
           <span class="govuk-visually-hidden">Change Director Two</span>
         </a>
-      </span>
-      <span class="hmrc-add-to-a-list__remove">
+      </dd>
+      <dd class="hmrc-add-to-a-list__remove">
         <a class="govuk-link" href="#remove-item-2">
           <span aria-hidden="true">Remove</span>
           <span class="govuk-visually-hidden">Remove Director Two from the list</span>
         </a>
-      </span>
-    </li>
+      </dd>
+    </div>
     
-  </ul>
+  </dl>
 </div>
 <form method="post" action="#add-director">
   

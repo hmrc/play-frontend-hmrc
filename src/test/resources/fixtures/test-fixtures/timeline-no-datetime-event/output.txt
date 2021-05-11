@@ -1,0 +1,8 @@
+  <ol class="hmrc-timeline">
+<li class="hmrc-timeline__event">
+        <h2 class="hmrc-timeline__event-title">event one</h2>
+        <time class="hmrc-timeline__event-meta" >15 July 2020</time>
+        <div class="hmrc-timeline__event-content">
+          <p class="govuk-body">singleExampleContent1</p>
+        </div>
+      </li>  </ol>
