@@ -17,7 +17,7 @@
 package uk.gov.hmrc.hmrcfrontend.views
 package html
 
-import uk.gov.hmrc.govukfrontend.views.html.components.{GovukErrorMessage, GovukHint, GovukLabel, GovukPhaseBanner, GovukTextarea}
+import uk.gov.hmrc.govukfrontend.views.html.components._
 
 package object components extends Utils with Aliases {
 
@@ -81,5 +81,9 @@ package object components extends Utils with Aliases {
   type HmrcCharacterCount = hmrcCharacterCount
   @deprecated(message = "Use DI", since = "Play 2.6")
   lazy val HmrcCharacterCount = new hmrcCharacterCount(GovukTextarea, GovukHint)
+
+  type HmrcAddToAList = hmrcAddToAList
+  @deprecated(message = "Use DI", since = "Play 2.6")
+  lazy val HmrcAddToAList = new hmrcAddToAList(GovukRadios, GovukButton)
 
 }
