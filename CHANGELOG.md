@@ -5,6 +5,21 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [0.63.0] - 2021-05-14
+
+### Changed
+
+- Updated hmrc-frontend to 1.34.0
+- Updated hmrcReportTechnicalIssue and hmrcReportTechnicalIssueHelper to point to new endpoint
+  `/contact/report-technical-problem`
+
+### Compatible with
+
+- [hmrc/hmrc-frontend v1.34.01](https://github.com/hmrc/hmrc-frontend/releases/tag/v1.34.0)
+- [hmrc/play-frontend-govuk v0.71.0](https://github.com/hmrc/play-frontend-govuk/releases/tag/v0.71.0)
+- [alphagov/govuk-frontend v3.11.0](https://github.com/alphagov/govuk-frontend/releases/tag/v3.11.0)
+
+
 ## [0.62.0] - 2021-05-10
 
 ### Added
