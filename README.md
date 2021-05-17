@@ -41,7 +41,7 @@ in your `project/AppDependencies.scala` file. For example,
     libraryDependencies += "uk.gov.hmrc" %% "play-frontend-hmrc" % "x.y.z-play-27"
     ```
     
-    The library is cross-compiled for Play 2.6 and 2.7. Note, because this library transitively depends on play-frontend-govuk
+    The library is cross-compiled for Play 2.6, 2.7, and 2.8. Note, because this library transitively depends on play-frontend-govuk
     there is no need to add this as a separate dependency. If it is already included, it can be removed.
 
 1.  Add routes for hmrc-frontend and govuk-frontend assets in `conf/app.routes`:
@@ -81,7 +81,7 @@ in your `project/AppDependencies.scala` file. For example,
     )(contentBlock)
     ```
    
-   If using Play 2.7 and CSPFilter, the nonce can be passed to hmrcHead as follows:
+   From Play 2.7 when using the CSPFilter the nonce can be passed to hmrcHead as follows:
    
    ```
     @govukLayout(
@@ -126,7 +126,7 @@ You can find working examples of the use of play-frontend-hmrc in the following 
 
 ## Play Framework compatibility
 
-The library is cross-compiled for `Play 2.6` and `Play 2.7`.
+The library is cross-compiled for `Play 2.6`, `Play 2.7`, and `Play 2.8`.
 
 The same namespace exposes type aliases prefixed with `Hmrc` (ex: the type `HmrcPageHeading`) so that components can be injected into 
 a controller or template. It also exposes values of the same name (ex: `HmrcPageHeading`) if you wish to use the component template directly, 
@@ -310,7 +310,7 @@ above any other assets imported in your HEAD element. For example,
     ...
     ```
 
-If using Play 2.7 and CSPFilter, the nonce can be passed to tracking consent as follows:
+From Play 2.7 when using the CSPFilter the nonce can be passed to tracking consent as follows:
 
 ```
 @import views.html.helper.CSPNonce
