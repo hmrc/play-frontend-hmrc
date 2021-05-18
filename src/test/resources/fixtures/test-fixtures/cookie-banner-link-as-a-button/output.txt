@@ -9,7 +9,9 @@
     </div>
 
       <div class="govuk-button-group">
-              <a class="govuk-link" href="/link">This is a link</a>
+              <a href="/link" role="button" draggable="false" class="govuk-button" data-module="govuk-button">
+              This is a link
+            </a>
       </div>
     </div>
 </div>

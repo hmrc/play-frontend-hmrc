@@ -1,4 +1,4 @@
-<div class="govuk-cookie-banner " role="region" aria-label="Cookie banner">
+<div class="govuk-cookie-banner " data-nosnippet role="region" aria-label="Cookie banner">
     <div class="govuk-cookie-banner__message govuk-width-container">
 
     <div class="govuk-grid-row">
@@ -9,7 +9,7 @@
     </div>
 
       <div class="govuk-button-group">
-            <a class="govuk-link" href="/link" data-link-attribute="my-value">Link with attributes</a>
+              <a class="govuk-link" href="/link" data-link-attribute="my-value">Link with attributes</a>
       </div>
     </div>
 </div>
