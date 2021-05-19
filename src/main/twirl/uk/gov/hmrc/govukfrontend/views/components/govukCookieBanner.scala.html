@@ -19,7 +19,7 @@
 @(params: CookieBanner)
 @import params._
 
-<div class="@toClasses("govuk-cookie-banner ", classes)" role="region" aria-label="@ariaLabel.getOrElse("Cookie banner")"@if(hidden){ hidden}@toAttributes(attributes)>
+<div class="@toClasses("govuk-cookie-banner ", classes)" data-nosnippet role="region" aria-label="@ariaLabel.getOrElse("Cookie banner")"@if(hidden){ hidden}@toAttributes(attributes)>
   @for(message <- messages) {
     <div class="@toClasses("govuk-cookie-banner__message govuk-width-container", message.classes)"@message.role.mapNonEmpty {role => role="@role"} @toAttributes(message.attributes) @if(message.hidden){ hidden}>
       <div class="govuk-grid-row">
@@ -41,7 +41,19 @@
       @message.actions.map { actions =>
         <div class="govuk-button-group">
           @for(action <- actions) {
-            @action.href.foldNonEmpty {
+            @if(action.href.exists(_.nonEmpty)) {
+               @if(action.inputType.exists(_ == "button")) {
+                   @govukButton(Button(
+                       content = Text(action.text),
+                       inputType = Some("button"),
+                       classes = action.classes,
+                       attributes = action.attributes,
+                       href = action.href
+                   ))
+               } else {
+                   <a class="@toClasses("govuk-link", action.classes)" href="@{action.href}"@toAttributes(action.attributes)>@action.text</a>
+               }
+            } else {
                 @govukButton(Button(
                     content = Text(action.text),
                     value = action.value,
@@ -50,8 +62,6 @@
                     classes = action.classes,
                     attributes = action.attributes
                 ))
-            } { href =>
-              <a class="@toClasses("govuk-link", action.classes)" href="@href"@toAttributes(action.attributes)>@action.text</a>
             }
           }
         </div>
