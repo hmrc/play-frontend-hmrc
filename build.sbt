@@ -10,7 +10,7 @@ lazy val playDir = "play-26"
 lazy val IntegrationTest = config("it") extend Test
 
 lazy val root = Project(libName, file("."))
-  .enablePlugins(PlayScala, SbtAutoBuildPlugin, SbtGitVersioning, SbtTwirl, BuildInfoPlugin)
+  .enablePlugins(PlayScala, SbtTwirl, BuildInfoPlugin)
   .disablePlugins(PlayLayoutPlugin)
   .configs(IntegrationTest)
   .settings(
@@ -18,12 +18,7 @@ lazy val root = Project(libName, file("."))
     majorVersion := 0,
     scalaVersion := "2.12.13",
     libraryDependencies ++= LibDependencies(),
-    resolvers :=
-      Seq(
-        "HMRC Releases" at "https://dl.bintray.com/hmrc/releases",
-        "typesafe-releases" at "https://repo.typesafe.com/typesafe/releases/",
-        "bintray" at "https://dl.bintray.com/webjars/maven"
-      ),
+    resolvers += Resolver.jcenterRepo,
     TwirlKeys.templateImports := templateImports,
     PlayCrossCompilation.playCrossCompilationSettings,
     makePublicallyAvailableOnBintray := true,
