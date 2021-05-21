@@ -1,0 +1,8 @@
+{
+  "itemList" : [ {
+    "name" : "item one",
+    "changeUrl" : "#c1url",
+    "removeUrl" : "#r1url"
+  } ],
+  "formAction" : "#addItem"
+}

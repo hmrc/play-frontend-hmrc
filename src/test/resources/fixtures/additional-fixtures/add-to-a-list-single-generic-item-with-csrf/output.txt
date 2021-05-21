@@ -1,0 +1,56 @@
+<h1 class="govuk-heading-xl">You have added 1 item</h1>
+<div class="govuk-form-group">
+  <dl class="hmrc-add-to-a-list hmrc-add-to-a-list--short">
+
+    <div class="hmrc-add-to-a-list__contents">
+      <dt class="hmrc-add-to-a-list__identifier hmrc-add-to-a-list__identifier--light">
+        item one
+      </dt>
+      <dd class="hmrc-add-to-a-list__change">
+        <a class="govuk-link" href="#c1url">
+          <span aria-hidden="true">Change</span>
+          <span class="govuk-visually-hidden">Change item one</span>
+        </a>
+      </dd>
+      <dd class="hmrc-add-to-a-list__remove">
+        <a class="govuk-link" href="#r1url">
+          <span aria-hidden="true">Remove</span>
+          <span class="govuk-visually-hidden">Remove item one from the list</span>
+        </a>
+      </dd>
+    </div>
+
+  </dl>
+</div>
+<form action="#addItem" method="POST" novalidate>
+
+<div class="govuk-form-group">
+<fieldset class="govuk-fieldset" aria-describedby="add-another-hint">
+  <legend class="govuk-fieldset__legend govuk-fieldset__legend govuk-fieldset__legend--m">
+    Do you need to add another item?
+  </legend>
+  <div id="add-another-hint" class="govuk-hint">
+
+  </div>
+  <div class="govuk-radios govuk-radios--inline">
+        <div class="govuk-radios__item">
+          <input class="govuk-radios__input" id="add-another" name="add-another" type="radio" value="Yes">
+          <label class="govuk-label govuk-radios__label" for="add-another">
+        Yes
+      </label>
+        </div>
+        <div class="govuk-radios__item">
+          <input class="govuk-radios__input" id="add-another-2" name="add-another" type="radio" value="No">
+          <label class="govuk-label govuk-radios__label" for="add-another-2">
+        No
+      </label>
+        </div>
+  </div>
+
+</fieldset>
+</div>
+
+  <button class="govuk-button" data-module="govuk-button">
+  Continue
+</button>
+</form>

@@ -23,10 +23,11 @@
 @import uk.gov.hmrc.hmrcfrontend.views.viewmodels.language.{Cy, En}
 @import uk.gov.hmrc.hmrcfrontend.views.viewmodels.addtoalist.AddToAList
 @import uk.gov.hmrc.hmrcfrontend.views.viewmodels.addtoalist.ItemType
+@import uk.gov.hmrc.govukfrontend.views.html.components.{FormWithCSRF => PlayFrontendFormWithCSRF}
 
-@this(govukRadios: GovukRadios, govukButton: GovukButton)
+@this(govukRadios: GovukRadios, govukButton: GovukButton, formWithCsrf: PlayFrontendFormWithCSRF)
 
-@(params: AddToAList)(implicit messages: Messages)
+@(params: AddToAList)(implicit messages: Messages, request: RequestHeader)
 @import params._
 
 @defining(if(params.language == Cy || messages.lang.code == "cy") Cy else En) { language =>
@@ -89,50 +90,52 @@
       }
       </dl>
     </div>
-    <form method="post" action="@formAction">
-      @govukRadios(Radios(
-        fieldset = Some(Fieldset(
-          legend = Some(Legend(
-            content = Text(language match {
-              case Cy => s"Oes angen i chi ychwanegu ${itemType.singular} arall?"
-              case _ => s"Do you need to add another ${itemType.singular}?"
-            }),
-            classes = "govuk-fieldset__legend govuk-fieldset__legend--m",
-            isPageHeading = false
-          ))
-        )),
-        hint = Some(Hint(content = Text(hintText.getOrElse("")))),
-        idPrefix = Some("add-another"),
-        name = "add-another",
-        items = Seq(
-          RadioItem(
-            content = Text(language match {
-              case Cy => "Iawn"
-              case _ => "Yes"
-            }),
-            value = Some(language match {
-              case Cy => "Iawn"
-              case _ => "Yes"
-            })
+    @defining(params.formAction.getOrElse("")) { action =>
+      @formWithCsrf(action = Call("POST", action)) {
+        @govukRadios(Radios(
+          fieldset = Some(Fieldset(
+            legend = Some(Legend(
+              content = Text(language match {
+                case Cy => s"Oes angen i chi ychwanegu ${itemType.singular} arall?"
+                case _ => s"Do you need to add another ${itemType.singular}?"
+              }),
+              classes = "govuk-fieldset__legend govuk-fieldset__legend--m",
+              isPageHeading = false
+            ))
+          )),
+          hint = Some(Hint(content = Text(hintText.getOrElse("")))),
+          idPrefix = Some("add-another"),
+          name = "add-another",
+          items = Seq(
+            RadioItem(
+              content = Text(language match {
+                case Cy => "Iawn"
+                case _ => "Yes"
+              }),
+              value = Some(language match {
+                case Cy => "Iawn"
+                case _ => "Yes"
+              })
+            ),
+            RadioItem(
+              content = Text(language match {
+                case Cy => "Na"
+                case _ => "No"
+              }),
+              value = Some(language match {
+                case Cy => "Na"
+                case _ => "No"
+              })
+            )
           ),
-          RadioItem(
-            content = Text(language match {
-              case Cy => "Na"
-              case _ => "No"
-            }),
-            value = Some(language match {
-              case Cy => "Na"
-              case _ => "No"
-            })
-          )
-        ),
-        classes = "govuk-radios--inline"
-      ))
+          classes = "govuk-radios--inline"
+        ))
 
-      @govukButton(Button(content = Text(language match {
-        case Cy => "Yn eich blaen"
-        case _ => "continue"
-      })))
-    </form>
+        @govukButton(Button(content = Text(language match {
+          case Cy => "Yn eich blaen"
+          case _ => "Continue"
+        })))
+      }
+    }
   }
 }

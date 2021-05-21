@@ -1,0 +1,73 @@
+<h1 class="govuk-heading-xl">Rydych wedi ychwanegu 2 o eitemau</h1>
+<div class="govuk-form-group">
+  <dl class="hmrc-add-to-a-list hmrc-add-to-a-list--short">
+
+    <div class="hmrc-add-to-a-list__contents">
+      <dt class="hmrc-add-to-a-list__identifier hmrc-add-to-a-list__identifier--light">
+        Eitem un
+      </dt>
+      <dd class="hmrc-add-to-a-list__change">
+        <a class="govuk-link" href="#c1url">
+          <span aria-hidden="true">Newid</span>
+          <span class="govuk-visually-hidden">Newid Eitem un</span>
+        </a>
+      </dd>
+      <dd class="hmrc-add-to-a-list__remove">
+        <a class="govuk-link" href="#r1url">
+          <span aria-hidden="true">Dileu</span>
+          <span class="govuk-visually-hidden">Dileu’r Eitem un o’r rhestr</span>
+        </a>
+      </dd>
+    </div>
+    <div class="hmrc-add-to-a-list__contents">
+      <dt class="hmrc-add-to-a-list__identifier hmrc-add-to-a-list__identifier--light">
+        Eitem dau
+      </dt>
+      <dd class="hmrc-add-to-a-list__change">
+        <a class="govuk-link" href="#c2url">
+          <span aria-hidden="true">Newid</span>
+          <span class="govuk-visually-hidden">Newid Eitem dau</span>
+        </a>
+      </dd>
+      <dd class="hmrc-add-to-a-list__remove">
+        <a class="govuk-link" href="#r2url">
+          <span aria-hidden="true">Dileu</span>
+          <span class="govuk-visually-hidden">Dileu’r Eitem dau o’r rhestr</span>
+        </a>
+      </dd>
+    </div>
+
+  </dl>
+</div>
+<form action="#addItem" method="POST" novalidate>
+
+<div class="govuk-form-group">
+<fieldset class="govuk-fieldset" aria-describedby="add-another-hint">
+  <legend class="govuk-fieldset__legend govuk-fieldset__legend govuk-fieldset__legend--m">
+    Oes angen i chi ychwanegu eitem arall?
+  </legend>
+  <div id="add-another-hint" class="govuk-hint">
+
+  </div>
+  <div class="govuk-radios govuk-radios--inline">
+        <div class="govuk-radios__item">
+          <input class="govuk-radios__input" id="add-another" name="add-another" type="radio" value="Iawn">
+          <label class="govuk-label govuk-radios__label" for="add-another">
+        Iawn
+      </label>
+        </div>
+        <div class="govuk-radios__item">
+          <input class="govuk-radios__input" id="add-another-2" name="add-another" type="radio" value="Na">
+          <label class="govuk-label govuk-radios__label" for="add-another-2">
+        Na
+      </label>
+        </div>
+  </div>
+
+</fieldset>
+</div>
+
+  <button class="govuk-button" data-module="govuk-button">
+  Yn eich blaen
+</button>
+</form>

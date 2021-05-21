@@ -41,17 +41,28 @@ abstract class TemplateUnitSpec[T: Reads](hmrcComponentName: String)
     with Matchers
     with TryValues {
 
-  val skipBecauseOfSpellcheckOrdering = Seq(
+  val skipDueToSpellcheckOrdering = Seq(
     "character-count-spellcheck-disabled",
     "character-count-spellcheck-enabled"
   )
+
+  val skipDueToFormWithCsrf = Seq(
+    "add-to-a-list-default",
+    "add-to-a-list-empty-list-welsh",
+    "add-to-a-list-mutltiple-generic-welsh-items",
+    "add-to-a-list-single-generic-item",
+    "add-to-a-list-single-generic-welsh-item",
+    "add-to-a-list-multiple-specific-items"
+  )
+
+  val skipList = skipDueToSpellcheckOrdering ++ skipDueToFormWithCsrf
 
   exampleNames(fixturesDirs, hmrcComponentName)
     .foreach { fixtureDirExampleName =>
       val (fixtureDir, exampleName) = fixtureDirExampleName
 
       s"$exampleName" should {
-        if (!skipBecauseOfSpellcheckOrdering.contains(exampleName)) {
+        if (!skipList.contains(exampleName)) {
 
           "render the same html as the nunjucks renderer" in {
             val tryTwirlHtml = renderExample(fixtureDir, exampleName)
