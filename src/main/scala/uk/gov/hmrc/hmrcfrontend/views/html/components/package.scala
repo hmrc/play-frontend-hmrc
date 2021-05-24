@@ -86,4 +86,8 @@ package object components extends Utils with Aliases {
   @deprecated(message = "Use DI", since = "Play 2.6")
   lazy val HmrcAddToAList = new hmrcAddToAList(GovukRadios, GovukButton, FormWithCSRF)
 
+  type HmrcTimeline = hmrcTimeline
+  @deprecated(message = "Use DI", since = "Play 2.6")
+  lazy val HmrcTimeline = new hmrcTimeline()
+
 }

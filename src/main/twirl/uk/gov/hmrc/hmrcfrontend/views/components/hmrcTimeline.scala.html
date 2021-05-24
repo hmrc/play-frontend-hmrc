@@ -1,0 +1,33 @@
+@*
+ * Copyright 2021 HM Revenue & Customs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *@
+
+@import uk.gov.hmrc.hmrcfrontend.views.viewmodels.timeline.Timeline
+
+@this()
+
+@(params: Timeline)(implicit messages: Messages)
+@import params._
+ @if(!events.isEmpty) {
+ <ol class="hmrc-timeline">
+@for(event <- events) {
+ <li class="hmrc-timeline__event"><h@headingLevel class="hmrc-timeline__event-title">@event.title</h@headingLevel><time class="hmrc-timeline__event-meta"@event.datetime match {
+   case Some(NonEmptyString(x)) => { datetime="@x"}
+   case _ => {}
+  }>@event.time</time>
+ <div class="hmrc-timeline__event-content">@event.content</div></li>
+ }
+ </ol>
+}
