@@ -73,7 +73,7 @@ class formWithCSRFSpec extends AnyWordSpec with Matchers with JsoupHelpers with 
       val form =
         FormWithCSRF.apply(action = postAction, 'novalidate -> "novalidate")(HtmlFormat.empty)
 
-      form.toString should include("<form action=\"/the-post-url\" method=\"POST\" novalidate>")
+      form.toString should include("<form method=\"POST\" novalidate action=\"/the-post-url\">")
     }
     "render the passed attributes" in {
       val form =

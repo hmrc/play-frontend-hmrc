@@ -21,9 +21,12 @@
 @(action: play.api.mvc.Call,
   args: (Symbol,String)*
 )(body: => Html)(implicit request: RequestHeader, messages: Messages)
-<form action="@action.path" method="@action.method" @toHtmlArgs(args.toMap + ('novalidate -> None))>
-  @if(play.filters.csrf.CSRF.getToken.isDefined) {
-    @CSRF.formField
-  }
-  @body
-</form>
+
+@defining(args.toMap - Symbol("novalidate")) { filteredArgs =>
+    <form method="@action.method" novalidate action="@action.path"@if(filteredArgs.nonEmpty){ @toHtmlArgs(filteredArgs)}>
+        @if(play.filters.csrf.CSRF.getToken.isDefined) {
+            @CSRF.formField
+        }
+        @body
+    </form>
+}
