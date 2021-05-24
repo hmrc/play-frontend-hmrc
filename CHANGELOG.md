@@ -5,6 +5,20 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [0.65.0] - 2021-05-24
+
+### Changed
+
+- Updated play-frontend-govuk to 0.73.0
+- Updated hmrc-frontend to 1.35.2
+- Changed hmrcAddToAList to use formWithCSRF including the novalidate attribute
+
+### Compatible with
+
+- [hmrc/hmrc-frontend v1.35.2](https://github.com/hmrc/hmrc-frontend/releases/tag/v1.35.2)
+- [hmrc/play-frontend-govuk v0.73.0](https://github.com/hmrc/play-frontend-govuk/releases/tag/v0.72.0)
+- [alphagov/govuk-frontend v3.12.0](https://github.com/alphagov/govuk-frontend/releases/tag/v3.12.0)
+
 ## [0.64.0] - 2021-05-20
 
 ### Changed
@@ -17,8 +31,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - [hmrc/hmrc-frontend v1.35.0](https://github.com/hmrc/hmrc-frontend/releases/tag/v1.35.0)
 - [hmrc/play-frontend-govuk v0.72.0](https://github.com/hmrc/play-frontend-govuk/releases/tag/v0.72.0)
 - [alphagov/govuk-frontend v3.12.0](https://github.com/alphagov/govuk-frontend/releases/tag/v3.12.0)
-
-
 
 ## [0.63.0] - 2021-05-14
 
