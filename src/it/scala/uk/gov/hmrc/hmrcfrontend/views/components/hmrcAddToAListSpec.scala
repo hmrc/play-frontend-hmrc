@@ -1,5 +1,7 @@
 package uk.gov.hmrc.hmrcfrontend.views.components
 
+import play.api.mvc.RequestHeader
+import play.api.test.FakeRequest
 import play.twirl.api.HtmlFormat
 import uk.gov.hmrc.hmrcfrontend.MessagesSupport
 import uk.gov.hmrc.hmrcfrontend.support.TemplateIntegrationSpec
@@ -12,6 +14,8 @@ object hmrcAddToAListSpec
     extends TemplateIntegrationSpec[AddToAList](hmrcComponentName = "hmrcAddToAList", seed = None)
     with MessagesSupport {
 
-  override def render(addToAList: AddToAList): Try[HtmlFormat.Appendable] =
+  override def render(addToAList: AddToAList): Try[HtmlFormat.Appendable] = {
+    implicit val request: RequestHeader = FakeRequest("GET", "/foo")
     Try(HmrcAddToAList(addToAList))
+  }
 }

@@ -39,7 +39,7 @@
     
   </dl>
 </div>
-<form method="post" action="#add-director">
+<form method="post" novalidate action="#add-director">
   
 <div class="govuk-form-group">
 <fieldset class="govuk-fieldset" aria-describedby="add-another-hint">
@@ -68,6 +68,6 @@
 </div>
 
   <button class="govuk-button" data-module="govuk-button">
-  continue
+  Continue
 </button>
 </form>
