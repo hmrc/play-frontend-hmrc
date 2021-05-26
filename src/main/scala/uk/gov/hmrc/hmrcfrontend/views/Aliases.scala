@@ -101,6 +101,12 @@ trait Aliases {
 
   type AddToAList = viewmodels.addtoalist.AddToAList
   val AddToAList = viewmodels.addtoalist.AddToAList
+
+  type Timeline = viewmodels.timeline.Timeline
+  val Timeline = viewmodels.timeline.Timeline
+
+  type Event = viewmodels.timeline.Event
+  val Event = viewmodels.timeline.Event
 }
 
 object Aliases extends Aliases
