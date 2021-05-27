@@ -32,7 +32,16 @@ trait PreProcessor {
     */
   def parseAndCompressHtml(html: String): String = {
     compressor.setRemoveSurroundingSpaces(ALL_TAGS)
-    compressor.compress(Parser.unescapeEntities(html, false))
+    compressor.compress(standardiseToDecimalCharacterIdentifiers(html))
+  }
+
+  private def standardiseToDecimalCharacterIdentifiers(html: String) = {
+    val regexToFindHexadecimalCharacterIdentifier = """&#x(\d+)""".r
+    regexToFindHexadecimalCharacterIdentifier.replaceAllIn(html, regexMatch => {
+      val hexadecimalNumberAsString = regexMatch group 1
+      val decimalNumber = Integer.parseInt(hexadecimalNumberAsString, 16)
+      s"&#$decimalNumber"
+    })
   }
 
   /** *
