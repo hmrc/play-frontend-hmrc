@@ -25,16 +25,19 @@ trait PreProcessor {
   private lazy val compressor = new HtmlCompressor()
 
   def prepareHtmlForComparison(html: String): String = {
-      compressor.setRemoveSurroundingSpaces(ALL_TAGS)
-      compressor.compress(asDecimalSpecialCharacters(html: String))
-    }
+    compressor.setRemoveSurroundingSpaces(ALL_TAGS)
+    compressor.compress(asDecimalSpecialCharacters(html: String))
+  }
 
   private def asDecimalSpecialCharacters(html: String) = {
     val findHexadecimalCharacterIdentifier = """&#x(\d+)""".r
-    findHexadecimalCharacterIdentifier.replaceAllIn(html, hexadecimalCharacterMatches => {
-      val hexadecimalString = hexadecimalCharacterMatches group 1
-      val asDecimal = Integer.parseInt(hexadecimalString, 16)
-      s"&#$asDecimal"
-    })
+    findHexadecimalCharacterIdentifier.replaceAllIn(
+      html,
+      hexadecimalCharacterMatches => {
+        val hexadecimalString = hexadecimalCharacterMatches group 1
+        val asDecimal         = Integer.parseInt(hexadecimalString, 16)
+        s"&#$asDecimal"
+      }
+    )
   }
 }
