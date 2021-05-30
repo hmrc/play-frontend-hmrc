@@ -24,31 +24,17 @@ trait PreProcessor {
 
   private lazy val compressor = new HtmlCompressor()
 
-  /** *
-    * Compresses markup to remove irrelevant whitespace differences.
-    *
-    * @param html
-    * @return
-    */
-  def parseAndCompressHtml(html: String): String = {
-    compressor.setRemoveSurroundingSpaces(ALL_TAGS)
-    compressor.compress(standardiseToDecimalCharacterIdentifiers(html))
-  }
+  def prepareHtmlForComparison(html: String): String = {
+      compressor.setRemoveSurroundingSpaces(ALL_TAGS)
+      compressor.compress(asDecimalSpecialCharacters(html: String))
+    }
 
-  private def standardiseToDecimalCharacterIdentifiers(html: String) = {
-    val regexToFindHexadecimalCharacterIdentifier = """&#x(\d+)""".r
-    regexToFindHexadecimalCharacterIdentifier.replaceAllIn(html, regexMatch => {
-      val hexadecimalNumberAsString = regexMatch group 1
-      val decimalNumber = Integer.parseInt(hexadecimalNumberAsString, 16)
-      s"&#$decimalNumber"
+  private def asDecimalSpecialCharacters(html: String) = {
+    val findHexadecimalCharacterIdentifier = """&#x(\d+)""".r
+    findHexadecimalCharacterIdentifier.replaceAllIn(html, hexadecimalCharacterMatches => {
+      val hexadecimalString = hexadecimalCharacterMatches group 1
+      val asDecimal = Integer.parseInt(hexadecimalString, 16)
+      s"&#$asDecimal"
     })
   }
-
-  /** *
-    * Function to pre-process the markup before comparing.
-    *
-    * @param html
-    * @return String
-    */
-  def preProcess(html: String): String = parseAndCompressHtml(html: String)
 }
