@@ -5,6 +5,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [0.74.0] - 2021-06-03
+
+### Changed
+
+- Removed dependencies on deprecated Bintray
+
+### Compatible with
+
+- [alphagov/govuk-frontend v3.12.0](https://github.com/alphagov/govuk-frontend/releases/tag/v3.12.0)
+
+
 ## [0.73.0] - 2021-05-18
 
 ### Changed
