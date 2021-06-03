@@ -58,8 +58,9 @@ abstract class TemplateUnitSpec[T: Reads](hmrcComponentName: String)
 
             tryTwirlHtml match {
               case Success(twirlHtml)                            =>
-                val preProcessedTwirlHtml    = preProcess(twirlHtml)
-                val preProcessedNunjucksHtml = preProcess(nunjucksHtml(fixtureDir, exampleName).success.value)
+                val preProcessedTwirlHtml    = prepareHtmlForComparison(twirlHtml)
+                val preProcessedNunjucksHtml =
+                  prepareHtmlForComparison(nunjucksHtml(fixtureDir, exampleName).success.value)
 
                 preProcessedTwirlHtml shouldBe preProcessedNunjucksHtml
               case Failure(TemplateValidationException(message)) =>

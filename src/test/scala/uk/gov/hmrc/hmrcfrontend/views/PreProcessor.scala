@@ -24,22 +24,20 @@ trait PreProcessor {
 
   private lazy val compressor = new HtmlCompressor()
 
-  /** *
-    * Compresses markup to remove irrelevant whitespace differences.
-    *
-    * @param html
-    * @return
-    */
-  def parseAndCompressHtml(html: String): String = {
+  def prepareHtmlForComparison(html: String): String = {
     compressor.setRemoveSurroundingSpaces(ALL_TAGS)
-    compressor.compress(Parser.unescapeEntities(html, false))
+    compressor.compress(asDecimalSpecialCharacters(html: String))
   }
 
-  /** *
-    * Function to pre-process the markup before comparing.
-    *
-    * @param html
-    * @return String
-    */
-  def preProcess(html: String): String = parseAndCompressHtml(html: String)
+  private def asDecimalSpecialCharacters(html: String) = {
+    val findHexadecimalCharacterIdentifier = """&#x(\d+)""".r
+    findHexadecimalCharacterIdentifier.replaceAllIn(
+      html,
+      hexadecimalCharacterMatches => {
+        val hexadecimalString = hexadecimalCharacterMatches group 1
+        val asDecimal         = Integer.parseInt(hexadecimalString, 16)
+        s"&#$asDecimal"
+      }
+    )
+  }
 }

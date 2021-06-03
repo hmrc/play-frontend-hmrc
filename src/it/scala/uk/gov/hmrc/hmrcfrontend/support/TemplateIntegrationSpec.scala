@@ -81,8 +81,8 @@ abstract class TemplateIntegrationSpec[T: OWrites: Arbitrary](hmrcComponentName:
         tryRenderTwirl match {
 
           case Success(twirlOutputHtml)                      =>
-            val preProcessedTwirlHtml    = preProcess(twirlOutputHtml)
-            val preProcessedNunjucksHtml = preProcess(nunJucksOutputHtml)
+            val preProcessedTwirlHtml    = prepareHtmlForComparison(twirlOutputHtml)
+            val preProcessedNunjucksHtml = prepareHtmlForComparison(nunJucksOutputHtml)
             val prop                     = preProcessedTwirlHtml == preProcessedNunjucksHtml
 
             if (!prop) {

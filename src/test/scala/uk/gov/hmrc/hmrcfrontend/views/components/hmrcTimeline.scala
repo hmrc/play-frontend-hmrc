@@ -1,4 +1,4 @@
-@*
+/*
  * Copyright 2021 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,22 +12,18 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- *@
+ */
 
-@import uk.gov.hmrc.hmrcfrontend.views.viewmodels.timeline.Timeline
+package uk.gov.hmrc.hmrcfrontend.views
+package components
 
-@this()
+import play.twirl.api.HtmlFormat
+import uk.gov.hmrc.hmrcfrontend.views.html.components._
 
-@(params: Timeline)
-@import params._
- @if(!events.isEmpty) {
- <ol class="hmrc-timeline">
-@for(event <- events) {
- <li class="hmrc-timeline__event"><h@headingLevel class="hmrc-timeline__event-title">@event.title</h@headingLevel><time class="hmrc-timeline__event-meta"@event.datetime match {
-   case Some(NonEmptyString(x)) => { datetime="@x"}
-   case _ => {}
-  }>@event.time</time>
- <div class="hmrc-timeline__event-content">@Html(event.content)</div></li>
- }
- </ol>
+import scala.util.Try
+
+class hmrcTimeline extends TemplateUnitSpec[Timeline]("hmrcTimeline") {
+
+  override def render(templateParams: Timeline): Try[HtmlFormat.Appendable] =
+    Try(HmrcTimeline(templateParams))
 }
