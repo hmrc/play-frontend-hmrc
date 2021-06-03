@@ -18,7 +18,6 @@ lazy val root = Project(libName, file("."))
     majorVersion := 0,
     scalaVersion := "2.12.13",
     libraryDependencies ++= LibDependencies(),
-    resolvers += Resolver.jcenterRepo,
     TwirlKeys.templateImports := templateImports,
     PlayCrossCompilation.playCrossCompilationSettings,
     isPublicArtefact := true,

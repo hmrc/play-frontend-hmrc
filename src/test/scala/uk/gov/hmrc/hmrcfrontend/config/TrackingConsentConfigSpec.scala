@@ -20,19 +20,15 @@ import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpec
 import play.api.Application
 import play.api.inject.guice.GuiceApplicationBuilder
-import play.api.mvc.AnyContentAsEmpty
-import play.api.test.FakeRequest
 
 class TrackingConsentConfigSpec extends AnyWordSpec with Matchers {
 
-  def buildApp(properties: Map[String, String]) =
+  def buildApp(properties: Map[String, String]): Application =
     new GuiceApplicationBuilder()
       .configure(properties)
       .build()
 
   "optimizelyUrl" should {
-    implicit val request: FakeRequest[AnyContentAsEmpty.type] = FakeRequest("GET", "/foo")
-
     "return the correct optimizely url if optimizely.url and optimizely.projectId are defined" in {
       implicit val application: Application = buildApp(
         Map(
@@ -66,8 +62,6 @@ class TrackingConsentConfigSpec extends AnyWordSpec with Matchers {
   }
 
   "trackingUrl" should {
-    implicit val request: FakeRequest[AnyContentAsEmpty.type] = FakeRequest("GET", "/foo")
-
     "return the correct url to tracking consent when running locally i.e. without platform.frontend.host defined" in {
       implicit val application: Application = buildApp(
         Map(
@@ -97,8 +91,6 @@ class TrackingConsentConfigSpec extends AnyWordSpec with Matchers {
   }
 
   "optimizelyGtmUrl" should {
-    implicit val request: FakeRequest[AnyContentAsEmpty.type] = FakeRequest("GET", "/foo")
-
     "return the correct url to the optimizely gtm snippet when running locally i.e. without platform.frontend.host defined" in {
       implicit val application: Application = buildApp(
         Map(

@@ -37,7 +37,7 @@ class HmrcFrontendDependencySpec extends AnyWordSpec with Matchers with OptionVa
         "com.typesafe.play:play:2.6.23",
         "com.typesafe.play:filters-helpers:2.6.23",
         "org.joda:joda-convert:2.0.2",
-        "org.webjars.npm:hmrc-frontend:1.5.0",
+        "uk.gov.hmrc.webjars:hmrc-frontend:1.5.0",
         "org.scalatest:scalatest:3.0.5:test",
         "org.pegdown:pegdown:1.6.0:test",
         "org.jsoup:jsoup:1.11.3:test",
