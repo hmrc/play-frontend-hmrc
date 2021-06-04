@@ -1,6 +1,6 @@
 # Maintain 1-to-1 parity between govuk-frontend and play-frontend-govuk, and hmrc-frontend and play-frontend-hmrc
 
-* Status: accepted
+* Status: extended by [ADR-0003](0003-patch-welsh-translation-for-skip-to-content-link.md)
 * Date: 2021-03-19
 
 ## Context and Problem Statement
