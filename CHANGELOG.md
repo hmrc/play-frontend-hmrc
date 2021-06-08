@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [0.72.0] - 2021-06-15
+
+### Added
+
+- Added implicit class RichDateInput for hydrating a DateInput using a Play Field
+
 ## [0.71.0] - 2021-06-11
 
 ### Changed
