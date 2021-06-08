@@ -16,10 +16,13 @@
 
 package uk.gov.hmrc.hmrcfrontend.views
 
-import play.api.data.Field
+import play.api.data.{Field, Form}
 import play.api.i18n.Messages
 import play.twirl.api.{Html, HtmlFormat}
 import uk.gov.hmrc.govukfrontend.views.ImplicitsSupport
+import uk.gov.hmrc.govukfrontend.views.viewmodels.content.Text
+import uk.gov.hmrc.govukfrontend.views.viewmodels.dateinput.{DateInput, InputItem}
+import uk.gov.hmrc.govukfrontend.views.viewmodels.errormessage.ErrorMessage
 import uk.gov.hmrc.hmrcfrontend.views.viewmodels.charactercount.CharacterCount
 
 trait Implicits {
@@ -155,6 +158,45 @@ trait Implicits {
       withOptErrorMessageProperty(field.error, characterCount.errorMessage, characterCount)((cc, errorMsg) =>
         cc.copy(errorMessage = errorMsg)
       )
+  }
+
+  implicit class RichDateInput(dateInput: DateInput)(implicit val messages: Messages) extends ImplicitsSupport[DateInput] {
+    override def withFormField(field: Field): DateInput = {
+
+        def errorClass(field: Field) = if (field.errors.nonEmpty) "govuk-input--error" else ""
+
+        val items = Seq(
+          InputItem(
+            id      = s"${field.id}.day",
+            name    = s"${field.name}.day",
+            value   = field("day").value,
+            label   = Some(messages("date.day")),
+            classes = s"govuk-input--width-2 ${errorClass(field("day"))}".trim
+          ),
+          InputItem(
+            id      = s"${field.id}.month",
+            name    = s"${field.name}.month",
+            value   = field("month").value,
+            label   = Some(messages("date.month")),
+            classes = s"govuk-input--width-2 ${errorClass(field("month"))}".trim
+          ),
+          InputItem(
+            id      = s"${field.id}.year",
+            name    = s"${field.name}.year",
+            value   = field("year").value,
+            label   = Some(messages("date.year")),
+            classes = s"govuk-input--width-4 ${errorClass(field("year"))}".trim
+          )
+        )
+
+      val errorMsg = field.error.map(formError => ErrorMessage(content = Text(messages(formError.message, formError.args: _*))))
+
+      dateInput.copy(
+        items = items,
+        id = field.id,
+        errorMessage = errorMsg
+      )
+    }
   }
 
 }
