@@ -5,6 +5,30 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [0.70.0] - 2021-06-10
+
+### Changed
+
+- Updated play-frontend-govuk to 0.75.0 to pull in welsh translation for skip to content link
+
+### Compatible with
+
+- [hmrc/hmrc-frontend v1.35.2](https://github.com/hmrc/hmrc-frontend/releases/tag/v1.35.2)
+- [hmrc/play-frontend-govuk v0.75.0](https://github.com/hmrc/play-frontend-govuk/releases/tag/v0.75.0)
+- [alphagov/govuk-frontend v3.12.0](https://github.com/alphagov/govuk-frontend/releases/tag/v3.12.0)
+
+## [0.69.0] - 2021-06-03
+
+### Changed
+
+- Updated hmrcTimeline so event content is output as html
+
+### Compatible with
+
+- [hmrc/hmrc-frontend v1.35.2](https://github.com/hmrc/hmrc-frontend/releases/tag/v1.35.2)
+- [hmrc/play-frontend-govuk v0.73.0](https://github.com/hmrc/play-frontend-govuk/releases/tag/v0.73.0)
+- [alphagov/govuk-frontend v3.12.0](https://github.com/alphagov/govuk-frontend/releases/tag/v3.12.0)
+
 ## [0.68.0] - 2021-05-27
 
 ### Changed
@@ -14,7 +38,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Compatible with
 
 - [hmrc/hmrc-frontend v1.35.2](https://github.com/hmrc/hmrc-frontend/releases/tag/v1.35.2)
-- [hmrc/play-frontend-govuk v0.73.0](https://github.com/hmrc/play-frontend-govuk/releases/tag/v0.72.0)
+- [hmrc/play-frontend-govuk v0.73.0](https://github.com/hmrc/play-frontend-govuk/releases/tag/v0.73.0)
 - [alphagov/govuk-frontend v3.12.0](https://github.com/alphagov/govuk-frontend/releases/tag/v3.12.0)
 
 
@@ -27,7 +51,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Compatible with
 
 - [hmrc/hmrc-frontend v1.35.2](https://github.com/hmrc/hmrc-frontend/releases/tag/v1.35.2)
-- [hmrc/play-frontend-govuk v0.73.0](https://github.com/hmrc/play-frontend-govuk/releases/tag/v0.72.0)
+- [hmrc/play-frontend-govuk v0.73.0](https://github.com/hmrc/play-frontend-govuk/releases/tag/v0.73.0)
 - [alphagov/govuk-frontend v3.12.0](https://github.com/alphagov/govuk-frontend/releases/tag/v3.12.0)
 
 ## [0.66.0] - 2021-05-24
@@ -41,7 +65,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Compatible with
 
 - [hmrc/hmrc-frontend v1.35.2](https://github.com/hmrc/hmrc-frontend/releases/tag/v1.35.2)
-- [hmrc/play-frontend-govuk v0.73.0](https://github.com/hmrc/play-frontend-govuk/releases/tag/v0.72.0)
+- [hmrc/play-frontend-govuk v0.73.0](https://github.com/hmrc/play-frontend-govuk/releases/tag/v0.73.0)
 - [alphagov/govuk-frontend v3.12.0](https://github.com/alphagov/govuk-frontend/releases/tag/v3.12.0)
 
 ## [0.65.0] - 2021-05-27
