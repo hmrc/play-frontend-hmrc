@@ -66,7 +66,10 @@
     @skipLinkBlock.getOrElse {
       @govukSkipLink(SkipLink(
         href = "#main-content",
-        content = HtmlContent("Skip to main content")
+        content = Text(htmlLang match {
+          case Some("cy") => "Ewch yn syth i‘r prif gynnwys"
+          case _          => "Skip to main content"
+        })
       ))
     }
 

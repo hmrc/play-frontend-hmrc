@@ -54,7 +54,7 @@ class govukTemplateSpec extends TemplateUnitSpec[Template]("govukTemplate") {
     )
 
   "template rendered with default values" should {
-    "not have whitespeace before the doctype" in {
+    "not have whitespace before the doctype" in {
       val templateHtml =
         GovukTemplate
           .apply(htmlLang = None, htmlClasses = None, themeColour = None, bodyClasses = None)(HtmlFormat.empty)

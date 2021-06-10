@@ -84,9 +84,9 @@ These checks will also be performed automatically as part of the build pipeline 
 To achieve this, run:
 
 ```bash
-PLAY_VERSION=2.5 sbt clean +test +it:test && \
 PLAY_VERSION=2.6 sbt clean +test +it:test && \
-PLAY_VERSION=2.7 sbt clean +test +it:test
+PLAY_VERSION=2.7 sbt clean +test +it:test && \
+PLAY_VERSION=2.8 sbt clean +test +it:test
 ```
 
 ## Upgrading
