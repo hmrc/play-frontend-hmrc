@@ -20,7 +20,7 @@ import scala.util.matching.Regex
 import hmrcfrontendbuildinfo.BuildInfo
 
 object HmrcFrontendDependency {
-  val hmrcFrontendVersionRegex: Regex = """org\.webjars\.npm:hmrc-frontend:(\d+\.\d+\.\d+)""".r
+  val hmrcFrontendVersionRegex: Regex = """uk\.gov\.hmrc\.webjars:hmrc-frontend:(\d+\.\d+\.\d+)""".r
 
   val hmrcFrontendVersion: String =
     findFirstMatch(hmrcFrontendVersionRegex, BuildInfo.libraryDependencies)

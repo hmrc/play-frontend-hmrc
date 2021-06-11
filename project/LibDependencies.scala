@@ -5,17 +5,17 @@ import play.sbt.PlayImport.ws
 import sbt.ModuleID
 
 object LibDependencies {
-  val hmrcFrontendVersion: String      = "1.35.2"
+  val hmrcFrontendVersion: String      = "1.36.0"
   val playFrontendGovukVersion: String = "0.75.0"
   val playLanguageVersion: String      = "5.0.0"
 
   val compile: Seq[ModuleID] = dependencies(
     shared = Seq(
-      "com.typesafe.play" %% "play"            % PlayVersion.current,
-      "com.typesafe.play" %% "filters-helpers" % PlayVersion.current,
-      "org.joda"           % "joda-convert"    % "2.0.2",
-      "org.webjars.npm"    % "hmrc-frontend"   % hmrcFrontendVersion,
-      "org.scalaj"        %% "scalaj-http"     % "2.4.2"
+      "com.typesafe.play"  %% "play"            % PlayVersion.current,
+      "com.typesafe.play"  %% "filters-helpers" % PlayVersion.current,
+      "org.joda"            % "joda-convert"    % "2.0.2",
+      "uk.gov.hmrc.webjars" % "hmrc-frontend"   % hmrcFrontendVersion,
+      "org.scalaj"         %% "scalaj-http"     % "2.4.2"
     ),
     play26 = Seq(
       "uk.gov.hmrc" %% "play-language"       % s"$playLanguageVersion-play-26",

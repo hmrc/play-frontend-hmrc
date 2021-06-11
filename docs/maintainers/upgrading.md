@@ -1,19 +1,16 @@
-# Upgrading play-frontend-govuk
+# Upgrading play-frontend-hmrc
 
 ## Basic Steps
 
-1. Go to [webjars.org](https://webjars.org) and add the hmrc-frontend webjar by the following steps:
- - Click `Add a WebJar`
- - Select `WebJar Type` as `NPM`
- - Input `hmrc-frontend` and select the relevant version from the dropdown
- - Hit `Deploy!`
-2. Bump webjar [dependency](https://github.com/hmrc/hmrc-frontend/tags) for `hmrc-frontend` in `project/LibDependencies.scala`.
-3. Generate fixtures folder `src/test/resources/fixtures/test-fixtures`.
+1. Bump webjar [dependency](https://github.com/hmrc/hmrc-frontend/tags) for `hmrc-frontend` in `project/LibDependencies.scala`. The
+   webjar reflecting the latest version of hmrc-frontend should have been
+   published automatically to HMRC's open artefact's repository by the hmrc-frontend build job.
+1. Generate fixtures folder `src/test/resources/fixtures/test-fixtures`.
    - With the template renderer running locally (see below), execute `sbt generateUnitTestFixtures` 
-4. Run unit tests: `sbt clean test`.
-5. Start integration test dependencies: .
-6. Run integration tests: `sbt clean it:test`.
-7. Compare the two versions of `hmrc-frontend` (outgoing vs incoming) using a diff tool as shown [below](#examining-components-for-failed-tests).
+1. Run unit tests: `sbt clean test`.
+1. Start integration test dependencies: .
+1. Run integration tests: `sbt clean it:test`.
+1. Compare the two versions of `hmrc-frontend` (outgoing vs incoming) using a diff tool as shown [below](#examining-components-for-failed-tests).
 
 ### Comparing Differences
 Since some of the components have dependencies, it is easier to start upgrading by starting from components with no dependencies, or, alternatively, from the components on the bottom of a dependency graph, and work our way up.
