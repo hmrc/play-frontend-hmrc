@@ -1,0 +1,6 @@
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+        <h1>Here is a heading</h2>
+        <p>Here is my content</p>
+    </div>
+</div>

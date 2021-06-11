@@ -133,11 +133,75 @@ $govuk-assets-path: "/play-mtp-frontend/assets/lib/govuk-frontend/govuk/assets/"
 ```
 Please note that the /play-mtp-frontend/ in $govuk-assets-path is the context root path of the frontend using the library.
 
-A reference implementation can be found in [play-mtp-twirl-frontend](https://github.com/hmrc/play-mtp-twirl-frontend)
+The `govukLayout` by default renders the main `contentBlock` of the page in [two thirds width content](https://design-system.service.gov.uk/styles/layout/).
+This means that the `contentBlock` is wrapped in the following styling:
+
+```html
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+    /// contentBlock HTML is inserted here
+  </div>
+</div>
+```
+
+However, if you wish to override the styling of the main content, you can do so by passing in an option `mainContentLayout`
+parameter of type `Option[Html => Html]`, which will apply wrapping content around your `contentBlock`. For example, you 
+might add a template `MainContentWithSidebar.scala.html` as below:
+
+```html
+@this()
+
+@(mainContent: Html, sidebarContent: Html)
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+        @mainContent
+    </div>
+
+    <div class="govuk-grid-column-one-third">
+        @sidebarContent
+    </div>
+</div>
+```
+
+And then inject it into your `Layout.scala.html` as below:
+
+```html
+@import uk.gov.hmrc.hmrcfrontend.views.html.helpers.{HmrcStandardHeader, HmrcStandardFooter, HmrcScripts, HmrcHead, HmrcLanguageSelectHelper}
+@import views.html.helper.CSPNonce
+@import views.html.components.MainContentWithSidebar
+
+@this(
+  govukLayout: GovukLayout,
+  hmrcStandardHeader: HmrcStandardHeader,
+  hmrcStandardFooter: HmrcStandardFooter,
+  head: HmrcHead,
+  hmrcLanguageSelectHelper: HmrcLanguageSelectHelper,
+  scripts: HmrcScripts,
+  mainContentWithSidebar: MainContentWithSidebar
+)
+
+@(pageTitle: String, beforeContent: Option[Html] = None, isWelshTranslationAvailable: Boolean = true)(contentBlock: Html)(implicit request: RequestHeader, messages: Messages)
+
+@sidebar = {
+  <h2 class="govuk-heading-xl">This is my sidebar</h2>
+  <p class="govuk-body">There is my sidebar content</p>
+}
+
+@govukLayout(
+  pageTitle = Some(pageTitle),
+  headBlock = Some(head(nonce = CSPNonce.get)),
+  headerBlock = Some(hmrcStandardHeader(displayHmrcBanner = true)),
+  scriptsBlock = Some(scripts(nonce = CSPNonce.get)),
+  beforeContentBlock = if(isWelshTranslationAvailable) Some(hmrcLanguageSelectHelper()) else None,
+  footerBlock = Some(hmrcStandardFooter()),
+  mainContentLayout = Some(mainContentWithSidebar(_, sidebar))
+)(contentBlock)
+```
 
 ## Usage
 
-The library is cross-compiled for `Play 2.6` and `Play 2.7`.
+The library is cross-compiled for `Play 2.6`, `Play 2.7`, and `Play 2.8`.
 
 **As of v0.57.0 (January 2021), this library will no longer be cross-compiled against Play 2.5.**
 
