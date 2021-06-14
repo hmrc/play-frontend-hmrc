@@ -16,7 +16,6 @@
 
 package uk.gov.hmrc.govukfrontend.views.layouts
 
-import org.jsoup.select.Elements
 import play.api.i18n.Lang
 import play.api.mvc.AnyContentAsEmpty
 import play.api.test.FakeRequest

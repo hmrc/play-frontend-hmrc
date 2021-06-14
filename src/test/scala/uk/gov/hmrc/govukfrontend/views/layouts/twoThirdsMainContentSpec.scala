@@ -16,25 +16,20 @@
 
 package uk.gov.hmrc.govukfrontend.views.layouts
 
-import play.twirl.api.HtmlFormat
-import uk.gov.hmrc.govukfrontend.views.TemplateUnitSpec
+import org.scalatest.matchers.should.Matchers
+import org.scalatest.wordspec.AnyWordSpec
+import play.twirl.api.Html
 import uk.gov.hmrc.govukfrontend.views.html.components.TwoThirdsMainContent
-import uk.gov.hmrc.govukfrontend.views.viewmodels.maincontent.MainContent
 
-import scala.util.Try
+class twoThirdsMainContentSpec extends AnyWordSpec with Matchers {
 
-class twoThirdsMainContentSpec extends TemplateUnitSpec[MainContent]("twoThirdsMainContent") {
-
-  /**
-    * Calls the Twirl template with the given parameters and returns the resulting markup
-    *
-    * @param templateParams
-    * @return [[Try[HtmlFormat.Appendable]]] containing the markup
-    */
-  override def render(params: MainContent): Try[HtmlFormat.Appendable] =
-    Try(
-      TwoThirdsMainContent(
-        contentBlock = params.content
+  "Given a contentBlock of HTML, rendering the twoThirdsMainContent" should {
+    "render as expected" in {
+      val contentBlock: Html =
+        Html("<h1 class=\"govuk-heading-xl\">Page heading</h1><p class=\"govuk-body\">Some page content</p>")
+      TwoThirdsMainContent(contentBlock) shouldBe Html(
+        "\n<div class=\"govuk-grid-row\">\n    <div class=\"govuk-grid-column-two-thirds\">\n        <h1 class=\"govuk-heading-xl\">Page heading</h1><p class=\"govuk-body\">Some page content</p>\n    </div>\n</div>\n"
       )
-    )
+    }
+  }
 }
