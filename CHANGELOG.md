@@ -5,6 +5,28 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [0.76.0] - 2021-06-14
+
+### Changed
+
+- Decoupled the wrapping of a `contentBlock` in the `govukLayout` from the enforcement of two thirds width styling, and 
+  allowed the passing in of custom HTML wrapping around the `contentBlock`.
+
+### Compatible with
+
+- [alphagov/govuk-frontend v3.12.0](https://github.com/alphagov/govuk-frontend/releases/tag/v3.12.0)
+
+## [0.75.0] - 2021-06-10
+
+### Changed
+
+- Add welsh translation for skip link to `govukTemplate`
+
+### Compatible with
+
+- [alphagov/govuk-frontend v3.12.0](https://github.com/alphagov/govuk-frontend/releases/tag/v3.12.0)
+
+
 ## [0.74.0] - 2021-06-03
 
 ### Changed

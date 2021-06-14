@@ -19,7 +19,7 @@ package uk.gov.hmrc.govukfrontend.views.layouts
 import play.api.i18n.Lang
 import play.api.mvc.AnyContentAsEmpty
 import play.api.test.FakeRequest
-import play.twirl.api.HtmlFormat
+import play.twirl.api.{Html, HtmlFormat}
 import uk.gov.hmrc.govukfrontend.views.{MessagesHelpers, TemplateUnitSpec}
 import uk.gov.hmrc.govukfrontend.views.html.components._
 import uk.gov.hmrc.govukfrontend.views.viewmodels.layout.Layout
@@ -66,6 +66,30 @@ class govukLayoutSpec extends TemplateUnitSpec[Layout]("govukLayout") with Messa
 
       val html = layoutHtml.select("html")
       html.attr("lang") shouldBe "cy"
+    }
+
+    "use the default layout of twoThirdsMainContent" in {
+      val html = GovukLayout.apply()(contentBlock = Html("<p>Here is my content</p>"))
+
+      val gridRow = html.select(".govuk-main-wrapper .govuk-grid-row")
+      gridRow.size() shouldBe 1
+
+      val gridRowContent = gridRow.select(".govuk-grid-column-two-thirds")
+      gridRowContent.size() shouldBe 1
+
+      val twoThirdsContent = gridRowContent.select(".govuk-grid-column-two-thirds")
+      twoThirdsContent.size()                      shouldBe 1
+      twoThirdsContent.first().children().toString shouldBe "<p>Here is my content</p>"
+    }
+
+    "use the allow the passing in of a custom mainContentLayout" in {
+      val html = GovukLayout.apply(
+        mainContentLayout = Some(_ => Html("<p>Custom function</p>"))
+      )(contentBlock = Html("<p>Here is my content</p>"))
+
+      val customMainContent = html.select(".govuk-main-wrapper")
+      customMainContent.size()                      shouldBe 1
+      customMainContent.first().children().toString shouldBe "<p>Custom function</p>"
     }
   }
 }
