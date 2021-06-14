@@ -19,18 +19,25 @@ package uk.gov.hmrc.govukfrontend.views.layouts
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpec
 import play.twirl.api.Html
-import uk.gov.hmrc.govukfrontend.views.html.components.TwoThirdsMainContent
+import uk.gov.hmrc.govukfrontend.views.html.components.TwoThirdsOneThirdMainContent
 
-class twoThirdsMainContentSpec extends AnyWordSpec with Matchers {
+class twoThirdsOneThirdMainContentSpec extends AnyWordSpec with Matchers {
 
-  "Given a contentBlock of HTML, rendering the twoThirdsMainContent" should {
+  "Given a contentBlock of HTML, rendering the twoThirdsOneThirdMainContent" should {
     "render as expected" in {
       val contentBlock: Html =
         Html("<h1 class=\"govuk-heading-xl\">Page heading</h1><p class=\"govuk-body\">Some page content</p>")
-      TwoThirdsMainContent(contentBlock) shouldBe Html(
+
+      val sidebarBlock: Html =
+        Html("<h2 class=\"govuk-heading-l\">Sidebar heading</h2><p class=\"govuk-body\">Some sidebar content</p>")
+
+      TwoThirdsOneThirdMainContent(sidebarBlock)(contentBlock) shouldBe Html(
         "\n<div class=\"govuk-grid-row\">\n" +
           "    <div class=\"govuk-grid-column-two-thirds\">\n" +
           "        <h1 class=\"govuk-heading-xl\">Page heading</h1><p class=\"govuk-body\">Some page content</p>\n" +
+          "    </div>\n\n" +
+          "    <div class=\"govuk-grid-column-one-third\">\n" +
+          "        <h2 class=\"govuk-heading-l\">Sidebar heading</h2><p class=\"govuk-body\">Some sidebar content</p>\n" +
           "    </div>\n" +
           "</div>\n"
       )

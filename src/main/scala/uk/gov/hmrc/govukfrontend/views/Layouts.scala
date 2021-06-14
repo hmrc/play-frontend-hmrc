@@ -32,4 +32,8 @@ trait Layouts {
   type TwoThirdsMainContent = twoThirdsMainContent
   @deprecated(message = "Use DI", since = "Play 2.6")
   lazy val TwoThirdsMainContent = new twoThirdsMainContent
+
+  type TwoThirdsOneThirdMainContent = twoThirdsOneThirdMainContent
+  @deprecated(message = "Use DI", since = "Play 2.6")
+  lazy val TwoThirdsOneThirdMainContent = new twoThirdsOneThirdMainContent
 }
