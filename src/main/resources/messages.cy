@@ -15,3 +15,6 @@ footer.contact.text = Cysylltu
 footer.contact.url = https://www.gov.uk/government/organisations/hm-revenue-customs/contact
 footer.welshHelp.text = Rhestr o Wasanaethau Cymraeg
 footer.welshHelp.url = https://www.gov.uk/cymraeg
+date.input.day=Diwrnod
+date.input.month=Mis
+date.input.year=Blwyddyn

@@ -27,6 +27,7 @@ The library comprises two packages:
 - [Integrating with tracking consent](#integrating-with-tracking-consent)
 - [Warning users before timing them out](#warning-users-before-timing-them-out)
 - [Welsh language selection](#welsh-language-selection)
+- [RichDateInput](#richdateinput)
 - [Adding your own SASS compilation pipeline](#adding-your-own-sass-compilation-pipeline)
 - [Play Framework and Scala compatibility notes](#play-framework-and-scala-compatibility-notes)
 - [Getting help](#getting-help)
@@ -424,6 +425,83 @@ determine where to redirect the user when they toggle between languages. In the 
 that the browser fails to send the `Referer` header, users are redirected to 
 `https://www.gov.uk/government/organisations/hm-revenue-customs`. If desired, this behaviour can be overridden by 
 setting the `language.fallback.url` configuration key in `application.conf`.
+
+## RichDateInput
+
+The implicit class `RichDateInput` provides an extension method `withFormField(field: play.api.data.Field)`
+for the `DateInput` view model from [play-frontend-govuk](https://www.github.com/hmrc/play-frontend-govuk).
+
+This method takes a Play `Field` and enriches the `DateInput` with:
+* three InputItems corresponding to the day, month and year fields with
+  * ids and names of the form `<name>.day`, `<name>.month` and `<name>.year`
+  * standard English and Welsh labels
+* an id, set to the `Field` name
+* values for the nested day, month and year fields
+* an error message from an implicit `Messages` indexed by the first non-empty:
+  * `field("day").error`
+  * `field("month").error`
+  * `field("year").error`
+  * `field.error`
+* the correct CSS error classes applied to any invalid nested day, month or year field or
+to all fields in the case of a global date error.
+
+This helper assumes the Field passed to it consists of three [nested fields](https://www.playframework.com/documentation/2.8.x/ScalaForms#Nested-values)
+indexed by the keys `day`, `month` and `year`.
+
+For example, if using the one question per page pattern, the method could be used as follows:
+
+```scala
+@govukDateInput(DateInput(
+  hint = Some(Hint(content = Text("date.hint"))),
+  fieldset = Some(Fieldset(
+    legend = Some(Legend(
+    content = Text(messages("date.heading")),
+    classes = "govuk-fieldset__legend--l",
+    isPageHeading = true)))
+  )
+).withFormField(dateInputForm("date")))
+```
+
+Setting up form validation for this field might look like:
+
+```scala
+case class DateData(day: String, month: String, year: String)
+case class PageData(date: DateData)
+
+object DateFormBinder {
+  def form: Form[PageData] = Form[PageData](
+    mapping(
+      "date" -> mapping(
+        "day"   -> text.verifying(dayConstraint),
+        "month" -> text.verifying(monthConstraint),
+        "year"  -> text.verifying(yearConstraint)
+      )(DateData.apply)(DateData.unapply).verifying(dateConstraint)
+    )(PageData.apply)(PageData.unapply)
+  )
+}
+```
+
+In the code above, `dayConstraint`, `monthConstraint`, `yearConstraint` and `dateConstraint` would be defined
+as per the [Play documentation](https://www.playframework.com/documentation/2.8.x/ScalaCustomValidations) on custom 
+validations.
+
+The controller submit method for this form might look like:
+
+```scala
+def submit() = Action { implicit request =>
+    DateFormBinder.form
+      .bindFromRequest()
+      .fold(
+        formWithError => BadRequest(dateInputPage(formWithError, routes.DateInputController.submit())),
+        _ => Redirect(routes.DateInputController.thanks())
+      )
+}
+```
+
+If a value is passed though to the input `.apply()` method during construction, it will NOT be overwritten by the
+`Field` values. These are only used if the object parameters are not set to the default parameters.
+
+Note that you will need to pass through an implicit `Messages` to your template.
 
 ## Adding your own SASS compilation pipeline
 
