@@ -1,0 +1,55 @@
+@import uk.gov.hmrc.govukfrontend.views.html.components.GovukLayout
+@import uk.gov.hmrc.govukfrontend.views.html.components.TwoThirdsMainContent
+@import uk.gov.hmrc.hmrcfrontend.views.html.helpers.HmrcStandardHeader
+@import uk.gov.hmrc.hmrcfrontend.views.html.helpers.HmrcStandardFooter
+@import uk.gov.hmrc.hmrcfrontend.views.html.helpers.HmrcHead
+@import uk.gov.hmrc.hmrcfrontend.views.html.helpers.HmrcLanguageSelectHelper
+@import uk.gov.hmrc.hmrcfrontend.views.html.helpers.HmrcScripts
+@import uk.gov.hmrc.hmrcfrontend.views.viewmodels.userresearchbanner.UserResearchBanner
+@import uk.gov.hmrc.govukfrontend.views.viewmodels.phasebanner.PhaseBanner
+
+@this(
+        govukLayout: GovukLayout,
+        hmrcStandardHeader: HmrcStandardHeader,
+        hmrcStandardFooter: HmrcStandardFooter,
+        hmrcHead: HmrcHead,
+        hmrcLanguageSelectHelper: HmrcLanguageSelectHelper,
+        hmrcScripts: HmrcScripts,
+        defaultMainContent: TwoThirdsMainContent
+)
+
+@(
+        serviceName: Option[String] = None,
+        pageTitle: Option[String] = None,
+        isWelshTranslationAvailable: Boolean = false,
+        signOutUrl: Option[String] = None,
+        serviceUrl: Option[String] = None,
+        userResearchBannerUrl: Option[String] = None,
+        displayHmrcBanner: Boolean = false,
+        phaseBanner: Option[PhaseBanner] = None,
+        additionalHeadBlock: Option[Html] = None,
+        additionalScriptsBlock: Option[Html] = None,
+        nonce: Option[String] = None,
+        mainContentLayout: Option[Html => Html] = Some(defaultMainContent(_))
+)(contentBlock: Html)(implicit request: RequestHeader, messages: Messages)
+
+@headerBlock = {
+    @hmrcStandardHeader(
+        serviceUrl = serviceUrl,
+        signOutUrl = signOutUrl,
+        serviceName = serviceName,
+        userResearchBanner = userResearchBannerUrl.map(url => UserResearchBanner(url = url)),
+        phaseBanner = phaseBanner,
+        displayHmrcBanner = displayHmrcBanner
+    )
+}
+
+@govukLayout(
+    pageTitle = pageTitle,
+    headBlock = Some(hmrcHead(nonce = nonce, headBlock = additionalHeadBlock)),
+    headerBlock = Some(headerBlock),
+    scriptsBlock = Some(hmrcScripts(nonce = nonce, scriptsBlock = additionalScriptsBlock)),
+    beforeContentBlock = if(isWelshTranslationAvailable) Some(hmrcLanguageSelectHelper()) else None,
+    footerBlock = Some(hmrcStandardFooter()),
+    mainContentLayout = mainContentLayout
+)(contentBlock)
