@@ -144,32 +144,16 @@ This means that the `contentBlock` is wrapped in the following styling:
 </div>
 ```
 
-However, if you wish to override the styling of the main content, you can do so by passing in an option `mainContentLayout`
-parameter of type `Option[Html => Html]`, which will apply wrapping content around your `contentBlock`. For example, you 
-might add a template `MainContentWithSidebar.scala.html` as below:
+However, if you wish to override the styling of the main content, you can do so by passing in an optional `mainContentLayout`
+parameter of type `Option[Html => Html]`, which will apply wrapping content around your `contentBlock`. 
 
-```html
-@this()
-
-@(mainContent: Html, sidebarContent: Html)
-
-<div class="govuk-grid-row">
-    <div class="govuk-grid-column-two-thirds">
-        @mainContent
-    </div>
-
-    <div class="govuk-grid-column-one-third">
-        @sidebarContent
-    </div>
-</div>
-```
-
-And then inject it into your `Layout.scala.html` as below:
+If you wish to create a layout with [two thirds, one third styling](https://design-system.service.gov.uk/styles/layout/)
+(for example if your page has a sidebar), there is a helper `twoThirdsOneThirdMainContent.scala.html` which can be used
+as follows:
 
 ```html
 @import uk.gov.hmrc.hmrcfrontend.views.html.helpers.{HmrcStandardHeader, HmrcStandardFooter, HmrcScripts, HmrcHead, HmrcLanguageSelectHelper}
 @import views.html.helper.CSPNonce
-@import views.html.components.MainContentWithSidebar
 
 @this(
   govukLayout: GovukLayout,
@@ -178,7 +162,7 @@ And then inject it into your `Layout.scala.html` as below:
   head: HmrcHead,
   hmrcLanguageSelectHelper: HmrcLanguageSelectHelper,
   scripts: HmrcScripts,
-  mainContentWithSidebar: MainContentWithSidebar
+  twoThirdsOneThirdMainContent: TwoThirdsOneThirdMainContent
 )
 
 @(pageTitle: String, beforeContent: Option[Html] = None, isWelshTranslationAvailable: Boolean = true)(contentBlock: Html)(implicit request: RequestHeader, messages: Messages)
@@ -195,9 +179,31 @@ And then inject it into your `Layout.scala.html` as below:
   scriptsBlock = Some(scripts(nonce = CSPNonce.get)),
   beforeContentBlock = if(isWelshTranslationAvailable) Some(hmrcLanguageSelectHelper()) else None,
   footerBlock = Some(hmrcStandardFooter()),
-  mainContentLayout = Some(mainContentWithSidebar(_, sidebar))
+  mainContentLayout = Some(twoThirdsOneThirdMainContent(sidebar))
 )(contentBlock)
 ```
+
+Alternatively, you can declare any template and pass it through as a function or partially applied function that has the
+signature `Html => Html`.
+
+For example, you  can add a template `WithSidebarOnLeft.scala.html` as below:
+
+```html
+@this()
+
+@(sidebarContent: Html)(mainContent: Html)
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-one-third">
+        @sidebarContent
+    </div>
+    <div class="govuk-grid-column-two-thirds">
+      @mainContent
+    </div>
+</div>
+```
+
+You can then inject this into your `Layout.scala.html` and partially apply the function as above.
 
 ## Usage
 

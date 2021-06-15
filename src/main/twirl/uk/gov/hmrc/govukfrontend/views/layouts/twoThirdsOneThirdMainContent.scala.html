@@ -1,0 +1,13 @@
+@this()
+
+@(sidebarContent: Html)(mainContent: Html)
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+        @mainContent
+    </div>
+
+    <div class="govuk-grid-column-one-third">
+        @sidebarContent
+    </div>
+</div>
