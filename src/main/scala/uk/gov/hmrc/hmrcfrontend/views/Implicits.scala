@@ -181,7 +181,8 @@ trait Implicits {
       withStringProperty(field.name, dateInput.id, dateInput)((dateInput, id) => dateInput.copy(id = id))
 
     private[views] def withInputItems(field: Field): DateInput = {
-      def errorClass(field: Field) = if (field.errors.nonEmpty) "govuk-input--error" else ""
+      def errorClass(itemField: Field) =
+        if (field.errors.nonEmpty || itemField.errors.nonEmpty) "govuk-input--error" else ""
 
       def inputItem(inputItem: InputItem, key: String, className: String): InputItem = {
         val defaultInputItem = InputItem.defaultObject

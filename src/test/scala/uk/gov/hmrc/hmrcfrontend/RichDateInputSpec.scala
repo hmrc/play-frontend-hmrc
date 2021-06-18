@@ -59,10 +59,14 @@ class RichDateInputSpec extends AnyWordSpec with Matchers with MessagesSupport w
     name = "date",
     constraints = Nil,
     format = None,
+    errors = Seq.empty,
+    value = None
+  )
+
+  val dateErrorField: Field = dateField.copy(
     errors = Seq(
       FormError(key = "date", "Not valid date")
-    ),
-    value = None
+    )
   )
 
   val dateMonthErrorField: Field = dateField.copy(
@@ -253,14 +257,23 @@ class RichDateInputSpec extends AnyWordSpec with Matchers with MessagesSupport w
     }
 
     "convert the first Field form error to a DateInput error message if provided" in {
-      val dateInput = DateInput().withFormField(dateField)
+      val dateInput = DateInput().withFormField(dateErrorField)
       dateInput.errorMessage shouldBe Some(ErrorMessage(content = Text("Not valid date")))
+    }
+
+    "populate error css classes for all inputs in the case of a global date error" in {
+      val dateInput = DateInput().withFormField(dateErrorField)
+      dateInput.errorMessage shouldBe Some(ErrorMessage(content = Text("Not valid date")))
+
+      dateInput.items(0).classes should endWith("govuk-input--error")
+      dateInput.items(1).classes should endWith("govuk-input--error")
+      dateInput.items(2).classes should endWith("govuk-input--error")
     }
 
     "use the DateInput error message over the Field error if both provided" in {
       val dateInput = DateInput(
         errorMessage = Some(ErrorMessage(content = Text("DateInput Error")))
-      ).withFormField(dateField)
+      ).withFormField(dateErrorField)
 
       dateInput.errorMessage shouldBe Some(ErrorMessage(content = Text("DateInput Error")))
     }
