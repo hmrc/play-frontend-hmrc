@@ -29,5 +29,6 @@ package object helpers {
   type HmrcScripts                    = hmrcScripts
   type HmrcTimeoutDialogHelper        = hmrcTimeoutDialogHelper
   type HmrcLanguageSelectHelper       = hmrcLanguageSelectHelper
+  type HmrcLayout                     = hmrcLayout
 
 }
