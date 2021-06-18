@@ -5,11 +5,30 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [0.73.0] - 2021-06-18
+
+### Fixed
+
+- In RichDateInput, style all date inputs with `govuk-input--error` when a global date validation error
+  occurs as per [GDS guidance](https://design-system.service.gov.uk/components/date-input/)
+
+### Compatible with
+
+- [hmrc/hmrc-frontend v1.36.0](https://github.com/hmrc/hmrc-frontend/releases/tag/v1.36.0)
+- [hmrc/play-frontend-govuk v0.75.0](https://github.com/hmrc/play-frontend-govuk/releases/tag/v0.75.0)
+- [alphagov/govuk-frontend v3.12.0](https://github.com/alphagov/govuk-frontend/releases/tag/v3.12.0)
+
 ## [0.72.0] - 2021-06-15
 
 ### Added
 
 - Added implicit class RichDateInput for hydrating a DateInput using a Play Field
+
+### Compatible with
+
+- [hmrc/hmrc-frontend v1.36.0](https://github.com/hmrc/hmrc-frontend/releases/tag/v1.36.0)
+- [hmrc/play-frontend-govuk v0.75.0](https://github.com/hmrc/play-frontend-govuk/releases/tag/v0.75.0)
+- [alphagov/govuk-frontend v3.12.0](https://github.com/alphagov/govuk-frontend/releases/tag/v3.12.0)
 
 ## [0.71.0] - 2021-06-11
 
@@ -17,6 +36,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 - Added ADR for self-publishing webjar
 - Update hmrc-frontend dependency to use self-published webjar
+
+### Compatible with
+
+- [hmrc/hmrc-frontend v1.36.0](https://github.com/hmrc/hmrc-frontend/releases/tag/v1.36.0)
+- [hmrc/play-frontend-govuk v0.75.0](https://github.com/hmrc/play-frontend-govuk/releases/tag/v0.75.0)
+- [alphagov/govuk-frontend v3.12.0](https://github.com/alphagov/govuk-frontend/releases/tag/v3.12.0)
 
 ## [0.70.0] - 2021-06-10
 
