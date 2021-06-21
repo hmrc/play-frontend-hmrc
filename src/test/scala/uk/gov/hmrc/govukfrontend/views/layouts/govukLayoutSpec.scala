@@ -91,5 +91,14 @@ class govukLayoutSpec extends TemplateUnitSpec[Layout]("govukLayout") with Messa
       customMainContent.size()                      shouldBe 1
       customMainContent.first().children().toString shouldBe "<p>Custom function</p>"
     }
+
+    "use the provided assetPath" in {
+      val html = GovukLayout.apply(
+        assetPath = Some("/foo/bar")
+      )(HtmlFormat.empty)
+
+      val links = html.select("link")
+      links.first.attr("href") should startWith("/foo/bar")
+    }
   }
 }

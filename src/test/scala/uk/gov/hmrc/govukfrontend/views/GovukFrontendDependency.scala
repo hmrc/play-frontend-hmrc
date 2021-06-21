@@ -17,22 +17,7 @@
 package uk.gov.hmrc.govukfrontend.views
 
 import buildinfo.BuildInfo
-import scala.util.matching.Regex
 
 object GovukFrontendDependency {
-  val govukFrontendVersionRegex: Regex = """org\.webjars\.npm:govuk-frontend:(\d+\.\d+\.\d+)""".r
-
-  val govukFrontendVersion: String =
-    findFirstMatch(govukFrontendVersionRegex, BuildInfo.libraryDependencies)
-      .getOrElse(throw new RuntimeException("Unable to find the govuk-frontend dependency"))
-      .group(1)
-
-  def findFirstMatch(regex: Regex, xs: Seq[String]): Option[Regex.Match] =
-    for {
-      x          <- xs.find {
-                      case regex(_*) => true
-                      case _         => false
-                    }
-      firstMatch <- regex.findFirstMatchIn(x)
-    } yield firstMatch
+  val govukFrontendVersion: String = BuildInfo.govukFrontendVersion
 }

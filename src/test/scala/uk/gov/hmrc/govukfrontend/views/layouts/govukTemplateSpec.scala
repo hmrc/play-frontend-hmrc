@@ -31,7 +31,8 @@ class govukTemplateSpec extends TemplateUnitSpec[Template]("govukTemplate") {
     * @param template
     * @return [[Try[HtmlFormat.Appendable]]] containing the markup
     */
-  override def render(template: Template): Try[HtmlFormat.Appendable] =
+  override def render(template: Template): Try[HtmlFormat.Appendable] = {
+    govuk.RoutesPrefix.setPrefix("")
     Try(
       GovukTemplate.apply(
         htmlLang = template.htmlLang,
@@ -52,6 +53,7 @@ class govukTemplateSpec extends TemplateUnitSpec[Template]("govukTemplate") {
         beforeContentBlock = template.beforeContent
       )(template.content.getOrElse(HtmlFormat.empty))
     )
+  }
 
   "template rendered with default values" should {
     "not have whitespace before the doctype" in {
@@ -60,6 +62,28 @@ class govukTemplateSpec extends TemplateUnitSpec[Template]("govukTemplate") {
           .apply(htmlLang = None, htmlClasses = None, themeColour = None, bodyClasses = None)(HtmlFormat.empty)
       val component    = templateHtml.body
       component.charAt(0) shouldBe '<'
+    }
+  }
+
+  "govukTemplate" should {
+    "use the provided assetPath in all LINK elements" in {
+      val templateHtml =
+        GovukTemplate
+          .apply(assetPath = Some("/foo/bar"))(HtmlFormat.empty)
+
+      val links = templateHtml.select("link")
+      links.forEach { link =>
+        link.attr("href") should startWith("/foo/bar")
+      }
+    }
+
+    "use the provided assetPath in the open graph image" in {
+      val templateHtml =
+        GovukTemplate
+          .apply(assetPath = Some("/foo/bar"))(HtmlFormat.empty)
+
+      val ogImage = templateHtml.select("""meta[property="og:image"]""")
+      ogImage.first.attr("content") should startWith("/foo/bar")
     }
   }
 }

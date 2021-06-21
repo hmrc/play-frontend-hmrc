@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [0.78.0] - 2021-06-24
+
+### Changed
+
+- Remove hard dependency on govuk-frontend webjar and provide assetsPath override
+  (see [ADR](docs/maintainers/adr/0004-remove-hard-dependency-on-the-govuk-frontend-webjar.md))
+
 ## [0.77.0] - 2021-06-15
 
 ### Changed

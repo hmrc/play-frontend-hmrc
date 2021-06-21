@@ -82,6 +82,11 @@ class govukHeaderSpec extends TemplateUnitSpec[Header]("govukHeader") {
     component.html should include("<strong>Some text</strong>")
   }
 
+  "use the provided assetsPath for the fallback SVG image" in {
+    val component = GovukHeader(Header(assetsPath = Some("/foo/bar"))).select("image")
+    component.attr("src") should startWith("/foo/bar")
+  }
+
   /**
     * Calls the Twirl template with the given parameters and returns the resulting markup
     *
