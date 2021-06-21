@@ -148,12 +148,12 @@ To use this component,
    mandatory):
 
     ```scala 
-    @import uk.gov.hmrc.hmrcfrontend.views.html.helpers.HmrcStandardLayout
+    @import uk.gov.hmrc.hmrcfrontend.views.html.helpers.HmrcLayout
     @import uk.gov.hmrc.hmrcfrontend.views.config.StandardBetaBanner
     @import views.html.helper.CSPNonce
     @import config.AppConfig
 
-    @this(hmrcStandardLayout: HmrcStandardLayout, standardBetaBanner: StandardBetaBanner)
+    @this(hmrcLayout: HmrcLayout, standardBetaBanner: StandardBetaBanner)
 
     @(
       pageTitle: String,
@@ -161,7 +161,7 @@ To use this component,
       contentBlock: Html)(
       implicit request: RequestHeader, messages: Messages)
 
-    @hmrcStandardLayout(
+    @hmrcLayout(
       pageTitle = Some(pageTitle),
       serviceName = Some(appConfig.serviceName),
       isWelshTranslationAvailable = isWelshTranslationAvailable,
