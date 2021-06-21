@@ -59,9 +59,10 @@ The library comprises two packages:
     ``` 
 
 1. Do ONE of the following:
-   * Use the `hmrcLayout` for your papges as per the section [HMRC layout EXPERIMENTAL](#hmrc-layout-experimental), OR
-   * Create a custom layout template using `govukLayout` that you can use in all of your service pages (which can
-     optionally be a wrapper around the `hmrcLayout`) as per the section [Custom layout](#custom-layout)
+    * Create a custom layout template for your pages using `hmrcLayout` as per the section
+      [HMRC layout EXPERIMENTAL](#hmrc-layout-experimental), OR
+    * Create a custom layout template for your pages using `govukLayout` as per the section
+      [Custom layout](#custom-layout)
 
 1.  Optionally, add `TwirlKeys.templateImports` in `build.sbt`:
     ```sbt
@@ -143,55 +144,35 @@ To use this component,
    ```
    This is required by the `hmrcStandardHeader`
    
-1. Use the `hmrcLayout` as demonstrated below:
+1. Create a file `Layout.scala.html` and use the `hmrcLayout` as demonstrated below (please note that NOT all fields are
+   mandatory):
 
     ```scala 
-    @import uk.gov.hmrc.govukfrontend.views.html.components.{FormWithCSRF => PlayFrontendFormWithCSRF}
-    @import uk.gov.hmrc.govukfrontend.views.html.components.implicits._
-    @import model.ServiceForm
-    @import uk.gov.hmrc.hmrcfrontend.views.html.helpers.HmrcLayout
+    @import uk.gov.hmrc.hmrcfrontend.views.html.helpers.HmrcStandardLayout
+    @import uk.gov.hmrc.hmrcfrontend.views.config.StandardBetaBanner
     @import views.html.helper.CSPNonce
-    
-    @this(
-            govukInput: GovukInput,
-            govukButton: GovukButton,
-            govukErrorSummary: GovukErrorSummary,
-            formWithCSRF: PlayFrontendFormWithCSRF,
-            mainLayout: HmrcLayout,
-    )
-    @(myForm: Form[ServiceForm], action: Call)(implicit request: RequestHeader, messages: Messages)
-    
-    @pageTitle = @{
-        if(myForm.hasErrors){Messages("error.browser.title.prefix")+" "+Messages("my.form.title")} else Messages("my.form.title")
-    }
-    
-    @mainLayout(
-        pageTitle = Some(pageTitle),
-        isWelshTranslationAvailable = true, 
-        displayHmrcBanner = true, 
-        nonce = CSPNonce.get
-    ) {
-        @if(myForm.errors.nonEmpty) {
-            @govukErrorSummary(ErrorSummary(errorList = myForm.errors.asTextErrorLinks, title = Text(messages("error.summary.title"))))
-        }
-        <h1 class="govuk-heading-xl">@{Text(messages("my.form.heading"))}</h1>
-        <p class="govuk-body">@{Text(messages("my.form.paragraph"))}</p>
-        @formWithCSRF(action, 'id -> "service-form") {
-            @govukInput(Input(
-                id = "service-input",
-                name = "service-input",
-                label = Label(content = Text(messages("my.form.input.label"))),
-                classes = "govuk-label--s"
-            ))
-            @govukButton(Button(
-                content = Text(messages("my.form.button")),
-                inputType = Some("submit"),
-                preventDoubleClick = true
-            ))
-        }
-    }
-    ```
+    @import config.AppConfig
 
+    @this(hmrcStandardLayout: HmrcStandardLayout, standardBetaBanner: StandardBetaBanner)
+
+    @(
+      pageTitle: String,
+      isWelshTranslationAvailable: Boolean = true)(
+      contentBlock: Html)(
+      implicit request: RequestHeader, messages: Messages)
+
+    @hmrcStandardLayout(
+      pageTitle = Some(pageTitle),
+      serviceName = Some(appConfig.serviceName),
+      isWelshTranslationAvailable = isWelshTranslationAvailable,
+      signOutUrl = Some(appConfig.signOutUrl),
+      homePageUrl = Some(appConfig.homePageUrl),
+      displayHmrcBanner = true,
+      phaseBanner = Some(standardBetaBanner(url = appConfig.betaFeedbackUrl)),
+      nonce = CSPNonce.get,
+    )(contentBlock)
+    ```
+   
 1. The parameters that can be passed into the `hmrcLayout` and their default values are as follows:
     ```scala
     @(
@@ -204,7 +185,7 @@ To use this component,
       displayHmrcBanner: Boolean = false,           // Setting to true will display the HMRC banner
       phaseBanner: Option[PhaseBanner] = None,      // Passing value will display alpha or beta banner
       additionalHeadBlock: Option[Html] = None,     // Passing value will add additional content in head
-      additionalScriptsBlock: Option[Html] = None,  // Passing balue will additional content to scripts between the footer and end of body
+      additionalScriptsBlock: Option[Html] = None,  // Passing value will add additional scripts between the footer and end of body
       nonce: Option[String] = None,                 // Passing value will bind in head and scripts
       mainContentLayout: Option[Html => Html] = Some(defaultMainContent(_)) // Passing value will allow custom styling of main content
     )(contentBlock: Html)(implicit request: RequestHeader, messages: Messages)
