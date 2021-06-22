@@ -78,22 +78,24 @@ class hmrcHeadSpec
 
     "include the hmrc-frontend minified css bundle" in {
       val hmrcHead = app.injector.instanceOf[HmrcHead]
+      hmrcfrontend.RoutesPrefix.setPrefix("/some-service/hmrc-frontend")
       val content  = contentAsString(hmrcHead())
 
       content should include regex
         """<!--\[if gt IE 8\]><!-->
-          |<link href="/assets/hmrc-frontend-\d+.\d+.\d+.min.css" media="all" rel="stylesheet" type="text/css" />
+          |<link href="/some-service/hmrc-frontend/assets/hmrc-frontend-\d+.\d+.\d+.min.css" media="all" rel="stylesheet" type="text/css" />
           |<!--<!\[endif\]-->""".stripMargin.r
     }
 
     "include the hmrc-frontend minified ie8 css bundle and minified html5shiv bundle" in {
       val hmrcHead = app.injector.instanceOf[HmrcHead]
+      hmrcfrontend.RoutesPrefix.setPrefix("/some-service/hmrc-frontend")
       val content  = contentAsString(hmrcHead())
 
       content should include regex
         """<!--\[if lte IE 8\]>
-          |<script src="/assets/vendor/html5shiv.min.js"></script>
-          |<link href="/assets/hmrc-frontend-ie8-\d+.\d+.\d+.min.css" media="all" rel="stylesheet" type="text/css" />
+          |<script src="/some-service/hmrc-frontend/assets/vendor/html5shiv.min.js"></script>
+          |<link href="/some-service/hmrc-frontend/assets/hmrc-frontend-ie8-\d+.\d+.\d+.min.css" media="all" rel="stylesheet" type="text/css" />
           |<!\[endif\]-->""".stripMargin.r
     }
 
