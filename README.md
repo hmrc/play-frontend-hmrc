@@ -49,7 +49,6 @@ The library comprises two packages:
 
 1.  Add routes for hmrc-frontend and govuk-frontend assets in `conf/app.routes`:
     ```scala
-    ->         /govuk-frontend                     govuk.Routes
     ->         /hmrc-frontend                      hmrcfrontend.Routes
     ```
 
@@ -163,10 +162,8 @@ To use this component,
 
     @hmrcLayout(
       pageTitle = Some(pageTitle),
-      serviceName = Some(appConfig.serviceName),
       isWelshTranslationAvailable = isWelshTranslationAvailable,
       signOutUrl = Some(appConfig.signOutUrl),
-      homePageUrl = Some(appConfig.homePageUrl),
       displayHmrcBanner = true,
       phaseBanner = Some(standardBetaBanner(url = appConfig.betaFeedbackUrl)),
       nonce = CSPNonce.get,
@@ -180,7 +177,6 @@ To use this component,
       pageTitle: Option[String] = None,             // This will be bound to the govukTemplate
       isWelshTranslationAvailable: Boolean = false, // Setting to true will display the language toggle
       signOutUrl: Option[String] = None,            // Passing value will display the sign out link
-      homePageUrl: Option[String] = None,           // This will be bound to the govukTemplate
       userResearchBannerUrl: Option[String] = None, // Passing value will display the UserResearchBanner
       displayHmrcBanner: Boolean = false,           // Setting to true will display the HMRC banner
       phaseBanner: Option[PhaseBanner] = None,      // Passing value will display alpha or beta banner
