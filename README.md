@@ -1,6 +1,7 @@
 # play-frontend-govuk
 
-> Twirl implementation of the [govuk-frontend](https://github.com/alphagov/govuk-frontend/) components library as 
+play-frontend-govuk is a Scala Twirl implementation of the 
+[govuk-frontend](https://github.com/alphagov/govuk-frontend/) components library as 
   documented in the [GOV.UK Design System](https://design-system.service.gov.uk/components/). 
 
 ## Table of Contents
@@ -17,9 +18,9 @@
 
 ## Background
 
-This library provides accessibility-compliant `Twirl` basic building blocks as originally implemented in the [govuk-frontend](https://github.com/alphagov/govuk-frontend/)
-library. Additionally, it provides a layout that wraps the `GovukTemplate`, used across all frontends, and we plan to 
-include more helpers built on top of `Play's` own helpers and the basic components.
+This library provides `Twirl` versions of the Nunjucks components implemented in the 
+[govuk-frontend](https://www.npmjs.com/package/govuk-frontend)
+NPM package. Additionally, it provides a layout that wraps `GovukTemplate` used by all GOV.UK frontends.
 The following figure illustrates the components and their dependencies (zoom in for a better view).
 
 ![components](docs/images/govukcomponents.svg)
@@ -33,17 +34,18 @@ This means that you do **NOT** need to add this library as a dependency of your 
 instructions to add [play-frontend-hmrc](https://github.com/hmrc/play-frontend-hmrc) to your project, and that library 
 will manage asset compilations, routes, etc.
 
-If you do need to use this library directly, follow the [standalone instructions](https://github.com/hmrc/play-frontend-govuk/blob/master/docs/maintainers/standalone.md).
+If you do need to use this library directly, follow 
+the [standalone instructions](https://github.com/hmrc/play-frontend-govuk/blob/master/docs/maintainers/standalone.md).
 
-### Using govuk-frontend Components in Twirl
-To use the [govuk-frontend](https://github.com/alphagov/govuk-frontend/) `Twirl` [components](https://github.com/hmrc/play-frontend-govuk/blob/master/src/main/play-26/uk/gov/hmrc/govukfrontend/views/html/components/package.scala) 
-and all the [types](https://github.com/hmrc/play-frontend-govuk/blob/master/src/main/scala/uk/gov/hmrc/govukfrontend/views/Aliases.scala) needed to construct them, import the following:
+### Using the components
+To use the components and all the [types](https://github.com/hmrc/play-frontend-govuk/blob/master/src/main/scala/uk/gov/hmrc/govukfrontend/views/Aliases.scala) 
+needed to construct them, import the following:
 ```scala
 @import uk.gov.hmrc.govukfrontend.views.html.components._
 ```
 
-### Twirl HTML helper methods and implicits
-The above import will also bring into scope the available `Twirl` [helpers](https://github.com/hmrc/play-frontend-govuk/blob/master/src/main/play-26/uk/gov/hmrc/govukfrontend/views/Helpers.scala) and [layouts](https://github.com/hmrc/play-frontend-govuk/blob/master/src/main/play-26/uk/gov/hmrc/govukfrontend/views/Layouts.scala).
+### Helper methods and implicits
+The above import will also bring into scope the available helpers and layouts.
 
 The following import will summon [implicits](https://github.com/hmrc/play-frontend-govuk/blob/master/src/main/scala/uk/gov/hmrc/govukfrontend/views/Implicits.scala) that provide extension methods on `Play's` [FormError](https://www.playframework.com/documentation/2.6.x/api/scala/play/api/data/FormError.html) 
 to convert between `Play's` form errors and view models used by `GovukErrorMessage` and `GovukErrorSummary` (E.g. **form.errors.asTextErrorLinks**, **form.errors.asTextErrorMessageForField**): 
@@ -64,76 +66,14 @@ to convert between `Play's` form errors and view models used by `GovukErrorMessa
 ...
 ```
 
-It also provides extension methods on `Play's` [Html](https://www.playframework.com/documentation/2.6.x/api/scala/play/twirl/api/Html.html) objects.
-This includes HTML trims, pads, indents and handling HTML emptiness.
+It also provides extension methods on `Play's` [Html](https://www.playframework.com/documentation/2.6.x/api/scala/play/twirl/api/Html.html) 
+objects. This includes HTML trims, pads, indents and handling HTML emptiness.
 
-### An example usage of [GovukLayout](https://github.com/hmrc/play-frontend-govuk/blob/master/src/main/play-26/twirl/uk/gov/hmrc/govukfrontend/views/layouts/govukLayout.scala.html) template
-A convenient way of setting up a view with standard structure and Govuk design elements is provided. 
-Instead of directly invoking GovukTemplate, use GovukLayout and pass in GovUk assets wiring in head and scripts elements. 
-The following example snippet sets up a common local layout shared by view pages which then delegates to the standard GovukLayout. 
-```scala
-@this(
-  govukLayout: GovukLayout,
-  head: head,
-  scripts: scripts
-)
+### GovukLayout
+`GovukLayout` provides a convenient way of setting up a view with standard structure and the GOV.UK design elements. 
 
-@(pageTitle: Option[String] = None,
-  beforeContentBlock: Option[Html] = None
-)(contentBlock: Html)(implicit request: Request[_], messages: Messages)
-
-@govukLayout(
-  pageTitle = pageTitle,
-  headBlock = Some(head()),
-  beforeContentBlock = beforeContentBlock,
-  footerItems = Seq(FooterItem(
-    href = Some("https://govuk-prototype-kit.herokuapp.com/"), 
-    text = Some("GOV.UK Prototype Kit v9.1.0"))),
-  bodyEndBlock = Some(scripts()))(contentBlock)
-```
-The above snippet uses some sensible defaults (e.g. initial language) and configs (e.g. header config) to render a page. 
-One of the optional parameters of GovukLayout is _headerBlock_. It can be composed of [Header](https://github.com/hmrc/play-frontend-govuk/blob/master/src/main/scala/uk/gov/hmrc/govukfrontend/views/viewmodels/header/Header.scala) element. 
-However, if no header block is passed in but simply the following i18n message keys being present, the following Header element is constructed:
-```scala
-Header(
-  homepageUrl = Some(messages("service.homePageUrl")),
-  serviceName = Some(messages("service.name")),
-  serviceUrl = Some(messages("service.homePageUrl")),
-  containerClasses = Some("govuk-width-container")
-)
-```
-The above snippet is based on the premise that a header could be in different languages when supporting i18n standards. <br/>
-GovukLayout leverages local head and scripts template for assets wiring. 
-The local head view template looks like the following:
-```html
-@this()
-
-@()
-<!--[if lte IE 8]><link href='@controllers.routes.Assets.versioned("stylesheets/application-ie-8.css")' rel="stylesheet" type="text/css" /><![endif]-->
-<!--[if gt IE 8]><!--><link href='@controllers.routes.Assets.versioned("stylesheets/application.css")' media="all" rel="stylesheet" type="text/css" /><!--<![endif]-->
-```
-The local scripts view template looks like the following:
-```html
-@this()
-
-@()
-<script src='@controllers.routes.Assets.versioned("lib/govuk-frontend/govuk/all.js")'></script>
-<script>window.GOVUKFrontend.initAll();</script>
-```
-The head view template requires the following application.scss in app/assets/stylesheets folder which gets compiled to application.css by [sbt-sassify](https://github.com/irundaia/sbt-sassify)
-```
-$govuk-assets-path: "/play-mtp-frontend/assets/lib/govuk-frontend/govuk/assets/";
-
-@import "lib/govuk-frontend/govuk/all";
-
-.app-reference-number {
-  display: block;
-  font-weight: bold;
-}
-```
-Please note that the /play-mtp-frontend/ in $govuk-assets-path is the context root path of the frontend using the library.
-
-The `govukLayout` by default renders the main `contentBlock` of the page in [two thirds width content](https://design-system.service.gov.uk/styles/layout/).
+The `GovukLayout` by default renders the main `contentBlock` of the page in 
+[two thirds width content](https://design-system.service.gov.uk/styles/layout/).
 This means that the `contentBlock` is wrapped in the following styling:
 
 ```html
@@ -209,13 +149,9 @@ You can then inject this into your `Layout.scala.html` and partially apply the f
 
 The library is cross-compiled for `Play 2.6`, `Play 2.7`, and `Play 2.8`.
 
-**As of v0.57.0 (January 2021), this library will no longer be cross-compiled against Play 2.5.**
-
-### Play 2.6
-
-The same namespace exposes type aliases prefixed with `Govuk` (ex: the type `GovukButton`) so that components can be injected into 
-a controller or template. It also exposes values of the same name (ex: `GovukButton`) if you wish to use the component template directly, 
-though it is preferable to use dependency injection.
+Type aliases prefixed with `Govuk` (ex: the type `GovukButton`) are exported so that components can be injected into 
+a controller or template. The library also exposes values of the same name (ex: `GovukButton`) if you wish to use the 
+component template directly, though it is preferable to use dependency injection.
 
 Same button using DI:
 ```scala
@@ -238,31 +174,16 @@ We provide example templates using the Twirl components through a `Chrome` exten
 With the extension installed, you should be able to go to the [GOV.UK Design System](https://design-system.service.gov.uk/components/), 
 click on a component on the sidebar and see the `Twirl` examples matching the provided `Nunjucks` templates.
 
-_Note: Currently there are examples only for the following components:_
-
-* [Back link](https://design-system.service.gov.uk/components/back-link/) 
-* [Button](https://design-system.service.gov.uk/components/button/)
-* [Details](https://design-system.service.gov.uk/components/details/)
-* [Error message](https://design-system.service.gov.uk/components/error-message/)
-* [Error summary](https://design-system.service.gov.uk/components/error-summary/)
-* [Fieldset](https://design-system.service.gov.uk/components/fieldset/)
-* [Footer](https://design-system.service.gov.uk/components/footer/)
-* [Header](https://design-system.service.gov.uk/components/header/)
-* [Panel](https://design-system.service.gov.uk/components/panel/)
-* [Radios](https://design-system.service.gov.uk/components/radios/)
-* [Summary list](https://design-system.service.gov.uk/components/summary-list/)
-* [Textarea](https://design-system.service.gov.uk/components/textarea/)
-* [Text input](https://design-system.service.gov.uk/components/text-input/)
-
 ## API
 
-As of v0.63.0, a method `withFormField(field: play.api.data.Field)` method has been added to the following classes:
+A method `withFormField(field: play.api.data.Field)` method has been added to the following classes:
 * CharacterCount
 * Checkboxes
 * Input
 * Radios
 * Select
 * Textarea
+* DateInput (provided as part of [play-frontend-hmrc](https://github.com/hmrc/play-frontend-hmrc#richdateinput))
 
 This new method allows a Play forms Field to be passed through when creating an instance of `play-frontend-govuk` form input,
 which will enrich the input with the following:
@@ -292,8 +213,6 @@ If a value is passed though to the input `.apply()` method during construction, 
 
 Note that you will need to pass through an implicit `Messages` to your template.
 
-TODO: link to scaladoc
-
 ## Dependencies
 
 ### sbt Dependencies
@@ -308,9 +227,7 @@ Currently GDS does not automate the publishing of the webjar so it has to be man
 
 ## Getting help
 
-Please report any issues with this library in Slack at `#event-play-frontend-beta`.
-
-For other issues or wider discussions, please use `#team-plat-ui`.
+Please report any issues with this library in Slack at `#team-plat-ui`.
 
 ## Contributing
 

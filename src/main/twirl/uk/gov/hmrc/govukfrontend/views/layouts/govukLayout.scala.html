@@ -15,6 +15,7 @@
  *@
 
 @import uk.gov.hmrc.govukfrontend.views.html.components._
+@import uk.gov.hmrc.govukfrontend.controllers.routes
 
 @this(
   govukTemplate: GovukTemplate,
@@ -33,7 +34,8 @@
   footerItems: Seq[FooterItem] = Seq.empty,
   bodyEndBlock: Option[Html] = None,
   scriptsBlock: Option[Html] = None,
-  mainContentLayout: Option[Html => Html] = Some(defaultMainContentLayout(_))
+  mainContentLayout: Option[Html => Html] = Some(defaultMainContentLayout(_)),
+  assetPath: Option[String] = None
 )(contentBlock: Html)(implicit messages: Messages)
 
 @headerDefault = {
@@ -69,6 +71,6 @@
   beforeContentBlock = beforeContentBlock,
   footerBlock = footerDefault,
   mainClasses = Some("govuk-main-wrapper--auto-spacing"),
-  bodyEndBlock = Some(bodyEndDefault)
+  bodyEndBlock = Some(bodyEndDefault),
+  assetPath = assetPath
 )(mainContent)
-

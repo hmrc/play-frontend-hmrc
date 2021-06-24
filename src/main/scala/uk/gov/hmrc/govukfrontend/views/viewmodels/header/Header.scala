@@ -18,23 +18,6 @@ package uk.gov.hmrc.govukfrontend.views.viewmodels.header
 
 import play.api.libs.json._
 
-/** *
-  * We removed assets path since the Twirl implementation of <code>govukHeader</code> uses
-  * reverse routes to reference the assets.
-  * FIXME: when the library is ready for Production and the assets are hosted on a CDN
-  * maybe add <code>assetsPath</code> back again to read from config in Prod and use reverse routes
-  * in Dev.
-  *
-  * @param homepageUrl
-  * @param productName
-  * @param serviceName
-  * @param serviceUrl
-  * @param navigation
-  * @param navigationClasses
-  * @param containerClasses
-  * @param classes
-  * @param attributes
-  */
 final case class Header(
   homepageUrl: Option[String] = None,
   productName: Option[String] = None,
@@ -49,7 +32,8 @@ final case class Header(
   classes: String = "",
   attributes: Map[String, String] = Map.empty,
   menuButtonLabel: Option[String] = None,
-  navigationLabel: Option[String] = None
+  navigationLabel: Option[String] = None,
+  assetsPath: Option[String] = None
 )
 
 object Header {

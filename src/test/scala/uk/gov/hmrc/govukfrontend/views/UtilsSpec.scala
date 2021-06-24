@@ -106,6 +106,18 @@ class UtilsSpec extends AnyWordSpec with Matchers with ScalaCheckPropertyChecks 
       }
     }
 
+    "calculateAssetPath" should {
+      "use the path if provided" in {
+        calculateAssetPath(Some("/foo"), "images/bar.png") shouldBe "/foo/images/bar.png"
+      }
+
+      "use the reverse router if path is not provided" in {
+        govuk.RoutesPrefix.setPrefix("/some-service/govuk-frontend")
+
+        calculateAssetPath(None, "images/baz.png") shouldBe "/some-service/govuk-frontend/assets/images/baz.png"
+      }
+    }
+
     def attrsToMap(html: Html): Map[String, String] = {
       val attrs: List[List[String]] =
         html.body.trim.split(" ").toList.map(_.split("=").toList)
