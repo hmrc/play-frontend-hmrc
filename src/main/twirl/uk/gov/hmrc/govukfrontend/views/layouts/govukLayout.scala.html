@@ -35,7 +35,8 @@
   bodyEndBlock: Option[Html] = None,
   scriptsBlock: Option[Html] = None,
   mainContentLayout: Option[Html => Html] = Some(defaultMainContentLayout(_)),
-  assetPath: Option[String] = None
+  assetPath: Option[String] = None,
+  cspNonce: Option[String] = None
 )(contentBlock: Html)(implicit messages: Messages)
 
 @headerDefault = {
@@ -72,5 +73,6 @@
   footerBlock = footerDefault,
   mainClasses = Some("govuk-main-wrapper--auto-spacing"),
   bodyEndBlock = Some(bodyEndDefault),
-  assetPath = assetPath
+  assetPath = assetPath,
+  cspNonce = cspNonce
 )(mainContent)

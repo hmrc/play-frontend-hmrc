@@ -125,6 +125,11 @@ trait Aliases {
   type CheckboxItem = viewmodels.checkboxes.CheckboxItem
   val CheckboxItem = viewmodels.checkboxes.CheckboxItem
 
+  type CheckboxBehaviour = viewmodels.checkboxes.CheckboxBehaviour
+  val CheckboxBehaviour = viewmodels.checkboxes.CheckboxBehaviour
+
+  val ExclusiveCheckbox = viewmodels.checkboxes.ExclusiveCheckbox
+
   type SummaryList = viewmodels.summarylist.SummaryList
   val SummaryList = viewmodels.summarylist.SummaryList
 

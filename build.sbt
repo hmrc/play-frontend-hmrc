@@ -1,4 +1,3 @@
-import GenerateFixtures.generateFixtures
 import play.sbt.PlayImport.PlayKeys
 import sbt.CrossVersion
 
@@ -28,7 +27,8 @@ lazy val root = Project(libName, file("."))
     ),
     // ***************
     (generateUnitTestFixtures in Test) := {
-      generateFixtures(baseDirectory.value / "src/test/resources", LibDependencies.govukFrontendVersion)
+      val generateFixtures = GenerateFixtures(baseDirectory.value / "src/test/resources")
+      generateFixtures.generate()
     },
     parallelExecution in sbt.Test := false,
     PlayKeys.playMonitoredFiles ++= (sourceDirectories in (Compile, TwirlKeys.compileTemplates)).value,

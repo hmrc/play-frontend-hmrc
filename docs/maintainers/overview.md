@@ -19,8 +19,8 @@ from [govuk-frontend's yaml documentation](https://github.com/alphagov/govuk-fro
 for each component. The yaml examples are used in `govuk-frontend`'s own unit test suite.
 
 An additional, manually created, set of fixtures in `src/test/resources/fixtures/additional-fixtures` captures test
-cases that are not covered by the published examples. For example, the layout and template components
-do not have published examples in `govuk-frontend` so they are placed in this directory.
+cases that are not covered by the published examples. For example, the template does
+not have published examples in `govuk-frontend` so they are placed in this directory.
 
 To regenerate the test fixtures, you will need the template renderer running locally (see below). 
 Then run ```sbt generateUnitTestFixtures```. The template renderer does not need to be running while the unit

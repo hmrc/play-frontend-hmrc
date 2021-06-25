@@ -39,6 +39,8 @@ object Generators {
       conditionalHtml <- Gen.option(arbHtml.arbitrary)
       disabled        <- arbBool.arbitrary
       attributes      <- genAttributes()
+      behaviour       <- Gen.frequency((95, None), (5, Some(ExclusiveCheckbox)))
+      divider         <- Gen.option(genAlphaStr(emptyFreq = 95))
     } yield CheckboxItem(
       content = content,
       id = id,
@@ -49,7 +51,9 @@ object Generators {
       checked = checked,
       conditionalHtml = conditionalHtml,
       disabled = disabled,
-      attributes = attributes
+      attributes = attributes,
+      behaviour = behaviour,
+      divider = divider
     )
   }
 

@@ -35,23 +35,24 @@ class govukTemplateSpec extends TemplateUnitSpec[Template]("govukTemplate") {
     govuk.RoutesPrefix.setPrefix("")
     Try(
       GovukTemplate.apply(
-        htmlLang = template.htmlLang,
-        pageTitleLang = template.pageTitleLang,
-        mainLang = template.mainLang,
-        htmlClasses = template.htmlClasses,
-        themeColour = template.themeColor,
-        bodyClasses = template.bodyClasses,
-        pageTitle = template.pageTitle,
-        headIcons = template.headIcons,
-        headBlock = template.head,
-        bodyStart = template.bodyStart,
-        skipLinkBlock = template.skipLink,
-        headerBlock = template.header.getOrElse(GovukHeader()),
-        footerBlock = template.footer.getOrElse(GovukFooter()),
-        bodyEndBlock = template.bodyEnd,
-        mainClasses = template.mainClasses,
-        beforeContentBlock = template.beforeContent
-      )(template.content.getOrElse(HtmlFormat.empty))
+        htmlLang = template.variables.htmlLang,
+        pageTitleLang = template.variables.pageTitleLang,
+        mainLang = template.variables.mainLang,
+        htmlClasses = template.variables.htmlClasses,
+        themeColour = template.variables.themeColor,
+        bodyClasses = template.variables.bodyClasses,
+        pageTitle = template.blocks.pageTitle,
+        headIcons = template.blocks.headIcons,
+        headBlock = template.blocks.head,
+        bodyStart = template.blocks.bodyStart,
+        skipLinkBlock = template.blocks.skipLink,
+        headerBlock = template.blocks.header.getOrElse(GovukHeader()),
+        footerBlock = template.blocks.footer.getOrElse(GovukFooter()),
+        bodyEndBlock = template.blocks.bodyEnd,
+        mainClasses = template.variables.mainClasses,
+        beforeContentBlock = template.blocks.beforeContent,
+        cspNonce = template.variables.cspNonce
+      )(template.blocks.content.getOrElse(HtmlFormat.empty))
     )
   }
 

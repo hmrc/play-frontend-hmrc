@@ -21,12 +21,22 @@ import play.api.libs.json.{Json, OWrites, Reads}
 import play.twirl.api.Html
 
 final case class Template(
+  variables: TemplateVariables,
+  blocks: TemplateBlocks
+)
+
+final case class TemplateVariables(
   htmlLang: Option[String] = None,
   pageTitleLang: Option[String] = None,
   mainLang: Option[String] = None,
   htmlClasses: Option[String] = None,
   themeColor: Option[String] = None,
   bodyClasses: Option[String] = None,
+  mainClasses: Option[String] = None,
+  cspNonce: Option[String] = None
+)
+
+final case class TemplateBlocks(
   pageTitle: Option[String] = None,
   headIcons: Option[Html] = None,
   head: Option[Html] = None,
@@ -35,10 +45,21 @@ final case class Template(
   header: Option[Html] = None,
   footer: Option[Html] = None,
   bodyEnd: Option[Html] = None,
-  mainClasses: Option[String] = None,
   beforeContent: Option[Html] = None,
   content: Option[Html] = None
 )
+
+object TemplateVariables {
+  implicit val templateWrites: OWrites[TemplateVariables] = Json.writes[TemplateVariables]
+
+  implicit val templateReads: Reads[TemplateVariables] = Json.reads[TemplateVariables]
+}
+
+object TemplateBlocks {
+  implicit val templateWrites: OWrites[TemplateBlocks] = Json.writes[TemplateBlocks]
+
+  implicit val templateReads: Reads[TemplateBlocks] = Json.reads[TemplateBlocks]
+}
 
 object Template {
   implicit val templateWrites: OWrites[Template] = Json.writes[Template]

@@ -72,30 +72,34 @@
 }
 
 @divSnippet(describedBy: String) = {
-  <div class="@toClasses("govuk-checkboxes", classes)"@toAttributes(attributes)@if(isConditional) { data-module="govuk-checkboxes"}>
+  <div class="@toClasses("govuk-checkboxes", classes)"@toAttributes(attributes) data-module="govuk-checkboxes">
     @for((item, index) <- items.zip(Stream from 1)) {
-      <div class="govuk-checkboxes__item">
-        <input class="govuk-checkboxes__input" id="@itemId(item, index)" name="@itemName(item)" type="checkbox" value="@item.value"@inputAttrs(item, index, describedBy)@toAttributes(item.attributes)>
-          @govukLabel(Label(
-            forAttr = Some(itemId(item, index)),
-            classes = toClasses("govuk-checkboxes__label", item.label.map(_.classes).getOrElse("")),
-            attributes = item.label.map(_.attributes).getOrElse(Map.empty),
-            content = item.content
-          ))
-          @if(hasHint(item)) {
-            @govukHint(Hint(
-              id = Some(itemHintId(item, index)),
-              classes = toClasses("govuk-checkboxes__hint", item.hint.map(_.classes).getOrElse("")),
-              attributes = item.hint.map(_.attributes).getOrElse(Map.empty),
-              content = item.hint.map(_.content).getOrElse(Empty)
+      @if(item.divider.exists(_.nonEmpty)) {
+        <div class="govuk-checkboxes__divider">@item.divider</div>
+      } else {
+        <div class="govuk-checkboxes__item">
+          <input class="govuk-checkboxes__input" id="@itemId(item, index)" name="@itemName(item)" type="checkbox" value="@item.value"@inputAttrs(item, index, describedBy)@toAttributes(item.attributes)>
+            @govukLabel(Label(
+              forAttr = Some(itemId(item, index)),
+              classes = toClasses("govuk-checkboxes__label", item.label.map(_.classes).getOrElse("")),
+              attributes = item.label.map(_.attributes).getOrElse(Map.empty),
+              content = item.content
             ))
+            @if(hasHint(item)) {
+              @govukHint(Hint(
+                id = Some(itemHintId(item, index)),
+                classes = toClasses("govuk-checkboxes__hint", item.hint.map(_.classes).getOrElse("")),
+                attributes = item.hint.map(_.attributes).getOrElse(Map.empty),
+                content = item.hint.map(_.content).getOrElse(Empty)
+              ))
+            }
+        </div>
+        @item.conditionalHtml.map { conditionalHtml =>
+          @if(conditionalHtml.body.nonEmpty) {
+            <div class="@toClasses("govuk-checkboxes__conditional", "govuk-checkboxes__conditional--hidden".when(!item.checked))" id="@conditionalId(item, index)">
+              @conditionalHtml
+            </div>
           }
-      </div>
-      @item.conditionalHtml.map { conditionalHtml =>
-        @if(conditionalHtml.body.nonEmpty) {
-          <div class="@toClasses("govuk-checkboxes__conditional", "govuk-checkboxes__conditional--hidden".when(!item.checked))" id="@conditionalId(item, index)">
-            @conditionalHtml
-          </div>
         }
       }
     }
@@ -130,6 +134,7 @@
   @if(item.checked) { checked}
   @if(item.disabled) { disabled}
   @item.conditionalHtml.map { conditionalHtml => @if(conditionalHtml.body.nonEmpty) {data-aria-controls="@conditionalId(item, index)"}}
+  @item.behaviour.map { behaviour => data-behaviour="@behaviour"}
   @itemDescribedBy(item, index, describedBy).toOption.map { ariaDescribedBy => aria-describedby="@ariaDescribedBy"}
 }
 

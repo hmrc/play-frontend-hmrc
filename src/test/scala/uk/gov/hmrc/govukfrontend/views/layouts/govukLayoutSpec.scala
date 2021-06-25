@@ -16,40 +16,149 @@
 
 package uk.gov.hmrc.govukfrontend.views.layouts
 
-import play.api.i18n.Lang
+import org.scalatest.matchers.should.Matchers
+import play.api.i18n.{Lang, Messages}
 import play.api.mvc.AnyContentAsEmpty
 import play.api.test.FakeRequest
 import play.twirl.api.{Html, HtmlFormat}
-import uk.gov.hmrc.govukfrontend.views.{MessagesHelpers, TemplateUnitSpec}
+import uk.gov.hmrc.govukfrontend.views.{JsoupHelpers, MessagesHelpers}
 import uk.gov.hmrc.govukfrontend.views.html.components._
-import uk.gov.hmrc.govukfrontend.views.viewmodels.layout.Layout
+import org.scalatest.wordspec.AnyWordSpecLike
+import play.api.test.Helpers.{stubMessages, stubMessagesApi}
 
-import scala.util.Try
-
-class govukLayoutSpec extends TemplateUnitSpec[Layout]("govukLayout") with MessagesHelpers {
+class govukLayoutSpec extends AnyWordSpecLike with Matchers with MessagesHelpers with JsoupHelpers {
   implicit lazy val request: FakeRequest[AnyContentAsEmpty.type] = FakeRequest()
 
-  /**
-    * Calls the Twirl template with the given parameters and returns the resulting markup
-    *
-    * @param layout
-    * @return [[Try[HtmlFormat.Appendable]]] containing the markup
-    */
-  override def render(layout: Layout): Try[HtmlFormat.Appendable] =
-    Try(
-      GovukLayout.apply(
-        pageTitle = layout.pageTitle,
-        headBlock = layout.head,
-        headerBlock = layout.header,
-        footerBlock = layout.footer,
-        footerItems = layout.footerItems.getOrElse(Seq.empty),
-        bodyEndBlock = layout.bodyEnd,
-        scriptsBlock = layout.scripts,
-        beforeContentBlock = layout.beforeContent
-      )(layout.content.getOrElse(HtmlFormat.empty))
-    )
-
   "govukLayout" should {
+    "render the default GOV.UK homepage link by default" in {
+      val layoutHtml =
+        GovukLayout.apply()(HtmlFormat.empty)
+
+      val homepageLink = layoutHtml.select(".govuk-header__link--homepage")
+      homepageLink.first.attr("href") shouldBe "https://www.gov.uk/"
+    }
+
+    "render the default service link by default" in {
+      implicit val messages: Messages = stubMessages(
+        stubMessagesApi(
+          Map(
+            "en" -> Map(
+              "service.homePageUrl" -> "/foo",
+              "service.name"        -> "Foo service"
+            )
+          )
+        )
+      )
+
+      val layoutHtml =
+        GovukLayout.apply()(HtmlFormat.empty)
+
+      val serviceLink = layoutHtml.select(".govuk-header__link--service-name")
+      serviceLink.first.attr("href") shouldBe "/foo"
+      serviceLink.first.text         shouldBe "Foo service"
+    }
+
+    "render the correct number of footer links by default" in {
+      val layoutHtml =
+        GovukLayout.apply()(HtmlFormat.empty)
+
+      val footerLinks = layoutHtml.select(".govuk-footer__link")
+      footerLinks should have size 2
+    }
+
+    "render the provided content" in {
+      val layoutHtml =
+        GovukLayout.apply()(Html("<h1 class=\"govuk-heading-xl\">Customised page template</h1>"))
+
+      val h1 = layoutHtml.select("h1")
+      h1.first.text shouldBe "Customised page template"
+    }
+
+    "render the provided title" in {
+      val layoutHtml =
+        GovukLayout.apply(
+          pageTitle = Some("Custom title")
+        )(HtmlFormat.empty)
+
+      val title = layoutHtml.select("title")
+      title.first.text shouldBe "Custom title"
+    }
+
+    "render the provided head block" in {
+      val layoutHtml =
+        GovukLayout.apply(
+          headBlock = Some(Html("<link href=\"custom-stylesheet.css\" rel=\"stylesheet\">"))
+        )(HtmlFormat.empty)
+
+      val head = layoutHtml.select("head")
+      head.first.html should include("<link href=\"custom-stylesheet.css\" rel=\"stylesheet\">")
+    }
+
+    "render the provided before content block" in {
+      val layoutHtml =
+        GovukLayout.apply(
+          beforeContentBlock =
+            Some(Html("<p>Customised before content, <a class=\"govuk-link\" href=\"#\">this is a link</a>.</p>"))
+        )(HtmlFormat.empty)
+
+      val container = layoutHtml.select("header + .govuk-width-container > p")
+      container.first.html shouldBe
+        "Customised before content, <a class=\"govuk-link\" href=\"#\">this is a link</a>."
+    }
+
+    "render the provided header block" in {
+      val layoutHtml =
+        GovukLayout.apply(
+          headerBlock = Some(Html("<header role=\"banner\">Custom header</header>"))
+        )(HtmlFormat.empty)
+
+      val header = layoutHtml.select("header")
+      header.first.text shouldBe "Custom header"
+    }
+
+    "render the provided footer block" in {
+      val layoutHtml =
+        GovukLayout.apply(
+          footerBlock = Some(Html("<footer role=\"contentinfo\">Custom footer</footer>"))
+        )(HtmlFormat.empty)
+
+      val footer = layoutHtml.select("footer")
+      footer.first.text shouldBe "Custom footer"
+    }
+
+    "render the provided scripts block" in {
+      val layoutHtml =
+        GovukLayout.apply(
+          scriptsBlock = Some(Html("<script src=\"custom-script.js\"></script>"))
+        )(HtmlFormat.empty)
+
+      val scripts = layoutHtml.select("script[src=custom-script.js]")
+      scripts should have size 1
+    }
+
+    "render the provided body end block" in {
+      val layoutHtml =
+        GovukLayout.apply(
+          bodyEndBlock = Some(Html("<script src=\"custom-script-2.js\"></script>"))
+        )(HtmlFormat.empty)
+
+      val scripts = layoutHtml.select("script[src=custom-script-2.js]")
+      scripts should have size 1
+    }
+
+    "render the layout with customised footer items" in {
+      val layoutHtml =
+        GovukLayout.apply(footerItems =
+          Seq(
+            FooterItem(href = Some("/help"), text = Some("Help")),
+            FooterItem(href = Some("/help/cookies"), text = Some("Cookies"))
+          )
+        )(HtmlFormat.empty)
+
+      val footerLinks = layoutHtml.select(".govuk-footer__link")
+      footerLinks should have size 4
+    }
+
     "render the html lang as en by default" in {
       val layoutHtml =
         GovukLayout.apply()(HtmlFormat.empty)
@@ -99,6 +208,15 @@ class govukLayoutSpec extends TemplateUnitSpec[Layout]("govukLayout") with Messa
 
       val links = html.select("link")
       links.first.attr("href") should startWith("/foo/bar")
+    }
+
+    "use the provided nonce" in {
+      val html = GovukLayout.apply(
+        cspNonce = Some("foo")
+      )(HtmlFormat.empty)
+
+      val scripts = html.select("script")
+      scripts.first.attr("nonce") shouldBe "foo"
     }
   }
 }

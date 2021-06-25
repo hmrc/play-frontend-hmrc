@@ -35,7 +35,9 @@ final case class CheckboxItem(
   checked: Boolean = false,
   conditionalHtml: Option[Html] = None,
   disabled: Boolean = false,
-  attributes: Map[String, String] = Map.empty
+  attributes: Map[String, String] = Map.empty,
+  behaviour: Option[CheckboxBehaviour] = None,
+  divider: Option[String] = None
 )
 
 object CheckboxItem {
@@ -55,7 +57,9 @@ object CheckboxItem {
         (__ \ "disabled").readWithDefault[Boolean](defaultObject.disabled) and
         (__ \ "attributes").readWithDefault[Map[String, String]](defaultObject.attributes)(
           CommonJsonFormats.attributesReads
-        )
+        ) and
+        (__ \ "behaviour").readNullable[CheckboxBehaviour] and
+        (__ \ "divider").readNullable[String]
     )(CheckboxItem.apply _)
 
   implicit def jsonWrites: OWrites[CheckboxItem] =
@@ -69,6 +73,8 @@ object CheckboxItem {
         (__ \ "checked").write[Boolean] and
         (__ \ "conditional" \ "html").writeNullable[String].contramap((html: Option[Html]) => html.map(_.body)) and
         (__ \ "disabled").write[Boolean] and
-        (__ \ "attributes").write[Map[String, String]]
+        (__ \ "attributes").write[Map[String, String]] and
+        (__ \ "behaviour").writeNullable[CheckboxBehaviour] and
+        (__ \ "divider").writeNullable[String]
     )(unlift(CheckboxItem.unapply))
 }
