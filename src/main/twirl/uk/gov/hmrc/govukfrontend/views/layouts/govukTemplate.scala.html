@@ -36,7 +36,8 @@
   bodyEndBlock: Option[Html] = None,
   mainClasses: Option[String] = None,
   beforeContentBlock: Option[Html] = None,
-  assetPath: Option[String] = None
+  assetPath: Option[String] = None,
+  cspNonce: Option[String] = None
 )(contentBlock: Html)<!DOCTYPE html>
 <html lang="@htmlLang.getOrElse {en}" class="govuk-template @htmlClasses">
   <head>
@@ -62,7 +63,7 @@
     <meta property="og:image" content="@calculateAssetPath(assetPath, "images/govuk-opengraph-image.png")">
   </head>
   <body class="govuk-template__body @bodyClasses">
-    <script>document.body.className = ((document.body.className) ? document.body.className + ' js-enabled' : 'js-enabled');</script>
+    <script@cspNonce.map {n => nonce="@n"}>document.body.className = ((document.body.className) ? document.body.className + ' js-enabled' : 'js-enabled');</script>
     @bodyStart
 
     @skipLinkBlock.getOrElse {

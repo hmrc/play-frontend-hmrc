@@ -4,7 +4,7 @@ import play.core.PlayVersion
 import play.sbt.PlayImport.ws
 
 object LibDependencies {
-  lazy val govukFrontendVersion = "3.12.0"
+  lazy val govukFrontendVersion = "3.13.0"
 
   val compile: Seq[ModuleID] = dependencies(
     shared = Seq(

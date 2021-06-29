@@ -83,8 +83,9 @@ class govukHeaderSpec extends TemplateUnitSpec[Header]("govukHeader") {
   }
 
   "use the provided assetsPath for the fallback SVG image" in {
-    val component = GovukHeader(Header(assetsPath = Some("/foo/bar"))).select("image")
-    component.attr("src") should startWith("/foo/bar")
+    val component = GovukHeader(Header(assetsPath = Some("/foo/bar")))
+
+    component.body should include("""<img src="/foo/bar""")
   }
 
   /**

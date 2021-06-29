@@ -4,12 +4,17 @@ These folders contain the fixtures for our [unit tests](../../../../docs/maintai
 
 ## `test-fixtures/`
 
-Generated automatically using examples available from the govuk design system.
+Generated automatically by the sbt generateUnitTestFixtures task 
+from the examples provided by the GOV.UK design system.
 
 ## `additional-fixtures/`
 
-Generated manually using x-gov-component-renderer to maintain additional test coverage beyond govuk design system examples.
+Additional fixtures for cases not covered by the GOV.UK design system.
+While the inputs are curated manually, the outputs are updated automatically 
+by the sbt generateUnitTestFixtures task.
 
 ## `patched-fixtures/`
 
-Manually maintained coverage for any scenarios where we have chosen to diverge from the govuk components.
+Manually maintained coverage for any scenarios where we have chosen to 
+diverge from the govuk components. The inputs and outputs for these fixtures
+are generated manually.
