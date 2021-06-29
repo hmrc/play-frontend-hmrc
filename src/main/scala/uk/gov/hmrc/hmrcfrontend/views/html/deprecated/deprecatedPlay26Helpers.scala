@@ -17,6 +17,7 @@
 package uk.gov.hmrc.hmrcfrontend.views.html.deprecated
 
 import play.api.Play
+import uk.gov.hmrc.govukfrontend.views.html.components.{GovukLayout, TwoThirdsMainContent}
 import uk.gov.hmrc.hmrcfrontend.config._
 import uk.gov.hmrc.hmrcfrontend.views.html.components.{HmrcFooter, HmrcHeader, HmrcLanguageSelect, HmrcReportTechnicalIssue, HmrcTimeoutDialog}
 import uk.gov.hmrc.hmrcfrontend.views.html.helpers._
@@ -81,4 +82,16 @@ object helpers {
   type HmrcLanguageSelectHelper = hmrcLanguageSelectHelper
   @deprecated(message = "Use DI", since = "Play 2.6")
   lazy val HmrcLanguageSelectHelper = new hmrcLanguageSelectHelper(HmrcLanguageSelect, LanguageConfig)
+
+  type HmrcLayout = hmrcLayout
+  @deprecated(message = "Use DI", since = "Play 2.6")
+  lazy val HmrcLayout = new hmrcLayout(
+    GovukLayout,
+    HmrcStandardHeader,
+    HmrcStandardFooter,
+    HmrcHead,
+    HmrcLanguageSelectHelper,
+    HmrcScripts,
+    TwoThirdsMainContent
+  )
 }
