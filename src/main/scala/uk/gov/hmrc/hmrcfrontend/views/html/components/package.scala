@@ -18,6 +18,8 @@ package uk.gov.hmrc.hmrcfrontend.views
 package html
 
 import uk.gov.hmrc.govukfrontend.views.html.components._
+import uk.gov.hmrc.hmrcfrontend.views.html.deprecated.helpers.{HmrcHead, HmrcLanguageSelectHelper, HmrcScripts, HmrcStandardFooter, HmrcStandardHeader}
+import uk.gov.hmrc.hmrcfrontend.views.html.helpers.hmrcLayout
 
 package object components extends Utils with Aliases {
 
@@ -90,4 +92,15 @@ package object components extends Utils with Aliases {
   @deprecated(message = "Use DI", since = "Play 2.6")
   lazy val HmrcTimeline = new hmrcTimeline()
 
+  type HmrcLayout = hmrcLayout
+  @deprecated(message = "Use DI", since = "Play 2.6")
+  lazy val HmrcLayout = new hmrcLayout(
+    GovukLayout,
+    HmrcStandardHeader,
+    HmrcStandardFooter,
+    HmrcHead,
+    HmrcLanguageSelectHelper,
+    HmrcScripts,
+    TwoThirdsMainContent
+  )
 }
