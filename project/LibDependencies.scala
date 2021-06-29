@@ -5,8 +5,8 @@ import play.sbt.PlayImport.ws
 import sbt.ModuleID
 
 object LibDependencies {
-  val hmrcFrontendVersion: String      = "1.36.0"
-  val playFrontendGovukVersion: String = "0.78.0"
+  val hmrcFrontendVersion: String      = "1.37.1"
+  val playFrontendGovukVersion: String = "0.79.0"
   val playLanguageVersion: String      = "5.0.0"
 
   val compile: Seq[ModuleID] = dependencies(
