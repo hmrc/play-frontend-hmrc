@@ -52,5 +52,6 @@
     beforeContentBlock = if(isWelshTranslationAvailable) Some(hmrcLanguageSelectHelper()) else None,
     footerBlock = Some(hmrcStandardFooter()),
     mainContentLayout = mainContentLayout,
-    assetPath = Some(uk.gov.hmrc.hmrcfrontend.controllers.routes.Assets.at("govuk").url)
+    assetPath = Some(uk.gov.hmrc.hmrcfrontend.controllers.routes.Assets.at("govuk").url),
+    cspNonce = nonce
 )(contentBlock)

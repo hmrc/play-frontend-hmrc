@@ -141,6 +141,16 @@ class hmrcLayoutSpec extends AnyWordSpecLike with Matchers with JsoupHelpers wit
       scripts.last().attr("nonce")  shouldBe "my-nonce"
     }
 
+    "pass the nonce to govukLayout if provided" in {
+      val hmrcLayout = app.injector.instanceOf[HmrcLayout]
+      val messages   = getMessages()
+      val layout     = hmrcLayout(nonce = Some("a-nonce"))(Html(""))(fakeRequest, messages)
+      val document   = Jsoup.parse(contentAsString(layout))
+
+      val scripts = document.select("script")
+      scripts.first.attr("nonce") shouldBe "a-nonce"
+    }
+
     "not include signOutUrl in the header by default" in {
       val document = Jsoup.parse(contentAsString(defaultHmrcLayout))
 
