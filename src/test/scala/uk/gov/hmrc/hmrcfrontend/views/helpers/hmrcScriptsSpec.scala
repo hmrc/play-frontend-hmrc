@@ -38,11 +38,12 @@ class hmrcScriptsSpec
   "hmrcScripts" should {
     "include the hmrc-frontend script tag" in {
       val hmrcScripts = app.injector.instanceOf[HmrcScripts]
+      hmrcfrontend.RoutesPrefix.setPrefix("/foo-service/hmrc-frontend")
       val scripts     = hmrcScripts().select("script")
 
       scripts                   should have size 1
       scripts.first.attr("src") should fullyMatch regex
-        """/assets/hmrc-frontend-\d+.\d+.\d+.min.js""".r
+        """/foo-service/hmrc-frontend/assets/hmrc-frontend-\d+.\d+.\d+.min.js""".r
     }
 
     "include a nonce in each script tag if supplied" in {
