@@ -15,7 +15,7 @@
 The unit tests work against two sets of fixtures. 
 
 The first set in `src/test/resources/fixtures/test-fixtures` are derived from data extracted 
-from [govuk-frontend's yaml documentation](https://github.com/alphagov/govuk-frontend/blob/master/src/govuk/components/button/button.yaml)
+from govuk-frontend's yaml documentation
 for each component. The yaml examples are used in `govuk-frontend`'s own unit test suite.
 
 An additional, manually created, set of fixtures in `src/test/resources/fixtures/additional-fixtures` captures test
@@ -51,7 +51,7 @@ sbt it:test
 ```
 
 _Note: The integration tests output produces a bit of noise as the library outputs statistics about the generators to check
-the distribution of the test cases. More information about collecting statistics on generators [here](https://github.com/typelevel/scalacheck/blob/master/doc/UserGuide.md#collecting-generated-test-data)._
+the distribution of the test cases. More information about collecting statistics on generators [here](http://www.scalacheck.org/)._
 
 The integration tests are automatically run as part of the build and publish pipeline with the component renderer 
 run as a sidecar. For this reason, it's important to merge any changes to the component renderer before merging corresponding
@@ -78,7 +78,7 @@ Diff between Twirl and Nunjucks outputs (please open diff HTML file in a browser
 
 ### Running all tests for all supported Scala and Play versions
 
-Prior to merging to master, it is a good idea to run all the tests against all supported versions of Scala and Play.
+Prior to merging to trunk, it is a good idea to run all the tests against all supported versions of Scala and Play.
 These checks will also be performed automatically as part of the build pipeline before publishing.
 
 To achieve this, run:

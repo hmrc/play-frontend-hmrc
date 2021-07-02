@@ -33,7 +33,7 @@
 </div>
 }
 
-@* if name is not provided defaults to javascript undefined: https://github.com/alphagov/govuk-frontend/blob/master/src/govuk/components/checkboxes/template.njk#L8 *@
+@* if name is not provided defaults to javascript undefined: https://github.com/alphagov/govuk-frontend/blob/main/src/govuk/components/checkboxes/template.njk#L8 *@
 @idPrefixStr = @{idPrefix.getNonEmptyOrElse(name)}
 
 @isConditional = @{items.exists(_.conditionalHtml.exists(_.body.nonEmpty))}
