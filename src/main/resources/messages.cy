@@ -18,3 +18,4 @@ footer.welshHelp.url = https://www.gov.uk/cymraeg
 date.input.day=Diwrnod
 date.input.month=Mis
 date.input.year=Blwyddyn
+error.summary.title=Mae problem wedi codi

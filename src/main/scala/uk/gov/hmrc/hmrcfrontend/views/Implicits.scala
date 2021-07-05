@@ -16,14 +16,14 @@
 
 package uk.gov.hmrc.hmrcfrontend.views
 
-import play.api.data.{Field, Form}
+import play.api.data.{Field, Form, FormError}
 import play.api.i18n.Messages
 import play.twirl.api.{Html, HtmlFormat}
+import uk.gov.hmrc.govukfrontend.views.Aliases.Empty
 import uk.gov.hmrc.govukfrontend.views.ImplicitsSupport
-import uk.gov.hmrc.govukfrontend.views.viewmodels.content.Text
+import uk.gov.hmrc.govukfrontend.views.viewmodels.content.{Content, HtmlContent, Text}
 import uk.gov.hmrc.govukfrontend.views.viewmodels.dateinput.{DateInput, InputItem}
-import uk.gov.hmrc.govukfrontend.views.viewmodels.errormessage.ErrorMessage
-import uk.gov.hmrc.govukfrontend.views.viewmodels.radios.Radios
+import uk.gov.hmrc.govukfrontend.views.viewmodels.errorsummary.{ErrorLink, ErrorSummary}
 import uk.gov.hmrc.hmrcfrontend.views.viewmodels.charactercount.CharacterCount
 
 trait Implicits {
@@ -223,6 +223,58 @@ trait Implicits {
     }
   }
 
+  /**
+    * Extension methods to hydrate an [[ErrorSummary]] with the errors found in a Play form.
+    *
+    * Error messages are hyperlinked to the HTML input elements corresponding to the Play field.
+    * For situations where the form field does not correspond to
+    * an HTML input element, for example, a composite field such as a date, provide a mapping from the
+    * composite field to Play field corresponding to the first HTML input element in the group.
+    *
+    * For example:
+    * {{{
+    *   @govukErrorSummary(ErrorSummary().withFormErrorsAsText(dateInputForm, mapping = Map("date" -> "date.day")))
+    * }}}
+    */
+  implicit class RichErrorSummary[T](errorSummary: ErrorSummary)(implicit val messages: Messages) {
+    import uk.gov.hmrc.govukfrontend.views.Implicits.RichFormErrors
+
+    def withFormErrorsAsHtml(form: Form[T]): ErrorSummary =
+      withFormErrorsAsHtml(form, Map.empty)
+
+    def withFormErrorsAsHtml(form: Form[T], mapping: Map[String, String]): ErrorSummary =
+      withForm(form, _.asHtmlErrorLinks, mapping)
+
+    def withFormErrorsAsText(form: Form[T]): ErrorSummary =
+      withFormErrorsAsText(form, Map.empty)
+
+    def withFormErrorsAsText(form: Form[T], mapping: Map[String, String]): ErrorSummary =
+      withForm(form, _.asTextErrorLinks, mapping)
+
+    private[views] def withForm(
+      form: Form[T],
+      asErrorLinks: Seq[FormError] => Seq[ErrorLink],
+      mapping: Map[String, String]
+    ): ErrorSummary =
+      errorSummary.withTitle().withErrorList(form, asErrorLinks, mapping)
+
+    private[views] def withErrorList(
+      form: Form[T],
+      asErrorLinks: Seq[FormError] => Seq[ErrorLink],
+      mapping: Map[String, String]
+    ): ErrorSummary = {
+      val remappedFormErrors = form.errors map { e =>
+        e.copy(
+          key = mapping.getOrElse(e.key, e.key)
+        )
+      }
+      errorSummary.copy(errorList = asErrorLinks(remappedFormErrors))
+    }
+
+    private[views] def withTitle(): ErrorSummary = errorSummary.copy(
+      title = if (errorSummary.title == Empty) Text(messages("error.summary.title")) else errorSummary.title
+    )
+  }
 }
 
 object Implicits extends Implicits

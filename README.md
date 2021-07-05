@@ -30,6 +30,7 @@ The library comprises two packages:
 - [Warning users before timing them out](#warning-users-before-timing-them-out)
 - [Welsh language selection](#welsh-language-selection)
 - [RichDateInput](#richdateinput)
+- [RichErrorSummary](#richerrorsummary)
 - [Adding your own SASS compilation pipeline](#adding-your-own-sass-compilation-pipeline)
 - [Play Framework and Scala compatibility notes](#play-framework-and-scala-compatibility-notes)
 - [Getting help](#getting-help)
@@ -571,6 +572,43 @@ If a value is passed though to the input `.apply()` method during construction, 
 `Field` values. These are only used if the object parameters are not set to the default parameters.
 
 Note that you will need to pass through an implicit `Messages` to your template.
+
+## RichErrorSummary
+
+The implicit class `RichErrorSummary` provides extension methods `withFormErrorsAsText` and
+`withFormErrorsAsHtml` to hydrate an `ErrorSummary` with the standard
+'There is a problem' title in English and Welsh and the errors found in a Play form.
+
+If your form is simple with no nested field values, and you are using the `withFormField` extension methods to 
+hydrate your form inputs, the helper can be used simply as follows:
+
+```scala
+@if(form.errors.nonEmpty) {
+    @govukErrorSummary(ErrorSummary().withFormErrorsAsText(form))
+}
+```
+
+This will construct an ErrorSummary with errors hyperlinked according to the form error keys. For example an error on
+the `name` field will be linked to its corresponding input via the href `#name`. This relies on each HTML input having 
+their id set to their field name.
+
+If you have a form with nested field values and are performing validation on composite fields, such as in the DateInput
+example above, you will need to map any errors on the composite field to the field corresponding to the first HTML
+input element in the group:
+
+```scala
+@if(form.errors.nonEmpty) {
+    @govukErrorSummary(ErrorSummary().withFormErrorsAsText(form, mapping = Map("date" -> "date.day")))
+}
+```
+
+This will ensure all errors are clickable is consistent with GDS 
+[guidance](https://design-system.service.gov.uk/components/error-summary/)
+
+Note, these methods will not overwrite any existing `ErrorSummary` properties. For example, if you manually pass in a 
+non-empty title, it will not be overwritten.
+
+To use this class you will need to have an implicit `Messages` in scope.
 
 ## Adding your own SASS compilation pipeline
 
