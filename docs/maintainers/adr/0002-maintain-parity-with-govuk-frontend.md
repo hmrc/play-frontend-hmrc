@@ -41,6 +41,6 @@ GDS.
 
 * Feedback suggests that some developers do not find the API to be intuitive
 * Separate decisions need to be made on handling multilingual support
-* Enrichment of library needs to be done via separate Twirl helpers 
-  (see https://github.com/hmrc/play-frontend-hmrc/blob/master/docs/maintainers/adr/0001-play-frontend-hmrc-mirrors-hmrc-frontend.md)
+* Enrichment of library needs to be done via separate Twirl helpers, 
+  see [related ADR](https://github.com/hmrc/play-frontend-hmrc/blob/master/docs/maintainers/adr/0001-play-frontend-hmrc-mirrors-hmrc-frontend.md)
 

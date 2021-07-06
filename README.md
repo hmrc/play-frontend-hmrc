@@ -7,13 +7,11 @@ play-frontend-govuk is a Scala Twirl implementation of the
 ## Table of Contents
 
 - [Background](#background)
-- [Getting Started](#getting-started)
-- [Usage](#usage)
-- [API](#api)
-- [Dependencies](#dependencies)
+- [Getting started](#getting-started)
+- [Getting help](#getting-help)
 - [Contributing](#contributing)
-- [Useful Links](#useful-links)
-- [Owning Team Readme](#owning-team-readme)
+- [Useful links](#useful-links)
+- [Owning team readme](#owning-team-readme)
 - [License](#license)
 
 ## Background
@@ -35,19 +33,30 @@ instructions to add [play-frontend-hmrc](https://github.com/hmrc/play-frontend-h
 will manage asset compilations, routes, etc.
 
 If you do need to use this library directly, follow 
-the [standalone instructions](https://github.com/hmrc/play-frontend-govuk/blob/master/docs/maintainers/standalone.md).
+the [standalone instructions](docs/standalone.md).
 
 ### Using the components
-To use the components and all the [types](https://github.com/hmrc/play-frontend-govuk/blob/master/src/main/scala/uk/gov/hmrc/govukfrontend/views/Aliases.scala) 
+To use the components and all the [types](src/main/scala/uk/gov/hmrc/govukfrontend/views/Aliases.scala) 
 needed to construct them, import the following:
+
 ```scala
 @import uk.gov.hmrc.govukfrontend.views.html.components._
 ```
 
-### Helper methods and implicits
-The above import will also bring into scope the available helpers and layouts.
+You can then use the components in your templates like this:
 
-The following import will summon [implicits](https://github.com/hmrc/play-frontend-govuk/blob/master/src/main/scala/uk/gov/hmrc/govukfrontend/views/Implicits.scala) that provide extension methods on `Play's` [FormError](https://www.playframework.com/documentation/2.6.x/api/scala/play/api/data/FormError.html) 
+```scala
+@this(govukButton: GovukButton)
+
+@()
+@govukButton(Button(
+  disabled = true,
+  content = Text("Disabled button")
+))
+```
+
+### Useful implicits
+The following import will summon [implicits](src/main/scala/uk/gov/hmrc/govukfrontend/views/Implicits.scala) that provide extension methods on `Play's` [FormError](https://www.playframework.com/documentation/2.6.x/api/scala/play/api/data/FormError.html) 
 to convert between `Play's` form errors and view models used by `GovukErrorMessage` and `GovukErrorSummary` (E.g. **form.errors.asTextErrorLinks**, **form.errors.asTextErrorMessageForField**): 
 ```scala
 @import uk.gov.hmrc.govukfrontend.views.html.components.implicits._
@@ -68,6 +77,45 @@ to convert between `Play's` form errors and view models used by `GovukErrorMessa
 
 It also provides extension methods on `Play's` [Html](https://www.playframework.com/documentation/2.6.x/api/scala/play/twirl/api/Html.html) 
 objects. This includes HTML trims, pads, indents and handling HTML emptiness.
+
+### withFormField
+
+An extension method `withFormField(field: play.api.data.Field)` has been added to the following classes:
+* CharacterCount
+* Checkboxes
+* Input
+* Radios
+* Select
+* Textarea
+* DateInput (provided as part of [play-frontend-hmrc](https://github.com/hmrc/play-frontend-hmrc#richdateinput))
+
+This new method allows a Play forms Field to be passed through when creating an instance of `play-frontend-govuk` form input,
+which will enrich the input with the following:
+* Using the `Field` name for the input name
+* Using the `Field` name for the input id or idPrefix
+* Using the `Field` error message
+* Using the `Field` value as pre-filled value (for `CharacterCount`, `Input`, `Textarea`) or pre-selected value
+  (`Checkboxes`, `Radios`, `Select`)
+
+The methods can be used as methods in a Twirl template as demonstrated below:
+```
+@import uk.gov.hmrc.govukfrontend.views.html.components.implicits._
+
+@this(govukInput)
+
+@(label: String, field: Field)(implicit messages: Messages)
+
+@govukInput(
+  Input(
+    label = Label(classes = labelClasses, content = Text(label))
+  ).withFormField(field)
+)
+```
+
+If a value is passed though to the input `.apply()` method during construction, it will NOT be overwritten by the
+`Field` values. These are only used if the object parameters are not set to the default parameters.
+
+Note that you will need to pass through an implicit `Messages` to your template.
 
 ### GovukLayout
 `GovukLayout` provides a convenient way of setting up a view with standard structure and the GOV.UK design elements. 
@@ -92,34 +140,32 @@ If you wish to create a layout with [two thirds, one third styling](https://desi
 as follows:
 
 ```html
-@import uk.gov.hmrc.hmrcfrontend.views.html.helpers.{HmrcStandardHeader, HmrcStandardFooter, HmrcScripts, HmrcHead, HmrcLanguageSelectHelper}
 @import views.html.helper.CSPNonce
 
 @this(
-  govukLayout: GovukLayout,
-  hmrcStandardHeader: HmrcStandardHeader,
-  hmrcStandardFooter: HmrcStandardFooter,
-  head: HmrcHead,
-  hmrcLanguageSelectHelper: HmrcLanguageSelectHelper,
-  scripts: HmrcScripts,
-  twoThirdsOneThirdMainContent: TwoThirdsOneThirdMainContent
+        govukLayout: GovukLayout,
+        head: Head,
+        scripts: Scripts,
+        twoThirdsOneThirdMainContent: TwoThirdsOneThirdMainContent
 )
 
-@(pageTitle: String, beforeContent: Option[Html] = None, isWelshTranslationAvailable: Boolean = true)(contentBlock: Html)(implicit request: RequestHeader, messages: Messages)
+@(pageTitle: Option[String] = None,
+        beforeContentBlock: Option[Html] = None
+)(contentBlock: Html)(implicit request: Request[_], messages: Messages)
 
 @sidebar = {
-  <h2 class="govuk-heading-xl">This is my sidebar</h2>
-  <p class="govuk-body">There is my sidebar content</p>
+    <h2 class="govuk-heading-xl">This is my sidebar</h2>
+    <p class="govuk-body">There is my sidebar content</p>
 }
 
 @govukLayout(
-  pageTitle = Some(pageTitle),
-  headBlock = Some(head(nonce = CSPNonce.get)),
-  headerBlock = Some(hmrcStandardHeader(displayHmrcBanner = true)),
-  scriptsBlock = Some(scripts(nonce = CSPNonce.get)),
-  beforeContentBlock = if(isWelshTranslationAvailable) Some(hmrcLanguageSelectHelper()) else None,
-  footerBlock = Some(hmrcStandardFooter()),
-  mainContentLayout = Some(twoThirdsOneThirdMainContent(sidebar))
+    pageTitle = pageTitle,
+    headBlock = Some(head()),
+    beforeContentBlock = beforeContentBlock,
+    footerItems = Seq(FooterItem(href = Some("https://www.gov.uk/help"), text = Some("Help using GOV.UK"))),
+    bodyEndBlock = Some(scripts()),
+    mainContentLayout = Some(twoThirdsOneThirdMainContent(sidebar)),
+    cspNonce = CSPNonce.get
 )(contentBlock)
 ```
 
@@ -145,27 +191,6 @@ For example, you  can add a template `WithSidebarOnLeft.scala.html` as below:
 
 You can then inject this into your `Layout.scala.html` and partially apply the function as above.
 
-## Usage
-
-The library is cross-compiled for `Play 2.6`, `Play 2.7`, and `Play 2.8`.
-
-Type aliases prefixed with `Govuk` (ex: the type `GovukButton`) are exported so that components can be injected into 
-a controller or template. The library also exposes values of the same name (ex: `GovukButton`) if you wish to use the 
-component template directly, though it is preferable to use dependency injection.
-
-Same button using DI:
-```scala
-@import uk.gov.hmrc.govukfrontend.views.html.components._
-
-@this(govukButton: GovukButton)
-
-@()
-@govukButton(Button(
-  disabled = true,
-  content = Text("Disabled button")
-))
-```
-
 ### Example Templates
 
 We provide example templates using the Twirl components through a `Chrome` extension. Please refer to the 
@@ -173,57 +198,6 @@ We provide example templates using the Twirl components through a `Chrome` exten
 
 With the extension installed, you should be able to go to the [GOV.UK Design System](https://design-system.service.gov.uk/components/), 
 click on a component on the sidebar and see the `Twirl` examples matching the provided `Nunjucks` templates.
-
-## API
-
-A method `withFormField(field: play.api.data.Field)` method has been added to the following classes:
-* CharacterCount
-* Checkboxes
-* Input
-* Radios
-* Select
-* Textarea
-* DateInput (provided as part of [play-frontend-hmrc](https://github.com/hmrc/play-frontend-hmrc#richdateinput))
-
-This new method allows a Play forms Field to be passed through when creating an instance of `play-frontend-govuk` form input,
-which will enrich the input with the following:
-* Using the `Field` name for the input name
-* Using the `Field` name for the input id or idPrefix
-* Using the `Field` error message
-* Using the `Field` value as pre-filled value (for `CharacterCount`, `Input`, `Textarea`) or pre-selected value 
-  (`Checkboxes`, `Radios`, `Select`)
-  
-The methods can be used as methods in a Twirl template as demonstrated below:
-```
-@import uk.gov.hmrc.govukfrontend.views.html.components.implicits._
-
-@this(govukInput)
-
-@(label: String, field: Field)(implicit messages: Messages)
-
-@govukInput(
-  Input(
-    label = Label(classes = labelClasses, content = Text(label))
-  ).withFormField(field)
-)
-```
-
-If a value is passed though to the input `.apply()` method during construction, it will NOT be overwritten by the 
-`Field` values. These are only used if the object parameters are not set to the default parameters.
-
-Note that you will need to pass through an implicit `Messages` to your template.
-
-## Dependencies
-
-### sbt Dependencies
-
-The library depends on a `govuk-frontend` artifact published as a webjar.
-
-```sbt
-"org.webjars.npm" % "govuk-frontend" % "x.y.z"
-```
-
-Currently GDS does not automate the publishing of the webjar so it has to be manually published from [WebJars](https://www.webjars.org) after a `govuk-frontend` release.
 
 ## Getting help
 
