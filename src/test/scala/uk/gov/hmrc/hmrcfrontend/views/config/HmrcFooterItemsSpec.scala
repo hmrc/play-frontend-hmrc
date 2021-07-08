@@ -71,7 +71,7 @@ class HmrcFooterItemsSpec extends AnyWordSpec with Matchers with MessagesSupport
       )
     }
 
-    "Return the correct links including a manually defined accesibility statement link" in {
+    "Return the correct links including a manually defined accessibility statement link" in {
       val app             = buildApp()
       val hmrcFooterItems = app.injector.instanceOf[HmrcFooterItems]
 
