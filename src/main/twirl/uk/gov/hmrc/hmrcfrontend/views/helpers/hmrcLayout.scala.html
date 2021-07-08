@@ -25,6 +25,7 @@
         signOutUrl: Option[String] = None,
         serviceUrl: Option[String] = None,
         userResearchBannerUrl: Option[String] = None,
+        accessibilityStatementUrl: Option[String] = None,
         displayHmrcBanner: Boolean = false,
         phaseBanner: Option[PhaseBanner] = None,
         additionalHeadBlock: Option[Html] = None,
@@ -50,7 +51,7 @@
     headerBlock = Some(headerBlock),
     scriptsBlock = Some(hmrcScripts(nonce = nonce, scriptsBlock = additionalScriptsBlock)),
     beforeContentBlock = if(isWelshTranslationAvailable) Some(hmrcLanguageSelectHelper()) else None,
-    footerBlock = Some(hmrcStandardFooter()),
+    footerBlock = Some(hmrcStandardFooter(accessibilityStatementUrl = accessibilityStatementUrl)),
     mainContentLayout = mainContentLayout,
     assetPath = Some(uk.gov.hmrc.hmrcfrontend.controllers.routes.Assets.at("govuk").url),
     cspNonce = nonce

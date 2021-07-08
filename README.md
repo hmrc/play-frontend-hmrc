@@ -20,7 +20,7 @@ The library comprises two packages:
 
 - [Getting started](#getting-started)
 - [Helping users report technical issues](#helping-users-report-technical-issues)
-- [Accessibility statement links](#accessibility-statements-links)
+- [Accessibility statement links](#accessibility-statement-links)
 - [CharacterCount with Welsh language support](#charactercount-with-welsh-language-support)
 - [Integrating with tracking consent](#integrating-with-tracking-consent)
 - [Warning users before timing them out](#warning-users-before-timing-them-out)
@@ -123,6 +123,7 @@ To use this component,
    | `serviceUrl`                  | This will be bound to hmrcStandardHeader                          | Some(routes.IndexController.index().url)                  |
    | `signOutUrl`                  | Passing a value will display the sign out link                    | Some(routes.SignOutController.signOut().url)              |
    | `userResearchBannerUrl`       | Passing a value will display the user research banner             | Some(UserResearchBanner(url = appConfig.userResearchUrl)) |
+   | `accessibilityStatementUrl`   | Passing a value will override the accessibility statement URL in the [footer](#accessibility-statement-links)                 ||
    | `displayHmrcBanner`           | Setting to true will display the [HMRC banner](https://design.tax.service.gov.uk/hmrc-design-patterns/hmrc-banner/)          ||
    | `phaseBanner`                 | Passing a value will display alpha or beta banner.                | Some(standardBetaBanner(url = appConfig.betaFeedbackUrl)) |
    | `additionalHeadBlock`         | Passing a value will add additional content in the HEAD element   |                                                           |

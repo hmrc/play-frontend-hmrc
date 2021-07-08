@@ -22,7 +22,9 @@ import org.jsoup.select.Elements
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpecLike
 import org.scalatestplus.play.guice.GuiceOneAppPerSuite
+import play.api.Application
 import play.api.i18n.{DefaultLangs, Lang}
+import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.mvc.MessagesRequest
 import play.api.test.FakeRequest
 import play.api.test.Helpers.{contentAsString, stubMessagesApi, _}
@@ -35,6 +37,11 @@ import uk.gov.hmrc.hmrcfrontend.views.html.helpers.HmrcLayout
 import scala.annotation.tailrec
 
 class hmrcLayoutSpec extends AnyWordSpecLike with Matchers with JsoupHelpers with GuiceOneAppPerSuite {
+
+  override def fakeApplication(): Application =
+    new GuiceApplicationBuilder()
+      .configure("accessibility-statement.service-path" -> "/test-service-path")
+      .build()
 
   @tailrec
   private def filterElements(
@@ -210,7 +217,7 @@ class hmrcLayoutSpec extends AnyWordSpecLike with Matchers with JsoupHelpers wit
       hmrcBanner should have size 0
     }
 
-    "display a user research banner when passed  on" in {
+    "display a user research banner when passed a URL" in {
       val hmrcLayout = app.injector.instanceOf[HmrcLayout]
       val messages   = getMessages()
       val document   = Jsoup.parse(
@@ -234,7 +241,7 @@ class hmrcLayoutSpec extends AnyWordSpecLike with Matchers with JsoupHelpers wit
       banner should have size 0
     }
 
-    "include a phase banner when passed" in {
+    "include a phase banner when passed a URL" in {
       val hmrcLayout         = app.injector.instanceOf[HmrcLayout]
       val standardBetaBanner = app.injector.instanceOf[StandardBetaBanner]
       val messages           = getMessages()
@@ -245,6 +252,25 @@ class hmrcLayoutSpec extends AnyWordSpecLike with Matchers with JsoupHelpers wit
       val banner = document.select(".govuk-phase-banner")
       banner                                              should have size 1
       document.select(".govuk-phase-banner__text").html() should include("my-beta-phase-url")
+    }
+
+    "use accessibility statement URL in footer if passed" in {
+      val hmrcLayout = app.injector.instanceOf[HmrcLayout]
+      val messages   = getMessages()
+      val content    = hmrcLayout(accessibilityStatementUrl = Some("some-custom-url"))(Html(""))(fakeRequest, messages)
+      val document   = Jsoup.parse(contentAsString(content))
+
+      val footerLinks: Elements = document.select(".govuk-footer__link")
+      footerLinks.select("a[href=\"some-custom-url\"]").text() should be("footer.accessibility.text")
+    }
+
+    "construct accessibility statement URL using config path in footer if none passed explicitly" in {
+      val document = Jsoup.parse(contentAsString(defaultHmrcLayout))
+
+      val footerLinks: Elements = document.select(".govuk-footer__link")
+      footerLinks
+        .select("a[href=\"http://localhost:12346/accessibility-statement/test-service-path?referrerUrl=%2Ffoo\"]")
+        .text() should be("footer.accessibility.text")
     }
 
     "use default govukTemplate content layout by default" in {
