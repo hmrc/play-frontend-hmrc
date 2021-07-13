@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *@
+@import uk.gov.hmrc.hmrcfrontend.views.viewmodels.language.Cy
 
 @this()
 
@@ -21,9 +22,10 @@
 
 <header role="banner" class="hmrc-internal-header">
   <div class="hmrc-internal-header__logo">
-    <a href="@homepageUrl" class="hmrc-internal-header__logo-link">
-      HM Revenue &amp; Customs
-    </a>
+    <a href="@homepageUrl" class="hmrc-internal-header__logo-link">@language match {
+        case Cy => { Cyllid a Thollau EM }
+        case _  => { HM Revenue &amp; Customs }
+    }</a>
   </div>
 
 @serviceName match {
