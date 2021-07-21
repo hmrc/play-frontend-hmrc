@@ -11,10 +11,6 @@
 * [ADR-0007](0007-bind-implicit-language-to-twirl-conponent.md) - Populate language parameter from implicit messages
 * [ADR-0008](0008-maintain-parity-with-hmrc-frontend.md) - Maintain 1-to-1 parity between govuk-frontend and play-frontend-govuk, and hmrc-frontend and play-frontend-hmrc
 * [ADR-0009](0009-self-publish-webjar.md) - Self-publish the hmrc-frontend webjar used by play-frontend-hmrc
+* [ADR-0010](0010-resolve-naming-collisions-between-libraries.md) - Resolve naming collisions between libraries
 
 <!-- adrlogstop -->
-
-
-
-
-
