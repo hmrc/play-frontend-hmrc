@@ -59,22 +59,42 @@ The library comprises two packages:
 1. Create a custom layout template for your pages using `hmrcLayout` as per the section
       [HMRC layout](#hmrc-layout)
 
-1.  Optionally, add `TwirlKeys.templateImports` in `build.sbt`:
-    ```sbt
-        TwirlKeys.templateImports ++= Seq(
-          "uk.gov.hmrc.govukfrontend.views.html.components._",
-          "uk.gov.hmrc.govukfrontend.views.html.helpers._",
-          "uk.gov.hmrc.hmrcfrontend.views.html.components._",
-          "uk.gov.hmrc.hmrcfrontend.views.html.helpers._"
-        )
-    ```
+1. Then to use our components and helpers in your templates, you will need to import the component or helper from its
+   package `uk.gov.hmrc.(govuk|hmrc)frontend.views.html.(components|helpers)` (example import shown on the first line in the code sample below).
 
-    Adding this removes the need for `@import` statements in your Twirl templates.
-    If you prefer not to use this mechanism, import the components in any template that uses them as
-    follows:
+   For most components the parameters that can be provided are encapsulated in a viewmodel, comprised of case classes within a subpackage of `uk.gov.hmrc(govuk|hmrc)frontend.views.viewmodels` (example import shown on the second line in the code sample below).
+   
+   ```scala
+   @import uk.gov.hmrc.hmrcfrontend.views.html.components.HmrcTimeline
+   @import uk.gov.hmrc.hmrcfrontend.views.viewmodels.timeline.{Timeline, Event}
+    
+   @this(hmrcTimeline: HmrcTimeline)
+    
+   @()
+    
+   @hmrcTimeline(Timeline(
+     events = Seq(
+       Event(
+         title = "Event 1",
+         time = "14 July 2020",
+         datetime = Some("2020-07-15"),
+         content = "Example content"
+       )
+     )
+   ))
+   ```
 
+   > **Notice: Recommended usage pattern changed as of July 2021**
+   > 
+   > Previously instead of individual imports we suggested using wildcard imports to pull in all components and helpers (along with their implicits,) and additionally to include these imports for all templates automatically via  the `TwirlKeys.templateImports` config option in `build.sbt`.
+   > 
+   > This removed the need to add lots of individual import statements in your templates (or any at all when using `TwirlKeys.templateImports`.) The only exception being if the class being used caused an ambiguous import compilation error, which could occur because a class of the same name was provided by both wildcard imports. This error could be resolved by adding an explicit individual import for the version of the class you needed.
+   > 
+   > We no longer recommend using wildcard imports, or the TwirlKeys configuration. These introduced complexity, for example unused imports triggered error messages which needed to be suppressed, and the suppression of which might have the unintended side effect of also suppressing meaningful feedback (like deprecation warnings).
+
+1. Optionally, we provide implicits for some viewmodels to reduce boilerplate, like `withFormField` - which automatically maps values from a play form field into a viewmodel case class. To make use of these we do still recommend a wildcard import:
     ```scala
-    @import uk.gov.hmrc.hmrcfrontend.views.html.components._
+    @import uk.gov.hmrc.hmrcfrontend.views.html.components.implicits._
     ```
 
 ### HMRC layout
@@ -163,9 +183,9 @@ For example, if using the one question per page pattern, the method could be use
   hint = Some(Hint(content = Text("date.hint"))),
   fieldset = Some(Fieldset(
     legend = Some(Legend(
-    content = Text(messages("date.heading")),
-    classes = "govuk-fieldset__legend--l",
-    isPageHeading = true)))
+      content = Text(messages("date.heading")),
+      classes = "govuk-fieldset__legend--l",
+      isPageHeading = true)))
   )
 ).withFormField(dateInputForm("date")))
 ```
