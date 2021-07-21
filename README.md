@@ -56,11 +56,8 @@ The library comprises two packages:
    This is required by `hmrcStandardHeader`. If you have a dynamic service name you can skip this step and pass the
    serviceName into `hmrcLayout` or `hmrcStandardHeader`.
 
-1. Do *one* of the following:
-    * Create a custom layout template for your pages using `hmrcLayout` as per the section
-      [HMRC layout (experimental)](#hmrc-layout-experimental), OR
-    * Create a custom layout template for your pages using `govukLayout` as per the section
-      [Custom layout](#custom-layout)
+1. Create a custom layout template for your pages using `hmrcLayout` as per the section
+      [HMRC layout](#hmrc-layout)
 
 1.  Optionally, add `TwirlKeys.templateImports` in `build.sbt`:
     ```sbt
@@ -80,10 +77,7 @@ The library comprises two packages:
     @import uk.gov.hmrc.hmrcfrontend.views.html.components._
     ```
 
-### HMRC layout (experimental)
-
-**This is a new feature, and we may make changes to the API based on feedback from service teams. Please do contact via
-Slack #team-plat-ui with any feedback, we very much hope that you will try it out.**
+### HMRC layout
 
 The [hmrcLayout](src/main/twirl/uk/gov/hmrc/hmrcfrontend/views/helpers/hmrcLayout.scala.html) helper
 generates a layout for your pages including the `hmrcStandardHeader`, `hmrcStandardFooter`, Welsh language
@@ -131,41 +125,6 @@ To use this component,
    | `nonce`                       | This will be bound to hmrcHead, hmrcScripts and govukTemplate     |                                                           |
    | `mainContentLayout`           | Passing value will override the default two thirds layout         |                                                           |
    | `serviceName`                 | Pass a value only if your service has a dynamic service name      |                                                           |
-
-### Custom layout
-
-If you don't wish to use `hmrcLayout`, you can create a layout template using `govukLayout` that you can
-use in all of your service pages. For example:
-
-```scala
-@import uk.gov.hmrc.govukfrontend.views.html.layouts.GovukLayout
-@import uk.gov.hmrc.hmrcfrontend.views.html.helpers.{HmrcStandardFooter, HmrcStandardHeader, HmrcHead, HmrcScripts, HmrcLanguageSelectHelper}
-@import views.html.helper.CSPNonce
-@import uk.gov.hmrc.anyfrontend.controllers.routes
-
-@this(
-  govukLayout: GovukLayout,
-  hmrcHead: HmrcHead,
-  hmrcStandardHeader: HmrcStandardHeader,
-  hmrcStandardFooter: HmrcStandardFooter,
-  hmrcScripts: HmrcScripts,
-  hmrcLanguageSelectHelper: HmrcLanguageSelectHelper
-)
-
-@(pageTitle: String)(contentBlock: Html)(implicit request: RequestHeader, messages: Messages)
-
-@govukLayout(
-  pageTitle = Some(pageTitle),
-  headBlock = Some(hmrcHead(nonce = CSPNonce.get)),
-  headerBlock = Some(hmrcStandardHeader(
-    serviceUrl = Some(routes.IndexController.index().url)
-  )),
-  beforeContentBlock = Some(hmrcLanguageSelectHelper()),
-  scriptsBlock = Some(hmrcScripts(nonce = CSPNonce.get)),
-  footerBlock = Some(hmrcStandardFooter())
-  cspNonce = CSPNonce.get
-)(contentBlock)
-```
 
 ### Useful implicits
 
