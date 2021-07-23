@@ -69,11 +69,13 @@ class hmrcHeadSpec
 
     "include a nonce in the IE9+ link tag if supplied" in {
       val hmrcHead = app.injector.instanceOf[HmrcHead]
-      val content  = hmrcHead(nonce = Some("a-nonce"))
+      hmrcfrontend.RoutesPrefix.setPrefix("/some-service/hmrc-frontend")
+      val content  = contentAsString(hmrcHead(nonce = Some("a-nonce")))
 
-      val links = content.select("link")
-      links                     should have size 1
-      links.first.attr("nonce") should be("a-nonce")
+      content should include regex
+        """<!--\[if gt IE 8\]><!-->
+          |<link href="/some-service/hmrc-frontend/assets/hmrc-frontend-\d+.\d+.\d+.min.css" media="all" rel="stylesheet" type="text/css" nonce="a-nonce" />
+          |<!--<!\[endif\]-->""".stripMargin.r
     }
 
     "include the hmrc-frontend minified css bundle" in {
