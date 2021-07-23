@@ -19,5 +19,5 @@
 @this(AssetsConfig: AssetsConfig)
 
 @(scriptsBlock: Option[Html] = None, nonce: Option[String] = None)(implicit request: RequestHeader)
-<script src="@AssetsConfig.hmrcFrontendJsUrl"@nonce.map {n=>nonce="@n"}></script>
+<script src="@AssetsConfig.hmrcFrontendJsUrl"@nonce.map {n=> nonce="@n"}></script>
 @scriptsBlock

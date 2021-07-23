@@ -21,6 +21,7 @@ import org.scalatest.wordspec.AnyWordSpecLike
 import org.scalatestplus.play.guice.GuiceOneAppPerSuite
 import play.api.mvc.AnyContentAsEmpty
 import play.api.test.FakeRequest
+import play.api.test.Helpers._
 import play.twirl.api.Html
 import uk.gov.hmrc.hmrcfrontend.MessagesSupport
 import uk.gov.hmrc.hmrcfrontend.views.JsoupHelpers
@@ -48,10 +49,11 @@ class hmrcScriptsSpec
 
     "include a nonce in each script tag if supplied" in {
       val hmrcScripts = app.injector.instanceOf[HmrcScripts]
-      val scripts     = hmrcScripts(nonce = Some("a-nonce")).select("script")
+      hmrcfrontend.RoutesPrefix.setPrefix("/foo-service/hmrc-frontend")
+      val scripts     = contentAsString(hmrcScripts(nonce = Some("a-nonce"))).trim
 
-      scripts                     should have size 1
-      scripts.first.attr("nonce") should be("a-nonce")
+      scripts should fullyMatch regex
+        """<script src="/foo-service/hmrc-frontend/assets/hmrc-frontend-\d+.\d+.\d+.min.js" nonce="a-nonce"></script>""".r
     }
 
     "include the supplied scriptsBlock after the hmrc-frontend script tag" in {
