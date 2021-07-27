@@ -19,7 +19,7 @@ package uk.gov.hmrc.govukfrontend.views
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpec
 import uk.gov.hmrc.govukfrontend.views.html.components.implicits._
-import uk.gov.hmrc.govukfrontend.views.viewmodels.content.Text
+import uk.gov.hmrc.govukfrontend.views.viewmodels.content.{HtmlContent, Text}
 import uk.gov.hmrc.govukfrontend.views.viewmodels.errormessage.ErrorMessage
 import uk.gov.hmrc.govukfrontend.views.viewmodels.textarea.Textarea
 
@@ -46,9 +46,9 @@ class RichTextareaSpec extends AnyWordSpec with Matchers with MessagesHelpers wi
       textarea.id shouldBe "Textarea Id"
     }
 
-    "convert the first Field form error to an Textarea error message if provided" in {
+    "convert the first Field form error to a Textarea text error message if provided" in {
       val textarea = Textarea().withFormField(field)
-      textarea.errorMessage shouldBe Some(ErrorMessage(content = Text("Not valid name")))
+      textarea.errorMessage shouldBe Some(ErrorMessage(content = Text("Error on: Firstname&nbsp;Lastname")))
     }
 
     "use the Textarea error message over the Field error if both provided" in {
@@ -73,9 +73,25 @@ class RichTextareaSpec extends AnyWordSpec with Matchers with MessagesHelpers wi
       textarea.withFormField(field) shouldBe Textarea(
         name = "user-name",
         id = "user-name",
-        errorMessage = Some(ErrorMessage(content = Text("Not valid name"))),
+        errorMessage = Some(ErrorMessage(content = Text("Error on: Firstname&nbsp;Lastname"))),
         value = Some("bad")
       )
+    }
+  }
+
+  "Given a Textarea object, calling withFormFieldWithErrorAsHtml" should {
+    "convert the first Field form error to a Textarea HTML error message if provided" in {
+      val textarea = Textarea().withFormFieldWithErrorAsHtml(field = field)
+      textarea.errorMessage shouldBe Some(
+        ErrorMessage(content = HtmlContent("Error on: Firstname&nbsp;Lastname"))
+      )
+    }
+
+    "use the Textarea error message over the Field error if both provided" in {
+      val textarea = Textarea(
+        errorMessage = Some(ErrorMessage(content = Text("Textarea Error")))
+      ).withFormFieldWithErrorAsHtml(field)
+      textarea.errorMessage shouldBe Some(ErrorMessage(content = Text("Textarea Error")))
     }
   }
 }

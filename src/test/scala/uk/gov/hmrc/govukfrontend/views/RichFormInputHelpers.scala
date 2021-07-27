@@ -35,7 +35,7 @@ trait RichFormInputHelpers {
     constraints = Nil,
     format = None,
     errors = Seq(
-      FormError(key = "user-name", "Not valid name")
+      FormError(key = "user-name", "Error on: Firstname&nbsp;Lastname")
     ),
     value = Some("bad")
   )

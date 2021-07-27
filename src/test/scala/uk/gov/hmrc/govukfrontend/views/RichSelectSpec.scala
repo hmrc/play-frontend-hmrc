@@ -20,7 +20,7 @@ import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpec
 import uk.gov.hmrc.govukfrontend.views.html.components.implicits._
 import uk.gov.hmrc.govukfrontend.views.viewmodels.select.{Select, SelectItem}
-import uk.gov.hmrc.govukfrontend.views.viewmodels.content.Text
+import uk.gov.hmrc.govukfrontend.views.viewmodels.content.{HtmlContent, Text}
 import uk.gov.hmrc.govukfrontend.views.viewmodels.errormessage.ErrorMessage
 
 class RichSelectSpec extends AnyWordSpec with Matchers with MessagesHelpers with RichFormInputHelpers {
@@ -59,9 +59,9 @@ class RichSelectSpec extends AnyWordSpec with Matchers with MessagesHelpers with
       )
     }
 
-    "convert the first Field form error to a Select error message if provided" in {
+    "convert the first Field form error to a Select text error message if provided" in {
       val select = Select().withFormField(field)
-      select.errorMessage shouldBe Some(ErrorMessage(content = Text("Not valid name")))
+      select.errorMessage shouldBe Some(ErrorMessage(content = Text("Error on: Firstname&nbsp;Lastname")))
     }
 
     "use the Select error message over the Field error if both provided" in {
@@ -82,13 +82,29 @@ class RichSelectSpec extends AnyWordSpec with Matchers with MessagesHelpers with
       select.withFormField(field) shouldBe Select(
         name = "user-name",
         id = "user-name",
-        errorMessage = Some(ErrorMessage(content = Text("Not valid name"))),
+        errorMessage = Some(ErrorMessage(content = Text("Error on: Firstname&nbsp;Lastname"))),
         items = Seq(
           selectItemGood,
           selectItemBad.copy(selected = true),
           selectItemWorst
         )
       )
+    }
+  }
+
+  "Given a Select object, calling withFormFieldWithErrorAsHtml" should {
+    "convert the first Field form error to a Select HTML error message if provided" in {
+      val select = Select().withFormFieldWithErrorAsHtml(field = field)
+      select.errorMessage shouldBe Some(
+        ErrorMessage(content = HtmlContent("Error on: Firstname&nbsp;Lastname"))
+      )
+    }
+
+    "use the Select error message over the Field error if both provided" in {
+      val select = Select(
+        errorMessage = Some(ErrorMessage(content = Text("Select Error")))
+      ).withFormFieldWithErrorAsHtml(field)
+      select.errorMessage shouldBe Some(ErrorMessage(content = Text("Select Error")))
     }
   }
 }

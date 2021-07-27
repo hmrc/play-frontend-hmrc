@@ -19,7 +19,7 @@ package uk.gov.hmrc.govukfrontend.views
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpec
 import uk.gov.hmrc.govukfrontend.views.html.components.implicits._
-import uk.gov.hmrc.govukfrontend.views.viewmodels.content.Text
+import uk.gov.hmrc.govukfrontend.views.viewmodels.content.{HtmlContent, Text}
 import uk.gov.hmrc.govukfrontend.views.viewmodels.errormessage.ErrorMessage
 import uk.gov.hmrc.govukfrontend.views.viewmodels.checkboxes.{CheckboxItem, Checkboxes}
 
@@ -62,7 +62,7 @@ class RichCheckboxesSpec extends AnyWordSpec with Matchers with MessagesHelpers 
 
     "convert the first Field form error to a Checkboxes error message if provided" in {
       val checkboxes = Checkboxes().withFormField(field)
-      checkboxes.errorMessage shouldBe Some(ErrorMessage(content = Text("Not valid name")))
+      checkboxes.errorMessage shouldBe Some(ErrorMessage(content = Text("Error on: Firstname&nbsp;Lastname")))
     }
 
     "use the Checkboxes error message over the Field error if both provided" in {
@@ -90,6 +90,22 @@ class RichCheckboxesSpec extends AnyWordSpec with Matchers with MessagesHelpers 
           phone
         )
       )
+    }
+  }
+
+  "Given a Checkboxes object, calling withFormFieldWithErrorAsHtml" should {
+    "convert the first Field form error to an Checkboxes HTML error message if provided" in {
+      val checkboxes = Checkboxes().withFormFieldWithErrorAsHtml(field = field)
+      checkboxes.errorMessage shouldBe Some(
+        ErrorMessage(content = HtmlContent("Error on: Firstname&nbsp;Lastname"))
+      )
+    }
+
+    "use the Checkboxes error message over the Field error if both provided" in {
+      val checkboxes = Checkboxes(
+        errorMessage = Some(ErrorMessage(content = Text("Checkboxes Error")))
+      ).withFormFieldWithErrorAsHtml(field)
+      checkboxes.errorMessage shouldBe Some(ErrorMessage(content = Text("Checkboxes Error")))
     }
   }
 }
