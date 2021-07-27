@@ -14,26 +14,26 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.govukfrontend.views
+package uk.gov.hmrc.govukfrontend.views.implicits
 
-import java.util.UUID
-import org.scalacheck.Arbitrary._
 import org.scalacheck.{Gen, ShrinkLowPriority}
 import org.scalatest.OptionValues
-import org.scalatest.wordspec.AnyWordSpec
 import org.scalatest.matchers.should.Matchers
+import org.scalatest.wordspec.AnyWordSpec
 import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks
 import play.api.data.FormError
-import play.twirl.api.{Html, HtmlFormat}
+import uk.gov.hmrc.govukfrontend.views.MessagesHelpers
 import uk.gov.hmrc.govukfrontend.views.html.components.implicits._
 import uk.gov.hmrc.govukfrontend.views.viewmodels.Generators._
 import uk.gov.hmrc.govukfrontend.views.viewmodels.content.{Content, HtmlContent, Text}
 import uk.gov.hmrc.govukfrontend.views.viewmodels.errormessage.ErrorMessage
 import uk.gov.hmrc.govukfrontend.views.viewmodels.errorsummary.ErrorLink
+
+import java.util.UUID
 import scala.collection.immutable
 import scala.util.Random
 
-class ImplicitsSpec
+class RichFormErrorsSpec
     extends AnyWordSpec
     with Matchers
     with OptionValues
@@ -140,72 +140,7 @@ class ImplicitsSpec
     }
   }
 
-  "padLeft" should {
-    "add left padding to non-empty HTML" in {
-
-      forAll(htmlGen, Gen.chooseNum(0, 5)) { (html, padCount) =>
-        (html, padCount) match {
-          case (HtmlExtractor(""), n)      => html.padLeft(n)              shouldBe HtmlFormat.empty
-          case (HtmlExtractor(content), 0) => html.padLeft(0).body         shouldBe content
-          case (HtmlExtractor(content), n) => html.padLeft(n).body.drop(1) shouldBe html.padLeft(n - 1).body
-        }
-      }
-
-      lazy val htmlGen: Gen[Html] = Gen.alphaStr.map(Html(_))
-
-      object HtmlExtractor {
-        def unapply(html: Html): Option[String] =
-          Some(html.body)
-      }
-
-    }
-  }
-
-  // prove the property:
-  // indent(n) = indent(n-1).indent(1) if n >=0
-  // indent(n) = indent(n+1).indent(-1) if n < 0
-  "indent(n, _)" should {
-    "be the same as indent(signum(n) * (abs(n)-1), _).indent(signum(n) * 1, _)" in {
-      forAll(genIndentArgs) { case (s, n, indentFirstLine) =>
-        s.indent(n, indentFirstLine) shouldBe s
-          .indent(math.signum(n) * (math.abs(n) - 1), indentFirstLine)
-          .indent(math.signum(n) * 1, indentFirstLine)
-      }
-    }
-  }
-
   object Generators {
-
-    /**
-      * Generate indentation arguments for [[uk.gov.hmrc.govukfrontend.views.Implicits.RichString.indent(int, boolean)]]
-      */
-    val genIndentArgs: Gen[(String, Int, Boolean)] =
-      for {
-        // generate text to indent with a maximum of 8 lines
-        nLines               <- Gen.choose(0, 8)
-        maxInitialIndentation = 10
-        // Initial indentation for each line in the generated string: generate small indentations less often so we can test unindent more often
-        initialIndentations  <- Gen.listOfN(nLines, Gen.frequency((10, Gen.oneOf(0 to 3)), (90, Gen.oneOf(4 to 10))))
-        // indentation for each line
-        paddings              = initialIndentations.map(" " * _)
-        // maxIndentation > initialIndentation so we cover cases where we try to unindent (negative n) beyond the left margin
-        maxIndentation        = maxInitialIndentation + 1
-        n                    <- Gen.chooseNum(-maxIndentation, maxIndentation)
-        // Generate lines interspersed with blank space lines
-        lineGen               = Gen.frequency((70, Gen.alphaStr), (30, Gen.const(" ")))
-        padLines              = (lines: Seq[String]) => paddings.zip(lines).map { case (padding, s) => padding + s }
-        str                  <- Gen.frequency(
-                                  (
-                                    90,
-                                    Gen
-                                      .listOfN(nLines, lineGen)
-                                      .map(padLines)
-                                      .map(_.mkString("\n"))
-                                  ),
-                                  (10, Gen.const(""))
-                                )
-        indentFirstLine      <- arbBool.arbitrary
-      } yield (str, n, indentFirstLine)
 
     val genMessagePair: Gen[(String, String)] = for {
       errorKey     <- genNonEmptyAlphaStr

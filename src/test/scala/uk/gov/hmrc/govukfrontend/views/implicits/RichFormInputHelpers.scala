@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.govukfrontend.views
+package uk.gov.hmrc.govukfrontend.views.implicits
 
-import play.api.data.{Field, Form, FormError}
 import play.api.data.Forms.{mapping, set, text}
+import play.api.data.{Field, Form, FormError}
 
 trait RichFormInputHelpers {
 
