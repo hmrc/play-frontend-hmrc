@@ -132,9 +132,10 @@ trait Implicits {
       extends ImplicitsSupport[CharacterCount] {
 
     /**
-      * Extension method to allow a Play form Field to be used to add certain parameters in an CharacterCount,
-      * specifically errorMessage, id, name, and value. Note these
-      * values will only be added from the Field if they are not specifically defined in the CharacterCount object.
+      * Extension method to allow a Play form Field to be used to add certain parameters in a CharacterCount,
+      * specifically errorMessage, id, name, and value. Note these values will only be added from the Field if they are
+      * not specifically defined in the CharacterCount object.
+      * Form errors will be bound as Text objects.
       *
       * @param field
       * @param messages
@@ -144,7 +145,20 @@ trait Implicits {
         .withName(field)
         .withId(field)
         .withValue(field)
-        .withErrorMessage(field)
+        .withTextErrorMessage(field)
+
+    /**
+      * Extension method to allow a Play form Field to be used to populate parameters in a CharacterCount, as per
+      * withFormField, with form errors bound as HtmlContent objects.
+      *
+      * @param field
+      */
+    override def withFormFieldWithErrorAsHtml(field: Field): CharacterCount =
+      characterCount
+        .withName(field)
+        .withId(field)
+        .withValue(field)
+        .withHtmlErrorMessage(field)
 
     private[views] def withName(field: Field): CharacterCount =
       withStringProperty(field.name, characterCount.name, characterCount)((cc, nm) => cc.copy(name = nm))
@@ -155,8 +169,13 @@ trait Implicits {
     private[views] def withValue(field: Field): CharacterCount =
       withOptStringProperty(field.value, characterCount.value, characterCount)((cc, vl) => cc.copy(value = vl))
 
-    private[views] def withErrorMessage(field: Field): CharacterCount =
-      withOptErrorMessageProperty(field.error, characterCount.errorMessage, characterCount)((cc, errorMsg) =>
+    private[views] def withTextErrorMessage(field: Field): CharacterCount =
+      withOptTextErrorMessageProperty(field.error, characterCount.errorMessage, characterCount)((cc, errorMsg) =>
+        cc.copy(errorMessage = errorMsg)
+      )
+
+    private[views] def withHtmlErrorMessage(field: Field): CharacterCount =
+      withOptHtmlErrorMessageProperty(field.error, characterCount.errorMessage, characterCount)((cc, errorMsg) =>
         cc.copy(errorMessage = errorMsg)
       )
   }
@@ -168,6 +187,7 @@ trait Implicits {
       * Extension method to allow a Play form Field to be used to populate parameters in a DateInput,
       * if they have not already been set to a non-default value. This method assumes that `dateInput.items`
       * will either equal `Seq.empty` or will have exactly three InputItems corresponding to the day, month and year.
+      * Form errors will be bound as Text objects.
       *
       * @param field
       */
@@ -175,7 +195,19 @@ trait Implicits {
       dateInput
         .withId(field)
         .withInputItems(field)
-        .withErrorMessage(field)
+        .withTextErrorMessage(field)
+
+    /**
+      * Extension method to allow a Play form Field to be used to populate parameters in a DateInput, as per
+      * withFormField, with form errors bound as HtmlContent objects.
+      *
+      * @param field
+      */
+    override def withFormFieldWithErrorAsHtml(field: Field): DateInput =
+      dateInput
+        .withId(field)
+        .withInputItems(field)
+        .withHtmlErrorMessage(field)
 
     private[views] def withId(field: Field): DateInput =
       withStringProperty(field.name, dateInput.id, dateInput)((dateInput, id) => dateInput.copy(id = id))
@@ -209,7 +241,7 @@ trait Implicits {
       dateInput.copy(items = items)
     }
 
-    private[views] def withErrorMessage(field: Field): DateInput = {
+    private[views] def withTextErrorMessage(field: Field): DateInput = {
       val error = Seq(
         field("day").error,
         field("month").error,
@@ -217,7 +249,20 @@ trait Implicits {
         field.error
       ).flatten.headOption
 
-      withOptErrorMessageProperty(error, dateInput.errorMessage, dateInput)((dateInput, errorMsg) =>
+      withOptTextErrorMessageProperty(error, dateInput.errorMessage, dateInput)((dateInput, errorMsg) =>
+        dateInput.copy(errorMessage = errorMsg)
+      )
+    }
+
+    private[views] def withHtmlErrorMessage(field: Field): DateInput = {
+      val error = Seq(
+        field("day").error,
+        field("month").error,
+        field("year").error,
+        field.error
+      ).flatten.headOption
+
+      withOptHtmlErrorMessageProperty(error, dateInput.errorMessage, dateInput)((dateInput, errorMsg) =>
         dateInput.copy(errorMessage = errorMsg)
       )
     }

@@ -145,7 +145,7 @@ This method takes a Play `Field` and enriches the `DateInput` with:
     * standard English and Welsh labels
 * an id, set to the `Field` name
 * values for the nested day, month and year fields
-* an error message from an implicit `Messages` indexed by the first non-empty:
+* a Text error message from an implicit `Messages` indexed by the first non-empty:
     * `field("day").error`
     * `field("month").error`
     * `field("year").error`
@@ -208,6 +208,9 @@ def submit() = Action { implicit request =>
 
 If a value is passed though to the input `.apply()` method during construction, it will NOT be overwritten by the
 `Field` values. These are only used if the object parameters are not set to the default parameters.
+
+Additionally, there is a second method `withFormFieldWithErrorAsHtml(field: play.api.data.Field)` which behaves as the
+`withFormField` method with the difference that form errors are bound as instances of `HtmlContent`.
 
 Note that you will need to pass through an implicit `Messages` to your template.
 
@@ -331,6 +334,19 @@ language explicitly to this component, just pass through an implicit Messages.
     label = Label(content = Text("Please enter your text")),
 ))
 ```
+
+There is also a helper method `withFormField(field: Field)` that allows a Play forms Field to be passed through when creating an instance of `play-frontend-govuk` form input,
+which will enrich the input with the following:
+* Using the `Field` name for the input name
+* Using the `Field` name for the input id
+* Using the `Field` error message to create a `Text` error messages
+* Using the `Field` value as pre-filled value
+
+If a value is passed though to the input `.apply()` method during construction, it will NOT be overwritten by the
+`Field` values. These are only used if the object parameters are not set to the default parameters.
+
+Additionally, there is a second method `withFormFieldWithErrorAsHtml(field: play.api.data.Field)` which behaves as the
+`withFormField` method with the difference that form errors are bound as instances of `HtmlContent`.
 
 ## Integrating with tracking consent
 
