@@ -19,7 +19,7 @@ package uk.gov.hmrc.govukfrontend.views
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpec
 import uk.gov.hmrc.govukfrontend.views.html.components.implicits._
-import uk.gov.hmrc.govukfrontend.views.viewmodels.content.Text
+import uk.gov.hmrc.govukfrontend.views.viewmodels.content.{HtmlContent, Text}
 import uk.gov.hmrc.govukfrontend.views.viewmodels.errormessage.ErrorMessage
 import uk.gov.hmrc.govukfrontend.views.viewmodels.radios.{RadioItem, Radios}
 
@@ -59,9 +59,9 @@ class RichRadiosSpec extends AnyWordSpec with Matchers with MessagesHelpers with
       )
     }
 
-    "convert the first Field form error to a Radios error message if provided" in {
+    "convert the first Field form error to a Radios text error message if provided" in {
       val radios = Radios().withFormField(field)
-      radios.errorMessage shouldBe Some(ErrorMessage(content = Text("Not valid name")))
+      radios.errorMessage shouldBe Some(ErrorMessage(content = Text("Error on: Firstname&nbsp;Lastname")))
     }
 
     "use the Radios error message over the Field error if both provided" in {
@@ -82,13 +82,29 @@ class RichRadiosSpec extends AnyWordSpec with Matchers with MessagesHelpers with
       radios.withFormField(field) shouldBe Radios(
         name = "user-name",
         idPrefix = Some("user-name"),
-        errorMessage = Some(ErrorMessage(content = Text("Not valid name"))),
+        errorMessage = Some(ErrorMessage(content = Text("Error on: Firstname&nbsp;Lastname"))),
         items = Seq(
           radioItemGood,
           radioItemBad.copy(checked = true),
           radioItemWorst
         )
       )
+    }
+  }
+
+  "Given a Radios object, calling withFormFieldWithErrorAsHtml" should {
+    "convert the first Field form error to a Radios HTML error message if provided" in {
+      val radios = Radios().withFormFieldWithErrorAsHtml(field = field)
+      radios.errorMessage shouldBe Some(
+        ErrorMessage(content = HtmlContent("Error on: Firstname&nbsp;Lastname"))
+      )
+    }
+
+    "use the Radios error message over the Field error if both provided" in {
+      val radios = Radios(
+        errorMessage = Some(ErrorMessage(content = Text("Radios Error")))
+      ).withFormFieldWithErrorAsHtml(field)
+      radios.errorMessage shouldBe Some(ErrorMessage(content = Text("Radios Error")))
     }
   }
 }

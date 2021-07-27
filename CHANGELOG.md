@@ -5,6 +5,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [0.81.0] - 2021-07-27
+
+### Changed
+
+- Added `withFormFieldWithErrorAsHtml(field: play.api.data.Field)` to Rich implicit helpers.
+
+### Compatible with
+
+- [alphagov/govuk-frontend v3.13.0](https://github.com/alphagov/govuk-frontend/releases/tag/v3.13.0)
+
+
 ## [0.80.0] - 2021-07-02
 
 ### Changed

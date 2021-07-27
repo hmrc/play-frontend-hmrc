@@ -80,7 +80,7 @@ objects. This includes HTML trims, pads, indents and handling HTML emptiness.
 
 ### withFormField
 
-An extension method `withFormField(field: play.api.data.Field)` has been added to the following classes:
+An extension method `withFormField(field: play.api.data.Field)` exists for the following classes:
 * CharacterCount
 * Checkboxes
 * Input
@@ -89,11 +89,11 @@ An extension method `withFormField(field: play.api.data.Field)` has been added t
 * Textarea
 * DateInput (provided as part of [play-frontend-hmrc](https://github.com/hmrc/play-frontend-hmrc#richdateinput))
 
-This new method allows a Play forms Field to be passed through when creating an instance of `play-frontend-govuk` form input,
+This method allows a Play forms Field to be passed through when creating an instance of `play-frontend-govuk` form input,
 which will enrich the input with the following:
 * Using the `Field` name for the input name
 * Using the `Field` name for the input id or idPrefix
-* Using the `Field` error message
+* Using the `Field` error message to create a `Text` error messages
 * Using the `Field` value as pre-filled value (for `CharacterCount`, `Input`, `Textarea`) or pre-selected value
   (`Checkboxes`, `Radios`, `Select`)
 
@@ -116,6 +116,9 @@ If a value is passed though to the input `.apply()` method during construction, 
 `Field` values. These are only used if the object parameters are not set to the default parameters.
 
 Note that you will need to pass through an implicit `Messages` to your template.
+
+Additionally, there is a second method `withFormFieldWithErrorAsHtml(field: play.api.data.Field)` which behaves as the
+`withFormField` method with the difference that form errors are bound as instances of `HtmlContent`.
 
 ### GovukLayout
 `GovukLayout` provides a convenient way of setting up a view with standard structure and the GOV.UK design elements. 

@@ -19,7 +19,7 @@ package uk.gov.hmrc.govukfrontend.views
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpec
 import uk.gov.hmrc.govukfrontend.views.html.components.implicits._
-import uk.gov.hmrc.govukfrontend.views.viewmodels.content.Text
+import uk.gov.hmrc.govukfrontend.views.viewmodels.content.{HtmlContent, Text}
 import uk.gov.hmrc.govukfrontend.views.viewmodels.errormessage.ErrorMessage
 import uk.gov.hmrc.govukfrontend.views.viewmodels.charactercount.CharacterCount
 
@@ -46,9 +46,9 @@ class RichCharacterCountSpec extends AnyWordSpec with Matchers with MessagesHelp
       characterCount.id shouldBe "CharacterCount Id"
     }
 
-    "convert the first Field form error to an CharacterCount error message if provided" in {
+    "convert the first Field form error to a CharacterCount text error message if provided" in {
       val characterCount = CharacterCount().withFormField(field)
-      characterCount.errorMessage shouldBe Some(ErrorMessage(content = Text("Not valid name")))
+      characterCount.errorMessage shouldBe Some(ErrorMessage(content = Text("Error on: Firstname&nbsp;Lastname")))
     }
 
     "use the CharacterCount error message over the Field error if both provided" in {
@@ -73,9 +73,25 @@ class RichCharacterCountSpec extends AnyWordSpec with Matchers with MessagesHelp
       characterCount.withFormField(field) shouldBe CharacterCount(
         name = "user-name",
         id = "user-name",
-        errorMessage = Some(ErrorMessage(content = Text("Not valid name"))),
+        errorMessage = Some(ErrorMessage(content = Text("Error on: Firstname&nbsp;Lastname"))),
         value = Some("bad")
       )
+    }
+  }
+
+  "Given a CharacterCount object, calling withFormFieldWithErrorAsHtml" should {
+    "convert the first Field form error to a CharacterCount HTML error message if provided" in {
+      val characterCount = CharacterCount().withFormFieldWithErrorAsHtml(field = field)
+      characterCount.errorMessage shouldBe Some(
+        ErrorMessage(content = HtmlContent("Error on: Firstname&nbsp;Lastname"))
+      )
+    }
+
+    "use the CharacterCount error message over the Field error if both provided" in {
+      val characterCount = CharacterCount(
+        errorMessage = Some(ErrorMessage(content = Text("CharacterCount Error")))
+      ).withFormFieldWithErrorAsHtml(field)
+      characterCount.errorMessage shouldBe Some(ErrorMessage(content = Text("CharacterCount Error")))
     }
   }
 }
