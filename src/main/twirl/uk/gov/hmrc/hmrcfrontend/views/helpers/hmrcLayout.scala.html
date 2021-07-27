@@ -1,4 +1,5 @@
 @import uk.gov.hmrc.govukfrontend.views.html.components.GovukLayout
+@import uk.gov.hmrc.govukfrontend.views.html.components.GovukBackLink
 @import uk.gov.hmrc.govukfrontend.views.html.components.TwoThirdsMainContent
 @import uk.gov.hmrc.hmrcfrontend.views.html.helpers.HmrcStandardHeader
 @import uk.gov.hmrc.hmrcfrontend.views.html.helpers.HmrcStandardFooter
@@ -6,7 +7,9 @@
 @import uk.gov.hmrc.hmrcfrontend.views.html.helpers.HmrcLanguageSelectHelper
 @import uk.gov.hmrc.hmrcfrontend.views.html.helpers.HmrcScripts
 @import uk.gov.hmrc.hmrcfrontend.views.viewmodels.userresearchbanner.UserResearchBanner
+@import uk.gov.hmrc.govukfrontend.views.viewmodels.backlink.BackLink
 @import uk.gov.hmrc.govukfrontend.views.viewmodels.phasebanner.PhaseBanner
+
 
 @this(
         govukLayout: GovukLayout,
@@ -15,6 +18,7 @@
         hmrcHead: HmrcHead,
         hmrcLanguageSelectHelper: HmrcLanguageSelectHelper,
         hmrcScripts: HmrcScripts,
+        govukBackLink: GovukBackLink,
         defaultMainContent: TwoThirdsMainContent
 )
 
@@ -26,10 +30,12 @@
         serviceUrl: Option[String] = None,
         userResearchBannerUrl: Option[String] = None,
         accessibilityStatementUrl: Option[String] = None,
+        backLinkUrl: Option[String] = None,
         displayHmrcBanner: Boolean = false,
         phaseBanner: Option[PhaseBanner] = None,
         additionalHeadBlock: Option[Html] = None,
         additionalScriptsBlock: Option[Html] = None,
+        beforeContentBlock: Option[Html] = None,
         nonce: Option[String] = None,
         mainContentLayout: Option[Html => Html] = Some(defaultMainContent(_))
 )(contentBlock: Html)(implicit request: RequestHeader, messages: Messages)
@@ -44,13 +50,24 @@
         displayHmrcBanner = displayHmrcBanner
     )
 }
+    
+@beforeContent = {
+    @if(beforeContentBlock.isDefined) {
+        @beforeContentBlock
+    } else {
+        @if(isWelshTranslationAvailable) {
+            @hmrcLanguageSelectHelper()
+        }
+        @backLinkUrl.map(url => govukBackLink(BackLink(href = url)))
+    }
+}
 
 @govukLayout(
     pageTitle = pageTitle,
     headBlock = Some(hmrcHead(nonce = nonce, headBlock = additionalHeadBlock)),
     headerBlock = Some(headerBlock),
     scriptsBlock = Some(hmrcScripts(nonce = nonce, scriptsBlock = additionalScriptsBlock)),
-    beforeContentBlock = if(isWelshTranslationAvailable) Some(hmrcLanguageSelectHelper()) else None,
+    beforeContentBlock = Some(beforeContent),
     footerBlock = Some(hmrcStandardFooter(accessibilityStatementUrl = accessibilityStatementUrl)),
     mainContentLayout = mainContentLayout,
     assetPath = Some(uk.gov.hmrc.hmrcfrontend.controllers.routes.Assets.at("govuk").url),

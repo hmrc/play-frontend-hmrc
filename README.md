@@ -118,10 +118,12 @@ To use this component,
    | `signOutUrl`                  | Passing a value will display the sign out link                    | Some(routes.SignOutController.signOut().url)              |
    | `userResearchBannerUrl`       | Passing a value will display the user research banner             | Some(UserResearchBanner(url = appConfig.userResearchUrl)) |
    | `accessibilityStatementUrl`   | Passing a value will override the accessibility statement URL in the [footer](#accessibility-statement-links)                 ||
+   | `backLinkUrl`                 | Passing a value will display a back link                          | Some(routes.ServiceController.start().url)                |
    | `displayHmrcBanner`           | Setting to true will display the [HMRC banner](https://design.tax.service.gov.uk/hmrc-design-patterns/hmrc-banner/)          ||
    | `phaseBanner`                 | Passing a value will display alpha or beta banner.                | Some(standardBetaBanner(url = appConfig.betaFeedbackUrl)) |
    | `additionalHeadBlock`         | Passing a value will add additional content in the HEAD element   |                                                           |
    | `additionalScriptsBlock`      | Passing a value will add additional scripts at the end of the BODY|                                                           |
+   | `beforeContentBlock`          | Passing a value will add content between the header and the main element. This content will override any `isWelshTranslationAvailable` or `backLinkUrl` parameter.||
    | `nonce`                       | This will be bound to hmrcHead, hmrcScripts and govukTemplate     |                                                           |
    | `mainContentLayout`           | Passing value will override the default two thirds layout         |                                                           |
    | `serviceName`                 | Pass a value only if your service has a dynamic service name      |                                                           |

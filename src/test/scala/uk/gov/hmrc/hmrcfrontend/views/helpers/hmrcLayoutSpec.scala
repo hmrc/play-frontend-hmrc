@@ -29,6 +29,8 @@ import play.api.mvc.MessagesRequest
 import play.api.test.FakeRequest
 import play.api.test.Helpers.{contentAsString, stubMessagesApi, _}
 import play.twirl.api.Html
+import uk.gov.hmrc.govukfrontend.views.html.components.GovukBackLink
+import uk.gov.hmrc.govukfrontend.views.viewmodels.backlink.BackLink
 import uk.gov.hmrc.hmrcfrontend.config.AssetsConfig
 import uk.gov.hmrc.hmrcfrontend.views.JsoupHelpers
 import uk.gov.hmrc.hmrcfrontend.views.config.StandardBetaBanner
@@ -361,5 +363,61 @@ class hmrcLayoutSpec extends AnyWordSpecLike with Matchers with JsoupHelpers wit
       head.toString should include(additionalHeadHtml.toString())
     }
 
+    "use custom beforeContent if passed" in {
+      val hmrcLayout         = app.injector.instanceOf[HmrcLayout]
+      val backLink           = app.injector.instanceOf[GovukBackLink]
+      val messages           = getMessages()
+      val backLinkHtml       = backLink(BackLink(href = "#"))
+      val content            =
+        contentAsString(hmrcLayout(beforeContentBlock = Some(backLinkHtml))(Html(""))(fakeRequest, messages))
+      val document: Document = Jsoup.parse(content)
+
+      val afterHeader = document.select("header ~ div")
+      afterHeader.select("a").toString shouldBe "<a href=\"#\" class=\"govuk-back-link\">Back</a>"
+
+      val mainContent = afterHeader.select("a ~ main")
+      mainContent.hasClass("govuk-main-wrapper") shouldBe true
+    }
+
+    "not use backLink or language toggle if custom beforeContent is passed" in {
+      val hmrcLayout         = app.injector.instanceOf[HmrcLayout]
+      val messages           = getMessages()
+      val content            =
+        contentAsString(
+          hmrcLayout(
+            isWelshTranslationAvailable = true,
+            backLinkUrl = Some("#"),
+            beforeContentBlock = Some(Html("<div class=\"some-before-class\">Some content</div>"))
+          )(Html(""))(fakeRequest, messages)
+        )
+      val document: Document = Jsoup.parse(content)
+
+      document.select(".govuk-back-link")      should have size 0
+      document.select(".hmrc-language-select") should have size 0
+
+      val afterHeader = document.select("header ~ div")
+      afterHeader.select(".some-before-class") should have size 1
+
+      val mainContent = afterHeader.select("div ~ main")
+      mainContent.hasClass("govuk-main-wrapper") shouldBe true
+    }
+
+    "not include a back link by default" in {
+      val document = Jsoup.parse(contentAsString(defaultHmrcLayout))
+
+      val backLink = document.select(".govuk-back-link")
+      backLink should have size 0
+    }
+
+    "include the back link if passed a url" in {
+      val hmrcLayout = app.injector.instanceOf[HmrcLayout]
+      val messages   = getMessages()
+      val layout     = hmrcLayout(backLinkUrl = Some("my-back-link"))(Html(""))(fakeRequest, messages)
+      val document   = Jsoup.parse(contentAsString(layout))
+
+      val backLink = document.select(".govuk-back-link")
+      backLink                should have size 1
+      backLink.attr("href") shouldBe "my-back-link"
+    }
   }
 }

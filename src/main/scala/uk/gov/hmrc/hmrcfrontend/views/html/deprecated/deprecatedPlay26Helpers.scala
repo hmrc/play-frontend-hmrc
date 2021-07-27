@@ -17,7 +17,7 @@
 package uk.gov.hmrc.hmrcfrontend.views.html.deprecated
 
 import play.api.Play
-import uk.gov.hmrc.govukfrontend.views.html.components.{GovukLayout, TwoThirdsMainContent}
+import uk.gov.hmrc.govukfrontend.views.html.components.{GovukBackLink, GovukLayout, TwoThirdsMainContent}
 import uk.gov.hmrc.hmrcfrontend.config._
 import uk.gov.hmrc.hmrcfrontend.views.html.components.{HmrcFooter, HmrcHeader, HmrcLanguageSelect, HmrcReportTechnicalIssue, HmrcTimeoutDialog}
 import uk.gov.hmrc.hmrcfrontend.views.html.helpers._
@@ -92,6 +92,7 @@ object helpers {
     HmrcHead,
     HmrcLanguageSelectHelper,
     HmrcScripts,
+    GovukBackLink,
     TwoThirdsMainContent
   )
 }
