@@ -24,7 +24,7 @@ import play.api.data.Forms.{mapping, text}
 import play.api.data.{Field, Form, FormError}
 import play.api.i18n.{Lang, Messages}
 import play.api.inject.guice.GuiceApplicationBuilder
-import uk.gov.hmrc.govukfrontend.views.viewmodels.content.Text
+import uk.gov.hmrc.govukfrontend.views.viewmodels.content.{HtmlContent, Text}
 import uk.gov.hmrc.govukfrontend.views.viewmodels.errormessage.ErrorMessage
 import uk.gov.hmrc.govukfrontend.views.viewmodels.dateinput.{DateInput, InputItem}
 import uk.gov.hmrc.hmrcfrontend.views.html.components.implicits._
@@ -275,6 +275,20 @@ class RichDateInputSpec extends AnyWordSpec with Matchers with MessagesSupport w
         errorMessage = Some(ErrorMessage(content = Text("DateInput Error")))
       ).withFormField(dateErrorField)
 
+      dateInput.errorMessage shouldBe Some(ErrorMessage(content = Text("DateInput Error")))
+    }
+  }
+
+  "Given a DateInput object, calling withFormFieldWithErrorAsHtml" should {
+    "convert the first Field form error to a DateInput HTML error message if provided" in {
+      val dateInput = DateInput().withFormFieldWithErrorAsHtml(dateErrorField)
+      dateInput.errorMessage shouldBe Some(ErrorMessage(content = HtmlContent("Not valid date")))
+    }
+
+    "use the DateInput error message over the Field error if both provided" in {
+      val dateInput = DateInput(
+        errorMessage = Some(ErrorMessage(content = Text("DateInput Error")))
+      ).withFormFieldWithErrorAsHtml(dateErrorField)
       dateInput.errorMessage shouldBe Some(ErrorMessage(content = Text("DateInput Error")))
     }
   }

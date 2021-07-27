@@ -22,7 +22,7 @@ import play.api.data.Forms.{mapping, text}
 import play.api.data.{Field, Form, FormError}
 import play.api.i18n.{DefaultLangs, Lang, Messages, MessagesApi}
 import uk.gov.hmrc.hmrcfrontend.views.html.components.implicits._
-import uk.gov.hmrc.govukfrontend.views.viewmodels.content.Text
+import uk.gov.hmrc.govukfrontend.views.viewmodels.content.{HtmlContent, Text}
 import uk.gov.hmrc.govukfrontend.views.viewmodels.errormessage.ErrorMessage
 import uk.gov.hmrc.hmrcfrontend.views.viewmodels.charactercount.CharacterCount
 import play.api.test.{Helpers => PlayHelpers}
@@ -49,7 +49,7 @@ class RichCharacterCountSpec extends AnyWordSpec with Matchers {
     constraints = Nil,
     format = None,
     errors = Seq(
-      FormError(key = "user-name", "Not valid name"),
+      FormError(key = "user-name", "Not valid name: Firstname&nbsp;Lastname"),
       FormError(key = "user-email", "Not valid email")
     ),
     value = Some("bad")
@@ -87,9 +87,9 @@ class RichCharacterCountSpec extends AnyWordSpec with Matchers {
       characterCount.id shouldBe "CharacterCount Id"
     }
 
-    "convert the first Field form error to an CharacterCount error message if provided" in {
+    "convert the first Field form error to a CharacterCount Text error message if provided" in {
       val characterCount = CharacterCount().withFormField(field)
-      characterCount.errorMessage shouldBe Some(ErrorMessage(content = Text("Not valid name")))
+      characterCount.errorMessage shouldBe Some(ErrorMessage(content = Text("Not valid name: Firstname&nbsp;Lastname")))
     }
 
     "use the CharacterCount error message over the Field error if both provided" in {
@@ -114,9 +114,25 @@ class RichCharacterCountSpec extends AnyWordSpec with Matchers {
       characterCount.withFormField(field) shouldBe CharacterCount(
         name = "Form Name",
         id = "Form Name",
-        errorMessage = Some(ErrorMessage(content = Text("Not valid name"))),
+        errorMessage = Some(ErrorMessage(content = Text("Not valid name: Firstname&nbsp;Lastname"))),
         value = Some("bad")
       )
+    }
+  }
+
+  "Given a CharacterCount object, calling withFormFieldWithErrorAsHtml" should {
+    "convert the first Field form error to a CharacterCount HTML error message if provided" in {
+      val characterCount = CharacterCount().withFormFieldWithErrorAsHtml(field)
+      characterCount.errorMessage shouldBe Some(
+        ErrorMessage(content = HtmlContent("Not valid name: Firstname&nbsp;Lastname"))
+      )
+    }
+
+    "use the CharacterCount error message over the Field error if both provided" in {
+      val characterCount = CharacterCount(
+        errorMessage = Some(ErrorMessage(content = Text("CharacterCount Error")))
+      ).withFormFieldWithErrorAsHtml(field)
+      characterCount.errorMessage shouldBe Some(ErrorMessage(content = Text("CharacterCount Error")))
     }
   }
 }
