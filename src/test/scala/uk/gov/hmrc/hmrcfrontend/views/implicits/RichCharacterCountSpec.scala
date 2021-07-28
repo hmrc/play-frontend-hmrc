@@ -14,18 +14,18 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.hmrcfrontend.views
+package uk.gov.hmrc.hmrcfrontend.views.implicits
 
-import org.scalatest.wordspec.AnyWordSpec
 import org.scalatest.matchers.should.Matchers
+import org.scalatest.wordspec.AnyWordSpec
 import play.api.data.Forms.{mapping, text}
 import play.api.data.{Field, Form, FormError}
 import play.api.i18n.{DefaultLangs, Lang, Messages, MessagesApi}
-import uk.gov.hmrc.hmrcfrontend.views.html.components.implicits._
+import play.api.test.{Helpers => PlayHelpers}
 import uk.gov.hmrc.govukfrontend.views.viewmodels.content.{HtmlContent, Text}
 import uk.gov.hmrc.govukfrontend.views.viewmodels.errormessage.ErrorMessage
+import uk.gov.hmrc.hmrcfrontend.views.html.components.implicits._
 import uk.gov.hmrc.hmrcfrontend.views.viewmodels.charactercount.CharacterCount
-import play.api.test.{Helpers => PlayHelpers}
 
 class RichCharacterCountSpec extends AnyWordSpec with Matchers {
 

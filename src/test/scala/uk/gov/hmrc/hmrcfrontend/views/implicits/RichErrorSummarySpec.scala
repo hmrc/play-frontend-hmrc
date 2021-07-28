@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.hmrcfrontend
+package uk.gov.hmrc.hmrcfrontend.views.implicits
 
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpec
@@ -24,8 +24,9 @@ import play.api.data.Forms.{mapping, text}
 import play.api.data.{Form, FormError}
 import play.api.i18n.{Lang, Messages}
 import play.api.inject.guice.GuiceApplicationBuilder
-import uk.gov.hmrc.govukfrontend.views.viewmodels.errorsummary.ErrorSummary
 import uk.gov.hmrc.govukfrontend.views.viewmodels.content.{HtmlContent, Text}
+import uk.gov.hmrc.govukfrontend.views.viewmodels.errorsummary.ErrorSummary
+import uk.gov.hmrc.hmrcfrontend.MessagesSupport
 import uk.gov.hmrc.hmrcfrontend.views.html.components.implicits._
 
 class RichErrorSummarySpec extends AnyWordSpec with Matchers with MessagesSupport with GuiceOneAppPerSuite {

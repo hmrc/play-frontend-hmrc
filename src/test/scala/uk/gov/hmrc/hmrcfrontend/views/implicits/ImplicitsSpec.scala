@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.hmrcfrontend.views
+package uk.gov.hmrc.hmrcfrontend.views.implicits
 
 import org.scalacheck.Arbitrary._
 import org.scalacheck.{Gen, ShrinkLowPriority}
+import org.scalatest.OptionValues
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpec
-import org.scalatest.OptionValues
 import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks
 import play.twirl.api.{Html, HtmlFormat}
 import uk.gov.hmrc.hmrcfrontend.views.html.components.implicits._
