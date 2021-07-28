@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.hmrcfrontend
+package uk.gov.hmrc.hmrcfrontend.views.implicits
 
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpec
@@ -25,8 +25,9 @@ import play.api.data.{Field, Form, FormError}
 import play.api.i18n.{Lang, Messages}
 import play.api.inject.guice.GuiceApplicationBuilder
 import uk.gov.hmrc.govukfrontend.views.viewmodels.content.{HtmlContent, Text}
-import uk.gov.hmrc.govukfrontend.views.viewmodels.errormessage.ErrorMessage
 import uk.gov.hmrc.govukfrontend.views.viewmodels.dateinput.{DateInput, InputItem}
+import uk.gov.hmrc.govukfrontend.views.viewmodels.errormessage.ErrorMessage
+import uk.gov.hmrc.hmrcfrontend.MessagesSupport
 import uk.gov.hmrc.hmrcfrontend.views.html.components.implicits._
 
 class RichDateInputSpec extends AnyWordSpec with Matchers with MessagesSupport with GuiceOneAppPerSuite {
