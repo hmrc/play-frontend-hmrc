@@ -5,6 +5,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [0.88.0] - 2021-07-28
+
+### Changed
+
+- Added `backLinkUrl` and `beforeContentBlock` parameter to `hmrcLayout`
+
+### Compatible with
+
+- [hmrc/hmrc-frontend v2.0.0](https://github.com/hmrc/hmrc-frontend/releases/tag/v2.0.0)
+- [hmrc/play-frontend-govuk v0.82.0](https://github.com/hmrc/play-frontend-govuk/releases/tag/v0.82.0)
+- [alphagov/govuk-frontend v3.13.0](https://github.com/alphagov/govuk-frontend/releases/tag/v3.13.0)
+
 ## [0.87.0] - 2021-07-28
 
 ### Changed
