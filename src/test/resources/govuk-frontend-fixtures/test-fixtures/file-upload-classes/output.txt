@@ -1,0 +1,6 @@
+<div class="govuk-form-group">
+  <label class="govuk-label" for="file-upload-classes">
+    Upload a file
+  </label>
+  <input class="govuk-file-upload app-file-upload--custom-modifier" id="file-upload-classes" name="file-upload-classes" type="file">
+</div>

@@ -1,0 +1,11 @@
+{
+  "messages" : [ {
+    "actions" : [ {
+      "text" : "Link with attributes",
+      "href" : "/link",
+      "attributes" : {
+        "data-link-attribute" : "my-value"
+      }
+    } ]
+  } ]
+}

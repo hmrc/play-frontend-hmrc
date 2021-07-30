@@ -1,0 +1,13 @@
+{
+  "label" : {
+    "text" : "Cost per item, in pounds"
+  },
+  "id" : "input-with-prefix-suffix",
+  "name" : "cost",
+  "prefix" : {
+    "text" : "£"
+  },
+  "suffix" : {
+    "text" : "per item"
+  }
+}

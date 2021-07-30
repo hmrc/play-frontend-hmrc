@@ -1,0 +1,6 @@
+<div class="govuk-form-group">
+  <label class="govuk-label" for="with-describedby">
+    With describedBy
+  </label>
+  <textarea class="govuk-textarea" id="with-describedby" name="with-describedby" rows="5" aria-describedby="some-id"></textarea>
+</div>

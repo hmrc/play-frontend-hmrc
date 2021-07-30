@@ -1,0 +1,10 @@
+{
+  "attributes" : {
+    "data-foo" : "bar"
+  },
+  "rows" : [ [ {
+    "text" : "Jan"
+  }, {
+    "text" : "Feb"
+  } ] ]
+}

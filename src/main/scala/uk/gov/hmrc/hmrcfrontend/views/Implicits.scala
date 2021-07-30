@@ -20,7 +20,7 @@ import play.api.data.{Field, Form, FormError}
 import play.api.i18n.Messages
 import play.twirl.api.{Html, HtmlFormat}
 import uk.gov.hmrc.govukfrontend.views.Aliases.Empty
-import uk.gov.hmrc.govukfrontend.views.ImplicitsSupport
+import uk.gov.hmrc.govukfrontend.views.implicits.ImplicitsSupport
 import uk.gov.hmrc.govukfrontend.views.viewmodels.content.{Content, HtmlContent, Text}
 import uk.gov.hmrc.govukfrontend.views.viewmodels.dateinput.{DateInput, InputItem}
 import uk.gov.hmrc.govukfrontend.views.viewmodels.errorsummary.{ErrorLink, ErrorSummary}

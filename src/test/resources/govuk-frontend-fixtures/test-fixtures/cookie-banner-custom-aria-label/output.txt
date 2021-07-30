@@ -1,0 +1,12 @@
+<div class="govuk-cookie-banner " data-nosnippet role="region" aria-label="Cookies on GOV.UK">
+    <div class="govuk-cookie-banner__message govuk-width-container">
+
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-two-thirds">
+
+        <div class="govuk-cookie-banner__content"><p class="govuk-body">We use cookies on GOV.UK</p></div>
+      </div>
+    </div>
+
+    </div>
+</div>

@@ -123,7 +123,7 @@ abstract class TemplateUnitSpec[T: Reads](hmrcComponentName: String)
   }
 
   private lazy val fixturesDirs: Seq[File] = {
-    val dir         = s"/fixtures"
+    val dir         = s"/hmrc-frontend-fixtures"
     val fixturesDir = Try(File(Resource.my.getUrl(dir)))
       .getOrElse(throw new RuntimeException(s"Test fixtures folder not found: $dir"))
 

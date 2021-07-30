@@ -1,0 +1,13 @@
+{
+  "label" : {
+    "text" : "Weight, in kilograms"
+  },
+  "id" : "input-with-suffix",
+  "name" : "weight",
+  "suffix" : {
+    "html" : "<span>kg</span>",
+    "attributes" : {
+      "data-attribute" : "value"
+    }
+  }
+}

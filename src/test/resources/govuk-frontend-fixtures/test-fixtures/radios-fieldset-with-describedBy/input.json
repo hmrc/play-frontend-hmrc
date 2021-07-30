@@ -1,0 +1,13 @@
+{
+  "name" : "example-name",
+  "fieldset" : {
+    "describedBy" : "some-id"
+  },
+  "items" : [ {
+    "value" : "yes",
+    "text" : "Yes"
+  }, {
+    "value" : "no",
+    "text" : "No"
+  } ]
+}

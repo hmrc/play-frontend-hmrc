@@ -1,0 +1,10 @@
+{
+  "name" : "example-conditional",
+  "items" : [ {
+    "value" : "foo",
+    "text" : "Foo",
+    "conditional" : {
+      "html" : false
+    }
+  } ]
+}

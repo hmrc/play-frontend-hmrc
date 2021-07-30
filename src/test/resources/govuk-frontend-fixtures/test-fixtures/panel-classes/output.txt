@@ -1,0 +1,8 @@
+<div class="govuk-panel govuk-panel--confirmation extra-class one-more-class">
+  <h1 class="govuk-panel__title">
+    Application complete
+  </h1>
+  <div class="govuk-panel__body">
+    Your reference number is HDJ2123F
+  </div>
+</div>

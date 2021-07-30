@@ -5,6 +5,7 @@ import play.sbt.PlayImport.ws
 import sbt.ModuleID
 
 object LibDependencies {
+  val govukFrontendVersion             = "3.13.0"
   val hmrcFrontendVersion: String      = "2.0.0"
   val playFrontendGovukVersion: String = "0.81.0"
   val playLanguageVersion: String      = "5.0.0"
@@ -18,16 +19,13 @@ object LibDependencies {
       "org.scalaj"         %% "scalaj-http"     % "2.4.2"
     ),
     play26 = Seq(
-      "uk.gov.hmrc" %% "play-language"       % s"$playLanguageVersion-play-26",
-      "uk.gov.hmrc" %% "play-frontend-govuk" % s"$playFrontendGovukVersion-play-26"
+      "uk.gov.hmrc" %% "play-language" % s"$playLanguageVersion-play-26"
     ),
     play27 = Seq(
-      "uk.gov.hmrc" %% "play-language"       % s"$playLanguageVersion-play-27",
-      "uk.gov.hmrc" %% "play-frontend-govuk" % s"$playFrontendGovukVersion-play-27"
+      "uk.gov.hmrc" %% "play-language" % s"$playLanguageVersion-play-27"
     ),
     play28 = Seq(
-      "uk.gov.hmrc" %% "play-language"       % s"$playLanguageVersion-play-28",
-      "uk.gov.hmrc" %% "play-frontend-govuk" % s"$playFrontendGovukVersion-play-28"
+      "uk.gov.hmrc" %% "play-language" % s"$playLanguageVersion-play-28"
     )
   )
 

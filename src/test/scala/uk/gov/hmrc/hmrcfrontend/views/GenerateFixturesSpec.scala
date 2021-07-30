@@ -25,7 +25,7 @@ import scala.util.Try
 
 class GenerateFixturesSpec extends AnyWordSpec with Matchers {
 
-  val dir         = s"/fixtures/test-fixtures"
+  val dir         = s"/hmrc-frontend-fixtures/test-fixtures"
   val fixturesDir = Try(File(Resource.my.getUrl(dir)))
 
   "generateFixtures" should {

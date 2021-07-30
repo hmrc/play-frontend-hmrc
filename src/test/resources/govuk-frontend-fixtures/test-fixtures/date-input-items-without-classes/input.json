@@ -1,0 +1,10 @@
+{
+  "id" : "without-item-classes",
+  "items" : [ {
+    "name" : "day"
+  }, {
+    "name" : "month"
+  }, {
+    "name" : "year"
+  } ]
+}

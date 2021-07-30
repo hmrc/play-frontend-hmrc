@@ -1,0 +1,5 @@
+<div class="govuk-form-group">
+  <label class="govuk-label" for="with-custom-type">
+    With custom type
+  </label>
+<input class="govuk-input" id="with-custom-type" name="with-custom-type" type="number"></div>

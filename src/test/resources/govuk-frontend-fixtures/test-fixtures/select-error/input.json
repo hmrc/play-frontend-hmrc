@@ -1,0 +1,14 @@
+{
+  "id" : "select-with-error",
+  "name" : "select-with-error",
+  "errorMessage" : {
+    "text" : "Error message"
+  },
+  "items" : [ {
+    "value" : 1,
+    "text" : "GOV.UK frontend option 1"
+  }, {
+    "value" : 2,
+    "text" : "GOV.UK frontend option 2"
+  } ]
+}

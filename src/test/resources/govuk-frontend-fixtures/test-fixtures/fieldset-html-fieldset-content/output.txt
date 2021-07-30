@@ -1,0 +1,9 @@
+<fieldset class="govuk-fieldset">
+  <legend class="govuk-fieldset__legend">
+    What is your address?
+  </legend>
+  <div class="my-content">
+  <p>This is some content to put inside the fieldset</p>
+</div>
+
+</fieldset>

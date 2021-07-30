@@ -1,0 +1,11 @@
+<div class="govuk-form-group govuk-form-group--error">
+  <label class="govuk-label" for="with-error-hint">
+    With error and hint
+  </label>
+  <div id="with-error-hint-hint" class="govuk-hint">
+    Hint
+  </div>
+  <span id="with-error-hint-error" class="govuk-error-message">
+  <span class="govuk-visually-hidden">Error:</span> Error message
+  </span>
+<input class="govuk-input govuk-input--error" id="with-error-hint" name="with-error-hint" type="text" aria-describedby="with-error-hint-hint with-error-hint-error"></div>

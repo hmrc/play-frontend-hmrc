@@ -1,0 +1,6 @@
+{
+  "name" : "secondary",
+  "text" : "Secondary button",
+  "href" : "/",
+  "classes" : "govuk-button--secondary"
+}

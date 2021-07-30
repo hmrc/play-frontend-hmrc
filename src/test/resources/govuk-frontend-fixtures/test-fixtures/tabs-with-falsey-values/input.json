@@ -1,0 +1,15 @@
+{
+  "items" : [ {
+    "label" : "Tab 1",
+    "id" : "tab-1",
+    "panel" : {
+      "text" : "Panel 1 content"
+    }
+  }, null, false, "", {
+    "label" : "Tab 2",
+    "id" : "tab-2",
+    "panel" : {
+      "text" : "Panel 2 content"
+    }
+  } ]
+}

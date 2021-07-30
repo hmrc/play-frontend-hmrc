@@ -1,0 +1,10 @@
+{
+  "rows" : [ {
+    "key" : {
+      "html" : "<b>Name</b>"
+    },
+    "value" : {
+      "html" : "<strong>Firstname Lastname</strong>"
+    }
+  } ]
+}

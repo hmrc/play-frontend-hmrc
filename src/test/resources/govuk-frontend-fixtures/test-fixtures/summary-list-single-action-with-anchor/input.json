@@ -1,0 +1,16 @@
+{
+  "rows" : [ {
+    "key" : {
+      "text" : "Name"
+    },
+    "value" : {
+      "text" : "Firstname Lastname"
+    },
+    "actions" : {
+      "items" : [ {
+        "text" : "First action",
+        "href" : "#"
+      } ]
+    }
+  } ]
+}
