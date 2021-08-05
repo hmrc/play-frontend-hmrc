@@ -17,6 +17,7 @@
 package uk.gov.hmrc.govukfrontend.views.viewmodels
 package errormessage
 
+import play.api.i18n.Messages
 import play.api.libs.functional.syntax._
 import play.api.libs.json._
 import uk.gov.hmrc.govukfrontend.views.viewmodels.content.{Content, Empty}
@@ -30,6 +31,19 @@ final case class ErrorMessage(
 )
 
 object ErrorMessage {
+
+  def errorMessageWithDefaultStringsTranslated(
+    id: Option[String] = None,
+    classes: String = "",
+    attributes: Map[String, String] = Map.empty,
+    content: Content = Empty
+  )(implicit messages: Messages) = ErrorMessage(
+    id = id,
+    classes = classes,
+    attributes = attributes,
+    visuallyHiddenText = Some(messages("govukErrorMessage.visuallyHiddenText")),
+    content = content
+  )
 
   // Converts the ambiguously documented visuallyHiddenText parameter from govuk-frontend to the correct type.
   // The original govuk-frontend implementation will show any truthy value as the hidden text when visuallyHiddenText is set to it.

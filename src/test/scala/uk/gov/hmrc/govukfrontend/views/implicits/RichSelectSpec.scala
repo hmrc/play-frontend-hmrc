@@ -22,6 +22,7 @@ import uk.gov.hmrc.govukfrontend.views.MessagesHelpers
 import uk.gov.hmrc.govukfrontend.views.html.components.implicits._
 import uk.gov.hmrc.govukfrontend.views.viewmodels.content.{HtmlContent, Text}
 import uk.gov.hmrc.govukfrontend.views.viewmodels.errormessage.ErrorMessage
+import uk.gov.hmrc.govukfrontend.views.viewmodels.errormessage.ErrorMessage.errorMessageWithDefaultStringsTranslated
 import uk.gov.hmrc.govukfrontend.views.viewmodels.select.{Select, SelectItem}
 
 class RichSelectSpec extends AnyWordSpec with Matchers with MessagesHelpers with RichFormInputHelpers {
@@ -62,7 +63,9 @@ class RichSelectSpec extends AnyWordSpec with Matchers with MessagesHelpers with
 
     "convert the first Field form error to a Select text error message if provided" in {
       val select = Select().withFormField(field)
-      select.errorMessage shouldBe Some(ErrorMessage(content = Text("Error on: Firstname&nbsp;Lastname")))
+      select.errorMessage shouldBe Some(
+        errorMessageWithDefaultStringsTranslated(content = Text("Error on: Firstname&nbsp;Lastname"))
+      )
     }
 
     "use the Select error message over the Field error if both provided" in {
@@ -83,7 +86,8 @@ class RichSelectSpec extends AnyWordSpec with Matchers with MessagesHelpers with
       select.withFormField(field) shouldBe Select(
         name = "user-name",
         id = "user-name",
-        errorMessage = Some(ErrorMessage(content = Text("Error on: Firstname&nbsp;Lastname"))),
+        errorMessage =
+          Some(errorMessageWithDefaultStringsTranslated(content = Text("Error on: Firstname&nbsp;Lastname"))),
         items = Seq(
           selectItemGood,
           selectItemBad.copy(selected = true),
@@ -97,7 +101,7 @@ class RichSelectSpec extends AnyWordSpec with Matchers with MessagesHelpers with
     "convert the first Field form error to a Select HTML error message if provided" in {
       val select = Select().withFormFieldWithErrorAsHtml(field = field)
       select.errorMessage shouldBe Some(
-        ErrorMessage(content = HtmlContent("Error on: Firstname&nbsp;Lastname"))
+        errorMessageWithDefaultStringsTranslated(content = HtmlContent("Error on: Firstname&nbsp;Lastname"))
       )
     }
 

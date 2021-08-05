@@ -20,6 +20,7 @@ import play.api.data.FormError
 import play.api.i18n.Messages
 import uk.gov.hmrc.govukfrontend.views.viewmodels.content.{Content, HtmlContent, Text}
 import uk.gov.hmrc.govukfrontend.views.viewmodels.errormessage.ErrorMessage
+import uk.gov.hmrc.govukfrontend.views.viewmodels.errormessage.ErrorMessage.errorMessageWithDefaultStringsTranslated
 import uk.gov.hmrc.govukfrontend.views.viewmodels.errorsummary.ErrorLink
 
 trait RichFormErrorsSupport {
@@ -52,7 +53,7 @@ trait RichFormErrorsSupport {
     private[views] def asErrorMessages(contentConstructor: String => Content): Seq[ErrorMessage] =
       formErrors
         .map { formError =>
-          ErrorMessage(content = contentConstructor(errorMessage(formError)))
+          errorMessageWithDefaultStringsTranslated(content = contentConstructor(errorMessage(formError)))
         }
 
     def asHtmlErrorMessage(messageSelector: String): Option[ErrorMessage] =
@@ -68,7 +69,7 @@ trait RichFormErrorsSupport {
       formErrors
         .find(_.message == messageSelector)
         .map { formError =>
-          ErrorMessage(content = contentConstructor(errorMessage(formError)))
+          errorMessageWithDefaultStringsTranslated(content = contentConstructor(errorMessage(formError)))
         }
 
     def asHtmlErrorMessageForField(fieldKey: String): Option[ErrorMessage] =
@@ -84,7 +85,7 @@ trait RichFormErrorsSupport {
       formErrors
         .find(_.key == fieldKey)
         .map { formError =>
-          ErrorMessage(content = contentConstructor(errorMessage(formError)))
+          errorMessageWithDefaultStringsTranslated(content = contentConstructor(errorMessage(formError)))
         }
 
     private def errorMessage(formError: FormError) = messages(formError.message, formError.args: _*)

@@ -22,6 +22,7 @@ import uk.gov.hmrc.govukfrontend.views.MessagesHelpers
 import uk.gov.hmrc.govukfrontend.views.html.components.implicits._
 import uk.gov.hmrc.govukfrontend.views.viewmodels.content.{HtmlContent, Text}
 import uk.gov.hmrc.govukfrontend.views.viewmodels.errormessage.ErrorMessage
+import uk.gov.hmrc.govukfrontend.views.viewmodels.errormessage.ErrorMessage.errorMessageWithDefaultStringsTranslated
 import uk.gov.hmrc.govukfrontend.views.viewmodels.radios.{RadioItem, Radios}
 
 class RichRadiosSpec extends AnyWordSpec with Matchers with MessagesHelpers with RichFormInputHelpers {
@@ -62,7 +63,9 @@ class RichRadiosSpec extends AnyWordSpec with Matchers with MessagesHelpers with
 
     "convert the first Field form error to a Radios text error message if provided" in {
       val radios = Radios().withFormField(field)
-      radios.errorMessage shouldBe Some(ErrorMessage(content = Text("Error on: Firstname&nbsp;Lastname")))
+      radios.errorMessage shouldBe Some(
+        errorMessageWithDefaultStringsTranslated(content = Text("Error on: Firstname&nbsp;Lastname"))
+      )
     }
 
     "use the Radios error message over the Field error if both provided" in {
@@ -83,7 +86,8 @@ class RichRadiosSpec extends AnyWordSpec with Matchers with MessagesHelpers with
       radios.withFormField(field) shouldBe Radios(
         name = "user-name",
         idPrefix = Some("user-name"),
-        errorMessage = Some(ErrorMessage(content = Text("Error on: Firstname&nbsp;Lastname"))),
+        errorMessage =
+          Some(errorMessageWithDefaultStringsTranslated(content = Text("Error on: Firstname&nbsp;Lastname"))),
         items = Seq(
           radioItemGood,
           radioItemBad.copy(checked = true),
@@ -97,7 +101,7 @@ class RichRadiosSpec extends AnyWordSpec with Matchers with MessagesHelpers with
     "convert the first Field form error to a Radios HTML error message if provided" in {
       val radios = Radios().withFormFieldWithErrorAsHtml(field = field)
       radios.errorMessage shouldBe Some(
-        ErrorMessage(content = HtmlContent("Error on: Firstname&nbsp;Lastname"))
+        errorMessageWithDefaultStringsTranslated(content = HtmlContent("Error on: Firstname&nbsp;Lastname"))
       )
     }
 

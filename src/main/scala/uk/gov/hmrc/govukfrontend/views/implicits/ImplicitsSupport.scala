@@ -20,6 +20,7 @@ import play.api.data.{Field, FormError}
 import play.api.i18n.Messages
 import uk.gov.hmrc.govukfrontend.views.viewmodels.content.{HtmlContent, Text}
 import uk.gov.hmrc.govukfrontend.views.viewmodels.errormessage.ErrorMessage
+import uk.gov.hmrc.govukfrontend.views.viewmodels.errormessage.ErrorMessage.errorMessageWithDefaultStringsTranslated
 
 trait ImplicitsSupport[T] {
 
@@ -82,8 +83,12 @@ trait ImplicitsSupport[T] {
     else formInput
 
   private def formErrorToTextErrorMessage(formError: Option[FormError]): Option[ErrorMessage] =
-    formError.map(formError => ErrorMessage(content = Text(messages(formError.message, formError.args: _*))))
+    formError.map(formError =>
+      errorMessageWithDefaultStringsTranslated(content = Text(messages(formError.message, formError.args: _*)))
+    )
 
   private def formErrorToHtmlErrorMessage(formError: Option[FormError]): Option[ErrorMessage] =
-    formError.map(formError => ErrorMessage(content = HtmlContent(messages(formError.message, formError.args: _*))))
+    formError.map(formError =>
+      errorMessageWithDefaultStringsTranslated(content = HtmlContent(messages(formError.message, formError.args: _*)))
+    )
 }
