@@ -23,6 +23,7 @@ import uk.gov.hmrc.govukfrontend.views.html.components.implicits._
 import uk.gov.hmrc.govukfrontend.views.viewmodels.checkboxes.{CheckboxItem, Checkboxes}
 import uk.gov.hmrc.govukfrontend.views.viewmodels.content.{HtmlContent, Text}
 import uk.gov.hmrc.govukfrontend.views.viewmodels.errormessage.ErrorMessage
+import uk.gov.hmrc.govukfrontend.views.viewmodels.errormessage.ErrorMessage.errorMessageWithDefaultStringsTranslated
 
 class RichCheckboxesSpec extends AnyWordSpec with Matchers with MessagesHelpers with RichFormInputHelpers {
 
@@ -63,7 +64,9 @@ class RichCheckboxesSpec extends AnyWordSpec with Matchers with MessagesHelpers 
 
     "convert the first Field form error to a Checkboxes error message if provided" in {
       val checkboxes = Checkboxes().withFormField(field)
-      checkboxes.errorMessage shouldBe Some(ErrorMessage(content = Text("Error on: Firstname&nbsp;Lastname")))
+      checkboxes.errorMessage shouldBe Some(
+        errorMessageWithDefaultStringsTranslated(content = Text("Error on: Firstname&nbsp;Lastname"))
+      )
     }
 
     "use the Checkboxes error message over the Field error if both provided" in {
@@ -84,7 +87,7 @@ class RichCheckboxesSpec extends AnyWordSpec with Matchers with MessagesHelpers 
       checkboxes.withFormField(repeatedField) shouldBe Checkboxes(
         name = "user-communication-preferences[]",
         idPrefix = Some("user-communication-preferences"),
-        errorMessage = Some(ErrorMessage(content = Text("Not valid preferences"))),
+        errorMessage = Some(errorMessageWithDefaultStringsTranslated(content = Text("Not valid preferences"))),
         items = Seq(
           email.copy(checked = true),
           post.copy(checked = true),
@@ -98,7 +101,7 @@ class RichCheckboxesSpec extends AnyWordSpec with Matchers with MessagesHelpers 
     "convert the first Field form error to an Checkboxes HTML error message if provided" in {
       val checkboxes = Checkboxes().withFormFieldWithErrorAsHtml(field = field)
       checkboxes.errorMessage shouldBe Some(
-        ErrorMessage(content = HtmlContent("Error on: Firstname&nbsp;Lastname"))
+        errorMessageWithDefaultStringsTranslated(content = HtmlContent("Error on: Firstname&nbsp;Lastname"))
       )
     }
 

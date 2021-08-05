@@ -26,7 +26,7 @@ import uk.gov.hmrc.govukfrontend.views.MessagesHelpers
 import uk.gov.hmrc.govukfrontend.views.html.components.implicits._
 import uk.gov.hmrc.govukfrontend.views.viewmodels.Generators._
 import uk.gov.hmrc.govukfrontend.views.viewmodels.content.{Content, HtmlContent, Text}
-import uk.gov.hmrc.govukfrontend.views.viewmodels.errormessage.ErrorMessage
+import uk.gov.hmrc.govukfrontend.views.viewmodels.errormessage.ErrorMessage.errorMessageWithDefaultStringsTranslated
 import uk.gov.hmrc.govukfrontend.views.viewmodels.errorsummary.ErrorLink
 
 import java.util.UUID
@@ -65,7 +65,7 @@ class RichFormErrorsSpec
         forAll(genFormErrorsAndMessages) { case (formErrors, contentConstructor, messagesStub) =>
           import messagesStub.messages
           formErrors.asErrorMessages(contentConstructor).zipWithIndex.foreach { case (errorMessageParams, i) =>
-            errorMessageParams shouldBe ErrorMessage(
+            errorMessageParams shouldBe errorMessageWithDefaultStringsTranslated(
               content = contentConstructor(messagesStub.messages(formErrors(i).message, formErrors(i).args: _*))
             )
           }
@@ -80,7 +80,9 @@ class RichFormErrorsSpec
             import messagesStub.messages
             val i             = Random.nextInt(formErrors.length)
             val randomMessage = formErrors(i).message //select random message
-            formErrors.asErrorMessage(contentConstructor, randomMessage).value shouldBe ErrorMessage(
+            formErrors
+              .asErrorMessage(contentConstructor, randomMessage)
+              .value shouldBe errorMessageWithDefaultStringsTranslated(
               content = contentConstructor(messagesStub.messages(formErrors(i).message, formErrors(i).args: _*))
             )
           }
@@ -105,7 +107,9 @@ class RichFormErrorsSpec
             import messagesStub.messages
             val i        = Random.nextInt(formErrors.length)
             val fieldKey = formErrors(i).key //select random message
-            formErrors.asErrorMessageForField(contentConstructor, fieldKey).value shouldBe ErrorMessage(
+            formErrors
+              .asErrorMessageForField(contentConstructor, fieldKey)
+              .value shouldBe errorMessageWithDefaultStringsTranslated(
               content = contentConstructor(messagesStub.messages(formErrors(i).message, formErrors(i).args: _*))
             )
           }
@@ -119,7 +123,9 @@ class RichFormErrorsSpec
             val i                  = Random.nextInt(formErrors.length)
             val fieldKey           = formErrors(i).key //select random message
             val firstErrorForField = formErrors.filter(_.key == fieldKey)(0)
-            formErrors.asErrorMessageForField(contentConstructor, fieldKey).value shouldBe ErrorMessage(
+            formErrors
+              .asErrorMessageForField(contentConstructor, fieldKey)
+              .value shouldBe errorMessageWithDefaultStringsTranslated(
               content =
                 contentConstructor(messagesStub.messages(firstErrorForField.message, firstErrorForField.args: _*))
             )

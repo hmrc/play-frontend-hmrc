@@ -16,7 +16,19 @@
 
 package uk.gov.hmrc.govukfrontend.views.viewmodels.errormessage
 
+import uk.gov.hmrc.govukfrontend.views.MessagesHelpers
 import uk.gov.hmrc.govukfrontend.views.viewmodels.JsonRoundtripSpec
+import uk.gov.hmrc.govukfrontend.views.viewmodels.errormessage.ErrorMessage.errorMessageWithDefaultStringsTranslated
 import uk.gov.hmrc.govukfrontend.views.viewmodels.errormessage.Generators._
 
-class ErrorMessageSpec extends JsonRoundtripSpec[ErrorMessage]
+class ErrorMessageSpec extends JsonRoundtripSpec[ErrorMessage] with MessagesHelpers {
+
+  "errorMessageWithDefaultStringsTranslated" should {
+    "provide a translation for the visuallyHiddenText" in {
+      errorMessageWithDefaultStringsTranslated() shouldBe ErrorMessage.defaultObject.copy(
+        visuallyHiddenText = Some(messages("govukErrorMessage.visuallyHiddenText"))
+      )
+    }
+  }
+
+}

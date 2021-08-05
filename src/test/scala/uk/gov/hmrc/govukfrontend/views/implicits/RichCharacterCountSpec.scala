@@ -23,6 +23,7 @@ import uk.gov.hmrc.govukfrontend.views.html.components.implicits._
 import uk.gov.hmrc.govukfrontend.views.viewmodels.charactercount.CharacterCount
 import uk.gov.hmrc.govukfrontend.views.viewmodels.content.{HtmlContent, Text}
 import uk.gov.hmrc.govukfrontend.views.viewmodels.errormessage.ErrorMessage
+import uk.gov.hmrc.govukfrontend.views.viewmodels.errormessage.ErrorMessage.errorMessageWithDefaultStringsTranslated
 
 class RichCharacterCountSpec extends AnyWordSpec with Matchers with MessagesHelpers with RichFormInputHelpers {
 
@@ -49,7 +50,9 @@ class RichCharacterCountSpec extends AnyWordSpec with Matchers with MessagesHelp
 
     "convert the first Field form error to a CharacterCount text error message if provided" in {
       val characterCount = CharacterCount().withFormField(field)
-      characterCount.errorMessage shouldBe Some(ErrorMessage(content = Text("Error on: Firstname&nbsp;Lastname")))
+      characterCount.errorMessage shouldBe Some(
+        errorMessageWithDefaultStringsTranslated(content = Text("Error on: Firstname&nbsp;Lastname"))
+      )
     }
 
     "use the CharacterCount error message over the Field error if both provided" in {
@@ -74,7 +77,8 @@ class RichCharacterCountSpec extends AnyWordSpec with Matchers with MessagesHelp
       characterCount.withFormField(field) shouldBe CharacterCount(
         name = "user-name",
         id = "user-name",
-        errorMessage = Some(ErrorMessage(content = Text("Error on: Firstname&nbsp;Lastname"))),
+        errorMessage =
+          Some(errorMessageWithDefaultStringsTranslated(content = Text("Error on: Firstname&nbsp;Lastname"))),
         value = Some("bad")
       )
     }
@@ -84,7 +88,7 @@ class RichCharacterCountSpec extends AnyWordSpec with Matchers with MessagesHelp
     "convert the first Field form error to a CharacterCount HTML error message if provided" in {
       val characterCount = CharacterCount().withFormFieldWithErrorAsHtml(field = field)
       characterCount.errorMessage shouldBe Some(
-        ErrorMessage(content = HtmlContent("Error on: Firstname&nbsp;Lastname"))
+        errorMessageWithDefaultStringsTranslated(content = HtmlContent("Error on: Firstname&nbsp;Lastname"))
       )
     }
 
