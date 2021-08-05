@@ -59,23 +59,67 @@ The library comprises two packages:
 1. Create a custom layout template for your pages using `hmrcLayout` as per the section
       [HMRC layout](#hmrc-layout)
 
-1.  Optionally, add `TwirlKeys.templateImports` in `build.sbt`:
-    ```sbt
-        TwirlKeys.templateImports ++= Seq(
-          "uk.gov.hmrc.govukfrontend.views.html.components._",
-          "uk.gov.hmrc.govukfrontend.views.html.helpers._",
-          "uk.gov.hmrc.hmrcfrontend.views.html.components._",
-          "uk.gov.hmrc.hmrcfrontend.views.html.helpers._"
-        )
-    ```
+1. Then to use our components and helpers in your templates, you will need to import the component or helper from its
+   package `uk.gov.hmrc.(govuk|hmrc)frontend.views.html.(components|helpers)`.
 
-    Adding this removes the need for `@import` statements in your Twirl templates.
-    If you prefer not to use this mechanism, import the components in any template that uses them as
-    follows:
+   For most components the parameters that can be provided are encapsulated in a viewmodel, comprised of case classes
+   that live within a subpackage of `uk.gov.hmrc(govuk|hmrc)frontend.views.viewmodels` and are aliased for use
+   under `uk.gov.hmrc(govuk|hmrc)frontend.views.html.components`.
 
-    ```scala
-    @import uk.gov.hmrc.hmrcfrontend.views.html.components._
-    ```
+   ```scala
+   /*
+   Import all components, helpers, viewmodels, and implicits. Most succinct import method, but may require additional 
+   imports to resolve ambiguous import compilation errors for some viewmodels. Will also cause unused import warnings.
+   */
+   @import uk.gov.hmrc.hmrcfrontend.views.html.components._
+   @import uk.gov.hmrc.hmrcfrontend.views.html.helpers._
+   @import uk.gov.hmrc.hmrcfrontend.views.html.components.implicits._                  
+
+   /*
+   Import specific components and viewmodels, and all implicits. Avoids possibility of ambiguous import compilation 
+   errors and unused import warnings.
+   */
+   @import uk.gov.hmrc.hmrcfrontend.views.html.components.GovukRadios                                  /* component */
+   @import uk.gov.hmrc.hmrcfrontend.views.html.components.{Radios, Fieldset, Legend, Text, RadioItem}  /* viewmodel case classes */
+   @import uk.gov.hmrc.hmrcfrontend.views.html.components.implicits._
+
+   @this(govukRadios: GovukRadios)
+
+   @(myForm: Form[_])
+
+   @govukRadios(Radios(
+     fieldset = Some(Fieldset(
+       legend = Some(Legend(
+         content = Text("Where do you live?"),
+         classes = "govuk-fieldset__legend--l",
+         isPageHeading = true
+       ))
+     )),
+     items = Seq(
+       RadioItem(
+         content = Text("England"),
+         value = Some("england")
+       ), 
+       RadioItem(
+         content = Text("Scotland"),
+         value = Some("scotland")
+       ), 
+       RadioItem(
+         content = Text("Wales"),
+         value = Some("wales")
+       ), 
+       RadioItem(
+         content = Text("Northern Ireland"),
+         value = Some("northern-ireland")
+       )
+     )
+   ).withFormField(myForm("whereDoYouLive")))  /* wires up things like checked status of inputs from a play form field */
+   ```
+
+   > **Notice: Recommended usage pattern changed as of July 2021**
+   > We no longer recommend the use of `TwirlKeys.templateImports` configuration. Unused imports triggered excessive 
+   > warning messages which needed to be suppressed or could cause alert fatigue. However, that might also hide 
+   > meaningful feedback like deprecation warnings.
 
 ### HMRC layout
 
@@ -165,9 +209,9 @@ For example, if using the one question per page pattern, the method could be use
   hint = Some(Hint(content = Text("date.hint"))),
   fieldset = Some(Fieldset(
     legend = Some(Legend(
-    content = Text(messages("date.heading")),
-    classes = "govuk-fieldset__legend--l",
-    isPageHeading = true)))
+      content = Text(messages("date.heading")),
+      classes = "govuk-fieldset__legend--l",
+      isPageHeading = true)))
   )
 ).withFormField(dateInputForm("date")))
 ```
@@ -324,7 +368,7 @@ implementation of the GOV.UK CharacterCount that translates the dynamic words / 
 text into English or Welsh using the Play framework Message API. You do not need to pass through the
 language explicitly to this component, just pass through an implicit Messages.
 ```
-@import uk.gov.hmrc.hmrcfrontend.views.viewmodels.charactercount.CharacterCount
+@import uk.gov.hmrc.hmrcfrontend.views.html.components.CharacterCount
 
 @this(hmrcCharacterCount: HmrcCharacterCount)
 
