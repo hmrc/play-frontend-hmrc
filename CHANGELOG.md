@@ -5,6 +5,26 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [0.84.0] - 2021-08-05
+
+### Changed
+
+- Documentation changes only
+
+### Compatible with
+
+- [alphagov/govuk-frontend v3.13.0](https://github.com/alphagov/govuk-frontend/releases/tag/v3.13.0)
+
+## [0.83.0] - 2021-08-05
+
+### Changed
+
+- Implicit helpers that can construct error messages will now construct them with their "Error:" prefix translated for the current language.
+
+### Compatible with
+
+- [alphagov/govuk-frontend v3.13.0](https://github.com/alphagov/govuk-frontend/releases/tag/v3.13.0)
+
 ## [0.82.0] - 2021-07-27
 
 ### Changed
