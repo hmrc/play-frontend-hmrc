@@ -24,6 +24,7 @@ import play.api.i18n.{DefaultLangs, Lang, Messages, MessagesApi}
 import play.api.test.{Helpers => PlayHelpers}
 import uk.gov.hmrc.govukfrontend.views.viewmodels.content.{HtmlContent, Text}
 import uk.gov.hmrc.govukfrontend.views.viewmodels.errormessage.ErrorMessage
+import uk.gov.hmrc.govukfrontend.views.viewmodels.errormessage.ErrorMessage.errorMessageWithDefaultStringsTranslated
 import uk.gov.hmrc.hmrcfrontend.views.html.components.implicits._
 import uk.gov.hmrc.hmrcfrontend.views.viewmodels.charactercount.CharacterCount
 
@@ -89,7 +90,9 @@ class RichCharacterCountSpec extends AnyWordSpec with Matchers {
 
     "convert the first Field form error to a CharacterCount Text error message if provided" in {
       val characterCount = CharacterCount().withFormField(field)
-      characterCount.errorMessage shouldBe Some(ErrorMessage(content = Text("Not valid name: Firstname&nbsp;Lastname")))
+      characterCount.errorMessage shouldBe Some(
+        errorMessageWithDefaultStringsTranslated(content = Text("Not valid name: Firstname&nbsp;Lastname"))
+      )
     }
 
     "use the CharacterCount error message over the Field error if both provided" in {
@@ -114,7 +117,8 @@ class RichCharacterCountSpec extends AnyWordSpec with Matchers {
       characterCount.withFormField(field) shouldBe CharacterCount(
         name = "Form Name",
         id = "Form Name",
-        errorMessage = Some(ErrorMessage(content = Text("Not valid name: Firstname&nbsp;Lastname"))),
+        errorMessage =
+          Some(errorMessageWithDefaultStringsTranslated(content = Text("Not valid name: Firstname&nbsp;Lastname"))),
         value = Some("bad")
       )
     }
@@ -124,7 +128,7 @@ class RichCharacterCountSpec extends AnyWordSpec with Matchers {
     "convert the first Field form error to a CharacterCount HTML error message if provided" in {
       val characterCount = CharacterCount().withFormFieldWithErrorAsHtml(field)
       characterCount.errorMessage shouldBe Some(
-        ErrorMessage(content = HtmlContent("Not valid name: Firstname&nbsp;Lastname"))
+        errorMessageWithDefaultStringsTranslated(content = HtmlContent("Not valid name: Firstname&nbsp;Lastname"))
       )
     }
 
