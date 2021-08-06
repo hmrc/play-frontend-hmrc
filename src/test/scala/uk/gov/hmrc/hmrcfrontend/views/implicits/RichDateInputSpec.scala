@@ -27,6 +27,7 @@ import play.api.inject.guice.GuiceApplicationBuilder
 import uk.gov.hmrc.govukfrontend.views.viewmodels.content.{HtmlContent, Text}
 import uk.gov.hmrc.govukfrontend.views.viewmodels.dateinput.{DateInput, InputItem}
 import uk.gov.hmrc.govukfrontend.views.viewmodels.errormessage.ErrorMessage
+import uk.gov.hmrc.govukfrontend.views.viewmodels.errormessage.ErrorMessage.errorMessageWithDefaultStringsTranslated
 import uk.gov.hmrc.hmrcfrontend.MessagesSupport
 import uk.gov.hmrc.hmrcfrontend.views.html.components.implicits._
 
@@ -254,17 +255,19 @@ class RichDateInputSpec extends AnyWordSpec with Matchers with MessagesSupport w
     "populate the error message from a nested field first" in {
       val dateInput = DateInput().withFormField(dateMonthErrorField)
 
-      dateInput.errorMessage shouldBe Some(ErrorMessage(content = Text("The date must include a month")))
+      dateInput.errorMessage shouldBe Some(
+        errorMessageWithDefaultStringsTranslated(content = Text("The date must include a month"))
+      )
     }
 
     "convert the first Field form error to a DateInput error message if provided" in {
       val dateInput = DateInput().withFormField(dateErrorField)
-      dateInput.errorMessage shouldBe Some(ErrorMessage(content = Text("Not valid date")))
+      dateInput.errorMessage shouldBe Some(errorMessageWithDefaultStringsTranslated(content = Text("Not valid date")))
     }
 
     "populate error css classes for all inputs in the case of a global date error" in {
       val dateInput = DateInput().withFormField(dateErrorField)
-      dateInput.errorMessage shouldBe Some(ErrorMessage(content = Text("Not valid date")))
+      dateInput.errorMessage shouldBe Some(errorMessageWithDefaultStringsTranslated(content = Text("Not valid date")))
 
       dateInput.items(0).classes should endWith("govuk-input--error")
       dateInput.items(1).classes should endWith("govuk-input--error")
@@ -283,7 +286,9 @@ class RichDateInputSpec extends AnyWordSpec with Matchers with MessagesSupport w
   "Given a DateInput object, calling withFormFieldWithErrorAsHtml" should {
     "convert the first Field form error to a DateInput HTML error message if provided" in {
       val dateInput = DateInput().withFormFieldWithErrorAsHtml(dateErrorField)
-      dateInput.errorMessage shouldBe Some(ErrorMessage(content = HtmlContent("Not valid date")))
+      dateInput.errorMessage shouldBe Some(
+        errorMessageWithDefaultStringsTranslated(content = HtmlContent("Not valid date"))
+      )
     }
 
     "use the DateInput error message over the Field error if both provided" in {
