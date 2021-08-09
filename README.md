@@ -26,6 +26,7 @@ The library comprises two packages:
 - [Warning users before timing them out](#warning-users-before-timing-them-out)
 - [RichDateInput](#richdateinput)
 - [RichErrorSummary](#richerrorsummary)
+- [Display a section above a page heading label](#hmrc-page-heading-label)
 - [Adding your own SASS compilation pipeline](#adding-your-own-sass-compilation-pipeline)
 - [Play Framework and Scala compatibility notes](#play-framework-and-scala-compatibility-notes)
 - [Getting help](#getting-help)
@@ -296,6 +297,26 @@ Note, these methods will not overwrite any existing `ErrorSummary` properties. F
 non-empty title, it will not be overwritten.
 
 To use this class you will need to have an implicit `Messages` in scope.
+
+#### HmrcPageHeadingLabel
+
+This helper lets you use a label as a page heading with a section (caption) displayed above it.
+ 
+```scala
+@import uk.gov.hmrc.govukfrontend.views.html.components.{GovukInput, Input}
+@import uk.gov.hmrc.govukfrontend.views.html.components.implicits._
+@import uk.gov.hmrc.hmrcfrontend.views.config.HmrcPageHeadingLabel
+
+@this(govukInput: GovukInput)
+
+@(myForm: Form[_])(implicit messages: Messages)
+
+@govukInput(
+  Input(
+    label = HmrcPageHeadingLabel(heading = "What is your name?", section = "Personal details")
+  ).withFormField(myForm("name"))
+)
+```
 
 ### Example Templates
 
