@@ -5,6 +5,20 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [1.1.0] - 2021-08-17
+
+### Added
+
+- Added `HmrcPageHeadingLabel` and `HmrcPageHeadingLegend` for constructing labels and legends as a hmrc heading with a
+  section as a caption, see
+  the [guidance in our readme for their usage](README.md#hmrcpageheadinglabel-and-hmrcpageheadinglegend)
+
+### Compatible with
+
+- [hmrc/hmrc-frontend v2.2.0](https://github.com/hmrc/hmrc-frontend/releases/tag/v2.2.0)
+- [hmrc/play-frontend-govuk v1.0.0](https://github.com/hmrc/play-frontend-govuk/releases/tag/v1.0.0)
+- [alphagov/govuk-frontend v3.13.0](https://github.com/alphagov/govuk-frontend/releases/tag/v3.13.0)
+
 ## [1.0.0] - 2021-08-17
 
 ### Changed
