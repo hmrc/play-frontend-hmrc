@@ -12,5 +12,8 @@
 * [ADR-0008](0008-maintain-parity-with-hmrc-frontend.md) - Maintain 1-to-1 parity between govuk-frontend and play-frontend-govuk, and hmrc-frontend and play-frontend-hmrc
 * [ADR-0009](0009-self-publish-webjar.md) - Self-publish the hmrc-frontend webjar used by play-frontend-hmrc
 * [ADR-0010](0010-resolve-naming-collisions-between-libraries.md) - Resolve naming collisions between libraries
+* [ADR-0011](0011-inline-play-frontend-govuk.md) - Inline play-frontend-govuk into play-frontend-hmrc
 
 <!-- adrlogstop -->
+
+
