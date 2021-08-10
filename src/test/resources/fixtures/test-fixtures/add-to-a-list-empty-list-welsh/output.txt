@@ -18,13 +18,13 @@
   </div>
   <div class="govuk-radios govuk-radios--inline">
         <div class="govuk-radios__item">
-          <input class="govuk-radios__input" id="add-another" name="add-another" type="radio" value="Iawn">
+          <input class="govuk-radios__input" id="add-another" name="add-another" type="radio" value="Yes">
           <label class="govuk-label govuk-radios__label" for="add-another">
         Iawn
       </label>
         </div>
         <div class="govuk-radios__item">
-          <input class="govuk-radios__input" id="add-another-2" name="add-another" type="radio" value="Na">
+          <input class="govuk-radios__input" id="add-another-2" name="add-another" type="radio" value="No">
           <label class="govuk-label govuk-radios__label" for="add-another-2">
         Na
       </label>

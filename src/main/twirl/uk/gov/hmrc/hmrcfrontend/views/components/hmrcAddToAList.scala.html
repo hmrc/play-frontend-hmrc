@@ -112,20 +112,14 @@
                 case Cy => "Iawn"
                 case _ => "Yes"
               }),
-              value = Some(language match {
-                case Cy => "Iawn"
-                case _ => "Yes"
-              })
+              value = Some("Yes")
             ),
             RadioItem(
               content = Text(language match {
                 case Cy => "Na"
                 case _ => "No"
               }),
-              value = Some(language match {
-                case Cy => "Na"
-                case _ => "No"
-              })
+              value = Some("No")
             )
           ),
           classes = "govuk-radios--inline"
