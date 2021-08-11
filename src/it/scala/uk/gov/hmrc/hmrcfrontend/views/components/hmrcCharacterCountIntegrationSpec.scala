@@ -9,9 +9,12 @@ import uk.gov.hmrc.hmrcfrontend.views.viewmodels.charactercount.Generators._
 import scala.util.Try
 
 object hmrcCharacterCountIntegrationSpec
-    extends TemplateIntegrationSpec[CharacterCount](hmrcComponentName = "hmrcCharacterCount", seed = None)
+    extends TemplateIntegrationSpec[CharacterCount, HmrcCharacterCount](
+      hmrcComponentName = "hmrcCharacterCount",
+      seed = None
+    )
     with MessagesSupport {
 
   override def render(characterCount: CharacterCount): Try[HtmlFormat.Appendable] =
-    Try(HmrcCharacterCount(characterCount))
+    Try(component(characterCount))
 }

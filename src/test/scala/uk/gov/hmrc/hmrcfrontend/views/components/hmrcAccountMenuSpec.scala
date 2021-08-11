@@ -21,7 +21,7 @@ import play.twirl.api.HtmlFormat
 import uk.gov.hmrc.hmrcfrontend.views.html.components._
 import scala.util.Try
 
-class hmrcAccountMenuSpec extends TemplateUnitSpec[AccountMenu]("hmrcAccountMenu") {
+class hmrcAccountMenuSpec extends TemplateUnitSpec[AccountMenu, HmrcAccountMenu]("hmrcAccountMenu") {
 
   /**
     * Calls the Twirl template with the given parameters and returns the resulting markup
@@ -30,5 +30,5 @@ class hmrcAccountMenuSpec extends TemplateUnitSpec[AccountMenu]("hmrcAccountMenu
     * @return [[Try[HtmlFormat.Appendable]]] containing the markup
     */
   override def render(templateParams: AccountMenu): Try[HtmlFormat.Appendable] =
-    Try(HmrcAccountMenu(templateParams))
+    Try(component(templateParams))
 }

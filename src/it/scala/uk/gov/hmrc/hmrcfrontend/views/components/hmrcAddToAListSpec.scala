@@ -11,11 +11,11 @@ import uk.gov.hmrc.hmrcfrontend.views.viewmodels.addtoalist.Generators._
 import scala.util.Try
 
 object hmrcAddToAListSpec
-    extends TemplateIntegrationSpec[AddToAList](hmrcComponentName = "hmrcAddToAList", seed = None)
+    extends TemplateIntegrationSpec[AddToAList, HmrcAddToAList](hmrcComponentName = "hmrcAddToAList", seed = None)
     with MessagesSupport {
 
   override def render(addToAList: AddToAList): Try[HtmlFormat.Appendable] = {
     implicit val request: RequestHeader = FakeRequest("GET", "/foo")
-    Try(HmrcAddToAList(addToAList))
+    Try(component(addToAList))
   }
 }

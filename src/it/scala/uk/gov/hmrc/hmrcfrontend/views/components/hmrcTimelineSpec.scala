@@ -9,9 +9,9 @@ import uk.gov.hmrc.hmrcfrontend.views.viewmodels.timeline.Generators._
 import scala.util.Try
 
 object hmrcTimelineSpec
-    extends TemplateIntegrationSpec[Timeline](hmrcComponentName = "hmrcTimeline", seed = None)
+    extends TemplateIntegrationSpec[Timeline, HmrcTimeline](hmrcComponentName = "hmrcTimeline", seed = None)
     with MessagesSupport {
 
   override def render(timeline: Timeline): Try[HtmlFormat.Appendable] =
-    Try(HmrcTimeline(timeline))
+    Try(component(timeline))
 }

@@ -23,7 +23,8 @@ import uk.gov.hmrc.hmrcfrontend.views.viewmodels.reporttechnicalissue.ReportTech
 
 import scala.util.Try
 
-class hmrcReportTechnicalIssueSpec extends TemplateUnitSpec[ReportTechnicalIssue]("hmrcReportTechnicalIssue") {
+class hmrcReportTechnicalIssueSpec
+    extends TemplateUnitSpec[ReportTechnicalIssue, HmrcReportTechnicalIssue]("hmrcReportTechnicalIssue") {
 
   /**
     * Calls the Twirl template with the given parameters and returns the resulting markup
@@ -32,5 +33,5 @@ class hmrcReportTechnicalIssueSpec extends TemplateUnitSpec[ReportTechnicalIssue
     * @return [[Try[HtmlFormat.Appendable]]] containing the markup
     */
   override def render(templateParams: ReportTechnicalIssue): Try[HtmlFormat.Appendable] =
-    Try(HmrcReportTechnicalIssue(templateParams))
+    Try(component(templateParams))
 }

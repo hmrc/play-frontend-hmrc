@@ -33,13 +33,9 @@ import play.api.Application
 import play.api.mvc.AnyContentAsEmpty
 import uk.gov.hmrc.hmrcfrontend.views.Aliases.FooterItem
 import uk.gov.hmrc.hmrcfrontend.MessagesSupport
+import uk.gov.hmrc.hmrcfrontend.views.html.helpers.HmrcStandardFooter
 
-class hmrcStandardFooterSpec
-    extends AnyWordSpecLike
-    with Matchers
-    with MessagesSupport
-    with GuiceOneAppPerSuite
-    with HelpersInstances {
+class hmrcStandardFooterSpec extends AnyWordSpecLike with Matchers with MessagesSupport with GuiceOneAppPerSuite {
 
   implicit val fakeRequest: FakeRequest[AnyContentAsEmpty.type] = FakeRequest("GET", "/foo")
 
@@ -77,9 +73,10 @@ class hmrcStandardFooterSpec
     "generate the correct list of links" in {
       implicit val app = buildApp()
 
-      val content  = contentAsString(HmrcStandardFooter()(messages, fakeRequest))
-      val document = Jsoup.parse(content)
-      val links    = document.getElementsByTag("a")
+      val component = app.injector.instanceOf[HmrcStandardFooter]
+      val content   = contentAsString(component()(messages, fakeRequest))
+      val document  = Jsoup.parse(content)
+      val links     = document.getElementsByTag("a")
 
       links.eachText() should be(englishLinkTextEntries)
     }
@@ -87,9 +84,10 @@ class hmrcStandardFooterSpec
     "add a lang and hreflang attribute to the Welsh language information link" in {
       implicit val app = buildApp()
 
-      val content  = contentAsString(HmrcStandardFooter()(messages, fakeRequest))
-      val document = Jsoup.parse(content)
-      val links    = document.getElementsByTag("a")
+      val component = app.injector.instanceOf[HmrcStandardFooter]
+      val content   = contentAsString(component()(messages, fakeRequest))
+      val document  = Jsoup.parse(content)
+      val links     = document.getElementsByTag("a")
 
       links.get(5).attr("lang")     should be("cy")
       links.get(5).attr("hreflang") should be("cy")
@@ -98,6 +96,7 @@ class hmrcStandardFooterSpec
     "allow additional links to be added" in {
       implicit val app = buildApp()
 
+      val component             = app.injector.instanceOf[HmrcStandardFooter]
       val additionalFooterItems = Seq(
         FooterItem(
           Some("Service specific link 1"),
@@ -110,7 +109,7 @@ class hmrcStandardFooterSpec
       )
 
       val content  =
-        contentAsString(HmrcStandardFooter(additionalFooterItems)(messages, fakeRequest))
+        contentAsString(component(additionalFooterItems)(messages, fakeRequest))
       val document = Jsoup.parse(content)
       val links    = document.getElementsByTag("a")
 
@@ -133,15 +132,16 @@ class hmrcStandardFooterSpec
     "generate a link to an accessibility statement" in {
       implicit val app = buildApp()
 
-      val content  =
+      val component = app.injector.instanceOf[HmrcStandardFooter]
+      val content   =
         contentAsString(
-          HmrcStandardFooter(accessibilityStatementUrl = Some("https://www.example.com/accessibility-statement"))(
+          component(accessibilityStatementUrl = Some("https://www.example.com/accessibility-statement"))(
             messages,
             fakeRequest
           )
         )
-      val document = Jsoup.parse(content)
-      val links    = document.getElementsByTag("a")
+      val document  = Jsoup.parse(content)
+      val links     = document.getElementsByTag("a")
 
       links.eachText() should be(
         List(
@@ -164,9 +164,10 @@ class hmrcStandardFooterSpec
       implicit val app  = buildApp()
       val welshMessages = messagesApi.preferred(Seq(Lang("cy")))
 
-      val content  = contentAsString(HmrcStandardFooter()(welshMessages, fakeRequest))
-      val document = Jsoup.parse(content)
-      val links    = document.getElementsByTag("a")
+      val component = app.injector.instanceOf[HmrcStandardFooter]
+      val content   = contentAsString(component()(welshMessages, fakeRequest))
+      val document  = Jsoup.parse(content)
+      val links     = document.getElementsByTag("a")
 
       links.eachText() should be(welshLinkTextEntries)
     }
@@ -175,9 +176,10 @@ class hmrcStandardFooterSpec
       implicit val app  = buildApp()
       val welshMessages = messagesApi.preferred(Seq(Lang("cy")))
 
-      val content  = contentAsString(HmrcStandardFooter()(welshMessages, fakeRequest))
-      val document = Jsoup.parse(content)
-      val elements = document.getElementsByClass("govuk-footer__licence-description")
+      val component = app.injector.instanceOf[HmrcStandardFooter]
+      val content   = contentAsString(component()(welshMessages, fakeRequest))
+      val document  = Jsoup.parse(content)
+      val elements  = document.getElementsByClass("govuk-footer__licence-description")
 
       elements.first.text should be(
         "Mae‘r holl gynnwys ar gael o dan y Drwydded Llywodraeth Agored v3.0, oni nodir yn wahanol"
@@ -188,9 +190,10 @@ class hmrcStandardFooterSpec
       implicit val app  = buildApp()
       val welshMessages = messagesApi.preferred(Seq(Lang("cy")))
 
-      val content  = contentAsString(HmrcStandardFooter()(welshMessages, fakeRequest))
-      val document = Jsoup.parse(content)
-      val elements = document.getElementsByClass("govuk-visually-hidden")
+      val component = app.injector.instanceOf[HmrcStandardFooter]
+      val content   = contentAsString(component()(welshMessages, fakeRequest))
+      val document  = Jsoup.parse(content)
+      val elements  = document.getElementsByClass("govuk-visually-hidden")
 
       elements.first.text should be("Cysylltiadau cymorth")
     }

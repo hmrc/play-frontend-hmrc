@@ -23,7 +23,7 @@ import uk.gov.hmrc.hmrcfrontend.views.html.components._
 
 import scala.util.Try
 
-class hmrcHeaderSpec extends TemplateUnitSpec[Header]("hmrcHeader") {
+class hmrcHeaderSpec extends TemplateUnitSpec[Header, HmrcHeader]("hmrcHeader") {
 
   /**
     * Calls the Twirl template with the given parameters and returns the resulting markup
@@ -32,13 +32,13 @@ class hmrcHeaderSpec extends TemplateUnitSpec[Header]("hmrcHeader") {
     * @return [[Try[HtmlFormat.Appendable]]] containing the markup
     */
   override def render(templateParams: Header): Try[HtmlFormat.Appendable] =
-    Try(HmrcHeader(templateParams))
+    Try(component(templateParams))
 
   "header" should {
     """not throw an exception if Some("") is passed as serviceName""" in {
       val params       =
         Header(serviceName = Some(""), containerClasses = "govuk-width-container", signOutHref = Some("/sign-out"))
-      val componentTry = Try(HmrcHeader(params))
+      val componentTry = Try(component(params))
 
       componentTry should be a 'success
     }

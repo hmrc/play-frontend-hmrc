@@ -4,11 +4,14 @@ import org.jsoup.Jsoup
 import org.scalacheck.Prop.{forAll, secure}
 import org.scalacheck.{Arbitrary, Properties, ShrinkLowPriority, Test}
 import org.scalatest.concurrent.{IntegrationPatience, ScalaFutures}
+import org.scalatestplus.play.guice.GuiceOneAppPerSuite
 import play.api.libs.json.{Json, OWrites}
 import uk.gov.hmrc.hmrcfrontend.support.Implicits._
 import uk.gov.hmrc.hmrcfrontend.support.ScalaCheckUtils.{ClassifyParams, classify}
 import uk.gov.hmrc.hmrcfrontend.views.TemplateDiff._
 import uk.gov.hmrc.hmrcfrontend.views.{JsoupHelpers, PreProcessor, TemplateValidationException, TwirlRenderer}
+
+import scala.reflect.ClassTag
 import scala.util.{Failure, Success}
 
 /**
@@ -16,15 +19,18 @@ import scala.util.{Failure, Success}
   *
   * @tparam T Type representing the input parameters of the Twirl template
   */
-abstract class TemplateIntegrationSpec[T: OWrites: Arbitrary](hmrcComponentName: String, seed: Option[String] = None)
-    extends Properties(hmrcComponentName)
+abstract class TemplateIntegrationSpec[T: OWrites: Arbitrary, C: ClassTag](
+  hmrcComponentName: String,
+  seed: Option[String] = None
+) extends Properties(hmrcComponentName)
     with TemplateServiceClient
     with PreProcessor
     with TwirlRenderer[T]
     with ShrinkLowPriority
     with JsoupHelpers
     with ScalaFutures
-    with IntegrationPatience {
+    with IntegrationPatience
+    with GuiceOneAppPerSuite {
 
   /**
     * [[Stream]] of [[org.scalacheck.Prop.classify]] conditions to collect statistics on a property
@@ -38,6 +44,8 @@ abstract class TemplateIntegrationSpec[T: OWrites: Arbitrary](hmrcComponentName:
 
   override def overrideParameters(p: Test.Parameters): Test.Parameters =
     p.withMinSuccessfulTests(20)
+
+  val component = app.injector.instanceOf[C]
 
   /* This is just an idea for a reporter that would look at the counts instead of rounded frequencies.
 

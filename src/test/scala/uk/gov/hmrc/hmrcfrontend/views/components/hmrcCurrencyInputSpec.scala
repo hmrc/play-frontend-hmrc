@@ -23,7 +23,7 @@ import uk.gov.hmrc.hmrcfrontend.views.viewmodels.currencyinput.CurrencyInput
 
 import scala.util.Try
 
-class hmrcCurrencyInputSpec extends TemplateUnitSpec[CurrencyInput]("hmrcCurrencyInput") {
+class hmrcCurrencyInputSpec extends TemplateUnitSpec[CurrencyInput, HmrcCurrencyInput]("hmrcCurrencyInput") {
 
   /**
     * Calls the Twirl template with the given parameters and returns the resulting markup
@@ -32,5 +32,5 @@ class hmrcCurrencyInputSpec extends TemplateUnitSpec[CurrencyInput]("hmrcCurrenc
     * @return [[Try[HtmlFormat.Appendable]]] containing the markup
     */
   override def render(templateParams: CurrencyInput): Try[HtmlFormat.Appendable] =
-    Try(HmrcCurrencyInput(templateParams))
+    Try(component(templateParams))
 }

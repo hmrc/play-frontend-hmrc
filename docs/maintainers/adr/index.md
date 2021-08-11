@@ -14,8 +14,13 @@
 * [ADR-0010](0010-resolve-naming-collisions-between-libraries.md) - Resolve naming collisions between libraries
 * [ADR-0011](0011-inline-play-frontend-govuk.md) - Inline play-frontend-govuk into play-frontend-hmrc
 * [ADR-0012](0012-create-an-endpoint-in-play-frontend-hmrc-for-surfacing-session-metadata.md) - Create an endpoint in play-frontend-hmrc for surfacing session metadata
+* [ADR-0013](0013-removing-deprecated-helpers.md) - Removing deprecated helpers
 
 <!-- adrlogstop -->
+
+
+
+
 
 
 

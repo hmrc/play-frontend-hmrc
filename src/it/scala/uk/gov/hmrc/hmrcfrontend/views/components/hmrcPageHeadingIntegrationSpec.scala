@@ -24,8 +24,8 @@ import uk.gov.hmrc.hmrcfrontend.views.viewmodels.pageheading.Generators._
 import scala.util.Try
 
 object hmrcPageHeadingIntegrationSpec
-    extends TemplateIntegrationSpec[PageHeading](hmrcComponentName = "hmrcPageHeading", seed = None) {
+    extends TemplateIntegrationSpec[PageHeading, HmrcPageHeading](hmrcComponentName = "hmrcPageHeading", seed = None) {
 
   override def render(pageHeading: PageHeading): Try[HtmlFormat.Appendable] =
-    Try(HmrcPageHeading(pageHeading))
+    Try(component(pageHeading))
 }

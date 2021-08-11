@@ -25,8 +25,11 @@ import uk.gov.hmrc.hmrcfrontend.views.viewmodels.timeoutdialog.TimeoutDialog
 import scala.util.Try
 
 object hmrcTimeoutDialogIntegrationSpec
-    extends TemplateIntegrationSpec[TimeoutDialog](hmrcComponentName = "hmrcTimeoutDialog", seed = None) {
+    extends TemplateIntegrationSpec[TimeoutDialog, HmrcTimeoutDialog](
+      hmrcComponentName = "hmrcTimeoutDialog",
+      seed = None
+    ) {
 
   override def render(timeoutDialog: TimeoutDialog): Try[HtmlFormat.Appendable] =
-    Try(HmrcTimeoutDialog(timeoutDialog))
+    Try(component(timeoutDialog))
 }

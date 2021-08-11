@@ -22,7 +22,7 @@ import uk.gov.hmrc.hmrcfrontend.views.html.components._
 
 import scala.util.Try
 
-class hmrcNewTabLinkSpec extends TemplateUnitSpec[NewTabLink]("hmrcNewTabLink") {
+class hmrcNewTabLinkSpec extends TemplateUnitSpec[NewTabLink, HmrcNewTabLink]("hmrcNewTabLink") {
 
   /**
     * Calls the Twirl template with the given parameters and returns the resulting markup
@@ -31,5 +31,5 @@ class hmrcNewTabLinkSpec extends TemplateUnitSpec[NewTabLink]("hmrcNewTabLink") 
     * @return [[Try[HtmlFormat.Appendable]]] containing the markup
     */
   override def render(templateParams: NewTabLink): Try[HtmlFormat.Appendable] =
-    Try(HmrcNewTabLink(templateParams))
+    Try(component(templateParams))
 }

@@ -27,7 +27,7 @@ import uk.gov.hmrc.hmrcfrontend.views.viewmodels.language.{Cy, En}
 import scala.util.Try
 
 class hmrcCharacterCountSpec
-    extends TemplateUnitSpec[CharacterCount]("hmrcCharacterCount")
+    extends TemplateUnitSpec[CharacterCount, HmrcCharacterCount]("hmrcCharacterCount")
     with MessagesSupport
     with JsoupHelpers {
 
@@ -38,14 +38,14 @@ class hmrcCharacterCountSpec
     * @return [[Try[HtmlFormat.Appendable]]] containing the markup
     */
   override def render(templateParams: CharacterCount): Try[HtmlFormat.Appendable] =
-    Try(HmrcCharacterCount(templateParams))
+    Try(component(templateParams))
 
   "hmrcCharacterCount" should {
     "set data-language from the Messages when specified as cy" in {
       val welshMessages: Messages = messagesApi.preferred(Seq(Lang("cy")))
       val characterCount          = CharacterCount(id = "some-id", name = "some-name", maxWords = Some(25))
 
-      val content           = HmrcCharacterCount(characterCount)(welshMessages)
+      val content           = component(characterCount)(welshMessages)
       val characterCountDiv = content.select(".hmrc-character-count")
 
       characterCountDiv.size()                shouldBe 1
@@ -56,7 +56,7 @@ class hmrcCharacterCountSpec
       val welshMessages: Messages = messagesApi.preferred(Seq(Lang("cy")))
       val characterCount          = CharacterCount(id = "some-id", name = "some-name", maxWords = Some(25), language = En)
 
-      val content           = HmrcCharacterCount(characterCount)(welshMessages)
+      val content           = component(characterCount)(welshMessages)
       val characterCountDiv = content.select(".hmrc-character-count")
 
       characterCountDiv.size()                shouldBe 1
@@ -67,7 +67,7 @@ class hmrcCharacterCountSpec
       val welshMessages: Messages = messagesApi.preferred(Seq(Lang("en")))
       val characterCount          = CharacterCount(id = "some-id", name = "some-name", maxWords = Some(25), language = Cy)
 
-      val content           = HmrcCharacterCount(characterCount)(welshMessages)
+      val content           = component(characterCount)(welshMessages)
       val characterCountDiv = content.select(".hmrc-character-count")
 
       characterCountDiv.size()                shouldBe 1
@@ -78,7 +78,7 @@ class hmrcCharacterCountSpec
       val welshMessages: Messages = messagesApi.preferred(Seq())
       val characterCount          = CharacterCount(id = "some-id", name = "some-name", maxWords = Some(25), language = En)
 
-      val content           = HmrcCharacterCount(characterCount)(welshMessages)
+      val content           = component(characterCount)(welshMessages)
       val characterCountDiv = content.select(".hmrc-character-count")
 
       characterCountDiv.size()                shouldBe 1
