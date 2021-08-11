@@ -21,12 +21,12 @@ import uk.gov.hmrc.govukfrontend.views.TemplateUnitSpec
 import uk.gov.hmrc.govukfrontend.views.html.components._
 import scala.util.Try
 
-class govukLabelSpec extends TemplateUnitSpec[Label]("govukLabel") {
+class govukLabelSpec extends TemplateUnitSpec[Label, GovukLabel]("govukLabel") {
   "label" should {
     "not output anything if no html or text is provided" in {
-      val component = GovukLabel(Label(content = Empty)).select(".govuk-label")
+      val output = component(Label(content = Empty)).select(".govuk-label")
 
-      component.size() shouldBe 0
+      output.size() shouldBe 0
     }
   }
 
@@ -37,5 +37,5 @@ class govukLabelSpec extends TemplateUnitSpec[Label]("govukLabel") {
     * @return [[Try[HtmlFormat.Appendable]]] containing the markup
     */
   override def render(templateParams: Label): Try[HtmlFormat.Appendable] =
-    Try(GovukLabel(templateParams))
+    Try(component(templateParams))
 }

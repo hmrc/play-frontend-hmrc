@@ -24,8 +24,11 @@ import uk.gov.hmrc.govukfrontend.views.viewmodels.warningtext.WarningText
 import scala.util.Try
 
 object govukWarningTextIntegrationSpec
-    extends TemplateIntegrationSpec[WarningText](govukComponentName = "govukWarningText", seed = None) {
+    extends TemplateIntegrationSpec[WarningText, GovukWarningText](
+      govukComponentName = "govukWarningText",
+      seed = None
+    ) {
 
   override def render(warningText: WarningText): Try[HtmlFormat.Appendable] =
-    Try(GovukWarningText(warningText))
+    Try(component(warningText))
 }

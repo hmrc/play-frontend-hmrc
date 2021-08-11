@@ -21,16 +21,16 @@ import uk.gov.hmrc.govukfrontend.views.TemplateUnitSpec
 import uk.gov.hmrc.govukfrontend.views.html.components._
 import scala.util.Try
 
-class govukButtonSpec extends TemplateUnitSpec[Button]("govukButton") {
+class govukButtonSpec extends TemplateUnitSpec[Button, GovukButton]("govukButton") {
 
   "button element" should {
     "render the default example" in {
-      val component =
-        GovukButton(Button(content = Text("Save and continue")))
+      val output =
+        component(Button(content = Text("Save and continue")))
           .select(".govuk-button")
 
-      component.first.tagName shouldBe "button"
-      component.text            should include("Save and continue")
+      output.first.tagName shouldBe "button"
+      output.text            should include("Save and continue")
     }
   }
 
@@ -41,5 +41,5 @@ class govukButtonSpec extends TemplateUnitSpec[Button]("govukButton") {
     * @return [[Try[HtmlFormat.Appendable]]] containing the markup
     */
   override def render(templateParams: Button): Try[HtmlFormat.Appendable] =
-    Try(GovukButton(templateParams))
+    Try(component(templateParams))
 }

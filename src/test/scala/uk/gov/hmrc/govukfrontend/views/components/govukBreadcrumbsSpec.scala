@@ -23,7 +23,7 @@ import uk.gov.hmrc.govukfrontend.views.viewmodels.breadcrumbs.Breadcrumbs
 
 import scala.util.Try
 
-class govukBreadcrumbsSpec extends TemplateUnitSpec[Breadcrumbs]("govukBreadcrumbs") {
+class govukBreadcrumbsSpec extends TemplateUnitSpec[Breadcrumbs, GovukBreadcrumbs]("govukBreadcrumbs") {
 
   /**
     * Calls the Twirl template with the given parameters and returns the resulting markup
@@ -32,32 +32,32 @@ class govukBreadcrumbsSpec extends TemplateUnitSpec[Breadcrumbs]("govukBreadcrum
     * @return [[Try[HtmlFormat.Appendable]]] containing the markup
     */
   override def render(templateParams: Breadcrumbs): Try[HtmlFormat.Appendable] =
-    Try(GovukBreadcrumbs(templateParams))
+    Try(component(templateParams))
 
   "breadcrumb" should {
 
     "render the attributes in order" in {
-      val params    = Breadcrumbs(attributes =
+      val params = Breadcrumbs(attributes =
         Map(
           "id"   -> "my-navigation",
           "role" -> "navigation"
         )
       )
-      val component = GovukBreadcrumbs(params)
+      val output = component(params)
 
-      component.body should include("<div class=\"govuk-breadcrumbs\" id=\"my-navigation\" role=\"navigation\">")
+      output.body should include("<div class=\"govuk-breadcrumbs\" id=\"my-navigation\" role=\"navigation\">")
     }
 
     "render the attributes in order when input is reversed" in {
-      val params    = Breadcrumbs(attributes =
+      val params = Breadcrumbs(attributes =
         Map(
           "role" -> "navigation",
           "id"   -> "my-navigation"
         )
       )
-      val component = GovukBreadcrumbs(params)
+      val output = component(params)
 
-      component.body should include("<div class=\"govuk-breadcrumbs\" role=\"navigation\" id=\"my-navigation\">")
+      output.body should include("<div class=\"govuk-breadcrumbs\" role=\"navigation\" id=\"my-navigation\">")
     }
   }
 }

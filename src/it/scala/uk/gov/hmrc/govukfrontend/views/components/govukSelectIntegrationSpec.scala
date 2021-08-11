@@ -24,8 +24,8 @@ import uk.gov.hmrc.govukfrontend.views.viewmodels.select.Select
 import scala.util.Try
 
 object govukSelectIntegrationSpec
-    extends TemplateIntegrationSpec[Select](govukComponentName = "govukSelect", seed = None) {
+    extends TemplateIntegrationSpec[Select, GovukSelect](govukComponentName = "govukSelect", seed = None) {
 
   override def render(select: Select): Try[HtmlFormat.Appendable] =
-    Try(GovukSelect(select))
+    Try(component(select))
 }

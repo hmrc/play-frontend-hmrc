@@ -21,7 +21,7 @@ import uk.gov.hmrc.govukfrontend.views.TemplateUnitSpec
 import uk.gov.hmrc.govukfrontend.views.html.components._
 import scala.util.Try
 
-class govukFieldsetSpec extends TemplateUnitSpec[Fieldset]("govukFieldset") {
+class govukFieldsetSpec extends TemplateUnitSpec[Fieldset, GovukFieldset]("govukFieldset") {
 
   /**
     * Calls the Twirl template with the given parameters and returns the resulting markup
@@ -30,5 +30,5 @@ class govukFieldsetSpec extends TemplateUnitSpec[Fieldset]("govukFieldset") {
     * @return [[Try[HtmlFormat.Appendable]]] containing the markup
     */
   override def render(templateParams: Fieldset): Try[HtmlFormat.Appendable] =
-    Try(GovukFieldset(templateParams))
+    Try(component(templateParams))
 }

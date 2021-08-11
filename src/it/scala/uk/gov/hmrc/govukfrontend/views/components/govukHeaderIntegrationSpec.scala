@@ -24,8 +24,8 @@ import uk.gov.hmrc.govukfrontend.views.viewmodels.header.Header
 import scala.util.Try
 
 object govukHeaderIntegrationSpec
-    extends TemplateIntegrationSpec[Header](govukComponentName = "govukHeader", seed = None) {
+    extends TemplateIntegrationSpec[Header, GovukHeader](govukComponentName = "govukHeader", seed = None) {
 
   override def render(header: Header): Try[HtmlFormat.Appendable] =
-    Try(GovukHeader(header))
+    Try(component(header))
 }

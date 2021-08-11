@@ -25,10 +25,10 @@ import uk.gov.hmrc.govukfrontend.views.viewmodels.checkboxes.Generators._
 import scala.util.Try
 
 object govukCheckboxesIntegrationSpec
-    extends TemplateIntegrationSpec[Checkboxes](govukComponentName = "govukCheckboxes", seed = None) {
+    extends TemplateIntegrationSpec[Checkboxes, GovukCheckboxes](govukComponentName = "govukCheckboxes", seed = None) {
 
   override def render(checkboxes: Checkboxes): Try[HtmlFormat.Appendable] =
-    Try(GovukCheckboxes(checkboxes))
+    Try(component(checkboxes))
 
   /* The classifiers here are very clunky so just an experiment that is not very useful
      Think of a better way to look at distributions...

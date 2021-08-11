@@ -21,7 +21,7 @@ import uk.gov.hmrc.govukfrontend.views.TemplateUnitSpec
 import uk.gov.hmrc.govukfrontend.views.html.components._
 import scala.util.Try
 
-class govukCheckboxesSpec extends TemplateUnitSpec[Checkboxes]("govukCheckboxes") {
+class govukCheckboxesSpec extends TemplateUnitSpec[Checkboxes, GovukCheckboxes]("govukCheckboxes") {
 
   /**
     * Calls the Twirl template with the given parameters and returns the resulting markup
@@ -30,5 +30,5 @@ class govukCheckboxesSpec extends TemplateUnitSpec[Checkboxes]("govukCheckboxes"
     * @return [[Try[HtmlFormat.Appendable]]] containing the markup
     */
   override def render(templateParams: Checkboxes): Try[HtmlFormat.Appendable] =
-    Try(GovukCheckboxes(templateParams))
+    Try(component(templateParams))
 }

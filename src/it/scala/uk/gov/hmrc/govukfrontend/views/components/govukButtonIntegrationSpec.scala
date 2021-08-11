@@ -24,8 +24,8 @@ import uk.gov.hmrc.govukfrontend.views.viewmodels.button.Button
 import scala.util.Try
 
 object govukButtonIntegrationSpec
-    extends TemplateIntegrationSpec[Button](govukComponentName = "govukButton", seed = None) {
+    extends TemplateIntegrationSpec[Button, GovukButton](govukComponentName = "govukButton", seed = None) {
 
   override def render(button: Button): Try[HtmlFormat.Appendable] =
-    Try(GovukButton(button))
+    Try(component(button))
 }

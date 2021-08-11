@@ -24,7 +24,7 @@ import uk.gov.hmrc.govukfrontend.views.html.components._
 import uk.gov.hmrc.govukfrontend.views.viewmodels.CommonJsonFormats._
 import scala.util.Try
 
-class govukDateInputSpec extends TemplateUnitSpec[DateInput]("govukDateInput") {
+class govukDateInputSpec extends TemplateUnitSpec[DateInput, GovukDateInput]("govukDateInput") {
 
   /**
     * Calls the Twirl template with the given parameters and returns the resulting markup
@@ -33,5 +33,5 @@ class govukDateInputSpec extends TemplateUnitSpec[DateInput]("govukDateInput") {
     * @return [[Try[HtmlFormat.Appendable]]] containing the markup
     */
   override def render(params: DateInput): Try[HtmlFormat.Appendable] =
-    Try(GovukDateInput(params))
+    Try(component(params))
 }

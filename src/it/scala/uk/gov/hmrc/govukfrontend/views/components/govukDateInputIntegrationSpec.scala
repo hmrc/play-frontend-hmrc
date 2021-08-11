@@ -24,8 +24,8 @@ import uk.gov.hmrc.govukfrontend.views.viewmodels.dateinput.DateInput
 import scala.util.Try
 
 object govukDateInputIntegrationSpec
-    extends TemplateIntegrationSpec[DateInput](govukComponentName = "govukDateInput", seed = None) {
+    extends TemplateIntegrationSpec[DateInput, GovukDateInput](govukComponentName = "govukDateInput", seed = None) {
 
   override def render(dateInput: DateInput): Try[HtmlFormat.Appendable] =
-    Try(GovukDateInput(dateInput))
+    Try(component(dateInput))
 }

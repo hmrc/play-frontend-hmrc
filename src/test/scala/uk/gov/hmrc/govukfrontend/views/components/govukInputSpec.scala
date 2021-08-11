@@ -21,7 +21,7 @@ import uk.gov.hmrc.govukfrontend.views.html.components._
 import uk.gov.hmrc.govukfrontend.views.TemplateUnitSpec
 import scala.util.Try
 
-class govukInputSpec extends TemplateUnitSpec[Input]("govukInput") {
+class govukInputSpec extends TemplateUnitSpec[Input, GovukInput]("govukInput") {
 
   /**
     * Calls the Twirl template with the given parameters and returns the resulting markup
@@ -30,5 +30,5 @@ class govukInputSpec extends TemplateUnitSpec[Input]("govukInput") {
     * @return [[Try[HtmlFormat.Appendable]]] containing the markup
     */
   override def render(templateParams: Input): Try[HtmlFormat.Appendable] =
-    Try(GovukInput(templateParams))
+    Try(component(templateParams))
 }

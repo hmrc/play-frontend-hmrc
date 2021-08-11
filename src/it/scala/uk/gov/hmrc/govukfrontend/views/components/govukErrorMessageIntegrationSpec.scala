@@ -24,8 +24,11 @@ import uk.gov.hmrc.govukfrontend.views.viewmodels.errormessage.Generators._
 import scala.util.Try
 
 object govukErrorMessageIntegrationSpec
-    extends TemplateIntegrationSpec[ErrorMessage](govukComponentName = "govukErrorMessage", seed = None) {
+    extends TemplateIntegrationSpec[ErrorMessage, GovukErrorMessage](
+      govukComponentName = "govukErrorMessage",
+      seed = None
+    ) {
 
   override def render(errorMessage: ErrorMessage): Try[HtmlFormat.Appendable] =
-    Try(GovukErrorMessage(errorMessage))
+    Try(component(errorMessage))
 }

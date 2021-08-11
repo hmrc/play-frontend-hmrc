@@ -24,8 +24,8 @@ import uk.gov.hmrc.govukfrontend.views.viewmodels.textarea.Textarea
 import scala.util.Try
 
 object govukTextareaIntegrationSpec
-    extends TemplateIntegrationSpec[Textarea](govukComponentName = "govukTextarea", seed = None) {
+    extends TemplateIntegrationSpec[Textarea, GovukTextarea](govukComponentName = "govukTextarea", seed = None) {
 
   override def render(textarea: Textarea): Try[HtmlFormat.Appendable] =
-    Try(GovukTextarea(textarea))
+    Try(component(textarea))
 }

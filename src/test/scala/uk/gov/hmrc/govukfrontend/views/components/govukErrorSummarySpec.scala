@@ -21,7 +21,7 @@ import uk.gov.hmrc.govukfrontend.views.TemplateUnitSpec
 import uk.gov.hmrc.govukfrontend.views.html.components._
 import scala.util.Try
 
-class govukErrorSummarySpec extends TemplateUnitSpec[ErrorSummary]("govukErrorSummary") {
+class govukErrorSummarySpec extends TemplateUnitSpec[ErrorSummary, GovukErrorSummary]("govukErrorSummary") {
 
   /**
     * Calls the Twirl template with the given parameters and returns the resulting markup
@@ -30,5 +30,5 @@ class govukErrorSummarySpec extends TemplateUnitSpec[ErrorSummary]("govukErrorSu
     * @return [[Try[HtmlFormat.Appendable]]] containing the markup
     */
   override def render(templateParams: ErrorSummary): Try[HtmlFormat.Appendable] =
-    Try(GovukErrorSummary(templateParams))
+    Try(component(templateParams))
 }

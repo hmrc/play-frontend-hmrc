@@ -21,7 +21,7 @@ import uk.gov.hmrc.govukfrontend.views.TemplateUnitSpec
 import uk.gov.hmrc.govukfrontend.views.html.components._
 import scala.util.Try
 
-class govukFooterSpec extends TemplateUnitSpec[Footer]("govukFooter") {
+class govukFooterSpec extends TemplateUnitSpec[Footer, GovukFooter]("govukFooter") {
 
   /**
     * Calls the Twirl template with the given parameters and returns the resulting markup
@@ -30,5 +30,5 @@ class govukFooterSpec extends TemplateUnitSpec[Footer]("govukFooter") {
     * @return [[Try[HtmlFormat.Appendable]]] containing the markup
     */
   override def render(templateParams: Footer): Try[HtmlFormat.Appendable] =
-    Try(GovukFooter(templateParams))
+    Try(component(templateParams))
 }

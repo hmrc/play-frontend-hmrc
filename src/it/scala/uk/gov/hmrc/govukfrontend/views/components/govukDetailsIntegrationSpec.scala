@@ -24,8 +24,8 @@ import uk.gov.hmrc.govukfrontend.views.viewmodels.details.Generators._
 import scala.util.Try
 
 object govukDetailsIntegrationSpec
-    extends TemplateIntegrationSpec[Details](govukComponentName = "govukDetails", seed = None) {
+    extends TemplateIntegrationSpec[Details, GovukDetails](govukComponentName = "govukDetails", seed = None) {
 
   override def render(details: Details): Try[HtmlFormat.Appendable] =
-    Try(GovukDetails(details))
+    Try(component(details))
 }

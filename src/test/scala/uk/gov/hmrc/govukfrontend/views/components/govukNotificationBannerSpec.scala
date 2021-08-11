@@ -22,7 +22,8 @@ import uk.gov.hmrc.govukfrontend.views.html.components.{GovukNotificationBanner,
 
 import scala.util.Try
 
-class govukNotificationBannerSpec extends TemplateUnitSpec[NotificationBanner]("govukNotificationBanner") {
+class govukNotificationBannerSpec
+    extends TemplateUnitSpec[NotificationBanner, GovukNotificationBanner]("govukNotificationBanner") {
 
   /**
     * Calls the Twirl template with the given parameters and returns the resulting markup
@@ -31,5 +32,5 @@ class govukNotificationBannerSpec extends TemplateUnitSpec[NotificationBanner]("
     * @return [[Try[HtmlFormat.Appendable]]] containing the markup
     */
   override def render(templateParams: NotificationBanner): Try[HtmlFormat.Appendable] =
-    Try(GovukNotificationBanner(templateParams))
+    Try(component(templateParams))
 }

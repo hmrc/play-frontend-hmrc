@@ -24,8 +24,11 @@ import uk.gov.hmrc.govukfrontend.views.viewmodels.charactercount.Generators._
 import scala.util.Try
 
 object govukCharacterCountIntegrationSpec
-    extends TemplateIntegrationSpec[CharacterCount](govukComponentName = "govukCharacterCount", seed = None) {
+    extends TemplateIntegrationSpec[CharacterCount, GovukCharacterCount](
+      govukComponentName = "govukCharacterCount",
+      seed = None
+    ) {
 
   override def render(characterCount: CharacterCount): Try[HtmlFormat.Appendable] =
-    Try(GovukCharacterCount(characterCount))
+    Try(component(characterCount))
 }

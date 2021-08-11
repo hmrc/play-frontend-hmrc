@@ -24,8 +24,8 @@ import uk.gov.hmrc.govukfrontend.views.viewmodels.footer.Footer
 import scala.util.Try
 
 object govukFooterIntegrationSpec
-    extends TemplateIntegrationSpec[Footer](govukComponentName = "govukFooter", seed = None) {
+    extends TemplateIntegrationSpec[Footer, GovukFooter](govukComponentName = "govukFooter", seed = None) {
 
   override def render(footer: Footer): Try[HtmlFormat.Appendable] =
-    Try(GovukFooter(footer))
+    Try(component(footer))
 }

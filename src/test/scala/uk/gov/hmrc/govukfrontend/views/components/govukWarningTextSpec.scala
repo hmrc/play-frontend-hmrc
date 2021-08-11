@@ -21,7 +21,7 @@ import uk.gov.hmrc.govukfrontend.views.TemplateUnitSpec
 import uk.gov.hmrc.govukfrontend.views.html.components._
 import scala.util.Try
 
-class govukWarningTextSpec extends TemplateUnitSpec[WarningText]("govukWarningText") {
+class govukWarningTextSpec extends TemplateUnitSpec[WarningText, GovukWarningText]("govukWarningText") {
 
   /**
     * Calls the Twirl template with the given parameters and returns the resulting markup
@@ -32,5 +32,5 @@ class govukWarningTextSpec extends TemplateUnitSpec[WarningText]("govukWarningTe
   override def render(
     templateParams: _root_.uk.gov.hmrc.govukfrontend.views.html.components.WarningText
   ): Try[HtmlFormat.Appendable] =
-    Try(GovukWarningText(templateParams))
+    Try(component(templateParams))
 }

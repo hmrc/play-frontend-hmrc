@@ -23,7 +23,7 @@ import uk.gov.hmrc.govukfrontend.views.viewmodels.template.Template
 
 import scala.util.Try
 
-class govukTemplateSpec extends TemplateUnitSpec[Template]("govukTemplate") {
+class govukTemplateSpec extends TemplateUnitSpec[Template, GovukTemplate]("govukTemplate") {
 
   /**
     * Calls the Twirl template with the given parameters and returns the resulting markup
@@ -34,7 +34,7 @@ class govukTemplateSpec extends TemplateUnitSpec[Template]("govukTemplate") {
   override def render(template: Template): Try[HtmlFormat.Appendable] = {
     govuk.RoutesPrefix.setPrefix("")
     Try(
-      GovukTemplate.apply(
+      component.apply(
         htmlLang = template.variables.htmlLang,
         pageTitleLang = template.variables.pageTitleLang,
         mainLang = template.variables.mainLang,
@@ -46,8 +46,8 @@ class govukTemplateSpec extends TemplateUnitSpec[Template]("govukTemplate") {
         headBlock = template.blocks.head,
         bodyStart = template.blocks.bodyStart,
         skipLinkBlock = template.blocks.skipLink,
-        headerBlock = template.blocks.header.getOrElse(GovukHeader()),
-        footerBlock = template.blocks.footer.getOrElse(GovukFooter()),
+        headerBlock = template.blocks.header.getOrElse(header()),
+        footerBlock = template.blocks.footer.getOrElse(footer()),
         bodyEndBlock = template.blocks.bodyEnd,
         mainClasses = template.variables.mainClasses,
         beforeContentBlock = template.blocks.beforeContent,
@@ -59,17 +59,17 @@ class govukTemplateSpec extends TemplateUnitSpec[Template]("govukTemplate") {
   "template rendered with default values" should {
     "not have whitespace before the doctype" in {
       val templateHtml =
-        GovukTemplate
+        component
           .apply(htmlLang = None, htmlClasses = None, themeColour = None, bodyClasses = None)(HtmlFormat.empty)
-      val component    = templateHtml.body
-      component.charAt(0) shouldBe '<'
+      val output       = templateHtml.body
+      output.charAt(0) shouldBe '<'
     }
   }
 
   "govukTemplate" should {
     "use the provided assetPath in all LINK elements" in {
       val templateHtml =
-        GovukTemplate
+        component
           .apply(assetPath = Some("/foo/bar"))(HtmlFormat.empty)
 
       val links = templateHtml.select("link")
@@ -80,7 +80,7 @@ class govukTemplateSpec extends TemplateUnitSpec[Template]("govukTemplate") {
 
     "use the provided assetPath in the open graph image" in {
       val templateHtml =
-        GovukTemplate
+        component
           .apply(assetPath = Some("/foo/bar"))(HtmlFormat.empty)
 
       val ogImage = templateHtml.select("""meta[property="og:image"]""")

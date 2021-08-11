@@ -23,8 +23,9 @@ import uk.gov.hmrc.govukfrontend.views.viewmodels.hint.Hint
 import uk.gov.hmrc.govukfrontend.views.viewmodels.hint.Generators._
 import scala.util.Try
 
-object govukHintIntegrationSpec extends TemplateIntegrationSpec[Hint](govukComponentName = "govukHint", seed = None) {
+object govukHintIntegrationSpec
+    extends TemplateIntegrationSpec[Hint, GovukHint](govukComponentName = "govukHint", seed = None) {
 
   override def render(hint: Hint): Try[HtmlFormat.Appendable] =
-    Try(GovukHint(hint))
+    Try(component(hint))
 }

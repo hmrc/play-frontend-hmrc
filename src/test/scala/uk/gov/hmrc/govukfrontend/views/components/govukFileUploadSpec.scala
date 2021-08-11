@@ -22,7 +22,7 @@ import uk.gov.hmrc.govukfrontend.views.viewmodels.fileupload.FileUpload
 import uk.gov.hmrc.govukfrontend.views.html.components._
 import scala.util.Try
 
-class govukFileUploadSpec extends TemplateUnitSpec[FileUpload]("govukFileUpload") {
+class govukFileUploadSpec extends TemplateUnitSpec[FileUpload, GovukFileUpload]("govukFileUpload") {
 
   /**
     * Calls the Twirl template with the given parameters and returns the resulting markup
@@ -31,5 +31,5 @@ class govukFileUploadSpec extends TemplateUnitSpec[FileUpload]("govukFileUpload"
     * @return [[Try[HtmlFormat.Appendable]]] containing the markup
     */
   override def render(templateParams: FileUpload): Try[HtmlFormat.Appendable] =
-    Try(GovukFileUpload(templateParams))
+    Try(component(templateParams))
 }

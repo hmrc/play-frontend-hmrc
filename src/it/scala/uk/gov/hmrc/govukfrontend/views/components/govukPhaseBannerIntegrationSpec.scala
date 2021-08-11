@@ -24,8 +24,11 @@ import uk.gov.hmrc.govukfrontend.views.viewmodels.phasebanner.PhaseBanner
 import scala.util.Try
 
 object govukPhaseBannerIntegrationSpec
-    extends TemplateIntegrationSpec[PhaseBanner](govukComponentName = "govukPhaseBanner", seed = None) {
+    extends TemplateIntegrationSpec[PhaseBanner, GovukPhaseBanner](
+      govukComponentName = "govukPhaseBanner",
+      seed = None
+    ) {
 
   override def render(phaseBanner: PhaseBanner): Try[HtmlFormat.Appendable] =
-    Try(GovukPhaseBanner(phaseBanner))
+    Try(component(phaseBanner))
 }

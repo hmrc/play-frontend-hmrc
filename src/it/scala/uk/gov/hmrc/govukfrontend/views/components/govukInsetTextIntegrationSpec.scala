@@ -24,8 +24,8 @@ import uk.gov.hmrc.govukfrontend.views.viewmodels.insettext.InsetText
 import scala.util.Try
 
 object govukInsetTextIntegrationSpec
-    extends TemplateIntegrationSpec[InsetText](govukComponentName = "govukInsetText", seed = None) {
+    extends TemplateIntegrationSpec[InsetText, GovukInsetText](govukComponentName = "govukInsetText", seed = None) {
 
   override def render(insetText: InsetText): Try[HtmlFormat.Appendable] =
-    Try(GovukInsetText(insetText))
+    Try(component(insetText))
 }

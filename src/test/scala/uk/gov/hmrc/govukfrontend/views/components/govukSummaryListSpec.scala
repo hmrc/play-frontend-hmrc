@@ -22,7 +22,9 @@ import uk.gov.hmrc.govukfrontend.views.html.components._
 
 import scala.util.Try
 
-class govukSummaryListSpec extends TemplateUnitSpec[SummaryList]("govukSummaryList") with JsoupHelpers {
+class govukSummaryListSpec
+    extends TemplateUnitSpec[SummaryList, GovukSummaryList]("govukSummaryList")
+    with JsoupHelpers {
 
   /**
     * Calls the Twirl template with the given parameters and returns the resulting markup
@@ -33,7 +35,7 @@ class govukSummaryListSpec extends TemplateUnitSpec[SummaryList]("govukSummaryLi
   override def render(
     templateParams: _root_.uk.gov.hmrc.govukfrontend.views.html.components.SummaryList
   ): Try[HtmlFormat.Appendable] =
-    Try(GovukSummaryList(templateParams))
+    Try(component(templateParams))
 
   "govukSummaryList" should {
     "handle lists where some rows have no actions" in {
@@ -44,7 +46,7 @@ class govukSummaryListSpec extends TemplateUnitSpec[SummaryList]("govukSummaryLi
         value = Value(HtmlContent("BAR")),
         actions = Some(Actions(items = List(ActionItem(content = HtmlContent("link")))))
       )
-      val html            = GovukSummaryList(SummaryList(rowWithNoAction :: rowWithAction :: Nil))
+      val html            = component(SummaryList(rowWithNoAction :: rowWithAction :: Nil))
 
       html.select(".govuk-summary-list__row") should have size 2
       html.select(".govuk-link")              should have size 1

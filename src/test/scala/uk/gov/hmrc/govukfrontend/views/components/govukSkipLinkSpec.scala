@@ -21,13 +21,13 @@ import uk.gov.hmrc.govukfrontend.views.TemplateUnitSpec
 import uk.gov.hmrc.govukfrontend.views.html.components._
 import scala.util.Try
 
-class govukSkipLinkSpec extends TemplateUnitSpec[SkipLink]("govukSkipLink") {
+class govukSkipLinkSpec extends TemplateUnitSpec[SkipLink, GovukSkipLink]("govukSkipLink") {
 
   "skipLink" should {
     "render href" in {
-      val component = GovukSkipLink(SkipLink(href = "#custom", content = Empty)).select(".govuk-skip-link")
+      val output = component(SkipLink(href = "#custom", content = Empty)).select(".govuk-skip-link")
 
-      component.first().attr("href") shouldBe "#custom"
+      output.first().attr("href") shouldBe "#custom"
     }
   }
 
@@ -38,5 +38,5 @@ class govukSkipLinkSpec extends TemplateUnitSpec[SkipLink]("govukSkipLink") {
     * @return [[Try[HtmlFormat.Appendable]]] containing the markup
     */
   override def render(templateParams: SkipLink): Try[HtmlFormat.Appendable] =
-    Try(GovukSkipLink(templateParams))
+    Try(component(templateParams))
 }

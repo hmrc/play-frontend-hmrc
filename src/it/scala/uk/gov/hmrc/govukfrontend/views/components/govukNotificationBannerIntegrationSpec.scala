@@ -23,8 +23,11 @@ import uk.gov.hmrc.govukfrontend.views.html.components._
 import uk.gov.hmrc.govukfrontend.views.viewmodels.notificationbanner.Generators._
 
 object govukNotificationBannerIntegrationSpec
-    extends TemplateIntegrationSpec[NotificationBanner](govukComponentName = "govukNotificationBanner", seed = None) {
+    extends TemplateIntegrationSpec[NotificationBanner, GovukNotificationBanner](
+      govukComponentName = "govukNotificationBanner",
+      seed = None
+    ) {
 
   override def render(notificationBanner: NotificationBanner): Try[HtmlFormat.Appendable] =
-    Try(GovukNotificationBanner(notificationBanner))
+    Try(component(notificationBanner))
 }

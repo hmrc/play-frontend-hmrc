@@ -23,7 +23,7 @@ import uk.gov.hmrc.govukfrontend.views.viewmodels.cookiebanner.CookieBanner
 
 import scala.util.Try
 
-class govukCookieBannerSpec extends TemplateUnitSpec[CookieBanner]("govukCookieBanner") {
+class govukCookieBannerSpec extends TemplateUnitSpec[CookieBanner, GovukCookieBanner]("govukCookieBanner") {
 
   /**
     * Calls the Twirl template with the given parameters and returns the resulting markup
@@ -32,5 +32,5 @@ class govukCookieBannerSpec extends TemplateUnitSpec[CookieBanner]("govukCookieB
     * @return [[Try[HtmlFormat.Appendable]]] containing the markup
     */
   override def render(templateParams: CookieBanner): Try[HtmlFormat.Appendable] =
-    Try(GovukCookieBanner(templateParams))
+    Try(component(templateParams))
 }

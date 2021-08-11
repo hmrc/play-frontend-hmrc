@@ -24,8 +24,11 @@ import uk.gov.hmrc.govukfrontend.views.viewmodels.breadcrumbs.Generators._
 import scala.util.Try
 
 object govukBreadcrumbsIntegrationSpec
-    extends TemplateIntegrationSpec[Breadcrumbs](govukComponentName = "govukBreadcrumbs", seed = None) {
+    extends TemplateIntegrationSpec[Breadcrumbs, GovukBreadcrumbs](
+      govukComponentName = "govukBreadcrumbs",
+      seed = None
+    ) {
 
   override def render(breadcrumbs: Breadcrumbs): Try[HtmlFormat.Appendable] =
-    Try(GovukBreadcrumbs(breadcrumbs))
+    Try(component(breadcrumbs))
 }

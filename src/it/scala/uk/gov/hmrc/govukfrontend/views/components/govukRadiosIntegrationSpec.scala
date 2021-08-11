@@ -24,8 +24,8 @@ import uk.gov.hmrc.govukfrontend.views.viewmodels.radios.Radios
 import scala.util.Try
 
 object govukRadiosIntegrationSpec
-    extends TemplateIntegrationSpec[Radios](govukComponentName = "govukRadios", seed = None) {
+    extends TemplateIntegrationSpec[Radios, GovukRadios](govukComponentName = "govukRadios", seed = None) {
 
   override def render(radios: Radios): Try[HtmlFormat.Appendable] =
-    Try(GovukRadios(radios))
+    Try(component(radios))
 }

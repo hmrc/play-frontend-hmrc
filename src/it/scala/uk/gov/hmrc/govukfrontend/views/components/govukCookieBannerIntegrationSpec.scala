@@ -23,8 +23,11 @@ import uk.gov.hmrc.govukfrontend.views.html.components._
 import uk.gov.hmrc.govukfrontend.views.viewmodels.cookiebanner.Generators._
 
 object govukCookieBannerIntegrationSpec
-    extends TemplateIntegrationSpec[CookieBanner](govukComponentName = "govukCookieBanner", seed = None) {
+    extends TemplateIntegrationSpec[CookieBanner, GovukCookieBanner](
+      govukComponentName = "govukCookieBanner",
+      seed = None
+    ) {
 
   override def render(cookieBanner: CookieBanner): Try[HtmlFormat.Appendable] =
-    Try(GovukCookieBanner(cookieBanner))
+    Try(component(cookieBanner))
 }

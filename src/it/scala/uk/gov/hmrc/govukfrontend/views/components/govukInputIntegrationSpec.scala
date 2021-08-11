@@ -24,8 +24,8 @@ import uk.gov.hmrc.govukfrontend.views.viewmodels.input.Input
 import scala.util.Try
 
 object govukInputIntegrationSpec
-    extends TemplateIntegrationSpec[Input](govukComponentName = "govukInput", seed = None) {
+    extends TemplateIntegrationSpec[Input, GovukInput](govukComponentName = "govukInput", seed = None) {
 
   override def render(input: Input): Try[HtmlFormat.Appendable] =
-    Try(GovukInput(input))
+    Try(component(input))
 }

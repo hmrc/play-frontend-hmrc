@@ -24,8 +24,11 @@ import uk.gov.hmrc.govukfrontend.views.viewmodels.summarylist.SummaryList
 import scala.util.Try
 
 object govukSummaryListIntegrationSpec
-    extends TemplateIntegrationSpec[SummaryList](govukComponentName = "govukSummaryList", seed = None) {
+    extends TemplateIntegrationSpec[SummaryList, GovukSummaryList](
+      govukComponentName = "govukSummaryList",
+      seed = None
+    ) {
 
   override def render(summaryList: SummaryList): Try[HtmlFormat.Appendable] =
-    Try(GovukSummaryList(summaryList))
+    Try(component(summaryList))
 }

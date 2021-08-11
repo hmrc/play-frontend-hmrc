@@ -26,10 +26,10 @@ import uk.gov.hmrc.govukfrontend.views.viewmodels.backlink.Generators._
 import scala.util.Try
 
 object govukBackLinkIntegrationSpec
-    extends TemplateIntegrationSpec[BackLink](govukComponentName = "govukBackLink", seed = None) {
+    extends TemplateIntegrationSpec[BackLink, GovukBackLink](govukComponentName = "govukBackLink", seed = None) {
 
   override def render(backLink: BackLink): Try[HtmlFormat.Appendable] =
-    Try(GovukBackLink(backLink))
+    Try(component(backLink))
 
   override def classifiers(backLink: BackLink): Stream[ClassifyParams] =
     (backLink.href.isEmpty, "empty href", "non-empty href") #::

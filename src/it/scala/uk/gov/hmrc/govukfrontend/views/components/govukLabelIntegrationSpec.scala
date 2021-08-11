@@ -24,8 +24,8 @@ import uk.gov.hmrc.govukfrontend.views.viewmodels.label.Label
 import scala.util.Try
 
 object govukLabelIntegrationSpec
-    extends TemplateIntegrationSpec[Label](govukComponentName = "govukLabel", seed = None) {
+    extends TemplateIntegrationSpec[Label, GovukLabel](govukComponentName = "govukLabel", seed = None) {
 
   override def render(label: Label): Try[HtmlFormat.Appendable] =
-    Try(GovukLabel(label))
+    Try(component(label))
 }

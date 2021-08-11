@@ -25,10 +25,10 @@ import uk.gov.hmrc.govukfrontend.views.viewmodels.fieldset.Generators._
 import scala.util.Try
 
 object govukFieldsetIntegrationSpec
-    extends TemplateIntegrationSpec[Fieldset](govukComponentName = "govukFieldset", seed = None) {
+    extends TemplateIntegrationSpec[Fieldset, GovukFieldset](govukComponentName = "govukFieldset", seed = None) {
 
   override def render(fieldset: Fieldset): Try[HtmlFormat.Appendable] =
-    Try(GovukFieldset(fieldset))
+    Try(component(fieldset))
 
   /* Again just an idea for classifiers...
 

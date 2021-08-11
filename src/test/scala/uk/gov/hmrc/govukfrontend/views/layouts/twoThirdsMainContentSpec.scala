@@ -20,14 +20,17 @@ import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpec
 import play.twirl.api.Html
 import uk.gov.hmrc.govukfrontend.views.html.components.TwoThirdsMainContent
+import org.scalatestplus.play.guice.GuiceOneAppPerSuite
 
-class twoThirdsMainContentSpec extends AnyWordSpec with Matchers {
+class twoThirdsMainContentSpec extends AnyWordSpec with Matchers with GuiceOneAppPerSuite {
+
+  val component = app.injector.instanceOf[TwoThirdsMainContent]
 
   "Given a contentBlock of HTML, rendering the twoThirdsMainContent" should {
     "render as expected" in {
       val contentBlock: Html =
         Html("<h1 class=\"govuk-heading-xl\">Page heading</h1><p class=\"govuk-body\">Some page content</p>")
-      TwoThirdsMainContent(contentBlock) shouldBe Html(
+      component(contentBlock) shouldBe Html(
         "\n<div class=\"govuk-grid-row\">\n" +
           "    <div class=\"govuk-grid-column-two-thirds\">\n" +
           "        <h1 class=\"govuk-heading-xl\">Page heading</h1><p class=\"govuk-body\">Some page content</p>\n" +

@@ -25,14 +25,22 @@ import uk.gov.hmrc.govukfrontend.views.{JsoupHelpers, MessagesHelpers}
 import uk.gov.hmrc.govukfrontend.views.html.components._
 import org.scalatest.wordspec.AnyWordSpecLike
 import play.api.test.Helpers.{stubMessages, stubMessagesApi}
+import org.scalatestplus.play.guice.GuiceOneAppPerSuite
 
-class govukLayoutSpec extends AnyWordSpecLike with Matchers with MessagesHelpers with JsoupHelpers {
+class govukLayoutSpec
+    extends AnyWordSpecLike
+    with Matchers
+    with MessagesHelpers
+    with JsoupHelpers
+    with GuiceOneAppPerSuite {
   implicit lazy val request: FakeRequest[AnyContentAsEmpty.type] = FakeRequest()
+
+  val component = app.injector.instanceOf[GovukLayout]
 
   "govukLayout" should {
     "render the default GOV.UK homepage link by default" in {
       val layoutHtml =
-        GovukLayout.apply()(HtmlFormat.empty)
+        component.apply()(HtmlFormat.empty)
 
       val homepageLink = layoutHtml.select(".govuk-header__link--homepage")
       homepageLink.first.attr("href") shouldBe "https://www.gov.uk/"
@@ -51,7 +59,7 @@ class govukLayoutSpec extends AnyWordSpecLike with Matchers with MessagesHelpers
       )
 
       val layoutHtml =
-        GovukLayout.apply()(HtmlFormat.empty)
+        component.apply()(HtmlFormat.empty)
 
       val serviceLink = layoutHtml.select(".govuk-header__link--service-name")
       serviceLink.first.attr("href") shouldBe "/foo"
@@ -60,7 +68,7 @@ class govukLayoutSpec extends AnyWordSpecLike with Matchers with MessagesHelpers
 
     "render the correct number of footer links by default" in {
       val layoutHtml =
-        GovukLayout.apply()(HtmlFormat.empty)
+        component.apply()(HtmlFormat.empty)
 
       val footerLinks = layoutHtml.select(".govuk-footer__link")
       footerLinks should have size 2
@@ -68,7 +76,7 @@ class govukLayoutSpec extends AnyWordSpecLike with Matchers with MessagesHelpers
 
     "render the provided content" in {
       val layoutHtml =
-        GovukLayout.apply()(Html("<h1 class=\"govuk-heading-xl\">Customised page template</h1>"))
+        component.apply()(Html("<h1 class=\"govuk-heading-xl\">Customised page template</h1>"))
 
       val h1 = layoutHtml.select("h1")
       h1.first.text shouldBe "Customised page template"
@@ -76,7 +84,7 @@ class govukLayoutSpec extends AnyWordSpecLike with Matchers with MessagesHelpers
 
     "render the provided title" in {
       val layoutHtml =
-        GovukLayout.apply(
+        component.apply(
           pageTitle = Some("Custom title")
         )(HtmlFormat.empty)
 
@@ -86,7 +94,7 @@ class govukLayoutSpec extends AnyWordSpecLike with Matchers with MessagesHelpers
 
     "render the provided head block" in {
       val layoutHtml =
-        GovukLayout.apply(
+        component.apply(
           headBlock = Some(Html("<link href=\"custom-stylesheet.css\" rel=\"stylesheet\">"))
         )(HtmlFormat.empty)
 
@@ -96,7 +104,7 @@ class govukLayoutSpec extends AnyWordSpecLike with Matchers with MessagesHelpers
 
     "render the provided before content block" in {
       val layoutHtml =
-        GovukLayout.apply(
+        component.apply(
           beforeContentBlock =
             Some(Html("<p>Customised before content, <a class=\"govuk-link\" href=\"#\">this is a link</a>.</p>"))
         )(HtmlFormat.empty)
@@ -108,7 +116,7 @@ class govukLayoutSpec extends AnyWordSpecLike with Matchers with MessagesHelpers
 
     "render the provided header block" in {
       val layoutHtml =
-        GovukLayout.apply(
+        component.apply(
           headerBlock = Some(Html("<header role=\"banner\">Custom header</header>"))
         )(HtmlFormat.empty)
 
@@ -118,7 +126,7 @@ class govukLayoutSpec extends AnyWordSpecLike with Matchers with MessagesHelpers
 
     "render the provided footer block" in {
       val layoutHtml =
-        GovukLayout.apply(
+        component.apply(
           footerBlock = Some(Html("<footer role=\"contentinfo\">Custom footer</footer>"))
         )(HtmlFormat.empty)
 
@@ -128,7 +136,7 @@ class govukLayoutSpec extends AnyWordSpecLike with Matchers with MessagesHelpers
 
     "render the provided scripts block" in {
       val layoutHtml =
-        GovukLayout.apply(
+        component.apply(
           scriptsBlock = Some(Html("<script src=\"custom-script.js\"></script>"))
         )(HtmlFormat.empty)
 
@@ -138,7 +146,7 @@ class govukLayoutSpec extends AnyWordSpecLike with Matchers with MessagesHelpers
 
     "render the provided body end block" in {
       val layoutHtml =
-        GovukLayout.apply(
+        component.apply(
           bodyEndBlock = Some(Html("<script src=\"custom-script-2.js\"></script>"))
         )(HtmlFormat.empty)
 
@@ -148,7 +156,7 @@ class govukLayoutSpec extends AnyWordSpecLike with Matchers with MessagesHelpers
 
     "render the layout with customised footer items" in {
       val layoutHtml =
-        GovukLayout.apply(footerItems =
+        component.apply(footerItems =
           Seq(
             FooterItem(href = Some("/help"), text = Some("Help")),
             FooterItem(href = Some("/help/cookies"), text = Some("Cookies"))
@@ -161,7 +169,7 @@ class govukLayoutSpec extends AnyWordSpecLike with Matchers with MessagesHelpers
 
     "render the html lang as en by default" in {
       val layoutHtml =
-        GovukLayout.apply()(HtmlFormat.empty)
+        component.apply()(HtmlFormat.empty)
 
       val html = layoutHtml.select("html")
       html.attr("lang") shouldBe "en"
@@ -171,14 +179,14 @@ class govukLayoutSpec extends AnyWordSpecLike with Matchers with MessagesHelpers
       val messages = messagesApi.preferred(Seq(Lang("cy")))
 
       val layoutHtml =
-        GovukLayout.apply()(HtmlFormat.empty)(messages)
+        component.apply()(HtmlFormat.empty)(messages)
 
       val html = layoutHtml.select("html")
       html.attr("lang") shouldBe "cy"
     }
 
     "use the default layout of twoThirdsMainContent" in {
-      val html = GovukLayout.apply()(contentBlock = Html("<p>Here is my content</p>"))
+      val html = component.apply()(contentBlock = Html("<p>Here is my content</p>"))
 
       val gridRow = html.select(".govuk-main-wrapper .govuk-grid-row")
       gridRow.size() shouldBe 1
@@ -192,7 +200,7 @@ class govukLayoutSpec extends AnyWordSpecLike with Matchers with MessagesHelpers
     }
 
     "use the allow the passing in of a custom mainContentLayout" in {
-      val html = GovukLayout.apply(
+      val html = component.apply(
         mainContentLayout = Some(_ => Html("<p>Custom function</p>"))
       )(contentBlock = Html("<p>Here is my content</p>"))
 
@@ -202,7 +210,7 @@ class govukLayoutSpec extends AnyWordSpecLike with Matchers with MessagesHelpers
     }
 
     "use the provided assetPath" in {
-      val html = GovukLayout.apply(
+      val html = component.apply(
         assetPath = Some("/foo/bar")
       )(HtmlFormat.empty)
 
@@ -211,7 +219,7 @@ class govukLayoutSpec extends AnyWordSpecLike with Matchers with MessagesHelpers
     }
 
     "use the provided nonce" in {
-      val html = GovukLayout.apply(
+      val html = component.apply(
         cspNonce = Some("foo")
       )(HtmlFormat.empty)
 

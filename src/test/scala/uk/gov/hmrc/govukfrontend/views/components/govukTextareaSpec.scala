@@ -21,7 +21,7 @@ import uk.gov.hmrc.govukfrontend.views.TemplateUnitSpec
 import uk.gov.hmrc.govukfrontend.views.html.components._
 import scala.util.Try
 
-class govukTextareaSpec extends TemplateUnitSpec[Textarea]("govukTextarea") {
+class govukTextareaSpec extends TemplateUnitSpec[Textarea, GovukTextarea]("govukTextarea") {
 
   /**
     * Calls the Twirl template with the given parameters and returns the resulting markup
@@ -30,5 +30,5 @@ class govukTextareaSpec extends TemplateUnitSpec[Textarea]("govukTextarea") {
     * @return [[Try[HtmlFormat.Appendable]]] containing the markup
     */
   override def render(templateParams: Textarea): Try[HtmlFormat.Appendable] =
-    Try(GovukTextarea(templateParams))
+    Try(component(templateParams))
 }

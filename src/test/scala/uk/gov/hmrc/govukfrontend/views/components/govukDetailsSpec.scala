@@ -21,11 +21,11 @@ import play.twirl.api.HtmlFormat
 import uk.gov.hmrc.govukfrontend.views.html.components._
 import scala.util.Try
 
-class govukDetailsSpec extends TemplateUnitSpec[Details]("govukDetails") {
+class govukDetailsSpec extends TemplateUnitSpec[Details, GovukDetails]("govukDetails") {
 
   "details" should {
     "allow text to be passed whilst escaping HTML entities" in {
-      val details = GovukDetails(Details(summary = Empty, content = Text("More about the greater than symbol (>)")))
+      val details = component(Details(summary = Empty, content = Text("More about the greater than symbol (>)")))
         .select(".govuk-details__text")
         .html
         .trim
@@ -34,7 +34,7 @@ class govukDetailsSpec extends TemplateUnitSpec[Details]("govukDetails") {
     }
 
     "allow HTML to be passed un-escaped" in {
-      val details = GovukDetails(Details(summary = Empty, content = HtmlContent("More about <b>bold text</b>")))
+      val details = component(Details(summary = Empty, content = HtmlContent("More about <b>bold text</b>")))
         .select(".govuk-details__text")
         .html
         .trim
@@ -43,7 +43,7 @@ class govukDetailsSpec extends TemplateUnitSpec[Details]("govukDetails") {
     }
 
     "allow summary text to be passed whilst escaping HTML entities" in {
-      val details = GovukDetails(Details(summary = Text("The greater than symbol (>) is the best"), content = Empty))
+      val details = component(Details(summary = Text("The greater than symbol (>) is the best"), content = Empty))
         .select(".govuk-details__summary-text")
         .html
         .trim
@@ -53,7 +53,7 @@ class govukDetailsSpec extends TemplateUnitSpec[Details]("govukDetails") {
 
     "allow summary HTML to be passed un-escaped" in {
       val details =
-        GovukDetails(Details(summary = HtmlContent("Use <b>bold text</b> sparingly"), content = Empty))
+        component(Details(summary = HtmlContent("Use <b>bold text</b> sparingly"), content = Empty))
           .select(".govuk-details__summary-text")
           .html
           .trim
@@ -63,7 +63,7 @@ class govukDetailsSpec extends TemplateUnitSpec[Details]("govukDetails") {
 
     "allow additional classes to be added to the details element" in {
       val details =
-        GovukDetails(Details(classes = "some-additional-class", summary = Empty, content = Empty))
+        component(Details(classes = "some-additional-class", summary = Empty, content = Empty))
           .select(".govuk-details")
 
       assert(details.hasClass("some-additional-class"))
@@ -71,7 +71,7 @@ class govukDetailsSpec extends TemplateUnitSpec[Details]("govukDetails") {
 
     "allow additional attributes to be added to the details element" in {
       val details =
-        GovukDetails(
+        component(
           Details(
             attributes = Map("data-some-data-attribute" -> "i-love-data", "another-attribute" -> "true"),
             summary = Empty,
@@ -92,5 +92,5 @@ class govukDetailsSpec extends TemplateUnitSpec[Details]("govukDetails") {
     * @return [[Try[HtmlFormat.Appendable]]] containing the markup
     */
   override def render(params: Details): Try[HtmlFormat.Appendable] =
-    Try(GovukDetails(params))
+    Try(component(params))
 }

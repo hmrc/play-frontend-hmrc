@@ -21,7 +21,7 @@ import uk.gov.hmrc.govukfrontend.views.TemplateUnitSpec
 import uk.gov.hmrc.govukfrontend.views.html.components._
 import scala.util.Try
 
-class govukInsetTextSpec extends TemplateUnitSpec[InsetText]("govukInsetText") {
+class govukInsetTextSpec extends TemplateUnitSpec[InsetText, GovukInsetText]("govukInsetText") {
 
   /**
     * Calls the Twirl template with the given parameters and returns the resulting markup
@@ -30,5 +30,5 @@ class govukInsetTextSpec extends TemplateUnitSpec[InsetText]("govukInsetText") {
     * @return [[Try[HtmlFormat.Appendable]]] containing the markup
     */
   override def render(templateParams: InsetText): Try[HtmlFormat.Appendable] =
-    Try(GovukInsetText(templateParams))
+    Try(component(templateParams))
 }

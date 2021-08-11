@@ -21,13 +21,13 @@ import uk.gov.hmrc.govukfrontend.views.TemplateUnitSpec
 import uk.gov.hmrc.govukfrontend.views.html.components._
 import scala.util.Try
 
-class govukTagSpec extends TemplateUnitSpec[Tag]("govukTag") {
+class govukTagSpec extends TemplateUnitSpec[Tag, GovukTag]("govukTag") {
   "tag" should {
     "render the default example with strong element and text" in {
-      val component = GovukTag(Tag(content = HtmlContent("alpha"))).select(".govuk-tag")
+      val output = component(Tag(content = HtmlContent("alpha"))).select(".govuk-tag")
 
-      component.first().tagName() shouldBe "strong"
-      component.first().text()    shouldBe "alpha"
+      output.first().tagName() shouldBe "strong"
+      output.first().text()    shouldBe "alpha"
     }
   }
 
@@ -38,5 +38,5 @@ class govukTagSpec extends TemplateUnitSpec[Tag]("govukTag") {
     * @return [[Try[HtmlFormat.Appendable]]] containing the markup
     */
   override def render(templateParams: Tag): Try[HtmlFormat.Appendable] =
-    Try(GovukTag(templateParams))
+    Try(component(templateParams))
 }

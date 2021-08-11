@@ -24,8 +24,8 @@ import uk.gov.hmrc.govukfrontend.views.viewmodels.accordion.Generators._
 import scala.util.Try
 
 object govukAccordionIntegrationSpec
-    extends TemplateIntegrationSpec[Accordion](govukComponentName = "govukAccordion", seed = None) {
+    extends TemplateIntegrationSpec[Accordion, GovukAccordion](govukComponentName = "govukAccordion", seed = None) {
 
   override def render(accordion: Accordion): Try[HtmlFormat.Appendable] =
-    Try(GovukAccordion(accordion))
+    Try(component(accordion))
 }

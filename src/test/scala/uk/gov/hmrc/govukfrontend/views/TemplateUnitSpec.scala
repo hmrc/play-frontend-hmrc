@@ -20,8 +20,12 @@ import better.files._
 import org.scalatest.TryValues
 import org.scalatest.wordspec.AnyWordSpecLike
 import org.scalatest.matchers.should.Matchers
+import org.scalatestplus.play.guice.GuiceOneAppPerSuite
+import uk.gov.hmrc.govukfrontend.views.html.components.GovukHeader
+import uk.gov.hmrc.govukfrontend.views.html.components.GovukFooter
 import play.api.libs.json._
 import scala.util.{Failure, Success, Try}
+import scala.reflect.ClassTag
 
 /**
   * Base class for unit testing against test fixtures generated from govuk-frontend's yaml documentation files for
@@ -31,13 +35,14 @@ import scala.util.{Failure, Success, Try}
   * @param [[Reads[T]]]
   * @tparam T
   */
-abstract class TemplateUnitSpec[T: Reads](govukComponentName: String)
+abstract class TemplateUnitSpec[T: Reads, C: ClassTag](govukComponentName: String)
     extends TwirlRenderer[T]
     with PreProcessor
     with JsoupHelpers
     with AnyWordSpecLike
     with Matchers
-    with TryValues {
+    with TryValues
+    with GuiceOneAppPerSuite {
 
   val skipBecauseOfJsonValidation             = Seq(
     "date-input-with-values",
@@ -117,6 +122,10 @@ abstract class TemplateUnitSpec[T: Reads](govukComponentName: String)
   val skip                                    = skipBecauseOfJsonValidation ++
     skipBecauseOfAttributeOrdering ++ skipBecauseRequiredItemsSeemToBeMissing ++
     skipBecauseChangesNeededWithGDS
+
+  val component = app.injector.instanceOf[C]
+  val header    = app.injector.instanceOf[GovukHeader]
+  val footer    = app.injector.instanceOf[GovukFooter]
 
   exampleNames(fixturesDirs, govukComponentName)
     .foreach { fixtureDirExampleName =>
