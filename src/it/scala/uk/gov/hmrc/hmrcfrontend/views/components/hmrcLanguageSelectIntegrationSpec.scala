@@ -25,8 +25,11 @@ import uk.gov.hmrc.hmrcfrontend.views.viewmodels.language.LanguageSelect
 import scala.util.Try
 
 object hmrcLanguageSelectIntegrationSpec
-    extends TemplateIntegrationSpec[LanguageSelect](hmrcComponentName = "hmrcLanguageSelect", seed = None) {
+    extends TemplateIntegrationSpec[LanguageSelect, HmrcLanguageSelect](
+      hmrcComponentName = "hmrcLanguageSelect",
+      seed = None
+    ) {
 
   override def render(languageSelect: LanguageSelect): Try[HtmlFormat.Appendable] =
-    Try(HmrcLanguageSelect(languageSelect))
+    Try(component(languageSelect))
 }

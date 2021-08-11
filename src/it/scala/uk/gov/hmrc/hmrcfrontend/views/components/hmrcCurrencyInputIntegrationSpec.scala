@@ -24,8 +24,11 @@ import uk.gov.hmrc.hmrcfrontend.views.viewmodels.currencyinput.Generators._
 import scala.util.Try
 
 object hmrcCurrencyInputIntegrationSpec
-    extends TemplateIntegrationSpec[CurrencyInput](hmrcComponentName = "hmrcCurrencyInput", seed = None) {
+    extends TemplateIntegrationSpec[CurrencyInput, HmrcCurrencyInput](
+      hmrcComponentName = "hmrcCurrencyInput",
+      seed = None
+    ) {
 
   override def render(currencyInput: CurrencyInput): Try[HtmlFormat.Appendable] =
-    Try(HmrcCurrencyInput(currencyInput))
+    Try(component(currencyInput))
 }

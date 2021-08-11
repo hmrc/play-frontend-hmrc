@@ -140,7 +140,7 @@ npm.
     npm install -g adr-log
     ```
 
-1. Copy [template.md](adr/template.md) as NNNN-title-of-decision.md, and fill
+1. Copy [template.md](adr-template.md) as NNNN-title-of-decision.md, and fill
 in the fields. Do not feel you have to fill in all the fields, only fill in fields
 that are strictly necessary. Some decisions will merit more detail than others.
 

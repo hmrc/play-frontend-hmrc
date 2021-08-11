@@ -20,7 +20,11 @@ import better.files._
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpecLike
 import org.scalatest.TryValues
+
+import scala.reflect.ClassTag
+
 //import uk.gov.hmrc.hmrcfrontend.views.HmrcFrontendDependency.hmrcFrontendVersion
+import org.scalatestplus.play.guice.GuiceOneAppPerSuite
 import play.api.libs.json._
 
 import scala.util.{Failure, Success, Try}
@@ -33,13 +37,16 @@ import scala.util.{Failure, Success, Try}
   * @param [[Reads[T]]]
   * @tparam T
   */
-abstract class TemplateUnitSpec[T: Reads](hmrcComponentName: String)
+abstract class TemplateUnitSpec[T: Reads, C: ClassTag](hmrcComponentName: String)
     extends TwirlRenderer[T]
     with PreProcessor
     with JsoupHelpers
     with AnyWordSpecLike
     with Matchers
-    with TryValues {
+    with TryValues
+    with GuiceOneAppPerSuite {
+
+  val component = app.injector.instanceOf[C]
 
   val skipBecauseOfSpellcheckOrdering = Seq(
     "character-count-spellcheck-disabled",

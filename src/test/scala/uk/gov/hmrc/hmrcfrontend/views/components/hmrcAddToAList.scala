@@ -26,7 +26,7 @@ import uk.gov.hmrc.hmrcfrontend.views.html.components._
 
 import scala.util.Try
 
-class hmrcAddToAList extends TemplateUnitSpec[AddToAList]("hmrcAddToAList") with MessagesSupport {
+class hmrcAddToAList extends TemplateUnitSpec[AddToAList, HmrcAddToAList]("hmrcAddToAList") with MessagesSupport {
 
   /**
     * Calls the Twirl template with the given parameters and returns the resulting markup
@@ -36,7 +36,7 @@ class hmrcAddToAList extends TemplateUnitSpec[AddToAList]("hmrcAddToAList") with
     */
   override def render(templateParams: AddToAList): Try[HtmlFormat.Appendable] = {
     implicit val request: RequestHeader = FakeRequest("GET", "/foo")
-    Try(HmrcAddToAList(templateParams))
+    Try(component(templateParams))
   }
 
   "hmrcAddToAList" should {
@@ -44,7 +44,7 @@ class hmrcAddToAList extends TemplateUnitSpec[AddToAList]("hmrcAddToAList") with
       val englishMessages: Messages = messagesApi.preferred(Seq(Lang("en")))
       val addToAList                = AddToAList(language = Cy)
 
-      val content = HmrcAddToAList(addToAList)(englishMessages, FakeRequest())
+      val content = component(addToAList)(englishMessages, FakeRequest())
       val heading = content.select(".govuk-heading-xl")
 
       heading.text() shouldBe "Nid ydych wedi ychwanegu unrhyw eitemau"
@@ -54,7 +54,7 @@ class hmrcAddToAList extends TemplateUnitSpec[AddToAList]("hmrcAddToAList") with
       val welshMessages: Messages = messagesApi.preferred(Seq(Lang("cy")))
       val addToAList              = AddToAList(language = En)
 
-      val content = HmrcAddToAList(addToAList)(welshMessages, FakeRequest())
+      val content = component(addToAList)(welshMessages, FakeRequest())
       val heading = content.select(".govuk-heading-xl")
 
       heading.text() shouldBe "Nid ydych wedi ychwanegu unrhyw eitemau"
@@ -64,7 +64,7 @@ class hmrcAddToAList extends TemplateUnitSpec[AddToAList]("hmrcAddToAList") with
       val englishMessages: Messages = messagesApi.preferred(Seq(Lang("en")))
       val addToAList                = AddToAList(language = En)
 
-      val content = HmrcAddToAList(addToAList)(englishMessages, FakeRequest())
+      val content = component(addToAList)(englishMessages, FakeRequest())
       val heading = content.select(".govuk-heading-xl")
 
       heading.text() shouldBe "You have not added any items"

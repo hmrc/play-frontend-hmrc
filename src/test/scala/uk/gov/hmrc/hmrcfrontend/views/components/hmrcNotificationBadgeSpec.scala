@@ -21,7 +21,8 @@ import play.twirl.api.HtmlFormat
 import uk.gov.hmrc.hmrcfrontend.views.html.components._
 import scala.util.Try
 
-class hmrcNotificationBadgeSpec extends TemplateUnitSpec[NotificationBadge]("hmrcNotificationBadge") {
+class hmrcNotificationBadgeSpec
+    extends TemplateUnitSpec[NotificationBadge, HmrcNotificationBadge]("hmrcNotificationBadge") {
 
   /**
     * Calls the Twirl template with the given parameters and returns the resulting markup
@@ -30,5 +31,5 @@ class hmrcNotificationBadgeSpec extends TemplateUnitSpec[NotificationBadge]("hmr
     * @return [[Try[HtmlFormat.Appendable]]] containing the markup
     */
   override def render(templateParams: NotificationBadge): Try[HtmlFormat.Appendable] =
-    Try(HmrcNotificationBadge(templateParams))
+    Try(component(templateParams))
 }

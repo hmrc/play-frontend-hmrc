@@ -21,7 +21,7 @@ import play.twirl.api.HtmlFormat
 import uk.gov.hmrc.hmrcfrontend.views.html.components._
 import scala.util.Try
 
-class hmrcLanguageSelectSpec extends TemplateUnitSpec[LanguageSelect]("hmrcLanguageSelect") {
+class hmrcLanguageSelectSpec extends TemplateUnitSpec[LanguageSelect, HmrcLanguageSelect]("hmrcLanguageSelect") {
 
   /**
     * Calls the Twirl template with the given parameters and returns the resulting markup
@@ -30,5 +30,5 @@ class hmrcLanguageSelectSpec extends TemplateUnitSpec[LanguageSelect]("hmrcLangu
     * @return [[Try[HtmlFormat.Appendable]]] containing the markup
     */
   override def render(templateParams: LanguageSelect): Try[HtmlFormat.Appendable] =
-    Try(HmrcLanguageSelect(templateParams))
+    Try(component(templateParams))
 }

@@ -30,10 +30,10 @@ import uk.gov.hmrc.hmrcfrontend.views.viewmodels.language.En
 import scala.util.Try
 
 object hmrcHeaderIntegrationSpec
-    extends TemplateIntegrationSpec[Header](hmrcComponentName = "hmrcHeader", seed = None) {
+    extends TemplateIntegrationSpec[Header, HmrcHeader](hmrcComponentName = "hmrcHeader", seed = None) {
 
   override def render(header: Header): Try[HtmlFormat.Appendable] =
-    Try(HmrcHeader(header))
+    Try(component(header))
 
   override def classifiers(header: Header): Stream[ClassifyParams] =
     (header.homepageUrl.isEmpty, "empty homepageUrl", "non-empty homepageUrl") #::

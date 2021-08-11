@@ -25,8 +25,8 @@ import uk.gov.hmrc.hmrcfrontend.views.viewmodels.newtablink._
 import scala.util.Try
 
 object hmrcNewTabLinkIntegrationSpec
-    extends TemplateIntegrationSpec[NewTabLink](hmrcComponentName = "hmrcNewTabLink", seed = None) {
+    extends TemplateIntegrationSpec[NewTabLink, HmrcNewTabLink](hmrcComponentName = "hmrcNewTabLink", seed = None) {
 
   override def render(newTabLink: NewTabLink): Try[HtmlFormat.Appendable] =
-    Try(HmrcNewTabLink(newTabLink))
+    Try(component(newTabLink))
 }

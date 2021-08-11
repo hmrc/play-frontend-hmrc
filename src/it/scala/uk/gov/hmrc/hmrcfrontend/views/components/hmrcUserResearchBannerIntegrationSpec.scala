@@ -24,8 +24,11 @@ import uk.gov.hmrc.hmrcfrontend.views.viewmodels.userresearchbanner.Generators._
 import scala.util.Try
 
 object hmrcUserResearchBannerIntegrationSpec
-    extends TemplateIntegrationSpec[UserResearchBanner](hmrcComponentName = "hmrcUserResearchBanner", seed = None) {
+    extends TemplateIntegrationSpec[UserResearchBanner, HmrcUserResearchBanner](
+      hmrcComponentName = "hmrcUserResearchBanner",
+      seed = None
+    ) {
 
   override def render(userResearchBanner: UserResearchBanner): Try[HtmlFormat.Appendable] =
-    Try(HmrcUserResearchBanner(userResearchBanner))
+    Try(component(userResearchBanner))
 }

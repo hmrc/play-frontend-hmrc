@@ -25,8 +25,8 @@ import uk.gov.hmrc.hmrcfrontend.views.viewmodels.accountmenu.Generators._
 import scala.util.Try
 
 object hmrcAccountMenuIntegrationSpec
-    extends TemplateIntegrationSpec[AccountMenu](hmrcComponentName = "hmrcAccountMenu", seed = None) {
+    extends TemplateIntegrationSpec[AccountMenu, HmrcAccountMenu](hmrcComponentName = "hmrcAccountMenu", seed = None) {
 
   override def render(accountMenu: AccountMenu): Try[HtmlFormat.Appendable] =
-    Try(HmrcAccountMenu(accountMenu))
+    Try(component(accountMenu))
 }

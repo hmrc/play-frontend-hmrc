@@ -25,8 +25,11 @@ import uk.gov.hmrc.hmrcfrontend.views.viewmodels.internalheader.InternalHeader
 import scala.util.Try
 
 object hmrcInternalHeaderIntegrationSpec
-    extends TemplateIntegrationSpec[InternalHeader](hmrcComponentName = "hmrcInternalHeader", seed = None) {
+    extends TemplateIntegrationSpec[InternalHeader, HmrcInternalHeader](
+      hmrcComponentName = "hmrcInternalHeader",
+      seed = None
+    ) {
 
   override def render(internalHeader: InternalHeader): Try[HtmlFormat.Appendable] =
-    Try(HmrcInternalHeader(internalHeader))
+    Try(component(internalHeader))
 }

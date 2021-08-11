@@ -22,8 +22,8 @@ import uk.gov.hmrc.hmrcfrontend.views.html.components._
 
 import scala.util.Try
 
-class hmrcTimeline extends TemplateUnitSpec[Timeline]("hmrcTimeline") {
+class hmrcTimeline extends TemplateUnitSpec[Timeline, HmrcTimeline]("hmrcTimeline") {
 
   override def render(templateParams: Timeline): Try[HtmlFormat.Appendable] =
-    Try(HmrcTimeline(templateParams))
+    Try(component(templateParams))
 }
