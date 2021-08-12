@@ -23,7 +23,7 @@ import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpecLike
 import org.scalatestplus.play.guice.GuiceOneAppPerSuite
 import play.api.Application
-import play.api.i18n.{DefaultLangs, Lang}
+import play.api.i18n.{DefaultLangs, Lang, Messages}
 import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.mvc.MessagesRequest
 import play.api.test.FakeRequest
@@ -60,7 +60,12 @@ class hmrcLayoutSpec extends AnyWordSpecLike with Matchers with JsoupHelpers wit
 
   implicit val fakeRequest = FakeRequest("GET", "/foo")
 
-  def getMessages(messages: Map[String, Map[String, String]] = Map.empty, lang: Lang = Lang("en")) = {
+  val messages = Map(
+    "cy" -> Map("back.text" -> "Back Welsh"),
+    "en" -> Map("back.text" -> "Back English")
+  )
+
+  def getMessages(lang: Lang = Lang("en")): Messages = {
     val messagesApi = stubMessagesApi(messages, new DefaultLangs(Seq(lang)))
     new MessagesRequest(FakeRequest(), messagesApi).messages
   }
@@ -418,6 +423,19 @@ class hmrcLayoutSpec extends AnyWordSpecLike with Matchers with JsoupHelpers wit
       val backLink = document.select(".govuk-back-link")
       backLink                should have size 1
       backLink.attr("href") shouldBe "my-back-link"
+      backLink.html()       shouldBe "Back English"
+    }
+
+    "correctly translate the back link based on language in messages" in {
+      val hmrcLayout = app.injector.instanceOf[HmrcLayout]
+      val messages   = getMessages(Lang("cy"))
+      val layout     = hmrcLayout(backLinkUrl = Some("my-back-link"))(Html(""))(fakeRequest, messages)
+      val document   = Jsoup.parse(contentAsString(layout))
+
+      val backLink = document.select(".govuk-back-link")
+      backLink                should have size 1
+      backLink.attr("href") shouldBe "my-back-link"
+      backLink.html()       shouldBe "Back Welsh"
     }
   }
 }
