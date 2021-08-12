@@ -9,7 +9,7 @@
 @import uk.gov.hmrc.hmrcfrontend.views.viewmodels.userresearchbanner.UserResearchBanner
 @import uk.gov.hmrc.govukfrontend.views.viewmodels.backlink.BackLink
 @import uk.gov.hmrc.govukfrontend.views.viewmodels.phasebanner.PhaseBanner
-
+@import uk.gov.hmrc.govukfrontend.views.viewmodels.content.Text
 
 @this(
         govukLayout: GovukLayout,
@@ -50,7 +50,7 @@
         displayHmrcBanner = displayHmrcBanner
     )
 }
-    
+
 @beforeContent = {
     @if(beforeContentBlock.isDefined) {
         @beforeContentBlock
@@ -58,7 +58,9 @@
         @if(isWelshTranslationAvailable) {
             @hmrcLanguageSelectHelper()
         }
-        @backLinkUrl.map(url => govukBackLink(BackLink(href = url)))
+        @backLinkUrl.map(url =>
+            govukBackLink(BackLink(href = url, content = Text(messages("back.text"))))
+        )
     }
 }
 
