@@ -17,30 +17,10 @@
 package uk.gov.hmrc.hmrcfrontend.views
 package html
 
-import uk.gov.hmrc.govukfrontend.views.html.components._
-
 package object components extends Utils with Aliases {
 
   /**
     * Top-level implicits for all components
     */
   object implicits extends Implicits
-
-  type HmrcAccountMenu          = hmrcAccountMenu
-  type HmrcBanner               = hmrcBanner
-  type HmrcUserResearchBanner   = hmrcUserResearchBanner
-  type HmrcHeader               = hmrcHeader
-  type HmrcFooter               = hmrcFooter
-  type HmrcInternalHeader       = hmrcInternalHeader
-  type HmrcLanguageSelect       = hmrcLanguageSelect
-  type HmrcNewTabLink           = hmrcNewTabLink
-  type HmrcNotificationBadge    = hmrcNotificationBadge
-  type HmrcPageHeading          = hmrcPageHeading
-  type HmrcTimeoutDialog        = hmrcTimeoutDialog
-  type HmrcReportTechnicalIssue = hmrcReportTechnicalIssue
-  type HmrcCurrencyInput        = hmrcCurrencyInput
-  type HmrcCharacterCount       = hmrcCharacterCount
-  type HmrcAddToAList           = hmrcAddToAList
-  type HmrcTimeline             = hmrcTimeline
-
 }
