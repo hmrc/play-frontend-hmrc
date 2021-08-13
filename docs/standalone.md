@@ -100,7 +100,6 @@ your own pre-compiled assets, for example, via a CDN.
 1. Optionally, add TwirlKeys.templateImports in build.sbt:
     ```sbt
         TwirlKeys.templateImports ++= Seq(
-          "uk.gov.hmrc.govukfrontend.views.html.components._",
-          "uk.gov.hmrc.govukfrontend.views.html.helpers._"
+          "uk.gov.hmrc.govukfrontend.views.html.components._"
         )
     ```

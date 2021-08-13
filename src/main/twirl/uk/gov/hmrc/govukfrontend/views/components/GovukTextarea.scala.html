@@ -1,0 +1,90 @@
+@*
+ * Copyright 2021 HM Revenue & Customs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *@
+
+@this(govukErrorMessage: GovukErrorMessage, govukHint: GovukHint, govukLabel: GovukLabel)
+
+@(params: Textarea)
+@import params._
+@require(name.nonEmpty && id.nonEmpty)
+@mainSnippet
+
+@hintSnippet(describedBy: String) = @{
+ hint.fold((describedBy, HtmlFormat.empty)) { hint =>
+   val hintId = s"$id-hint"
+   val describedBy1 = s"$describedBy $hintId".ltrim
+   val hintHtml =
+   govukHint(Hint(
+     id = Some(hintId),
+     classes = hint.classes,
+     attributes = hint.attributes,
+     content = hint.content
+   ))
+  (describedBy1, hintHtml)
+ }
+}
+
+@errorMessageSnippet(describedBy: String) = @{
+  errorMessage.fold((describedBy, HtmlFormat.empty)) { errorMessage =>
+    val errorId = s"$id-error"
+    val describedBy1 = s"$describedBy $errorId".trim
+    val errorMessageHtml =
+     govukErrorMessage(ErrorMessage(
+       id = Some(errorId),
+       classes = errorMessage.classes,
+       attributes = errorMessage.attributes,
+       visuallyHiddenText = errorMessage.visuallyHiddenText,
+       content = errorMessage.content
+     ))
+    (describedBy1, errorMessageHtml)
+  }
+}
+
+@textareaSnippet(describedBy: String) = {
+  @defining {
+    @autocomplete.mapNonEmpty { autocomplete =>autocomplete="@autocomplete"}
+  } { autocompleteAttr =>
+  @defining {
+    id="@id" name="@name" rows="@if(rows != 0) {@rows} else {5}"@if(describedBy.nonEmpty) { aria-describedby="@describedBy"}@autocompleteAttr @toAttributes(attributes) @if(spellcheck.nonEmpty){spellcheck="@if(spellcheck.getOrElse(true)){true}else{false}"}
+  } { attrs =>
+    <textarea class="@toClasses("govuk-textarea", errorMessage.fold("")(_ => "govuk-textarea--error"), classes)" @attrs>@value.mapNonEmpty { value =>@HtmlFormat.escape(value)}</textarea>
+  }}
+}
+
+@divSnippet(labelHtml: Html, hintHtml: Html, errorMessageHtml: Html, textareaHtml: Html) = {
+  <div class="@toClasses("govuk-form-group", errorMessage.fold("")(_ => "govuk-form-group--error"), formGroupClasses)">
+    @labelHtml
+    @hintHtml
+    @errorMessageHtml
+    @textareaHtml
+  </div>
+}
+
+@mainSnippet = @{
+  val (describedBy1, hintHtml) = hintSnippet(describedBy.getOrElse(""))
+  val (describedBy2, errorMessageHtml) = errorMessageSnippet(describedBy1)
+  val labelHtml =
+    govukLabel(Label(
+      forAttr = Some(id),
+      isPageHeading = label.isPageHeading,
+      classes = label.classes,
+      attributes = label.attributes,
+      content = label.content
+    ))
+  val textareaHtml = textareaSnippet(describedBy2)
+  divSnippet(labelHtml, hintHtml, errorMessageHtml, textareaHtml)
+}
+
+

@@ -14,13 +14,21 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.govukfrontend.views
-package html
+package uk.gov.hmrc.govukfrontend.views.components
 
-package object components extends Utils with Aliases {
+import play.twirl.api.HtmlFormat
+import uk.gov.hmrc.govukfrontend.views.html.components._
+import uk.gov.hmrc.govukfrontend.views.TemplateUnitSpec
+import scala.util.Try
+
+class GovukInputSpec extends TemplateUnitSpec[Input, GovukInput]("govukInput") {
 
   /**
-    * Top-level implicits for all components
+    * Calls the Twirl template with the given parameters and returns the resulting markup
+    *
+    * @param templateParams
+    * @return [[Try[HtmlFormat.Appendable]]] containing the markup
     */
-  object implicits extends Implicits
+  override def render(templateParams: Input): Try[HtmlFormat.Appendable] =
+    Try(component(templateParams))
 }

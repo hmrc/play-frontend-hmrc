@@ -15,12 +15,20 @@
  */
 
 package uk.gov.hmrc.govukfrontend.views
-package html
+package components
 
-package object components extends Utils with Aliases {
+import play.twirl.api.HtmlFormat
+import uk.gov.hmrc.govukfrontend.views.html.components._
+import scala.util.Try
+
+class GovukAccordionSpec extends TemplateUnitSpec[Accordion, GovukAccordion]("govukAccordion") {
 
   /**
-    * Top-level implicits for all components
+    * Calls the Twirl template with the given parameters and returns the resulting markup
+    *
+    * @param templateParams
+    * @return [[Try[HtmlFormat.Appendable]]] containing the markup
     */
-  object implicits extends Implicits
+  override def render(templateParams: Accordion): Try[HtmlFormat.Appendable] =
+    Try(component(templateParams))
 }

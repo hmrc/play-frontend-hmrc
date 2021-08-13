@@ -14,13 +14,21 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.govukfrontend.views
-package html
+package uk.gov.hmrc.govukfrontend.views.components
 
-package object components extends Utils with Aliases {
+import play.twirl.api.HtmlFormat
+import uk.gov.hmrc.govukfrontend.views.TemplateUnitSpec
+import uk.gov.hmrc.govukfrontend.views.html.components._
+import scala.util.Try
+
+class GovukTextareaSpec extends TemplateUnitSpec[Textarea, GovukTextarea]("govukTextarea") {
 
   /**
-    * Top-level implicits for all components
+    * Calls the Twirl template with the given parameters and returns the resulting markup
+    *
+    * @param templateParams
+    * @return [[Try[HtmlFormat.Appendable]]] containing the markup
     */
-  object implicits extends Implicits
+  override def render(templateParams: Textarea): Try[HtmlFormat.Appendable] =
+    Try(component(templateParams))
 }
