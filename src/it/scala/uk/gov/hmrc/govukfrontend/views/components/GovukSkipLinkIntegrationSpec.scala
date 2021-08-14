@@ -16,19 +16,10 @@
 
 package uk.gov.hmrc.govukfrontend.views.components
 
-import play.twirl.api.HtmlFormat
 import uk.gov.hmrc.govukfrontend.support.TemplateIntegrationSpec
 import uk.gov.hmrc.govukfrontend.views.html.components._
-import uk.gov.hmrc.govukfrontend.views.viewmodels.breadcrumbs.Breadcrumbs
-import uk.gov.hmrc.govukfrontend.views.viewmodels.breadcrumbs.Generators._
-import scala.util.Try
+import uk.gov.hmrc.govukfrontend.views.viewmodels.skiplink.Generators._
+import uk.gov.hmrc.govukfrontend.views.viewmodels.skiplink.SkipLink
 
-object govukBreadcrumbsIntegrationSpec
-    extends TemplateIntegrationSpec[Breadcrumbs, GovukBreadcrumbs](
-      govukComponentName = "govukBreadcrumbs",
-      seed = None
-    ) {
-
-  override def render(breadcrumbs: Breadcrumbs): Try[HtmlFormat.Appendable] =
-    Try(component(breadcrumbs))
-}
+object GovukSkipLinkIntegrationSpec
+    extends TemplateIntegrationSpec[SkipLink, GovukSkipLink](govukComponentName = "govukSkipLink", seed = None)

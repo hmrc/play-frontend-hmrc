@@ -14,28 +14,14 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.govukfrontend.views.components
+package uk.gov.hmrc.govukfrontend.views
+package components
 
-import play.twirl.api.HtmlFormat
-import uk.gov.hmrc.govukfrontend.views.TemplateUnitSpec
 import uk.gov.hmrc.govukfrontend.views.html.components._
-import uk.gov.hmrc.govukfrontend.views.viewmodels.breadcrumbs.Breadcrumbs
-
-import scala.util.Try
 
 class GovukBreadcrumbsSpec extends TemplateUnitSpec[Breadcrumbs, GovukBreadcrumbs]("govukBreadcrumbs") {
 
-  /**
-    * Calls the Twirl template with the given parameters and returns the resulting markup
-    *
-    * @param templateParams
-    * @return [[Try[HtmlFormat.Appendable]]] containing the markup
-    */
-  override def render(templateParams: Breadcrumbs): Try[HtmlFormat.Appendable] =
-    Try(component(templateParams))
-
   "breadcrumb" should {
-
     "render the attributes in order" in {
       val params = Breadcrumbs(attributes =
         Map(

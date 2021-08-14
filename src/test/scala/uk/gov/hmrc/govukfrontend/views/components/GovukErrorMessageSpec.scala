@@ -14,14 +14,13 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.govukfrontend.views.components
+package uk.gov.hmrc.govukfrontend.views
+package components
 
-import play.twirl.api.HtmlFormat
-import uk.gov.hmrc.govukfrontend.views.TemplateUnitSpec
 import uk.gov.hmrc.govukfrontend.views.html.components._
-import scala.util.Try
 
 class GovukErrorMessageSpec extends TemplateUnitSpec[ErrorMessage, GovukErrorMessage]("govukErrorMessage") {
+
   "errorMessage" should {
     "allow additional classes to be specified" in {
       val output = component(ErrorMessage(classes = "custom-class", content = Empty))
@@ -74,13 +73,4 @@ class GovukErrorMessageSpec extends TemplateUnitSpec[ErrorMessage, GovukErrorMes
       output.text.trim shouldBe "There is an error on line 42"
     }
   }
-
-  /**
-    * Calls the Twirl template with the given parameters and converts the resulting markup into a [[String]]
-    *
-    * @param templateParams
-    * @return [[Try[HtmlFormat.Appendable]]] containing the markup
-    */
-  override def render(templateParams: ErrorMessage): Try[HtmlFormat.Appendable] =
-    Try(component(templateParams))
 }

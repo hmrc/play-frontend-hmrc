@@ -14,12 +14,10 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.govukfrontend.views.components
+package uk.gov.hmrc.govukfrontend.views
+package components
 
-import play.twirl.api.HtmlFormat
-import uk.gov.hmrc.govukfrontend.views.TemplateUnitSpec
 import uk.gov.hmrc.govukfrontend.views.html.components._
-import scala.util.Try
 
 class GovukHeaderSpec extends TemplateUnitSpec[Header, GovukHeader]("govukHeader") {
 
@@ -87,13 +85,4 @@ class GovukHeaderSpec extends TemplateUnitSpec[Header, GovukHeader]("govukHeader
 
     output.body should include("""<img src="/foo/bar""")
   }
-
-  /**
-    * Calls the Twirl template with the given parameters and returns the resulting markup
-    *
-    * @param templateParams
-    * @return [[Try[HtmlFormat.Appendable]]] containing the markup
-    */
-  override def render(templateParams: Header): Try[HtmlFormat.Appendable] =
-    Try(component(templateParams))
 }

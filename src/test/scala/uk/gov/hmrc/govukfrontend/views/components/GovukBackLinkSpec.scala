@@ -17,14 +17,11 @@
 package uk.gov.hmrc.govukfrontend.views
 package components
 
-import play.twirl.api.HtmlFormat
 import uk.gov.hmrc.govukfrontend.views.html.components._
-import scala.util.Try
 
 class GovukBackLinkSpec extends TemplateUnitSpec[BackLink, GovukBackLink]("govukBackLink") {
 
   "backLink" should {
-
     "render the default example with an anchor, href and text correctly" in {
       val params = BackLink(href = "#", content = Empty)
       val output = component(params).select(".govuk-back-link")
@@ -82,14 +79,4 @@ class GovukBackLinkSpec extends TemplateUnitSpec[BackLink, GovukBackLink]("govuk
       output.attr("aria-label") shouldBe "Back to home"
     }
   }
-
-  /**
-    * Calls the Twirl template with the given parameters and converts the resulting markup into a [[String]]
-    *
-    * @param templateParams
-    * @return [[Try[HtmlFormat.Appendable]]] containing the markup
-    */
-  override def render(templateParams: BackLink): Try[HtmlFormat.Appendable] =
-    Try(component(templateParams))
-
 }

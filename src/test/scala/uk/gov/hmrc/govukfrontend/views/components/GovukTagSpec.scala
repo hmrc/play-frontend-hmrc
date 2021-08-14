@@ -14,12 +14,10 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.govukfrontend.views.components
+package uk.gov.hmrc.govukfrontend.views
+package components
 
-import play.twirl.api.HtmlFormat
-import uk.gov.hmrc.govukfrontend.views.TemplateUnitSpec
 import uk.gov.hmrc.govukfrontend.views.html.components._
-import scala.util.Try
 
 class GovukTagSpec extends TemplateUnitSpec[Tag, GovukTag]("govukTag") {
   "tag" should {
@@ -30,13 +28,4 @@ class GovukTagSpec extends TemplateUnitSpec[Tag, GovukTag]("govukTag") {
       output.first().text()    shouldBe "alpha"
     }
   }
-
-  /**
-    * Calls the Twirl template with the given parameters and returns the resulting markup
-    *
-    * @param templateParams
-    * @return [[Try[HtmlFormat.Appendable]]] containing the markup
-    */
-  override def render(templateParams: Tag): Try[HtmlFormat.Appendable] =
-    Try(component(templateParams))
 }

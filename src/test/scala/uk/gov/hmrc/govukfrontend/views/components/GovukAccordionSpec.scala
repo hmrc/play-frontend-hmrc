@@ -17,18 +17,6 @@
 package uk.gov.hmrc.govukfrontend.views
 package components
 
-import play.twirl.api.HtmlFormat
 import uk.gov.hmrc.govukfrontend.views.html.components._
-import scala.util.Try
 
-class GovukAccordionSpec extends TemplateUnitSpec[Accordion, GovukAccordion]("govukAccordion") {
-
-  /**
-    * Calls the Twirl template with the given parameters and returns the resulting markup
-    *
-    * @param templateParams
-    * @return [[Try[HtmlFormat.Appendable]]] containing the markup
-    */
-  override def render(templateParams: Accordion): Try[HtmlFormat.Appendable] =
-    Try(component(templateParams))
-}
+class GovukAccordionSpec extends TemplateUnitSpec[Accordion, GovukAccordion]("govukAccordion")

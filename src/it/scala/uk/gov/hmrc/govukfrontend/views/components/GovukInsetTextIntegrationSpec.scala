@@ -16,16 +16,10 @@
 
 package uk.gov.hmrc.govukfrontend.views.components
 
-import play.twirl.api.HtmlFormat
 import uk.gov.hmrc.govukfrontend.support.TemplateIntegrationSpec
 import uk.gov.hmrc.govukfrontend.views.html.components._
-import uk.gov.hmrc.govukfrontend.views.viewmodels.dateinput.Generators._
-import uk.gov.hmrc.govukfrontend.views.viewmodels.dateinput.DateInput
-import scala.util.Try
+import uk.gov.hmrc.govukfrontend.views.viewmodels.insettext.Generators._
+import uk.gov.hmrc.govukfrontend.views.viewmodels.insettext.InsetText
 
-object govukDateInputIntegrationSpec
-    extends TemplateIntegrationSpec[DateInput, GovukDateInput](govukComponentName = "govukDateInput", seed = None) {
-
-  override def render(dateInput: DateInput): Try[HtmlFormat.Appendable] =
-    Try(component(dateInput))
-}
+object GovukInsetTextIntegrationSpec
+    extends TemplateIntegrationSpec[InsetText, GovukInsetText](govukComponentName = "govukInsetText", seed = None)

@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 HM Revenue & Customs
+ * Copyright 2019 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,21 +14,15 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.govukfrontend.views
-package components
+package uk.gov.hmrc.govukfrontend.views.components
 
+import uk.gov.hmrc.govukfrontend.support.TemplateIntegrationSpec
 import uk.gov.hmrc.govukfrontend.views.html.components._
+import uk.gov.hmrc.govukfrontend.views.viewmodels.errormessage.ErrorMessage
+import uk.gov.hmrc.govukfrontend.views.viewmodels.errormessage.Generators._
 
-class GovukButtonSpec extends TemplateUnitSpec[Button, GovukButton]("govukButton") {
-
-  "button element" should {
-    "render the default example" in {
-      val output =
-        component(Button(content = Text("Save and continue")))
-          .select(".govuk-button")
-
-      output.first.tagName shouldBe "button"
-      output.text            should include("Save and continue")
-    }
-  }
-}
+object GovukErrorMessageIntegrationSpec
+    extends TemplateIntegrationSpec[ErrorMessage, GovukErrorMessage](
+      govukComponentName = "govukErrorMessage",
+      seed = None
+    )

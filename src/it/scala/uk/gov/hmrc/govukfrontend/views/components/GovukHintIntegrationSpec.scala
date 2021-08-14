@@ -16,16 +16,10 @@
 
 package uk.gov.hmrc.govukfrontend.views.components
 
-import play.twirl.api.HtmlFormat
 import uk.gov.hmrc.govukfrontend.support.TemplateIntegrationSpec
 import uk.gov.hmrc.govukfrontend.views.html.components._
-import uk.gov.hmrc.govukfrontend.views.viewmodels.textarea.Generators._
-import uk.gov.hmrc.govukfrontend.views.viewmodels.textarea.Textarea
-import scala.util.Try
+import uk.gov.hmrc.govukfrontend.views.viewmodels.hint.Hint
+import uk.gov.hmrc.govukfrontend.views.viewmodels.hint.Generators._
 
-object govukTextareaIntegrationSpec
-    extends TemplateIntegrationSpec[Textarea, GovukTextarea](govukComponentName = "govukTextarea", seed = None) {
-
-  override def render(textarea: Textarea): Try[HtmlFormat.Appendable] =
-    Try(component(textarea))
-}
+object GovukHintIntegrationSpec
+    extends TemplateIntegrationSpec[Hint, GovukHint](govukComponentName = "govukHint", seed = None)

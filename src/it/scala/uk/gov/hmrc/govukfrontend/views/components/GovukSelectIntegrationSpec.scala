@@ -16,19 +16,10 @@
 
 package uk.gov.hmrc.govukfrontend.views.components
 
-import play.twirl.api.HtmlFormat
 import uk.gov.hmrc.govukfrontend.support.TemplateIntegrationSpec
 import uk.gov.hmrc.govukfrontend.views.html.components._
-import uk.gov.hmrc.govukfrontend.views.viewmodels.warningtext.Generators._
-import uk.gov.hmrc.govukfrontend.views.viewmodels.warningtext.WarningText
-import scala.util.Try
+import uk.gov.hmrc.govukfrontend.views.viewmodels.select.Generators._
+import uk.gov.hmrc.govukfrontend.views.viewmodels.select.Select
 
-object govukWarningTextIntegrationSpec
-    extends TemplateIntegrationSpec[WarningText, GovukWarningText](
-      govukComponentName = "govukWarningText",
-      seed = None
-    ) {
-
-  override def render(warningText: WarningText): Try[HtmlFormat.Appendable] =
-    Try(component(warningText))
-}
+object GovukSelectIntegrationSpec
+    extends TemplateIntegrationSpec[Select, GovukSelect](govukComponentName = "govukSelect", seed = None)

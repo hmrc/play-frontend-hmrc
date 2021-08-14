@@ -16,19 +16,13 @@
 
 package uk.gov.hmrc.govukfrontend.views.components
 
-import play.twirl.api.HtmlFormat
 import uk.gov.hmrc.govukfrontend.support.TemplateIntegrationSpec
 import uk.gov.hmrc.govukfrontend.views.html.components._
-import uk.gov.hmrc.govukfrontend.views.viewmodels.errorsummary.ErrorSummary
-import uk.gov.hmrc.govukfrontend.views.viewmodels.errorsummary.Generators._
-import scala.util.Try
+import uk.gov.hmrc.govukfrontend.views.viewmodels.charactercount.CharacterCount
+import uk.gov.hmrc.govukfrontend.views.viewmodels.charactercount.Generators._
 
-object govukErrorSummaryIntegrationSpec
-    extends TemplateIntegrationSpec[ErrorSummary, GovukErrorSummary](
-      govukComponentName = "govukErrorSummary",
+object GovukCharacterCountIntegrationSpec
+    extends TemplateIntegrationSpec[CharacterCount, GovukCharacterCount](
+      govukComponentName = "govukCharacterCount",
       seed = None
-    ) {
-
-  override def render(errorSummary: ErrorSummary): Try[HtmlFormat.Appendable] =
-    Try(component(errorSummary))
-}
+    )

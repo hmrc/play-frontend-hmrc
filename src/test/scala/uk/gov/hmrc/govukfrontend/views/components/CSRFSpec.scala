@@ -14,11 +14,13 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.govukfrontend.views.helpers
+package uk.gov.hmrc.govukfrontend.views
+package components
 
+import play.api.mvc.RequestHeader
 import play.api.test.CSRFTokenHelper._
 import play.api.test.FakeRequest
 
 trait CSRFSpec {
-  implicit val request = FakeRequest().withCSRFToken
+  implicit val request: RequestHeader = FakeRequest().withCSRFToken
 }

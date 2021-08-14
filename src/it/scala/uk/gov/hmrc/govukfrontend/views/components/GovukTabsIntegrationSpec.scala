@@ -16,16 +16,10 @@
 
 package uk.gov.hmrc.govukfrontend.views.components
 
-import play.twirl.api.HtmlFormat
 import uk.gov.hmrc.govukfrontend.support.TemplateIntegrationSpec
 import uk.gov.hmrc.govukfrontend.views.html.components._
-import uk.gov.hmrc.govukfrontend.views.viewmodels.fileupload.Generators._
-import uk.gov.hmrc.govukfrontend.views.viewmodels.fileupload.FileUpload
-import scala.util.Try
+import uk.gov.hmrc.govukfrontend.views.viewmodels.tabs.Tabs
+import uk.gov.hmrc.govukfrontend.views.viewmodels.tabs.Generators._
 
-object govukFileUploadIntegrationSpec
-    extends TemplateIntegrationSpec[FileUpload, GovukFileUpload](govukComponentName = "govukFileUpload", seed = None) {
-
-  override def render(fileUpload: FileUpload): Try[HtmlFormat.Appendable] =
-    Try(component(fileUpload))
-}
+object GovukTabsIntegrationSpec
+    extends TemplateIntegrationSpec[Tabs, GovukTabs](govukComponentName = "govukTabs", seed = None)

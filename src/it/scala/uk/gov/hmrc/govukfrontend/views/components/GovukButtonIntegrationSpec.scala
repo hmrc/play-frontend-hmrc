@@ -16,19 +16,10 @@
 
 package uk.gov.hmrc.govukfrontend.views.components
 
-import play.twirl.api.HtmlFormat
 import uk.gov.hmrc.govukfrontend.support.TemplateIntegrationSpec
 import uk.gov.hmrc.govukfrontend.views.html.components._
-import uk.gov.hmrc.govukfrontend.views.viewmodels.charactercount.CharacterCount
-import uk.gov.hmrc.govukfrontend.views.viewmodels.charactercount.Generators._
-import scala.util.Try
+import uk.gov.hmrc.govukfrontend.views.viewmodels.button.Generators._
+import uk.gov.hmrc.govukfrontend.views.viewmodels.button.Button
 
-object govukCharacterCountIntegrationSpec
-    extends TemplateIntegrationSpec[CharacterCount, GovukCharacterCount](
-      govukComponentName = "govukCharacterCount",
-      seed = None
-    ) {
-
-  override def render(characterCount: CharacterCount): Try[HtmlFormat.Appendable] =
-    Try(component(characterCount))
-}
+object GovukButtonIntegrationSpec
+    extends TemplateIntegrationSpec[Button, GovukButton](govukComponentName = "govukButton", seed = None)

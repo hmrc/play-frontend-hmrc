@@ -16,16 +16,10 @@
 
 package uk.gov.hmrc.govukfrontend.views.components
 
-import play.twirl.api.HtmlFormat
 import uk.gov.hmrc.govukfrontend.support.TemplateIntegrationSpec
 import uk.gov.hmrc.govukfrontend.views.html.components._
-import uk.gov.hmrc.govukfrontend.views.viewmodels.accordion.Accordion
-import uk.gov.hmrc.govukfrontend.views.viewmodels.accordion.Generators._
-import scala.util.Try
+import uk.gov.hmrc.govukfrontend.views.viewmodels.input.Generators._
+import uk.gov.hmrc.govukfrontend.views.viewmodels.input.Input
 
-object govukAccordionIntegrationSpec
-    extends TemplateIntegrationSpec[Accordion, GovukAccordion](govukComponentName = "govukAccordion", seed = None) {
-
-  override def render(accordion: Accordion): Try[HtmlFormat.Appendable] =
-    Try(component(accordion))
-}
+object GovukInputIntegrationSpec
+    extends TemplateIntegrationSpec[Input, GovukInput](govukComponentName = "govukInput", seed = None)

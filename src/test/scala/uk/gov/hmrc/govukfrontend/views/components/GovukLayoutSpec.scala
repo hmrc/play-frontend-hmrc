@@ -14,20 +14,20 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.govukfrontend.views.layouts
+package uk.gov.hmrc.govukfrontend.views
+package components
 
 import org.scalatest.matchers.should.Matchers
 import play.api.i18n.{Lang, Messages}
 import play.api.mvc.AnyContentAsEmpty
 import play.api.test.FakeRequest
 import play.twirl.api.{Html, HtmlFormat}
-import uk.gov.hmrc.govukfrontend.views.{JsoupHelpers, MessagesHelpers}
 import uk.gov.hmrc.govukfrontend.views.html.components._
 import org.scalatest.wordspec.AnyWordSpecLike
 import play.api.test.Helpers.{stubMessages, stubMessagesApi}
 import org.scalatestplus.play.guice.GuiceOneAppPerSuite
 
-class govukLayoutSpec
+class GovukLayoutSpec
     extends AnyWordSpecLike
     with Matchers
     with MessagesHelpers
@@ -35,7 +35,7 @@ class govukLayoutSpec
     with GuiceOneAppPerSuite {
   implicit lazy val request: FakeRequest[AnyContentAsEmpty.type] = FakeRequest()
 
-  val component = app.injector.instanceOf[GovukLayout]
+  val component: GovukLayout = app.injector.instanceOf[GovukLayout]
 
   "govukLayout" should {
     "render the default GOV.UK homepage link by default" in {

@@ -14,13 +14,11 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.govukfrontend.views.components
+package uk.gov.hmrc.govukfrontend.views
+package components
 
-import play.twirl.api.HtmlFormat
-import uk.gov.hmrc.govukfrontend.views.TemplateUnitSpec
 import uk.gov.hmrc.govukfrontend.views.html.components._
 import scala.collection.JavaConverters._
-import scala.util.Try
 
 class GovukPhaseBannerBannerSpec extends TemplateUnitSpec[PhaseBanner, GovukPhaseBanner]("govukPhaseBanner") {
 
@@ -44,13 +42,4 @@ class GovukPhaseBannerBannerSpec extends TemplateUnitSpec[PhaseBanner, GovukPhas
       text shouldBe "This is a new service – your feedback will help us to improve it."
     }
   }
-
-  /**
-    * Calls the Twirl template with the given parameters and returns the resulting markup
-    *
-    * @param templateParams
-    * @return [[Try[HtmlFormat.Appendable]]] containing the markup
-    */
-  override def render(templateParams: PhaseBanner): Try[HtmlFormat.Appendable] =
-    Try(component(templateParams))
 }

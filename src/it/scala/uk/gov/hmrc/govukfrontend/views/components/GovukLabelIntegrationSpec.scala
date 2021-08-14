@@ -16,16 +16,10 @@
 
 package uk.gov.hmrc.govukfrontend.views.components
 
-import play.twirl.api.HtmlFormat
 import uk.gov.hmrc.govukfrontend.support.TemplateIntegrationSpec
 import uk.gov.hmrc.govukfrontend.views.html.components._
-import uk.gov.hmrc.govukfrontend.views.viewmodels.insettext.Generators._
-import uk.gov.hmrc.govukfrontend.views.viewmodels.insettext.InsetText
-import scala.util.Try
+import uk.gov.hmrc.govukfrontend.views.viewmodels.label.Generators._
+import uk.gov.hmrc.govukfrontend.views.viewmodels.label.Label
 
-object govukInsetTextIntegrationSpec
-    extends TemplateIntegrationSpec[InsetText, GovukInsetText](govukComponentName = "govukInsetText", seed = None) {
-
-  override def render(insetText: InsetText): Try[HtmlFormat.Appendable] =
-    Try(component(insetText))
-}
+object GovukLabelIntegrationSpec
+    extends TemplateIntegrationSpec[Label, GovukLabel](govukComponentName = "govukLabel", seed = None)

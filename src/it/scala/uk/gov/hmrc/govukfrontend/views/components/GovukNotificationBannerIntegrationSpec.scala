@@ -16,19 +16,12 @@
 
 package uk.gov.hmrc.govukfrontend.views.components
 
-import play.twirl.api.HtmlFormat
 import uk.gov.hmrc.govukfrontend.support.TemplateIntegrationSpec
 import uk.gov.hmrc.govukfrontend.views.html.components._
-import uk.gov.hmrc.govukfrontend.views.viewmodels.phasebanner.Generators._
-import uk.gov.hmrc.govukfrontend.views.viewmodels.phasebanner.PhaseBanner
-import scala.util.Try
+import uk.gov.hmrc.govukfrontend.views.viewmodels.notificationbanner.Generators._
 
-object govukPhaseBannerIntegrationSpec
-    extends TemplateIntegrationSpec[PhaseBanner, GovukPhaseBanner](
-      govukComponentName = "govukPhaseBanner",
+object GovukNotificationBannerIntegrationSpec
+    extends TemplateIntegrationSpec[NotificationBanner, GovukNotificationBanner](
+      govukComponentName = "govukNotificationBanner",
       seed = None
-    ) {
-
-  override def render(phaseBanner: PhaseBanner): Try[HtmlFormat.Appendable] =
-    Try(component(phaseBanner))
-}
+    )

@@ -14,18 +14,13 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.govukfrontend.views.components
+package uk.gov.hmrc.govukfrontend.views
+package components
 
-import play.twirl.api.HtmlFormat
 import uk.gov.hmrc.govukfrontend.support.TemplateIntegrationSpec
 import uk.gov.hmrc.govukfrontend.views.html.components._
-import uk.gov.hmrc.govukfrontend.views.viewmodels.details.Details
-import uk.gov.hmrc.govukfrontend.views.viewmodels.details.Generators._
-import scala.util.Try
+import uk.gov.hmrc.govukfrontend.views.viewmodels.checkboxes.Checkboxes
+import uk.gov.hmrc.govukfrontend.views.viewmodels.checkboxes.Generators._
 
-object govukDetailsIntegrationSpec
-    extends TemplateIntegrationSpec[Details, GovukDetails](govukComponentName = "govukDetails", seed = None) {
-
-  override def render(details: Details): Try[HtmlFormat.Appendable] =
-    Try(component(details))
-}
+object GovukCheckboxesIntegrationSpec
+    extends TemplateIntegrationSpec[Checkboxes, GovukCheckboxes](govukComponentName = "govukCheckboxes", seed = None)

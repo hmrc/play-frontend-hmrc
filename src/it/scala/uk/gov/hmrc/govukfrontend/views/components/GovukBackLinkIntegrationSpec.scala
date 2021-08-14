@@ -17,19 +17,14 @@
 package uk.gov.hmrc.govukfrontend.views
 package components
 
-import play.twirl.api.HtmlFormat
 import uk.gov.hmrc.govukfrontend.support.ScalaCheckUtils.ClassifyParams
 import uk.gov.hmrc.govukfrontend.support.TemplateIntegrationSpec
 import uk.gov.hmrc.govukfrontend.views.html.components._
 import uk.gov.hmrc.govukfrontend.views.viewmodels.backlink.BackLink
 import uk.gov.hmrc.govukfrontend.views.viewmodels.backlink.Generators._
-import scala.util.Try
 
-object govukBackLinkIntegrationSpec
+object GovukBackLinkIntegrationSpec
     extends TemplateIntegrationSpec[BackLink, GovukBackLink](govukComponentName = "govukBackLink", seed = None) {
-
-  override def render(backLink: BackLink): Try[HtmlFormat.Appendable] =
-    Try(component(backLink))
 
   override def classifiers(backLink: BackLink): Stream[ClassifyParams] =
     (backLink.href.isEmpty, "empty href", "non-empty href") #::

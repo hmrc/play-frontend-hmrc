@@ -16,18 +16,10 @@
 
 package uk.gov.hmrc.govukfrontend.views.components
 
-import scala.util.Try
-import play.twirl.api.HtmlFormat
 import uk.gov.hmrc.govukfrontend.support.TemplateIntegrationSpec
 import uk.gov.hmrc.govukfrontend.views.html.components._
-import uk.gov.hmrc.govukfrontend.views.viewmodels.cookiebanner.Generators._
+import uk.gov.hmrc.govukfrontend.views.viewmodels.tag.Generators._
+import uk.gov.hmrc.govukfrontend.views.viewmodels.tag.Tag
 
-object govukCookieBannerIntegrationSpec
-    extends TemplateIntegrationSpec[CookieBanner, GovukCookieBanner](
-      govukComponentName = "govukCookieBanner",
-      seed = None
-    ) {
-
-  override def render(cookieBanner: CookieBanner): Try[HtmlFormat.Appendable] =
-    Try(component(cookieBanner))
-}
+object GovukTagIntegrationSpec
+    extends TemplateIntegrationSpec[Tag, GovukTag](govukComponentName = "govukTag", seed = None)

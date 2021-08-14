@@ -14,21 +14,9 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.govukfrontend.views.components
+package uk.gov.hmrc.govukfrontend.views
+package components
 
-import play.twirl.api.HtmlFormat
-import uk.gov.hmrc.govukfrontend.views.TemplateUnitSpec
 import uk.gov.hmrc.govukfrontend.views.html.components._
-import scala.util.Try
 
-class GovukFooterSpec extends TemplateUnitSpec[Footer, GovukFooter]("govukFooter") {
-
-  /**
-    * Calls the Twirl template with the given parameters and returns the resulting markup
-    *
-    * @param templateParams
-    * @return [[Try[HtmlFormat.Appendable]]] containing the markup
-    */
-  override def render(templateParams: Footer): Try[HtmlFormat.Appendable] =
-    Try(component(templateParams))
-}
+class GovukFooterSpec extends TemplateUnitSpec[Footer, GovukFooter]("govukFooter")

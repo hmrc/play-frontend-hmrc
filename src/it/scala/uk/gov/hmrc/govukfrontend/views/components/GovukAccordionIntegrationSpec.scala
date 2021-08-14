@@ -16,19 +16,10 @@
 
 package uk.gov.hmrc.govukfrontend.views.components
 
-import play.twirl.api.HtmlFormat
 import uk.gov.hmrc.govukfrontend.support.TemplateIntegrationSpec
 import uk.gov.hmrc.govukfrontend.views.html.components._
-import uk.gov.hmrc.govukfrontend.views.viewmodels.summarylist.Generators._
-import uk.gov.hmrc.govukfrontend.views.viewmodels.summarylist.SummaryList
-import scala.util.Try
+import uk.gov.hmrc.govukfrontend.views.viewmodels.accordion.Accordion
+import uk.gov.hmrc.govukfrontend.views.viewmodels.accordion.Generators._
 
-object govukSummaryListIntegrationSpec
-    extends TemplateIntegrationSpec[SummaryList, GovukSummaryList](
-      govukComponentName = "govukSummaryList",
-      seed = None
-    ) {
-
-  override def render(summaryList: SummaryList): Try[HtmlFormat.Appendable] =
-    Try(component(summaryList))
-}
+object GovukAccordionIntegrationSpec
+    extends TemplateIntegrationSpec[Accordion, GovukAccordion](govukComponentName = "govukAccordion", seed = None)

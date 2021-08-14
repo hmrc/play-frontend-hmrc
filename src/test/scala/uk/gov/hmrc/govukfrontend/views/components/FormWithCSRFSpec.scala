@@ -14,7 +14,8 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.govukfrontend.views.helpers
+package uk.gov.hmrc.govukfrontend.views
+package components
 
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpec
@@ -23,9 +24,8 @@ import play.api.mvc.{AnyContentAsEmpty, Call}
 import play.api.test.FakeRequest
 import play.twirl.api.{Html, HtmlFormat}
 import uk.gov.hmrc.govukfrontend.views.html.components._
-import uk.gov.hmrc.govukfrontend.views.{JsoupHelpers, MessagesHelpers}
 
-class formWithCSRFSpec
+class FormWithCSRFSpec
     extends AnyWordSpec
     with Matchers
     with JsoupHelpers
@@ -33,7 +33,7 @@ class formWithCSRFSpec
     with CSRFSpec
     with GuiceOneAppPerSuite {
 
-  val formWithCSRF = app.injector.instanceOf[FormWithCSRF]
+  val formWithCSRF: FormWithCSRF = app.injector.instanceOf[FormWithCSRF]
 
   "formWithCSRF" should {
     val postAction = Call(method = "POST", url = "/the-post-url")

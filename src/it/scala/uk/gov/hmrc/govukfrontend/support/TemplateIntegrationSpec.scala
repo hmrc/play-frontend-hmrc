@@ -6,11 +6,13 @@ import org.scalacheck.{Arbitrary, Properties, ShrinkLowPriority, Test}
 import org.scalatest.concurrent.{IntegrationPatience, ScalaFutures}
 import org.scalatestplus.play.guice.GuiceOneAppPerSuite
 import play.api.libs.json.{Json, OWrites}
+import play.twirl.api.{HtmlFormat, Template1}
 import uk.gov.hmrc.govukfrontend.support.Implicits._
 import uk.gov.hmrc.govukfrontend.support.ScalaCheckUtils.{ClassifyParams, classify}
 import uk.gov.hmrc.govukfrontend.views.TemplateDiff._
 import uk.gov.hmrc.govukfrontend.views.{JsoupHelpers, PreProcessor, TemplateValidationException, TwirlRenderer}
-import scala.util.{Failure, Success}
+
+import scala.util.{Failure, Success, Try}
 import scala.reflect.ClassTag
 
 /**
@@ -18,7 +20,7 @@ import scala.reflect.ClassTag
   *
   * @tparam T Type representing the input parameters of the Twirl template
   */
-abstract class TemplateIntegrationSpec[T: OWrites: Arbitrary, C: ClassTag](
+abstract class TemplateIntegrationSpec[T: OWrites: Arbitrary, C <: Template1[T, HtmlFormat.Appendable]: ClassTag](
   govukComponentName: String,
   seed: Option[String] = None
 ) extends Properties(govukComponentName)
@@ -31,6 +33,8 @@ abstract class TemplateIntegrationSpec[T: OWrites: Arbitrary, C: ClassTag](
     with IntegrationPatience
     with GuiceOneAppPerSuite {
 
+  protected val component: C = app.injector.instanceOf[C]
+
   /**
     * [[Stream]] of [[org.scalacheck.Prop.classify]] conditions to collect statistics on a property
     * Used to check the distribution of generated data
@@ -41,10 +45,17 @@ abstract class TemplateIntegrationSpec[T: OWrites: Arbitrary, C: ClassTag](
   def classifiers(templateParams: T): Stream[ClassifyParams] =
     Stream.empty[ClassifyParams]
 
+  /**
+    * Calls the Twirl template with the given parameters and returns the resulting markup
+    *
+    * @param templateParams: T
+    * @return [[Try[HtmlFormat.Appendable]]] containing the markup
+    */
+  def render(templateParams: T): Try[HtmlFormat.Appendable] =
+    Try(component.render(templateParams))
+
   override def overrideParameters(p: Test.Parameters): Test.Parameters =
     p.withMinSuccessfulTests(20)
-
-  val component = app.injector.instanceOf[C]
 
   /* This is just an idea for a reporter that would look at the counts instead of rounded frequencies.
 

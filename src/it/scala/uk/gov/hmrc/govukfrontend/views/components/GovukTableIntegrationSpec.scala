@@ -16,16 +16,10 @@
 
 package uk.gov.hmrc.govukfrontend.views.components
 
-import play.twirl.api.HtmlFormat
 import uk.gov.hmrc.govukfrontend.support.TemplateIntegrationSpec
 import uk.gov.hmrc.govukfrontend.views.html.components._
-import uk.gov.hmrc.govukfrontend.views.viewmodels.tag.Generators._
-import uk.gov.hmrc.govukfrontend.views.viewmodels.tag.Tag
-import scala.util.Try
+import uk.gov.hmrc.govukfrontend.views.viewmodels.table.Generators._
+import uk.gov.hmrc.govukfrontend.views.viewmodels.table.Table
 
-object govukTagIntegrationSpec
-    extends TemplateIntegrationSpec[Tag, GovukTag](govukComponentName = "govukTag", seed = None) {
-
-  override def render(tag: Tag): Try[HtmlFormat.Appendable] =
-    Try(component(tag))
-}
+object GovukTableIntegrationSpec
+    extends TemplateIntegrationSpec[Table, GovukTable](govukComponentName = "govukTable", seed = None)

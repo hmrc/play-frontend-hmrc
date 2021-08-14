@@ -14,7 +14,8 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.govukfrontend.views.layouts
+package uk.gov.hmrc.govukfrontend.views
+package components
 
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpec
@@ -22,9 +23,9 @@ import play.twirl.api.Html
 import uk.gov.hmrc.govukfrontend.views.html.components.TwoThirdsOneThirdMainContent
 import org.scalatestplus.play.guice.GuiceOneAppPerSuite
 
-class twoThirdsOneThirdMainContentSpec extends AnyWordSpec with Matchers with GuiceOneAppPerSuite {
+class TwoThirdsOneThirdMainContentSpec extends AnyWordSpec with Matchers with GuiceOneAppPerSuite {
 
-  val component = app.injector.instanceOf[TwoThirdsOneThirdMainContent]
+  private val component = app.injector.instanceOf[TwoThirdsOneThirdMainContent]
 
   "Given a contentBlock of HTML, rendering the twoThirdsOneThirdMainContent" should {
     "render as expected" in {

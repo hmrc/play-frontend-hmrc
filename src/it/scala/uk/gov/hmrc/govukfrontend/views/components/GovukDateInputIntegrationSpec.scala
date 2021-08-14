@@ -16,16 +16,10 @@
 
 package uk.gov.hmrc.govukfrontend.views.components
 
-import play.twirl.api.HtmlFormat
 import uk.gov.hmrc.govukfrontend.support.TemplateIntegrationSpec
 import uk.gov.hmrc.govukfrontend.views.html.components._
-import uk.gov.hmrc.govukfrontend.views.viewmodels.skiplink.Generators._
-import uk.gov.hmrc.govukfrontend.views.viewmodels.skiplink.SkipLink
-import scala.util.Try
+import uk.gov.hmrc.govukfrontend.views.viewmodels.dateinput.Generators._
+import uk.gov.hmrc.govukfrontend.views.viewmodels.dateinput.DateInput
 
-object govukSkipLinkIntegrationSpec
-    extends TemplateIntegrationSpec[SkipLink, GovukSkipLink](govukComponentName = "govukSkipLink", seed = None) {
-
-  override def render(skipLink: SkipLink): Try[HtmlFormat.Appendable] =
-    Try(component(skipLink))
-}
+object GovukDateInputIntegrationSpec
+    extends TemplateIntegrationSpec[DateInput, GovukDateInput](govukComponentName = "govukDateInput", seed = None)

@@ -16,16 +16,12 @@
 
 package uk.gov.hmrc.govukfrontend.views.components
 
-import play.twirl.api.HtmlFormat
 import uk.gov.hmrc.govukfrontend.support.TemplateIntegrationSpec
 import uk.gov.hmrc.govukfrontend.views.html.components._
-import uk.gov.hmrc.govukfrontend.views.viewmodels.radios.Generators._
-import uk.gov.hmrc.govukfrontend.views.viewmodels.radios.Radios
-import scala.util.Try
+import uk.gov.hmrc.govukfrontend.views.viewmodels.cookiebanner.Generators._
 
-object govukRadiosIntegrationSpec
-    extends TemplateIntegrationSpec[Radios, GovukRadios](govukComponentName = "govukRadios", seed = None) {
-
-  override def render(radios: Radios): Try[HtmlFormat.Appendable] =
-    Try(component(radios))
-}
+object GovukCookieBannerIntegrationSpec
+    extends TemplateIntegrationSpec[CookieBanner, GovukCookieBanner](
+      govukComponentName = "govukCookieBanner",
+      seed = None
+    )

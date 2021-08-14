@@ -17,19 +17,6 @@
 package uk.gov.hmrc.govukfrontend.views
 package components
 
-import play.twirl.api.HtmlFormat
-import uk.gov.hmrc.govukfrontend.views.viewmodels.charactercount.CharacterCount
 import uk.gov.hmrc.govukfrontend.views.html.components._
-import scala.util.Try
 
-class GovukCharacterCountSpec extends TemplateUnitSpec[CharacterCount, GovukCharacterCount]("govukCharacterCount") {
-
-  /**
-    * Calls the Twirl template with the given parameters and returns the resulting markup
-    *
-    * @param params
-    * @return [[Try[HtmlFormat.Appendable]]] containing the markup
-    */
-  override def render(params: CharacterCount): Try[HtmlFormat.Appendable] =
-    Try(component(params))
-}
+class GovukCharacterCountSpec extends TemplateUnitSpec[CharacterCount, GovukCharacterCount]("govukCharacterCount")

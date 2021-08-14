@@ -16,16 +16,10 @@
 
 package uk.gov.hmrc.govukfrontend.views.components
 
-import play.twirl.api.HtmlFormat
 import uk.gov.hmrc.govukfrontend.support.TemplateIntegrationSpec
 import uk.gov.hmrc.govukfrontend.views.html.components._
 import uk.gov.hmrc.govukfrontend.views.viewmodels.footer.Generators._
 import uk.gov.hmrc.govukfrontend.views.viewmodels.footer.Footer
-import scala.util.Try
 
-object govukFooterIntegrationSpec
-    extends TemplateIntegrationSpec[Footer, GovukFooter](govukComponentName = "govukFooter", seed = None) {
-
-  override def render(footer: Footer): Try[HtmlFormat.Appendable] =
-    Try(component(footer))
-}
+object GovukFooterIntegrationSpec
+    extends TemplateIntegrationSpec[Footer, GovukFooter](govukComponentName = "govukFooter", seed = None)

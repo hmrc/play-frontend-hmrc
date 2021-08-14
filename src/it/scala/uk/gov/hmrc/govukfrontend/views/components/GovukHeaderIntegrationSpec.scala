@@ -16,18 +16,10 @@
 
 package uk.gov.hmrc.govukfrontend.views.components
 
-import scala.util.Try
-import play.twirl.api.HtmlFormat
 import uk.gov.hmrc.govukfrontend.support.TemplateIntegrationSpec
 import uk.gov.hmrc.govukfrontend.views.html.components._
-import uk.gov.hmrc.govukfrontend.views.viewmodels.notificationbanner.Generators._
+import uk.gov.hmrc.govukfrontend.views.viewmodels.header.Generators._
+import uk.gov.hmrc.govukfrontend.views.viewmodels.header.Header
 
-object govukNotificationBannerIntegrationSpec
-    extends TemplateIntegrationSpec[NotificationBanner, GovukNotificationBanner](
-      govukComponentName = "govukNotificationBanner",
-      seed = None
-    ) {
-
-  override def render(notificationBanner: NotificationBanner): Try[HtmlFormat.Appendable] =
-    Try(component(notificationBanner))
-}
+object GovukHeaderIntegrationSpec
+    extends TemplateIntegrationSpec[Header, GovukHeader](govukComponentName = "govukHeader", seed = None)

@@ -21,22 +21,19 @@ import org.scalatest.TryValues
 import org.scalatest.wordspec.AnyWordSpecLike
 import org.scalatest.matchers.should.Matchers
 import org.scalatestplus.play.guice.GuiceOneAppPerSuite
-import uk.gov.hmrc.govukfrontend.views.html.components.GovukHeader
-import uk.gov.hmrc.govukfrontend.views.html.components.GovukFooter
 import play.api.libs.json._
-import scala.util.{Failure, Success, Try}
+import play.twirl.api.{HtmlFormat, Template1}
+
 import scala.reflect.ClassTag
+import scala.util.{Failure, Success, Try}
 
 /**
   * Base class for unit testing against test fixtures generated from govuk-frontend's yaml documentation files for
   * components
-  *
-  * @param govukComponentName
-  * @param [[Reads[T]]]
-  * @tparam T
   */
-abstract class TemplateUnitSpec[T: Reads, C: ClassTag](govukComponentName: String)
-    extends TwirlRenderer[T]
+abstract class TemplateUnitSpec[T: Reads, C <: Template1[T, HtmlFormat.Appendable]: ClassTag](
+  govukComponentName: String
+) extends TwirlRenderer[T]
     with PreProcessor
     with JsoupHelpers
     with AnyWordSpecLike
@@ -44,16 +41,16 @@ abstract class TemplateUnitSpec[T: Reads, C: ClassTag](govukComponentName: Strin
     with TryValues
     with GuiceOneAppPerSuite {
 
-  val skipBecauseOfJsonValidation             = Seq(
+  private val skipBecauseOfJsonValidation             = Seq(
     "date-input-with-values",
     "summary-list-value-with-html"
   )
-  val skipBecauseOfAttributeOrdering          = Seq(
+  private val skipBecauseOfAttributeOrdering          = Seq(
     "details-attributes",
     "warning-text-attributes",
     "breadcrumbs-attributes"
   )
-  val skipBecauseRequiredItemsSeemToBeMissing = Seq(
+  private val skipBecauseRequiredItemsSeemToBeMissing = Seq(
     "select-with-falsey-values",
     "date-input-items-with-classes",
     "date-input-with-id-on-items",
@@ -114,18 +111,25 @@ abstract class TemplateUnitSpec[T: Reads, C: ClassTag](govukComponentName: Strin
     "button-input-classes",
     "button-input-attributes"
   )
-  val skipBecauseChangesNeededWithGDS         = Seq(
+  private val skipBecauseChangesNeededWithGDS         = Seq(
     "checkboxes-with-falsey-values",
     "radios-with-falsey-items",
     "accordion-with-falsey-values"
   )
-  val skip                                    = skipBecauseOfJsonValidation ++
+  private val skip                                    = skipBecauseOfJsonValidation ++
     skipBecauseOfAttributeOrdering ++ skipBecauseRequiredItemsSeemToBeMissing ++
     skipBecauseChangesNeededWithGDS
 
-  val component = app.injector.instanceOf[C]
-  val header    = app.injector.instanceOf[GovukHeader]
-  val footer    = app.injector.instanceOf[GovukFooter]
+  protected val component: C = app.injector.instanceOf[C]
+
+  /**
+    * Calls the Twirl template with the given parameters and returns the resulting markup
+    *
+    * @param templateParams: T
+    * @return [[Try[HtmlFormat.Appendable]]] containing the markup
+    */
+  def render(templateParams: T): Try[HtmlFormat.Appendable] =
+    Try(component.render(templateParams))
 
   exampleNames(fixturesDirs, govukComponentName)
     .foreach { fixtureDirExampleName =>
