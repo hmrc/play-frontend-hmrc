@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 HM Revenue & Customs
+ * Copyright 2021 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,21 +14,9 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.hmrcfrontend.views.components
+package uk.gov.hmrc.hmrcfrontend.views
+package components
 
-import play.twirl.api.HtmlFormat
-import uk.gov.hmrc.hmrcfrontend.support.TemplateIntegrationSpec
 import uk.gov.hmrc.hmrcfrontend.views.html.components._
-import uk.gov.hmrc.hmrcfrontend.views.viewmodels.currencyinput.Generators._
 
-import scala.util.Try
-
-object hmrcCurrencyInputIntegrationSpec
-    extends TemplateIntegrationSpec[CurrencyInput, HmrcCurrencyInput](
-      hmrcComponentName = "hmrcCurrencyInput",
-      seed = None
-    ) {
-
-  override def render(currencyInput: CurrencyInput): Try[HtmlFormat.Appendable] =
-    Try(component(currencyInput))
-}
+class HmrcFooterSpec extends TemplateUnitSpec[Footer, HmrcFooter]("hmrcFooter")

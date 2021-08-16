@@ -17,30 +17,20 @@
 package uk.gov.hmrc.hmrcfrontend.views
 package components
 
-import play.twirl.api.HtmlFormat
-import uk.gov.hmrc.govukfrontend.views.html.components.{BackLink, Empty, GovukBackLink}
 import uk.gov.hmrc.hmrcfrontend.views.html.components._
 
 import scala.util.Try
 
-class hmrcHeaderSpec extends TemplateUnitSpec[Header, HmrcHeader]("hmrcHeader") {
+class HmrcUserResearchBannerSpec
+    extends TemplateUnitSpec[UserResearchBanner, HmrcUserResearchBanner]("hmrcUserResearchBanner") {
 
-  /**
-    * Calls the Twirl template with the given parameters and returns the resulting markup
-    *
-    * @param templateParams
-    * @return [[Try[HtmlFormat.Appendable]]] containing the markup
-    */
-  override def render(templateParams: Header): Try[HtmlFormat.Appendable] =
-    Try(component(templateParams))
-
-  "header" should {
-    """not throw an exception if Some("") is passed as serviceName""" in {
-      val params       =
-        Header(serviceName = Some(""), containerClasses = "govuk-width-container", signOutHref = Some("/sign-out"))
+  "hmrcUserResearchBanner" should {
+    """throw an exception if a url is not supplied""" in {
+      val params       = UserResearchBanner()
       val componentTry = Try(component(params))
 
-      componentTry should be a 'success
+      componentTry                   should be a 'failure
+      componentTry.failure.exception should have message "requirement failed: failed requirements for hmrcUserResearchBanner: url should not be empty. url=[]"
     }
   }
 }

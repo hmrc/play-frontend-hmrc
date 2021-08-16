@@ -16,7 +16,6 @@
 
 package uk.gov.hmrc.hmrcfrontend.views.components
 
-import play.twirl.api.HtmlFormat
 import uk.gov.hmrc.hmrcfrontend.support.ScalaCheckUtils.ClassifyParams
 import uk.gov.hmrc.hmrcfrontend.support.TemplateIntegrationSpec
 import uk.gov.hmrc.hmrcfrontend.views.html.components._
@@ -27,13 +26,8 @@ import uk.gov.hmrc.hmrcfrontend.views.viewmodels.header.Generators._
 import uk.gov.hmrc.hmrcfrontend.views.viewmodels.header.Header
 import uk.gov.hmrc.hmrcfrontend.views.viewmodels.language.En
 
-import scala.util.Try
-
-object hmrcHeaderIntegrationSpec
+object HmrcHeaderIntegrationSpec
     extends TemplateIntegrationSpec[Header, HmrcHeader](hmrcComponentName = "hmrcHeader", seed = None) {
-
-  override def render(header: Header): Try[HtmlFormat.Appendable] =
-    Try(component(header))
 
   override def classifiers(header: Header): Stream[ClassifyParams] =
     (header.homepageUrl.isEmpty, "empty homepageUrl", "non-empty homepageUrl") #::

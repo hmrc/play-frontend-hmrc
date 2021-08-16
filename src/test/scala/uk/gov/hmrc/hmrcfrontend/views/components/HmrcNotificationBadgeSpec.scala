@@ -17,18 +17,7 @@
 package uk.gov.hmrc.hmrcfrontend.views
 package components
 
-import play.twirl.api.HtmlFormat
 import uk.gov.hmrc.hmrcfrontend.views.html.components._
-import scala.util.Try
 
-class hmrcInternalHeaderSpec extends TemplateUnitSpec[InternalHeader, HmrcInternalHeader]("hmrcInternalHeader") {
-
-  /**
-    * Calls the Twirl template with the given parameters and returns the resulting markup
-    *
-    * @param templateParams
-    * @return [[Try[HtmlFormat.Appendable]]] containing the markup
-    */
-  override def render(templateParams: InternalHeader): Try[HtmlFormat.Appendable] =
-    Try(component(templateParams))
-}
+class HmrcNotificationBadgeSpec
+    extends TemplateUnitSpec[NotificationBadge, HmrcNotificationBadge]("hmrcNotificationBadge")

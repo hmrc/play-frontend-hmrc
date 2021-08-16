@@ -27,7 +27,7 @@ object LibDependencies {
     ),
     play28 = Seq(
       "uk.gov.hmrc" %% "play-language"       % s"$playLanguageVersion-play-28",
-      "uk.gov.hmrc" %% "play-frontend-govuk" % s"$playFrontendGovukVersion-play-28"
+      "uk.gov.hmrc" %% "play-frontend-govuk" % s"$playFrontendGovukVersion-play-28-SNAPSHOT"
     )
   )
 

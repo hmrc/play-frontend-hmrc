@@ -16,20 +16,12 @@
 
 package uk.gov.hmrc.hmrcfrontend.views.components
 
-import play.twirl.api.HtmlFormat
 import uk.gov.hmrc.hmrcfrontend.support.TemplateIntegrationSpec
 import uk.gov.hmrc.hmrcfrontend.views.html.components._
-import uk.gov.hmrc.hmrcfrontend.views.viewmodels.timeoutdialog.Generators._
-import uk.gov.hmrc.hmrcfrontend.views.viewmodels.timeoutdialog.TimeoutDialog
+import uk.gov.hmrc.hmrcfrontend.views.viewmodels.currencyinput.Generators._
 
-import scala.util.Try
-
-object hmrcTimeoutDialogIntegrationSpec
-    extends TemplateIntegrationSpec[TimeoutDialog, HmrcTimeoutDialog](
-      hmrcComponentName = "hmrcTimeoutDialog",
+object HmrcCurrencyInputIntegrationSpec
+    extends TemplateIntegrationSpec[CurrencyInput, HmrcCurrencyInput](
+      hmrcComponentName = "hmrcCurrencyInput",
       seed = None
-    ) {
-
-  override def render(timeoutDialog: TimeoutDialog): Try[HtmlFormat.Appendable] =
-    Try(component(timeoutDialog))
-}
+    )

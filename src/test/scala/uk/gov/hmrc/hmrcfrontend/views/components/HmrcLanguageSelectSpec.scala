@@ -17,18 +17,6 @@
 package uk.gov.hmrc.hmrcfrontend.views
 package components
 
-import play.twirl.api.HtmlFormat
 import uk.gov.hmrc.hmrcfrontend.views.html.components._
-import scala.util.Try
 
-class hmrcBannerSpec extends TemplateUnitSpec[Banner, HmrcBanner]("hmrcBanner") {
-
-  /**
-    * Calls the Twirl template with the given parameters and returns the resulting markup
-    *
-    * @param templateParams
-    * @return [[Try[HtmlFormat.Appendable]]] containing the markup
-    */
-  override def render(templateParams: Banner): Try[HtmlFormat.Appendable] =
-    Try(component(templateParams))
-}
+class HmrcLanguageSelectSpec extends TemplateUnitSpec[LanguageSelect, HmrcLanguageSelect]("hmrcLanguageSelect")

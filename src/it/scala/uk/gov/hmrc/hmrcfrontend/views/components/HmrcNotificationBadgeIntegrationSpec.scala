@@ -16,19 +16,12 @@
 
 package uk.gov.hmrc.hmrcfrontend.views.components
 
-import play.twirl.api.HtmlFormat
 import uk.gov.hmrc.hmrcfrontend.support.TemplateIntegrationSpec
 import uk.gov.hmrc.hmrcfrontend.views.html.components._
-import uk.gov.hmrc.hmrcfrontend.views.viewmodels.userresearchbanner.Generators._
+import uk.gov.hmrc.hmrcfrontend.views.viewmodels.notificationbadge.Generators._
 
-import scala.util.Try
-
-object hmrcUserResearchBannerIntegrationSpec
-    extends TemplateIntegrationSpec[UserResearchBanner, HmrcUserResearchBanner](
-      hmrcComponentName = "hmrcUserResearchBanner",
+object HmrcNotificationBadgeIntegrationSpec
+    extends TemplateIntegrationSpec[NotificationBadge, HmrcNotificationBadge](
+      hmrcComponentName = "hmrcNotificationBadge",
       seed = None
-    ) {
-
-  override def render(userResearchBanner: UserResearchBanner): Try[HtmlFormat.Appendable] =
-    Try(component(userResearchBanner))
-}
+    )

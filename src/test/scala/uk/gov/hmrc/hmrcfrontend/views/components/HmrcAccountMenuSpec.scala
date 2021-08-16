@@ -17,20 +17,6 @@
 package uk.gov.hmrc.hmrcfrontend.views
 package components
 
-import play.twirl.api.HtmlFormat
 import uk.gov.hmrc.hmrcfrontend.views.html.components._
-import uk.gov.hmrc.hmrcfrontend.views.viewmodels.footer.Footer
 
-import scala.util.Try
-
-class hmrcFooterSpec extends TemplateUnitSpec[Footer, HmrcFooter]("hmrcFooter") {
-
-  /**
-    * Calls the Twirl template with the given parameters and returns the resulting markup
-    *
-    * @param templateParams
-    * @return [[Try[HtmlFormat.Appendable]]] containing the markup
-    */
-  override def render(templateParams: Footer): Try[HtmlFormat.Appendable] =
-    Try(component(templateParams))
-}
+class HmrcAccountMenuSpec extends TemplateUnitSpec[AccountMenu, HmrcAccountMenu]("hmrcAccountMenu")

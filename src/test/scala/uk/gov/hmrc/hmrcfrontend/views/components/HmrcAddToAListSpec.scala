@@ -18,7 +18,7 @@ package uk.gov.hmrc.hmrcfrontend.views
 package components
 
 import play.api.i18n.{Lang, Messages}
-import play.api.mvc.{AnyContentAsEmpty, RequestHeader}
+import play.api.mvc.RequestHeader
 import play.api.test.FakeRequest
 import play.twirl.api.HtmlFormat
 import uk.gov.hmrc.hmrcfrontend.MessagesSupport
@@ -26,15 +26,11 @@ import uk.gov.hmrc.hmrcfrontend.views.html.components._
 
 import scala.util.Try
 
-class hmrcAddToAList extends TemplateUnitSpec[AddToAList, HmrcAddToAList]("hmrcAddToAList") with MessagesSupport {
+class HmrcAddToAListSpec extends TemplateUnitBaseSpec[AddToAList]("hmrcAddToAList") with MessagesSupport {
 
-  /**
-    * Calls the Twirl template with the given parameters and returns the resulting markup
-    *
-    * @param templateParams
-    * @return [[Try[HtmlFormat.Appendable]]] containing the markup
-    */
-  override def render(templateParams: AddToAList): Try[HtmlFormat.Appendable] = {
+  private val component = app.injector.instanceOf[HmrcAddToAList]
+
+  def render(templateParams: AddToAList): Try[HtmlFormat.Appendable] = {
     implicit val request: RequestHeader = FakeRequest("GET", "/foo")
     Try(component(templateParams))
   }

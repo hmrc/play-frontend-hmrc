@@ -16,17 +16,9 @@
 
 package uk.gov.hmrc.hmrcfrontend.views.components
 
-import play.twirl.api.HtmlFormat
 import uk.gov.hmrc.hmrcfrontend.support.TemplateIntegrationSpec
 import uk.gov.hmrc.hmrcfrontend.views.html.components._
-import uk.gov.hmrc.hmrcfrontend.views.viewmodels.accountmenu.AccountMenu
-import uk.gov.hmrc.hmrcfrontend.views.viewmodels.accountmenu.Generators._
+import uk.gov.hmrc.hmrcfrontend.views.viewmodels.newtablink.Generators._
 
-import scala.util.Try
-
-object hmrcAccountMenuIntegrationSpec
-    extends TemplateIntegrationSpec[AccountMenu, HmrcAccountMenu](hmrcComponentName = "hmrcAccountMenu", seed = None) {
-
-  override def render(accountMenu: AccountMenu): Try[HtmlFormat.Appendable] =
-    Try(component(accountMenu))
-}
+object HmrcNewTabLinkIntegrationSpec
+    extends TemplateIntegrationSpec[NewTabLink, HmrcNewTabLink](hmrcComponentName = "hmrcNewTabLink", seed = None)

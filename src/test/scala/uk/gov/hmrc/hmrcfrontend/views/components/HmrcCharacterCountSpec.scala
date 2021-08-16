@@ -17,28 +17,23 @@
 package uk.gov.hmrc.hmrcfrontend.views.components
 
 import play.api.i18n.{Lang, Messages}
+import play.api.mvc.RequestHeader
+import play.api.test.FakeRequest
 import play.twirl.api.HtmlFormat
 import uk.gov.hmrc.hmrcfrontend.MessagesSupport
-import uk.gov.hmrc.hmrcfrontend.views.{JsoupHelpers, TemplateUnitSpec}
-import uk.gov.hmrc.hmrcfrontend.views.html.components.HmrcCharacterCount
-import uk.gov.hmrc.hmrcfrontend.views.viewmodels.charactercount.CharacterCount
-import uk.gov.hmrc.hmrcfrontend.views.viewmodels.language.{Cy, En}
+import uk.gov.hmrc.hmrcfrontend.views.{JsoupHelpers, TemplateUnitBaseSpec}
+import uk.gov.hmrc.hmrcfrontend.views.html.components._
 
 import scala.util.Try
 
-class hmrcCharacterCountSpec
-    extends TemplateUnitSpec[CharacterCount, HmrcCharacterCount]("hmrcCharacterCount")
-    with MessagesSupport
-    with JsoupHelpers {
+class HmrcCharacterCountSpec extends TemplateUnitBaseSpec[CharacterCount]("hmrcCharacterCount") with MessagesSupport {
 
-  /**
-    * Calls the Twirl template with the given parameters and returns the resulting markup
-    *
-    * @param templateParams
-    * @return [[Try[HtmlFormat.Appendable]]] containing the markup
-    */
-  override def render(templateParams: CharacterCount): Try[HtmlFormat.Appendable] =
+  private val component = app.injector.instanceOf[HmrcCharacterCount]
+
+  def render(templateParams: CharacterCount): Try[HtmlFormat.Appendable] = {
+    implicit val request: RequestHeader = FakeRequest("GET", "/foo")
     Try(component(templateParams))
+  }
 
   "hmrcCharacterCount" should {
     "set data-language from the Messages when specified as cy" in {

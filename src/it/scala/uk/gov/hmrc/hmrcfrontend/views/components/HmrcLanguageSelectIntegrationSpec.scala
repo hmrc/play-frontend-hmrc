@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 HM Revenue & Customs
+ * Copyright 2019 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,21 +16,12 @@
 
 package uk.gov.hmrc.hmrcfrontend.views.components
 
-import play.twirl.api.HtmlFormat
-import uk.gov.hmrc.hmrcfrontend.views.TemplateUnitSpec
+import uk.gov.hmrc.hmrcfrontend.support.TemplateIntegrationSpec
 import uk.gov.hmrc.hmrcfrontend.views.html.components._
-import uk.gov.hmrc.hmrcfrontend.views.viewmodels.currencyinput.CurrencyInput
+import uk.gov.hmrc.hmrcfrontend.views.viewmodels.language.Generators._
 
-import scala.util.Try
-
-class hmrcCurrencyInputSpec extends TemplateUnitSpec[CurrencyInput, HmrcCurrencyInput]("hmrcCurrencyInput") {
-
-  /**
-    * Calls the Twirl template with the given parameters and returns the resulting markup
-    *
-    * @param templateParams
-    * @return [[Try[HtmlFormat.Appendable]]] containing the markup
-    */
-  override def render(templateParams: CurrencyInput): Try[HtmlFormat.Appendable] =
-    Try(component(templateParams))
-}
+object HmrcLanguageSelectIntegrationSpec
+    extends TemplateIntegrationSpec[LanguageSelect, HmrcLanguageSelect](
+      hmrcComponentName = "hmrcLanguageSelect",
+      seed = None
+    )

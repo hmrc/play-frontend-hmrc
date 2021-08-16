@@ -16,20 +16,12 @@
 
 package uk.gov.hmrc.hmrcfrontend.views.components
 
-import play.twirl.api.HtmlFormat
 import uk.gov.hmrc.hmrcfrontend.support.TemplateIntegrationSpec
 import uk.gov.hmrc.hmrcfrontend.views.html.components._
-import uk.gov.hmrc.hmrcfrontend.views.viewmodels.language.Generators._
-import uk.gov.hmrc.hmrcfrontend.views.viewmodels.language.LanguageSelect
+import uk.gov.hmrc.hmrcfrontend.views.viewmodels.timeoutdialog.Generators._
 
-import scala.util.Try
-
-object hmrcLanguageSelectIntegrationSpec
-    extends TemplateIntegrationSpec[LanguageSelect, HmrcLanguageSelect](
-      hmrcComponentName = "hmrcLanguageSelect",
+object HmrcTimeoutDialogIntegrationSpec
+    extends TemplateIntegrationSpec[TimeoutDialog, HmrcTimeoutDialog](
+      hmrcComponentName = "hmrcTimeoutDialog",
       seed = None
-    ) {
-
-  override def render(languageSelect: LanguageSelect): Try[HtmlFormat.Appendable] =
-    Try(component(languageSelect))
-}
+    )

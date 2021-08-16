@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 HM Revenue & Customs
+ * Copyright 2019 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,22 +14,14 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.hmrcfrontend.views
-package components
+package uk.gov.hmrc.hmrcfrontend.views.components
 
-import play.twirl.api.HtmlFormat
+import uk.gov.hmrc.hmrcfrontend.support.TemplateIntegrationSpec
 import uk.gov.hmrc.hmrcfrontend.views.html.components._
-import scala.util.Try
+import uk.gov.hmrc.hmrcfrontend.views.viewmodels.userresearchbanner.Generators._
 
-class hmrcNotificationBadgeSpec
-    extends TemplateUnitSpec[NotificationBadge, HmrcNotificationBadge]("hmrcNotificationBadge") {
-
-  /**
-    * Calls the Twirl template with the given parameters and returns the resulting markup
-    *
-    * @param templateParams
-    * @return [[Try[HtmlFormat.Appendable]]] containing the markup
-    */
-  override def render(templateParams: NotificationBadge): Try[HtmlFormat.Appendable] =
-    Try(component(templateParams))
-}
+object HmrcUserResearchBannerIntegrationSpec
+    extends TemplateIntegrationSpec[UserResearchBanner, HmrcUserResearchBanner](
+      hmrcComponentName = "hmrcUserResearchBanner",
+      seed = None
+    )

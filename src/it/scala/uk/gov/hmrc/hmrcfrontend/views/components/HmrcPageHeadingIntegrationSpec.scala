@@ -1,5 +1,5 @@
 /*
- * Copyright 2021 HM Revenue & Customs
+ * Copyright 2019 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,16 +14,11 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.hmrcfrontend.views
-package components
+package uk.gov.hmrc.hmrcfrontend.views.components
 
-import play.twirl.api.HtmlFormat
+import uk.gov.hmrc.hmrcfrontend.support.TemplateIntegrationSpec
 import uk.gov.hmrc.hmrcfrontend.views.html.components._
+import uk.gov.hmrc.hmrcfrontend.views.viewmodels.pageheading.Generators._
 
-import scala.util.Try
-
-class hmrcTimeline extends TemplateUnitSpec[Timeline, HmrcTimeline]("hmrcTimeline") {
-
-  override def render(templateParams: Timeline): Try[HtmlFormat.Appendable] =
-    Try(component(templateParams))
-}
+object HmrcPageHeadingIntegrationSpec
+    extends TemplateIntegrationSpec[PageHeading, HmrcPageHeading](hmrcComponentName = "hmrcPageHeading", seed = None)

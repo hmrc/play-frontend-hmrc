@@ -16,16 +16,9 @@
 
 package uk.gov.hmrc.hmrcfrontend.views.components
 
-import play.twirl.api.HtmlFormat
 import uk.gov.hmrc.hmrcfrontend.support.TemplateIntegrationSpec
 import uk.gov.hmrc.hmrcfrontend.views.html.components._
-import uk.gov.hmrc.hmrcfrontend.views.viewmodels.pageheading.PageHeading
-import uk.gov.hmrc.hmrcfrontend.views.viewmodels.pageheading.Generators._
-import scala.util.Try
+import uk.gov.hmrc.hmrcfrontend.views.viewmodels.banner.Generators._
 
-object hmrcPageHeadingIntegrationSpec
-    extends TemplateIntegrationSpec[PageHeading, HmrcPageHeading](hmrcComponentName = "hmrcPageHeading", seed = None) {
-
-  override def render(pageHeading: PageHeading): Try[HtmlFormat.Appendable] =
-    Try(component(pageHeading))
-}
+object HmrcBannerIntegrationSpec
+    extends TemplateIntegrationSpec[Banner, HmrcBanner](hmrcComponentName = "hmrcBanner", seed = None)

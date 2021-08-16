@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 HM Revenue & Customs
+ * Copyright 2021 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,19 +14,9 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.hmrcfrontend.views.components
+package uk.gov.hmrc.hmrcfrontend.views
+package components
 
-import play.twirl.api.HtmlFormat
-import uk.gov.hmrc.hmrcfrontend.support.TemplateIntegrationSpec
 import uk.gov.hmrc.hmrcfrontend.views.html.components._
-import uk.gov.hmrc.hmrcfrontend.views.viewmodels.banner.Banner
-import uk.gov.hmrc.hmrcfrontend.views.viewmodels.banner.Generators._
 
-import scala.util.Try
-
-object hmrcBannerIntegrationSpec
-    extends TemplateIntegrationSpec[Banner, HmrcBanner](hmrcComponentName = "hmrcBanner", seed = None) {
-
-  override def render(banner: Banner): Try[HtmlFormat.Appendable] =
-    Try(component(banner))
-}
+class HmrcInternalHeaderSpec extends TemplateUnitSpec[InternalHeader, HmrcInternalHeader]("hmrcInternalHeader")

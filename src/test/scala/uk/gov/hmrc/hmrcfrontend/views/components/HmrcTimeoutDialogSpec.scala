@@ -17,18 +17,6 @@
 package uk.gov.hmrc.hmrcfrontend.views
 package components
 
-import play.twirl.api.HtmlFormat
 import uk.gov.hmrc.hmrcfrontend.views.html.components._
-import scala.util.Try
 
-class hmrcTimeoutDialogSpec extends TemplateUnitSpec[TimeoutDialog, HmrcTimeoutDialog]("hmrcTimeoutDialog") {
-
-  /**
-    * Calls the Twirl template with the given parameters and returns the resulting markup
-    *
-    * @param templateParams
-    * @return [[Try[HtmlFormat.Appendable]]] containing the markup
-    */
-  override def render(templateParams: TimeoutDialog): Try[HtmlFormat.Appendable] =
-    Try(component(templateParams))
-}
+class HmrcTimeoutDialogSpec extends TemplateUnitSpec[TimeoutDialog, HmrcTimeoutDialog]("hmrcTimeoutDialog")

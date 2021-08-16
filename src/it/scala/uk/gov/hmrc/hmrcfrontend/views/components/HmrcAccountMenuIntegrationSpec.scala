@@ -16,20 +16,9 @@
 
 package uk.gov.hmrc.hmrcfrontend.views.components
 
-import play.twirl.api.HtmlFormat
 import uk.gov.hmrc.hmrcfrontend.support.TemplateIntegrationSpec
 import uk.gov.hmrc.hmrcfrontend.views.html.components._
-import uk.gov.hmrc.hmrcfrontend.views.viewmodels.notificationbadge.NotificationBadge
-import uk.gov.hmrc.hmrcfrontend.views.viewmodels.notificationbadge.Generators._
+import uk.gov.hmrc.hmrcfrontend.views.viewmodels.accountmenu.Generators._
 
-import scala.util.Try
-
-object hmrcNotificationBadgeIntegrationSpec
-    extends TemplateIntegrationSpec[NotificationBadge, HmrcNotificationBadge](
-      hmrcComponentName = "hmrcNotificationBadge",
-      seed = None
-    ) {
-
-  override def render(notificationBadge: NotificationBadge): Try[HtmlFormat.Appendable] =
-    Try(component(notificationBadge))
-}
+object HmrcAccountMenuIntegrationSpec
+    extends TemplateIntegrationSpec[AccountMenu, HmrcAccountMenu](hmrcComponentName = "hmrcAccountMenu", seed = None)

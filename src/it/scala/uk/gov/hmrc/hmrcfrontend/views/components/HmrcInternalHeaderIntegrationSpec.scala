@@ -16,20 +16,12 @@
 
 package uk.gov.hmrc.hmrcfrontend.views.components
 
-import play.twirl.api.HtmlFormat
 import uk.gov.hmrc.hmrcfrontend.support.TemplateIntegrationSpec
 import uk.gov.hmrc.hmrcfrontend.views.html.components._
 import uk.gov.hmrc.hmrcfrontend.views.viewmodels.internalheader.Generators._
-import uk.gov.hmrc.hmrcfrontend.views.viewmodels.internalheader.InternalHeader
 
-import scala.util.Try
-
-object hmrcInternalHeaderIntegrationSpec
+object HmrcInternalHeaderIntegrationSpec
     extends TemplateIntegrationSpec[InternalHeader, HmrcInternalHeader](
       hmrcComponentName = "hmrcInternalHeader",
       seed = None
-    ) {
-
-  override def render(internalHeader: InternalHeader): Try[HtmlFormat.Appendable] =
-    Try(component(internalHeader))
-}
+    )
