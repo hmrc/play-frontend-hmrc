@@ -60,7 +60,7 @@ The library comprises two packages:
       [HMRC layout](#hmrc-layout)
 
 1. Then to use our components and helpers in your templates, you will need to import the component or helper from its
-   package `uk.gov.hmrc.(govuk|hmrc)frontend.views.html.(components|helpers)`.
+   package `uk.gov.hmrc.(govuk|hmrc)frontend.views.html.components` or `uk.gov.hmrc.hmrcfrontend.views.html.helpers`.
 
    For most components the parameters that can be provided are encapsulated in a viewmodel, comprised of case classes
    that live within a subpackage of `uk.gov.hmrc(govuk|hmrc)frontend.views.viewmodels` and are aliased for use

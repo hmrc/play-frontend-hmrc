@@ -5,12 +5,23 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
-## [1.0.0] - 2021-08-13
+## [1.0.0] - 2021-08-17
 
 ### Changed
 
-- Removed deprecated static helpers
-- Removed component type aliases needed for historical Play 2.5 support.
+- Removed features originally added for Play 2.5 support
+  - Deprecated static helpers
+  - Twirl component type aliases
+  - Component names starting with a lower-case letter
+
+**Actions required**:
+  - Convert all Twirl templates to use dependency injection with the `@this()` directive. See 
+    [here](https://www.playframework.com/documentation/2.8.x/ScalaTemplatesDependencyInjection)
+  - Replace any references to play-frontend component classes starting with a lower-case letter to upper-case.
+    For example if you have references
+    like `@this(govukButton: govukButton)` these will need changing to `@this(govukButton: GovukButton)`
+  - Remove any instances of the wildcard import `uk.gov.hmrc.govukfrontend.views.html.helpers._`. You may
+    find such references in your `build.sbt` file under `TwirlKeys.templateImports`.
 
 ### Compatible with
 
