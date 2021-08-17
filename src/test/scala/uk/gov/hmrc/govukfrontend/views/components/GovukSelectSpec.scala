@@ -15,12 +15,8 @@
  */
 
 package uk.gov.hmrc.govukfrontend.views
-package html
+package components
 
-package object components extends Utils with Aliases {
+import uk.gov.hmrc.govukfrontend.views.html.components._
 
-  /**
-    * Top-level implicits for all components
-    */
-  object implicits extends Implicits
-}
+class GovukSelectSpec extends TemplateUnitSpec[Select, GovukSelect]("govukSelect")

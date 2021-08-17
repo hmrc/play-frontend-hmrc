@@ -1,4 +1,4 @@
-/*
+@*
  * Copyright 2021 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,15 +12,25 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- */
+ *@
 
-package uk.gov.hmrc.govukfrontend.views
-package html
+@this(govukTag: GovukTag)
 
-package object components extends Utils with Aliases {
+@(params: PhaseBanner)
+@import params._
+<div class="@toClasses("govuk-phase-banner", classes)"@toAttributes(attributes)>
+  <p class="govuk-phase-banner__content">@tagSnippet(tag)
+    <span class="govuk-phase-banner__text">
+      @content.asHtml
+    </span>
+  </p>
+</div>
 
-  /**
-    * Top-level implicits for all components
-    */
-  object implicits extends Implicits
+@tagSnippet(tag: Option[Tag]) = {
+  @tag.orElse(Some(Tag())).map { tag =>
+    @govukTag(Tag(
+      classes = toClasses("govuk-phase-banner__content__tag", tag.classes),
+      content = tag.content))}
 }
+
+

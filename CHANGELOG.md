@@ -5,6 +5,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [1.0.0] - 2021-08-13
+
+### Changed
+
+- Removed deprecated static helpers.
+- Removed component type aliases needed for historical Play 2.5 support.
+
+### Compatible with
+
+- [alphagov/govuk-frontend v3.13.0](https://github.com/alphagov/govuk-frontend/releases/tag/v3.13.0)
+
 ## [0.84.0] - 2021-08-05
 
 ### Changed

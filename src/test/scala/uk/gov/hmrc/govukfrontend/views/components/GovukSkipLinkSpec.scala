@@ -15,12 +15,17 @@
  */
 
 package uk.gov.hmrc.govukfrontend.views
-package html
+package components
 
-package object components extends Utils with Aliases {
+import uk.gov.hmrc.govukfrontend.views.html.components._
 
-  /**
-    * Top-level implicits for all components
-    */
-  object implicits extends Implicits
+class GovukSkipLinkSpec extends TemplateUnitSpec[SkipLink, GovukSkipLink]("govukSkipLink") {
+
+  "skipLink" should {
+    "render href" in {
+      val output = component(SkipLink(href = "#custom", content = Empty)).select(".govuk-skip-link")
+
+      output.first().attr("href") shouldBe "#custom"
+    }
+  }
 }

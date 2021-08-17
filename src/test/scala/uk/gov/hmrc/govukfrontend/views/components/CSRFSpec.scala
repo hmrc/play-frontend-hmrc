@@ -15,12 +15,12 @@
  */
 
 package uk.gov.hmrc.govukfrontend.views
-package html
+package components
 
-package object components extends Utils with Aliases {
+import play.api.mvc.RequestHeader
+import play.api.test.CSRFTokenHelper._
+import play.api.test.FakeRequest
 
-  /**
-    * Top-level implicits for all components
-    */
-  object implicits extends Implicits
+trait CSRFSpec {
+  implicit val request: RequestHeader = FakeRequest().withCSRFToken
 }

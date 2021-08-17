@@ -15,12 +15,20 @@
  */
 
 package uk.gov.hmrc.govukfrontend.views
-package html
+package components
 
-package object components extends Utils with Aliases {
+import uk.gov.hmrc.govukfrontend.views.html.components._
 
-  /**
-    * Top-level implicits for all components
-    */
-  object implicits extends Implicits
+class GovukButtonSpec extends TemplateUnitSpec[Button, GovukButton]("govukButton") {
+
+  "button element" should {
+    "render the default example" in {
+      val output =
+        component(Button(content = Text("Save and continue")))
+          .select(".govuk-button")
+
+      output.first.tagName shouldBe "button"
+      output.text            should include("Save and continue")
+    }
+  }
 }

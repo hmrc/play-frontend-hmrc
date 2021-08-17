@@ -15,12 +15,16 @@
  */
 
 package uk.gov.hmrc.govukfrontend.views
-package html
+package components
 
-package object components extends Utils with Aliases {
+import uk.gov.hmrc.govukfrontend.views.html.components._
 
-  /**
-    * Top-level implicits for all components
-    */
-  object implicits extends Implicits
+class GovukLabelSpec extends TemplateUnitSpec[Label, GovukLabel]("govukLabel") {
+  "label" should {
+    "not output anything if no html or text is provided" in {
+      val output = component(Label(content = Empty)).select(".govuk-label")
+
+      output.size() shouldBe 0
+    }
+  }
 }

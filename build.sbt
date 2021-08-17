@@ -12,7 +12,7 @@ lazy val root = Project(libName, file("."))
   .configs(IntegrationTest)
   .settings(
     name := libName,
-    majorVersion := 0,
+    majorVersion := 1,
     scalaVersion := "2.12.13",
     libraryDependencies ++= LibDependencies(),
     TwirlKeys.templateImports := templateImports,

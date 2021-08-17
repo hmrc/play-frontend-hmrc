@@ -4,27 +4,36 @@ import org.jsoup.Jsoup
 import org.scalacheck.Prop.{forAll, secure}
 import org.scalacheck.{Arbitrary, Properties, ShrinkLowPriority, Test}
 import org.scalatest.concurrent.{IntegrationPatience, ScalaFutures}
+import org.scalatestplus.play.guice.GuiceOneAppPerSuite
 import play.api.libs.json.{Json, OWrites}
+import play.twirl.api.{HtmlFormat, Template1}
 import uk.gov.hmrc.govukfrontend.support.Implicits._
 import uk.gov.hmrc.govukfrontend.support.ScalaCheckUtils.{ClassifyParams, classify}
 import uk.gov.hmrc.govukfrontend.views.TemplateDiff._
 import uk.gov.hmrc.govukfrontend.views.{JsoupHelpers, PreProcessor, TemplateValidationException, TwirlRenderer}
-import scala.util.{Failure, Success}
+
+import scala.util.{Failure, Success, Try}
+import scala.reflect.ClassTag
 
 /**
   * Base class for integration testing a Twirl template against the Nunjucks template rendering service
   *
   * @tparam T Type representing the input parameters of the Twirl template
   */
-abstract class TemplateIntegrationSpec[T: OWrites: Arbitrary](govukComponentName: String, seed: Option[String] = None)
-    extends Properties(govukComponentName)
+abstract class TemplateIntegrationSpec[T: OWrites: Arbitrary, C <: Template1[T, HtmlFormat.Appendable]: ClassTag](
+  govukComponentName: String,
+  seed: Option[String] = None
+) extends Properties(govukComponentName)
     with TemplateServiceClient
     with PreProcessor
     with TwirlRenderer[T]
     with ShrinkLowPriority
     with JsoupHelpers
     with ScalaFutures
-    with IntegrationPatience {
+    with IntegrationPatience
+    with GuiceOneAppPerSuite {
+
+  protected val component: C = app.injector.instanceOf[C]
 
   /**
     * [[Stream]] of [[org.scalacheck.Prop.classify]] conditions to collect statistics on a property
@@ -35,6 +44,15 @@ abstract class TemplateIntegrationSpec[T: OWrites: Arbitrary](govukComponentName
     */
   def classifiers(templateParams: T): Stream[ClassifyParams] =
     Stream.empty[ClassifyParams]
+
+  /**
+    * Calls the Twirl template with the given parameters and returns the resulting markup
+    *
+    * @param templateParams: T
+    * @return [[Try[HtmlFormat.Appendable]]] containing the markup
+    */
+  def render(templateParams: T): Try[HtmlFormat.Appendable] =
+    Try(component.render(templateParams))
 
   override def overrideParameters(p: Test.Parameters): Test.Parameters =
     p.withMinSuccessfulTests(20)

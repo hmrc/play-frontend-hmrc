@@ -15,12 +15,17 @@
  */
 
 package uk.gov.hmrc.govukfrontend.views
-package html
+package components
 
-package object components extends Utils with Aliases {
+import uk.gov.hmrc.govukfrontend.views.html.components._
 
-  /**
-    * Top-level implicits for all components
-    */
-  object implicits extends Implicits
+class GovukTagSpec extends TemplateUnitSpec[Tag, GovukTag]("govukTag") {
+  "tag" should {
+    "render the default example with strong element and text" in {
+      val output = component(Tag(content = HtmlContent("alpha"))).select(".govuk-tag")
+
+      output.first().tagName() shouldBe "strong"
+      output.first().text()    shouldBe "alpha"
+    }
+  }
 }
