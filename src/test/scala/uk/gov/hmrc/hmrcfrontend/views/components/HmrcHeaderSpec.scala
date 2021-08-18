@@ -15,12 +15,20 @@
  */
 
 package uk.gov.hmrc.hmrcfrontend.views
-package html
+package components
 
-package object components extends Utils with Aliases {
+import uk.gov.hmrc.hmrcfrontend.views.html.components._
+import scala.util.Try
 
-  /**
-    * Top-level implicits for all components
-    */
-  object implicits extends Implicits
+class HmrcHeaderSpec extends TemplateUnitSpec[Header, HmrcHeader]("hmrcHeader") {
+
+  "header" should {
+    """not throw an exception if Some("") is passed as serviceName""" in {
+      val params       =
+        Header(serviceName = Some(""), containerClasses = "govuk-width-container", signOutHref = Some("/sign-out"))
+      val componentTry = Try(component(params))
+
+      componentTry should be a 'success
+    }
+  }
 }

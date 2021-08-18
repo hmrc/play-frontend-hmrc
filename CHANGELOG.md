@@ -5,6 +5,30 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [1.0.0] - 2021-08-17
+
+### Changed
+
+- Removed features originally added for Play 2.5 support
+  - Deprecated static helpers
+  - Twirl component type aliases
+  - Component names starting with a lower-case letter
+
+**Actions required**:
+  - Convert all Twirl templates to use dependency injection with the `@this()` directive. See 
+    [here](https://www.playframework.com/documentation/2.8.x/ScalaTemplatesDependencyInjection)
+  - Replace any references to play-frontend component classes starting with a lower-case letter to upper-case.
+    For example if you have references
+    like `@this(govukButton: govukButton)` these will need changing to `@this(govukButton: GovukButton)`
+  - Remove any instances of the wildcard import `uk.gov.hmrc.govukfrontend.views.html.helpers._`. You may
+    find such references in your `build.sbt` file under `TwirlKeys.templateImports`.
+
+### Compatible with
+
+- [hmrc/hmrc-frontend v2.2.0](https://github.com/hmrc/hmrc-frontend/releases/tag/v2.2.0)
+- [hmrc/play-frontend-govuk v1.0.0](https://github.com/hmrc/play-frontend-govuk/releases/tag/v1.0.0)
+- [alphagov/govuk-frontend v3.13.0](https://github.com/alphagov/govuk-frontend/releases/tag/v3.13.0)
+
 ## [0.94.0] - 2021-08-12
 
 ### Changed
@@ -13,10 +37,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Compatible with
 
-- [hmrc/hmrc-frontend v2.0.0](https://github.com/hmrc/hmrc-frontend/releases/tag/v2.0.0)
+- [hmrc/hmrc-frontend v2.2.0](https://github.com/hmrc/hmrc-frontend/releases/tag/v2.2.0)
 - [hmrc/play-frontend-govuk v0.83.0](https://github.com/hmrc/play-frontend-govuk/releases/tag/v0.83.0)
 - [alphagov/govuk-frontend v3.13.0](https://github.com/alphagov/govuk-frontend/releases/tag/v3.13.0)
-
 
 ## [0.93.0] - 2021-08-10
 
@@ -26,7 +49,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Compatible with
 
-- [hmrc/hmrc-frontend v2.0.0](https://github.com/hmrc/hmrc-frontend/releases/tag/v2.0.0)
+- [hmrc/hmrc-frontend v2.2.0](https://github.com/hmrc/hmrc-frontend/releases/tag/v2.2.0)
 - [hmrc/play-frontend-govuk v0.83.0](https://github.com/hmrc/play-frontend-govuk/releases/tag/v0.83.0)
 - [alphagov/govuk-frontend v3.13.0](https://github.com/alphagov/govuk-frontend/releases/tag/v3.13.0)
 

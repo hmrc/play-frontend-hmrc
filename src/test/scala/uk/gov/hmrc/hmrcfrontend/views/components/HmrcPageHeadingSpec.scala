@@ -15,12 +15,8 @@
  */
 
 package uk.gov.hmrc.hmrcfrontend.views
-package html
+package components
 
-package object components extends Utils with Aliases {
+import uk.gov.hmrc.hmrcfrontend.views.html.components._
 
-  /**
-    * Top-level implicits for all components
-    */
-  object implicits extends Implicits
-}
+class HmrcPageHeadingSpec extends TemplateUnitSpec[PageHeading, HmrcPageHeading]("hmrcPageHeading")

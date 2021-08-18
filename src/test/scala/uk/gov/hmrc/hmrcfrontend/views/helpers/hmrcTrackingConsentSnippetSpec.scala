@@ -24,14 +24,14 @@ import play.api.i18n.{Lang, Messages}
 import play.api.inject.guice.GuiceApplicationBuilder
 import uk.gov.hmrc.hmrcfrontend.MessagesSupport
 import uk.gov.hmrc.hmrcfrontend.views.JsoupHelpers
+import uk.gov.hmrc.hmrcfrontend.views.html.helpers.HmrcTrackingConsentSnippet
 
 class TrackingConsentSnippetSpec
     extends AnyWordSpecLike
     with Matchers
     with GuiceOneAppPerSuite
     with JsoupHelpers
-    with MessagesSupport
-    with HelpersInstances {
+    with MessagesSupport {
 
   override def fakeApplication(): Application =
     new GuiceApplicationBuilder()
@@ -48,55 +48,64 @@ class TrackingConsentSnippetSpec
   "TrackingConsentSnippet" should {
 
     "include the tracking consent script tag" in {
-      val content = HmrcTrackingConsentSnippet()
-      val scripts = content.select("script#tracking-consent-script-tag")
+      val component = app.injector.instanceOf[HmrcTrackingConsentSnippet]
+      val content   = component()
+      val scripts   = content.select("script#tracking-consent-script-tag")
       scripts should have size 1
     }
 
     "include the tracking consent script tag with the correct container attribute" in {
-      val content = HmrcTrackingConsentSnippet()
-      val scripts = content.select("script#tracking-consent-script-tag")
+      val component = app.injector.instanceOf[HmrcTrackingConsentSnippet]
+      val content   = component()
+      val scripts   = content.select("script#tracking-consent-script-tag")
       scripts.first.attr("data-gtm-container") should be("d")
     }
 
     "include the tracking consent script tag with the correct language attribute" in {
-      val content = HmrcTrackingConsentSnippet()
-      val scripts = content.select("script#tracking-consent-script-tag")
+      val component = app.injector.instanceOf[HmrcTrackingConsentSnippet]
+      val content   = component()
+      val scripts   = content.select("script#tracking-consent-script-tag")
       scripts.first.attr("data-language") should be("en")
     }
 
     "include the tracking consent script tag with the correct language attribute when Welsh" in {
       val welshMessages: Messages = messagesApi.preferred(Seq(Lang("cy")))
 
-      val content = HmrcTrackingConsentSnippet()(welshMessages)
-      val scripts = content.select("script#tracking-consent-script-tag")
+      val component = app.injector.instanceOf[HmrcTrackingConsentSnippet]
+      val content   = component()(welshMessages)
+      val scripts   = content.select("script#tracking-consent-script-tag")
       scripts.first.attr("data-language") should be("cy")
     }
 
     "include the tracking script first" in {
-      val content = HmrcTrackingConsentSnippet()
-      val scripts = content.select("script")
+      val component = app.injector.instanceOf[HmrcTrackingConsentSnippet]
+      val content   = component()
+      val scripts   = content.select("script")
 
       scripts.get(0).attr("id")  should be("tracking-consent-script-tag")
       scripts.get(0).attr("src") should be("http://localhost:12345/tracking-consent/tracking.js")
     }
 
     "include the optimizely script tag" in {
-      val content = HmrcTrackingConsentSnippet()
-      val scripts = content.select("script")
+      val component = app.injector.instanceOf[HmrcTrackingConsentSnippet]
+      val content   = component()
+      val scripts   = content.select("script")
 
       scripts.get(1).attr("src") should be("https://cdn.optimizely.com/1234567.js")
     }
 
     "include the optimizely gtm script tag" in {
-      val content = HmrcTrackingConsentSnippet()
-      val scripts = content.select("script")
+      val component = app.injector.instanceOf[HmrcTrackingConsentSnippet]
+      val content   = component()
+      val scripts   = content.select("script")
 
       scripts.get(2).attr("src") should be("http://localhost:12345/tracking-consent/tracking/optimizely.js")
     }
 
     "include nonce attribute for all scripts" in {
-      val scripts = HmrcTrackingConsentSnippet(Some("abcdefghij")).select("script")
+      val component = app.injector.instanceOf[HmrcTrackingConsentSnippet]
+      val content   = component(Some("abcdefghij"))
+      val scripts   = content.select("script")
 
       scripts.get(0).attr("nonce") should be("abcdefghij")
       scripts.get(1).attr("nonce") should be("abcdefghij")
@@ -104,7 +113,10 @@ class TrackingConsentSnippetSpec
     }
 
     "not include script tags with any nonce attributes if nonce is not defined" in {
-      val scripts = HmrcTrackingConsentSnippet().select("script")
+      val component = app.injector.instanceOf[HmrcTrackingConsentSnippet]
+      val content   = component()
+      val scripts   = content.select("script")
+
       scripts.get(0).attr("nonce") should be("")
       scripts.get(1).attr("nonce") should be("")
       scripts.get(2).attr("nonce") should be("")

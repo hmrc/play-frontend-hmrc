@@ -60,7 +60,7 @@ The library comprises two packages:
       [HMRC layout](#hmrc-layout)
 
 1. Then to use our components and helpers in your templates, you will need to import the component or helper from its
-   package `uk.gov.hmrc.(govuk|hmrc)frontend.views.html.(components|helpers)`.
+   package `uk.gov.hmrc.(govuk|hmrc)frontend.views.html.components` or `uk.gov.hmrc.hmrcfrontend.views.html.helpers`.
 
    For most components the parameters that can be provided are encapsulated in a viewmodel, comprised of case classes
    that live within a subpackage of `uk.gov.hmrc(govuk|hmrc)frontend.views.viewmodels` and are aliased for use
@@ -123,7 +123,7 @@ The library comprises two packages:
 
 ### HMRC layout
 
-The [hmrcLayout](src/main/twirl/uk/gov/hmrc/hmrcfrontend/views/helpers/hmrcLayout.scala.html) helper
+The [hmrcLayout](src/main/twirl/uk/gov/hmrc/hmrcfrontend/views/helpers/HmrcLayout.scala.html) helper
 generates a layout for your pages including the `hmrcStandardHeader`, `hmrcStandardFooter`, Welsh language
 toggle, and various banners.
 
@@ -315,7 +315,7 @@ You can find working examples of the use of play-frontend-hmrc in the following 
 
 ## Helping users report technical issues
 
-The [hmrcReportTechnicalIssueHelper](src/main/twirl/uk/gov/hmrc/hmrcfrontend/views/helpers/hmrcReportTechnicalIssueHelper.scala.html) component
+The [hmrcReportTechnicalIssueHelper](src/main/twirl/uk/gov/hmrc/hmrcfrontend/views/helpers/HmrcReportTechnicalIssueHelper.scala.html) component
 generates a link that allows users to report technical issues with your service.
 
 To configure this helper, add the following configuration to your `application.conf`
@@ -341,7 +341,7 @@ in your layout template and passing into `hmrcLayout` or `govukLayout` in place 
 
 ## Accessibility statement links
 
-[hmrcStandardFooter](src/main/twirl/uk/gov/hmrc/hmrcfrontend/views/helpers/hmrcStandardFooter.scala.html),
+[hmrcStandardFooter](src/main/twirl/uk/gov/hmrc/hmrcfrontend/views/helpers/HmrcStandardFooter.scala.html),
 included as part of `hmrcLayout`, generates the standard GOV.UK footer including the standardised list of footer 
 links for tax services.
 
@@ -363,7 +363,7 @@ within accessibility-statement-frontend, the default behaviour can be overridden
 
 ## CharacterCount with Welsh language support
 
-The [hmrcCharacterCount](src/main/twirl/uk/gov/hmrc/hmrcfrontend/views/components/hmrcCharacterCount.scala.html) is an
+The [hmrcCharacterCount](src/main/twirl/uk/gov/hmrc/hmrcfrontend/views/components/HmrcCharacterCount.scala.html) is an
 implementation of the GOV.UK CharacterCount that translates the dynamic words / characters remaining
 text into English or Welsh using the Play framework Message API. You do not need to pass through the
 language explicitly to this component, just pass through an implicit Messages.
@@ -398,7 +398,7 @@ Additionally, there is a second method `withFormFieldWithErrorAsHtml(field: play
 
 If you intend to use Google Analytics or Optimizely to measure usage of your service, you will need to integrate with
 [tracking-consent-frontend](https://www.github.com/hmrc/tracking-consent-frontend). The
-[hmrcHead](src/main/twirl/uk/gov/hmrc/hmrcfrontend/views/helpers/hmrcHead.scala.html)
+[hmrcHead](src/main/twirl/uk/gov/hmrc/hmrcfrontend/views/helpers/HmrcHead.scala.html)
 helper generates the necessary HTML SCRIPT tags that must be injected into the HEAD element for every page on your 
 service provided it is configured correctly as below.
 
@@ -429,7 +429,7 @@ of inactivity. This mechanism, implemented in [SessionTimeoutFilter](https://git
 clears all non-allow-listed session keys after the timeout duration has elapsed. Services can override this default by adjusting the
 `session.timeout` configuration key in `conf/application.conf`.
 
-The [hmrcTimeoutDialogHelper](src/main/twirl/uk/gov/hmrc/hmrcfrontend/views/helpers/hmrcTimeoutDialogHelper.scala.html)
+The [hmrcTimeoutDialogHelper](src/main/twirl/uk/gov/hmrc/hmrcfrontend/views/helpers/HmrcTimeoutDialogHelper.scala.html)
 component helps services meet this accessibility obligation by delivering an accessible timeout warning
 inside a modal dialog a configurable number of seconds before they are due to be timed out. The dialog warns the user with the message
 'For your security, we will sign you out in X minutes.' which is updated every minute until 60 seconds are remaining, at
