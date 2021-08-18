@@ -5,6 +5,19 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+For compatibility information see `govukFrontendVersion` and `hmrcFrontendVersion` in
+[LibDependencies](project/LibDependencies.scala)
+
+## [1.1.0] - 2021-08-18
+
+### Changed
+
+- Inlined the library play-frontend-govuk into play-frontend-hmrc. See 
+[ADR](docs/maintainers/adr/0011-inline-play-frontend-govuk.md)
+
+**Action required**:
+- Remove any direct references to `play-frontend-govuk` from your `project/AppDependencies.scala` module.
+
 ## [1.0.0] - 2021-08-17
 
 ### Changed

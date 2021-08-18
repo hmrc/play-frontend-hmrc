@@ -4,11 +4,9 @@ import scalaj.http.{Http, HttpOptions, HttpRequest}
 
 import scala.util.{Failure, Success, Try}
 
-case class GenerateFixtures(resourcesDir: File) {
-  private val rendererPort: String         = "3000"
-  private val baseUrl: String              = s"http://localhost:$rendererPort"
-  private val govukFrontendVersion: String = LibDependencies.govukFrontendVersion
-  private val fixturesDir                  = resourcesDir / "fixtures"
+case class GenerateFixtures(fixturesDir: File, frontend: String, version: String) {
+  private val rendererPort: String = "3000"
+  private val baseUrl: String      = s"http://localhost:$rendererPort"
 
   def generate(): Unit = {
     generateTestFixtures()
@@ -16,7 +14,7 @@ case class GenerateFixtures(resourcesDir: File) {
   }
 
   private def getExamples(): Seq[JsObject] = {
-    val endpoint: String = s"$baseUrl/snapshot/govuk/$govukFrontendVersion"
+    val endpoint: String = s"$baseUrl/snapshot/$frontend/$version"
 
     val attempt: Try[Seq[JsObject]] = Try {
       val response = http(endpoint).asString.body
@@ -39,7 +37,7 @@ case class GenerateFixtures(resourcesDir: File) {
     IO.delete(testFixturesDir)
     IO.createDirectory(testFixturesDir)
 
-    IO.write(testFixturesDir / "VERSION.txt", govukFrontendVersion)
+    IO.write(testFixturesDir / "VERSION.txt", version)
 
     for (example <- getExamples()) {
       val componentName = (example \ "componentName").as[String]
@@ -70,8 +68,8 @@ case class GenerateFixtures(resourcesDir: File) {
 
   private def getOutput(input: String, name: String): String = {
     val endpoint: String =
-      if (name == "govukTemplate") s"$baseUrl/template/govuk/$govukFrontendVersion/default"
-      else s"$baseUrl/component/govuk/$govukFrontendVersion/$name"
+      if (name == "govukTemplate") s"$baseUrl/template/$frontend/$version/default"
+      else s"$baseUrl/component/$frontend/$version/$name"
 
     val attempt: Try[String] = Try {
       val response = http(endpoint)

@@ -16,23 +16,8 @@
 
 package uk.gov.hmrc.hmrcfrontend.views
 
-import scala.util.matching.Regex
 import hmrcfrontendbuildinfo.BuildInfo
 
 object HmrcFrontendDependency {
-  val hmrcFrontendVersionRegex: Regex = """uk\.gov\.hmrc\.webjars:hmrc-frontend:(\d+\.\d+\.\d+)""".r
-
-  val hmrcFrontendVersion: String =
-    findFirstMatch(hmrcFrontendVersionRegex, BuildInfo.libraryDependencies)
-      .getOrElse(throw new RuntimeException("Unable to find the hmrc-frontend dependency"))
-      .group(1)
-
-  def findFirstMatch(regex: Regex, xs: Seq[String]): Option[Regex.Match] =
-    for {
-      x          <- xs.find {
-                      case regex(_*) => true
-                      case _         => false
-                    }
-      firstMatch <- regex.findFirstMatchIn(x)
-    } yield firstMatch
+  val hmrcFrontendVersion: String = BuildInfo.hmrcFrontendVersion
 }

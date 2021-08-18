@@ -5,7 +5,6 @@
 - [Testing](#testing)
 - [Upgrading](#upgrading)
 - [Translation Decisions](#translation-decisions)
-- [Play Versioning](#play-versioning)
 - [Architectural decision records](#architectural-decision-records)
 - [Useful Links](#useful-links)
 
@@ -13,27 +12,37 @@
 
 ### Unit Tests
 
-The unit tests work against two sets of fixtures. 
+The unit tests work against three sets of fixtures specific to the govuk-frontend and hmrc-frontend 
+libraries.
 
-The first set in `src/test/resources/fixtures/(govuk|hmrc)-frontend/test-fixtures` are derived from data extracted 
-from [hmrc-frontend's](https://github.com/hmrc/hmrc-frontend) or 
-[govuk-frontend's](https://github.com/hmrc/govuk-frontend) YAML documentation
-for each component. The yaml examples are used in `hmrc-frontend` and `govuk-frontend`'s own unit test suite.
+To regenerate the test fixtures, you will need the template renderer running locally (see below).
+Then run ```sbt generateGovukFixtures``` and ```sbt generateHmrcFixtures```. The template renderer does
+not need to be running when running the unit tests themselves.
 
-An additional, manually created, set of fixtures in `src/test/resources/fixtures/(govuk|hmrc)-frontend/additional-fixtures` captures test
-cases that are not covered by the published examples. For example, the layout and template components
-do not have published examples in `govuk-frontend` so they are placed in this directory.
+#### (govuk|hmrc)-frontend/test-fixtures/
 
-To regenerate the test fixtures, you will need the template renderer running locally (see below). 
-Then run ```sbt generateUnitTestFixtures```. The template renderer does not need to be running while the unit
-tests are executing.
+Fixtures derived from the [hmrc-frontend](https://github.com/hmrc/hmrc-frontend) or
+[govuk-frontend](https://github.com/hmrc/govuk-frontend) YAML documentation.
+These examples are used in `hmrc-frontend` and `govuk-frontend`'s own unit tests.
+They are populated automatically by the sbt `generate(Govuk|Hmrc)Fixtures` task.
+
+#### (govuk|hmrc)-frontend/additional-fixtures/
+
+Additional fixtures for cases not covered by examples provided in govuk-frontend or hmrc-frontend.
+The inputs are created manually. The outputs are updated automatically by the sbt `generate(Govuk|Hmrc)Fixtures` task.
+
+#### (govuk|hmrc)-frontend/patched-fixtures/
+
+Manually maintained coverage for any scenarios where we have chosen to
+diverge from the GOV.UK or HMRC components. The inputs and outputs for these fixtures
+are generated manually.
 
 ### Generative Testing
 
 To ensure (as much as possible) that the implemented templates conform to the `(govuk|hmrc)-frontend` templates, we use generative
 testing, via `scalacheck`, to compare the `Twirl` templates output against the `Nunjucks` `(govuk|hmrc)-frontend` templates.
  
-The tests run against a `node.js` service used to render the `hmrc-frontend` `Nunjucks` templates,
+The tests run against a `node.js` service used to render the templates,
 so you'll need to install it first.
 To install `node.js` via `nvm` please follow the instructions [here](https://github.com/nvm-sh/nvm#installation-and-update).
 
@@ -95,60 +104,65 @@ PLAY_VERSION=2.8 sbt clean +test +it:test
 
 ## Upgrading
 
-[This guide](/docs/maintainers/upgrading.md) describes the process of updating the library when a new version of `hmrc-frontend` is released. 
+[This guide](/docs/maintainers/upgrading.md) describes the process of updating the library when a new 
+version of `govuk-frontend` or `hmrc-frontend` is released. 
 
 ## Translation Decisions
 
 When writing a new template from an existing `Nunjucks` template it is necessary to make a few translation decisions.
 
-1. validation:
+### Validation
 
-   There is a lack of validation in `Nunjucks` templates to consider when translating `(govuk|hmrc)-frontend` components, but 
-   it is important to retain high parity of features.
-  
-   That said, some Twirl components in the library add validation by using `scala` assertions such as 
- [require](https://www.scala-lang.org/api/current/scala/Predef$.html#require(requirement:Boolean,message:=%3EAny):Unit),
-  which means **`Play` controllers should be handling potential `IllegalArgumentException`** thrown from views.
+There is a lack of validation in `Nunjucks` templates to consider when translating `(govuk|hmrc)-frontend` components, but 
+it is important to retain high parity of features.
 
-2. representing required and optional parameters (as documented in the `yaml` for a component in `hmrc-frontend`):
-   
-   Parameters may not always be documented comprehensively as `required` or `optional`, so the disambiguation comes
-   from looking at its usage in the template.
-   We opted to map optional parameters as `Option` types because it is the most natural mapping.
-   
-3. mapping from untyped `Javascript` to `Scala`:
+That said, some Twirl components in the library add validation by using `scala` assertions such as 
+[require](https://www.scala-lang.org/api/current/scala/Predef$.html#require(requirement:Boolean,message:=%3EAny):Unit),
+which means **`Play` controllers should be handling potential `IllegalArgumentException`** thrown from views.
 
-   `Javascript` makes liberal use of boolean-like types, the so called `truthy` and `falsy` values.
-   Special care is needed to translate conditions involving these types correctly.
+### Required and optional parameters
    
-   Ex: the following `Nunjucks` snippet where name is a `string` 
-   
-   ```nunjucks
-   {% if params.name %} name="{{ params.name }}"{% endif %}
-   ``` 
-   
-   would not render anything if `name` was `""` since it is a [falsy value](https://developer.mozilla.org/en-US/docs/Glossary/Falsy).
-    
-    It can be mapped to `name: Option[String]` in `Scala` and translated to `Twirl` as: 
-   ```scala
-   @name.filter(_.nonEmpty).map { name => name="@name" }
-   
-   // instead of the following which would render `name=""` 
-   // if name had the value Some("")
-   @name.map { name => name="@name@ }
-   ```
-   
-   Another example is the representation of `Javascript`'s `undefined`, which maps nicely to `Scala`'s `None`.
-   The need to represent `undefined`  sometimes gives rise to unusual types like `Option[List[T]]`.
-   The most correct type here would be `Option[NonEmptyList[T]]` but we opted not to use [refinement types](https://github.com/fthomas/refined) yet.
+Parameters may not always be documented comprehensively as `required` or `optional` in the YAML documentation, so 
+the disambiguation comes from looking at its usage in the template.
 
-   To date, the following conventions have been followed for view model case class fields:
-
-    * `classes` are of type `String`, normally defaulting to `""`, rather than `Option[String]` defaulting to `None`
-    * boolean attributes are `Option`-wrapped only if the Nunjucks template distinguishes between `null`/`undefined`
-      values and `true`/`false` values
-    * `id` can be either `Option[String]` or `String` - FIXME
+We opted to map optional parameters as `Option` types because it is the most natural mapping.
    
+### Mapping from untyped Javascript to typed Scala
+
+`Javascript` makes liberal use of boolean-like types, the so called `truthy` and `falsy` values.
+Special care is needed to translate conditions involving these types correctly.
+
+Ex: the following `Nunjucks` snippet where name is a `string` 
+
+```nunjucks
+{% if params.name %} name="{{ params.name }}"{% endif %}
+``` 
+
+would not render anything if `name` was `""` since it is 
+a [falsy value](https://developer.mozilla.org/en-US/docs/Glossary/Falsy).
+
+It can be mapped to `name: Option[String]` in `Scala` and translated to `Twirl` as:
+
+```scala
+@name.filter(_.nonEmpty).map { name => name="@name" }
+
+// instead of the following which would render `name=""` 
+// if name had the value Some("")
+@name.map { name => name="@name@ }
+```
+
+Another example is the representation of `Javascript`'s `undefined`, which maps nicely to `Scala`'s `None`.
+The need to represent `undefined` sometimes gives rise to unusual types like `Option[List[T]]`.
+The most correct type here would be `Option[NonEmptyList[T]]` but we opted not to 
+use [refinement types](https://github.com/fthomas/refined) yet.
+
+To date, the following conventions have been followed:
+
+* `classes` are of type `String`, normally defaulting to `""`, rather than `Option[String]` defaulting to `None`
+* boolean attributes are `Option`-wrapped only if the Nunjucks template distinguishes between `null`/`undefined`
+  values and `true`/`false` values
+* `id` can be either `Option[String]` or `String` - FIXME
+
 ## Architectural decision records 
 
 We are using MADRs to record architecturally significant decisions in this library. To find out more
@@ -156,12 +170,10 @@ visit [MADR](https://github.com/adr/madr)
 
 See our [architectural decision log](adr/index.md) (ADL) for a list of past decisions.
 
-## How to create a new ADR
+Decisions relating to `play-frontend-govuk`, which is now part of this library can be found
+[here](play-frontend-govuk-adr/index.md)
 
-1. Install [Node](https://nodejs.org/en/download/) if you do not have this already. Node includes
-npm.
-   
-## How to create a new ADR
+### How to create a new ADR
 
 1. Install [Node](https://nodejs.org/en/download/) if you do not have this already. Node includes
    npm.

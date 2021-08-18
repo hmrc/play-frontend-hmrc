@@ -24,8 +24,20 @@ lazy val root = Project(libName, file("."))
       compilerPlugin("com.github.ghik" % "silencer-plugin" % silencerVersion cross CrossVersion.full),
       "com.github.ghik" % "silencer-lib" % silencerVersion % Provided cross CrossVersion.full
     ),
-    (generateUnitTestFixtures in Test) := {
-      val generateFixtures = GenerateFixtures(baseDirectory.value / "src/test/resources")
+    (generateGovukFixtures in Test) := {
+      val generateFixtures = GenerateFixtures(
+        fixturesDir = baseDirectory.value / "src/test/resources/fixtures/govuk-frontend",
+        frontend = "govuk",
+        version = LibDependencies.govukFrontendVersion
+      )
+      generateFixtures.generate()
+    },
+    (generateHmrcFixtures in Test) := {
+      val generateFixtures = GenerateFixtures(
+        fixturesDir = baseDirectory.value / "src/test/resources/fixtures/hmrc-frontend",
+        frontend = "hmrc",
+        version = LibDependencies.hmrcFrontendVersion
+      )
       generateFixtures.generate()
     },
     parallelExecution in sbt.Test := false,
@@ -53,9 +65,9 @@ lazy val templateImports: Seq[String] = Seq(
   "play.api.i18n._",
   "play.api.templates.PlayMagic._",
   "uk.gov.hmrc.hmrcfrontend.views.html.components.implicits._",
-  "uk.gov.hmrc.govukfrontend.views.html.components.implicits._",
   "_root_.play.twirl.api.TwirlFeatureImports._",
   "_root_.play.twirl.api.TwirlHelperImports._"
 )
 
-lazy val generateUnitTestFixtures = taskKey[Unit]("Generate unit test fixtures")
+lazy val generateGovukFixtures = taskKey[Unit]("Generate unit test fixtures for GOV.UK")
+lazy val generateHmrcFixtures  = taskKey[Unit]("Generate unit test fixtures for HMRC")

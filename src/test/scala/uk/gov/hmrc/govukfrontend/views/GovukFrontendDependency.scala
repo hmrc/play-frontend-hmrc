@@ -16,7 +16,7 @@
 
 package uk.gov.hmrc.govukfrontend.views
 
-import buildinfo.BuildInfo
+import hmrcfrontendbuildinfo.BuildInfo
 
 object GovukFrontendDependency {
   val govukFrontendVersion: String = BuildInfo.govukFrontendVersion

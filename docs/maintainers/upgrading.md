@@ -2,15 +2,15 @@
 
 ## Basic Steps
 
-1. Bump webjar [dependency](https://github.com/hmrc/hmrc-frontend/tags) for `hmrc-frontend` in `project/LibDependencies.scala`. The
-   webjar reflecting the latest version of hmrc-frontend should have been
-   published automatically to HMRC's open artefact's repository by the hmrc-frontend build job.
-1. Generate fixtures folder `src/test/resources/fixtures/test-fixtures`.
-   - With the template renderer running locally (see below), execute `sbt generateUnitTestFixtures` 
-1. Run unit tests: `sbt clean test`.
-1. Start integration test dependencies: .
-1. Run integration tests: `sbt clean it:test`.
-1. Compare the two versions of `hmrc-frontend` (outgoing vs incoming) using a diff tool as shown [below](#examining-components-for-failed-tests).
+1. Update the value of `govukFrontendVersion` or `hmrcFrontendVersion` in [LibDependencies](../../project/LibDependencies.scala) 
+   according to the applicable version of [govuk-frontend](https://github.com/alphagov/govuk-frontend/tags) or
+   [hmrc-frontend](https://github.com/hmrc/hmrc-frontend/tags).
+1. With `x-govuk-component-renderer` running locally (see below), run `sbt generateGovukFixtures` for `govuk-frontend`
+     upgrades or `sbt generateHmrcFixtures` for `hmrc-frontend` upgrades.
+1. Run the unit tests: `sbt clean test`.
+1. Run the integration tests: `sbt clean it:test`.
+1. Compare the two versions of `govuk-frontend` or `hmrc-frontend` (outgoing vs incoming) using a diff tool 
+   as shown [below](#examining-components-for-failed-tests).
 
 ### Comparing Differences
 Since some of the components have dependencies, it is easier to start upgrading by starting from components with no dependencies, or, alternatively, from the components on the bottom of a dependency graph, and work our way up.
@@ -73,19 +73,21 @@ When running the above steps, there will be test failures if existing components
 failures for new components which have been added to `hmrc-frontend` or `govuk-frontend` but which have not yet been implemented in 
 `play-frontend-hmrc`.
 
-Therefore, it is important to look at the diffs between versions of `govuk-frontend`, and read the changelog.
+Therefore, it is important to look at the diffs between versions of `govuk-frontend`, and read the CHANGELOG.
 
-To add a new component in, the following steps need to be followed:
+To add a new component:
 - Add the view model as a Scala case class in the folder: `src/main/scala/uk/gov/hmrc/(hmrc|govuk)frontend/views/viewmodels`
 - Add an alias to the view model in `src/main/scala/uk/gov/hmrc/(hmrc|govuk)frontend/views/Aliases.scala`
 - Add the Twirl template in the folder: `src/main/twirl/uk/gov/hmrc/(hmrc|govuk)frontend/views/components`
 - Add the template unit test: `src/test/scala/uk/gov/hmrc/(hmrc|govuk)frontend/views/components`. This should extend 
-`TemplateUnitSpec[YourViewModel]("yourTwirlTemplate")`
+`TemplateUnitSpec[YourViewModel, YourComponent]("yourComponent")`
 - Add the template integration test: `src/it/scala/uk/gov/hmrc/(hmrc|govuk)frontend/views/components`. This should extend
-`TemplateIntegrationSpec[YourViewModel]("yourTwirlTemplate")`. You will need to create new Generator
+`TemplateIntegrationSpec[YourViewModel, YourComponent]("yourComponent")`. You will also need to create new Generator
 classes in `src/test/scala/uk/gov/hmrc/(hmrc|govuk)frontend/views/viewmodels`
 
 ## Useful Links
 - [x-govuk-component-renderer](https://github.com/hmrc/x-govuk-component-renderer) - service that returns HTML for `govuk-frontend` and `hmrc-frontend` component input parameters in the form of JSON objects - useful for confirming Twirl HTML outputs in integration tests
+- [GOV.UK Design System](https://design-system.service.gov.uk/components/) - documentation for the use of `govuk-frontend` components
+- [govuk-frontend](https://github.com/alphagov/govuk-frontend/) - reusable Nunjucks HTML components from GOV.UK
 - [hmrc-frontend](https://github.com/hmrc/hmrc-frontend/) - reusable Nunjucks HTML components for HMRC design patterns
 - [HMRC Design Patterns](https://design.tax.service.gov.uk/hmrc-design-patterns/) - documentation for the use of `hmrc-frontend` components

@@ -1,24 +1,25 @@
 # play-frontend-hmrc
 
 This library contains all the Twirl components and helpers needed to implement frontend microservices on the HMRC
-digital tax platform.
+tax platform.
 
-The library is a Scala Twirl implementation of 
+play-frontend-hmrc is a Scala Twirl implementation of 
 [govuk-frontend](https://www.github.com/hmrc/govuk-frontend) and
-[hmrc-frontend](https://www.github.com/hmrc/hmrc-frontend), with 
-additional HMRC-specific Twirl components as well as Play and platform aware helpers that make the process
+[hmrc-frontend](https://www.github.com/hmrc/hmrc-frontend), adding to it Play, HMRC and tax platform-specific 
+components and helpers that make the process
 of implementing frontend microservices straightforward and idiomatic for Scala developers.
 
 ## Table of Contents
 
 - [Getting started](#getting-started)
+- [Using the components](#using-the-components)
+- [Useful implicits](#useful-implicits)
+- [Using the HMRC layout](#using-the-hmrc-layout)
 - [Helping users report technical issues](#helping-users-report-technical-issues)
 - [Accessibility statement links](#accessibility-statement-links)
 - [CharacterCount with Welsh language support](#charactercount-with-welsh-language-support)
 - [Integrating with tracking consent](#integrating-with-tracking-consent)
 - [Warning users before timing them out](#warning-users-before-timing-them-out)
-- [RichDateInput](#richdateinput)
-- [RichErrorSummary](#richerrorsummary)
 - [Adding your own SASS compilation pipeline](#adding-your-own-sass-compilation-pipeline)
 - [Play Framework and Scala compatibility notes](#play-framework-and-scala-compatibility-notes)
 - [Getting help](#getting-help)
@@ -33,121 +34,96 @@ of implementing frontend microservices straightforward and idiomatic for Scala d
     libraryDependencies += "uk.gov.hmrc" %% "play-frontend-hmrc" % "x.y.z-play-28"
     ```
 
-    The library is cross-compiled for Play 2.6, 2.7, and 2.8. Note, because this library transitively depends on play-frontend-govuk
-    there is no need to add this as a separate dependency. If it is already included, it can be removed.
-
-1.  Add route for hmrc-frontend assets in `conf/app.routes`:
+1.  Add a route for the hmrc-frontend static assets in `conf/app.routes`:
     ```scala
     ->         /hmrc-frontend                      hmrcfrontend.Routes
     ```
 
-1. Ensure you have your service name defined in your messages files. For example,
+1. Define your service name in your messages files. For example,
     ```scala
     service.name = Any tax service
     ``` 
 
-   This is required by `hmrcStandardHeader`. If you have a dynamic service name you can skip this step and pass the
+   If you have a dynamic service name you can skip this step and pass the
    serviceName into `hmrcLayout` or `hmrcStandardHeader`.
 
-1. Create a custom layout template for your pages using `hmrcLayout` as per the section
-      [HMRC layout](#hmrc-layout)
-
-1. Then to use our components and helpers in your templates, you will need to import the component or helper from its
-   package `uk.gov.hmrc.(govuk|hmrc)frontend.views.html.components` or `uk.gov.hmrc.hmrcfrontend.views.html.helpers`.
-
-   For most components the parameters that can be provided are encapsulated in a viewmodel, comprised of case classes
-   that live within a subpackage of `uk.gov.hmrc(govuk|hmrc)frontend.views.viewmodels` and are aliased for use
-   under `uk.gov.hmrc(govuk|hmrc)frontend.views.html.components`.
-
-   ```scala
-   /*
-   Import all components, helpers, viewmodels, and implicits. Most succinct import method, but may require additional 
-   imports to resolve ambiguous import compilation errors for some viewmodels. Will also cause unused import warnings.
-   */
-   @import uk.gov.hmrc.hmrcfrontend.views.html.components._
-   @import uk.gov.hmrc.hmrcfrontend.views.html.helpers._
-   @import uk.gov.hmrc.hmrcfrontend.views.html.components.implicits._                  
-
-   /*
-   Import specific components and viewmodels, and all implicits. Avoids possibility of ambiguous import compilation 
-   errors and unused import warnings.
-   */
-   @import uk.gov.hmrc.hmrcfrontend.views.html.components.GovukRadios                                  /* component */
-   @import uk.gov.hmrc.hmrcfrontend.views.html.components.{Radios, Fieldset, Legend, Text, RadioItem}  /* viewmodel case classes */
-   @import uk.gov.hmrc.hmrcfrontend.views.html.components.implicits._
-
-   @this(govukRadios: GovukRadios)
-
-   @(myForm: Form[_])
-
-   @govukRadios(Radios(
-     fieldset = Some(Fieldset(
-       legend = Some(Legend(
-         content = Text("Where do you live?"),
-         classes = "govuk-fieldset__legend--l",
-         isPageHeading = true
-       ))
-     )),
-     items = Seq(
-       RadioItem(
-         content = Text("England"),
-         value = Some("england")
-       ), 
-       RadioItem(
-         content = Text("Scotland"),
-         value = Some("scotland")
-       ), 
-       RadioItem(
-         content = Text("Wales"),
-         value = Some("wales")
-       ), 
-       RadioItem(
-         content = Text("Northern Ireland"),
-         value = Some("northern-ireland")
-       )
-     )
-   ).withFormField(myForm("whereDoYouLive")))  /* wires up things like checked status of inputs from a play form field */
-   ```
-
-   > **Notice: Recommended usage pattern changed as of July 2021**
-   > We no longer recommend the use of `TwirlKeys.templateImports` configuration. Unused imports triggered excessive 
-   > warning messages which needed to be suppressed or could cause alert fatigue. However, that might also hide 
-   > meaningful feedback like deprecation warnings.
-
+1. Create a layout template for your pages using [HMRC layout](#hmrc-layout)
 
 ## Using the components
-To use the components and all the [types](src/main/scala/uk/gov/hmrc/govukfrontend/views/Aliases.scala)
-needed to construct them, import the following:
+
+To use our components and helpers, you will first need to import them from 
+their corresponding packages in `uk.gov.hmrc.govukfrontend.views.html.components`,
+`uk.gov.hmrc.hmrcfrontend.views.html.components` or `uk.gov.hmrc.hmrcfrontend.views.html.helpers`.
+
+For most components, their parameters are encapsulated within view models, case classes
+that live within a subpackage of `uk.gov.hmrc(govuk|hmrc)frontend.views.viewmodels` and are aliased for use
+under `uk.gov.hmrc(govuk|hmrc)frontend.views.html.components`.
+
+The following will import all components, helpers, view models, and implicits. This is the most succinct import method, 
+but may require additional imports to resolve ambiguous import compilation errors for some view models. It may 
+also cause unused import warnings.
 
 ```scala
 @import uk.gov.hmrc.govukfrontend.views.html.components._
+@import uk.gov.hmrc.govukfrontend.views.html.components.implicits._
 ```
 
-You can then use the components in your templates like this:
+Alternatively, you can import components and view models individually to avoid the possibility of ambiguous
+import compilation errors and unused import warnings.
 
 ```scala
-@this(govukButton: GovukButton)
+@import uk.gov.hmrc.govukfrontend.views.html.components.GovukRadios                                  /* component */
+@import uk.gov.hmrc.govukfrontend.views.html.components.{Radios, Fieldset, Legend, Text, RadioItem}  /* viewmodel case classes */
+@import uk.gov.hmrc.govukfrontend.views.html.components.implicits._
+```
 
-@()
-@govukButton(Button(
-  disabled = true,
-  content = Text("Disabled button")
-))
+You can then use the components in your templates as follows:
+
+```scala
+@this(govukRadios: GovukRadios)
+
+@(myForm: Form[_])
+
+@govukRadios(Radios(
+ fieldset = Some(Fieldset(
+   legend = Some(Legend(
+     content = Text("Where do you live?"),
+     classes = "govuk-fieldset__legend--l",
+     isPageHeading = true
+   ))
+ )),
+ items = Seq(
+   RadioItem(
+     content = Text("England"),
+     value = Some("england")
+   ), 
+   RadioItem(
+     content = Text("Scotland"),
+     value = Some("scotland")
+   ), 
+   RadioItem(
+     content = Text("Wales"),
+     value = Some("wales")
+   ), 
+   RadioItem(
+     content = Text("Northern Ireland"),
+     value = Some("northern-ireland")
+   )
+ )
+).withFormField(myForm("whereDoYouLive")))  /* wires up things like checked status of inputs from a play form field */
 ```
 
 ## Useful implicits
 
-The following imports will summon implicit objects including
-useful HTML trims, pads, indents and handling HTML emptiness, as well
-as extension methods on Play's Form fields to facilitate the wiring
-of Play forms.
+The following imports will summon implicit classes that include extension methods for HTML trims, pads, indents, 
+handling HTML emptiness and wiring Play forms.
 
 ```scala
 @import uk.gov.hmrc.govukfrontend.views.html.components.implicits._
 @import uk.gov.hmrc.hmrcfrontend.views.html.components.implicits._
 ````
 
-## withFormField
+### withFormField
 
 An extension method `withFormField(field: play.api.data.Field)` exists for the following classes:
 * CharacterCount
@@ -158,7 +134,7 @@ An extension method `withFormField(field: play.api.data.Field)` exists for the f
 * Textarea
 * DateInput
 
-This method allows a Play forms Field to be passed through when creating an instance of `play-frontend-govuk` form input,
+This method allows a Play forms Field to be passed through when creating an instance of a form input,
 which will enrich the input with the following:
 * Using the `Field` name for the input name
 * Using the `Field` name for the input id or idPrefix
@@ -167,7 +143,9 @@ which will enrich the input with the following:
   (`Checkboxes`, `Radios`, `Select`)
 
 The methods can be used as methods in a Twirl template as demonstrated below:
-```
+
+```scala
+@import uk.gov.hmrc.govukfrontend.views.html.components._
 @import uk.gov.hmrc.govukfrontend.views.html.components.implicits._
 
 @this(govukInput)
@@ -192,7 +170,7 @@ Additionally, there is a second method `withFormFieldWithErrorAsHtml(field: play
 ### RichDateInput
 
 The implicit class `RichDateInput` provides an extension method `withFormField(field: play.api.data.Field)`
-for the `DateInput` view model from [play-frontend-govuk](https://www.github.com/hmrc/play-frontend-govuk).
+for the `DateInput` view model.
 
 This method takes a Play `Field` and enriches the `DateInput` with:
 * three InputItems corresponding to the day, month and year fields with
@@ -306,7 +284,7 @@ non-empty title, it will not be overwritten.
 
 To use this class you will need to have an implicit `Messages` in scope.
 
-### HMRC layout
+## Using the HMRC layout
 
 The [hmrcLayout](src/main/twirl/uk/gov/hmrc/hmrcfrontend/views/helpers/HmrcLayout.scala.html) helper
 generates a layout for your pages including the `hmrcStandardHeader`, `hmrcStandardFooter`, Welsh language
@@ -423,36 +401,24 @@ within accessibility-statement-frontend, the default behaviour can be overridden
 
 ## CharacterCount with Welsh language support
 
-The [hmrcCharacterCount](src/main/twirl/uk/gov/hmrc/hmrcfrontend/views/components/HmrcCharacterCount.scala.html) is an
+[hmrcCharacterCount](src/main/twirl/uk/gov/hmrc/hmrcfrontend/views/components/HmrcCharacterCount.scala.html) is an
 implementation of the GOV.UK CharacterCount that translates the dynamic words / characters remaining
 text into English or Welsh using the Play framework Message API. You do not need to pass through the
 language explicitly to this component, just pass through an implicit Messages.
-```
-@import uk.gov.hmrc.hmrcfrontend.views.html.components.CharacterCount
+
+```scala
+@import uk.gov.hmrc.hmrcfrontend.views.html.components._
+@import uk.gov.hmrc.hmrcfrontend.views.html.components.implicits._
 
 @this(hmrcCharacterCount: HmrcCharacterCount)
 
-@(implicit messages: Messages)
+@(label: String, maxWords: Int, field: Field)(implicit messages: Messages)
+
 @hmrcCharacterCount(CharacterCount(
-    name = "some-component-name",
-    id = "some-component-id",
-    maxWords = Some(1000),
-    label = Label(content = Text("Please enter your text")),
-))
+    label = Label(content = Text(label)),
+    maxWords = Some(maxWords)
+)).withFormField(field)
 ```
-
-There is also a helper method `withFormField(field: Field)` that allows a Play forms Field to be passed through when creating an instance of `play-frontend-govuk` form input,
-which will enrich the input with the following:
-* Using the `Field` name for the input name
-* Using the `Field` name for the input id
-* Using the `Field` error message to create a `Text` error messages
-* Using the `Field` value as pre-filled value
-
-If a value is passed though to the input `.apply()` method during construction, it will NOT be overwritten by the
-`Field` values. These are only used if the object parameters are not set to the default parameters.
-
-Additionally, there is a second method `withFormFieldWithErrorAsHtml(field: play.api.data.Field)` which behaves as the
-`withFormField` method with the difference that form errors are bound as instances of `HtmlContent`.
 
 ## Integrating with tracking consent
 
