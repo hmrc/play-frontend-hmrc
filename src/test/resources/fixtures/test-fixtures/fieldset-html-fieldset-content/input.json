@@ -1,0 +1,6 @@
+{
+  "legend" : {
+    "text" : "What is your address?"
+  },
+  "html" : "<div class=\"my-content\">\n  <p>This is some content to put inside the fieldset</p>\n</div>\n"
+}

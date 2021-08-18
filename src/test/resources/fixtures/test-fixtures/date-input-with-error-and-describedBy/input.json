@@ -1,0 +1,12 @@
+{
+  "id" : "dob-errors",
+  "fieldset" : {
+    "describedBy" : "some-id",
+    "legend" : {
+      "text" : "What is your date of birth?"
+    }
+  },
+  "errorMessage" : {
+    "text" : "Error message goes here"
+  }
+}

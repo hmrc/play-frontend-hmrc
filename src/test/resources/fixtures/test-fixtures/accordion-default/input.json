@@ -1,0 +1,18 @@
+{
+  "id" : "default-example",
+  "items" : [ {
+    "heading" : {
+      "text" : "Section A"
+    },
+    "content" : {
+      "html" : "<ul class=\"govuk-list govuk-list--bullet\">\n  <li>Example item 1</li>\n</ul>\n"
+    }
+  }, {
+    "heading" : {
+      "text" : "Section B"
+    },
+    "content" : {
+      "html" : "<ul class=\"govuk-list govuk-list--bullet\">\n  <li>Example item 2</li>\n</ul>\n"
+    }
+  } ]
+}

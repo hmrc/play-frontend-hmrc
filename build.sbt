@@ -1,11 +1,7 @@
-import GenerateFixtures.generateFixtures
 import play.sbt.PlayImport.PlayKeys._
-import uk.gov.hmrc.playcrosscompilation.PlayVersion
 
 val libName         = "play-frontend-hmrc"
-val silencerVersion = "1.7.1"
-
-lazy val playDir = "play-26"
+val silencerVersion = "1.7.2"
 
 lazy val IntegrationTest = config("it") extend Test
 
@@ -28,31 +24,23 @@ lazy val root = Project(libName, file("."))
       compilerPlugin("com.github.ghik" % "silencer-plugin" % silencerVersion cross CrossVersion.full),
       "com.github.ghik" % "silencer-lib" % silencerVersion % Provided cross CrossVersion.full
     ),
-    excludeFilter in unmanagedSources := {
-      if (PlayCrossCompilation.playVersion == PlayVersion.Play28) "deprecatedPlay26Helpers.scala" else ""
-    },
-    // ***************
-    (sourceDirectories in (Compile, TwirlKeys.compileTemplates)) +=
-      baseDirectory.value / "src" / "main" / playDir / "twirl",
     (generateUnitTestFixtures in Test) := {
-      generateFixtures(baseDirectory.value / "src/test/resources", LibDependencies.hmrcFrontendVersion)
+      val generateFixtures = GenerateFixtures(baseDirectory.value / "src/test/resources")
+      generateFixtures.generate()
     },
     parallelExecution in sbt.Test := false,
     playMonitoredFiles ++= (sourceDirectories in (Compile, TwirlKeys.compileTemplates)).value,
     unmanagedResourceDirectories in Test ++= Seq(baseDirectory(_ / "target/web/public/test").value),
     buildInfoKeys ++= Seq[BuildInfoKey](
-      "playVersion" -> PlayCrossCompilation.playVersion,
+      "playVersion"          -> PlayCrossCompilation.playVersion,
+      "govukFrontendVersion" -> LibDependencies.govukFrontendVersion,
+      "hmrcFrontendVersion"  -> LibDependencies.hmrcFrontendVersion,
       sources in (Compile, TwirlKeys.compileTemplates)
     ),
     buildInfoPackage := "hmrcfrontendbuildinfo"
   )
-  .settings(inConfig(IntegrationTest)(itSettings): _*)
+  .settings(inConfig(IntegrationTest)(Defaults.itSettings): _*)
   .settings(inConfig(IntegrationTest)(org.scalafmt.sbt.ScalafmtPlugin.scalafmtConfigSettings))
-
-lazy val itSettings = Defaults.itSettings ++ Seq(
-  unmanagedSourceDirectories += sourceDirectory.value / playDir,
-  unmanagedResourceDirectories += sourceDirectory.value / playDir / "resources"
-)
 
 lazy val templateImports: Seq[String] = Seq(
   "_root_.play.twirl.api.Html",
@@ -65,6 +53,7 @@ lazy val templateImports: Seq[String] = Seq(
   "play.api.i18n._",
   "play.api.templates.PlayMagic._",
   "uk.gov.hmrc.hmrcfrontend.views.html.components.implicits._",
+  "uk.gov.hmrc.govukfrontend.views.html.components.implicits._",
   "_root_.play.twirl.api.TwirlFeatureImports._",
   "_root_.play.twirl.api.TwirlHelperImports._"
 )

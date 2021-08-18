@@ -15,11 +15,12 @@
 
 The unit tests work against two sets of fixtures. 
 
-The first set in `src/test/resources/fixtures/test-fixtures` are derived from data extracted 
-from [hmrc-frontend's yaml documentation](https://github.com/hmrc/hmrc-frontend)
-for each component. The yaml examples are used in `hmrc-frontend`'s own unit test suite.
+The first set in `src/test/resources/fixtures/(govuk|hmrc)-frontend/test-fixtures` are derived from data extracted 
+from [hmrc-frontend's](https://github.com/hmrc/hmrc-frontend) or 
+[govuk-frontend's](https://github.com/hmrc/govuk-frontend) YAML documentation
+for each component. The yaml examples are used in `hmrc-frontend` and `govuk-frontend`'s own unit test suite.
 
-An additional, manually created, set of fixtures in `src/test/resources/fixtures/additional-fixtures` captures test
+An additional, manually created, set of fixtures in `src/test/resources/fixtures/(govuk|hmrc)-frontend/additional-fixtures` captures test
 cases that are not covered by the published examples. For example, the layout and template components
 do not have published examples in `govuk-frontend` so they are placed in this directory.
 
@@ -29,8 +30,8 @@ tests are executing.
 
 ### Generative Testing
 
-To ensure (as much as possible) that the implemented templates conform to the `hmrc-frontend` templates, we use generative
-testing, via `scalacheck`, to compare the `Twirl` templates output against the `Nunjucks` `hmrc-frontend` templates.
+To ensure (as much as possible) that the implemented templates conform to the `(govuk|hmrc)-frontend` templates, we use generative
+testing, via `scalacheck`, to compare the `Twirl` templates output against the `Nunjucks` `(govuk|hmrc)-frontend` templates.
  
 The tests run against a `node.js` service used to render the `hmrc-frontend` `Nunjucks` templates,
 so you'll need to install it first.
@@ -53,7 +54,12 @@ sbt it:test
 ```
 
 _Note: The integration tests output produces a bit of noise as the library outputs statistics about the generators to check
-the distribution of the test cases. More information about collecting statistics on generators [here](https://github.com/typelevel/scalacheck/blob/master/doc/UserGuide.md#collecting-generated-test-data)._
+the distribution of the test cases. More information about collecting statistics on generators 
+[here](https://github.com/typelevel/scalacheck/blob/master/doc/UserGuide.md#collecting-generated-test-data)._
+
+The integration tests are automatically run as part of the build and publish pipeline with the component renderer 
+run as a sidecar. For this reason, it's important to merge any changes to the component renderer before merging corresponding
+changes to the library.
 
 #### Reproducing Failures (Deterministic Testing)
 In case of a test failure, the test reporter outputs a `org.scalacheck.rng.Seed` encoded in Base-64 that can be passed back to the failing test to reproduce it.
@@ -74,6 +80,19 @@ the Twirl template output and the `new` file was the Nunjucks template output (e
 Diff between Twirl and Nunjucks outputs (please open diff HTML file in a browser): file:///Users/foo/dev/hmrc/play-frontend-hmrc/target/hmrcPageHeading-diff-2b99bb2a-98d4-48dc-8088-06bfe3008021.html
 ```
 
+### Running all tests for all supported Scala and Play versions
+
+Prior to merging to trunk, it is a good idea to run all the tests against all supported versions of Scala and Play.
+These checks will also be performed automatically as part of the build pipeline before publishing.
+
+To achieve this, run:
+
+```bash
+PLAY_VERSION=2.6 sbt clean +test +it:test && \
+PLAY_VERSION=2.7 sbt clean +test +it:test && \
+PLAY_VERSION=2.8 sbt clean +test +it:test
+```
+
 ## Upgrading
 
 [This guide](/docs/maintainers/upgrading.md) describes the process of updating the library when a new version of `hmrc-frontend` is released. 
@@ -84,7 +103,8 @@ When writing a new template from an existing `Nunjucks` template it is necessary
 
 1. validation:
 
-   There is a lack of validation in `Nunjucks` templates to consider when translating `hmrc-frontend` components, but it is important to retain high parity of features.
+   There is a lack of validation in `Nunjucks` templates to consider when translating `(govuk|hmrc)-frontend` components, but 
+   it is important to retain high parity of features.
   
    That said, some Twirl components in the library add validation by using `scala` assertions such as 
  [require](https://www.scala-lang.org/api/current/scala/Predef$.html#require(requirement:Boolean,message:=%3EAny):Unit),
@@ -121,10 +141,17 @@ When writing a new template from an existing `Nunjucks` template it is necessary
    Another example is the representation of `Javascript`'s `undefined`, which maps nicely to `Scala`'s `None`.
    The need to represent `undefined`  sometimes gives rise to unusual types like `Option[List[T]]`.
    The most correct type here would be `Option[NonEmptyList[T]]` but we opted not to use [refinement types](https://github.com/fthomas/refined) yet.
+
+   To date, the following conventions have been followed for view model case class fields:
+
+    * `classes` are of type `String`, normally defaulting to `""`, rather than `Option[String]` defaulting to `None`
+    * boolean attributes are `Option`-wrapped only if the Nunjucks template distinguishes between `null`/`undefined`
+      values and `true`/`false` values
+    * `id` can be either `Option[String]` or `String` - FIXME
    
 ## Architectural decision records 
 
-We are using MADRs to record architecturally significant decisions in this service. To find out more
+We are using MADRs to record architecturally significant decisions in this library. To find out more
 visit [MADR](https://github.com/adr/madr)
 
 See our [architectural decision log](adr/index.md) (ADL) for a list of past decisions.
@@ -133,6 +160,11 @@ See our [architectural decision log](adr/index.md) (ADL) for a list of past deci
 
 1. Install [Node](https://nodejs.org/en/download/) if you do not have this already. Node includes
 npm.
+   
+## How to create a new ADR
+
+1. Install [Node](https://nodejs.org/en/download/) if you do not have this already. Node includes
+   npm.
 
 1. Install `adr-log` if you do not have this already
 
@@ -152,8 +184,7 @@ that are strictly necessary. Some decisions will merit more detail than others.
 
 ## Useful Links
 - [x-govuk-component-renderer](https://github.com/hmrc/x-govuk-component-renderer) - service that returns HTML for `govuk-frontend` and `hmrc-frontend` component input parameters in the form of JSON objects - useful for confirming Twirl HTML outputs in integration tests
+- [GOV.UK Design System](https://design-system.service.gov.uk/components/) - documentation for the use of `govuk-frontend` components
+- [govuk-frontend](https://github.com/alphagov/govuk-frontend/) - reusable Nunjucks HTML components from GOV.UK
 - [hmrc-frontend](https://github.com/hmrc/hmrc-frontend/) - reusable Nunjucks HTML components for HMRC design patterns
 - [HMRC Design Patterns](https://design.tax.service.gov.uk/hmrc-design-patterns/) - documentation for the use of `hmrc-frontend` components
-- [govuk-frontend](https://github.com/alphagov/govuk-frontend/) - reusable Nunjucks HTML components from GOV.UK
-- [play-frontend-govuk](https://github.com/hmrc/play-frontend-govuk/) - Twirl implementation of `govuk-frontend` components
-- [GOV.UK Design System](https://design-system.service.gov.uk/components/) - documentation for the use of `govuk-frontend` components

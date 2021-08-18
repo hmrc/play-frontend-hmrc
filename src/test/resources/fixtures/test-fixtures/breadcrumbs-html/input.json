@@ -1,0 +1,8 @@
+{
+  "items" : [ {
+    "html" : "<em>Section 1</em>"
+  }, {
+    "html" : "<em>Section 2</em>",
+    "href" : "/section-2"
+  } ]
+}

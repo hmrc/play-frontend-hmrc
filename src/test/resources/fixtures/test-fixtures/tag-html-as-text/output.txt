@@ -1,0 +1,3 @@
+<strong class="govuk-tag">
+  &lt;span&gt;alpha&lt;/span&gt;
+</strong>

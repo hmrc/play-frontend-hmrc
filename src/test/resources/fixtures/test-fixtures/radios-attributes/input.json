@@ -1,0 +1,14 @@
+{
+  "name" : "example-name",
+  "attributes" : {
+    "data-attribute" : "value",
+    "data-second-attribute" : "second-value"
+  },
+  "items" : [ {
+    "value" : "yes",
+    "text" : "Yes"
+  }, {
+    "value" : "no",
+    "text" : "No"
+  } ]
+}

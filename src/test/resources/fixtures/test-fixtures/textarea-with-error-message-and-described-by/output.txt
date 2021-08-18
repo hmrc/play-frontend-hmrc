@@ -1,0 +1,9 @@
+<div class="govuk-form-group govuk-form-group--error">
+  <label class="govuk-label" for="textarea-with-error">
+    Textarea with error
+  </label>
+  <span id="textarea-with-error-error" class="govuk-error-message">
+  <span class="govuk-visually-hidden">Error:</span> Error message
+  </span>
+  <textarea class="govuk-textarea govuk-textarea--error" id="textarea-with-error" name="textarea-with-error" rows="5" aria-describedby="some-id textarea-with-error-error"></textarea>
+</div>

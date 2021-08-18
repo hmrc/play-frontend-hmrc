@@ -1,0 +1,16 @@
+{
+  "rows" : [ {
+    "key" : {
+      "text" : "Name"
+    },
+    "value" : {
+      "text" : "Firstname Lastname"
+    },
+    "actions" : {
+      "items" : [ {
+        "html" : "Edit<span class=\"visually-hidden\"> name</span>",
+        "href" : "#"
+      } ]
+    }
+  } ]
+}

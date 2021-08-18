@@ -1,0 +1,7 @@
+<div class="govuk-form-group">
+  
+  <select class="govuk-select" id="with-attributes" name="with-attributes" data-attribute="my data value">
+      <option value="1">GOV.UK frontend option 1</option>
+      <option value="2">GOV.UK frontend option 2</option>
+  </select>
+</div>

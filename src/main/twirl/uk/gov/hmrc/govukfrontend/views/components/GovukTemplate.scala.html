@@ -1,0 +1,92 @@
+@*
+ * Copyright 2021 HM Revenue & Customs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *@
+
+@import uk.gov.hmrc.govukfrontend.controllers.routes
+@import uk.gov.hmrc.govukfrontend.views.html.components._
+
+@this(govukHeader: GovukHeader, govukFooter: GovukFooter, govukSkipLink: GovukSkipLink)
+
+@(
+  htmlLang: Option[String] = None,
+  pageTitleLang: Option[String] = None,
+  mainLang: Option[String] = None,
+  htmlClasses: Option[String] = None,
+  themeColour: Option[String] = None,
+  bodyClasses: Option[String] = None,
+  pageTitle: Option[String] = None,
+  headIcons: Option[Html] = None,
+  headBlock: Option[Html] = None,
+  bodyStart: Option[Html] = None,
+  skipLinkBlock: Option[Html] = None,
+  headerBlock: Html = govukHeader(),
+  footerBlock: Html = govukFooter(),
+  bodyEndBlock: Option[Html] = None,
+  mainClasses: Option[String] = None,
+  beforeContentBlock: Option[Html] = None,
+  assetPath: Option[String] = None,
+  cspNonce: Option[String] = None
+)(contentBlock: Html)<!DOCTYPE html>
+<html lang="@htmlLang.getOrElse {en}" class="govuk-template @htmlClasses">
+  <head>
+    <meta charset="utf-8">
+    <title@pageTitleLang.filter(_.nonEmpty).map {pageTitleLang => lang="@pageTitleLang"}>@pageTitle.getOrElse{GOV.UK - The best place to find government services and information}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta name="theme-color" content="@themeColour.getOrElse {#0b0c0c}"> @* Hardcoded value of $govuk-black *@
+    @* Ensure that older IE versions always render with the correct rendering engine *@
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    @headIcons.getOrElse {
+      <link rel="shortcut icon" sizes="16x16 32x32 48x48" href="@calculateAssetPath(assetPath, "images/favicon.ico")" type="image/x-icon">
+      <link rel="mask-icon" href="@calculateAssetPath(assetPath, "images/govuk-mask-icon.svg")" color="@themeColour.getOrElse {#0b0c0c}"> @* Hardcoded value of $govuk-black *@
+      <link rel="apple-touch-icon" sizes="180x180" href="@calculateAssetPath(assetPath, "images/govuk-apple-touch-icon-180x180.png")">
+      <link rel="apple-touch-icon" sizes="167x167" href="@calculateAssetPath(assetPath, "images/govuk-apple-touch-icon-167x167.png")">
+      <link rel="apple-touch-icon" sizes="152x152" href="@calculateAssetPath(assetPath, "images/govuk-apple-touch-icon-152x152.png")">
+      <link rel="apple-touch-icon" href="@calculateAssetPath(assetPath, "images/govuk-apple-touch-icon.png")">
+    }
+
+    @headBlock
+    @* The default og:image is added below head so that scrapers see any custom metatags first, and this is just a fallback *@
+    @* image url needs to be absolute e.g. http://wwww.domain.com/.../govuk-opengraph-image.png *@
+    <meta property="og:image" content="@calculateAssetPath(assetPath, "images/govuk-opengraph-image.png")">
+  </head>
+  <body class="govuk-template__body @bodyClasses">
+    <script@cspNonce.map {n => nonce="@n"}>document.body.className = ((document.body.className) ? document.body.className + ' js-enabled' : 'js-enabled');</script>
+    @bodyStart
+
+    @skipLinkBlock.getOrElse {
+      @govukSkipLink(SkipLink(
+        href = "#main-content",
+        content = Text(htmlLang match {
+          case Some("cy") => "Ewch yn syth i‘r prif gynnwys"
+          case _          => "Skip to main content"
+        })
+      ))
+    }
+
+    @headerBlock
+
+    <div class="govuk-width-container ">
+      @beforeContentBlock
+      <main class="govuk-main-wrapper @mainClasses" id="main-content" role="main"@mainLang.filter(_.nonEmpty).map {mainLang => lang="@mainLang"}>
+        @contentBlock
+      </main>
+    </div>
+
+    @footerBlock
+
+    @bodyEndBlock
+  </body>
+</html>

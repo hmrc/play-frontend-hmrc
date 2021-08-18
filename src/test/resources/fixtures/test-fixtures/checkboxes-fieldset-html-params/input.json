@@ -1,0 +1,15 @@
+{
+  "name" : "example-name",
+  "fieldset" : {
+    "legend" : {
+      "html" : "What is your <b>nationality</b>?"
+    }
+  },
+  "items" : [ {
+    "value" : "british",
+    "text" : "British"
+  }, {
+    "value" : "irish",
+    "text" : "Irish"
+  } ]
+}

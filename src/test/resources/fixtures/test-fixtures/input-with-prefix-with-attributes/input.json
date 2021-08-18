@@ -1,0 +1,13 @@
+{
+  "label" : {
+    "text" : "Amount, in pounds"
+  },
+  "id" : "input-with-prefix-element",
+  "name" : "amount",
+  "prefix" : {
+    "text" : "£",
+    "attributes" : {
+      "data-attribute" : "value"
+    }
+  }
+}

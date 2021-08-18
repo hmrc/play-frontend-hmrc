@@ -1,0 +1,10 @@
+{
+  "titleText" : "There is a problem",
+  "attributes" : {
+    "first-attribute" : "foo",
+    "second-attribute" : "bar"
+  },
+  "errorList" : [ {
+    "text" : "Invalid username or password"
+  } ]
+}

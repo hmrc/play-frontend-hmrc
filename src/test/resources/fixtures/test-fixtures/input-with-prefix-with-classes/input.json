@@ -1,0 +1,11 @@
+{
+  "label" : {
+    "text" : "Amount, in pounds"
+  },
+  "id" : "input-with-prefix-element",
+  "name" : "amount",
+  "prefix" : {
+    "text" : "£",
+    "classes" : "app-input__prefix--custom-modifier"
+  }
+}

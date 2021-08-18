@@ -1,0 +1,13 @@
+<div class="govuk-cookie-banner " data-nosnippet role="region" aria-label="Cookie banner">
+    <div class="govuk-cookie-banner__message govuk-width-container">
+
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-two-thirds">
+        <h2 class="govuk-cookie-banner__heading govuk-heading-m">Cookies on &lt;span&gt;my service&lt;/span&gt;</h2>
+
+        <div class="govuk-cookie-banner__content"></div>
+      </div>
+    </div>
+
+    </div>
+</div>

@@ -1,0 +1,6 @@
+{
+  "id" : "with-attributes",
+  "attributes" : {
+    "data-attribute" : "my data value"
+  }
+}

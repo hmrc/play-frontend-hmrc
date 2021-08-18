@@ -1,0 +1,10 @@
+<div class="govuk-form-group">
+  
+  <div id="select-with-hint-hint" class="govuk-hint">
+    Hint text goes here
+  </div>
+  <select class="govuk-select" id="select-with-hint" name="select-with-hint" aria-describedby="some-id select-with-hint-hint">
+      <option value="1">GOV.UK frontend option 1</option>
+      <option value="2">GOV.UK frontend option 2</option>
+  </select>
+</div>

@@ -1,0 +1,58 @@
+@*
+ * Copyright 2021 HM Revenue & Customs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *@
+
+@this()
+
+@(params: NotificationBanner)
+@import params._
+
+@bannerRole = @{ role.getNonEmptyOrElse {
+  if (bannerType.contains("success")) "alert"
+  else "region"
+} }
+
+@titleContent = @{
+    if (title.nonEmpty) title
+    else {
+        if (bannerType.contains("success")) Text("Success") else Text("Important")
+    }
+}
+
+@headingLevel = @{
+    titleHeadingLevel.getOrElse(2)
+}
+
+@headingAndTitleId = @{
+    titleId.getOrElse("govuk-notification-banner-title")
+}
+
+<div class="@toClasses("govuk-notification-banner", classes, if(bannerType.contains("success"))" govuk-notification-banner--success" else "")"
+    role="@{bannerRole}"
+    aria-labelledby="@{headingAndTitleId}"
+    data-module="govuk-notification-banner"@if(disableAutoFocus.getOrElse(false)){ data-disable-auto-focus="true"}@toAttributes(attributes)>
+    <div class="govuk-notification-banner__header">
+        <h@headingLevel class="govuk-notification-banner__title" id="@{headingAndTitleId}">
+            @{titleContent.asHtml}
+        </h@headingLevel>
+    </div>
+    <div class="govuk-notification-banner__content">
+      @content match {
+        case NonEmptyHtml(html) => {@html}
+        case NonEmptyText(text) => {<p class="govuk-notification-banner__heading">@text</p>}
+        case _ => {}
+      }
+    </div>
+</div>

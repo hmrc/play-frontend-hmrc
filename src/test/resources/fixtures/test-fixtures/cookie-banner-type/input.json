@@ -1,0 +1,8 @@
+{
+  "messages" : [ {
+    "actions" : [ {
+      "text" : "Button",
+      "type" : "button"
+    } ]
+  } ]
+}

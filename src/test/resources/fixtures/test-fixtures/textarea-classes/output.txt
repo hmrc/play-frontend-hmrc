@@ -1,0 +1,6 @@
+<div class="govuk-form-group">
+  <label class="govuk-label" for="with-classes">
+    With classes
+  </label>
+  <textarea class="govuk-textarea app-textarea--custom-modifier" id="with-classes" name="with-classes" rows="5"></textarea>
+</div>

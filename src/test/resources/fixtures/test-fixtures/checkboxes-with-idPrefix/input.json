@@ -1,0 +1,11 @@
+{
+  "name" : "example-name",
+  "idPrefix" : "nationality",
+  "items" : [ {
+    "value" : 1,
+    "text" : "Option 1"
+  }, {
+    "value" : 2,
+    "text" : "Option 2"
+  } ]
+}

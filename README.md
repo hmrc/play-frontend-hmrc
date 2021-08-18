@@ -3,18 +3,11 @@
 This library contains all the Twirl components and helpers needed to implement frontend microservices on the HMRC
 digital tax platform.
 
-The library transitively depends on [play-frontend-govuk](https://github.com/hmrc/play-frontend-govuk/) which is a Twirl
-port of [alphagov/govuk-frontend](https://www.github.com/alphagov/govuk-frontend),
-adding to it HMRC-specific Twirl components as well as Play and platform aware helpers that make the process
+The library is a Scala Twirl implementation of 
+[govuk-frontend](https://www.github.com/hmrc/govuk-frontend) and
+[hmrc-frontend](https://www.github.com/hmrc/hmrc-frontend), with 
+additional HMRC-specific Twirl components as well as Play and platform aware helpers that make the process
 of implementing frontend microservices straightforward and idiomatic for Scala developers.
-
-The library comprises two packages:
-
-1. components - a set of Twirl templates providing a direct port of the Nunjucks components from
-   [hmrc/hmrc-frontend](https://www.github.com/hmrc/hmrc-frontend)
-1. helpers
-    1. wrappers designed to make using the hmrc-frontend components more straightforward and idiomatic in Scala/Play
-    1. a collection of markup snippets required by MDTP microservices
 
 ## Table of Contents
 
@@ -121,66 +114,82 @@ The library comprises two packages:
    > warning messages which needed to be suppressed or could cause alert fatigue. However, that might also hide 
    > meaningful feedback like deprecation warnings.
 
-### HMRC layout
 
-The [hmrcLayout](src/main/twirl/uk/gov/hmrc/hmrcfrontend/views/helpers/HmrcLayout.scala.html) helper
-generates a layout for your pages including the `hmrcStandardHeader`, `hmrcStandardFooter`, Welsh language
-toggle, and various banners.
+## Using the components
+To use the components and all the [types](src/main/scala/uk/gov/hmrc/govukfrontend/views/Aliases.scala)
+needed to construct them, import the following:
 
-To use this component,
-
-1. Create a layout template `Layout.scala.html` as follows:
-
-    ```scala 
-    @import uk.gov.hmrc.hmrcfrontend.views.html.helpers.HmrcLayout
-    @import uk.gov.hmrc.hmrcfrontend.views.config.StandardBetaBanner
-    @import views.html.helper.CSPNonce
-    @import config.AppConfig
-    @import uk.gov.hmrc.anyfrontend.controllers.routes
-    
-    @this(hmrcLayout: HmrcLayout, standardBetaBanner: StandardBetaBanner)
-
-    @(pageTitle: String)(contentBlock: Html)(implicit request: RequestHeader, messages: Messages)
-
-    @hmrcLayout(
-      pageTitle = Some(pageTitle),
-      isWelshTranslationAvailable = true, /* or false if your service has not been translated */
-      serviceUrl = Some(routes.IndexController.index().url),
-      signOutUrl = Some(routes.SignOutController.signOut().url),
-      phaseBanner = Some(standardBetaBanner(url = appConfig.betaFeedbackUrl)),
-      nonce = CSPNonce.get,
-    )(contentBlock)
-    ```
-
-1. The parameters that can be passed into the `hmrcLayout` and their default values are as follows:
-
-   | Parameter                     | Description                                                       | Example                                                   |
-   | ----------------------------- | ----------------------------------------------------------------- | --------------------------------------------------------- |
-   | `pageTitle`                   | This will be bound to govukLayout                                 |                                                           |
-   | `isWelshTranslationAvailable` | Setting to true will display the language toggle                  | true                                                      |
-   | `serviceUrl`                  | This will be bound to hmrcStandardHeader                          | Some(routes.IndexController.index().url)                  |
-   | `signOutUrl`                  | Passing a value will display the sign out link                    | Some(routes.SignOutController.signOut().url)              |
-   | `userResearchBannerUrl`       | Passing a value will display the user research banner             | Some(UserResearchBanner(url = appConfig.userResearchUrl)) |
-   | `accessibilityStatementUrl`   | Passing a value will override the accessibility statement URL in the [footer](#accessibility-statement-links)                 ||
-   | `backLinkUrl`                 | Passing a value will display a back link                          | Some(routes.ServiceController.start().url)                |
-   | `displayHmrcBanner`           | Setting to true will display the [HMRC banner](https://design.tax.service.gov.uk/hmrc-design-patterns/hmrc-banner/)          ||
-   | `phaseBanner`                 | Passing a value will display alpha or beta banner.                | Some(standardBetaBanner(url = appConfig.betaFeedbackUrl)) |
-   | `additionalHeadBlock`         | Passing a value will add additional content in the HEAD element   |                                                           |
-   | `additionalScriptsBlock`      | Passing a value will add additional scripts at the end of the BODY|                                                           |
-   | `beforeContentBlock`          | Passing a value will add content between the header and the main element. This content will override any `isWelshTranslationAvailable` or `backLinkUrl` parameter.||
-   | `nonce`                       | This will be bound to hmrcHead, hmrcScripts and govukTemplate     |                                                           |
-   | `mainContentLayout`           | Passing value will override the default two thirds layout         |                                                           |
-   | `serviceName`                 | Pass a value only if your service has a dynamic service name      |                                                           |
-
-### Useful implicits
-
-The following import will summon [implicits](https://github.com/hmrc/play-frontend-hmrc/blob/master/src/main/scala/uk/gov/hmrc/hmrcfrontend/views/Implicits.scala) that provide extension methods on `Play’s` [Html](https://www.playframework.com/documentation/2.6.x/api/scala/play/twirl/api/Html.html) objects.
-This includes useful HTML trims, pads, indents and handling HTML emptiness.
 ```scala
-@import uk.gov.hmrc.hmrcfrontend.views.html.components.implicits._
+@import uk.gov.hmrc.govukfrontend.views.html.components._
 ```
 
-#### RichDateInput
+You can then use the components in your templates like this:
+
+```scala
+@this(govukButton: GovukButton)
+
+@()
+@govukButton(Button(
+  disabled = true,
+  content = Text("Disabled button")
+))
+```
+
+## Useful implicits
+
+The following imports will summon implicit objects including
+useful HTML trims, pads, indents and handling HTML emptiness, as well
+as extension methods on Play's Form fields to facilitate the wiring
+of Play forms.
+
+```scala
+@import uk.gov.hmrc.govukfrontend.views.html.components.implicits._
+@import uk.gov.hmrc.hmrcfrontend.views.html.components.implicits._
+````
+
+## withFormField
+
+An extension method `withFormField(field: play.api.data.Field)` exists for the following classes:
+* CharacterCount
+* Checkboxes
+* Input
+* Radios
+* Select
+* Textarea
+* DateInput
+
+This method allows a Play forms Field to be passed through when creating an instance of `play-frontend-govuk` form input,
+which will enrich the input with the following:
+* Using the `Field` name for the input name
+* Using the `Field` name for the input id or idPrefix
+* Using the `Field` error message to create a `Text` error messages
+* Using the `Field` value as pre-filled value (for `CharacterCount`, `Input`, `Textarea`) or pre-selected value
+  (`Checkboxes`, `Radios`, `Select`)
+
+The methods can be used as methods in a Twirl template as demonstrated below:
+```
+@import uk.gov.hmrc.govukfrontend.views.html.components.implicits._
+
+@this(govukInput)
+
+@(label: String, field: Field)(implicit messages: Messages)
+
+@govukInput(
+  Input(
+    label = Label(classes = labelClasses, content = Text(label))
+  ).withFormField(field)
+)
+```
+
+If a value is passed though to the input `.apply()` method during construction, it will NOT be overwritten by the
+`Field` values. These are only used if the object parameters are not set to the default parameters.
+
+Note that you will need to pass through an implicit `Messages` to your template.
+
+Additionally, there is a second method `withFormFieldWithErrorAsHtml(field: play.api.data.Field)` which behaves as the
+`withFormField` method with the difference that form errors are bound as instances of `HtmlContent`.
+
+### RichDateInput
 
 The implicit class `RichDateInput` provides an extension method `withFormField(field: play.api.data.Field)`
 for the `DateInput` view model from [play-frontend-govuk](https://www.github.com/hmrc/play-frontend-govuk).
@@ -260,7 +269,7 @@ Additionally, there is a second method `withFormFieldWithErrorAsHtml(field: play
 
 Note that you will need to pass through an implicit `Messages` to your template.
 
-#### RichErrorSummary
+### RichErrorSummary
 
 The implicit class `RichErrorSummary` provides extension methods `withFormErrorsAsText` and
 `withFormErrorsAsHtml` to hydrate an `ErrorSummary` with the standard
@@ -296,6 +305,57 @@ Note, these methods will not overwrite any existing `ErrorSummary` properties. F
 non-empty title, it will not be overwritten.
 
 To use this class you will need to have an implicit `Messages` in scope.
+
+### HMRC layout
+
+The [hmrcLayout](src/main/twirl/uk/gov/hmrc/hmrcfrontend/views/helpers/HmrcLayout.scala.html) helper
+generates a layout for your pages including the `hmrcStandardHeader`, `hmrcStandardFooter`, Welsh language
+toggle, and various banners.
+
+To use this component,
+
+1. Create a layout template `Layout.scala.html` as follows:
+
+    ```scala 
+    @import uk.gov.hmrc.hmrcfrontend.views.html.helpers.HmrcLayout
+    @import uk.gov.hmrc.hmrcfrontend.views.config.StandardBetaBanner
+    @import views.html.helper.CSPNonce
+    @import config.AppConfig
+    @import uk.gov.hmrc.anyfrontend.controllers.routes
+    
+    @this(hmrcLayout: HmrcLayout, standardBetaBanner: StandardBetaBanner)
+
+    @(pageTitle: String)(contentBlock: Html)(implicit request: RequestHeader, messages: Messages)
+
+    @hmrcLayout(
+      pageTitle = Some(pageTitle),
+      isWelshTranslationAvailable = true, /* or false if your service has not been translated */
+      serviceUrl = Some(routes.IndexController.index().url),
+      signOutUrl = Some(routes.SignOutController.signOut().url),
+      phaseBanner = Some(standardBetaBanner(url = appConfig.betaFeedbackUrl)),
+      nonce = CSPNonce.get,
+    )(contentBlock)
+    ```
+
+1. The parameters that can be passed into the `hmrcLayout` and their default values are as follows:
+
+   | Parameter                     | Description                                                       | Example                                                   |
+   | ----------------------------- | ----------------------------------------------------------------- | --------------------------------------------------------- |
+   | `pageTitle`                   | This will be bound to govukLayout                                 |                                                           |
+   | `isWelshTranslationAvailable` | Setting to true will display the language toggle                  | true                                                      |
+   | `serviceUrl`                  | This will be bound to hmrcStandardHeader                          | Some(routes.IndexController.index().url)                  |
+   | `signOutUrl`                  | Passing a value will display the sign out link                    | Some(routes.SignOutController.signOut().url)              |
+   | `userResearchBannerUrl`       | Passing a value will display the user research banner             | Some(UserResearchBanner(url = appConfig.userResearchUrl)) |
+   | `accessibilityStatementUrl`   | Passing a value will override the accessibility statement URL in the [footer](#accessibility-statement-links)                 ||
+   | `backLinkUrl`                 | Passing a value will display a back link                          | Some(routes.ServiceController.start().url)                |
+   | `displayHmrcBanner`           | Setting to true will display the [HMRC banner](https://design.tax.service.gov.uk/hmrc-design-patterns/hmrc-banner/)          ||
+   | `phaseBanner`                 | Passing a value will display alpha or beta banner.                | Some(standardBetaBanner(url = appConfig.betaFeedbackUrl)) |
+   | `additionalHeadBlock`         | Passing a value will add additional content in the HEAD element   |                                                           |
+   | `additionalScriptsBlock`      | Passing a value will add additional scripts at the end of the BODY|                                                           |
+   | `beforeContentBlock`          | Passing a value will add content between the header and the main element. This content will override any `isWelshTranslationAvailable` or `backLinkUrl` parameter.||
+   | `nonce`                       | This will be bound to hmrcHead, hmrcScripts and govukTemplate     |                                                           |
+   | `mainContentLayout`           | Passing value will override the default two thirds layout         |                                                           |
+   | `serviceName`                 | Pass a value only if your service has a dynamic service name      |                                                           |
 
 ### Example Templates
 
@@ -493,17 +553,24 @@ This library is currently compatible with:
 * Scala 2.12
 * Play 2.6, Play 2.7, Play 2.8
 
+### Example Templates
+
+We provide example templates using the Twirl components through a `Chrome` extension. Please refer to the
+[extension's github repository](https://github.com/hmrc/play-frontend-govuk-extension) for installation instructions.
+
+With the extension installed, you should be able to go to the [GOV.UK Design System](https://design-system.service.gov.uk/components/),
+click on a component on the sidebar and see the `Twirl` examples matching the provided `Nunjucks` templates.
+
 ## Getting help
 
 Please report any issues with this library in Slack at `#team-plat-ui`.
 
 ## Useful Links
 
-- [hmrc-frontend](https://github.com/hmrc/hmrc-frontend/) - reusable Nunjucks HTML components for HMRC design patterns
 - [HMRC Design Patterns](https://design.tax.service.gov.uk/hmrc-design-patterns/) - documentation for the use of `hmrc-frontend` components
-- [play-frontend-govuk](https://github.com/hmrc/play-frontend-govuk/) - Twirl implementation of `govuk-frontend` components
-- [govuk-frontend](https://github.com/alphagov/govuk-frontend/) - reusable Nunjucks HTML components from GOV.UK
+- [hmrc-frontend](https://github.com/hmrc/hmrc-frontend/) - reusable Nunjucks HTML components for HMRC design patterns
 - [GOV.UK Design System](https://design-system.service.gov.uk/components/) - documentation for the use of `govuk-frontend` components
+- [govuk-frontend](https://github.com/alphagov/govuk-frontend/) - reusable Nunjucks HTML components from GOV.UK
 - [GOV.UK Design System Chrome extension](https://github.com/hmrc/play-frontend-govuk-extension) - `Chrome` extension to add a Twirl tab for each example in the GOV.UK Design System
 
 ## Owning team README

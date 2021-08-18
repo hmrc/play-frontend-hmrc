@@ -1,0 +1,6 @@
+<div class="govuk-form-group">
+  <label class="govuk-label" for="file-upload-describedby">
+    Upload a file
+  </label>
+  <input class="govuk-file-upload" id="file-upload-describedby" name="file-upload-describedby" type="file" aria-describedby="some-id">
+</div>

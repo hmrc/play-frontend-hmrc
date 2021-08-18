@@ -20,3 +20,5 @@ date.input.month = Month
 date.input.year = Year
 error.summary.title = There is a problem
 back.text=Back
+
+govukErrorMessage.visuallyHiddenText = Error

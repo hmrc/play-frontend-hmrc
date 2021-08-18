@@ -1,0 +1,10 @@
+{
+  "items" : [ {
+    "text" : "Section 1",
+    "href" : "/section",
+    "attributes" : {
+      "data-attribute" : "my-attribute",
+      "data-attribute-2" : "my-attribute-2"
+    }
+  } ]
+}

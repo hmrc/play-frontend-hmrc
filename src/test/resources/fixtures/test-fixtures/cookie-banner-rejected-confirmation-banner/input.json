@@ -1,0 +1,10 @@
+{
+  "messages" : [ {
+    "text" : "Your cookie preferences have been saved. You have rejected cookies.",
+    "role" : "alert",
+    "actions" : [ {
+      "text" : "Hide this message",
+      "type" : "button"
+    } ]
+  } ]
+}
