@@ -41,7 +41,7 @@ object HmrcPageHeadingLabel extends HmrcPageHeading {
     classes: String = "",
     attributes: Map[String, String] = Map.empty
   ): Label = {
-    require(content.nonEmpty, "hmrcPageHeadingLabel content must not be empty")
+    require(content.nonEmpty, "HmrcPageHeadingLabel content must not be empty")
     Label(
       isPageHeading = true,
       attributes = attributes,
@@ -57,7 +57,7 @@ object HmrcPageHeadingLegend extends HmrcPageHeading {
     caption: Content = Empty,
     classes: String = ""
   ): Legend = {
-    require(content.nonEmpty, "hmrcPageHeadingLegend content must not be empty")
+    require(content.nonEmpty, "HmrcPageHeadingLegend content must not be empty")
     Legend(
       isPageHeading = false, // we build it ourselves because to include a section we need to add some extra classes
       content = HtmlContent(
