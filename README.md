@@ -304,9 +304,9 @@ These helpers let you use a label or legend as a page heading with a section (ca
 
 For example, how you could use HmrcPageHeadingLabel with a govukInput:
 ```scala
-@import uk.gov.hmrc.govukfrontend.views.html.components.{GovukInput, Input, Hint, Text}
+@import uk.gov.hmrc.govukfrontend.views.html.components.{GovukInput, Input, Hint, Text, Text}
 @import uk.gov.hmrc.govukfrontend.views.html.components.implicits._
-@import uk.gov.hmrc.hmrcfrontend.views.config.HmrcPageHeadingLabel
+@import uk.gov.hmrc.hmrcfrontend.views.config.{HmrcPageHeadingLabel, HmrcSectionCaption}
 
 @this(govukInput: GovukInput)
 
@@ -314,7 +314,7 @@ For example, how you could use HmrcPageHeadingLabel with a govukInput:
 
 @govukInput(
   Input(
-    label = HmrcPageHeadingLabel(content = Text("What is your name?"), caption = Text("Personal details")),
+    label = HmrcPageHeadingLabel(content = Text("What is your name?"), caption = HmrcSectionCaption(Text("Personal details"))),
     hint = Some(Hint(content = Text("This example shows a page heading inside a <label>")))
   ).withFormField(myForm("whatIsYourName"))
 )
@@ -332,7 +332,7 @@ For example, how you could use HmrcPageHeadingLegend with govukRadios:
 
 @govukRadios(Radios(
   fieldset = Some(Fieldset(
-    legend = Some(HmrcPageHeadingLegend(content = Text("Where do you live?"), caption = Text("Personal details"))
+    legend = Some(HmrcPageHeadingLegend(content = Text("Where do you live?"), caption = HmrcSectionCaption(Text("Personal details")))
   )), 
   hint = Some(Hint(content = Text("This example shows a page heading inside a <legend>"))),
   items = List("England", "Scotland", "Wales", "Northern Ireland") map { place =>
