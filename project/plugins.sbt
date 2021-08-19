@@ -13,7 +13,7 @@ addSbtPlugin(
 
 addSbtPlugin("com.typesafe.sbt" % "sbt-twirl" % "1.4.2")
 
-addSbtPlugin("uk.gov.hmrc" % "sbt-auto-build" % "3.3.0")
+addSbtPlugin("uk.gov.hmrc" % "sbt-auto-build" % "3.4.0")
 
 addSbtPlugin("uk.gov.hmrc" % "sbt-play-cross-compilation" % "2.2.0")
 

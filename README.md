@@ -26,6 +26,7 @@ The library comprises two packages:
 - [Warning users before timing them out](#warning-users-before-timing-them-out)
 - [RichDateInput](#richdateinput)
 - [RichErrorSummary](#richerrorsummary)
+- [Display a caption above a page heading label or legend](#hmrcpageheadinglabel-and-hmrcpageheadinglegend)
 - [Adding your own SASS compilation pipeline](#adding-your-own-sass-compilation-pipeline)
 - [Play Framework and Scala compatibility notes](#play-framework-and-scala-compatibility-notes)
 - [Getting help](#getting-help)
@@ -296,6 +297,51 @@ Note, these methods will not overwrite any existing `ErrorSummary` properties. F
 non-empty title, it will not be overwritten.
 
 To use this class you will need to have an implicit `Messages` in scope.
+
+#### HmrcPageHeadingLabel and HmrcPageHeadingLegend
+
+These helpers let you use a label or legend as a page heading with a section (caption) displayed above it.
+
+For example, how you could use HmrcPageHeadingLabel with a govukInput:
+```scala
+@import uk.gov.hmrc.govukfrontend.views.html.components.{GovukInput, Input, Hint, Text, Text}
+@import uk.gov.hmrc.govukfrontend.views.html.components.implicits._
+@import uk.gov.hmrc.hmrcfrontend.views.config.{HmrcPageHeadingLabel, HmrcSectionCaption}
+
+@this(govukInput: GovukInput)
+
+@(myForm: Form[_])(implicit messages: Messages)
+
+@govukInput(
+  Input(
+    label = HmrcPageHeadingLabel(content = Text("What is your name?"), caption = HmrcSectionCaption(Text("Personal details"))),
+    hint = Some(Hint(content = Text("This example shows a page heading inside a <label>")))
+  ).withFormField(myForm("whatIsYourName"))
+)
+```
+
+For example, how you could use HmrcPageHeadingLegend with govukRadios:
+```scala
+@import uk.gov.hmrc.govukfrontend.views.html.components.{Radios, RadioItem, Fieldset, Hint, Text}
+@import uk.gov.hmrc.govukfrontend.views.html.components.implicits._
+@import uk.gov.hmrc.hmrcfrontend.views.config.HmrcPageHeadingLegend
+
+@this(govukInput: GovukRadios)
+
+@(myForm: Form[_])(implicit messages: Messages)
+
+@govukRadios(Radios(
+  fieldset = Some(Fieldset(
+    legend = Some(HmrcPageHeadingLegend(content = Text("Where do you live?"), caption = HmrcSectionCaption(Text("Personal details")))
+  )), 
+  hint = Some(Hint(content = Text("This example shows a page heading inside a <legend>"))),
+  items = List("England", "Scotland", "Wales", "Northern Ireland") map { place =>
+    RadioItem(
+      content = Text(place),
+      value = Some(place)
+    )
+  }).withFormField(myForm("whereDoYouLive")))
+```
 
 ### Example Templates
 
