@@ -14,19 +14,16 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.govukfrontend.views
-package html
+package uk.gov.hmrc.hmrcfrontend.views.config
 
-import uk.gov.hmrc.govukfrontend.views.implicits.ImplicitConversions
+import play.api.i18n.Messages
+import uk.gov.hmrc.govukfrontend.views.viewmodels.content.Text
+import uk.gov.hmrc.govukfrontend.views.viewmodels.radios.RadioItem
 
-package object components extends Utils with Aliases {
-
-  /**
-    * Top-level implicits for all components
-    */
-  object implicits extends Implicits
-
-  // Option to have this as an optional import. Alternatively include in the implicits object above.
-  object implicitConversions extends ImplicitConversions
-
+object HmrcYesNoRadioItems {
+  def apply()(implicit messages: Messages): Seq[RadioItem] =
+    Seq(
+      RadioItem(value = Some("true"), content = Text(messages("site.yes"))),
+      RadioItem(value = Some("false"), content = Text(messages("site.no")))
+    )
 }

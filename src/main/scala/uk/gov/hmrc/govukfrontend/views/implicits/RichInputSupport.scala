@@ -18,7 +18,9 @@ package uk.gov.hmrc.govukfrontend.views.implicits
 
 import play.api.data.Field
 import play.api.i18n.Messages
+import uk.gov.hmrc.govukfrontend.views.viewmodels.content.Content
 import uk.gov.hmrc.govukfrontend.views.viewmodels.input.Input
+import uk.gov.hmrc.hmrcfrontend.views.config.{HmrcPageHeadingLabel, HmrcSectionCaption}
 
 trait RichInputSupport {
 
@@ -54,6 +56,22 @@ trait RichInputSupport {
         .withId(field)
         .withValue(field)
         .withHtmlErrorMessage(field)
+
+    // FIXME: PoC only - needs tests and functionality to not-override any existing label
+    def withHeadingAndSectionCaption(heading: Content, sectionCaption: Content): Input =
+      input.copy(
+        label = HmrcPageHeadingLabel(
+          content = heading,
+          caption = HmrcSectionCaption(sectionCaption)
+        )
+      )
+
+    def withHeading(heading: Content): Input =
+      input.copy(
+        label = HmrcPageHeadingLabel(
+          content = heading
+        )
+      )
 
     private[views] def withName(field: Field): Input =
       withStringProperty(field.name, input.name, input)((ipt, nm) => ipt.copy(name = nm))

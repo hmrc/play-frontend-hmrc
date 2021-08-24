@@ -19,7 +19,10 @@ package uk.gov.hmrc.hmrcfrontend.views.implicits
 import play.api.data.Field
 import play.api.i18n.Messages
 import uk.gov.hmrc.govukfrontend.views.implicits.ImplicitsSupport
+import uk.gov.hmrc.govukfrontend.views.viewmodels.content.Content
 import uk.gov.hmrc.govukfrontend.views.viewmodels.dateinput.{DateInput, InputItem}
+import uk.gov.hmrc.govukfrontend.views.viewmodels.fieldset.Fieldset
+import uk.gov.hmrc.hmrcfrontend.views.config.{HmrcPageHeadingLegend, HmrcSectionCaption}
 
 trait RichDateInputSupport {
 
@@ -51,6 +54,34 @@ trait RichDateInputSupport {
         .withId(field)
         .withInputItems(field)
         .withHtmlErrorMessage(field)
+
+    // FIXME: PoC only - needs tests and functionality to not-override any existing fieldset
+    def withHeadingAndSectionCaption(heading: Content, sectionCaption: Content): DateInput =
+      dateInput.copy(
+        fieldset = Some(
+          Fieldset(
+            legend = Some(
+              HmrcPageHeadingLegend(
+                content = heading,
+                caption = HmrcSectionCaption(sectionCaption)
+              )
+            )
+          )
+        )
+      )
+
+    def withHeading(heading: Content): DateInput =
+      dateInput.copy(
+        fieldset = Some(
+          Fieldset(
+            legend = Some(
+              HmrcPageHeadingLegend(
+                content = heading
+              )
+            )
+          )
+        )
+      )
 
     private[views] def withId(field: Field): DateInput =
       withStringProperty(field.name, dateInput.id, dateInput)((dateInput, id) => dateInput.copy(id = id))

@@ -29,5 +29,6 @@ trait Implicits
     with RichSelectSupport
     with RichStringSupport
     with RichTextareaSupport
+    with ImplicitConversions
 
 object Implicits extends Implicits

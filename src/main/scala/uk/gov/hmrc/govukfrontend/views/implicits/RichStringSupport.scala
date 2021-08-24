@@ -16,9 +16,46 @@
 
 package uk.gov.hmrc.govukfrontend.views.implicits
 
-trait RichStringSupport {
+import play.api.i18n.Messages
+import uk.gov.hmrc.govukfrontend.views.viewmodels.content.{Content, Text}
+import uk.gov.hmrc.govukfrontend.views.viewmodels.fieldset.{Fieldset, Legend}
+import uk.gov.hmrc.govukfrontend.views.viewmodels.hint.Hint
+import uk.gov.hmrc.govukfrontend.views.viewmodels.label.Label
+import uk.gov.hmrc.govukfrontend.views.viewmodels.summarylist.Key
+import uk.gov.hmrc.govukfrontend.views.viewmodels.table.HeadCell
+import uk.gov.hmrc.govukfrontend.views.viewmodels.tag.Tag
 
+trait RichStringSupport {
   implicit class RichString(s: String) {
+
+    def toHint(args: Any*)(implicit messages: Messages): Hint = Hint(content = Text(messages(s, args)))
+
+    def toText(args: Any*)(implicit messages: Messages): Text = Text(messages(s, args))
+
+    def toKey(args: Any*)(implicit messages: Messages): Key =
+      Key(content = Text(messages(s, args)))
+
+    def toHeadCell(args: Any*)(implicit messages: Messages): HeadCell =
+      HeadCell(content = Text(messages(s, args)))
+
+    def toFieldset(args: Any*)(implicit messages: Messages): Fieldset =
+      Fieldset(
+        legend = Some(
+          Legend(
+            content = Text(messages(s, args))
+          )
+        )
+      )
+
+    def toTag(args: Any*)(implicit messages: Messages): Tag =
+      Tag(
+        content = Text(messages(s, args))
+      )
+
+    def toLabel(args: Any*)(implicit messages: Messages): Label =
+      Label(
+        content = Text(messages(s, args))
+      )
 
     def toOption: Option[String] =
       if (s == null || s.isEmpty) None else Some(s)
