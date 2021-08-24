@@ -14,21 +14,16 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.govukfrontend.views
-package html
+package uk.gov.hmrc.govukfrontend.views.implicits
 
-import uk.gov.hmrc.govukfrontend.views.implicits.ImplicitConversions
+import uk.gov.hmrc.govukfrontend.views.viewmodels.summarylist.{ActionItem, Actions}
 
-package object components extends Utils with Aliases {
-
-  /**
-    * Top-level implicits for all components
-    */
-  object implicits extends Implicits
-
-  /**
-    * Experimental, optional explicit conversions
-    */
-  object implicitConversions extends ImplicitConversions
-
+trait RichActionItemSupport {
+  implicit class RichActionItem(actionItem: ActionItem) {
+    def toActions: Actions = Actions(items =
+      Seq(
+        actionItem
+      )
+    )
+  }
 }

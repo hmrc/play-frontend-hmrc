@@ -29,5 +29,8 @@ trait Implicits
     with RichSelectSupport
     with RichStringSupport
     with RichTextareaSupport
+    with RichSeqStringTupleSupport
+    with RichLegendSupport
+    with RichActionItemSupport
 
 object Implicits extends Implicits

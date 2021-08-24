@@ -14,21 +14,15 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.govukfrontend.views
-package html
+package uk.gov.hmrc.govukfrontend.views.implicits
 
-import uk.gov.hmrc.govukfrontend.views.implicits.ImplicitConversions
+import uk.gov.hmrc.govukfrontend.views.viewmodels.fieldset.{Fieldset, Legend}
 
-package object components extends Utils with Aliases {
-
-  /**
-    * Top-level implicits for all components
-    */
-  object implicits extends Implicits
-
-  /**
-    * Experimental, optional explicit conversions
-    */
-  object implicitConversions extends ImplicitConversions
-
+trait RichLegendSupport {
+  implicit class RichLegend(legend: Legend) {
+    def toFieldset: Fieldset =
+      Fieldset(
+        legend = Some(legend)
+      )
+  }
 }

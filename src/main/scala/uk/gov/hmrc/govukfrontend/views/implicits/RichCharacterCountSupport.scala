@@ -19,6 +19,8 @@ package uk.gov.hmrc.govukfrontend.views.implicits
 import play.api.data.Field
 import play.api.i18n.Messages
 import uk.gov.hmrc.govukfrontend.views.viewmodels.charactercount.CharacterCount
+import uk.gov.hmrc.govukfrontend.views.viewmodels.content.Content
+import uk.gov.hmrc.hmrcfrontend.views.config.{HmrcPageHeadingLabel, HmrcSectionCaption}
 
 trait RichCharacterCountSupport {
 
@@ -54,6 +56,22 @@ trait RichCharacterCountSupport {
         .withId(field)
         .withValue(field)
         .withHtmlErrorMessage(field)
+
+    // FIXME: PoC only - needs tests and functionality to not-override any existing label
+    def withHeadingAndSectionCaption(heading: Content, sectionCaption: Content): CharacterCount =
+      characterCount.copy(
+        label = HmrcPageHeadingLabel(
+          content = heading,
+          caption = HmrcSectionCaption(sectionCaption)
+        )
+      )
+
+    def withHeading(heading: Content): CharacterCount =
+      characterCount.copy(
+        label = HmrcPageHeadingLabel(
+          content = heading
+        )
+      )
 
     private[views] def withName(field: Field): CharacterCount =
       withStringProperty(field.name, characterCount.name, characterCount)((cc, nm) => cc.copy(name = nm))

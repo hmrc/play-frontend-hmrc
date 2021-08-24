@@ -19,6 +19,9 @@ package uk.gov.hmrc.govukfrontend.views.implicits
 import play.api.data.Field
 import play.api.i18n.Messages
 import uk.gov.hmrc.govukfrontend.views.viewmodels.checkboxes.{CheckboxItem, Checkboxes}
+import uk.gov.hmrc.govukfrontend.views.viewmodels.content.Content
+import uk.gov.hmrc.govukfrontend.views.viewmodels.fieldset.Fieldset
+import uk.gov.hmrc.hmrcfrontend.views.config.{HmrcPageHeadingLegend, HmrcSectionCaption}
 
 trait RichCheckboxesSupport {
 
@@ -55,6 +58,34 @@ trait RichCheckboxesSupport {
         .withIdPrefix(field)
         .withHtmlErrorMessage(field)
         .withItemsChecked(field)
+
+    // FIXME: PoC only - needs tests and functionality to not-override any existing fieldset
+    def withHeadingAndSectionCaption(heading: Content, sectionCaption: Content): Checkboxes =
+      checkboxes.copy(
+        fieldset = Some(
+          Fieldset(
+            legend = Some(
+              HmrcPageHeadingLegend(
+                content = heading,
+                caption = HmrcSectionCaption(sectionCaption)
+              )
+            )
+          )
+        )
+      )
+
+    def withHeading(heading: Content): Checkboxes =
+      checkboxes.copy(
+        fieldset = Some(
+          Fieldset(
+            legend = Some(
+              HmrcPageHeadingLegend(
+                content = heading
+              )
+            )
+          )
+        )
+      )
 
     private[views] def withName(field: Field): Checkboxes =
       withStringProperty(field.name, checkboxes.name, checkboxes)((cb, nm) => cb.copy(name = s"$nm[]"))

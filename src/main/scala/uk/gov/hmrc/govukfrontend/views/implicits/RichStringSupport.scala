@@ -16,9 +16,45 @@
 
 package uk.gov.hmrc.govukfrontend.views.implicits
 
-trait RichStringSupport {
+import uk.gov.hmrc.govukfrontend.views.viewmodels.content.{Content, Text}
+import uk.gov.hmrc.govukfrontend.views.viewmodels.fieldset.{Fieldset, Legend}
+import uk.gov.hmrc.govukfrontend.views.viewmodels.hint.Hint
+import uk.gov.hmrc.govukfrontend.views.viewmodels.label.Label
+import uk.gov.hmrc.govukfrontend.views.viewmodels.summarylist.Key
+import uk.gov.hmrc.govukfrontend.views.viewmodels.table.HeadCell
+import uk.gov.hmrc.govukfrontend.views.viewmodels.tag.Tag
 
+trait RichStringSupport {
   implicit class RichString(s: String) {
+
+    def toHint: Hint = Hint(content = Text(s))
+
+    def toText: Text = Text(s)
+
+    def toKey: Key =
+      Key(content = Text(s))
+
+    def toHeadCell: HeadCell =
+      HeadCell(content = Text(s))
+
+    def toFieldset: Fieldset =
+      Fieldset(
+        legend = Some(
+          Legend(
+            content = Text(s)
+          )
+        )
+      )
+
+    def toTag: Tag =
+      Tag(
+        content = Text(s)
+      )
+
+    def toLabel: Label =
+      Label(
+        content = Text(s)
+      )
 
     def toOption: Option[String] =
       if (s == null || s.isEmpty) None else Some(s)
