@@ -14,23 +14,16 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.govukfrontend.views
+package uk.gov.hmrc.hmrcfrontend.views.config
 
-import uk.gov.hmrc.govukfrontend.views.implicits._
+import play.api.i18n.Messages
+import uk.gov.hmrc.govukfrontend.views.viewmodels.content.Text
+import uk.gov.hmrc.govukfrontend.views.viewmodels.radios.RadioItem
 
-trait Implicits
-    extends RichCharacterCountSupport
-    with RichCheckboxesSupport
-    with RichFormErrorsSupport
-    with RichHtmlSupport
-    with RichInputSupport
-    with RichOptionStringSupport
-    with RichRadiosSupport
-    with RichSelectSupport
-    with RichStringSupport
-    with RichTextareaSupport
-    with RichSeqStringTupleSupport
-    with RichLegendSupport
-    with RichActionItemSupport
-
-object Implicits extends Implicits
+object HmrcYesNoRadioItems {
+  def apply()(implicit messages: Messages): Seq[RadioItem] =
+    Seq(
+      RadioItem(value = Some("true"), content = Text(messages("radios.yesnoitems.yes"))),
+      RadioItem(value = Some("false"), content = Text(messages("radios.yesnoitems.no")))
+    )
+}

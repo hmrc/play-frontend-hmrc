@@ -18,6 +18,7 @@ package uk.gov.hmrc.govukfrontend.views.implicits
 
 import play.api.data.Field
 import play.api.i18n.Messages
+import uk.gov.hmrc.govukfrontend.views.viewmodels.content.Content
 import uk.gov.hmrc.govukfrontend.views.viewmodels.input.Input
 
 trait RichInputSupport {
@@ -54,6 +55,12 @@ trait RichInputSupport {
         .withId(field)
         .withValue(field)
         .withHtmlErrorMessage(field)
+
+    def withHeading(heading: Content): Input =
+      withHeadingLabel(input, heading, None)((ip, ul) => ip.copy(label = ul))
+
+    def withHeadingAndSectionCaption(heading: Content, sectionCaption: Content): Input =
+      withHeadingLabel(input, heading, Some(sectionCaption))((ip, ul) => ip.copy(label = ul))
 
     private[views] def withName(field: Field): Input =
       withStringProperty(field.name, input.name, input)((ipt, nm) => ipt.copy(name = nm))

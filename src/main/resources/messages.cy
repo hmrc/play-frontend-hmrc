@@ -22,3 +22,5 @@ error.summary.title=Mae problem wedi codi
 back.text=Yn ôl
 this.section.is=Teitl yr adran hon yw
 govukErrorMessage.visuallyHiddenText = Gwall
+radios.yesnoitems.yes=Iawn
+radios.yesnoitems.no=Na

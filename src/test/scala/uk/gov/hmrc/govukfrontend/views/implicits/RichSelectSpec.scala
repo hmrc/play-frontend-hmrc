@@ -22,8 +22,10 @@ import uk.gov.hmrc.govukfrontend.views.html.components.implicits._
 import uk.gov.hmrc.govukfrontend.views.viewmodels.content.{HtmlContent, Text}
 import uk.gov.hmrc.govukfrontend.views.viewmodels.errormessage.ErrorMessage
 import uk.gov.hmrc.govukfrontend.views.viewmodels.errormessage.ErrorMessage.errorMessageWithDefaultStringsTranslated
+import uk.gov.hmrc.govukfrontend.views.viewmodels.label.Label
 import uk.gov.hmrc.govukfrontend.views.viewmodels.select.{Select, SelectItem}
 import uk.gov.hmrc.helpers.MessagesHelpers
+import uk.gov.hmrc.hmrcfrontend.views.config.{HmrcPageHeadingLabel, HmrcSectionCaption}
 
 class RichSelectSpec extends AnyWordSpec with Matchers with MessagesHelpers with RichFormInputHelpers {
 
@@ -110,6 +112,57 @@ class RichSelectSpec extends AnyWordSpec with Matchers with MessagesHelpers with
         errorMessage = Some(ErrorMessage(content = Text("Select Error")))
       ).withFormFieldWithErrorAsHtml(field)
       select.errorMessage shouldBe Some(ErrorMessage(content = Text("Select Error")))
+    }
+  }
+
+  "Given a Select object, calling withHeading" should {
+    "set the label to the passed in content" in {
+      val select = Select().withHeading(Text("This is a text heading"))
+      select shouldBe Select(label =
+        HmrcPageHeadingLabel(
+          content = Text("This is a text heading")
+        )
+      )
+    }
+
+    "set the label to the passed in content, overriding any previously set content" in {
+      val selectWithLabel =
+        Select(label = Label(content = Text("This is some original text heading")))
+      val updatedSelect   = selectWithLabel.withHeading(Text("This is some updated text heading"))
+      updatedSelect shouldBe Select(label =
+        HmrcPageHeadingLabel(
+          content = Text("This is some updated text heading")
+        )
+      )
+    }
+  }
+
+  "Given a Select object, calling withHeadingAndSectionCaption" should {
+    "set the label and caption to the passed in content" in {
+      val select =
+        Select().withHeadingAndSectionCaption(Text("This is a text heading"), Text("This is a text caption"))
+      select shouldBe Select(label =
+        HmrcPageHeadingLabel(
+          content = Text("This is a text heading"),
+          caption = HmrcSectionCaption(Text("This is a text caption"))
+        )
+      )
+    }
+
+    "set the label to the passed in content, overriding any previously set content" in {
+      val selectWithLabel =
+        Select(label = Label(content = Text("This is some original text heading")))
+      val updatedSelect   =
+        selectWithLabel.withHeadingAndSectionCaption(
+          Text("This is some updated text heading"),
+          Text("This is some updated text caption")
+        )
+      updatedSelect shouldBe Select(label =
+        HmrcPageHeadingLabel(
+          content = Text("This is some updated text heading"),
+          caption = HmrcSectionCaption(Text("This is some updated text caption"))
+        )
+      )
     }
   }
 }

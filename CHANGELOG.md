@@ -8,6 +8,20 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 For compatibility information see `govukFrontendVersion` and `hmrcFrontendVersion` in
 [LibDependencies](project/LibDependencies.scala)
 
+## [1.22.0] - 2021-10-19
+
+### Added
+
+- Added `withHeading` and `withHeadingAndSectionCaption` helper methods for form inputs
+- Added various implicit conversions for `String` to nested case classes via `RichStringSupport`
+- Added various implicit conversions for `Seq[(String, String)]` to nested case classes via `RichSeqStringTupleSupport`
+- Added `HmrcYesNoRadioItems` helper
+
+### Compatible with
+
+- [hmrc/hmrc-frontend v2.7.0](https://github.com/hmrc/hmrc-frontend/releases/tag/v2.7.0)
+- [alphagov/govuk-frontend v3.13.0](https://github.com/alphagov/govuk-frontend/releases/tag/v3.13.0)
+
 ## [1.21.0] - 2021-10-15
 
 ### Fixed

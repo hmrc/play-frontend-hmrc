@@ -28,7 +28,9 @@ import uk.gov.hmrc.govukfrontend.views.viewmodels.content.{HtmlContent, Text}
 import uk.gov.hmrc.govukfrontend.views.viewmodels.dateinput.{DateInput, InputItem}
 import uk.gov.hmrc.govukfrontend.views.viewmodels.errormessage.ErrorMessage
 import uk.gov.hmrc.govukfrontend.views.viewmodels.errormessage.ErrorMessage.errorMessageWithDefaultStringsTranslated
+import uk.gov.hmrc.govukfrontend.views.viewmodels.fieldset.{Fieldset, Legend}
 import uk.gov.hmrc.helpers.MessagesSupport
+import uk.gov.hmrc.hmrcfrontend.views.config.{HmrcPageHeadingLegend, HmrcSectionCaption}
 import uk.gov.hmrc.hmrcfrontend.views.html.components.implicits._
 
 class RichDateInputSpec extends AnyWordSpec with Matchers with MessagesSupport with GuiceOneAppPerSuite {
@@ -296,6 +298,83 @@ class RichDateInputSpec extends AnyWordSpec with Matchers with MessagesSupport w
         errorMessage = Some(ErrorMessage(content = Text("DateInput Error")))
       ).withFormFieldWithErrorAsHtml(dateErrorField)
       dateInput.errorMessage shouldBe Some(ErrorMessage(content = Text("DateInput Error")))
+    }
+  }
+
+  "Given a Radios object, calling withHeading" should {
+    "set the fieldset legend to the passed in content" in {
+      val dateInput = DateInput().withHeading(Text("This is a text heading"))
+      dateInput shouldBe DateInput(fieldset =
+        Some(
+          Fieldset(
+            legend = Some(HmrcPageHeadingLegend(content = Text("This is a text heading")))
+          )
+        )
+      )
+    }
+
+    "set the fieldset legend to the passed in content, overriding any previously set content" in {
+      val dateInputWithLegend =
+        DateInput(fieldset =
+          Some(Fieldset(legend = Some(Legend(content = Text("This is some original text heading")))))
+        )
+      val updatedDateInput    = dateInputWithLegend.withHeading(Text("This is some updated text heading"))
+      updatedDateInput shouldBe DateInput(fieldset =
+        Some(
+          Fieldset(
+            legend = Some(HmrcPageHeadingLegend(content = Text("This is some updated text heading")))
+          )
+        )
+      )
+    }
+  }
+
+  "Given a DateInput object, calling withHeadingAndSectionCaption" should {
+    "set the fieldset legend to the passed in content" in {
+      val dateInput =
+        DateInput().withHeadingAndSectionCaption(Text("This is a text heading"), Text("This is a text caption"))
+      dateInput shouldBe DateInput(fieldset =
+        Some(
+          Fieldset(
+            legend = Some(
+              HmrcPageHeadingLegend(
+                content = Text("This is a text heading"),
+                caption = HmrcSectionCaption(Text("This is a text caption"))
+              )
+            )
+          )
+        )
+      )
+    }
+
+    "set the fieldset legend to the passed in content, overriding any previously set content" in {
+      val dateInputWithLegend = DateInput(fieldset =
+        Some(
+          Fieldset(legend =
+            Some(
+              Legend(
+                content = Text("This is some original text heading")
+              )
+            )
+          )
+        )
+      )
+      val updatedDateInput    = dateInputWithLegend.withHeadingAndSectionCaption(
+        Text("This is some updated text heading"),
+        Text("This is some updated text caption")
+      )
+      updatedDateInput shouldBe DateInput(fieldset =
+        Some(
+          Fieldset(
+            legend = Some(
+              HmrcPageHeadingLegend(
+                content = Text("This is some updated text heading"),
+                caption = HmrcSectionCaption(Text("This is some updated text caption"))
+              )
+            )
+          )
+        )
+      )
     }
   }
 }

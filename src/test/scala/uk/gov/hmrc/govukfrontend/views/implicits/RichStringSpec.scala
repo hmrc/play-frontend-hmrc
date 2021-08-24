@@ -23,6 +23,13 @@ import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpec
 import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks
 import uk.gov.hmrc.govukfrontend.views.html.components.implicits._
+import uk.gov.hmrc.govukfrontend.views.viewmodels.content.Text
+import uk.gov.hmrc.govukfrontend.views.viewmodels.fieldset.{Fieldset, Legend}
+import uk.gov.hmrc.govukfrontend.views.viewmodels.hint.Hint
+import uk.gov.hmrc.govukfrontend.views.viewmodels.label.Label
+import uk.gov.hmrc.govukfrontend.views.viewmodels.summarylist.Key
+import uk.gov.hmrc.govukfrontend.views.viewmodels.table.HeadCell
+import uk.gov.hmrc.govukfrontend.views.viewmodels.tag.Tag
 
 class RichStringSpec
     extends AnyWordSpec
@@ -46,6 +53,62 @@ class RichStringSpec
           .indent(math.signum(n) * (math.abs(n) - 1), indentFirstLine)
           .indent(math.signum(n) * 1, indentFirstLine)
       }
+    }
+  }
+
+  "toHint" should {
+    "convert a string to Hint with Text content" in {
+      val asString = "This is some hint"
+      asString.toHint shouldBe Hint(content = Text("This is some hint"))
+    }
+  }
+
+  "toText" should {
+    "convert a string to Text content" in {
+      val asString = "This is some text"
+      asString.toText shouldBe Text("This is some text")
+    }
+  }
+
+  "toKey" should {
+    "convert a string to a SummaryList Key with Text content" in {
+      val asString = "This is some key"
+      asString.toKey shouldBe Key(content = Text("This is some key"))
+    }
+  }
+
+  "toHeadCell" should {
+    "convert a string to HeadCell with Text content" in {
+      val asString = "This is some head cell"
+      asString.toHeadCell shouldBe HeadCell(content = Text("This is some head cell"))
+    }
+  }
+
+  "toFieldset" should {
+    "convert a string to Fieldset with Text content legend" in {
+      val asString = "This is some fieldset"
+      asString.toFieldset shouldBe Fieldset(legend = Some(Legend(content = Text("This is some fieldset"))))
+    }
+  }
+
+  "toTag" should {
+    "convert a string to Tag with Text content" in {
+      val asString = "This is some tag"
+      asString.toTag shouldBe Tag(content = Text("This is some tag"))
+    }
+  }
+
+  "toLabel" should {
+    "convert a string to Label with Text content" in {
+      val asString = "This is some label"
+      asString.toLabel shouldBe Label(content = Text("This is some label"))
+    }
+  }
+
+  "toLegend" should {
+    "convert a string to Fieldset Legend with Text content" in {
+      val asString = "This is some legend"
+      asString.toLegend shouldBe Legend(content = Text("This is some legend"))
     }
   }
 

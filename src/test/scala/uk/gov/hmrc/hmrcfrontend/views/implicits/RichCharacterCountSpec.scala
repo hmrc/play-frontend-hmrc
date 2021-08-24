@@ -25,6 +25,8 @@ import play.api.test.{Helpers => PlayHelpers}
 import uk.gov.hmrc.govukfrontend.views.viewmodels.content.{HtmlContent, Text}
 import uk.gov.hmrc.govukfrontend.views.viewmodels.errormessage.ErrorMessage
 import uk.gov.hmrc.govukfrontend.views.viewmodels.errormessage.ErrorMessage.errorMessageWithDefaultStringsTranslated
+import uk.gov.hmrc.govukfrontend.views.viewmodels.label.Label
+import uk.gov.hmrc.hmrcfrontend.views.config.{HmrcPageHeadingLabel, HmrcSectionCaption}
 import uk.gov.hmrc.hmrcfrontend.views.html.components.implicits._
 import uk.gov.hmrc.hmrcfrontend.views.viewmodels.charactercount.CharacterCount
 
@@ -137,6 +139,37 @@ class RichCharacterCountSpec extends AnyWordSpec with Matchers {
         errorMessage = Some(ErrorMessage(content = Text("CharacterCount Error")))
       ).withFormFieldWithErrorAsHtml(field)
       characterCount.errorMessage shouldBe Some(ErrorMessage(content = Text("CharacterCount Error")))
+    }
+  }
+
+  "Given a CharacterCount object, calling withHeadingAndSectionCaption" should {
+    "set the label and caption to the passed in content" in {
+      val characterCount = CharacterCount().withHeadingAndSectionCaption(
+        heading = Text("This is a text heading"),
+        sectionCaption = Text("This is a text caption")
+      )
+      characterCount shouldBe CharacterCount(
+        label = HmrcPageHeadingLabel(
+          content = Text("This is a text heading"),
+          caption = HmrcSectionCaption(Text("This is a text caption"))
+        )
+      )
+    }
+
+    "set the label to the passed in content, overriding any previously set content" in {
+      val characterCountWithLabel = CharacterCount(
+        label = Label(content = Text("This is some original text heading"))
+      )
+      val updatedCharacterCount   = characterCountWithLabel.withHeadingAndSectionCaption(
+        heading = Text("This is some updated text heading"),
+        sectionCaption = Text("This is a text caption")
+      )
+      updatedCharacterCount shouldBe CharacterCount(
+        label = HmrcPageHeadingLabel(
+          content = Text("This is some updated text heading"),
+          caption = HmrcSectionCaption(Text("This is a text caption"))
+        )
+      )
     }
   }
 }

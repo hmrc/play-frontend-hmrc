@@ -18,6 +18,7 @@ package uk.gov.hmrc.govukfrontend.views.implicits
 
 import play.api.data.Field
 import play.api.i18n.Messages
+import uk.gov.hmrc.govukfrontend.views.viewmodels.content.Content
 import uk.gov.hmrc.govukfrontend.views.viewmodels.select.{Select, SelectItem}
 
 trait RichSelectSupport {
@@ -53,6 +54,12 @@ trait RichSelectSupport {
         .withId(field)
         .withHtmlErrorMessage(field)
         .withItemSelected(field)
+
+    def withHeading(heading: Content): Select =
+      withHeadingLabel(select, heading, None)((sl, ul) => sl.copy(label = ul))
+
+    def withHeadingAndSectionCaption(heading: Content, sectionCaption: Content): Select =
+      withHeadingLabel(select, heading, Some(sectionCaption))((sl, ul) => sl.copy(label = ul))
 
     private[views] def withName(field: Field): Select =
       withStringProperty(field.name, select.name, select)((sct, nm) => sct.copy(name = nm))
