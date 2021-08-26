@@ -5,6 +5,19 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [1.2.0] - 2021-08-26
+
+### Change
+
+- Updated version of `sbt-auto-build` plugin to generate Twirl headers
+
+### Compatible with
+
+- [hmrc/hmrc-frontend v2.2.0](https://github.com/hmrc/hmrc-frontend/releases/tag/v2.2.0)
+- [hmrc/play-frontend-govuk v1.0.0](https://github.com/hmrc/play-frontend-govuk/releases/tag/v1.0.0)
+- [alphagov/govuk-frontend v3.13.0](https://github.com/alphagov/govuk-frontend/releases/tag/v3.13.0)
+
+
 ## [1.1.0] - 2021-08-17
 
 ### Added
