@@ -1,0 +1,7 @@
+{
+  "text" : "Skip link",
+  "attributes" : {
+    "data-test" : "attribute",
+    "aria-label" : "Skip to content"
+  }
+}

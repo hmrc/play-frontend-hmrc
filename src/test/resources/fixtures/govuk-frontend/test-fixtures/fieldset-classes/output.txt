@@ -1,0 +1,2 @@
+<fieldset class="govuk-fieldset app-fieldset--custom-modifier">
+</fieldset>

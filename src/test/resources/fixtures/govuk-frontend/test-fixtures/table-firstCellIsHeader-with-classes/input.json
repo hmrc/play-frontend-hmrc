@@ -1,0 +1,7 @@
+{
+  "firstCellIsHeader" : true,
+  "rows" : [ [ {
+    "text" : "Foo",
+    "classes" : "my-custom-class"
+  } ] ]
+}

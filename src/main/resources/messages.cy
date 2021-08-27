@@ -20,3 +20,5 @@ date.input.month=Mis
 date.input.year=Blwyddyn
 error.summary.title=Mae problem wedi codi
 back.text=Yn ôl
+
+govukErrorMessage.visuallyHiddenText = Gwall

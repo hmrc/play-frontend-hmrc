@@ -1,0 +1,13 @@
+{
+  "id" : "with-item-id",
+  "items" : [ {
+    "id" : "day",
+    "name" : "day"
+  }, {
+    "id" : "month",
+    "name" : "month"
+  }, {
+    "id" : "year",
+    "name" : "year"
+  } ]
+}

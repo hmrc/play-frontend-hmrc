@@ -1,0 +1,10 @@
+{
+  "messages" : [ {
+    "actions" : [ {
+      "text" : "Button with attributes",
+      "attributes" : {
+        "data-button-attribute" : "my-value"
+      }
+    } ]
+  } ]
+}

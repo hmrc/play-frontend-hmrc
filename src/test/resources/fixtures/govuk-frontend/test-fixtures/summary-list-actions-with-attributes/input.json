@@ -1,0 +1,20 @@
+{
+  "rows" : [ {
+    "key" : {
+      "text" : "Name"
+    },
+    "value" : {
+      "text" : "Firstname Lastname"
+    },
+    "actions" : {
+      "items" : [ {
+        "text" : "Edit",
+        "href" : "#",
+        "attributes" : {
+          "data-test-attribute" : "value",
+          "data-test-attribute-2" : "value-2"
+        }
+      } ]
+    }
+  } ]
+}

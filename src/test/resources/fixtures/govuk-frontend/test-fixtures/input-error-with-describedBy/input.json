@@ -1,0 +1,11 @@
+{
+  "id" : "with-error-describedby",
+  "name" : "with-error-describedby",
+  "label" : {
+    "text" : "With error describedBy"
+  },
+  "describedBy" : "some-id",
+  "errorMessage" : {
+    "text" : "Error message"
+  }
+}

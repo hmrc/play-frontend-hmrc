@@ -1,0 +1,9 @@
+<div class="govuk-form-group">
+  <label class="govuk-label" for="with-hint-describedby">
+    With hint and describedBy
+  </label>
+  <div id="with-hint-describedby-hint" class="govuk-hint">
+    It’s on your National Insurance card, benefit letter, payslip or P60. For example, ‘QQ 12 34 56 C’.
+  </div>
+  <textarea class="govuk-textarea" id="with-hint-describedby" name="with-hint-describedby" rows="5" aria-describedby="some-id with-hint-describedby-hint"></textarea>
+</div>

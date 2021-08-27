@@ -1,0 +1,10 @@
+{
+  "rows" : [ {
+    "key" : {
+      "text" : "Name"
+    },
+    "value" : {
+      "html" : "<span>email@email.com</span>"
+    }
+  } ]
+}

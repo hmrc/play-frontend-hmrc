@@ -1,0 +1,7 @@
+<table class="govuk-table">
+  <tbody class="govuk-table__body">
+        <tr class="govuk-table__row">
+          <th scope="row" class="govuk-table__header" colspan="2" rowspan="2">Foo</th>
+        </tr>
+  </tbody>
+</table>

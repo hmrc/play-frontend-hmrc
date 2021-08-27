@@ -1,0 +1,7 @@
+{
+  "id" : "with-custom-pattern",
+  "items" : [ {
+    "name" : "day",
+    "pattern" : "[0-8]*"
+  } ]
+}

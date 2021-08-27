@@ -1,0 +1,13 @@
+{
+  "name" : "with-label-attributes",
+  "items" : [ {
+    "value" : "yes",
+    "text" : "Yes",
+    "label" : {
+      "attributes" : {
+        "data-attribute" : "value",
+        "data-second-attribute" : "second-value"
+      }
+    }
+  } ]
+}
