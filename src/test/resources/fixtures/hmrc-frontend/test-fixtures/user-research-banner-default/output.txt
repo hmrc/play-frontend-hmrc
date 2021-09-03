@@ -4,7 +4,7 @@
         <div class="hmrc-user-research-banner__title govuk-!-font-weight-bold">
             Help improve HMRC services
         </div>
-        <a class="govuk-link hmrc-user-research-banner__link" href="https://www.example.com/user-research" target="_blank">
+        <a class="govuk-link hmrc-user-research-banner__link" rel="noopener noreferrer" href="https://www.example.com/user-research" target="_blank">
             Sign up to take part in user research (opens in new tab)
         </a>
     </div>
