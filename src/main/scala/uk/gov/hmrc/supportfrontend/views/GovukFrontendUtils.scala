@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.govukfrontend.views
+package uk.gov.hmrc.supportfrontend.views
 
 import play.api.templates.PlayMagic.toHtmlArgs
 import play.twirl.api.Html
-import html.components.implicits._
+import uk.gov.hmrc.govukfrontend.views.Implicits.RichHtml
 
-trait Utils {
+trait GovukFrontendUtils {
 
   /**
     * Creates a space-separated list of CSS classes to be included in a template.
@@ -51,15 +51,15 @@ trait Utils {
       if (s != null && s.nonEmpty) Some(s) else None
   }
 
-  private[views] def isNonEmptyOptionString(value: Option[String]) = value match {
+  def isNonEmptyOptionString(value: Option[String]) = value match {
     case Some(NonEmptyString(_)) => true
     case _                       => false
   }
 
-  private[views] def calculateAssetPath(path: Option[String], file: String): String =
+  def calculateAssetPath(path: Option[String], file: String): String =
     path
       .map(p => s"$p/$file")
       .getOrElse(uk.gov.hmrc.govukfrontend.controllers.routes.Assets.at(file).url)
 }
 
-object Utils extends Utils
+object GovukFrontendUtils extends GovukFrontendUtils
