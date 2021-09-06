@@ -18,7 +18,7 @@ package uk.gov.hmrc.supportfrontend.views
 
 import play.api.templates.PlayMagic.toHtmlArgs
 import play.twirl.api.Html
-import uk.gov.hmrc.hmrcfrontend.views.Implicits.RichHtml
+import uk.gov.hmrc.hmrcfrontend.views.HmrcFrontendImplicits.RichHtml
 
 import java.net.URLEncoder
 

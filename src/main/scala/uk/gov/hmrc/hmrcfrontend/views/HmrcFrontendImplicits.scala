@@ -20,7 +20,7 @@ import play.twirl.api.Html
 import uk.gov.hmrc.govukfrontend.views.html.components.implicits.{RichHtml => GovukRichHtml, RichOptionString => GovukRichOptionString, RichString => GovukRichString}
 import uk.gov.hmrc.hmrcfrontend.views.implicits.{RichCharacterCountSupport, RichDateInputSupport, RichErrorSummarySupport}
 
-trait Implicits extends RichCharacterCountSupport with RichErrorSummarySupport with RichDateInputSupport {
+trait HmrcFrontendImplicits extends RichCharacterCountSupport with RichErrorSummarySupport with RichDateInputSupport {
 
   implicit class RichHtml(html: Html) extends GovukRichHtml(html)
 
@@ -29,4 +29,4 @@ trait Implicits extends RichCharacterCountSupport with RichErrorSummarySupport w
   implicit class RichOptionString(optString: Option[String]) extends GovukRichOptionString(optString)
 }
 
-object Implicits extends Implicits
+object HmrcFrontendImplicits extends HmrcFrontendImplicits

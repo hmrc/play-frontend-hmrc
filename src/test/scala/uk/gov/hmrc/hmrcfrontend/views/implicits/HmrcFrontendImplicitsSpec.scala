@@ -25,7 +25,7 @@ import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks
 import play.twirl.api.{Html, HtmlFormat}
 import uk.gov.hmrc.hmrcfrontend.views.html.components.implicits._
 
-class ImplicitsSpec
+class HmrcFrontendImplicitsSpec
     extends AnyWordSpec
     with Matchers
     with OptionValues
@@ -74,7 +74,7 @@ class ImplicitsSpec
   object Generators {
 
     /**
-      * Generate indentation arguments for [[uk.gov.hmrc.hmrcfrontend.views.Implicits.RichString.indent(int, boolean)]]
+      * Generate indentation arguments for [[uk.gov.hmrc.hmrcfrontend.views.HmrcFrontendImplicits.RichString.indent(int, boolean)]]
       */
     val genIndentArgs: Gen[(String, Int, Boolean)] =
       for {
