@@ -59,7 +59,7 @@ trait Utils {
   private[views] def calculateAssetPath(path: Option[String], file: String): String =
     path
       .map(p => s"$p/$file")
-      .getOrElse(uk.gov.hmrc.govukfrontend.controllers.routes.Assets.at(file).url)
+      .getOrElse(uk.gov.hmrc.hmrcfrontend.controllers.routes.Assets.at(file).url)
 }
 
 object Utils extends Utils

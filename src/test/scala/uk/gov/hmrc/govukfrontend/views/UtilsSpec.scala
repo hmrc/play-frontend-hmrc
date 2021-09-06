@@ -112,7 +112,7 @@ class UtilsSpec extends AnyWordSpec with Matchers with ScalaCheckPropertyChecks 
       }
 
       "use the reverse router if path is not provided" in {
-        govuk.RoutesPrefix.setPrefix("/some-service/govuk-frontend")
+        hmrcfrontend.RoutesPrefix.setPrefix("/some-service/govuk-frontend")
 
         calculateAssetPath(None, "images/baz.png") shouldBe "/some-service/govuk-frontend/assets/images/baz.png"
       }
