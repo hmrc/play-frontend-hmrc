@@ -14,14 +14,15 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.hmrcfrontend.views
+package uk.gov.hmrc.supportfrontend.views
 
 import play.api.templates.PlayMagic.toHtmlArgs
 import play.twirl.api.Html
-import html.components.implicits._
+import uk.gov.hmrc.hmrcfrontend.views.Implicits.RichHtml
+
 import java.net.URLEncoder
 
-trait Utils {
+trait HmrcFrontendUtils {
 
   /**
     * Creates a space-separated list of CSS classes to be included in a template.
@@ -56,4 +57,4 @@ trait Utils {
     URLEncoder.encode(s, "UTF-8").replace("+", "%20")
 }
 
-object Utils extends Utils
+object HmrcFrontendUtils extends HmrcFrontendUtils

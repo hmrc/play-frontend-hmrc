@@ -17,7 +17,9 @@
 package uk.gov.hmrc.hmrcfrontend.views
 package html
 
-package object components extends Utils with Aliases {
+import uk.gov.hmrc.supportfrontend.views.HmrcFrontendUtils
+
+package object components extends HmrcFrontendUtils with Aliases {
 
   /**
     * Top-level implicits for all components
