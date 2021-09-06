@@ -14,15 +14,16 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.govukfrontend.views
+package uk.gov.hmrc.helpers.views
 
-import play.api.i18n.{DefaultLangs, Lang, Langs, Messages, MessagesApi}
+import play.api.i18n.{DefaultLangs, Lang, Messages, MessagesApi}
 import play.api.test.{Helpers => PlayHelpers}
 
 trait MessagesHelpers {
 
   /**
     * Override the messagesMap to provide custom messages
+    *
     * @return
     */
   def messagesMap: Map[String, Map[String, String]] = Map.empty

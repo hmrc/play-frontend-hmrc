@@ -16,7 +16,7 @@
 
 package uk.gov.hmrc.govukfrontend.views.viewmodels.errormessage
 
-import uk.gov.hmrc.govukfrontend.views.MessagesHelpers
+import uk.gov.hmrc.helpers.views.MessagesHelpers
 import uk.gov.hmrc.govukfrontend.views.viewmodels.JsonRoundtripSpec
 import uk.gov.hmrc.govukfrontend.views.viewmodels.errormessage.ErrorMessage.errorMessageWithDefaultStringsTranslated
 import uk.gov.hmrc.govukfrontend.views.viewmodels.errormessage.Generators._

@@ -23,6 +23,7 @@ import org.scalatestplus.play.guice.GuiceOneAppPerSuite
 import play.api.mvc.{AnyContentAsEmpty, Call}
 import play.api.test.FakeRequest
 import play.twirl.api.{Html, HtmlFormat}
+import uk.gov.hmrc.helpers.views.MessagesHelpers
 import uk.gov.hmrc.govukfrontend.views.html.components._
 
 class FormWithCSRFSpec
