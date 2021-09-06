@@ -14,10 +14,11 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.govukfrontend.views
+package uk.gov.hmrc.helpers.views
 
 import java.nio.file.Path
 import org.bitbucket.cowwoc.diffmatchpatch.DiffMatchPatch
+
 import scala.collection.JavaConverters._
 
 object TemplateDiff {
@@ -35,7 +36,7 @@ object TemplateDiff {
     nunJucksOutputHtml: String,
     diffFilePrefix: Option[String] = None
   ): Path = {
-    val diffResult = diffWrapper.diff(nunJucksOutputHtml, twirlOutputHtml)
+    val diffResult = diffWrapper.diff(twirlOutputHtml, nunJucksOutputHtml)
     val path       = diffWrapper.diffToHtml(diff = diffResult.asScala, diffFilePrefix = diffFilePrefix)
     path
   }

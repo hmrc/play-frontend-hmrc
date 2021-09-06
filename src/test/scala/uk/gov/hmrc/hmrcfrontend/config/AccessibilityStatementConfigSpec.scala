@@ -21,7 +21,7 @@ import org.scalatest.wordspec.AnyWordSpec
 import play.api.Application
 import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.test.FakeRequest
-import uk.gov.hmrc.hmrcfrontend.MessagesSupport
+import uk.gov.hmrc.helpers.MessagesSupport
 
 class AccessibilityStatementConfigSpec extends AnyWordSpec with Matchers with MessagesSupport {
 

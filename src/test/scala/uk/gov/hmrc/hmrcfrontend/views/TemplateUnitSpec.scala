@@ -26,8 +26,9 @@ import scala.util.Try
   * Base class for unit testing against test fixtures generated from hmrc-frontend's yaml documentation files for
   * components
   */
-abstract class TemplateUnitSpec[T: Reads, C <: Template1[T, HtmlFormat.Appendable]: ClassTag](hmrcComponentName: String)
-    extends TemplateUnitBaseSpec[T](hmrcComponentName) {
+abstract class TemplateUnitSpec[T: Reads, C <: Template1[T, HtmlFormat.Appendable]: ClassTag](
+  hmrcComponentName: String
+) extends TemplateUnitBaseSpec[T](hmrcComponentName) {
 
   protected val component: C = app.injector.instanceOf[C]
 

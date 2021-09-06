@@ -14,11 +14,10 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.govukfrontend.views
+package uk.gov.hmrc.helpers.views
 
 import com.googlecode.htmlcompressor.compressor.HtmlCompressor
-import com.googlecode.htmlcompressor.compressor.HtmlCompressor._
-import CharacterReferenceUtils._
+import com.googlecode.htmlcompressor.compressor.HtmlCompressor.ALL_TAGS
 
 trait PreProcessor {
 
@@ -30,16 +29,20 @@ trait PreProcessor {
     * @param html
     * @return
     */
-  def parseAndCompressHtml(html: String): String = {
+  def preProcess(html: String): String = {
     compressor.setRemoveSurroundingSpaces(ALL_TAGS)
-    compressor.compress(toDecimal(html))
+    compressor.compress(asDecimalSpecialCharacters(html: String))
   }
 
-  /** *
-    * Function to pre-process the markup before comparing.
-    *
-    * @param html
-    * @return String
-    */
-  def preProcess(html: String): String = parseAndCompressHtml(html: String)
+  private def asDecimalSpecialCharacters(html: String) = {
+    val findHexadecimalCharacterIdentifier = """&#x(\d+)""".r
+    findHexadecimalCharacterIdentifier.replaceAllIn(
+      html,
+      hexadecimalCharacterMatches => {
+        val hexadecimalString = hexadecimalCharacterMatches group 1
+        val asDecimal         = Integer.parseInt(hexadecimalString, 16)
+        s"&#$asDecimal"
+      }
+    )
+  }
 }

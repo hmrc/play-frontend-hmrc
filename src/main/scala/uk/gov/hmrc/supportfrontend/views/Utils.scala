@@ -14,11 +14,12 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.hmrcfrontend.views
+package uk.gov.hmrc.supportfrontend.views
 
 import play.api.templates.PlayMagic.toHtmlArgs
 import play.twirl.api.Html
-import html.components.implicits._
+import uk.gov.hmrc.hmrcfrontend.views.Implicits.RichHtml
+
 import java.net.URLEncoder
 
 trait Utils {
@@ -46,6 +47,16 @@ trait Utils {
     val htmlArgs = toHtmlArgs(attributes.map { case (k, v) => Symbol(k) -> v })
     htmlArgs.padLeft(if (attributes.nonEmpty) padCount else 0)
   }
+
+  def isNonEmptyOptionString(value: Option[String]): Boolean = value match {
+    case Some(NonEmptyString(_)) => true
+    case _                       => false
+  }
+
+  def calculateAssetPath(path: Option[String], file: String): String =
+    path
+      .map(p => s"$p/$file")
+      .getOrElse(uk.gov.hmrc.govukfrontend.controllers.routes.Assets.at(file).url)
 
   object NonEmptyString {
     def unapply(s: String): Option[String] =

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.hmrcfrontend.views
+package uk.gov.hmrc.helpers.views
 
 import better.files._
 import org.bitbucket.cowwoc.diffmatchpatch.DiffMatchPatch
