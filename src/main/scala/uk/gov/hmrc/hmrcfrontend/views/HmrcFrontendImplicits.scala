@@ -29,4 +29,4 @@ trait HmrcFrontendImplicits extends RichCharacterCountSupport with RichErrorSumm
   implicit class RichOptionString(optString: Option[String]) extends GovukRichOptionString(optString)
 }
 
-object HmrcFrontendImplicits extends HmrcFrontendImplicits
+object Implicits extends HmrcFrontendImplicits
