@@ -21,6 +21,10 @@ import uk.gov.hmrc.govukfrontend.views.html.components._
 
 class GovukHeaderSpec extends TemplateUnitSpec[Header, GovukHeader]("govukHeader") {
 
+  // The following line is needed to ensure known state of the statically initialised reverse router
+  // used to calculate asset paths
+  govuk.RoutesPrefix.setPrefix("")
+
   "header" should {
     "have a role of banner" in {
       val output = component(Header()).select(".govuk-header")

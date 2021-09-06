@@ -17,7 +17,7 @@
 package uk.gov.hmrc.hmrcfrontend.views.config
 
 import play.twirl.api.{Html, HtmlFormat}
-import uk.gov.hmrc.supportfrontend.views.GovukFrontendUtils.toClasses
+import uk.gov.hmrc.supportfrontend.views.Utils.toClasses
 import uk.gov.hmrc.govukfrontend.views.viewmodels.content.{Content, Empty, HtmlContent}
 import uk.gov.hmrc.govukfrontend.views.viewmodels.fieldset.Legend
 import uk.gov.hmrc.govukfrontend.views.viewmodels.label.Label

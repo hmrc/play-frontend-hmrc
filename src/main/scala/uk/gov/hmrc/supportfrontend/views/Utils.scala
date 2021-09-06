@@ -22,7 +22,7 @@ import uk.gov.hmrc.hmrcfrontend.views.Implicits.RichHtml
 
 import java.net.URLEncoder
 
-trait HmrcFrontendUtils {
+trait Utils {
 
   /**
     * Creates a space-separated list of CSS classes to be included in a template.
@@ -48,6 +48,16 @@ trait HmrcFrontendUtils {
     htmlArgs.padLeft(if (attributes.nonEmpty) padCount else 0)
   }
 
+  def isNonEmptyOptionString(value: Option[String]): Boolean = value match {
+    case Some(NonEmptyString(_)) => true
+    case _                       => false
+  }
+
+  def calculateAssetPath(path: Option[String], file: String): String =
+    path
+      .map(p => s"$p/$file")
+      .getOrElse(uk.gov.hmrc.govukfrontend.controllers.routes.Assets.at(file).url)
+
   object NonEmptyString {
     def unapply(s: String): Option[String] =
       if (s != null && s.nonEmpty) Some(s) else None
@@ -57,4 +67,4 @@ trait HmrcFrontendUtils {
     URLEncoder.encode(s, "UTF-8").replace("+", "%20")
 }
 
-object HmrcFrontendUtils extends HmrcFrontendUtils
+object Utils extends Utils
