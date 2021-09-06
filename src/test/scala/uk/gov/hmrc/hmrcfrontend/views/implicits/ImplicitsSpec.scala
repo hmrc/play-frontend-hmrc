@@ -25,7 +25,7 @@ import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks
 import play.twirl.api.{Html, HtmlFormat}
 import uk.gov.hmrc.hmrcfrontend.views.html.components.implicits._
 
-class HmrcFrontendImplicitsSpec
+class ImplicitsSpec
     extends AnyWordSpec
     with Matchers
     with OptionValues

@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.govukfrontend.views
+package uk.gov.hmrc.supportfrontend.views
 
-import play.api.libs.json.{Format, JsError, JsNumber, JsResult, JsString, JsSuccess, JsValue, Reads}
+import play.api.libs.json._
 
 import scala.util.Try
 
