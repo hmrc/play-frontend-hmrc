@@ -47,6 +47,16 @@ trait Utils {
     htmlArgs.padLeft(if (attributes.nonEmpty) padCount else 0)
   }
 
+  def isNonEmptyOptionString(value: Option[String]) = value match {
+    case Some(NonEmptyString(_)) => true
+    case _                       => false
+  }
+
+  def calculateAssetPath(path: Option[String], file: String): String =
+    path
+      .map(p => s"$p/$file")
+      .getOrElse(uk.gov.hmrc.hmrcfrontend.controllers.routes.Assets.at(file).url)
+
   object NonEmptyString {
     def unapply(s: String): Option[String] =
       if (s != null && s.nonEmpty) Some(s) else None

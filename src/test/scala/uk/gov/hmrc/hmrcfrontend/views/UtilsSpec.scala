@@ -71,4 +71,34 @@ class UtilsSpec extends AnyWordSpec with Matchers with ScalaCheckPropertyChecks 
       ) shouldBe "https%3A%2F%2Fwww.tax.service.gov.uk%2Fpay%3Fabc%3Ddef%26ghi%3Djkl"
     }
   }
+
+  "isNonEmptyOptionString" should {
+    "return true for a non-empty string" in {
+      isNonEmptyOptionString(Some("abc")) should be(true)
+    }
+
+    "return true for a non-empty string containing only whitespace" in {
+      isNonEmptyOptionString(Some(" ")) should be(true)
+    }
+
+    "return false for an empty string" in {
+      isNonEmptyOptionString(Some("")) should be(false)
+    }
+
+    "return false for None" in {
+      isNonEmptyOptionString(None) should be(false)
+    }
+  }
+
+  "calculateAssetPath" should {
+    "use the path if provided" in {
+      calculateAssetPath(Some("/foo"), "images/bar.png") shouldBe "/foo/images/bar.png"
+    }
+
+    "use the reverse router if path is not provided" in {
+      hmrcfrontend.RoutesPrefix.setPrefix("/some-service/govuk-frontend")
+
+      calculateAssetPath(None, "images/baz.png") shouldBe "/some-service/govuk-frontend/assets/images/baz.png"
+    }
+  }
 }
