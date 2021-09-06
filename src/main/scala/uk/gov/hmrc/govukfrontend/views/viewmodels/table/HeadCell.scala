@@ -19,7 +19,7 @@ package table
 
 import play.api.libs.functional.syntax._
 import play.api.libs.json._
-import uk.gov.hmrc.govukfrontend.views.IntString
+import uk.gov.hmrc.hmrcfrontend.views.IntString
 import uk.gov.hmrc.govukfrontend.views.viewmodels.content.{Content, Empty}
 
 final case class HeadCell(
