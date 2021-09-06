@@ -18,7 +18,7 @@ package uk.gov.hmrc.govukfrontend.views
 
 import uk.gov.hmrc.govukfrontend.views.implicits._
 
-trait GovukFrontendImplicits
+trait Implicits
     extends RichCharacterCountSupport
     with RichCheckboxesSupport
     with RichFormErrorsSupport
@@ -30,4 +30,4 @@ trait GovukFrontendImplicits
     with RichStringSupport
     with RichTextareaSupport
 
-object Implicits extends GovukFrontendImplicits
+object Implicits extends Implicits

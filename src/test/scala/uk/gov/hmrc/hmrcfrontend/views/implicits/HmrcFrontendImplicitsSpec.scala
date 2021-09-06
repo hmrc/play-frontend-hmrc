@@ -74,7 +74,7 @@ class HmrcFrontendImplicitsSpec
   object Generators {
 
     /**
-      * Generate indentation arguments for [[uk.gov.hmrc.hmrcfrontend.views.HmrcFrontendImplicits.RichString.indent(int, boolean)]]
+      * Generate indentation arguments for [[uk.gov.hmrc.hmrcfrontend.views.Implicits.RichString.indent(int, boolean)]]
       */
     val genIndentArgs: Gen[(String, Int, Boolean)] =
       for {

@@ -24,5 +24,5 @@ package object components extends Utils with Aliases {
   /**
     * Top-level implicits for all components
     */
-  object implicits extends GovukFrontendImplicits
+  object implicits extends Implicits
 }
