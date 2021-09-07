@@ -14,15 +14,15 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.hmrcfrontend.views
+package uk.gov.hmrc.supportfrontend
 
 import org.scalacheck._
-import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks
-import play.twirl.api.{Html, HtmlFormat}
-import uk.gov.hmrc.supportfrontend.views.Utils._
-import uk.gov.hmrc.hmrcfrontend.views.viewmodels.Generators._
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpec
+import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks
+import play.twirl.api.{Html, HtmlFormat}
+import uk.gov.hmrc.hmrcfrontend.views.viewmodels.Generators._
+import uk.gov.hmrc.supportfrontend.views.Utils._
 
 class UtilsSpec extends AnyWordSpec with Matchers with ScalaCheckPropertyChecks with ShrinkLowPriority {
 
