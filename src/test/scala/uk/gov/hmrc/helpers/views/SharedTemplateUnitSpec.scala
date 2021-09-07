@@ -21,7 +21,7 @@ import play.api.libs.json.Json
 
 import scala.util.Try
 
-trait ShareTemplateUnitSpec {
+trait SharedTemplateUnitSpec {
 
   protected val baseFixturesDirectory: String
 

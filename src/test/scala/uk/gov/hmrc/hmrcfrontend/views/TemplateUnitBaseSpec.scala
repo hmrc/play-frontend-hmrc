@@ -22,7 +22,7 @@ import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpecLike
 import org.scalatestplus.play.guice.GuiceOneAppPerSuite
 import play.api.libs.json._
-import uk.gov.hmrc.helpers.views.{JsoupHelpers, PreProcessor, ShareTemplateUnitSpec, TemplateValidationException, TwirlRenderer}
+import uk.gov.hmrc.helpers.views.{JsoupHelpers, PreProcessor, SharedTemplateUnitSpec, TemplateValidationException, TwirlRenderer}
 
 import scala.util.{Failure, Success, Try}
 
@@ -39,7 +39,7 @@ abstract class TemplateUnitBaseSpec[T: Reads](
     with Matchers
     with TryValues
     with GuiceOneAppPerSuite
-    with ShareTemplateUnitSpec {
+    with SharedTemplateUnitSpec {
 
   override protected val baseFixturesDirectory: String = "/fixtures/hmrc-frontend"
 

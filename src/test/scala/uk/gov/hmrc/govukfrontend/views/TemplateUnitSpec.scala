@@ -23,7 +23,7 @@ import org.scalatest.matchers.should.Matchers
 import org.scalatestplus.play.guice.GuiceOneAppPerSuite
 import play.api.libs.json._
 import play.twirl.api.{HtmlFormat, Template1}
-import uk.gov.hmrc.helpers.views.{JsoupHelpers, PreProcessor, ShareTemplateUnitSpec, TemplateValidationException, TwirlRenderer}
+import uk.gov.hmrc.helpers.views.{JsoupHelpers, PreProcessor, SharedTemplateUnitSpec, TemplateValidationException, TwirlRenderer}
 
 import scala.reflect.ClassTag
 import scala.util.{Failure, Success, Try}
@@ -41,7 +41,7 @@ abstract class TemplateUnitSpec[T: Reads, C <: Template1[T, HtmlFormat.Appendabl
     with Matchers
     with TryValues
     with GuiceOneAppPerSuite
-    with ShareTemplateUnitSpec {
+    with SharedTemplateUnitSpec {
 
   override protected val baseFixturesDirectory: String = "/fixtures/govuk-frontend"
 
