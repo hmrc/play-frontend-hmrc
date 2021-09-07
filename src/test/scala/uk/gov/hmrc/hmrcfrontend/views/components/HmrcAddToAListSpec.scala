@@ -26,7 +26,7 @@ import uk.gov.hmrc.hmrcfrontend.views.html.components._
 
 import scala.util.Try
 
-class HmrcAddToAListSpec extends TemplateUnitBaseSpec[AddToAList]("hmrcAddToAList") with MessagesSupport {
+class HmrcAddToAListSpec extends TemplateUnitSpec[AddToAList]("hmrcAddToAList") with MessagesSupport {
 
   private val component = app.injector.instanceOf[HmrcAddToAList]
 

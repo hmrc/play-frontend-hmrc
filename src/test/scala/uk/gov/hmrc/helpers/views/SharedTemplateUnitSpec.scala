@@ -17,11 +17,21 @@
 package uk.gov.hmrc.helpers.views
 
 import better.files.{File, Resource}
+import org.scalatest.TryValues
+import org.scalatest.matchers.should.Matchers
+import org.scalatest.wordspec.AnyWordSpecLike
+import org.scalatestplus.play.guice.GuiceOneAppPerSuite
 import play.api.libs.json.{Json, Reads}
 
 import scala.util.Try
 
-abstract class SharedTemplateUnitSpec[T: Reads] extends TwirlRenderer[T] {
+abstract class SharedTemplateUnitSpec[T: Reads] extends TwirlRenderer[T]
+  with JsoupHelpers
+  with AnyWordSpecLike
+  with Matchers
+  with TryValues
+  with GuiceOneAppPerSuite
+  with PreProcessor {
 
   protected val baseFixturesDirectory: String
 

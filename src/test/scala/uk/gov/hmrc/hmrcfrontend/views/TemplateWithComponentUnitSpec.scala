@@ -28,7 +28,7 @@ import scala.util.Try
   */
 abstract class TemplateWithComponentUnitSpec[T: Reads, C <: Template1[T, HtmlFormat.Appendable]: ClassTag](
   hmrcComponentName: String
-) extends TemplateUnitBaseSpec[T](hmrcComponentName) {
+) extends TemplateUnitSpec[T](hmrcComponentName) {
 
   protected val component: C = app.injector.instanceOf[C]
 

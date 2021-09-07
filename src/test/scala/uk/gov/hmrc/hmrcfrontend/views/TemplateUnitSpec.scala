@@ -30,15 +30,9 @@ import scala.util.{Failure, Success, Try}
   * Base class for unit testing against test fixtures generated from hmrc-frontend's yaml documentation files for
   * components
   */
-abstract class TemplateUnitBaseSpec[T: Reads](
+abstract class TemplateUnitSpec[T: Reads](
   hmrcComponentName: String
-) extends SharedTemplateUnitSpec[T]
-    with JsoupHelpers
-    with AnyWordSpecLike
-    with Matchers
-    with TryValues
-    with GuiceOneAppPerSuite
-    with PreProcessor {
+) extends SharedTemplateUnitSpec[T] {
 
   override protected val baseFixturesDirectory: String = "/fixtures/hmrc-frontend"
 

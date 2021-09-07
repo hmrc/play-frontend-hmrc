@@ -34,13 +34,7 @@ import scala.util.{Failure, Success, Try}
   */
 abstract class TemplateWithComponentUnitSpec[T: Reads, C <: Template1[T, HtmlFormat.Appendable]: ClassTag](
   govukComponentName: String
-) extends SharedTemplateUnitSpec[T]
-    with PreProcessor
-    with JsoupHelpers
-    with AnyWordSpecLike
-    with Matchers
-    with TryValues
-    with GuiceOneAppPerSuite {
+) extends SharedTemplateUnitSpec[T] {
 
   override protected val baseFixturesDirectory: String = "/fixtures/govuk-frontend"
 
