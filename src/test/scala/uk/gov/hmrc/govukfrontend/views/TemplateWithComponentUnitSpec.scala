@@ -148,17 +148,4 @@ abstract class TemplateWithComponentUnitSpec[T: Reads, C <: Template1[T, HtmlFor
       }
     }
 
-  private def renderExample(fixturesDir: File, exampleName: String): Try[String] =
-    for {
-      inputJson    <- Try(readInputJson(fixturesDir, exampleName))
-      inputJsValue <- Try(Json.parse(inputJson))
-      html         <- inputJsValue.validate[T] match {
-                        case JsSuccess(templateParams, _) =>
-                          render(templateParams)
-                            .transform(html => Success(html.body), f => Failure(new TemplateValidationException(f.getMessage)))
-                        case e: JsError                   =>
-                          throw new RuntimeException(s"Failed to validate Json params: [$inputJsValue]\nException: [$e]")
-                      }
-    } yield html
-
 }

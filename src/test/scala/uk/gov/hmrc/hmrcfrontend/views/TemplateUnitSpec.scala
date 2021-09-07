@@ -37,12 +37,14 @@ abstract class TemplateUnitSpec[T: Reads](
     "character-count-spellcheck-enabled"
   )
 
+  val skip = skipBecauseOfSpellcheckOrdering
+
   exampleNames(fixturesDirs, hmrcComponentName)
     .foreach { fixtureDirExampleName =>
       val (fixtureDir, exampleName) = fixtureDirExampleName
 
       s"$exampleName" should {
-        if (!skipBecauseOfSpellcheckOrdering.contains(exampleName)) {
+        if (!skip.contains(exampleName)) {
 
           "render the same html as the nunjucks renderer" in {
             val tryTwirlHtml = renderExample(fixtureDir, exampleName)
@@ -65,18 +67,5 @@ abstract class TemplateUnitSpec[T: Reads](
         }
       }
     }
-
-  private def renderExample(fixturesDir: File, exampleName: String): Try[String] =
-    for {
-      inputJson    <- Try(readInputJson(fixturesDir, exampleName))
-      inputJsValue <- Try(Json.parse(inputJson))
-      html         <- inputJsValue.validate[T] match {
-                        case JsSuccess(templateParams, _) =>
-                          render(templateParams)
-                            .transform(html => Success(html.body), f => Failure(new TemplateValidationException(f.getMessage)))
-                        case e: JsError                   =>
-                          throw new RuntimeException(s"Failed to validate Json params: [$inputJsValue]\nException: [$e]")
-                      }
-    } yield html
 
 }
