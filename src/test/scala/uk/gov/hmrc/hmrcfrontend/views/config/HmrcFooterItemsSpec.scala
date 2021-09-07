@@ -22,8 +22,8 @@ import play.api.Application
 import play.api.i18n.{Lang, Messages}
 import play.api.test.FakeRequest
 import play.api.inject.guice.GuiceApplicationBuilder
+import uk.gov.hmrc.helpers.MessagesSupport
 import uk.gov.hmrc.hmrcfrontend.views.viewmodels.footer.FooterItem
-import uk.gov.hmrc.hmrcfrontend.MessagesSupport
 
 class HmrcFooterItemsSpec extends AnyWordSpec with Matchers with MessagesSupport {
 

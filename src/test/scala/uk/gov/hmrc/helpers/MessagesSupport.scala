@@ -14,26 +14,31 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.helpers.views
+package uk.gov.hmrc.helpers
 
-import play.api.i18n.{DefaultLangs, Lang, Messages, MessagesApi}
-import play.api.test.{Helpers => PlayHelpers}
+import play.api.http.HttpConfiguration
+import play.api.i18n._
+import play.api.mvc.MessagesRequest
+import play.api.test.FakeRequest
+import play.api.{Configuration, Environment}
 
-trait MessagesHelpers {
-
-  /**
-    * Override the messagesMap to provide custom messages
-    *
-    * @return
-    */
-  def messagesMap: Map[String, Map[String, String]] = Map.empty
+trait MessagesSupport {
 
   implicit lazy val messagesApi: MessagesApi = {
+
+    val environment = Environment.simple()
+
+    val configuration = Configuration.load(environment)
+
     val langs = new DefaultLangs(Seq(Lang("en"), Lang("cy")))
 
-    PlayHelpers.stubMessagesApi(messages = messagesMap, langs = langs)
+    new DefaultMessagesApiProvider(
+      environment = environment,
+      config = configuration,
+      langs = langs,
+      httpConfiguration = new HttpConfiguration()
+    ).get
   }
 
-  implicit lazy val messages: Messages =
-    PlayHelpers.stubMessages(messagesApi)
+  implicit val messages: Messages = new MessagesRequest(FakeRequest(), messagesApi).messages
 }

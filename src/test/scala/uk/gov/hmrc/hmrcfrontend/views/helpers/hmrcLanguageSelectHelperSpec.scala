@@ -22,8 +22,8 @@ import org.scalatestplus.play.guice.GuiceOneAppPerSuite
 import play.api.Application
 import play.api.i18n.{Lang, Messages}
 import play.api.inject.guice.GuiceApplicationBuilder
+import uk.gov.hmrc.helpers.MessagesSupport
 import uk.gov.hmrc.helpers.views.JsoupHelpers
-import uk.gov.hmrc.hmrcfrontend.MessagesSupport
 import uk.gov.hmrc.hmrcfrontend.views.html.helpers.HmrcLanguageSelectHelper
 
 import scala.collection.immutable.List

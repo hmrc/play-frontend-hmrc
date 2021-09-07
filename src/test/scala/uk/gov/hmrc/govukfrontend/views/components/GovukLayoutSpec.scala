@@ -26,7 +26,8 @@ import uk.gov.hmrc.govukfrontend.views.html.components._
 import org.scalatest.wordspec.AnyWordSpecLike
 import play.api.test.Helpers.{stubMessages, stubMessagesApi}
 import org.scalatestplus.play.guice.GuiceOneAppPerSuite
-import uk.gov.hmrc.helpers.views.{JsoupHelpers, MessagesHelpers}
+import uk.gov.hmrc.helpers.MessagesHelpers
+import uk.gov.hmrc.helpers.views.JsoupHelpers
 
 class GovukLayoutSpec
     extends AnyWordSpecLike

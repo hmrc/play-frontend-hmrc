@@ -31,8 +31,8 @@ import java.util.{List => JavaList}
 import org.scalatestplus.play.guice.GuiceOneAppPerSuite
 import play.api.Application
 import play.api.mvc.AnyContentAsEmpty
+import uk.gov.hmrc.helpers.MessagesSupport
 import uk.gov.hmrc.hmrcfrontend.views.Aliases.FooterItem
-import uk.gov.hmrc.hmrcfrontend.MessagesSupport
 import uk.gov.hmrc.hmrcfrontend.views.html.helpers.HmrcStandardFooter
 
 class hmrcStandardFooterSpec extends AnyWordSpecLike with Matchers with MessagesSupport with GuiceOneAppPerSuite {
