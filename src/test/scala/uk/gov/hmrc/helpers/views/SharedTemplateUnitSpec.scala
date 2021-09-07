@@ -25,13 +25,14 @@ import play.api.libs.json.{Json, Reads}
 
 import scala.util.Try
 
-abstract class SharedTemplateUnitSpec[T: Reads] extends TwirlRenderer[T]
-  with JsoupHelpers
-  with AnyWordSpecLike
-  with Matchers
-  with TryValues
-  with GuiceOneAppPerSuite
-  with PreProcessor {
+abstract class SharedTemplateUnitSpec[T: Reads]
+    extends TwirlRenderer[T]
+    with JsoupHelpers
+    with AnyWordSpecLike
+    with Matchers
+    with TryValues
+    with GuiceOneAppPerSuite
+    with PreProcessor {
 
   protected val baseFixturesDirectory: String
 

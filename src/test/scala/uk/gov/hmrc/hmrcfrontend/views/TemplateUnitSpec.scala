@@ -17,12 +17,8 @@
 package uk.gov.hmrc.hmrcfrontend.views
 
 import better.files._
-import org.scalatest.TryValues
-import org.scalatest.matchers.should.Matchers
-import org.scalatest.wordspec.AnyWordSpecLike
-import org.scalatestplus.play.guice.GuiceOneAppPerSuite
 import play.api.libs.json._
-import uk.gov.hmrc.helpers.views.{JsoupHelpers, PreProcessor, SharedTemplateUnitSpec, TemplateValidationException, TwirlRenderer}
+import uk.gov.hmrc.helpers.views.{SharedTemplateUnitSpec, TemplateValidationException}
 
 import scala.util.{Failure, Success, Try}
 
