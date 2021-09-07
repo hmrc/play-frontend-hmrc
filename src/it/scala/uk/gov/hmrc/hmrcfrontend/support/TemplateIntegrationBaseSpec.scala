@@ -1,6 +1,5 @@
 package uk.gov.hmrc.hmrcfrontend.support
 
-import org.jsoup.Jsoup
 import org.scalacheck.Prop.{forAll, secure}
 import org.scalacheck.{Arbitrary, Properties, ShrinkLowPriority, Test}
 import org.scalatest.concurrent.{IntegrationPatience, ScalaFutures}
@@ -9,8 +8,7 @@ import play.api.libs.json.{Json, OWrites}
 import uk.gov.hmrc.helpers.views.{JsoupHelpers, PreProcessor, TemplateValidationException, TwirlRenderer}
 import uk.gov.hmrc.helpers.Implicits._
 import uk.gov.hmrc.helpers.ScalaCheckUtils.{ClassifyParams, classify}
-import uk.gov.hmrc.helpers.TemplateServiceClient
-import uk.gov.hmrc.helpers.views.TemplateDiff._
+import uk.gov.hmrc.helpers.{DiffReporter, TemplateServiceClient}
 import uk.gov.hmrc.hmrcfrontend.views.HmrcFrontendDependency.hmrcFrontendVersion
 
 import scala.util.{Failure, Success}
@@ -22,6 +20,7 @@ abstract class TemplateIntegrationBaseSpec[T: OWrites: Arbitrary](
   hmrcComponentName: String,
   seed: Option[String] = None
 ) extends Properties(hmrcComponentName)
+    with DiffReporter[T]
     with TemplateServiceClient
     with PreProcessor
     with TwirlRenderer[T]
@@ -75,7 +74,8 @@ abstract class TemplateIntegrationBaseSpec[T: OWrites: Arbitrary](
                 preProcessedTwirlHtml = preProcessedTwirlHtml,
                 preProcessedNunjucksHtml = preProcessedNunjucksHtml,
                 templateParams = templateParams,
-                templateParamsJson = Json.prettyPrint(Json.toJson(templateParams))
+                templateParamsJson = Json.prettyPrint(Json.toJson(templateParams)),
+                componentName = hmrcComponentName
               )
             }
 
@@ -90,40 +90,4 @@ abstract class TemplateIntegrationBaseSpec[T: OWrites: Arbitrary](
       })
   }
 
-  def reportDiff(
-    preProcessedTwirlHtml: String,
-    preProcessedNunjucksHtml: String,
-    templateParams: T,
-    templateParamsJson: String
-  ): Unit = {
-
-    val diffPath =
-      templateDiffPath(
-        twirlOutputHtml = preProcessedTwirlHtml,
-        nunJucksOutputHtml = preProcessedNunjucksHtml,
-        diffFilePrefix = Some(hmrcComponentName)
-      )
-
-    println(s"Diff between Twirl and Nunjucks outputs (please open diff HTML file in a browser): file://$diffPath\n")
-
-    println("-" * 80)
-    println("Twirl")
-    println("-" * 80)
-
-    val formattedTwirlHtml = Jsoup.parseBodyFragment(preProcessedTwirlHtml).body.html
-    println(s"\nTwirl output:\n$formattedTwirlHtml\n")
-
-    println(s"\nparameters: ")
-    pprint.pprintln(templateParams, width = 80, height = 500)
-
-    println("-" * 80)
-    println("Nunjucks")
-    println("-" * 80)
-
-    val formattedNunjucksHtml = Jsoup.parseBodyFragment(preProcessedNunjucksHtml).body.html
-    println(s"\nNunjucks output:\n$formattedNunjucksHtml\n")
-
-    println(s"\nparameters: ")
-    println(templateParamsJson)
-  }
 }
