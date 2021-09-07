@@ -5,6 +5,7 @@ import org.scalatestplus.play.PortNumber
 import org.scalatestplus.play.guice.GuiceOneAppPerSuite
 import play.api.libs.json.{Json, OWrites}
 import play.api.libs.ws.{WSClient, WSResponse}
+import uk.gov.hmrc.helpers.WSScalaTestClient
 import uk.gov.hmrc.hmrcfrontend.views.HmrcFrontendDependency.hmrcFrontendVersion
 
 import scala.concurrent.Future

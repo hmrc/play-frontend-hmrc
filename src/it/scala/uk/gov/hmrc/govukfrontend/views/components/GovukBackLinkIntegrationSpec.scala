@@ -17,7 +17,7 @@
 package uk.gov.hmrc.govukfrontend.views
 package components
 
-import uk.gov.hmrc.govukfrontend.support.ScalaCheckUtils.ClassifyParams
+import uk.gov.hmrc.helpers.ScalaCheckUtils.ClassifyParams
 import uk.gov.hmrc.govukfrontend.support.TemplateIntegrationSpec
 import uk.gov.hmrc.govukfrontend.views.html.components._
 import uk.gov.hmrc.govukfrontend.views.viewmodels.backlink.BackLink

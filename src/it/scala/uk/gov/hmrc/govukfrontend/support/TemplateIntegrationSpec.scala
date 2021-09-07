@@ -7,8 +7,8 @@ import org.scalatest.concurrent.{IntegrationPatience, ScalaFutures}
 import org.scalatestplus.play.guice.GuiceOneAppPerSuite
 import play.api.libs.json.{Json, OWrites}
 import play.twirl.api.{HtmlFormat, Template1}
-import uk.gov.hmrc.govukfrontend.support.Implicits._
-import uk.gov.hmrc.govukfrontend.support.ScalaCheckUtils.{ClassifyParams, classify}
+import uk.gov.hmrc.helpers.Implicits._
+import uk.gov.hmrc.helpers.ScalaCheckUtils.{ClassifyParams, classify}
 import uk.gov.hmrc.helpers.views.TemplateDiff._
 import uk.gov.hmrc.helpers.views.{JsoupHelpers, PreProcessor, TemplateValidationException, TwirlRenderer}
 

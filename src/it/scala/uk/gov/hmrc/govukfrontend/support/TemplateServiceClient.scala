@@ -6,6 +6,8 @@ import org.scalatestplus.play.guice.GuiceOneAppPerSuite
 import play.api.libs.json.{Json, OWrites}
 import play.api.libs.ws.{WSClient, WSResponse}
 import uk.gov.hmrc.govukfrontend.views.GovukFrontendDependency.govukFrontendVersion
+import uk.gov.hmrc.helpers.WSScalaTestClient
+
 import scala.concurrent.Future
 
 trait TemplateServiceClient extends AnyWordSpecLike with WSScalaTestClient with GuiceOneAppPerSuite {
