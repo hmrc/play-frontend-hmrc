@@ -9,7 +9,9 @@ import play.api.libs.json.{Json, OWrites}
 import uk.gov.hmrc.helpers.views.{JsoupHelpers, PreProcessor, TemplateValidationException, TwirlRenderer}
 import uk.gov.hmrc.helpers.Implicits._
 import uk.gov.hmrc.helpers.ScalaCheckUtils.{ClassifyParams, classify}
+import uk.gov.hmrc.helpers.TemplateServiceClient
 import uk.gov.hmrc.helpers.views.TemplateDiff._
+import uk.gov.hmrc.hmrcfrontend.views.HmrcFrontendDependency.hmrcFrontendVersion
 
 import scala.util.{Failure, Success}
 
@@ -28,6 +30,8 @@ abstract class TemplateIntegrationBaseSpec[T: OWrites: Arbitrary](
     with ScalaFutures
     with IntegrationPatience
     with GuiceOneAppPerSuite {
+
+  override protected val frontendVersion: String = hmrcFrontendVersion
 
   /**
     * [[Stream]] of [[org.scalacheck.Prop.classify]] conditions to collect statistics on a property
@@ -51,7 +55,7 @@ abstract class TemplateIntegrationBaseSpec[T: OWrites: Arbitrary](
     templateParams: T =>
       classify(classifiers(templateParams))(secure {
 
-        val response = render(hmrcComponentName, templateParams)
+        val response = render("hmrc", hmrcComponentName, templateParams)
 
         val nunJucksOutputHtml = response.futureValue.bodyAsString
 

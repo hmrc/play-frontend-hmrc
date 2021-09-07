@@ -7,8 +7,10 @@ import org.scalatest.concurrent.{IntegrationPatience, ScalaFutures}
 import org.scalatestplus.play.guice.GuiceOneAppPerSuite
 import play.api.libs.json.{Json, OWrites}
 import play.twirl.api.{HtmlFormat, Template1}
+import uk.gov.hmrc.govukfrontend.views.GovukFrontendDependency.govukFrontendVersion
 import uk.gov.hmrc.helpers.Implicits._
 import uk.gov.hmrc.helpers.ScalaCheckUtils.{ClassifyParams, classify}
+import uk.gov.hmrc.helpers.TemplateServiceClient
 import uk.gov.hmrc.helpers.views.TemplateDiff._
 import uk.gov.hmrc.helpers.views.{JsoupHelpers, PreProcessor, TemplateValidationException, TwirlRenderer}
 
@@ -32,6 +34,8 @@ abstract class TemplateIntegrationSpec[T: OWrites: Arbitrary, C <: Template1[T, 
     with ScalaFutures
     with IntegrationPatience
     with GuiceOneAppPerSuite {
+
+  override protected val frontendVersion: String = govukFrontendVersion
 
   protected val component: C = app.injector.instanceOf[C]
 
@@ -88,7 +92,7 @@ abstract class TemplateIntegrationSpec[T: OWrites: Arbitrary, C <: Template1[T, 
     templateParams: T =>
       classify(classifiers(templateParams))(secure {
 
-        val response = render(govukComponentName, templateParams)
+        val response = render("govuk", govukComponentName, templateParams)
 
         val nunJucksOutputHtml = response.futureValue.bodyAsString
 
