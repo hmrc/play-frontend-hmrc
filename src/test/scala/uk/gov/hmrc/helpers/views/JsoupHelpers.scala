@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.govukfrontend.views
+package uk.gov.hmrc.helpers.views
 
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
