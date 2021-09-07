@@ -22,6 +22,7 @@ import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpecLike
 import org.scalatestplus.play.guice.GuiceOneAppPerSuite
 import play.api.libs.json._
+import uk.gov.hmrc.helpers.views.PreProcessor
 
 import scala.util.{Failure, Success, Try}
 
@@ -56,9 +57,9 @@ abstract class TemplateUnitBaseSpec[T: Reads](
 
             tryTwirlHtml match {
               case Success(twirlHtml)                            =>
-                val preProcessedTwirlHtml    = prepareHtmlForComparison(twirlHtml)
+                val preProcessedTwirlHtml    = preProcess(twirlHtml)
                 val preProcessedNunjucksHtml =
-                  prepareHtmlForComparison(nunjucksHtml(fixtureDir, exampleName).success.value)
+                  preProcess(nunjucksHtml(fixtureDir, exampleName).success.value)
 
                 preProcessedTwirlHtml shouldBe preProcessedNunjucksHtml
               case Failure(TemplateValidationException(message)) =>

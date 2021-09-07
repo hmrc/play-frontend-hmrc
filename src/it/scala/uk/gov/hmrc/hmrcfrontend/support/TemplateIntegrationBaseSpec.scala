@@ -6,10 +6,11 @@ import org.scalacheck.{Arbitrary, Properties, ShrinkLowPriority, Test}
 import org.scalatest.concurrent.{IntegrationPatience, ScalaFutures}
 import org.scalatestplus.play.guice.GuiceOneAppPerSuite
 import play.api.libs.json.{Json, OWrites}
+import uk.gov.hmrc.helpers.views.PreProcessor
 import uk.gov.hmrc.hmrcfrontend.support.Implicits._
 import uk.gov.hmrc.hmrcfrontend.support.ScalaCheckUtils.{ClassifyParams, classify}
 import uk.gov.hmrc.helpers.views.TemplateDiff._
-import uk.gov.hmrc.hmrcfrontend.views.{JsoupHelpers, PreProcessor, TemplateValidationException, TwirlRenderer}
+import uk.gov.hmrc.hmrcfrontend.views.{JsoupHelpers, TemplateValidationException, TwirlRenderer}
 
 import scala.util.{Failure, Success}
 
@@ -62,8 +63,8 @@ abstract class TemplateIntegrationBaseSpec[T: OWrites: Arbitrary](
         tryRenderTwirl match {
 
           case Success(twirlOutputHtml)                      =>
-            val preProcessedTwirlHtml    = prepareHtmlForComparison(twirlOutputHtml)
-            val preProcessedNunjucksHtml = prepareHtmlForComparison(nunJucksOutputHtml)
+            val preProcessedTwirlHtml    = preProcess(twirlOutputHtml)
+            val preProcessedNunjucksHtml = preProcess(nunJucksOutputHtml)
             val prop                     = preProcessedTwirlHtml == preProcessedNunjucksHtml
 
             if (!prop) {
