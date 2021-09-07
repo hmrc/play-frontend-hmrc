@@ -21,7 +21,7 @@ case class DiffWrapper(differ: DiffMatchPatch) {
     */
   def diff(expected: String, actual: String): util.LinkedList[DiffMatchPatch.Diff] = {
     val diffResult = differ.diffMain(expected, actual)
-    val _ = differ.diffCleanupSemantic(diffResult)
+    val _          = differ.diffCleanupSemantic(diffResult)
     diffResult
   }
 
@@ -36,9 +36,9 @@ case class DiffWrapper(differ: DiffMatchPatch) {
     val diffHtml = differ.diffPrettyHtml(diff.asJava)
 
     val userDir = System.getProperty("user.dir")
-    val prefix = diffFilePrefix.map(_ + "-").getOrElse("")
-    val name = s"${prefix}diff-${UUID.randomUUID.toString}.html"
-    val file = userDir / "target" / name
+    val prefix  = diffFilePrefix.map(_ + "-").getOrElse("")
+    val name    = s"${prefix}diff-${UUID.randomUUID.toString}.html"
+    val file    = userDir / "target" / name
 
     file.overwrite(diffHtml)
 
