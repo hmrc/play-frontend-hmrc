@@ -6,11 +6,11 @@ import org.scalacheck.{Arbitrary, Properties, ShrinkLowPriority, Test}
 import org.scalatest.concurrent.{IntegrationPatience, ScalaFutures}
 import org.scalatestplus.play.guice.GuiceOneAppPerSuite
 import play.api.libs.json.{Json, OWrites}
-import uk.gov.hmrc.helpers.views.PreProcessor
+import uk.gov.hmrc.helpers.views.{PreProcessor, TwirlRenderer}
 import uk.gov.hmrc.hmrcfrontend.support.Implicits._
 import uk.gov.hmrc.hmrcfrontend.support.ScalaCheckUtils.{ClassifyParams, classify}
 import uk.gov.hmrc.helpers.views.TemplateDiff._
-import uk.gov.hmrc.hmrcfrontend.views.{JsoupHelpers, TemplateValidationException, TwirlRenderer}
+import uk.gov.hmrc.hmrcfrontend.views.{JsoupHelpers, TemplateValidationException}
 
 import scala.util.{Failure, Success}
 

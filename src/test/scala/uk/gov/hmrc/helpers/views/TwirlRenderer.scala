@@ -14,9 +14,10 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.govukfrontend.views
+package uk.gov.hmrc.helpers.views
 
 import play.twirl.api.HtmlFormat
+
 import scala.util.Try
 
 trait TwirlRenderer[T] {

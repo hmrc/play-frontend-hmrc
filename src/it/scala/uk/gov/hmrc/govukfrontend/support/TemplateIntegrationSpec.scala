@@ -10,8 +10,8 @@ import play.twirl.api.{HtmlFormat, Template1}
 import uk.gov.hmrc.govukfrontend.support.Implicits._
 import uk.gov.hmrc.govukfrontend.support.ScalaCheckUtils.{ClassifyParams, classify}
 import uk.gov.hmrc.helpers.views.TemplateDiff._
-import uk.gov.hmrc.govukfrontend.views.{JsoupHelpers, TemplateValidationException, TwirlRenderer}
-import uk.gov.hmrc.helpers.views.PreProcessor
+import uk.gov.hmrc.govukfrontend.views.{JsoupHelpers, TemplateValidationException}
+import uk.gov.hmrc.helpers.views.{PreProcessor, TwirlRenderer}
 
 import scala.util.{Failure, Success, Try}
 import scala.reflect.ClassTag
