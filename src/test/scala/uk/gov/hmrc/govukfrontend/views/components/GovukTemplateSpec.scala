@@ -23,7 +23,7 @@ import uk.gov.hmrc.govukfrontend.views.viewmodels.template.Template
 
 import scala.util.Try
 
-class GovukTemplateSpec extends TemplateUnitSpec[Template, GovukTemplateWrapper]("govukTemplate") {
+class GovukTemplateSpec extends TemplateWithComponentUnitSpec[Template, GovukTemplateWrapper]("govukTemplate") {
 
   "template rendered with default values" should {
     "not have whitespace before the doctype" in {

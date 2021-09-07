@@ -19,4 +19,4 @@ package components
 
 import uk.gov.hmrc.govukfrontend.views.html.components._
 
-class GovukFileUploadSpec extends TemplateUnitSpec[FileUpload, GovukFileUpload]("govukFileUpload")
+class GovukFileUploadSpec extends TemplateWithComponentUnitSpec[FileUpload, GovukFileUpload]("govukFileUpload")

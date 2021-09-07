@@ -16,27 +16,77 @@
 
 package uk.gov.hmrc.hmrcfrontend.views
 
-import play.twirl.api.{HtmlFormat, Template1}
-import scala.reflect.ClassTag
+import better.files._
+import org.scalatest.TryValues
+import org.scalatest.matchers.should.Matchers
+import org.scalatest.wordspec.AnyWordSpecLike
+import org.scalatestplus.play.guice.GuiceOneAppPerSuite
 import play.api.libs.json._
+import uk.gov.hmrc.helpers.views.{JsoupHelpers, PreProcessor, SharedTemplateUnitSpec, TemplateValidationException, TwirlRenderer}
 
-import scala.util.Try
+import scala.util.{Failure, Success, Try}
 
 /**
   * Base class for unit testing against test fixtures generated from hmrc-frontend's yaml documentation files for
   * components
   */
-abstract class TemplateUnitSpec[T: Reads, C <: Template1[T, HtmlFormat.Appendable]: ClassTag](hmrcComponentName: String)
-    extends TemplateUnitBaseSpec[T](hmrcComponentName) {
+abstract class TemplateUnitBaseSpec[T: Reads](
+  hmrcComponentName: String
+) extends SharedTemplateUnitSpec[T]
+    with JsoupHelpers
+    with AnyWordSpecLike
+    with Matchers
+    with TryValues
+    with GuiceOneAppPerSuite
+    with PreProcessor {
 
-  protected val component: C = app.injector.instanceOf[C]
+  override protected val baseFixturesDirectory: String = "/fixtures/hmrc-frontend"
 
-  /**
-    * Calls the Twirl template with the given parameters and returns the resulting markup
-    *
-    * @param templateParams: T
-    * @return [[Try[HtmlFormat.Appendable]]] containing the markup
-    */
-  override def render(templateParams: T): Try[HtmlFormat.Appendable] =
-    Try(component.render(templateParams))
+  val skipBecauseOfSpellcheckOrdering = Seq(
+    "character-count-spellcheck-disabled",
+    "character-count-spellcheck-enabled"
+  )
+
+  exampleNames(fixturesDirs, hmrcComponentName)
+    .foreach { fixtureDirExampleName =>
+      val (fixtureDir, exampleName) = fixtureDirExampleName
+
+      s"$exampleName" should {
+        if (!skipBecauseOfSpellcheckOrdering.contains(exampleName)) {
+
+          "render the same html as the nunjucks renderer" in {
+            val tryTwirlHtml = renderExample(fixtureDir, exampleName)
+
+            tryTwirlHtml match {
+              case Success(twirlHtml)                            =>
+                val preProcessedTwirlHtml    = preProcess(twirlHtml)
+                val preProcessedNunjucksHtml =
+                  preProcess(nunjucksHtml(fixtureDir, exampleName).success.value)
+
+                preProcessedTwirlHtml shouldBe preProcessedNunjucksHtml
+              case Failure(TemplateValidationException(message)) =>
+                println(s"Failed to validate the parameters for the $hmrcComponentName template")
+                println(s"Exception: $message")
+
+                fail
+              case Failure(exception)                            => fail(exception)
+            }
+          }
+        }
+      }
+    }
+
+  private def renderExample(fixturesDir: File, exampleName: String): Try[String] =
+    for {
+      inputJson    <- Try(readInputJson(fixturesDir, exampleName))
+      inputJsValue <- Try(Json.parse(inputJson))
+      html         <- inputJsValue.validate[T] match {
+                        case JsSuccess(templateParams, _) =>
+                          render(templateParams)
+                            .transform(html => Success(html.body), f => Failure(new TemplateValidationException(f.getMessage)))
+                        case e: JsError                   =>
+                          throw new RuntimeException(s"Failed to validate Json params: [$inputJsValue]\nException: [$e]")
+                      }
+    } yield html
+
 }

@@ -20,7 +20,7 @@ package components
 import uk.gov.hmrc.hmrcfrontend.views.html.components._
 import scala.util.Try
 
-class HmrcHeaderSpec extends TemplateUnitSpec[Header, HmrcHeader]("hmrcHeader") {
+class HmrcHeaderSpec extends TemplateWithComponentUnitSpec[Header, HmrcHeader]("hmrcHeader") {
 
   "header" should {
     """not throw an exception if Some("") is passed as serviceName""" in {

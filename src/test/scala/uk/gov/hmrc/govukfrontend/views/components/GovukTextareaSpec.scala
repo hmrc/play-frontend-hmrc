@@ -19,4 +19,4 @@ package components
 
 import uk.gov.hmrc.govukfrontend.views.html.components._
 
-class GovukTextareaSpec extends TemplateUnitSpec[Textarea, GovukTextarea]("govukTextarea")
+class GovukTextareaSpec extends TemplateWithComponentUnitSpec[Textarea, GovukTextarea]("govukTextarea")

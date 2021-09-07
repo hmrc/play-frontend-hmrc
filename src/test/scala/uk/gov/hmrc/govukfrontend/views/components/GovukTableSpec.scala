@@ -19,4 +19,4 @@ package components
 
 import uk.gov.hmrc.govukfrontend.views.html.components._
 
-class GovukTableSpec extends TemplateUnitSpec[Table, GovukTable]("govukTable")
+class GovukTableSpec extends TemplateWithComponentUnitSpec[Table, GovukTable]("govukTable")

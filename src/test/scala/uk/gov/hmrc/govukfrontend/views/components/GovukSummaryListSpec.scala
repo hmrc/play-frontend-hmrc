@@ -21,7 +21,7 @@ import uk.gov.hmrc.govukfrontend.views.html.components._
 import uk.gov.hmrc.helpers.views.JsoupHelpers
 
 class GovukSummaryListSpec
-    extends TemplateUnitSpec[SummaryList, GovukSummaryList]("govukSummaryList")
+    extends TemplateWithComponentUnitSpec[SummaryList, GovukSummaryList]("govukSummaryList")
     with JsoupHelpers {
 
   "govukSummaryList" should {

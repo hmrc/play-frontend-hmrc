@@ -19,7 +19,7 @@ package components
 
 import uk.gov.hmrc.govukfrontend.views.html.components._
 
-class GovukBackLinkSpec extends TemplateUnitSpec[BackLink, GovukBackLink]("govukBackLink") {
+class GovukBackLinkSpec extends TemplateWithComponentUnitSpec[BackLink, GovukBackLink]("govukBackLink") {
 
   "backLink" should {
     "render the default example with an anchor, href and text correctly" in {

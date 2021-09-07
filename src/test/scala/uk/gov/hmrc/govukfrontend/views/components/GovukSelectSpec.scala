@@ -19,4 +19,4 @@ package components
 
 import uk.gov.hmrc.govukfrontend.views.html.components._
 
-class GovukSelectSpec extends TemplateUnitSpec[Select, GovukSelect]("govukSelect")
+class GovukSelectSpec extends TemplateWithComponentUnitSpec[Select, GovukSelect]("govukSelect")

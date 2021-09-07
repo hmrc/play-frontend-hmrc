@@ -19,4 +19,4 @@ package components
 
 import uk.gov.hmrc.hmrcfrontend.views.html.components._
 
-class HmrcNewTabLinkSpec extends TemplateUnitSpec[NewTabLink, HmrcNewTabLink]("hmrcNewTabLink")
+class HmrcNewTabLinkSpec extends TemplateWithComponentUnitSpec[NewTabLink, HmrcNewTabLink]("hmrcNewTabLink")

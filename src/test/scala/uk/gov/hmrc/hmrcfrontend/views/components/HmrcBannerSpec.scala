@@ -19,4 +19,4 @@ package components
 
 import uk.gov.hmrc.hmrcfrontend.views.html.components._
 
-class HmrcBannerSpec extends TemplateUnitSpec[Banner, HmrcBanner]("hmrcBanner")
+class HmrcBannerSpec extends TemplateWithComponentUnitSpec[Banner, HmrcBanner]("hmrcBanner")

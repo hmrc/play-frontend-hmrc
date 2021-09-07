@@ -20,7 +20,8 @@ package components
 import uk.gov.hmrc.govukfrontend.views.html.components._
 import scala.collection.JavaConverters._
 
-class GovukPhaseBannerBannerSpec extends TemplateUnitSpec[PhaseBanner, GovukPhaseBanner]("govukPhaseBanner") {
+class GovukPhaseBannerBannerSpec
+    extends TemplateWithComponentUnitSpec[PhaseBanner, GovukPhaseBanner]("govukPhaseBanner") {
 
   "phaseBanner" should {
     "allow additional classes to be added to the component" in {

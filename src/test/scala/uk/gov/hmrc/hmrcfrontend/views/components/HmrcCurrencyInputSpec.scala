@@ -19,4 +19,4 @@ package components
 
 import uk.gov.hmrc.hmrcfrontend.views.html.components._
 
-class HmrcCurrencyInputSpec extends TemplateUnitSpec[CurrencyInput, HmrcCurrencyInput]("hmrcCurrencyInput")
+class HmrcCurrencyInputSpec extends TemplateWithComponentUnitSpec[CurrencyInput, HmrcCurrencyInput]("hmrcCurrencyInput")

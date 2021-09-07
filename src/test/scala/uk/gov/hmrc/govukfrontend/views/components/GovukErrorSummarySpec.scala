@@ -19,4 +19,4 @@ package components
 
 import uk.gov.hmrc.govukfrontend.views.html.components._
 
-class GovukErrorSummarySpec extends TemplateUnitSpec[ErrorSummary, GovukErrorSummary]("govukErrorSummary")
+class GovukErrorSummarySpec extends TemplateWithComponentUnitSpec[ErrorSummary, GovukErrorSummary]("govukErrorSummary")

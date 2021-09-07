@@ -19,4 +19,4 @@ package components
 
 import uk.gov.hmrc.govukfrontend.views.html.components._
 
-class GovukCheckboxesSpec extends TemplateUnitSpec[Checkboxes, GovukCheckboxes]("govukCheckboxes")
+class GovukCheckboxesSpec extends TemplateWithComponentUnitSpec[Checkboxes, GovukCheckboxes]("govukCheckboxes")

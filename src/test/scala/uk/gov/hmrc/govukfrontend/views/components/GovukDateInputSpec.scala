@@ -19,4 +19,4 @@ package components
 
 import uk.gov.hmrc.govukfrontend.views.html.components._
 
-class GovukDateInputSpec extends TemplateUnitSpec[DateInput, GovukDateInput]("govukDateInput")
+class GovukDateInputSpec extends TemplateWithComponentUnitSpec[DateInput, GovukDateInput]("govukDateInput")

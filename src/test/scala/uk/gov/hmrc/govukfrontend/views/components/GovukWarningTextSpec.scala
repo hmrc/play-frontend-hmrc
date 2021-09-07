@@ -19,4 +19,4 @@ package components
 
 import uk.gov.hmrc.govukfrontend.views.html.components._
 
-class GovukWarningTextSpec extends TemplateUnitSpec[WarningText, GovukWarningText]("govukWarningText")
+class GovukWarningTextSpec extends TemplateWithComponentUnitSpec[WarningText, GovukWarningText]("govukWarningText")

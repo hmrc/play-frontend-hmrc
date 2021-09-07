@@ -19,7 +19,7 @@ package components
 
 import uk.gov.hmrc.govukfrontend.views.html.components._
 
-class GovukBreadcrumbsSpec extends TemplateUnitSpec[Breadcrumbs, GovukBreadcrumbs]("govukBreadcrumbs") {
+class GovukBreadcrumbsSpec extends TemplateWithComponentUnitSpec[Breadcrumbs, GovukBreadcrumbs]("govukBreadcrumbs") {
 
   "breadcrumb" should {
     "render the attributes in order" in {

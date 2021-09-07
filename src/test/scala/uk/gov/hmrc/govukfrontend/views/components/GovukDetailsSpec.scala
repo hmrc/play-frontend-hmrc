@@ -19,7 +19,7 @@ package components
 
 import uk.gov.hmrc.govukfrontend.views.html.components._
 
-class GovukDetailsSpec extends TemplateUnitSpec[Details, GovukDetails]("govukDetails") {
+class GovukDetailsSpec extends TemplateWithComponentUnitSpec[Details, GovukDetails]("govukDetails") {
 
   "details" should {
     "allow text to be passed whilst escaping HTML entities" in {

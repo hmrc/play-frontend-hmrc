@@ -19,4 +19,4 @@ package components
 
 import uk.gov.hmrc.hmrcfrontend.views.html.components._
 
-class HmrcFooterSpec extends TemplateUnitSpec[Footer, HmrcFooter]("hmrcFooter")
+class HmrcFooterSpec extends TemplateWithComponentUnitSpec[Footer, HmrcFooter]("hmrcFooter")

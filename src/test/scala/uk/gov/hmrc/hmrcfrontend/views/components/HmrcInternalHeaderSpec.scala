@@ -19,4 +19,5 @@ package components
 
 import uk.gov.hmrc.hmrcfrontend.views.html.components._
 
-class HmrcInternalHeaderSpec extends TemplateUnitSpec[InternalHeader, HmrcInternalHeader]("hmrcInternalHeader")
+class HmrcInternalHeaderSpec
+    extends TemplateWithComponentUnitSpec[InternalHeader, HmrcInternalHeader]("hmrcInternalHeader")

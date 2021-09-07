@@ -19,7 +19,7 @@ package components
 
 import uk.gov.hmrc.govukfrontend.views.html.components._
 
-class GovukSkipLinkSpec extends TemplateUnitSpec[SkipLink, GovukSkipLink]("govukSkipLink") {
+class GovukSkipLinkSpec extends TemplateWithComponentUnitSpec[SkipLink, GovukSkipLink]("govukSkipLink") {
 
   "skipLink" should {
     "render href" in {

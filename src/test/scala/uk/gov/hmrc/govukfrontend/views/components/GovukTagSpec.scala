@@ -19,7 +19,7 @@ package components
 
 import uk.gov.hmrc.govukfrontend.views.html.components._
 
-class GovukTagSpec extends TemplateUnitSpec[Tag, GovukTag]("govukTag") {
+class GovukTagSpec extends TemplateWithComponentUnitSpec[Tag, GovukTag]("govukTag") {
   "tag" should {
     "render the default example with strong element and text" in {
       val output = component(Tag(content = HtmlContent("alpha"))).select(".govuk-tag")

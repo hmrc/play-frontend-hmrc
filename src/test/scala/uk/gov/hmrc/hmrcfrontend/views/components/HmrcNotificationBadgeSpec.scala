@@ -20,4 +20,4 @@ package components
 import uk.gov.hmrc.hmrcfrontend.views.html.components._
 
 class HmrcNotificationBadgeSpec
-    extends TemplateUnitSpec[NotificationBadge, HmrcNotificationBadge]("hmrcNotificationBadge")
+    extends TemplateWithComponentUnitSpec[NotificationBadge, HmrcNotificationBadge]("hmrcNotificationBadge")

@@ -20,4 +20,4 @@ package components
 import uk.gov.hmrc.govukfrontend.views.html.components._
 
 class GovukNotificationBannerSpec
-    extends TemplateUnitSpec[NotificationBanner, GovukNotificationBanner]("govukNotificationBanner")
+    extends TemplateWithComponentUnitSpec[NotificationBanner, GovukNotificationBanner]("govukNotificationBanner")

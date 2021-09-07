@@ -19,4 +19,4 @@ package components
 
 import uk.gov.hmrc.hmrcfrontend.views.html.components._
 
-class HmrcTimelineSpec extends TemplateUnitSpec[Timeline, HmrcTimeline]("hmrcTimeline")
+class HmrcTimelineSpec extends TemplateWithComponentUnitSpec[Timeline, HmrcTimeline]("hmrcTimeline")

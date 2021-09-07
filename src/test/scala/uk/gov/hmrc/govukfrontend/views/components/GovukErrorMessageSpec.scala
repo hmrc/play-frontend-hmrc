@@ -19,7 +19,8 @@ package components
 
 import uk.gov.hmrc.govukfrontend.views.html.components._
 
-class GovukErrorMessageSpec extends TemplateUnitSpec[ErrorMessage, GovukErrorMessage]("govukErrorMessage") {
+class GovukErrorMessageSpec
+    extends TemplateWithComponentUnitSpec[ErrorMessage, GovukErrorMessage]("govukErrorMessage") {
 
   "errorMessage" should {
     "allow additional classes to be specified" in {

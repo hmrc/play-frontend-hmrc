@@ -19,4 +19,4 @@ package components
 
 import uk.gov.hmrc.govukfrontend.views.html.components._
 
-class GovukCookieBannerSpec extends TemplateUnitSpec[CookieBanner, GovukCookieBanner]("govukCookieBanner")
+class GovukCookieBannerSpec extends TemplateWithComponentUnitSpec[CookieBanner, GovukCookieBanner]("govukCookieBanner")

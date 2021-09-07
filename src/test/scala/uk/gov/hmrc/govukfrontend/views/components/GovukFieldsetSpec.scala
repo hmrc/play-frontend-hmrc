@@ -19,4 +19,4 @@ package components
 
 import uk.gov.hmrc.govukfrontend.views.html.components._
 
-class GovukFieldsetSpec extends TemplateUnitSpec[Fieldset, GovukFieldset]("govukFieldset")
+class GovukFieldsetSpec extends TemplateWithComponentUnitSpec[Fieldset, GovukFieldset]("govukFieldset")

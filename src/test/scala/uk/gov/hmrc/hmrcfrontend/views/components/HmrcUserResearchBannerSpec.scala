@@ -22,7 +22,7 @@ import uk.gov.hmrc.hmrcfrontend.views.html.components._
 import scala.util.Try
 
 class HmrcUserResearchBannerSpec
-    extends TemplateUnitSpec[UserResearchBanner, HmrcUserResearchBanner]("hmrcUserResearchBanner") {
+    extends TemplateWithComponentUnitSpec[UserResearchBanner, HmrcUserResearchBanner]("hmrcUserResearchBanner") {
 
   "hmrcUserResearchBanner" should {
     """throw an exception if a url is not supplied""" in {

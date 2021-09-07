@@ -19,4 +19,4 @@ package components
 
 import uk.gov.hmrc.govukfrontend.views.html.components._
 
-class GovukHintSpec extends TemplateUnitSpec[Hint, GovukHint]("govukHint")
+class GovukHintSpec extends TemplateWithComponentUnitSpec[Hint, GovukHint]("govukHint")

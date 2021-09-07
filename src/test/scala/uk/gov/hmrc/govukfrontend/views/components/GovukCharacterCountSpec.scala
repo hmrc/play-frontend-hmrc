@@ -19,4 +19,5 @@ package components
 
 import uk.gov.hmrc.govukfrontend.views.html.components._
 
-class GovukCharacterCountSpec extends TemplateUnitSpec[CharacterCount, GovukCharacterCount]("govukCharacterCount")
+class GovukCharacterCountSpec
+    extends TemplateWithComponentUnitSpec[CharacterCount, GovukCharacterCount]("govukCharacterCount")

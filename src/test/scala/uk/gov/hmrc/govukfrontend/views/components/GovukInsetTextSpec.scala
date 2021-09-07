@@ -19,4 +19,4 @@ package components
 
 import uk.gov.hmrc.govukfrontend.views.html.components._
 
-class GovukInsetTextSpec extends TemplateUnitSpec[InsetText, GovukInsetText]("govukInsetText")
+class GovukInsetTextSpec extends TemplateWithComponentUnitSpec[InsetText, GovukInsetText]("govukInsetText")

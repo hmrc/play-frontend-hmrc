@@ -19,4 +19,4 @@ package components
 
 import uk.gov.hmrc.govukfrontend.views.html.components._
 
-class GovukTabsSpec extends TemplateUnitSpec[Tabs, GovukTabs]("govukTabs")
+class GovukTabsSpec extends TemplateWithComponentUnitSpec[Tabs, GovukTabs]("govukTabs")

@@ -19,7 +19,7 @@ package components
 
 import uk.gov.hmrc.govukfrontend.views.html.components._
 
-class GovukButtonSpec extends TemplateUnitSpec[Button, GovukButton]("govukButton") {
+class GovukButtonSpec extends TemplateWithComponentUnitSpec[Button, GovukButton]("govukButton") {
 
   "button element" should {
     "render the default example" in {

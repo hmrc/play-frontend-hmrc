@@ -19,7 +19,7 @@ package components
 
 import uk.gov.hmrc.govukfrontend.views.html.components._
 
-class GovukLabelSpec extends TemplateUnitSpec[Label, GovukLabel]("govukLabel") {
+class GovukLabelSpec extends TemplateWithComponentUnitSpec[Label, GovukLabel]("govukLabel") {
   "label" should {
     "not output anything if no html or text is provided" in {
       val output = component(Label(content = Empty)).select(".govuk-label")

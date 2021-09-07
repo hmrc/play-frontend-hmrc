@@ -19,4 +19,4 @@ package components
 
 import uk.gov.hmrc.hmrcfrontend.views.html.components._
 
-class HmrcAccountMenuSpec extends TemplateUnitSpec[AccountMenu, HmrcAccountMenu]("hmrcAccountMenu")
+class HmrcAccountMenuSpec extends TemplateWithComponentUnitSpec[AccountMenu, HmrcAccountMenu]("hmrcAccountMenu")

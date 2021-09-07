@@ -19,4 +19,4 @@ package components
 
 import uk.gov.hmrc.govukfrontend.views.html.components._
 
-class GovukFooterSpec extends TemplateUnitSpec[Footer, GovukFooter]("govukFooter")
+class GovukFooterSpec extends TemplateWithComponentUnitSpec[Footer, GovukFooter]("govukFooter")

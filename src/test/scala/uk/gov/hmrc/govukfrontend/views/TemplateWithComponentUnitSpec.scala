@@ -32,7 +32,7 @@ import scala.util.{Failure, Success, Try}
   * Base class for unit testing against test fixtures generated from govuk-frontend's yaml documentation files for
   * components
   */
-abstract class TemplateUnitSpec[T: Reads, C <: Template1[T, HtmlFormat.Appendable]: ClassTag](
+abstract class TemplateWithComponentUnitSpec[T: Reads, C <: Template1[T, HtmlFormat.Appendable]: ClassTag](
   govukComponentName: String
 ) extends SharedTemplateUnitSpec[T]
     with PreProcessor
@@ -120,7 +120,7 @@ abstract class TemplateUnitSpec[T: Reads, C <: Template1[T, HtmlFormat.Appendabl
     "accordion-with-falsey-values"
   )
 
-  private val skip                                    = skipBecauseOfJsonValidation ++
+  private val skip = skipBecauseOfJsonValidation ++
     skipBecauseOfAttributeOrdering ++ skipBecauseRequiredItemsSeemToBeMissing ++
     skipBecauseChangesNeededWithGDS
 

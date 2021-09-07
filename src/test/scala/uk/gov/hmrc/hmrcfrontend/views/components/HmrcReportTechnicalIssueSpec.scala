@@ -20,4 +20,4 @@ package components
 import uk.gov.hmrc.hmrcfrontend.views.html.components._
 
 class HmrcReportTechnicalIssueSpec
-    extends TemplateUnitSpec[ReportTechnicalIssue, HmrcReportTechnicalIssue]("hmrcReportTechnicalIssue")
+    extends TemplateWithComponentUnitSpec[ReportTechnicalIssue, HmrcReportTechnicalIssue]("hmrcReportTechnicalIssue")

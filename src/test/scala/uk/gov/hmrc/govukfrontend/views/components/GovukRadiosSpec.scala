@@ -19,4 +19,4 @@ package components
 
 import uk.gov.hmrc.govukfrontend.views.html.components._
 
-class GovukRadiosSpec extends TemplateUnitSpec[Radios, GovukRadios]("govukRadios")
+class GovukRadiosSpec extends TemplateWithComponentUnitSpec[Radios, GovukRadios]("govukRadios")

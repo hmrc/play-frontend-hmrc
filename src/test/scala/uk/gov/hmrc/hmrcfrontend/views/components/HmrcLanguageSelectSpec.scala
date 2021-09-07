@@ -19,4 +19,5 @@ package components
 
 import uk.gov.hmrc.hmrcfrontend.views.html.components._
 
-class HmrcLanguageSelectSpec extends TemplateUnitSpec[LanguageSelect, HmrcLanguageSelect]("hmrcLanguageSelect")
+class HmrcLanguageSelectSpec
+    extends TemplateWithComponentUnitSpec[LanguageSelect, HmrcLanguageSelect]("hmrcLanguageSelect")

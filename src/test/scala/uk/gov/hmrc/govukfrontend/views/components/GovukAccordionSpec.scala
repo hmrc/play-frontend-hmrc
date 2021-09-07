@@ -19,4 +19,4 @@ package components
 
 import uk.gov.hmrc.govukfrontend.views.html.components._
 
-class GovukAccordionSpec extends TemplateUnitSpec[Accordion, GovukAccordion]("govukAccordion")
+class GovukAccordionSpec extends TemplateWithComponentUnitSpec[Accordion, GovukAccordion]("govukAccordion")
