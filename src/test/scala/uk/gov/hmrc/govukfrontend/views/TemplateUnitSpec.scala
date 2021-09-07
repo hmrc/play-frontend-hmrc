@@ -34,14 +34,13 @@ import scala.util.{Failure, Success, Try}
   */
 abstract class TemplateUnitSpec[T: Reads, C <: Template1[T, HtmlFormat.Appendable]: ClassTag](
   govukComponentName: String
-) extends TwirlRenderer[T]
+) extends SharedTemplateUnitSpec[T]
     with PreProcessor
     with JsoupHelpers
     with AnyWordSpecLike
     with Matchers
     with TryValues
-    with GuiceOneAppPerSuite
-    with SharedTemplateUnitSpec {
+    with GuiceOneAppPerSuite {
 
   override protected val baseFixturesDirectory: String = "/fixtures/govuk-frontend"
 
@@ -120,6 +119,7 @@ abstract class TemplateUnitSpec[T: Reads, C <: Template1[T, HtmlFormat.Appendabl
     "radios-with-falsey-items",
     "accordion-with-falsey-values"
   )
+
   private val skip                                    = skipBecauseOfJsonValidation ++
     skipBecauseOfAttributeOrdering ++ skipBecauseRequiredItemsSeemToBeMissing ++
     skipBecauseChangesNeededWithGDS

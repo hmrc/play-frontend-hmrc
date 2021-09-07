@@ -17,11 +17,11 @@
 package uk.gov.hmrc.helpers.views
 
 import better.files.{File, Resource}
-import play.api.libs.json.Json
+import play.api.libs.json.{Json, Reads}
 
 import scala.util.Try
 
-trait SharedTemplateUnitSpec {
+abstract class SharedTemplateUnitSpec[T: Reads] extends TwirlRenderer[T] {
 
   protected val baseFixturesDirectory: String
 
@@ -61,7 +61,6 @@ trait SharedTemplateUnitSpec {
 
   protected lazy val fixturesDirs: Seq[File] = {
     val dir         = baseFixturesDirectory
-    //"/fixtures/govuk-frontend"
     val fixturesDir = Try(File(Resource.my.getUrl(dir)))
       .getOrElse(throw new RuntimeException(s"Test fixtures folder not found: $dir"))
 

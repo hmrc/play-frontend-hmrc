@@ -32,14 +32,13 @@ import scala.util.{Failure, Success, Try}
   */
 abstract class TemplateUnitBaseSpec[T: Reads](
   hmrcComponentName: String
-) extends TwirlRenderer[T]
-    with PreProcessor
+) extends SharedTemplateUnitSpec[T]
     with JsoupHelpers
     with AnyWordSpecLike
     with Matchers
     with TryValues
     with GuiceOneAppPerSuite
-    with SharedTemplateUnitSpec {
+    with PreProcessor {
 
   override protected val baseFixturesDirectory: String = "/fixtures/hmrc-frontend"
 
