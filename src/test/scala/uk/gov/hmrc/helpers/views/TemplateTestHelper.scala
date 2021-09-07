@@ -25,7 +25,7 @@ import play.api.libs.json.{JsError, JsSuccess, Json, Reads}
 
 import scala.util.{Failure, Success, Try}
 
-abstract class SharedTemplateUnitSpec[T: Reads]
+abstract class TemplateTestHelper[T: Reads](componentName: String)
     extends TwirlRenderer[T]
     with JsoupHelpers
     with AnyWordSpecLike
@@ -36,17 +36,54 @@ abstract class SharedTemplateUnitSpec[T: Reads]
 
   protected val baseFixturesDirectory: String
 
-  protected def nunjucksHtml(fixtureDir: File, exampleName: String): Try[String] =
-    Try(readOutputFile(fixtureDir, exampleName))
+  protected val skip: Seq[String]
+
+  protected lazy val fixturesDirs: Seq[File] = {
+    val dir         = baseFixturesDirectory
+    val fixturesDir = Try(File(Resource.my.getUrl(dir)))
+      .getOrElse(throw new RuntimeException(s"Test fixtures folder not found: $dir"))
+
+    fixturesDir.children.toSeq
+  }
+
+  protected def matchTwirlAndNunjucksHtml(fixtureDirectories: Seq[File]) =
+    exampleNames(fixtureDirectories, componentName)
+      .foreach { fixtureDirExampleName =>
+        val (fixtureDir, exampleName) = fixtureDirExampleName
+
+        s"$exampleName" should {
+          if (!skip.contains(exampleName)) {
+
+            "render the same html as the nunjucks renderer" in {
+              val tryTwirlHtml = renderExample(fixtureDir, exampleName)
+
+              tryTwirlHtml match {
+                case Success(twirlHtml)                            =>
+                  val preProcessedTwirlHtml    = preProcess(twirlHtml)
+                  val preProcessedNunjucksHtml =
+                    preProcess(nunjucksHtml(fixtureDir, exampleName).success.value)
+
+                  preProcessedTwirlHtml shouldBe preProcessedNunjucksHtml
+                case Failure(TemplateValidationException(message)) =>
+                  println(s"Failed to validate the parameters for the $componentName template")
+                  println(s"Exception: $message")
+
+                  fail
+                case Failure(exception)                            => fail(exception)
+              }
+            }
+          }
+        }
+      }
 
   /**
     * Traverse the test fixtures directory to fetch all examples for a given component
     *
-    * @param componentName govuk component name as found in the test fixtures file component.json
+    * @param componentName component name as found in the test fixtures file component.json
     * @return [[Seq[String]]] of folder names for each example in the test fixtures folder or
     *        fails if the fixtures folder is not defined
     */
-  protected def exampleNames(fixturesDirs: Seq[File], componentName: String): Seq[(File, String)] = {
+  private def exampleNames(fixturesDirs: Seq[File], componentName: String): Seq[(File, String)] = {
     val exampleFolders = fixturesDirs.flatMap(fixtureDir =>
       getExampleFolders(fixtureDir, componentName).map(exampleDir => (fixtureDir, exampleDir))
     )
@@ -57,7 +94,7 @@ abstract class SharedTemplateUnitSpec[T: Reads]
     else throw new RuntimeException(s"Couldn't find component named $componentName. Spelling error?")
   }
 
-  protected def getExampleFolders(fixturesDir: File, govukComponentName: String): Seq[File] = {
+  private def getExampleFolders(fixturesDir: File, govukComponentName: String): Seq[File] = {
     def parseComponentName(json: String): Option[String] = (Json.parse(json) \ "name").asOpt[String]
 
     val componentNameFiles = fixturesDir.listRecursively.filter(_.name == "component.json")
@@ -70,21 +107,7 @@ abstract class SharedTemplateUnitSpec[T: Reads]
     folders
   }
 
-  protected lazy val fixturesDirs: Seq[File] = {
-    val dir         = baseFixturesDirectory
-    val fixturesDir = Try(File(Resource.my.getUrl(dir)))
-      .getOrElse(throw new RuntimeException(s"Test fixtures folder not found: $dir"))
-
-    fixturesDir.children.toSeq
-  }
-
-  protected def readOutputFile(fixturesDir: File, exampleName: String): String =
-    (fixturesDir / exampleName / "output.txt").contentAsString
-
-  protected def readInputJson(fixturesDir: File, exampleName: String): String =
-    (fixturesDir / exampleName / "input.json").contentAsString
-
-  protected def renderExample(fixturesDir: File, exampleName: String): Try[String] =
+  private def renderExample(fixturesDir: File, exampleName: String): Try[String] =
     for {
       inputJson    <- Try(readInputJson(fixturesDir, exampleName))
       inputJsValue <- Try(Json.parse(inputJson))
@@ -96,4 +119,14 @@ abstract class SharedTemplateUnitSpec[T: Reads]
                           throw new RuntimeException(s"Failed to validate Json params: [$inputJsValue]\nException: [$e]")
                       }
     } yield html
+
+  private def readInputJson(fixturesDir: File, exampleName: String): String =
+    (fixturesDir / exampleName / "input.json").contentAsString
+
+  private def nunjucksHtml(fixtureDir: File, exampleName: String): Try[String] =
+    Try(readOutputFile(fixtureDir, exampleName))
+
+  private def readOutputFile(fixturesDir: File, exampleName: String): String =
+    (fixturesDir / exampleName / "output.txt").contentAsString
+
 }

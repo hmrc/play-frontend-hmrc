@@ -16,19 +16,17 @@
 
 package uk.gov.hmrc.hmrcfrontend.views
 
-import better.files._
+import better.files.File
 import play.api.libs.json._
-import uk.gov.hmrc.helpers.views.{SharedTemplateUnitSpec, TemplateValidationException}
+import uk.gov.hmrc.helpers.views.{TemplateTestHelper, TemplateValidationException}
 
-import scala.util.{Failure, Success, Try}
+import scala.util.{Failure, Success}
 
 /**
   * Base class for unit testing against test fixtures generated from hmrc-frontend's yaml documentation files for
   * components
   */
-abstract class TemplateUnitSpec[T: Reads](
-  hmrcComponentName: String
-) extends SharedTemplateUnitSpec[T] {
+abstract class TemplateUnitSpec[T: Reads](hmrcComponentName: String) extends TemplateTestHelper[T](hmrcComponentName) {
 
   override protected val baseFixturesDirectory: String = "/fixtures/hmrc-frontend"
 
@@ -37,35 +35,8 @@ abstract class TemplateUnitSpec[T: Reads](
     "character-count-spellcheck-enabled"
   )
 
-  val skip = skipBecauseOfSpellcheckOrdering
+  override protected val skip: Seq[String] = skipBecauseOfSpellcheckOrdering
 
-  exampleNames(fixturesDirs, hmrcComponentName)
-    .foreach { fixtureDirExampleName =>
-      val (fixtureDir, exampleName) = fixtureDirExampleName
-
-      s"$exampleName" should {
-        if (!skip.contains(exampleName)) {
-
-          "render the same html as the nunjucks renderer" in {
-            val tryTwirlHtml = renderExample(fixtureDir, exampleName)
-
-            tryTwirlHtml match {
-              case Success(twirlHtml)                            =>
-                val preProcessedTwirlHtml    = preProcess(twirlHtml)
-                val preProcessedNunjucksHtml =
-                  preProcess(nunjucksHtml(fixtureDir, exampleName).success.value)
-
-                preProcessedTwirlHtml shouldBe preProcessedNunjucksHtml
-              case Failure(TemplateValidationException(message)) =>
-                println(s"Failed to validate the parameters for the $hmrcComponentName template")
-                println(s"Exception: $message")
-
-                fail
-              case Failure(exception)                            => fail(exception)
-            }
-          }
-        }
-      }
-    }
+  matchTwirlAndNunjucksHtml(fixturesDirs)
 
 }

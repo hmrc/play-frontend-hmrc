@@ -16,13 +16,12 @@
 
 package uk.gov.hmrc.govukfrontend.views
 
-import better.files._
 import play.api.libs.json._
 import play.twirl.api.{HtmlFormat, Template1}
-import uk.gov.hmrc.helpers.views.{SharedTemplateUnitSpec, TemplateValidationException}
+import uk.gov.hmrc.helpers.views.TemplateTestHelper
 
 import scala.reflect.ClassTag
-import scala.util.{Failure, Success, Try}
+import scala.util.Try
 
 /**
   * Base class for unit testing against test fixtures generated from govuk-frontend's yaml documentation files for
@@ -30,7 +29,7 @@ import scala.util.{Failure, Success, Try}
   */
 abstract class TemplateWithComponentUnitSpec[T: Reads, C <: Template1[T, HtmlFormat.Appendable]: ClassTag](
   govukComponentName: String
-) extends SharedTemplateUnitSpec[T] {
+) extends TemplateTestHelper[T](govukComponentName) {
 
   override protected val baseFixturesDirectory: String = "/fixtures/govuk-frontend"
 
@@ -110,7 +109,7 @@ abstract class TemplateWithComponentUnitSpec[T: Reads, C <: Template1[T, HtmlFor
     "accordion-with-falsey-values"
   )
 
-  private val skip = skipBecauseOfJsonValidation ++
+  override protected val skip = skipBecauseOfJsonValidation ++
     skipBecauseOfAttributeOrdering ++ skipBecauseRequiredItemsSeemToBeMissing ++
     skipBecauseChangesNeededWithGDS
 
@@ -125,27 +124,6 @@ abstract class TemplateWithComponentUnitSpec[T: Reads, C <: Template1[T, HtmlFor
   def render(templateParams: T): Try[HtmlFormat.Appendable] =
     Try(component.render(templateParams))
 
-  exampleNames(fixturesDirs, govukComponentName)
-    .foreach { fixtureDirExampleName =>
-      val (fixtureDir, exampleName) = fixtureDirExampleName
-
-      s"$exampleName" should {
-        if (!skip.contains(exampleName)) {
-
-          "render the same html as the nunjucks renderer" in {
-            val tryTwirlHtml = renderExample(fixtureDir, exampleName)
-
-            tryTwirlHtml match {
-              case Success(twirlHtml) =>
-                val preProcessedTwirlHtml    = preProcess(twirlHtml)
-                val preProcessedNunjucksHtml = preProcess(nunjucksHtml(fixtureDir, exampleName).success.value)
-
-                preProcessedTwirlHtml shouldBe preProcessedNunjucksHtml
-
-            }
-          }
-        }
-      }
-    }
+  matchTwirlAndNunjucksHtml(fixturesDirs)
 
 }
