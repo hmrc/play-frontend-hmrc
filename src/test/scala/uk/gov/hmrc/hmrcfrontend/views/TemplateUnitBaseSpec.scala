@@ -22,7 +22,7 @@ import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpecLike
 import org.scalatestplus.play.guice.GuiceOneAppPerSuite
 import play.api.libs.json._
-import uk.gov.hmrc.helpers.views.{JsoupHelpers, PreProcessor, TemplateValidationException, TwirlRenderer}
+import uk.gov.hmrc.helpers.views.{JsoupHelpers, PreProcessor, ShareTemplateUnitSpec, TemplateValidationException, TwirlRenderer}
 
 import scala.util.{Failure, Success, Try}
 
@@ -38,7 +38,10 @@ abstract class TemplateUnitBaseSpec[T: Reads](
     with AnyWordSpecLike
     with Matchers
     with TryValues
-    with GuiceOneAppPerSuite {
+    with GuiceOneAppPerSuite
+    with ShareTemplateUnitSpec {
+
+  override protected val baseFixturesDirectory: String = "/fixtures/hmrc-frontend"
 
   val skipBecauseOfSpellcheckOrdering = Seq(
     "character-count-spellcheck-disabled",
@@ -87,51 +90,4 @@ abstract class TemplateUnitBaseSpec[T: Reads](
                       }
     } yield html
 
-  private def nunjucksHtml(fixturesDir: File, exampleName: String): Try[String] =
-    Try(readOutputFile(fixturesDir, exampleName))
-
-  /**
-    * Traverse the test fixtures directory to fetch all examples for a given component
-    *
-    * @param hmrcComponentName hmrc component name as found in the test fixtures file component.json
-    * @return [[Seq[String]]] of folder names for each example in the test fixtures folder or
-    *        fails if the fixtures folder is not defined
-    */
-  private def exampleNames(fixturesDirs: Seq[File], hmrcComponentName: String): Seq[(File, String)] = {
-    val exampleFolders = fixturesDirs.flatMap(fixtureDir =>
-      getExampleFolders(fixtureDir, hmrcComponentName).map(exampleDir => (fixtureDir, exampleDir))
-    )
-
-    val examples = for ((fixtureDir, exampleDir) <- exampleFolders) yield (fixtureDir, exampleDir.name)
-
-    if (examples.nonEmpty) examples
-    else throw new RuntimeException(s"Couldn't find component named $hmrcComponentName. Spelling error?")
-  }
-
-  private def getExampleFolders(fixturesDir: File, hmrcComponentName: String): Seq[File] = {
-    def parseComponentName(json: String): Option[String] = (Json.parse(json) \ "name").asOpt[String]
-
-    val componentNameFiles = fixturesDir.listRecursively.filter(_.name == "component.json")
-
-    val matchingFiles =
-      componentNameFiles.filter(file => parseComponentName(file.contentAsString).contains(hmrcComponentName))
-
-    val folders = matchingFiles.map(_.parent).toSeq.distinct
-
-    folders
-  }
-
-  private lazy val fixturesDirs: Seq[File] = {
-    val dir         = s"/fixtures/hmrc-frontend"
-    val fixturesDir = Try(File(Resource.my.getUrl(dir)))
-      .getOrElse(throw new RuntimeException(s"Test fixtures folder not found: $dir"))
-
-    fixturesDir.children.toSeq
-  }
-
-  private def readOutputFile(fixturesDir: File, exampleName: String): String =
-    (fixturesDir / exampleName / "output.txt").contentAsString
-
-  private def readInputJson(fixturesDir: File, exampleName: String): String =
-    (fixturesDir / exampleName / "input.json").contentAsString
 }
