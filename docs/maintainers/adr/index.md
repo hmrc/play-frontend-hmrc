@@ -16,8 +16,11 @@
 * [ADR-0012](0012-create-an-endpoint-in-play-frontend-hmrc-for-surfacing-session-metadata.md) - Create an endpoint in play-frontend-hmrc for surfacing session metadata
 * [ADR-0013](0013-removing-deprecated-helpers.md) - Removing deprecated helpers
 * [ADR-0014](0014-keep-current-package-structure-and-naming-conventions.md) - Keep current package structure and naming conventions
+* [ADR-0015](0015-introduction-of-implicit-conversions.md) - Introduction of implicit conversions
 
 <!-- adrlogstop -->
+
+
 
 
 
