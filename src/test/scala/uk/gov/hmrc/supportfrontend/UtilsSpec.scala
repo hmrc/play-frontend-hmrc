@@ -22,7 +22,7 @@ import org.scalatest.wordspec.AnyWordSpec
 import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks
 import play.twirl.api.{Html, HtmlFormat}
 import uk.gov.hmrc.hmrcfrontend.views.viewmodels.Generators._
-import uk.gov.hmrc.supportfrontend.views.Utils._
+import uk.gov.hmrc.supportfrontend.views.UtilsSupport
 
 class UtilsSpec extends AnyWordSpec with Matchers with ScalaCheckPropertyChecks with ShrinkLowPriority {
 
@@ -30,7 +30,7 @@ class UtilsSpec extends AnyWordSpec with Matchers with ScalaCheckPropertyChecks 
     PropertyCheckConfiguration(minSuccessful = 50)
 
   "toClasses" should {
-    "concatenate existing classes with classes with a single whitespace separator if classes are not empty" in {
+    "concatenate existing classes with classes with a single whitespace separator if classes are not empty" in new ConcreteUtilsSupport {
       forAll(Gen.alphaStr.suchThat(_.trim.nonEmpty), Gen.alphaStr) { (existingClass, classes) =>
         (existingClass, classes) match {
           case (_, "") => toClasses(existingClass, classes) shouldBe existingClass
@@ -41,7 +41,7 @@ class UtilsSpec extends AnyWordSpec with Matchers with ScalaCheckPropertyChecks 
   }
 
   "toAttributes" should {
-    "generate attributes HTML with the required padding" in {
+    "generate attributes HTML with the required padding" in new ConcreteUtilsSupport {
       forAll(genAttributes(), Gen.chooseNum(0, 5)) { (attrsMap, padCount) =>
         (attrsMap.toSeq, padCount) match {
           case (Nil, _) => toAttributes(attrsMap, padCount)                 shouldBe HtmlFormat.empty
@@ -62,43 +62,15 @@ class UtilsSpec extends AnyWordSpec with Matchers with ScalaCheckPropertyChecks 
   }
 
   "urlEncode" should {
-    "should encode spaces with the old-style longhand" in {
+    "should encode spaces with the old-style longhand" in new ConcreteUtilsSupport {
       urlEncode("ABC DEF") shouldBe "ABC%20DEF"
     }
-    "should encode URLs as expected" in {
+    "should encode URLs as expected" in new ConcreteUtilsSupport {
       urlEncode(
         "https://www.tax.service.gov.uk/pay?abc=def&ghi=jkl"
       ) shouldBe "https%3A%2F%2Fwww.tax.service.gov.uk%2Fpay%3Fabc%3Ddef%26ghi%3Djkl"
     }
   }
 
-  "calculateAssetPath" should {
-    "use the path if provided" in {
-      calculateAssetPath(Some("/foo"), "images/bar.png") shouldBe "/foo/images/bar.png"
-    }
-
-    "use the reverse router if path is not provided" in {
-      govuk.RoutesPrefix.setPrefix("/some-service/govuk-frontend")
-
-      calculateAssetPath(None, "images/baz.png") shouldBe "/some-service/govuk-frontend/assets/images/baz.png"
-    }
-  }
-
-  "isNonEmptyOptionString" should {
-    "return true for a non-empty string" in {
-      isNonEmptyOptionString(Some("abc")) should be(true)
-    }
-
-    "return true for a non-empty string containing only whitespace" in {
-      isNonEmptyOptionString(Some(" ")) should be(true)
-    }
-
-    "return false for an empty string" in {
-      isNonEmptyOptionString(Some("")) should be(false)
-    }
-
-    "return false for None" in {
-      isNonEmptyOptionString(None) should be(false)
-    }
-  }
+  class ConcreteUtilsSupport extends UtilsSupport
 }
