@@ -1,4 +1,4 @@
-package uk.gov.hmrc.hmrcfrontend.support
+package uk.gov.hmrc.support
 
 import org.jsoup.Jsoup
 import org.scalacheck.Prop.{forAll, secure}
@@ -6,10 +6,10 @@ import org.scalacheck.{Arbitrary, Properties, ShrinkLowPriority, Test}
 import org.scalatest.concurrent.{IntegrationPatience, ScalaFutures}
 import org.scalatestplus.play.guice.GuiceOneAppPerSuite
 import play.api.libs.json.{Json, OWrites}
+import uk.gov.hmrc.helpers.views.TemplateDiff.templateDiffPath
 import uk.gov.hmrc.helpers.views.{JsoupHelpers, PreProcessor, TemplateValidationException, TwirlRenderer}
-import uk.gov.hmrc.hmrcfrontend.support.Implicits._
-import uk.gov.hmrc.hmrcfrontend.support.ScalaCheckUtils.{ClassifyParams, classify}
-import uk.gov.hmrc.helpers.views.TemplateDiff._
+import uk.gov.hmrc.support.Implicits._
+import uk.gov.hmrc.support.ScalaCheckUtils.{ClassifyParams, classify}
 
 import scala.util.{Failure, Success}
 
@@ -17,9 +17,9 @@ import scala.util.{Failure, Success}
   * Base class for integration testing a Twirl template against the Nunjucks template rendering service
   */
 abstract class TemplateIntegrationBaseSpec[T: OWrites: Arbitrary](
-  hmrcComponentName: String,
+  componentName: String,
   seed: Option[String] = None
-) extends Properties(hmrcComponentName)
+) extends Properties(componentName)
     with TemplateServiceClient
     with PreProcessor
     with TwirlRenderer[T]
@@ -47,11 +47,11 @@ abstract class TemplateIntegrationBaseSpec[T: OWrites: Arbitrary](
     * Nunjucks template, and checks the outputs are equal. If provided, it uses the [[classifiers]] to collect statistics
     * about the template parameters to analyse the distribution of the generators.
     */
-  propertyWithSeed(s"$hmrcComponentName should render the same markup as the nunjucks renderer", seed) = forAll {
+  propertyWithSeed(s"$componentName should render the same markup as the nunjucks renderer", seed) = forAll {
     templateParams: T =>
       classify(classifiers(templateParams))(secure {
 
-        val response = render(hmrcComponentName, templateParams)
+        val response = render(componentName, templateParams)
 
         val nunJucksOutputHtml = response.futureValue.bodyAsString
 
@@ -77,7 +77,7 @@ abstract class TemplateIntegrationBaseSpec[T: OWrites: Arbitrary](
 
             prop
           case Failure(TemplateValidationException(message)) =>
-            println(s"Failed to validate the parameters for the $hmrcComponentName template")
+            println(s"Failed to validate the parameters for the $componentName template")
             println(s"Exception: $message")
             println("Skipping property evaluation")
 
@@ -86,7 +86,7 @@ abstract class TemplateIntegrationBaseSpec[T: OWrites: Arbitrary](
       })
   }
 
-  def reportDiff(
+  private def reportDiff(
     preProcessedTwirlHtml: String,
     preProcessedNunjucksHtml: String,
     templateParams: T,
@@ -97,7 +97,7 @@ abstract class TemplateIntegrationBaseSpec[T: OWrites: Arbitrary](
       templateDiffPath(
         twirlOutputHtml = preProcessedTwirlHtml,
         nunJucksOutputHtml = preProcessedNunjucksHtml,
-        diffFilePrefix = Some(hmrcComponentName)
+        diffFilePrefix = Some(componentName)
       )
 
     println(s"Diff between Twirl and Nunjucks outputs (please open diff HTML file in a browser): file://$diffPath\n")
@@ -122,4 +122,5 @@ abstract class TemplateIntegrationBaseSpec[T: OWrites: Arbitrary](
     println(s"\nparameters: ")
     println(templateParamsJson)
   }
+
 }

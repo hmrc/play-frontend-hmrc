@@ -1,11 +1,11 @@
-package uk.gov.hmrc.govukfrontend.support
+package uk.gov.hmrc.support
 
 import org.scalatest.wordspec.AnyWordSpecLike
 import org.scalatestplus.play.PortNumber
 import org.scalatestplus.play.guice.GuiceOneAppPerSuite
 import play.api.libs.json.{Json, OWrites}
 import play.api.libs.ws.{WSClient, WSResponse}
-import uk.gov.hmrc.govukfrontend.views.GovukFrontendDependency.govukFrontendVersion
+
 import scala.concurrent.Future
 
 trait TemplateServiceClient extends AnyWordSpecLike with WSScalaTestClient with GuiceOneAppPerSuite {
@@ -14,18 +14,22 @@ trait TemplateServiceClient extends AnyWordSpecLike with WSScalaTestClient with 
 
   implicit lazy val wsClient: WSClient = app.injector.instanceOf[WSClient]
 
+  protected val libraryName: String
+
+  protected val libraryVersion: String
+
   /**
-    * Render a govuk-frontend component using the template service
+    * Render a hmrc-frontend component using the template service
     *
-    * @param govukComponentName the govuk-frontend component name as documented in the template service
+    * @param componentName the hmrc-frontend component name as documented in the template service
     * @param templateParams
     * @return [[WSResponse]] with the rendered component
     */
   def render[T: OWrites](
-    govukComponentName: String,
+    componentName: String,
     templateParams: T,
-    govukVersion: String = govukFrontendVersion
+    libraryVersion: String = libraryVersion
   ): Future[WSResponse] =
-    wsUrl(s"component/govuk/$govukVersion/$govukComponentName")
+    wsUrl(s"component/$libraryName/$libraryVersion/$componentName")
       .post(Json.toJson(templateParams))
 }

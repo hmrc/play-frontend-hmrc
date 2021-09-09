@@ -4,18 +4,23 @@ import play.api.mvc.RequestHeader
 import play.api.test.FakeRequest
 import play.twirl.api.HtmlFormat
 import uk.gov.hmrc.helpers.MessagesSupport
-import uk.gov.hmrc.hmrcfrontend.support.TemplateIntegrationBaseSpec
+import uk.gov.hmrc.hmrcfrontend.views.HmrcFrontendDependency.hmrcFrontendVersion
 import uk.gov.hmrc.hmrcfrontend.views.html.components._
 import uk.gov.hmrc.hmrcfrontend.views.viewmodels.charactercount.Generators._
+import uk.gov.hmrc.support.TemplateIntegrationBaseSpec
 
 import scala.util.Try
 
 object HmrcCharacterCountIntegrationSpec
     extends TemplateIntegrationBaseSpec[CharacterCount](
-      hmrcComponentName = "hmrcCharacterCount",
+      componentName = "hmrcCharacterCount",
       seed = None
     )
     with MessagesSupport {
+
+  protected val libraryName: String = "hmrc"
+
+  protected val libraryVersion: String = hmrcFrontendVersion
 
   private val component = app.injector.instanceOf[HmrcCharacterCount]
 
