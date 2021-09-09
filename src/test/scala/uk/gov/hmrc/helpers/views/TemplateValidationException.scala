@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.govukfrontend.views
+package uk.gov.hmrc.helpers.views
 
 class TemplateValidationException(message: String) extends IllegalArgumentException(message)
 

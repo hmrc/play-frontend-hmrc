@@ -31,8 +31,8 @@ import play.api.test.Helpers.{contentAsString, stubMessagesApi, _}
 import play.twirl.api.Html
 import uk.gov.hmrc.govukfrontend.views.html.components.GovukBackLink
 import uk.gov.hmrc.govukfrontend.views.viewmodels.backlink.BackLink
+import uk.gov.hmrc.helpers.views.JsoupHelpers
 import uk.gov.hmrc.hmrcfrontend.config.AssetsConfig
-import uk.gov.hmrc.hmrcfrontend.views.JsoupHelpers
 import uk.gov.hmrc.hmrcfrontend.views.config.StandardBetaBanner
 import uk.gov.hmrc.hmrcfrontend.views.html.helpers.HmrcLayout
 

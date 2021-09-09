@@ -26,7 +26,7 @@ import play.api.i18n.{Lang, Messages}
 import play.api.inject.guice.GuiceApplicationBuilder
 import uk.gov.hmrc.govukfrontend.views.viewmodels.content.{HtmlContent, Text}
 import uk.gov.hmrc.govukfrontend.views.viewmodels.errorsummary.ErrorSummary
-import uk.gov.hmrc.hmrcfrontend.MessagesSupport
+import uk.gov.hmrc.helpers.MessagesSupport
 import uk.gov.hmrc.hmrcfrontend.views.html.components.implicits._
 
 class RichErrorSummarySpec extends AnyWordSpec with Matchers with MessagesSupport with GuiceOneAppPerSuite {

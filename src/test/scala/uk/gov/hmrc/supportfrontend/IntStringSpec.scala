@@ -14,12 +14,13 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.govukfrontend.views
+package uk.gov.hmrc.supportfrontend
 
-import org.scalatest.wordspec.AnyWordSpec
 import org.scalatest.matchers.should.Matchers
+import org.scalatest.wordspec.AnyWordSpec
 import org.scalatestplus.scalacheck.ScalaCheckDrivenPropertyChecks
-import play.api.libs.json.{JsArray, JsBoolean, JsNull, JsNumber, JsResult, JsString, JsSuccess, JsValue, Json, Reads}
+import play.api.libs.json._
+import uk.gov.hmrc.supportfrontend.views.IntString
 
 import scala.util.Try
 
@@ -162,11 +163,11 @@ class IntStringSpec extends AnyWordSpec with Matchers with ScalaCheckDrivenPrope
         val expectedIntOption = Some(int)
 
         val optReadsStub = new Reads[Option[IntString]] {
-          def reads(jsValue: JsValue): JsResult[Option[IntString]] = JsSuccess(Some(jsValue.as[IntString]))
+          def reads(jsValue: JsValue): JsResult[Option[IntString]] = JsSuccess(Some(IntString(expectedIntOption.get)))
         }
 
         val intermediateReads: Reads[Option[Int]] = optReadsStub.int
-        JsString(s"$int").as[Option[Int]](intermediateReads) shouldBe expectedIntOption
+        JsString("foo").as[Option[Int]](intermediateReads) shouldBe expectedIntOption
       }
     }
 

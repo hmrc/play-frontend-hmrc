@@ -14,18 +14,24 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.govukfrontend.views
+package uk.gov.hmrc.helpers.views
 
-import play.twirl.api.HtmlFormat
-import scala.util.Try
+import org.jsoup.Jsoup
+import org.jsoup.nodes.Document
+import org.jsoup.select.Elements
+import play.twirl.api.Html
 
-trait TwirlRenderer[T] {
+trait JsoupHelpers {
 
-  /**
-    * Calls the Twirl template with the given parameters and returns the resulting markup
-    *
-    * @param templateParams
-    * @return [[Try[HtmlFormat.Appendable]]] containing the markup
-    */
-  def render(templateParams: T): Try[HtmlFormat.Appendable]
+  implicit class RichHtml(html: Html) {
+    def select(cssQuery: String): Elements =
+      parseNoPrettyPrinting(html).select(cssQuery)
+  }
+
+  // otherwise Jsoup inserts linefeed https://stackoverflow.com/questions/12503117/jsoup-line-feed
+  def parseNoPrettyPrinting(html: Html): Document = {
+    val doc = Jsoup.parse(html.body)
+    doc.outputSettings().prettyPrint(false)
+    doc
+  }
 }

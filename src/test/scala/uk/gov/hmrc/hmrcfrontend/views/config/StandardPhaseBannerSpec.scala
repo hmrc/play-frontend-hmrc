@@ -21,7 +21,7 @@ import org.scalatest.wordspec.AnyWordSpec
 import org.scalatestplus.play.guice.GuiceOneAppPerSuite
 import play.api.i18n.{Lang, Messages}
 import uk.gov.hmrc.govukfrontend.views.Aliases.{HtmlContent, PhaseBanner, Tag, Text}
-import uk.gov.hmrc.hmrcfrontend.MessagesSupport
+import uk.gov.hmrc.helpers.MessagesSupport
 
 class StandardPhaseBannerSpec extends AnyWordSpec with Matchers with MessagesSupport with GuiceOneAppPerSuite {
   "StandardBetaBanner" must {

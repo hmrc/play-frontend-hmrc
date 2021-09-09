@@ -16,16 +16,12 @@
 
 package uk.gov.hmrc.govukfrontend.views
 
-import better.files._
-import org.scalatest.TryValues
-import org.scalatest.wordspec.AnyWordSpecLike
-import org.scalatest.matchers.should.Matchers
-import org.scalatestplus.play.guice.GuiceOneAppPerSuite
 import play.api.libs.json._
 import play.twirl.api.{HtmlFormat, Template1}
+import uk.gov.hmrc.helpers.views.TemplateTestHelper
 
 import scala.reflect.ClassTag
-import scala.util.{Failure, Success, Try}
+import scala.util.Try
 
 /**
   * Base class for unit testing against test fixtures generated from govuk-frontend's yaml documentation files for
@@ -33,13 +29,9 @@ import scala.util.{Failure, Success, Try}
   */
 abstract class TemplateUnitSpec[T: Reads, C <: Template1[T, HtmlFormat.Appendable]: ClassTag](
   govukComponentName: String
-) extends TwirlRenderer[T]
-    with PreProcessor
-    with JsoupHelpers
-    with AnyWordSpecLike
-    with Matchers
-    with TryValues
-    with GuiceOneAppPerSuite {
+) extends TemplateTestHelper[T](govukComponentName) {
+
+  override protected val baseFixturesDirectory: String = "/fixtures/govuk-frontend"
 
   private val skipBecauseOfJsonValidation             = Seq(
     "date-input-with-values",
@@ -116,7 +108,8 @@ abstract class TemplateUnitSpec[T: Reads, C <: Template1[T, HtmlFormat.Appendabl
     "radios-with-falsey-items",
     "accordion-with-falsey-values"
   )
-  private val skip                                    = skipBecauseOfJsonValidation ++
+
+  override protected val skip = skipBecauseOfJsonValidation ++
     skipBecauseOfAttributeOrdering ++ skipBecauseRequiredItemsSeemToBeMissing ++
     skipBecauseChangesNeededWithGDS
 
@@ -125,93 +118,12 @@ abstract class TemplateUnitSpec[T: Reads, C <: Template1[T, HtmlFormat.Appendabl
   /**
     * Calls the Twirl template with the given parameters and returns the resulting markup
     *
-    * @param templateParams: T
+    * @param templateParams  : T
     * @return [[Try[HtmlFormat.Appendable]]] containing the markup
     */
   def render(templateParams: T): Try[HtmlFormat.Appendable] =
     Try(component.render(templateParams))
 
-  exampleNames(fixturesDirs, govukComponentName)
-    .foreach { fixtureDirExampleName =>
-      val (fixtureDir, exampleName) = fixtureDirExampleName
+  matchTwirlAndNunjucksHtml(fixturesDirs)
 
-      s"$exampleName" should {
-        if (!skip.contains(exampleName)) {
-
-          "render the same html as the nunjucks renderer" in {
-            val tryTwirlHtml = renderExample(fixtureDir, exampleName)
-
-            tryTwirlHtml match {
-              case Success(twirlHtml) =>
-                val preProcessedTwirlHtml    = preProcess(twirlHtml)
-                val preProcessedNunjucksHtml = preProcess(nunjucksHtml(fixtureDir, exampleName).success.value)
-
-                preProcessedTwirlHtml shouldBe preProcessedNunjucksHtml
-
-            }
-          }
-        }
-      }
-    }
-
-  private def renderExample(fixturesDir: File, exampleName: String): Try[String] =
-    for {
-      inputJson    <- Try(readInputJson(fixturesDir, exampleName))
-      inputJsValue <- Try(Json.parse(inputJson))
-      html         <- inputJsValue.validate[T] match {
-                        case JsSuccess(templateParams, _) =>
-                          render(templateParams)
-                            .transform(html => Success(html.body), f => Failure(new TemplateValidationException(f.getMessage)))
-                        case e: JsError                   =>
-                          throw new RuntimeException(s"Failed to validate Json params: [$inputJsValue]\nException: [$e]")
-                      }
-    } yield html
-
-  private def nunjucksHtml(fixtureDir: File, exampleName: String): Try[String] =
-    Try(readOutputFile(fixtureDir, exampleName))
-
-  /**
-    * Traverse the test fixtures directory to fetch all examples for a given component
-    *
-    * @param govukComponentName govuk component name as found in the test fixtures file component.json
-    * @return [[Seq[String]]] of folder names for each example in the test fixtures folder or
-    *        fails if the fixtures folder is not defined
-    */
-  private def exampleNames(fixturesDirs: Seq[File], govukComponentName: String): Seq[(File, String)] = {
-    val exampleFolders = fixturesDirs.flatMap(fixtureDir =>
-      getExampleFolders(fixtureDir, govukComponentName).map(exampleDir => (fixtureDir, exampleDir))
-    )
-
-    val examples = for ((fixtureDir, exampleDir) <- exampleFolders) yield (fixtureDir, exampleDir.name)
-
-    if (examples.nonEmpty) examples
-    else throw new RuntimeException(s"Couldn't find component named $govukComponentName. Spelling error?")
-  }
-
-  private def getExampleFolders(fixturesDir: File, govukComponentName: String): Seq[File] = {
-    def parseComponentName(json: String): Option[String] = (Json.parse(json) \ "name").asOpt[String]
-
-    val componentNameFiles = fixturesDir.listRecursively.filter(_.name == "component.json")
-
-    val matchingFiles =
-      componentNameFiles.filter(file => parseComponentName(file.contentAsString).contains(govukComponentName))
-
-    val folders = matchingFiles.map(_.parent).toSeq.distinct
-
-    folders
-  }
-
-  private lazy val fixturesDirs: Seq[File] = {
-    val dir         = s"/fixtures/govuk-frontend"
-    val fixturesDir = Try(File(Resource.my.getUrl(dir)))
-      .getOrElse(throw new RuntimeException(s"Test fixtures folder not found: $dir"))
-
-    fixturesDir.children.toSeq
-  }
-
-  private def readOutputFile(fixturesDir: File, exampleName: String): String =
-    (fixturesDir / exampleName / "output.txt").contentAsString
-
-  private def readInputJson(fixturesDir: File, exampleName: String): String =
-    (fixturesDir / exampleName / "input.json").contentAsString
 }

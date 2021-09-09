@@ -8,9 +8,21 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 For compatibility information see `govukFrontendVersion` and `hmrcFrontendVersion` in
 [LibDependencies](project/LibDependencies.scala)
 
+## [1.5.0] - 2021-09-09
+
+### Changed
+
+- Removing duplicated code following merge in of `play-frontend-govuk`
+
+### Compatible with
+
+- [hmrc/hmrc-frontend v2.2.2](https://github.com/hmrc/hmrc-frontend/releases/tag/v2.2.2)
+- [alphagov/govuk-frontend v3.13.0](https://github.com/alphagov/govuk-frontend/releases/tag/v3.13.0)
+
+
 ## [1.4.0] - 2021-09-03
 
-### Change
+### Changed
 
 - Updated version of `hmrc-frontend`
 - Fixed `HmrcUserResearchBanner.scala.html` to remove reverse tabnapping vulnerability
@@ -22,7 +34,7 @@ For compatibility information see `govukFrontendVersion` and `hmrcFrontendVersio
 
 ## [1.3.0] - 2021-08-31
 
-### Change
+### Changed
 
 - Updated version of `sbt-auto-build` plugin to generate Twirl headers
 

@@ -18,7 +18,7 @@ package uk.gov.hmrc.govukfrontend.views.viewmodels.charactercount
 
 import play.api.libs.functional.syntax._
 import play.api.libs.json._
-import uk.gov.hmrc.govukfrontend.views.IntString
+import uk.gov.hmrc.supportfrontend.views.IntString
 import uk.gov.hmrc.govukfrontend.views.viewmodels.CommonJsonFormats._
 import uk.gov.hmrc.govukfrontend.views.viewmodels.errormessage.ErrorMessage
 import uk.gov.hmrc.govukfrontend.views.viewmodels.hint.Hint

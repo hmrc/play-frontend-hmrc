@@ -23,8 +23,8 @@ import play.api.mvc.AnyContentAsEmpty
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import play.twirl.api.Html
-import uk.gov.hmrc.hmrcfrontend.MessagesSupport
-import uk.gov.hmrc.hmrcfrontend.views.JsoupHelpers
+import uk.gov.hmrc.helpers.MessagesSupport
+import uk.gov.hmrc.helpers.views.JsoupHelpers
 import uk.gov.hmrc.hmrcfrontend.views.html.helpers.HmrcScripts
 
 class hmrcScriptsSpec

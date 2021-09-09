@@ -20,8 +20,8 @@ import play.api.i18n.{Lang, Messages}
 import play.api.mvc.RequestHeader
 import play.api.test.FakeRequest
 import play.twirl.api.HtmlFormat
-import uk.gov.hmrc.hmrcfrontend.MessagesSupport
-import uk.gov.hmrc.hmrcfrontend.views.{JsoupHelpers, TemplateUnitBaseSpec}
+import uk.gov.hmrc.helpers.MessagesSupport
+import uk.gov.hmrc.hmrcfrontend.views.TemplateUnitBaseSpec
 import uk.gov.hmrc.hmrcfrontend.views.html.components._
 
 import scala.util.Try
