@@ -14,13 +14,10 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.govukfrontend.views
-package html
+package uk.gov.hmrc.hmrcfrontend.views
 
-package object components extends Utils with Aliases {
+import uk.gov.hmrc.supportfrontend.views.UtilsSupport
 
-  /**
-    * Top-level implicits for all components
-    */
-  object implicits extends Implicits
-}
+trait Utils extends UtilsSupport
+
+object Utils extends Utils

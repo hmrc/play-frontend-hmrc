@@ -15,12 +15,21 @@
  */
 
 package uk.gov.hmrc.govukfrontend.views
-package html
 
-package object components extends Utils with Aliases {
+import uk.gov.hmrc.supportfrontend.views.UtilsSupport
 
-  /**
-    * Top-level implicits for all components
-    */
-  object implicits extends Implicits
+trait Utils extends UtilsSupport {
+
+  private[views] def isNonEmptyOptionString(value: Option[String]) = value match {
+    case Some(NonEmptyString(_)) => true
+    case _                       => false
+  }
+
+  private[views] def calculateAssetPath(path: Option[String], file: String): String =
+    path
+      .map(p => s"$p/$file")
+      .getOrElse(uk.gov.hmrc.govukfrontend.controllers.routes.Assets.at(file).url)
+
 }
+
+object Utils extends Utils
