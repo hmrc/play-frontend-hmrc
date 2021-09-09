@@ -16,7 +16,7 @@
 
 package uk.gov.hmrc.hmrcfrontend.views.components
 
-import uk.gov.hmrc.hmrcfrontend.support.ScalaCheckUtils.ClassifyParams
+import uk.gov.hmrc.support.ScalaCheckUtils.ClassifyParams
 import uk.gov.hmrc.hmrcfrontend.support.TemplateIntegrationSpec
 import uk.gov.hmrc.hmrcfrontend.views.html.components._
 // We use the below instead of a true arbitrary as the `hmrc-frontend` Nunjucks

@@ -1,4 +1,4 @@
-package uk.gov.hmrc.hmrcfrontend.support
+package uk.gov.hmrc.support
 
 import org.scalacheck.Prop
 import org.scalacheck.Prop.collect
@@ -13,7 +13,7 @@ object ScalaCheckUtils {
     * A [[Stream]] is used to avoid evaluating the conditions prematurely.
     *
     * @param conditions [[Stream]] of triples (condition, ifTrue, ifFalse)
-    * @param prop a scalacheck property [[Prop]]
+    * @param prop       a scalacheck property [[Prop]]
     * @return [[Prop]]
     */
   @scala.annotation.tailrec

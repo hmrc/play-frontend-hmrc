@@ -1,4 +1,4 @@
-package uk.gov.hmrc.hmrcfrontend.support
+package uk.gov.hmrc.support
 
 import org.scalatestplus.play.PortNumber
 import play.api.libs.ws.{WSClient, WSRequest}

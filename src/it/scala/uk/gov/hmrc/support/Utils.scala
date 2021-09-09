@@ -1,4 +1,4 @@
-package uk.gov.hmrc.govukfrontend.support
+package uk.gov.hmrc.support
 
 object Utils {
 
@@ -7,4 +7,5 @@ object Utils {
     def +/(otherUrl: String): String =
       if (otherUrl.startsWith("/")) url + otherUrl else url + "/" + otherUrl
   }
+
 }

@@ -3,6 +3,8 @@ package uk.gov.hmrc.hmrcfrontend.support
 import org.scalacheck.Arbitrary
 import play.api.libs.json.OWrites
 import play.twirl.api.{HtmlFormat, Template1}
+import uk.gov.hmrc.hmrcfrontend.views.HmrcFrontendDependency.hmrcFrontendVersion
+import uk.gov.hmrc.support.TemplateIntegrationBaseSpec
 
 import scala.reflect.ClassTag
 import scala.util.Try
@@ -15,7 +17,11 @@ abstract class TemplateIntegrationSpec[T: OWrites: Arbitrary, C <: Template1[T, 
   seed: Option[String] = None
 ) extends TemplateIntegrationBaseSpec[T](hmrcComponentName, seed) {
 
-  protected val component: C = app.injector.instanceOf[C]
+  protected val libraryName: String = "hmrc"
+
+  protected val libraryVersion: String = hmrcFrontendVersion
+
+  private val component: C = app.injector.instanceOf[C]
 
   /**
     * Calls the Twirl template with the given parameters and returns the resulting markup
