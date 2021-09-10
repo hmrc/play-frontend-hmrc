@@ -32,8 +32,7 @@ final case class Header(
   classes: String = "",
   attributes: Map[String, String] = Map.empty,
   menuButtonLabel: Option[String] = None,
-  navigationLabel: Option[String] = None,
-  assetsPath: Option[String] = None
+  navigationLabel: Option[String] = None
 )
 
 object Header {

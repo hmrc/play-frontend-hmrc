@@ -22,8 +22,12 @@ import scala.util.Try
 
 class HmrcHeaderSpec extends TemplateUnitSpec[Header, HmrcHeader]("hmrcHeader") {
 
+  hmrcfrontend.RoutesPrefix.setPrefix("")
+
   "header" should {
     """not throw an exception if Some("") is passed as serviceName""" in {
+      hmrcfrontend.RoutesPrefix.setPrefix("")
+
       val params       =
         Header(serviceName = Some(""), containerClasses = "govuk-width-container", signOutHref = Some("/sign-out"))
       val componentTry = Try(component(params))

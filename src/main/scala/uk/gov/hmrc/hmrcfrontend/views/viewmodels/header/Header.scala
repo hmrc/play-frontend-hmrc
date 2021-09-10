@@ -26,7 +26,6 @@ import scala.collection.immutable.SortedMap
 
 case class Header(
   homepageUrl: String = "/",
-  assetsPath: String = "/assets/govuk-frontend/govuk/assets/images",
   productName: Option[String] = None,
   serviceName: Option[String] = None,
   serviceUrl: String = "",
@@ -63,7 +62,6 @@ object Header {
   implicit def jsonReads: Reads[Header] =
     (
       (__ \ "homepageUrl").readWithDefault[String](defaultObject.homepageUrl) and
-        (__ \ "assetsPath").readWithDefault[String](defaultObject.assetsPath) and
         (__ \ "productName").readNullable[String] and
         (__ \ "serviceName").readNullable[String] and
         (__ \ "serviceUrl").readWithDefault[String](defaultObject.serviceUrl) and
@@ -83,7 +81,6 @@ object Header {
   implicit def jsonWrites: OWrites[Header] =
     (
       (__ \ "homepageUrl").write[String] and
-        (__ \ "assetsPath").write[String] and
         (__ \ "productName").writeNullable[String] and
         (__ \ "serviceName").writeNullable[String] and
         (__ \ "serviceUrl").write[String] and

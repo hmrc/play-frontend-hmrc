@@ -61,7 +61,6 @@ object Generators {
   implicit val arbHeader: Arbitrary[Header] = Arbitrary {
     for {
       homepageUrl        <- genAlphaStr()
-      assetsPath         <- genAlphaStr()
       productName        <- Gen.option(genAlphaStr())
       serviceName        <- Gen.option(genAlphaStr())
       serviceUrl         <- genAlphaStr()
@@ -78,7 +77,6 @@ object Generators {
       userResearchBanner <- Gen.option(arbUserResearchBanner.arbitrary)
     } yield Header(
       homepageUrl = homepageUrl,
-      assetsPath = assetsPath,
       productName = productName,
       serviceName = serviceName,
       serviceUrl = serviceUrl,

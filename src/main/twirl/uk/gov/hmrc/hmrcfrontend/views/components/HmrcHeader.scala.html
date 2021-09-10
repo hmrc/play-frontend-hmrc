@@ -15,6 +15,7 @@
  *@
 
 @import uk.gov.hmrc.govukfrontend.views.html.components.GovukPhaseBanner
+@import uk.gov.hmrc.hmrcfrontend.controllers.routes
 
 @this(hmrcBanner: HmrcBanner, hmrcUserResearchBanner: HmrcUserResearchBanner, govukPhaseBanner: GovukPhaseBanner)
 
@@ -67,7 +68,7 @@
           * In other browsers <image> is synonymous for the <img> tag and will be    *
           * interpreted as such, displaying the fallback image.                      *
           ***************************************************************************@
-          <image src="@assetsPath/govuk-logotype-crown.png" xlink:href=""
+          <image src="@routes.Assets.at("govuk-frontend/govuk/assets/images/govuk-logotype-crown.png")" xlink:href=""
                class="govuk-header__logotype-crown-fallback-image" width="36" height="32"></image>
           </svg>
           <span class="govuk-header__logotype-text">
