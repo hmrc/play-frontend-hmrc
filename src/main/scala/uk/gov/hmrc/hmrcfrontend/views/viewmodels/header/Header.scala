@@ -26,7 +26,7 @@ import scala.collection.immutable.SortedMap
 
 case class Header(
   homepageUrl: String = "/",
-  assetsPath: String = "/assets/images",
+  assetsPath: String = "/assets/govuk-frontend/govuk/assets/images",
   productName: Option[String] = None,
   serviceName: Option[String] = None,
   serviceUrl: String = "",

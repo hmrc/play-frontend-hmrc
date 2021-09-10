@@ -184,7 +184,7 @@ class hmrcStandardHeaderSpec extends AnyWordSpecLike with Matchers with JsoupHel
 
       fallbackImages                   should have size 1
       fallbackImages.first.attr("src") should be(
-        "/some-service/hmrc-frontend/assets/govuk/images/govuk-logotype-crown.png"
+        "/some-service/hmrc-frontend/assets/govuk-frontend/govuk/assets/images/govuk-logotype-crown.png"
       )
     }
 

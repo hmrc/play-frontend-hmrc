@@ -35,34 +35,12 @@ class GovukTemplateSpec extends TemplateUnitSpec[Template, GovukTemplateWrapper]
     }
   }
 
-  "govukTemplate" should {
-    "use the provided assetPath in all LINK elements" in {
-      val templateHtml =
-        govukTemplate
-          .apply(assetPath = Some("/foo/bar"))(HtmlFormat.empty)
-
-      val links = templateHtml.select("link")
-      links.forEach { link =>
-        link.attr("href") should startWith("/foo/bar")
-      }
-    }
-
-    "use the provided assetPath in the open graph image" in {
-      val templateHtml =
-        govukTemplate
-          .apply(assetPath = Some("/foo/bar"))(HtmlFormat.empty)
-
-      val ogImage = templateHtml.select("""meta[property="og:image"]""")
-      ogImage.first.attr("content") should startWith("/foo/bar")
-    }
-  }
-
   private val govukTemplate: GovukTemplate = app.injector.instanceOf[GovukTemplate]
 
   override def render(templateParams: Template): Try[HtmlFormat.Appendable] = {
     // The following line is needed to ensure known state of the statically initialised reverse router
     // used to calculate asset paths.
-    govuk.RoutesPrefix.setPrefix("")
+    hmrcfrontend.RoutesPrefix.setPrefix("")
 
     super.render(templateParams)
   }

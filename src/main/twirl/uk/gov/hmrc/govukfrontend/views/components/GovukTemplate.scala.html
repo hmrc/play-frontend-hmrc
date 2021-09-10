@@ -14,7 +14,7 @@
  * limitations under the License.
  *@
 
-@import uk.gov.hmrc.govukfrontend.controllers.routes
+@import uk.gov.hmrc.hmrcfrontend.controllers.routes
 @import uk.gov.hmrc.govukfrontend.views.html.components._
 
 @this(govukHeader: GovukHeader, govukFooter: GovukFooter, govukSkipLink: GovukSkipLink)
@@ -49,18 +49,18 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
     @headIcons.getOrElse {
-      <link rel="shortcut icon" sizes="16x16 32x32 48x48" href="@calculateAssetPath(assetPath, "images/favicon.ico")" type="image/x-icon">
-      <link rel="mask-icon" href="@calculateAssetPath(assetPath, "images/govuk-mask-icon.svg")" color="@themeColour.getOrElse {#0b0c0c}"> @* Hardcoded value of $govuk-black *@
-      <link rel="apple-touch-icon" sizes="180x180" href="@calculateAssetPath(assetPath, "images/govuk-apple-touch-icon-180x180.png")">
-      <link rel="apple-touch-icon" sizes="167x167" href="@calculateAssetPath(assetPath, "images/govuk-apple-touch-icon-167x167.png")">
-      <link rel="apple-touch-icon" sizes="152x152" href="@calculateAssetPath(assetPath, "images/govuk-apple-touch-icon-152x152.png")">
-      <link rel="apple-touch-icon" href="@calculateAssetPath(assetPath, "images/govuk-apple-touch-icon.png")">
+      <link rel="shortcut icon" sizes="16x16 32x32 48x48" href="@routes.Assets.at("govuk-frontend/govuk/assets/images/favicon.ico")" type="image/x-icon">
+      <link rel="mask-icon" href="@routes.Assets.at("govuk-frontend/govuk/assets/images/govuk-mask-icon.svg")" color="@themeColour.getOrElse {#0b0c0c}"> @* Hardcoded value of $govuk-black *@
+      <link rel="apple-touch-icon" sizes="180x180" href="@routes.Assets.at("govuk-frontend/govuk/assets/images/govuk-apple-touch-icon-180x180.png")">
+      <link rel="apple-touch-icon" sizes="167x167" href="@routes.Assets.at("govuk-frontend/govuk/assets/images/govuk-apple-touch-icon-167x167.png")">
+      <link rel="apple-touch-icon" sizes="152x152" href="@routes.Assets.at("govuk-frontend/govuk/assets/images/govuk-apple-touch-icon-152x152.png")">
+      <link rel="apple-touch-icon" href="@routes.Assets.at("govuk-frontend/govuk/assets/images/govuk-apple-touch-icon.png")">
     }
 
     @headBlock
     @* The default og:image is added below head so that scrapers see any custom metatags first, and this is just a fallback *@
     @* image url needs to be absolute e.g. http://wwww.domain.com/.../govuk-opengraph-image.png *@
-    <meta property="og:image" content="@calculateAssetPath(assetPath, "images/govuk-opengraph-image.png")">
+    <meta property="og:image" content="@routes.Assets.at("govuk-frontend/govuk/assets/images/govuk-opengraph-image.png")">
   </head>
   <body class="govuk-template__body @bodyClasses">
     <script@cspNonce.map {n => nonce="@n"}>document.body.className = ((document.body.className) ? document.body.className + ' js-enabled' : 'js-enabled');</script>

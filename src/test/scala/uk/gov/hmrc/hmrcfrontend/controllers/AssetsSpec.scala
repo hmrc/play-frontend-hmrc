@@ -35,7 +35,7 @@ class AssetsSpec extends AnyWordSpec with Matchers with Results with GuiceOneApp
 
   "Asset controller " must {
     "serve an asset in the public assets folder" in {
-      status(route(app, FakeRequest("GET", "/assets/all.js")).get) must be(200)
+      status(route(app, FakeRequest("GET", "/assets/hmrc-frontend/hmrc/all.js")).get) must be(200)
     }
   }
 

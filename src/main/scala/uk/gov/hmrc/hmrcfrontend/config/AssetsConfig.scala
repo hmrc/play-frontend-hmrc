@@ -23,10 +23,16 @@ import uk.gov.hmrc.hmrcfrontend.views.HmrcFrontendDependency
 class AssetsConfig @Inject() () {
   private val hmrcFrontendVersion = HmrcFrontendDependency.hmrcFrontendVersion
 
-  lazy val html5ShivJsUrl: String        = Assets.at("vendor/html5shiv.min.js").url
-  lazy val hmrcFrontendCssUrl: String    = hmrcFrontendAssetUrl(s"hmrc-frontend-$hmrcFrontendVersion.min.css")
-  lazy val hmrcFrontendIe8CssUrl: String = hmrcFrontendAssetUrl(s"hmrc-frontend-ie8-$hmrcFrontendVersion.min.css")
-  lazy val hmrcFrontendJsUrl: String     = hmrcFrontendAssetUrl(s"hmrc-frontend-$hmrcFrontendVersion.min.js")
+  lazy val html5ShivJsUrl: String        = Assets.at("hmrc-frontend/hmrc/vendor/html5shiv.min.js").url
+  lazy val hmrcFrontendCssUrl: String    = hmrcFrontendAssetUrl(
+    s"hmrc-frontend/hmrc/hmrc-frontend-$hmrcFrontendVersion.min.css"
+  )
+  lazy val hmrcFrontendIe8CssUrl: String = hmrcFrontendAssetUrl(
+    s"hmrc-frontend/hmrc/hmrc-frontend-ie8-$hmrcFrontendVersion.min.css"
+  )
+  lazy val hmrcFrontendJsUrl: String     = hmrcFrontendAssetUrl(
+    s"hmrc-frontend/hmrc/hmrc-frontend-$hmrcFrontendVersion.min.js"
+  )
 
   private def hmrcFrontendAssetUrl(filename: String) = Assets.at(filename).url
 }

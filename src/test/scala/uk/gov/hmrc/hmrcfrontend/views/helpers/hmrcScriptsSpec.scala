@@ -42,9 +42,10 @@ class hmrcScriptsSpec
       hmrcfrontend.RoutesPrefix.setPrefix("/foo-service/hmrc-frontend")
       val scripts     = hmrcScripts().select("script")
 
-      scripts                   should have size 1
+      scripts should have size 1
+
       scripts.first.attr("src") should fullyMatch regex
-        """/foo-service/hmrc-frontend/assets/hmrc-frontend-\d+.\d+.\d+.min.js""".r
+        """/foo-service/hmrc-frontend/assets/hmrc-frontend/hmrc/hmrc-frontend-\d+.\d+.\d+.min.js""".r
     }
 
     "include a nonce in each script tag if supplied" in {
@@ -53,7 +54,7 @@ class hmrcScriptsSpec
       val scripts     = contentAsString(hmrcScripts(nonce = Some("a-nonce"))).trim
 
       scripts should fullyMatch regex
-        """<script src="/foo-service/hmrc-frontend/assets/hmrc-frontend-\d+.\d+.\d+.min.js" nonce="a-nonce"></script>""".r
+        """<script src="/foo-service/hmrc-frontend/assets/hmrc-frontend/hmrc/hmrc-frontend-\d+.\d+.\d+.min.js" nonce="a-nonce"></script>""".r
     }
 
     "include the supplied scriptsBlock after the hmrc-frontend script tag" in {
@@ -74,7 +75,7 @@ class hmrcScriptsSpec
 
       scripts                   should have size 1
       scripts.first.attr("src") should fullyMatch regex
-        """/foo-service/hmrc-frontend/assets/hmrc-frontend-\d+.\d+.\d+.min.js""".r
+        """/foo-service/hmrc-frontend/assets/hmrc-frontend/hmrc/hmrc-frontend-\d+.\d+.\d+.min.js""".r
     }
   }
 }

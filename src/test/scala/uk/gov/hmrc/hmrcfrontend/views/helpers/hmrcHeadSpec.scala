@@ -74,7 +74,7 @@ class hmrcHeadSpec
 
       content should include regex
         """<!--\[if gt IE 8\]><!-->
-          |<link href="/some-service/hmrc-frontend/assets/hmrc-frontend-\d+.\d+.\d+.min.css" media="all" rel="stylesheet" type="text/css" nonce="a-nonce" />
+          |<link href="/some-service/hmrc-frontend/assets/hmrc-frontend/hmrc/hmrc-frontend-\d+.\d+.\d+.min.css" media="all" rel="stylesheet" type="text/css" nonce="a-nonce" />
           |<!--<!\[endif\]-->""".stripMargin.r
     }
 
@@ -85,7 +85,7 @@ class hmrcHeadSpec
 
       content should include regex
         """<!--\[if gt IE 8\]><!-->
-          |<link href="/some-service/hmrc-frontend/assets/hmrc-frontend-\d+.\d+.\d+.min.css" media="all" rel="stylesheet" type="text/css" />
+          |<link href="/some-service/hmrc-frontend/assets/hmrc-frontend/hmrc/hmrc-frontend-\d+.\d+.\d+.min.css" media="all" rel="stylesheet" type="text/css" />
           |<!--<!\[endif\]-->""".stripMargin.r
     }
 
@@ -96,8 +96,8 @@ class hmrcHeadSpec
 
       content should include regex
         """<!--\[if lte IE 8\]>
-          |<script src="/some-service/hmrc-frontend/assets/vendor/html5shiv.min.js"></script>
-          |<link href="/some-service/hmrc-frontend/assets/hmrc-frontend-ie8-\d+.\d+.\d+.min.css" media="all" rel="stylesheet" type="text/css" />
+          |<script src="/some-service/hmrc-frontend/assets/hmrc-frontend/hmrc/vendor/html5shiv.min.js"></script>
+          |<link href="/some-service/hmrc-frontend/assets/hmrc-frontend/hmrc/hmrc-frontend-ie8-\d+.\d+.\d+.min.css" media="all" rel="stylesheet" type="text/css" />
           |<!\[endif\]-->""".stripMargin.r
     }
 
@@ -117,7 +117,7 @@ class hmrcHeadSpec
 
       links                    should have size 1
       links.first.attr("href") should fullyMatch regex
-        """/foo-service/hmrc-frontend/assets/hmrc-frontend-\d+.\d+.\d+.min.css""".r
+        """/foo-service/hmrc-frontend/assets/hmrc-frontend/hmrc/hmrc-frontend-\d+.\d+.\d+.min.css""".r
     }
   }
 }

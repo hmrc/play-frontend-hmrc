@@ -211,15 +211,6 @@ class GovukLayoutSpec
       customMainContent.first().children().toString shouldBe "<p>Custom function</p>"
     }
 
-    "use the provided assetPath" in {
-      val html = component.apply(
-        assetPath = Some("/foo/bar")
-      )(HtmlFormat.empty)
-
-      val links = html.select("link")
-      links.first.attr("href") should startWith("/foo/bar")
-    }
-
     "use the provided nonce" in {
       val html = component.apply(
         cspNonce = Some("foo")
