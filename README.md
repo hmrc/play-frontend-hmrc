@@ -558,7 +558,7 @@ The timeout dialog’s content can be customised using the following parameters:
 ## Adding your own SASS compilation pipeline
 
 This library will manage SASS compilation for you. However, should you need for any reason to add your own SASS
-compilation pipeline, follow the [steps detailed here](https://github.com/hmrc/play-frontend-hmrc/blob/master/docs/maintainers/sass-compilation.md).
+compilation pipeline, follow the [steps detailed here](docs/maintainers/sass-compilation.md).
 
 ## Play Framework and Scala compatibility notes
 This library is currently compatible with:

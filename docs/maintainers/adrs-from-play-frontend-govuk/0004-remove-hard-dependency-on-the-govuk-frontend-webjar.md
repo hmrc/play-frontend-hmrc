@@ -16,7 +16,7 @@ published to www.webjars.org. This has a number of drawbacks:
 The main impact of the above is an excessive lead time for making improvements in the
 underlying govuk-frontend library available in production via play-frontend-govuk.
 
-Previously we considered self-publishing this WebJar, as we did for the hmrc-frontend WebJar (see related [ADR]((https://github.com/hmrc/play-frontend-hmrc/blob/master/docs/maintainers/adr/0009-self-publish-webjar.md)
+Previously we considered self-publishing this WebJar, as we did for the hmrc-frontend WebJar (see related [ADR]((../adr/0009-self-publish-webjar.md)
 )). However, this is complicated by the fact that we do not own govuk-frontend and
 self-publishing would involve additional engineering and ongoing maintenance.
 
@@ -92,4 +92,4 @@ breaking changes.
   
 ## Links
 
-* Relates to [play-frontend-hmrc/ADR-0009](https://github.com/hmrc/play-frontend-hmrc/blob/master/docs/maintainers/adr/0009-self-publish-webjar.md)
+* Relates to [play-frontend-hmrc/ADR-0009](../adr/0009-self-publish-webjar.md)
