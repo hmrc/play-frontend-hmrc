@@ -26,9 +26,17 @@ trait Utils extends UtilsSupport {
   }
 
   private[views] def calculateAssetPath(path: Option[String], file: String): String =
+    calculatePath(path, None, file)
+
+  private[views] def calculateImagePath(path: Option[String], file: String): String =
+    calculatePath(path, Some("govuk/images"), file)
+
+  private def calculatePath(path: Option[String], prefix: Option[String], file: String): String = {
+    val pathPrefix: String = prefix.map(p => s"$p/").getOrElse("")
     path
       .map(p => s"$p/$file")
-      .getOrElse(uk.gov.hmrc.govukfrontend.controllers.routes.Assets.at(file).url)
+      .getOrElse(uk.gov.hmrc.hmrcfrontend.controllers.routes.Assets.at(s"$pathPrefix$file").url)
+  }
 }
 
 object Utils extends Utils

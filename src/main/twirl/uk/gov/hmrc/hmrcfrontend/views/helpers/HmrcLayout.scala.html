@@ -88,6 +88,6 @@
     beforeContentBlock = Some(beforeContent),
     footerBlock = Some(hmrcStandardFooter(accessibilityStatementUrl = accessibilityStatementUrl)),
     mainContentLayout = mainContentLayout,
-    assetPath = Some(uk.gov.hmrc.hmrcfrontend.controllers.routes.Assets.at("govuk").url),
+    assetPath = None,
     cspNonce = nonce
 )(contentBlock)

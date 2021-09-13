@@ -62,7 +62,7 @@ class GovukTemplateSpec extends TemplateUnitSpec[Template, GovukTemplateWrapper]
   override def render(templateParams: Template): Try[HtmlFormat.Appendable] = {
     // The following line is needed to ensure known state of the statically initialised reverse router
     // used to calculate asset paths.
-    govuk.RoutesPrefix.setPrefix("")
+    hmrcfrontend.RoutesPrefix.setPrefix("")
 
     super.render(templateParams)
   }

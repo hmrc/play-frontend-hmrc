@@ -23,7 +23,7 @@ class GovukHeaderSpec extends TemplateUnitSpec[Header, GovukHeader]("govukHeader
 
   // The following line is needed to ensure known state of the statically initialised reverse router
   // used to calculate asset paths
-  govuk.RoutesPrefix.setPrefix("")
+  hmrcfrontend.RoutesPrefix.setPrefix("")
 
   "header" should {
     "have a role of banner" in {
