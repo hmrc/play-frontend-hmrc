@@ -70,6 +70,16 @@ The integration tests are automatically run as part of the build and publish pip
 run as a sidecar. For this reason, it's important to merge any changes to the component renderer before merging corresponding
 changes to the library.
 
+#### Excluded Generative tests
+
+Some `govuk-frontend` components do not have generative tests, because it is not possible to match their templates due
+to overly-restrictive Nunjucks examples where adding integration tests would negatively impact the code quality of the
+library to ensure parity.
+
+`GovukHeader` does not have integration tests as the Nunjucks component would force the assets path for `govuk-frontend`
+images to be `/assets/images`, which does not match the structure of assets hosting within the `play-frontend-hmrc` 
+library.  
+
 #### Reproducing Failures (Deterministic Testing)
 In case of a test failure, the test reporter outputs a `org.scalacheck.rng.Seed` encoded in Base-64 that can be passed back to the failing test to reproduce it.
 More information about this feature [here](https://gist.github.com/non/aeef5824b3f681b9cfc141437b16b014).

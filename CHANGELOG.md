@@ -12,9 +12,16 @@ For compatibility information see `govukFrontendVersion` and `hmrcFrontendVersio
 
 ### Changed
 
-- Removed `govuk.routes` and associated Assets controller, all images now served from `hmrc-frontend` webjar. Note that
-  services using `GovukTemplate` and passing in their own `assetPath` will now need to suffix with `/images` when passing
-  to the Twirl template.
+- Removed `govuk.routes` and associated Assets controller, all images now served from `hmrc-frontend` webjar
+- Removed `GovukHeaderIntegrationSpec` as no longer compatible with library assets path
+
+**Action required**:
+
+- Remove the following from your `routes` file in your service if present:
+```scala
+->         /govuk-frontend                                   govuk.Routes
+```
+- Failure to do so will result in a compilation error as `govuk.Routes` has been deleted.
 
 ### Compatible with
 

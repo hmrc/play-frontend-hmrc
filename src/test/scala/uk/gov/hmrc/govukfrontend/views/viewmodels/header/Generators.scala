@@ -52,8 +52,7 @@ object Generators {
       navigationClasses = navigationClasses,
       containerClasses = containerClasses,
       classes = classes,
-      attributes = attributes,
-      assetsPath = Some("assets/images")
+      attributes = attributes
     )
   }
 
