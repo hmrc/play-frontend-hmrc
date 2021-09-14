@@ -8,6 +8,26 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 For compatibility information see `govukFrontendVersion` and `hmrcFrontendVersion` in
 [LibDependencies](project/LibDependencies.scala)
 
+## [1.9.0] - 2021-09-14
+
+### Changed
+
+- Removed `govuk.routes` and associated Assets controller, all images now served from `hmrc-frontend` webjar
+- Removed `GovukHeaderIntegrationSpec` as no longer compatible with library assets path
+
+**Action required**:
+
+- Remove the following from your `routes` file in your service if present:
+```scala
+->         /govuk-frontend                                   govuk.Routes
+```
+- Failure to do so will result in a compilation error as `govuk.Routes` has been deleted.
+
+### Compatible with
+
+- [hmrc/hmrc-frontend v2.2.2](https://github.com/hmrc/hmrc-frontend/releases/tag/v2.2.2)
+- [alphagov/govuk-frontend v3.13.0](https://github.com/alphagov/govuk-frontend/releases/tag/v3.13.0)
+
 ## [1.8.0] - 2021-09-10
 
 ### Changed

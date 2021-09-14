@@ -14,7 +14,6 @@
  * limitations under the License.
  *@
 
-@import uk.gov.hmrc.govukfrontend.controllers.routes
 @import uk.gov.hmrc.govukfrontend.views.html.components._
 
 @this(govukHeader: GovukHeader, govukFooter: GovukFooter, govukSkipLink: GovukSkipLink)
@@ -68,6 +67,7 @@
 
     @skipLinkBlock.getOrElse {
       @govukSkipLink(SkipLink(
+
         href = "#main-content",
         content = Text(htmlLang match {
           case Some("cy") => "Ewch yn syth i‘r prif gynnwys"
