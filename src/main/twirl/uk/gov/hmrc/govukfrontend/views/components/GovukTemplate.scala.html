@@ -48,18 +48,18 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
     @headIcons.getOrElse {
-      <link rel="shortcut icon" sizes="16x16 32x32 48x48" href="@calculateImagePath(assetPath, "favicon.ico")" type="image/x-icon">
-      <link rel="mask-icon" href="@calculateImagePath(assetPath, "govuk-mask-icon.svg")" color="@themeColour.getOrElse {#0b0c0c}"> @* Hardcoded value of $govuk-black *@
-      <link rel="apple-touch-icon" sizes="180x180" href="@calculateImagePath(assetPath, "govuk-apple-touch-icon-180x180.png")">
-      <link rel="apple-touch-icon" sizes="167x167" href="@calculateImagePath(assetPath, "govuk-apple-touch-icon-167x167.png")">
-      <link rel="apple-touch-icon" sizes="152x152" href="@calculateImagePath(assetPath, "govuk-apple-touch-icon-152x152.png")">
-      <link rel="apple-touch-icon" href="@calculateImagePath(assetPath, "govuk-apple-touch-icon.png")">
+      <link rel="shortcut icon" sizes="16x16 32x32 48x48" href="@calculateGovukAssetPath(assetPath, "images/favicon.ico")" type="image/x-icon">
+      <link rel="mask-icon" href="@calculateGovukAssetPath(assetPath, "images/govuk-mask-icon.svg")" color="@themeColour.getOrElse {#0b0c0c}"> @* Hardcoded value of $govuk-black *@
+      <link rel="apple-touch-icon" sizes="180x180" href="@calculateGovukAssetPath(assetPath, "images/govuk-apple-touch-icon-180x180.png")">
+      <link rel="apple-touch-icon" sizes="167x167" href="@calculateGovukAssetPath(assetPath, "images/govuk-apple-touch-icon-167x167.png")">
+      <link rel="apple-touch-icon" sizes="152x152" href="@calculateGovukAssetPath(assetPath, "images/govuk-apple-touch-icon-152x152.png")">
+      <link rel="apple-touch-icon" href="@calculateGovukAssetPath(assetPath, "images/govuk-apple-touch-icon.png")">
     }
 
     @headBlock
     @* The default og:image is added below head so that scrapers see any custom metatags first, and this is just a fallback *@
     @* image url needs to be absolute e.g. http://wwww.domain.com/.../govuk-opengraph-image.png *@
-    <meta property="og:image" content="@calculateImagePath(assetPath, "govuk-opengraph-image.png")">
+    <meta property="og:image" content="@calculateGovukAssetPath(assetPath, "images/govuk-opengraph-image.png")">
   </head>
   <body class="govuk-template__body @bodyClasses">
     <script@cspNonce.map {n => nonce="@n"}>document.body.className = ((document.body.className) ? document.body.className + ' js-enabled' : 'js-enabled');</script>
