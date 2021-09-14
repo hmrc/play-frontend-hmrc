@@ -17,18 +17,10 @@
 package uk.gov.hmrc.govukfrontend.views
 package html
 
-import uk.gov.hmrc.govukfrontend.views.implicits.ImplicitConversions
-
 package object components extends Utils with Aliases {
 
   /**
     * Top-level implicits for all components
     */
   object implicits extends Implicits
-
-  /**
-    * Experimental, optional explicit conversions
-    */
-  object implicitConversions extends ImplicitConversions
-
 }
