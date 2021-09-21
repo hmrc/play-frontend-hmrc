@@ -1,26 +1,28 @@
+
 <h1 class="govuk-heading-xl">You have added 1 item</h1>
 <div class="govuk-form-group">
-  <dl class="hmrc-add-to-a-list hmrc-add-to-a-list--short">
-    
-    <div class="hmrc-add-to-a-list__contents">
-      <dt class="hmrc-add-to-a-list__identifier hmrc-add-to-a-list__identifier--light">
-        item one
-      </dt>
-      <dd class="hmrc-add-to-a-list__change">
-        <a class="govuk-link" href="#c1url">
-          <span aria-hidden="true">Change</span>
-          <span class="govuk-visually-hidden">Change item one</span>
+  <dl class="hmrc-list-with-actions hmrc-list-with-actions--short">
+  <div class="hmrc-list-with-actions__item">
+    <dt class="hmrc-list-with-actions__name">
+      item one
+    </dt>
+    <div class="hmrc-list-with-actions__actions">
+        <dd class="hmrc-list-with-actions__action">
+          <a class="govuk-link" href="#c1url">
+      <span aria-hidden="true">Change</span>
+              <span class="govuk-visually-hidden">Change item one</span>
         </a>
-      </dd>
-      <dd class="hmrc-add-to-a-list__remove">
-        <a class="govuk-link" href="#r1url">
-          <span aria-hidden="true">Remove</span>
-          <span class="govuk-visually-hidden">Remove item one from the list</span>
+        </dd>
+        <dd class="hmrc-list-with-actions__action">
+          <a class="govuk-link" href="#r1url">
+      <span aria-hidden="true">Remove</span>
+              <span class="govuk-visually-hidden">Remove item one from the list</span>
         </a>
-      </dd>
+        </dd>
     </div>
-    
-  </dl>
+  </div>
+</dl>
+
 </div>
 <form method="post" novalidate action="#addItem">
   

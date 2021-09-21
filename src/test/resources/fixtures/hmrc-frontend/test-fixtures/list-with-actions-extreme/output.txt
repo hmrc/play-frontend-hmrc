@@ -1,0 +1,382 @@
+<dl class="hmrc-list-with-actions">
+  <div class="hmrc-list-with-actions__item">
+    <dt class="hmrc-list-with-actions__name">
+      Barnaby Marmaduke Aloysius Benjy Cobweb Dartagnan Egbert Felix Gaspar Humbert Ignatius Jayden Kasper Leroy Maximilian Neddy Obiajulu Pepin Quilliam Rosencrantz Sexton Teddy Upwood Vivatma Wayland Xylon Yardley Zachary Usansky
+    </dt>
+    <div class="hmrc-list-with-actions__actions">
+        <dd class="hmrc-list-with-actions__action">
+          <a class="govuk-link" href="#">
+              Buy
+        </a>
+        </dd>
+        <dd class="hmrc-list-with-actions__action">
+          <a class="govuk-link" href="#">
+              Use
+        </a>
+        </dd>
+        <dd class="hmrc-list-with-actions__action">
+          <a class="govuk-link" href="#">
+              Break
+        </a>
+        </dd>
+        <dd class="hmrc-list-with-actions__action">
+          <a class="govuk-link" href="#">
+              Fix
+        </a>
+        </dd>
+        <dd class="hmrc-list-with-actions__action">
+          <a class="govuk-link" href="#">
+              Trash
+        </a>
+        </dd>
+        <dd class="hmrc-list-with-actions__action">
+          <a class="govuk-link" href="#">
+              Change
+        </a>
+        </dd>
+        <dd class="hmrc-list-with-actions__action">
+          <a class="govuk-link" href="#">
+              Mail
+        </a>
+        </dd>
+        <dd class="hmrc-list-with-actions__action">
+          <a class="govuk-link" href="#">
+              Upgrade
+        </a>
+        </dd>
+        <dd class="hmrc-list-with-actions__action">
+          <a class="govuk-link" href="#">
+              Charge
+        </a>
+        </dd>
+        <dd class="hmrc-list-with-actions__action">
+          <a class="govuk-link" href="#">
+              Point
+        </a>
+        </dd>
+        <dd class="hmrc-list-with-actions__action">
+          <a class="govuk-link" href="#">
+              Coom
+        </a>
+        </dd>
+        <dd class="hmrc-list-with-actions__action">
+          <a class="govuk-link" href="#">
+              Press
+        </a>
+        </dd>
+        <dd class="hmrc-list-with-actions__action">
+          <a class="govuk-link" href="#">
+              Snap
+        </a>
+        </dd>
+        <dd class="hmrc-list-with-actions__action">
+          <a class="govuk-link" href="#">
+              Work
+        </a>
+        </dd>
+        <dd class="hmrc-list-with-actions__action">
+          <a class="govuk-link" href="#">
+              Quick
+        </a>
+        </dd>
+        <dd class="hmrc-list-with-actions__action">
+          <a class="govuk-link" href="#">
+              Erase
+        </a>
+        </dd>
+    </div>
+  </div>
+  <div class="hmrc-list-with-actions__item">
+    <dt class="hmrc-list-with-actions__name">
+      <a class="govuk-link" href="https://cs.wikipedia.org/wiki/Llanfairpwllgwyngyllgogerychwyrndrobwllllantysiliogogogoch">https://cs.wikipedia.org/wiki/Llanfairpwllgwyngyllgogerychwyrndrobwllllantysiliogogogoch</a>
+
+    </dt>
+    <div class="hmrc-list-with-actions__actions">
+        <dd class="hmrc-list-with-actions__action">
+          <a class="govuk-link" href="#">
+      <span aria-hidden="true">Change</span>
+              <span class="govuk-visually-hidden">Change long website address</span>
+        </a>
+        </dd>
+    </div>
+  </div>
+  <div class="hmrc-list-with-actions__item">
+    <dt class="hmrc-list-with-actions__name">
+      <a class="govuk-link" href="mailto:info@llanfairpwllgwyngyllgogerychwyrndrobwllllantysiliogogogoch.com">webmaster@llanfairpwllgwyngyllgogerychwyrndrobwllllantysiliogogogoch.com</a>
+
+    </dt>
+    <div class="hmrc-list-with-actions__actions">
+        <dd class="hmrc-list-with-actions__action">
+          <a class="govuk-link" href="#">
+      <span aria-hidden="true">Change</span>
+              <span class="govuk-visually-hidden">Change long email address</span>
+        </a>
+        </dd>
+    </div>
+  </div>
+  <div class="hmrc-list-with-actions__item">
+    <dt class="hmrc-list-with-actions__name">
+      <p class="govuk-body" style="white-space: nowrap;">michelle.longish.name@example.com</p>
+
+    </dt>
+    <div class="hmrc-list-with-actions__actions">
+        <dd class="hmrc-list-with-actions__action">
+          <a class="govuk-link" href="#">
+      <span aria-hidden="true">Change</span>
+              <span class="govuk-visually-hidden">Change no wrapping allowed</span>
+        </a>
+        </dd>
+    </div>
+  </div>
+  <div class="hmrc-list-with-actions__item">
+    <dt class="hmrc-list-with-actions__name">
+      <p class="govuk-body">Pneumonoultramicroscopicsilicovolcanoconiosis is a word coined by the president of the National Puzzlers’ League as a synonym for the disease known as silicosis. It is the longest word in the English language published in a dictionary, the Oxford English Dictionary, which defines it as "an artificial long word said to mean a lung disease caused by inhaling very fine ash and sand dust."</p>
+<p class="govuk-body">Silicosis is a form of occupational lung disease caused by inhalation of crystalline silica dust, and is marked by inflammation and scarring in the form of nodular lesions in the upper lobes of the lungs. It is a type of pneumoconiosis.</p>
+
+    </dt>
+    <div class="hmrc-list-with-actions__actions">
+        <dd class="hmrc-list-with-actions__action">
+          <a class="govuk-link" href="#">
+              Write
+        </a>
+        </dd>
+        <dd class="hmrc-list-with-actions__action">
+          <a class="govuk-link" href="#">
+              Cut
+        </a>
+        </dd>
+        <dd class="hmrc-list-with-actions__action">
+          <a class="govuk-link" href="#">
+              Paste
+        </a>
+        </dd>
+        <dd class="hmrc-list-with-actions__action">
+          <a class="govuk-link" href="#">
+              Save
+        </a>
+        </dd>
+        <dd class="hmrc-list-with-actions__action">
+          <a class="govuk-link" href="#">
+              Load
+        </a>
+        </dd>
+        <dd class="hmrc-list-with-actions__action">
+          <a class="govuk-link" href="#">
+              Check
+        </a>
+        </dd>
+        <dd class="hmrc-list-with-actions__action">
+          <a class="govuk-link" href="#">
+              Quick
+        </a>
+        </dd>
+        <dd class="hmrc-list-with-actions__action">
+          <a class="govuk-link" href="#">
+              Rewrite
+        </a>
+        </dd>
+        <dd class="hmrc-list-with-actions__action">
+          <a class="govuk-link" href="#">
+              Plug
+        </a>
+        </dd>
+        <dd class="hmrc-list-with-actions__action">
+          <a class="govuk-link" href="#">
+              Play
+        </a>
+        </dd>
+        <dd class="hmrc-list-with-actions__action">
+          <a class="govuk-link" href="#">
+              Burn
+        </a>
+        </dd>
+        <dd class="hmrc-list-with-actions__action">
+          <a class="govuk-link" href="#">
+              Rip
+        </a>
+        </dd>
+        <dd class="hmrc-list-with-actions__action">
+          <a class="govuk-link" href="#">
+              Drag and drop
+        </a>
+        </dd>
+        <dd class="hmrc-list-with-actions__action">
+          <a class="govuk-link" href="#">
+              Zip
+        </a>
+        </dd>
+        <dd class="hmrc-list-with-actions__action">
+          <a class="govuk-link" href="#">
+              Unzip
+        </a>
+        </dd>
+        <dd class="hmrc-list-with-actions__action">
+          <a class="govuk-link" href="#">
+              Lock
+        </a>
+        </dd>
+        <dd class="hmrc-list-with-actions__action">
+          <a class="govuk-link" href="#">
+              Fill
+        </a>
+        </dd>
+        <dd class="hmrc-list-with-actions__action">
+          <a class="govuk-link" href="#">
+              Curl
+        </a>
+        </dd>
+        <dd class="hmrc-list-with-actions__action">
+          <a class="govuk-link" href="#">
+              Find
+        </a>
+        </dd>
+        <dd class="hmrc-list-with-actions__action">
+          <a class="govuk-link" href="#">
+              View
+        </a>
+        </dd>
+    </div>
+  </div>
+  <div class="hmrc-list-with-actions__item">
+    <dt class="hmrc-list-with-actions__name">
+      The Great Gatsby
+    </dt>
+    <div class="hmrc-list-with-actions__actions">
+        <dd class="hmrc-list-with-actions__action">
+          <a class="govuk-link" href="#">
+              Code
+        </a>
+        </dd>
+        <dd class="hmrc-list-with-actions__action">
+          <a class="govuk-link" href="#">
+              Jam
+        </a>
+        </dd>
+        <dd class="hmrc-list-with-actions__action">
+          <a class="govuk-link" href="#">
+              Unlock
+        </a>
+        </dd>
+        <dd class="hmrc-list-with-actions__action">
+          <a class="govuk-link" href="#">
+              Surf
+        </a>
+        </dd>
+        <dd class="hmrc-list-with-actions__action">
+          <a class="govuk-link" href="#">
+              Scroll
+        </a>
+        </dd>
+        <dd class="hmrc-list-with-actions__action">
+          <a class="govuk-link" href="#">
+              Pose
+        </a>
+        </dd>
+        <dd class="hmrc-list-with-actions__action">
+          <a class="govuk-link" href="#">
+              Click
+        </a>
+        </dd>
+        <dd class="hmrc-list-with-actions__action">
+          <a class="govuk-link" href="#">
+              Cross
+        </a>
+        </dd>
+        <dd class="hmrc-list-with-actions__action">
+          <a class="govuk-link" href="#">
+              Crack
+        </a>
+        </dd>
+        <dd class="hmrc-list-with-actions__action">
+          <a class="govuk-link" href="#">
+              Twitch
+        </a>
+        </dd>
+        <dd class="hmrc-list-with-actions__action">
+          <a class="govuk-link" href="#">
+              Update
+        </a>
+        </dd>
+        <dd class="hmrc-list-with-actions__action">
+          <a class="govuk-link" href="#">
+              Name
+        </a>
+        </dd>
+        <dd class="hmrc-list-with-actions__action">
+          <a class="govuk-link" href="#">
+              Read
+        </a>
+        </dd>
+        <dd class="hmrc-list-with-actions__action">
+          <a class="govuk-link" href="#">
+              Tune
+        </a>
+        </dd>
+        <dd class="hmrc-list-with-actions__action">
+          <a class="govuk-link" href="#">
+              Print
+        </a>
+        </dd>
+        <dd class="hmrc-list-with-actions__action">
+          <a class="govuk-link" href="#">
+              Scan
+        </a>
+        </dd>
+        <dd class="hmrc-list-with-actions__action">
+          <a class="govuk-link" href="#">
+              Send
+        </a>
+        </dd>
+        <dd class="hmrc-list-with-actions__action">
+          <a class="govuk-link" href="#">
+              Fax
+        </a>
+        </dd>
+        <dd class="hmrc-list-with-actions__action">
+          <a class="govuk-link" href="#">
+              Rename
+        </a>
+        </dd>
+        <dd class="hmrc-list-with-actions__action">
+          <a class="govuk-link" href="#">
+              Touch
+        </a>
+        </dd>
+        <dd class="hmrc-list-with-actions__action">
+          <a class="govuk-link" href="#">
+              Bring
+        </a>
+        </dd>
+        <dd class="hmrc-list-with-actions__action">
+          <a class="govuk-link" href="#">
+              Pay
+        </a>
+        </dd>
+        <dd class="hmrc-list-with-actions__action">
+          <a class="govuk-link" href="#">
+              Watch
+        </a>
+        </dd>
+        <dd class="hmrc-list-with-actions__action">
+          <a class="govuk-link" href="#">
+              Turn
+        </a>
+        </dd>
+        <dd class="hmrc-list-with-actions__action">
+          <a class="govuk-link" href="#">
+              Leave
+        </a>
+        </dd>
+        <dd class="hmrc-list-with-actions__action">
+          <a class="govuk-link" href="#">
+              Stop
+        </a>
+        </dd>
+        <dd class="hmrc-list-with-actions__action">
+          <a class="govuk-link" href="#">
+              Format
+        </a>
+        </dd>
+    </div>
+  </div>
+</dl>

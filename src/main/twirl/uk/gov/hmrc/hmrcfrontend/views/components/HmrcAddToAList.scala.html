@@ -24,8 +24,15 @@
 @import uk.gov.hmrc.hmrcfrontend.views.viewmodels.addtoalist.AddToAList
 @import uk.gov.hmrc.hmrcfrontend.views.viewmodels.addtoalist.ItemType
 @import uk.gov.hmrc.govukfrontend.views.html.components.{FormWithCSRF => PlayFrontendFormWithCSRF}
+@import uk.gov.hmrc.hmrcfrontend.views.viewmodels.listwithactions.{ListWithActions, ListWithActionsItem, ListWithActionsAction}
+@import uk.gov.hmrc.hmrcfrontend.views.html.components.HmrcListWithActions
 
-@this(govukRadios: GovukRadios, govukButton: GovukButton, formWithCsrf: PlayFrontendFormWithCSRF)
+@this(
+    govukRadios: GovukRadios,
+    govukButton: GovukButton,
+    formWithCsrf: PlayFrontendFormWithCSRF,
+    hmrcListWithActions: HmrcListWithActions
+)
 
 @(params: AddToAList)(implicit messages: Messages, request: RequestHeader)
 @import params._
@@ -56,39 +63,22 @@
     </h1>
 
     <div class="govuk-form-group">
-      <dl class="hmrc-add-to-a-list hmrc-add-to-a-list--@itemSize.suffix">
-      @for(item <- itemList) {
-        <div class="hmrc-add-to-a-list__contents">
-          <dt class="hmrc-add-to-a-list__identifier hmrc-add-to-a-list__identifier--light">
-          @item.name
-          </dt>
-          <dd class="hmrc-add-to-a-list__change">
-            <a class="govuk-link" href="@item.changeUrl">
-              <span aria-hidden="true">@language match {
-                case Cy => { Newid }
-                case _ => { Change }
-              }</span>
-              <span class="govuk-visually-hidden">@language match {
-                case Cy => { Newid @item.name}
-                case _ => { Change @item.name}
-              }</span>
-            </a>
-          </dd>
-          <dd class="hmrc-add-to-a-list__remove">
-            <a class="govuk-link" href="@item.removeUrl">
-              <span aria-hidden="true">@language match {
-                case Cy => { Dileu }
-                case _ => { Remove }
-              }</span>
-              <span class="govuk-visually-hidden">@language match {
-                case Cy => { Dileu’r @item.name o’r rhestr }
-                case _ => { Remove @item.name from the list }
-              }</span>
-            </a>
-          </dd>
-        </div>
-      }
-      </dl>
+      @hmrcListWithActions(ListWithActions(items = itemList map (item => ListWithActionsItem(
+        name = Text(item.name),
+        actions = Seq(
+            ListWithActionsAction(
+                content = Text(if (language == Cy) "Newid" else "Change"),
+                visuallyHiddenText = Some(if (language == Cy) s"Newid ${item.name}" else s"Change ${item.name}"),
+                href= item.changeUrl
+            ),
+            ListWithActionsAction(
+                content = Text(if (language == Cy) "Dileu" else "Remove"),
+                visuallyHiddenText = Some(if (language == Cy) s"Dileu’r ${item.name} o’r rhestr" else s"Remove ${item.name} from the list"),
+                href= item.removeUrl
+            )
+          ))),
+        classes = s"hmrc-list-with-actions--${itemSize.suffix}"
+      ))
     </div>
     @defining(params.formAction.getOrElse("")) { action =>
       @formWithCsrf(action = Call("post", action)) {

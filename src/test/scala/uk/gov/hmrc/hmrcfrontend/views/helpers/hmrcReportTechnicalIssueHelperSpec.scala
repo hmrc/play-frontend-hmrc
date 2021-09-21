@@ -36,7 +36,7 @@ class hmrcReportTechnicalIssueHelperSpec
 
   def buildApp(properties: Map[String, String] = Map.empty): Application =
     new GuiceApplicationBuilder()
-      .configure(Map("play.allowGlobalApplication" -> "true") ++ properties)
+      .configure(properties)
       .build()
 
   "HmrcReportTechnicalIssueHelper" should {

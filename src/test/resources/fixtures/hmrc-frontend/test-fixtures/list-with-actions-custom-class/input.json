@@ -1,0 +1,16 @@
+{
+  "classes" : "app-custom-class",
+  "items" : [ {
+    "name" : {
+      "text" : "Oranges"
+    }
+  }, {
+    "name" : {
+      "text" : "Apples"
+    }
+  }, {
+    "name" : {
+      "text" : "Pears"
+    }
+  } ]
+}

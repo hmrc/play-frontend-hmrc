@@ -1,0 +1,9 @@
+<dl class="hmrc-list-with-actions" data-attribute-1="value-1" data-attribute-2="value-2">
+  <div class="hmrc-list-with-actions__item">
+    <dt class="hmrc-list-with-actions__name">
+      Sydney Russell
+    </dt>
+    <div class="hmrc-list-with-actions__actions">
+    </div>
+  </div>
+</dl>

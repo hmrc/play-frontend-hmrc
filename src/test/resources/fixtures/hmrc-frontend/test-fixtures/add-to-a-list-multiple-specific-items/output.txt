@@ -1,43 +1,47 @@
+
 <h1 class="govuk-heading-xl">You have added 2 directors</h1>
 <div class="govuk-form-group">
-  <dl class="hmrc-add-to-a-list hmrc-add-to-a-list--short">
-    
-    <div class="hmrc-add-to-a-list__contents">
-      <dt class="hmrc-add-to-a-list__identifier hmrc-add-to-a-list__identifier--light">
-        Director One
-      </dt>
-      <dd class="hmrc-add-to-a-list__change">
-        <a class="govuk-link" href="#change-item-1">
-          <span aria-hidden="true">Change</span>
-          <span class="govuk-visually-hidden">Change Director One</span>
+  <dl class="hmrc-list-with-actions hmrc-list-with-actions--short">
+  <div class="hmrc-list-with-actions__item">
+    <dt class="hmrc-list-with-actions__name">
+      Director One
+    </dt>
+    <div class="hmrc-list-with-actions__actions">
+        <dd class="hmrc-list-with-actions__action">
+          <a class="govuk-link" href="#change-item-1">
+      <span aria-hidden="true">Change</span>
+              <span class="govuk-visually-hidden">Change Director One</span>
         </a>
-      </dd>
-      <dd class="hmrc-add-to-a-list__remove">
-        <a class="govuk-link" href="#remove-item-1">
-          <span aria-hidden="true">Remove</span>
-          <span class="govuk-visually-hidden">Remove Director One from the list</span>
+        </dd>
+        <dd class="hmrc-list-with-actions__action">
+          <a class="govuk-link" href="#remove-item-1">
+      <span aria-hidden="true">Remove</span>
+              <span class="govuk-visually-hidden">Remove Director One from the list</span>
         </a>
-      </dd>
+        </dd>
     </div>
-    <div class="hmrc-add-to-a-list__contents">
-      <dt class="hmrc-add-to-a-list__identifier hmrc-add-to-a-list__identifier--light">
-        Director Two
-      </dt>
-      <dd class="hmrc-add-to-a-list__change">
-        <a class="govuk-link" href="#change-item-2">
-          <span aria-hidden="true">Change</span>
-          <span class="govuk-visually-hidden">Change Director Two</span>
+  </div>
+  <div class="hmrc-list-with-actions__item">
+    <dt class="hmrc-list-with-actions__name">
+      Director Two
+    </dt>
+    <div class="hmrc-list-with-actions__actions">
+        <dd class="hmrc-list-with-actions__action">
+          <a class="govuk-link" href="#change-item-2">
+      <span aria-hidden="true">Change</span>
+              <span class="govuk-visually-hidden">Change Director Two</span>
         </a>
-      </dd>
-      <dd class="hmrc-add-to-a-list__remove">
-        <a class="govuk-link" href="#remove-item-2">
-          <span aria-hidden="true">Remove</span>
-          <span class="govuk-visually-hidden">Remove Director Two from the list</span>
+        </dd>
+        <dd class="hmrc-list-with-actions__action">
+          <a class="govuk-link" href="#remove-item-2">
+      <span aria-hidden="true">Remove</span>
+              <span class="govuk-visually-hidden">Remove Director Two from the list</span>
         </a>
-      </dd>
+        </dd>
     </div>
-    
-  </dl>
+  </div>
+</dl>
+
 </div>
 <form method="post" novalidate action="#add-director">
   

@@ -1,0 +1,53 @@
+<dl class="hmrc-list-with-actions">
+  <div class="hmrc-list-with-actions__item">
+    <dt class="hmrc-list-with-actions__name">
+      Oranges
+    </dt>
+    <div class="hmrc-list-with-actions__actions">
+        <dd class="hmrc-list-with-actions__action">
+          <a class="govuk-link" href="#">
+      <span aria-hidden="true">Edit</span>
+              <span class="govuk-visually-hidden">Edit Oranges</span>
+        </a>
+        </dd>
+        <dd class="hmrc-list-with-actions__action">
+          <a class="govuk-link" href="#">
+      <span aria-hidden="true">Delete</span>
+              <span class="govuk-visually-hidden">Delete Oranges</span>
+        </a>
+        </dd>
+    </div>
+  </div>
+  <div class="hmrc-list-with-actions__item">
+    <dt class="hmrc-list-with-actions__name">
+      Apples
+    </dt>
+    <div class="hmrc-list-with-actions__actions">
+        <dd class="hmrc-list-with-actions__action">
+          <a class="govuk-link" href="#">
+      <span aria-hidden="true">Change</span>
+              <span class="govuk-visually-hidden">Change Apples</span>
+        </a>
+        </dd>
+    </div>
+  </div>
+  <div class="hmrc-list-with-actions__item">
+    <dt class="hmrc-list-with-actions__name">
+      Pears
+    </dt>
+    <div class="hmrc-list-with-actions__actions">
+        <dd class="hmrc-list-with-actions__action">
+          <a class="govuk-link" href="#">
+      <span aria-hidden="true">Edit</span>
+              <span class="govuk-visually-hidden">Edit Pears</span>
+        </a>
+        </dd>
+        <dd class="hmrc-list-with-actions__action">
+          <a class="govuk-link" href="#">
+      <span aria-hidden="true">Change</span>
+              <span class="govuk-visually-hidden">Change Pears</span>
+        </a>
+        </dd>
+    </div>
+  </div>
+</dl>
