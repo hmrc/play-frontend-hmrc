@@ -1,0 +1,63 @@
+@*
+ * Copyright 2021 HM Revenue & Customs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *@
+
+@import uk.gov.hmrc.hmrcfrontend.views.viewmodels.listwithactions.ListWithActions
+@import uk.gov.hmrc.hmrcfrontend.views.viewmodels.listwithactions.ListWithActionsAction
+@import uk.gov.hmrc.govukfrontend.views.viewmodels.content.NonEmptyHtml
+
+@this()
+
+@(params: ListWithActions)
+@import params._
+@if(items.nonEmpty) {
+    <dl class="@toClasses("hmrc-list-with-actions", classes)" @toAttributes(attributes)>
+    @for(item <- items) {
+        <div class="hmrc-list-with-actions__item">
+            <dt class="hmrc-list-with-actions__name">
+            @item.name.asHtml
+            </dt>
+            <div class="hmrc-list-with-actions__actions">
+            @for(action <- item.actions) {
+                <dd class="hmrc-list-with-actions__action">
+                @actionLink(action)
+                </dd>
+            }
+            </div>
+        </div>
+    }
+    </dl>
+}
+
+@actionLink(action: ListWithActionsAction) = {
+    <a class="@toClasses("govuk-link", action.classes)" href="@action.href" @toAttributes(action.attributes)> @actionContent(action)</a>
+}
+
+@actionContent(action: ListWithActionsAction) = {
+    @action.content match {
+        case NonEmptyHtml(html) => {@html}
+        case _ => {
+            @action.visuallyHiddenText match {
+                case Some(NonEmptyString(visuallyHiddenText)) => {
+                    <span aria-hidden="true">@action.content.asHtml</span>
+                    <span class="govuk-visually-hidden">@visuallyHiddenText</span>
+                }
+                case _ => {
+                    @action.content.asHtml
+                }
+            }
+        }
+    }
+}

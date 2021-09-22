@@ -39,9 +39,6 @@ class hmrcStandardFooterSpec extends AnyWordSpecLike with Matchers with Messages
 
   implicit val fakeRequest: FakeRequest[AnyContentAsEmpty.type] = FakeRequest("GET", "/foo")
 
-  override def fakeApplication(): Application                            =
-    new GuiceApplicationBuilder().configure(Map("play.allowGlobalApplication" -> "true")).build()
-
   def buildApp(properties: Map[String, String] = Map.empty): Application =
     new GuiceApplicationBuilder()
       .configure(Map("play.i18n.langs" -> List("en", "cy")) ++ properties)

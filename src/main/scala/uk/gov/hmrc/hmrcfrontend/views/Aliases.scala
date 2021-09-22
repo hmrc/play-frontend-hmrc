@@ -107,6 +107,15 @@ trait Aliases {
 
   type Event = viewmodels.timeline.Event
   val Event = viewmodels.timeline.Event
+
+  type ListWithActions = viewmodels.listwithactions.ListWithActions
+  val ListWithActions = viewmodels.listwithactions.ListWithActions
+
+  type ListWithActionsItem = viewmodels.listwithactions.ListWithActionsItem
+  val ListWithActionsItem = viewmodels.listwithactions.ListWithActionsItem
+
+  type ListWithActionsAction = viewmodels.listwithactions.ListWithActionsAction
+  val ListWithActionsAction = viewmodels.listwithactions.ListWithActionsAction
 }
 
 object Aliases extends Aliases

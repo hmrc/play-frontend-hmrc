@@ -1,0 +1,23 @@
+<dl class="hmrc-list-with-actions app-custom-class">
+  <div class="hmrc-list-with-actions__item">
+    <dt class="hmrc-list-with-actions__name">
+      Oranges
+    </dt>
+    <div class="hmrc-list-with-actions__actions">
+    </div>
+  </div>
+  <div class="hmrc-list-with-actions__item">
+    <dt class="hmrc-list-with-actions__name">
+      Apples
+    </dt>
+    <div class="hmrc-list-with-actions__actions">
+    </div>
+  </div>
+  <div class="hmrc-list-with-actions__item">
+    <dt class="hmrc-list-with-actions__name">
+      Pears
+    </dt>
+    <div class="hmrc-list-with-actions__actions">
+    </div>
+  </div>
+</dl>

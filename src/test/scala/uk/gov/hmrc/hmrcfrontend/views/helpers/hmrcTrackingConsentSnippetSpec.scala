@@ -37,7 +37,6 @@ class TrackingConsentSnippetSpec
     new GuiceApplicationBuilder()
       .configure(
         Map(
-          "play.allowGlobalApplication"             -> "true",
           "optimizely.url"                          -> "https://cdn.optimizely.com/",
           "optimizely.projectId"                    -> "1234567",
           "tracking-consent-frontend.gtm.container" -> "d"

@@ -1,0 +1,29 @@
+{
+  "items" : [ {
+    "name" : {
+      "text" : "Sydney Russell"
+    },
+    "actions" : [ {
+      "href" : "#c1url",
+      "text" : "Change",
+      "visuallyHiddenText" : "Change Sydney Russell"
+    }, {
+      "href" : "#r1url",
+      "text" : "Remove",
+      "visuallyHiddenText" : "Remove Sydney Russell from the list"
+    } ]
+  }, {
+    "name" : {
+      "text" : "Michael Cain"
+    },
+    "actions" : [ {
+      "href" : "#c2url",
+      "text" : "Change",
+      "visuallyHiddenText" : "Change Michael Cain"
+    }, {
+      "href" : "#r2url",
+      "text" : "Remove",
+      "visuallyHiddenText" : "Remove Michael Cain from the list"
+    } ]
+  } ]
+}
