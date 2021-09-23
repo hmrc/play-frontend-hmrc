@@ -87,14 +87,7 @@
 
         @if(serviceName.exists(_.nonEmpty) || signOutHref.exists(_.nonEmpty) || (navigation.getOrElse(Seq.empty).nonEmpty) || languageToggle.exists(_.linkMap.nonEmpty)) {
         <div class="govuk-header__content">
-          @serviceName match {
-          case Some(NonEmptyString(x)) => {
-          <a href="@serviceUrl" class="govuk-header__link govuk-header__link--service-name">
-            @x
-          </a>
-          }
-          case _ => {}
-          }
+          @serviceNameLinkOrSpan(serviceName, serviceUrl)
 
           @if(navigation.getOrElse(Seq.empty).nonEmpty) {
           <button type="button" class="govuk-header__menu-button govuk-js-header-toggle"
@@ -161,3 +154,15 @@
       </div>
     }
 </header>
+
+@serviceNameLinkOrSpan(serviceName: Option[String], serviceUrl: String) = {
+  @serviceName match {
+    case Some(NonEmptyString(s)) => {
+      @serviceUrl match {
+        case NonEmptyString(_) => { <a href="@serviceUrl" class="hmrc-header__service-name hmrc-header__service-name--linked">@s</a> }
+        case _ => { <span class="hmrc-header__service-name ">@s</span> }
+      }
+    }
+    case _ => {}
+  }
+}
