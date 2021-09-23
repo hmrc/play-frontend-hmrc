@@ -27,9 +27,9 @@
         </a>
       </div>
       <div class="govuk-header__content">
-      <a href="" class="govuk-header__link govuk-header__link--service-name">
-        Gwasanaeth enghreifftiol
-      </a>
+        <span  class="hmrc-header__service-name ">
+          Gwasanaeth enghreifftiol
+        </span>
 
           <nav class="hmrc-sign-out-nav">
             <a class="govuk-link hmrc-sign-out-nav__link" href="/sign-out">

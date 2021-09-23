@@ -8,6 +8,17 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 For compatibility information see `govukFrontendVersion` and `hmrcFrontendVersion` in
 [LibDependencies](project/LibDependencies.scala)
 
+## [1.12.0] - 2021-09-23
+
+### Changed
+
+- hmrcHeader to render service name in a span when no service url is provided
+
+### Compatible with
+
+- [hmrc/hmrc-frontend v2.4.0](https://github.com/hmrc/hmrc-frontend/releases/tag/v2.4.0)
+- [alphagov/govuk-frontend v3.13.0](https://github.com/alphagov/govuk-frontend/releases/tag/v3.13.0)
+
 ## [1.11.0] - 2021-09-21
 
 ### Added
