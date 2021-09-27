@@ -26,7 +26,8 @@
   signOutUrl: Option[String] = None,
   userResearchBanner: Option[UserResearchBanner] = None,
   phaseBanner: Option[PhaseBanner] = None,
-  displayHmrcBanner: Boolean = false
+  displayHmrcBanner: Boolean = false,
+  additionalBannersBlock: Option[Html] = None
 )(implicit messages: Messages, request: RequestHeader)
 @defining("service.name") { serviceNameKey =>
   @defining(if(messages.isDefinedAt(serviceNameKey)) Some(messages(serviceNameKey)) else None) { serviceNameFromMessages =>
@@ -39,7 +40,8 @@
       assetsPath = uk.gov.hmrc.hmrcfrontend.controllers.routes.Assets.at("govuk/images").url,
       userResearchBanner = userResearchBanner,
       phaseBanner = phaseBanner,
-      displayHmrcBanner = displayHmrcBanner
+      displayHmrcBanner = displayHmrcBanner,
+      additionalBannersBlock = additionalBannersBlock
     ))
   }
 }

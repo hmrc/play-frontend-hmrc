@@ -27,19 +27,21 @@
         </a>
       </div>
       <div class="govuk-header__content">
-      <button type="button" class="govuk-header__menu-button govuk-js-header-toggle" aria-controls="navigation" aria-label="Show or hide Top Level Navigation">Menu</button>
-      <nav>
-        <ul id="navigation" class="govuk-header__navigation " aria-label="Top Level Navigation">
-              <li class="govuk-header__navigation-item">
-                <a class="govuk-header__link" href="ydwpqssxtha">
-                  Should be displayed
-                </a>
-              </li>
-        </ul>
-      </nav>
+        <span  class="hmrc-header__service-name ">
+          Service with HMRC Banner and an additional one
+        </span>
 
       </div>
     </div>
   </div>
-  
+    <div class="govuk-width-container">
+      <div class="hmrc-banner">
+  <div class="hmrc-organisation-logo">
+    <p class="govuk-body-s">        HM Revenue &amp; Customs
+</p>
+  </div>
+</div>
+
+    </div>
+  <div class="custom-banner govuk-body">for example an attorney banner</div>
 </header>

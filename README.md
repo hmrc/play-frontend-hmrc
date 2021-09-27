@@ -336,6 +336,7 @@ To use this component,
    | `nonce`                       | This will be bound to hmrcHead, hmrcScripts and govukTemplate     |                                                           |
    | `mainContentLayout`           | Passing value will override the default two thirds layout         |                                                           |
    | `serviceName`                 | Pass a value only if your service has a dynamic service name      |                                                           |
+   | `additionalBannersBlock`      | Pass extra html into the header, intended for custom banners.     | Some(attorneyBanner)                                      |
 
 #### HmrcPageHeadingLabel and HmrcPageHeadingLegend
 

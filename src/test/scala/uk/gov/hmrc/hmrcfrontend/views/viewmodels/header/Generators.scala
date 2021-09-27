@@ -60,22 +60,23 @@ object Generators {
 
   implicit val arbHeader: Arbitrary[Header] = Arbitrary {
     for {
-      homepageUrl        <- genAlphaStr()
-      assetsPath         <- genAlphaStr()
-      productName        <- Gen.option(genAlphaStr())
-      serviceName        <- Gen.option(genAlphaStr())
-      serviceUrl         <- genAlphaStr()
-      navigation         <- Gen.option(genNavigationItems())
-      navigationClasses  <- genAlphaStr()
-      containerClasses   <- genAlphaStr()
-      classes            <- genAlphaStr()
-      attributes         <- genAttributes()
-      language           <- arbLanguage.arbitrary
-      displayHmrcBanner  <- arbBool.arbitrary
-      signOutHref        <- Gen.option(genAlphaStr())
-      languageToggle     <- Gen.option(arbLanguageToggle.arbitrary)
-      phaseBanner        <- Gen.option(arbPhaseBanner.arbitrary)
-      userResearchBanner <- Gen.option(arbUserResearchBanner.arbitrary)
+      homepageUrl            <- genAlphaStr()
+      assetsPath             <- genAlphaStr()
+      productName            <- Gen.option(genAlphaStr())
+      serviceName            <- Gen.option(genAlphaStr())
+      serviceUrl             <- genAlphaStr()
+      navigation             <- Gen.option(genNavigationItems())
+      navigationClasses      <- genAlphaStr()
+      containerClasses       <- genAlphaStr()
+      classes                <- genAlphaStr()
+      attributes             <- genAttributes()
+      language               <- arbLanguage.arbitrary
+      displayHmrcBanner      <- arbBool.arbitrary
+      signOutHref            <- Gen.option(genAlphaStr())
+      languageToggle         <- Gen.option(arbLanguageToggle.arbitrary)
+      phaseBanner            <- Gen.option(arbPhaseBanner.arbitrary)
+      userResearchBanner     <- Gen.option(arbUserResearchBanner.arbitrary)
+      additionalBannersBlock <- Gen.option(arbHtml.arbitrary)
     } yield Header(
       homepageUrl = homepageUrl,
       assetsPath = assetsPath,
@@ -92,7 +93,8 @@ object Generators {
       signOutHref = signOutHref,
       inputLanguageToggle = languageToggle,
       phaseBanner = phaseBanner,
-      userResearchBanner = userResearchBanner
+      userResearchBanner = userResearchBanner,
+      additionalBannersBlock = additionalBannersBlock
     )
   }
 }
