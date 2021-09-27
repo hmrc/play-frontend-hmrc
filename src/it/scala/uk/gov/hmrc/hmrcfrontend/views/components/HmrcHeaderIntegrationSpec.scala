@@ -52,5 +52,6 @@ object HmrcHeaderIntegrationSpec
       (header.displayHmrcBanner, "displayHmrcBanner true", "displayHmrcBanner false") #::
       (header.signOutHref.isEmpty, "empty signOutHref", "non-empty signOutHref") #::
       (header.signOutHref.exists(_.length > 10), "long signOutHref", "short signOutHref") #::
+      (header.additionalBannersBlock.isEmpty, "no additional banners", "with additional banners") #::
       Stream.empty[ClassifyParams]
 }

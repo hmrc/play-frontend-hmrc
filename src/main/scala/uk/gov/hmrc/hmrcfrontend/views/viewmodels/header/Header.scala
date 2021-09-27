@@ -18,6 +18,8 @@ package uk.gov.hmrc.hmrcfrontend.views.viewmodels.header
 
 import play.api.libs.functional.syntax._
 import play.api.libs.json._
+import play.twirl.api.Html
+import uk.gov.hmrc.govukfrontend.views.viewmodels.CommonJsonFormats.{htmlReads, htmlWrites}
 import uk.gov.hmrc.govukfrontend.views.viewmodels.phasebanner.PhaseBanner
 import uk.gov.hmrc.hmrcfrontend.views.viewmodels.language.{Cy, En, Language, LanguageToggle}
 import uk.gov.hmrc.hmrcfrontend.views.viewmodels.userresearchbanner.UserResearchBanner
@@ -40,7 +42,8 @@ case class Header(
   signOutHref: Option[String] = None,
   private val inputLanguageToggle: Option[LanguageToggle] = None,
   userResearchBanner: Option[UserResearchBanner] = None,
-  phaseBanner: Option[PhaseBanner] = None
+  phaseBanner: Option[PhaseBanner] = None,
+  additionalBannersBlock: Option[Html] = None
 ) {
 
   // We use this method instead of using the input language toggle directly
@@ -77,7 +80,8 @@ object Header {
         (__ \ "signOutHref").readNullable[String] and
         (__ \ "languageToggle").readNullable[LanguageToggle] and
         (__ \ "userResearchBanner").readNullable[UserResearchBanner] and
-        (__ \ "phaseBanner").readNullable[PhaseBanner]
+        (__ \ "phaseBanner").readNullable[PhaseBanner] and
+        (__ \ "additionalBannersBlock").readNullable[Html]
     )(Header.apply _)
 
   implicit def jsonWrites: OWrites[Header] =
@@ -97,6 +101,7 @@ object Header {
         (__ \ "signOutHref").writeNullable[String] and
         (__ \ "languageToggle").writeNullable[LanguageToggle] and
         (__ \ "userResearchBanner").writeNullable[UserResearchBanner] and
-        (__ \ "phaseBanner").writeNullable[PhaseBanner]
+        (__ \ "phaseBanner").writeNullable[PhaseBanner] and
+        (__ \ "additionalBannersBlock").writeNullable[Html]
     )(header => unlift(Header.unapply)(header.copy(inputLanguageToggle = header.languageToggle)))
 }

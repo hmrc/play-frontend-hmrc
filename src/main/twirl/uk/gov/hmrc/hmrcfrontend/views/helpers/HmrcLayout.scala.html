@@ -53,7 +53,8 @@
         additionalScriptsBlock: Option[Html] = None,
         beforeContentBlock: Option[Html] = None,
         nonce: Option[String] = None,
-        mainContentLayout: Option[Html => Html] = Some(defaultMainContent(_))
+        mainContentLayout: Option[Html => Html] = Some(defaultMainContent(_)),
+        additionalBannersBlock: Option[Html] = None
 )(contentBlock: Html)(implicit request: RequestHeader, messages: Messages)
 
 @headerBlock = {
@@ -63,7 +64,8 @@
         serviceName = serviceName,
         userResearchBanner = userResearchBannerUrl.map(url => UserResearchBanner(url = url)),
         phaseBanner = phaseBanner,
-        displayHmrcBanner = displayHmrcBanner
+        displayHmrcBanner = displayHmrcBanner,
+        additionalBannersBlock = additionalBannersBlock
     )
 }
 
