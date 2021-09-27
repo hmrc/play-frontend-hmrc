@@ -21,6 +21,7 @@ of implementing frontend microservices straightforward and idiomatic for Scala d
 - [Integrating with tracking consent](#integrating-with-tracking-consent)
 - [Warning users before timing them out](#warning-users-before-timing-them-out)
 - [Display a caption above a page heading label or legend](#hmrcpageheadinglabel-and-hmrcpageheadinglegend)
+- [Adding a sidebar to your Layout](#adding-a-sidebar-to-your-layout)
 - [Adding your own SASS compilation pipeline](#adding-your-own-sass-compilation-pipeline)
 - [Play Framework and Scala compatibility notes](#play-framework-and-scala-compatibility-notes)
 - [Getting help](#getting-help)
@@ -380,6 +381,67 @@ For example, how you could use HmrcPageHeadingLegend with govukRadios:
     )
   }).withFormField(myForm("whereDoYouLive")))
 ```
+
+### Adding a sidebar to your Layout
+
+The `HmrcLayout` by default renders the main `contentBlock` of the page in
+[two thirds width content](https://design-system.service.gov.uk/styles/layout/).
+
+However, if you wish to override the styling of the main content, you can do so by passing in an optional `mainContentLayout`
+parameter of type `Option[Html => Html]`, which will apply wrapping content around your `contentBlock`.
+
+If you wish to create a layout with [two thirds, one third styling](https://design-system.service.gov.uk/styles/layout/)
+(for example if your page has a sidebar), there is a helper `TwoThirdsOneThirdMainContent.scala.html` which can be used
+as follows:
+
+```html
+@import uk.gov.hmrc.hmrcfrontend.views.html.helpers.HmrcLayout
+@import uk.gov.hmrc.govukfrontend.views.html.components.TwoThirdsOneThirdMainContent
+@import views.html.helper.CSPNonce
+
+@this(
+    hmrcLayout: HmrcLayout,
+    twoThirdsOneThirdMainContent: TwoThirdsOneThirdMainContent
+)
+
+@(pageTitle: String, isWelshTranslationAvailable: Boolean = true)(contentBlock: Html)(implicit request: RequestHeader, messages: Messages)
+
+@sidebar = {
+  <h2 class="govuk-heading-xl">This is my sidebar</h2>
+  <p class="govuk-body">There is my sidebar content</p>
+}
+
+@hmrcLayout(
+  pageTitle = Some(pageTitle),
+  nonce = CSPNonce.get,
+  isWelshTranslationAvailable = isWelshTranslationAvailable,
+  displayHmrcBanner = true,
+  mainContentLayout = Some(twoThirdsOneThirdMainContent(sidebar))
+)(contentBlock)
+
+```
+
+Alternatively, you can declare any template and pass it through as a function or partially applied function that has the
+signature `Html => Html`.
+
+For example, you  can add a template `WithSidebarOnLeft.scala.html` as below:
+
+```html
+@this()
+
+@(sidebarContent: Html)(mainContent: Html)
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-one-third">
+        @sidebarContent
+    </div>
+    <div class="govuk-grid-column-two-thirds">
+      @mainContent
+    </div>
+</div>
+```
+
+You can then inject this into your `Layout.scala.html` and partially apply the function as above.
 
 ### Example Templates
 
