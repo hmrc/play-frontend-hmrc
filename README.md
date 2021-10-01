@@ -24,6 +24,7 @@ of implementing frontend microservices straightforward and idiomatic for Scala d
 - [Adding a sidebar to your Layout](#adding-a-sidebar-to-your-layout)
 - [Adding your own SASS compilation pipeline](#adding-your-own-sass-compilation-pipeline)
 - [Play Framework and Scala compatibility notes](#play-framework-and-scala-compatibility-notes)
+- [Troubleshooting](#troubleshooting)  
 - [Getting help](#getting-help)
 - [Useful links](#useful-links)
 - [Owning team readme](#owning-team-readme)
@@ -50,6 +51,8 @@ of implementing frontend microservices straightforward and idiomatic for Scala d
    serviceName into `hmrcLayout` or `hmrcStandardHeader`.
 
 1. Create a layout template for your pages using [HMRC layout](#hmrc-layout)
+
+1. Problems with styling? Check our [Troubleshooing](#troubleshooting) section.
 
 ## Using the components
 
@@ -628,13 +631,22 @@ This library is currently compatible with:
 * Scala 2.12
 * Play 2.6, Play 2.7, Play 2.8
 
-### Example Templates
+## Example Templates
 
 We provide example templates using the Twirl components through a `Chrome` extension. Please refer to the
 [extension's github repository](https://github.com/hmrc/play-frontend-govuk-extension) for installation instructions.
 
 With the extension installed, you should be able to go to the [GOV.UK Design System](https://design-system.service.gov.uk/components/),
 click on a component on the sidebar and see the `Twirl` examples matching the provided `Nunjucks` templates.
+
+## Troubleshooting
+
+If you are adding HTML elements to your page such as `<h1>` or `<p>`, you will need to add the CSS classes for the [GDS
+Transport fonts](https://design-system.service.gov.uk/styles/typography/) from the GOV.UK Design System. A full list of 
+the CSS classes can be found at https://design-system.service.gov.uk/styles/typography/.
+
+These styles have been applied to the component supplied in `play-frontend-hmrc`, but you will need to manually add the 
+styles to your service's own HTML elements. 
 
 ## Getting help
 
