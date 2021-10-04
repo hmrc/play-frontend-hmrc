@@ -52,7 +52,7 @@ of implementing frontend microservices straightforward and idiomatic for Scala d
 
 1. Create a layout template for your pages using [HMRC layout](#hmrc-layout)
 
-1. Problems with styling? Check our [Troubleshooing](#troubleshooting) section.
+1. Problems with styling? Check our [Troubleshooting](#troubleshooting) section.
 
 ## Using the components
 
