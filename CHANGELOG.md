@@ -8,6 +8,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 For compatibility information see `govukFrontendVersion` and `hmrcFrontendVersion` in
 [LibDependencies](project/LibDependencies.scala)
 
+## [1.17.0] - 2021-10-05
+
+### Changed
+
+- Added `HmrcNewTabLinkHelper` and associated viewmodel `NewTabLinkHelper` so that services can add a link to a new tab
+which uses an implicit `Messages` for internationalization, rather than having to pass in an explicit string representing 
+a language code.
+
 ## [1.16.0] - 2021-10-04
 
 ### Changed

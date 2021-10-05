@@ -16,6 +16,7 @@ of implementing frontend microservices straightforward and idiomatic for Scala d
 - [Useful implicits](#useful-implicits)
 - [Using the HMRC layout](#using-the-hmrc-layout)
 - [Helping users report technical issues](#helping-users-report-technical-issues)
+- [Opening links in a new tab](#opening-links-in-a-new-tab)
 - [Accessibility statement links](#accessibility-statement-links)
 - [CharacterCount with Welsh language support](#charactercount-with-welsh-language-support)
 - [Integrating with tracking consent](#integrating-with-tracking-consent)
@@ -482,12 +483,32 @@ or whitespace.
 The component should be added to the bottom of each page in your service. This can be done by defining a reusable block 
 in your layout template and passing into `hmrcLayout` or `govukLayout` in place of contentBlock:
 
-    ```scala
     @content = {
       @contentBlock
       @hmrcReportTechnicalIssueHelper()
     }
-    ```
+
+## Opening links in a new tab
+
+The [HmrcNewTabLinkHelper](src/main/twirl/uk/gov/hmrc/hmrcfrontend/views/helpers/HmrcNewTabLinkHelper.scala.html) component
+allows you to link to content that opens in a new tab, with protection against reverse tabnapping. It takes in an implicit
+`Messages` parameter to translate the content `(opens in a new tab)`.
+
+It is a wrapper around the `HmrcNewTabLink`, however this helper means that services do not need to explicitly pass in a
+language for internationalization of the link text.
+
+It can be used as follows:
+
+    import uk.gov.hmrc.hmrcfrontend.views.html.helpers.HmrcNewTabLinkHelper
+    import uk.gov.hmrc.hmrcfrontend.views.viewmodels.newtablinkhelper.NewTabLinkHelper
+
+    @this(hmrcNewTabLinkHelper: HmrcNewTabLinkHelper)
+    @(linkText: String, linkHref: String)(implicit messages: Messages)
+
+    @hmrcNewTabLinkHelper(NewTabLinkHelper(
+      text = linkText,
+      href = Some(linkHref)
+    ))
 
 ## Accessibility statement links
 
