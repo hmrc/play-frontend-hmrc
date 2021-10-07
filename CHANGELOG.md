@@ -8,6 +8,17 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 For compatibility information see `govukFrontendVersion` and `hmrcFrontendVersion` in
 [LibDependencies](project/LibDependencies.scala)
 
+## [1.19.0] - 2021-10-07
+
+### Fixed
+
+- Updated version of hmrc-frontend to 2.7.0 which has a fix for timeout dialog navigation issues for screen readers
+
+### Compatible with
+
+- [hmrc/hmrc-frontend v2.7.0](https://github.com/hmrc/hmrc-frontend/releases/tag/v2.7.0)
+- [alphagov/govuk-frontend v3.13.0](https://github.com/alphagov/govuk-frontend/releases/tag/v3.13.0)
+
 ## [1.18.0] - 2021-10-07
 
 ### Fixed
