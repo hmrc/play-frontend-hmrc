@@ -8,35 +8,54 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 For compatibility information see `govukFrontendVersion` and `hmrcFrontendVersion` in
 [LibDependencies](project/LibDependencies.scala)
 
+## [1.18.0] - 2021-10-07
+
+### Fixed
+
+- Updated `HmrcReportTechnicalIssue` component to include `rel="noreferrer noopener"` to guard against reverse 
+tabnapping.
+- Fixed use of unsafe `.get` on optional `language` parameter in `HmrcNewTabLink`  
+
+### Compatible with
+
+- [hmrc/hmrc-frontend v2.6.0](https://github.com/hmrc/hmrc-frontend/releases/tag/v2.6.0)
+- [alphagov/govuk-frontend v3.13.0](https://github.com/alphagov/govuk-frontend/releases/tag/v3.13.0)
+
+
 ## [1.17.0] - 2021-10-05
 
-### Changed
+### Added
 
 - Added `HmrcNewTabLinkHelper` and associated viewmodel `NewTabLinkHelper` so that services can add a link to a new tab
 which uses an implicit `Messages` for internationalization, rather than having to pass in an explicit string representing 
 a language code.
 
+### Compatible with
+
+- [hmrc/hmrc-frontend v2.5.0](https://github.com/hmrc/hmrc-frontend/releases/tag/v2.5.0)
+- [alphagov/govuk-frontend v3.13.0](https://github.com/alphagov/govuk-frontend/releases/tag/v3.13.0)
+
 ## [1.16.0] - 2021-10-04
 
-### Changed
+### Fixed
 
 - Fixed typo in `README.md`
 
 ### Compatible with
 
-- [hmrc/hmrc-frontend v2.5.0](https://github.com/hmrc/hmrc-frontend/releases/tag/v2.4.0)
+- [hmrc/hmrc-frontend v2.5.0](https://github.com/hmrc/hmrc-frontend/releases/tag/v2.5.0)
 - [alphagov/govuk-frontend v3.13.0](https://github.com/alphagov/govuk-frontend/releases/tag/v3.13.0)
 
 
 ## [1.15.0] - 2021-10-01
 
-### Changed
+### Added
 
 - Added a "Troubleshooting" section to the README, with a link to the "Typography" section of GOV.UK Design System 
 
 ### Compatible with
 
-- [hmrc/hmrc-frontend v2.5.0](https://github.com/hmrc/hmrc-frontend/releases/tag/v2.4.0)
+- [hmrc/hmrc-frontend v2.5.0](https://github.com/hmrc/hmrc-frontend/releases/tag/v2.5.0)
 - [alphagov/govuk-frontend v3.13.0](https://github.com/alphagov/govuk-frontend/releases/tag/v3.13.0)
 
 
@@ -49,7 +68,7 @@ a language code.
 
 ### Compatible with
 
-- [hmrc/hmrc-frontend v2.5.0](https://github.com/hmrc/hmrc-frontend/releases/tag/v2.4.0)
+- [hmrc/hmrc-frontend v2.5.0](https://github.com/hmrc/hmrc-frontend/releases/tag/v2.5.0)
 - [alphagov/govuk-frontend v3.13.0](https://github.com/alphagov/govuk-frontend/releases/tag/v3.13.0)
 
 ## [1.13.0] - 2021-09-27
