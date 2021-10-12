@@ -14,9 +14,7 @@ object LibDependencies {
     shared = Seq(
       "com.typesafe.play"  %% "play"            % PlayVersion.current,
       "com.typesafe.play"  %% "filters-helpers" % PlayVersion.current,
-      "org.joda"            % "joda-convert"    % "2.0.2",
-      "uk.gov.hmrc.webjars" % "hmrc-frontend"   % hmrcFrontendVersion,
-      "org.scalaj"         %% "scalaj-http"     % "2.4.2"
+      "uk.gov.hmrc.webjars" % "hmrc-frontend"   % hmrcFrontendVersion
     ),
     play26 = Seq(
       "uk.gov.hmrc" %% "play-language"       % s"$playLanguageVersion-play-26",
@@ -46,7 +44,7 @@ object LibDependencies {
       "com.lihaoyi"                  %% "pprint"                   % "0.6.1"             % Test,
       "org.bitbucket.cowwoc"          % "diff-match-patch"         % "1.2"               % Test,
       "com.typesafe.play"            %% "play-test"                % PlayVersion.current % Test,
-      ws
+      ws                              % Test
     ),
     play26 = Seq(
       "org.scalatestplus.play" %% "scalatestplus-play" % "3.1.3" % Test
