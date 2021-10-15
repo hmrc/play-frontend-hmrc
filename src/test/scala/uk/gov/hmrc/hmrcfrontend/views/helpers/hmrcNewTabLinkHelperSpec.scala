@@ -19,13 +19,15 @@ package uk.gov.hmrc.hmrcfrontend.views.helpers
 import org.jsoup.Jsoup
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpecLike
-import play.api.i18n.Lang
+import play.api.i18n.{DefaultLangs, Lang}
 import uk.gov.hmrc.helpers.MessagesSupport
 import uk.gov.hmrc.hmrcfrontend.views.html.components.HmrcNewTabLink
 import uk.gov.hmrc.hmrcfrontend.views.html.helpers.HmrcNewTabLinkHelper
 import uk.gov.hmrc.hmrcfrontend.views.viewmodels.newtablinkhelper.NewTabLinkHelper
 
 class hmrcNewTabLinkHelperSpec extends AnyWordSpecLike with Matchers with MessagesSupport {
+
+  override lazy val defaultLangs = new DefaultLangs(Seq(Lang("en"), Lang(code = "en-US"), Lang("cy"), Lang("it")))
 
   "HmrcNewTabLinkHelper" should {
 
@@ -43,6 +45,21 @@ class hmrcNewTabLinkHelperSpec extends AnyWordSpecLike with Matchers with Messag
       val newTabLinkHelper     = NewTabLinkHelper(text = "Some link text")
       val hmrcNewTabLinkHelper = new HmrcNewTabLinkHelper(new HmrcNewTabLink())
       val component            = hmrcNewTabLinkHelper(newTabLinkHelper)(englishMessages)
+
+      val links = Jsoup.parse(component.toString).select("a")
+
+      links                        should have size 1
+      links.first.attr("href")   shouldBe ""
+      links.first.attr("rel")    shouldBe "noopener noreferrer"
+      links.first.attr("target") shouldBe "_blank"
+      links.text()               shouldBe "Some link text (opens in a new tab)"
+    }
+
+    "render link with the English link text for all support en codes" in {
+      val enUsMessages         = messagesApi.preferred(Seq(Lang("en-US")))
+      val newTabLinkHelper     = NewTabLinkHelper(text = "Some link text")
+      val hmrcNewTabLinkHelper = new HmrcNewTabLinkHelper(new HmrcNewTabLink())
+      val component            = hmrcNewTabLinkHelper(newTabLinkHelper)(enUsMessages)
 
       val links = Jsoup.parse(component.toString).select("a")
 
@@ -98,6 +115,21 @@ class hmrcNewTabLinkHelperSpec extends AnyWordSpecLike with Matchers with Messag
       links.first.attr("rel")    shouldBe "noopener noreferrer"
       links.first.attr("target") shouldBe "_blank"
       links.text()               shouldBe "Rhywfaint o destun cyswllt (yn agor ffenestr neu dab newydd)"
+    }
+
+    "render link with the no link text for unsupported language" in {
+      val italianMessages      = messagesApi.preferred(Seq(Lang("it")))
+      val newTabLinkHelper     = NewTabLinkHelper(text = "Ciao raggazzi")
+      val hmrcNewTabLinkHelper = new HmrcNewTabLinkHelper(new HmrcNewTabLink())
+      val component            = hmrcNewTabLinkHelper(newTabLinkHelper)(italianMessages)
+
+      val links = Jsoup.parse(component.toString).select("a")
+
+      links                        should have size 1
+      links.first.attr("href")   shouldBe ""
+      links.first.attr("rel")    shouldBe "noopener noreferrer"
+      links.first.attr("target") shouldBe "_blank"
+      links.text()               shouldBe "Ciao raggazzi"
     }
   }
 }
