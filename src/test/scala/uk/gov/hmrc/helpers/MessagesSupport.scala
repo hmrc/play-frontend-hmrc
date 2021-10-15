@@ -24,18 +24,18 @@ import play.api.{Configuration, Environment}
 
 trait MessagesSupport {
 
-  implicit lazy val messagesApi: MessagesApi = {
+  protected lazy val defaultLangs: DefaultLangs = new DefaultLangs(Seq(Lang("en"), Lang("cy")))
+
+  implicit val messagesApi: MessagesApi = {
 
     val environment = Environment.simple()
 
     val configuration = Configuration.load(environment)
 
-    val langs = new DefaultLangs(Seq(Lang("en"), Lang("cy")))
-
     new DefaultMessagesApiProvider(
       environment = environment,
       config = configuration,
-      langs = langs,
+      langs = defaultLangs,
       httpConfiguration = new HttpConfiguration()
     ).get
   }

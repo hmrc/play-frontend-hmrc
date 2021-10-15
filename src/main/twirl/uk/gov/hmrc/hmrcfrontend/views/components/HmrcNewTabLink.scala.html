@@ -23,6 +23,6 @@
  <a class="@toClasses("govuk-link ", classList.getOrElse(""))" target="_blank" rel="noopener noreferrer" href="@href">@text@params.language match {
    case Some("en") => { (opens in a new tab)</a>}
    case Some("cy") => { (yn agor ffenestr neu dab newydd)</a>}
-   case None => {</a>}
+   case _ => {</a>}
  }
 }
