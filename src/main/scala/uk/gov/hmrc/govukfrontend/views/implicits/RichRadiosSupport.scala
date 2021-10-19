@@ -18,6 +18,9 @@ package uk.gov.hmrc.govukfrontend.views.implicits
 
 import play.api.data.Field
 import play.api.i18n.Messages
+import uk.gov.hmrc.govukfrontend.views.Implicits.RichLegend
+import uk.gov.hmrc.govukfrontend.views.viewmodels.content.Content
+import uk.gov.hmrc.govukfrontend.views.viewmodels.fieldset.Fieldset
 import uk.gov.hmrc.govukfrontend.views.viewmodels.radios.{RadioItem, Radios}
 
 trait RichRadiosSupport {
@@ -53,6 +56,12 @@ trait RichRadiosSupport {
         .withIdPrefix(field)
         .withItemsChecked(field)
         .withHtmlErrorMessage(field)
+
+    def withHeading(heading: Content): Radios =
+      withHeadingLegend(radios, heading, None)((rd, ul) => rd.copy(fieldset = Some(ul.toFieldset)))
+
+    def withHeadingAndSectionCaption(heading: Content, sectionCaption: Content): Radios =
+      withHeadingLegend(radios, heading, Some(sectionCaption))((rd, ul) => rd.copy(fieldset = Some(ul.toFieldset)))
 
     private[views] def withName(field: Field): Radios =
       withStringProperty(field.name, radios.name, radios)((rds, nm) => rds.copy(name = nm))

@@ -14,23 +14,15 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.govukfrontend.views
+package uk.gov.hmrc.govukfrontend.views.implicits
 
-import uk.gov.hmrc.govukfrontend.views.implicits._
+import uk.gov.hmrc.govukfrontend.views.viewmodels.fieldset.{Fieldset, Legend}
 
-trait Implicits
-    extends RichCharacterCountSupport
-    with RichCheckboxesSupport
-    with RichFormErrorsSupport
-    with RichHtmlSupport
-    with RichInputSupport
-    with RichOptionStringSupport
-    with RichRadiosSupport
-    with RichSelectSupport
-    with RichStringSupport
-    with RichTextareaSupport
-    with RichSeqStringTupleSupport
-    with RichLegendSupport
-    with RichActionItemSupport
-
-object Implicits extends Implicits
+trait RichLegendSupport {
+  implicit class RichLegend(legend: Legend) {
+    def toFieldset: Fieldset =
+      Fieldset(
+        legend = Some(legend)
+      )
+  }
+}

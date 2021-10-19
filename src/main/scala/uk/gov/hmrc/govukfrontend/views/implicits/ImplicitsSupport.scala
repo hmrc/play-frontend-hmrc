@@ -18,9 +18,12 @@ package uk.gov.hmrc.govukfrontend.views.implicits
 
 import play.api.data.{Field, FormError}
 import play.api.i18n.Messages
-import uk.gov.hmrc.govukfrontend.views.viewmodels.content.{HtmlContent, Text}
+import uk.gov.hmrc.govukfrontend.views.viewmodels.content.{Content, Empty, HtmlContent, Text}
 import uk.gov.hmrc.govukfrontend.views.viewmodels.errormessage.ErrorMessage
 import uk.gov.hmrc.govukfrontend.views.viewmodels.errormessage.ErrorMessage.errorMessageWithDefaultStringsTranslated
+import uk.gov.hmrc.govukfrontend.views.viewmodels.fieldset.Legend
+import uk.gov.hmrc.govukfrontend.views.viewmodels.label.Label
+import uk.gov.hmrc.hmrcfrontend.views.config.{HmrcPageHeadingLabel, HmrcPageHeadingLegend, HmrcSectionCaption}
 
 trait ImplicitsSupport[T] {
 
@@ -75,6 +78,26 @@ trait ImplicitsSupport[T] {
       default = None,
       formInput = currentFormInput
     )(update)
+
+  protected def withHeadingLabel[A](original: A, headingContent: Content, captionContent: Option[Content])(
+    update: (A, Label) => A
+  ): A = {
+    val heading = HmrcPageHeadingLabel(
+      content = headingContent,
+      caption = captionContent.map(cc => HmrcSectionCaption(cc)).getOrElse(Empty)
+    )
+    update(original, heading)
+  }
+
+  protected def withHeadingLegend[A](original: A, headingContent: Content, captionContent: Option[Content])(
+    update: (A, Legend) => A
+  ): A = {
+    val heading = HmrcPageHeadingLegend(
+      content = headingContent,
+      caption = captionContent.map(cc => HmrcSectionCaption(cc)).getOrElse(Empty)
+    )
+    update(original, heading)
+  }
 
   private[views] def withProperty[A, T](propertyFromField: A, propertyFromUnderlying: A, default: A, formInput: T)(
     update: (T, A) => T

@@ -173,6 +173,28 @@ Note that you will need to pass through an implicit `Messages` to your template.
 Additionally, there is a second method `withFormFieldWithErrorAsHtml(field: play.api.data.Field)` which behaves as the
 `withFormField` method with the difference that form errors are bound as instances of `HtmlContent`.
 
+### withHeading and withHeadingAndCaption
+
+Extension methods `withHeading(heading: Content)` and `withHeadingAndSectionCaption(heading: Content, sectionCaption: Content)`
+exist for the following classes:
+* CharacterCount
+* Checkboxes
+* Input
+* Radios
+* Select
+* Textarea
+* DateInput
+
+These methods allow either `Text` or `HtmlContent` content to be passed through to the form inputs and set as either 
+label or fieldset legend, depending on the underlying component. The methods will also concatenate and apply styling for 
+the content as below:
+
+| Parameter              | Styling applied                                                                                                    |
+| -----------------------| ------------------------------------------------------------------------------------------------------------------ |
+| `heading` for `Legend` | `<h1 class="govuk-fieldset__heading hmrc-page-heading govuk-!-margin-top-0 govuk-!-margin-bottom-0">$content</h1>` |
+| `heading` for `Label ` | `govuk-label--xl hmrc-page-heading govuk-!-margin-top-0 govuk-!-margin-bottom-2`                                   |
+| `sectionCaption`       | `<span class="govuk-caption-xl hmrc-caption-xl">$sectionCaption</span>`                                            |
+
 ### RichDateInput
 
 The implicit class `RichDateInput` provides an extension method `withFormField(field: play.api.data.Field)`
@@ -289,6 +311,37 @@ Note, these methods will not overwrite any existing `ErrorSummary` properties. F
 non-empty title, it will not be overwritten.
 
 To use this class you will need to have an implicit `Messages` in scope.
+
+### RichStringSupport
+
+The implicit class `RichStringSupport` hydrates the basic `String` class with a series of extension helper methods to 
+convert a `String` to a component without the need for nesting in case classes, or for wrapping as `Text`.
+
+These methods are called as standard extension methods, for example: 
+
+```scala
+import uk.gov.hmrc.govukfrontend.views.html.components.implicits._ 
+
+"This is a string for a fieldset legend".toFieldset
+```
+
+will return:
+
+```scala
+Fieldset(
+  legend = Some(Legend(content = Text("This is a string for a fieldset legend")))
+)
+```
+
+The following implicit conversions exist for a `String`:
+* `toHint`
+* `toText`
+* `toKey`
+* `toHeadCell`
+* `toFieldset`
+* `toTag`
+* `toLabel`
+* `toLegend`
 
 ## Using the HMRC layout
 

@@ -22,8 +22,10 @@ import uk.gov.hmrc.govukfrontend.views.html.components.implicits._
 import uk.gov.hmrc.govukfrontend.views.viewmodels.content.{HtmlContent, Text}
 import uk.gov.hmrc.govukfrontend.views.viewmodels.errormessage.ErrorMessage
 import uk.gov.hmrc.govukfrontend.views.viewmodels.errormessage.ErrorMessage.errorMessageWithDefaultStringsTranslated
+import uk.gov.hmrc.govukfrontend.views.viewmodels.fieldset.{Fieldset, Legend}
 import uk.gov.hmrc.govukfrontend.views.viewmodels.radios.{RadioItem, Radios}
 import uk.gov.hmrc.helpers.MessagesHelpers
+import uk.gov.hmrc.hmrcfrontend.views.config.{HmrcPageHeadingLegend, HmrcSectionCaption}
 
 class RichRadiosSpec extends AnyWordSpec with Matchers with MessagesHelpers with RichFormInputHelpers {
 
@@ -110,6 +112,80 @@ class RichRadiosSpec extends AnyWordSpec with Matchers with MessagesHelpers with
         errorMessage = Some(ErrorMessage(content = Text("Radios Error")))
       ).withFormFieldWithErrorAsHtml(field)
       radios.errorMessage shouldBe Some(ErrorMessage(content = Text("Radios Error")))
+    }
+  }
+
+  "Given a Radios object, calling withHeading" should {
+    "set the fieldset legend to the passed in content" in {
+      val radios = Radios().withHeading(Text("This is a text heading"))
+      radios shouldBe Radios(fieldset =
+        Some(
+          Fieldset(
+            legend = Some(HmrcPageHeadingLegend(content = Text("This is a text heading")))
+          )
+        )
+      )
+    }
+
+    "set the fieldset legend to the passed in content, overriding any previously set content" in {
+      val radiosWithLegend =
+        Radios(fieldset = Some(Fieldset(legend = Some(Legend(content = Text("This is some original text heading"))))))
+      val updatedRadios    = radiosWithLegend.withHeading(Text("This is some updated text heading"))
+      updatedRadios shouldBe Radios(fieldset =
+        Some(
+          Fieldset(
+            legend = Some(HmrcPageHeadingLegend(content = Text("This is some updated text heading")))
+          )
+        )
+      )
+    }
+  }
+
+  "Given a Radios object, calling withHeadingAndSectionCaption" should {
+    "set the fieldset legend to the passed in content" in {
+      val radios = Radios().withHeadingAndSectionCaption(Text("This is a text heading"), Text("This is a text caption"))
+      radios shouldBe Radios(fieldset =
+        Some(
+          Fieldset(
+            legend = Some(
+              HmrcPageHeadingLegend(
+                content = Text("This is a text heading"),
+                caption = HmrcSectionCaption(Text("This is a text caption"))
+              )
+            )
+          )
+        )
+      )
+    }
+
+    "set the fieldset legend to the passed in content, overriding any previously set content" in {
+      val radiosWithLegend = Radios(fieldset =
+        Some(
+          Fieldset(legend =
+            Some(
+              Legend(
+                content = Text("This is some original text heading")
+              )
+            )
+          )
+        )
+      )
+      val updatedRadios    = radiosWithLegend.withHeadingAndSectionCaption(
+        Text("This is some updated text heading"),
+        Text("This is some updated text caption")
+      )
+      updatedRadios shouldBe Radios(fieldset =
+        Some(
+          Fieldset(
+            legend = Some(
+              HmrcPageHeadingLegend(
+                content = Text("This is some updated text heading"),
+                caption = HmrcSectionCaption(Text("This is some updated text caption"))
+              )
+            )
+          )
+        )
+      )
     }
   }
 }

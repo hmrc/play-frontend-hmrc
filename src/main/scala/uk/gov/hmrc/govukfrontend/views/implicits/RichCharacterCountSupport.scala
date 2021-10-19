@@ -19,6 +19,7 @@ package uk.gov.hmrc.govukfrontend.views.implicits
 import play.api.data.Field
 import play.api.i18n.Messages
 import uk.gov.hmrc.govukfrontend.views.viewmodels.charactercount.CharacterCount
+import uk.gov.hmrc.govukfrontend.views.viewmodels.content.Content
 
 trait RichCharacterCountSupport {
 
@@ -54,6 +55,12 @@ trait RichCharacterCountSupport {
         .withId(field)
         .withValue(field)
         .withHtmlErrorMessage(field)
+
+    def withHeading(heading: Content): CharacterCount =
+      withHeadingLabel(characterCount, heading, None)((cc, ul) => cc.copy(label = ul))
+
+    def withHeadingAndSectionCaption(heading: Content, sectionCaption: Content): CharacterCount =
+      withHeadingLabel(characterCount, heading, Some(sectionCaption))((cc, ul) => cc.copy(label = ul))
 
     private[views] def withName(field: Field): CharacterCount =
       withStringProperty(field.name, characterCount.name, characterCount)((cc, nm) => cc.copy(name = nm))
