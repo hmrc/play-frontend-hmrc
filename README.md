@@ -713,6 +713,12 @@ We provide example templates using the Twirl components through a `Chrome` exten
 With the extension installed, you should be able to go to the [GOV.UK Design System](https://design-system.service.gov.uk/components/),
 click on a component on the sidebar and see the `Twirl` examples matching the provided `Nunjucks` templates.
 
+## HmrcAccountMenu considered experimental
+
+The account menu component is a port
+from [assets-frontend](http://hmrc.github.io/assets-frontend/components/account-header/index.html), this pattern is
+currently being iterated outside this repository by the PTA team and so might be subject to breaking API changes.
+
 ## Troubleshooting
 
 If you are adding HTML elements to your page such as `<h1>` or `<p>`, you will need to add the CSS classes for the [GDS

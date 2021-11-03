@@ -21,7 +21,7 @@
 
 <!-- ACCOUNT MENU -->
 <nav id="secondary-nav" class="hmrc-account-menu" aria-label="Account" data-module="hmrc-account-menu">
-  <a href="@accountHome.href" class="hmrc-account-menu__link hmrc-account-menu__link--home@if(accountHome.active){ hmrc-account-menu__link--active}else{}">
+  <a href="@accountHome.href" class="hmrc-account-menu__link hmrc-account-menu__link--home@if(accountHome.active){ hmrc-account-menu__link--active}">
     <span class="hmrc-account-icon hmrc-account-icon--home">
       @language match {
         case Cy => {Hafan y cyfrif}
@@ -49,7 +49,7 @@
 
     <li>
       <a href="@messages.href"
-        class="hmrc-account-menu__link@if(messages.active) { hmrc-account-menu__link--active} else {}">@defining(
+        class="hmrc-account-menu__link@if(messages.active) { hmrc-account-menu__link--active}">@defining(
             language match {
             case Cy => "Negeseuon"
             case _ => "Messages"
@@ -60,7 +60,7 @@
     </li>
 
     <li>
-      <a href="@checkProgress.href" class="hmrc-account-menu__link@if(checkProgress.active){ hmrc-account-menu__link--active}else{}">
+      <a href="@checkProgress.href" class="hmrc-account-menu__link@if(checkProgress.active){ hmrc-account-menu__link--active}">
         @language match {
           case Cy => {Gwirio cynnydd}
           case _ => {Check progress}
@@ -69,50 +69,12 @@
     </li>
 
     <li>
-      <a href="#subnav-your-account" id="account-menu__main-2" class="hmrc-account-menu__link hmrc-account-icon hmrc-account-menu__link--more" aria-haspopup="true" aria-owns="subnav-your-account">
+      <a href="@yourProfile.href" class="hmrc-account-menu__link@if(yourProfile.active){ hmrc-account-menu__link--active}">
         @language match {
-          case Cy => {Eich cyfrif}
-          case _ => {Your account}
+          case Cy => {Eich proffil}
+          case _ => {Your profile}
         }
       </a>
-
-        <div class="hmrc-subnav" id="subnav-your-account" role="navigation" aria-labelledby="account-menu__main-2" aria-label="Your account">
-          <div class="govuk-grid-column-one-third hmrc-subnav__section">
-            <p class="hmrc-subnav__section__heading">
-              @language match {
-                case Cy => {Gosodiadau di-bapur}
-                case _ => {Paperless settings}
-              }
-            </p>
-
-            <div>
-              <a href="@paperlessSettings.href">
-                @language match {
-                  case Cy => {Rheoli'ch gosodiadau di-bapur}
-                  case _ => {Manage your paperless settings}
-                }
-              </a>
-            </div>
-          </div>
-
-          <div class="govuk-grid-column-one-third hmrc-subnav__section">
-            <p class="hmrc-subnav__section__heading">
-              @language match {
-                case Cy => {Manylion personol}
-                case _ => {Personal details}
-              }
-            </p>
-
-            <div>
-              <a href="@personalDetails.href">
-                @language match {
-                  case Cy => {Rheoli'ch manylion personol}
-                  case _ => {Manage your personal details}
-                }
-              </a>
-            </div>
-          </div>
-        </div>
     </li>
 
     <li>

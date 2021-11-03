@@ -45,16 +45,10 @@ object Generators {
     } yield AccountMessages(href = href, active = active, messageCount = messageCount)
   }
 
-  implicit val arbPaperlessSettings: Arbitrary[PaperlessSettings] = Arbitrary {
+  implicit val arbYourProfile: Arbitrary[YourProfile] = Arbitrary {
     for {
       href <- genAlphaStr()
-    } yield PaperlessSettings(href = href)
-  }
-
-  implicit val arbPersonalDetails: Arbitrary[PersonalDetails] = Arbitrary {
-    for {
-      href <- genAlphaStr()
-    } yield PersonalDetails(href = href)
+    } yield YourProfile(href = href)
   }
 
   implicit val arbSignOut: Arbitrary[SignOut] = Arbitrary {
@@ -65,19 +59,17 @@ object Generators {
 
   implicit val arbAccountMenu: Arbitrary[AccountMenu] = Arbitrary {
     for {
-      accountHome       <- arbAccountHome.arbitrary
-      messages          <- arbMessages.arbitrary
-      checkProgress     <- arbCheckProgress.arbitrary
-      paperlessSettings <- arbPaperlessSettings.arbitrary
-      personalDetails   <- arbPersonalDetails.arbitrary
-      signOut           <- arbSignOut.arbitrary
-      language          <- arbLanguage.arbitrary
+      accountHome   <- arbAccountHome.arbitrary
+      messages      <- arbMessages.arbitrary
+      checkProgress <- arbCheckProgress.arbitrary
+      yourProfile   <- arbYourProfile.arbitrary
+      signOut       <- arbSignOut.arbitrary
+      language      <- arbLanguage.arbitrary
     } yield AccountMenu(
       accountHome = accountHome,
       messages = messages,
       checkProgress = checkProgress,
-      paperlessSettings = paperlessSettings,
-      personalDetails = personalDetails,
+      yourProfile = yourProfile,
       signOut = signOut,
       language = language
     )

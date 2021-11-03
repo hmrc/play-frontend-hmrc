@@ -9,11 +9,8 @@
   "checkProgress" : {
     "href" : "#check-progress"
   },
-  "paperlessSettings" : {
-    "href" : "#paperless-settings"
-  },
-  "personalDetails" : {
-    "href" : "#personal-details"
+  "yourProfile" : {
+    "href" : "#your-profile"
   },
   "signOut" : {
     "href" : "#sign-out"

@@ -19,4 +19,4 @@ package uk.gov.hmrc.hmrcfrontend.views.viewmodels.accountmenu
 import uk.gov.hmrc.hmrcfrontend.views.viewmodels.JsonRoundtripSpec
 import uk.gov.hmrc.hmrcfrontend.views.viewmodels.accountmenu.Generators._
 
-class PersonalDetailsSpec extends JsonRoundtripSpec[PersonalDetails]
+class YourProfileSpec extends JsonRoundtripSpec[YourProfile]
