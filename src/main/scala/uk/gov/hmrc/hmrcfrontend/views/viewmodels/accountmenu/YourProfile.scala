@@ -16,7 +16,13 @@
 
 package uk.gov.hmrc.hmrcfrontend.views.viewmodels.accountmenu
 
-import uk.gov.hmrc.hmrcfrontend.views.viewmodels.JsonRoundtripSpec
-import uk.gov.hmrc.hmrcfrontend.views.viewmodels.accountmenu.Generators._
+import play.api.libs.json._
 
-class PaperlessSettingsSpec extends JsonRoundtripSpec[PaperlessSettings]
+case class YourProfile(
+  href: String = "#",
+  active: Boolean = false
+)
+
+object YourProfile {
+  implicit def jsonFormats: OFormat[YourProfile] = Json.using[Json.WithDefaultValues].format[YourProfile]
+}

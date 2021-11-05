@@ -8,6 +8,18 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 For compatibility information see `govukFrontendVersion` and `hmrcFrontendVersion` in
 [LibDependencies](project/LibDependencies.scala)
 
+## [1.23.0] - 2021-11-05
+
+### Updated
+
+- Added "yourProfile" parameter to account menu and removed "paperlessSettings" and "personalDetails" to match the
+  latest implementation from PTA.
+
+### Compatible with
+
+- [hmrc/hmrc-frontend v3.0.0](https://github.com/hmrc/hmrc-frontend/releases/tag/v3.0.0)
+- [alphagov/govuk-frontend v3.13.0](https://github.com/alphagov/govuk-frontend/releases/tag/v3.13.0)
+
 ## [1.22.0] - 2021-10-19
 
 ### Added

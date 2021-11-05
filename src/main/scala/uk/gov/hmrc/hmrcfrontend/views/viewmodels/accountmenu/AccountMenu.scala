@@ -23,8 +23,7 @@ case class AccountMenu(
   accountHome: AccountHome = AccountHome(),
   messages: AccountMessages = AccountMessages(),
   checkProgress: CheckProgress = CheckProgress(),
-  paperlessSettings: PaperlessSettings = PaperlessSettings(),
-  personalDetails: PersonalDetails = PersonalDetails(),
+  yourProfile: YourProfile = YourProfile(),
   signOut: SignOut = SignOut(),
   language: Language = En
 )
