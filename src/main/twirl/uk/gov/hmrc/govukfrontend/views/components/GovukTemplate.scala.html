@@ -15,8 +15,15 @@
  *@
 
 @import uk.gov.hmrc.govukfrontend.views.html.components._
+@import uk.gov.hmrc.govukfrontend.views.viewmodels.pagelayout.PageLayout
 
-@this(govukHeader: GovukHeader, govukFooter: GovukFooter, govukSkipLink: GovukSkipLink)
+@this(
+    govukHeader: GovukHeader,
+    govukFooter: GovukFooter,
+    govukSkipLink: GovukSkipLink,
+    fixedWidthPageLayout: FixedWidthPageLayout
+)
+
 
 @(
   htmlLang: Option[String] = None,
@@ -36,7 +43,8 @@
   mainClasses: Option[String] = None,
   beforeContentBlock: Option[Html] = None,
   assetPath: Option[String] = None,
-  cspNonce: Option[String] = None
+  cspNonce: Option[String] = None,
+  pageLayout: Option[PageLayout => Html] = Some(fixedWidthPageLayout(_))
 )(contentBlock: Html)<!DOCTYPE html>
 <html lang="@htmlLang.getOrElse {en}" class="govuk-template @htmlClasses">
   <head>
@@ -78,12 +86,7 @@
 
     @headerBlock
 
-    <div class="govuk-width-container ">
-      @beforeContentBlock
-      <main class="govuk-main-wrapper @mainClasses" id="main-content" role="main"@mainLang.filter(_.nonEmpty).map {mainLang => lang="@mainLang"}>
-        @contentBlock
-      </main>
-    </div>
+    @pageLayout.map(_(PageLayout(beforeContentBlock, contentBlock, mainLang, mainClasses))).getOrElse(contentBlock)
 
     @footerBlock
 

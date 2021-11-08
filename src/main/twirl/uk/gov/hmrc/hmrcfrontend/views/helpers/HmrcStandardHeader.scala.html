@@ -27,7 +27,8 @@
   userResearchBanner: Option[UserResearchBanner] = None,
   phaseBanner: Option[PhaseBanner] = None,
   displayHmrcBanner: Boolean = false,
-  additionalBannersBlock: Option[Html] = None
+  additionalBannersBlock: Option[Html] = None,
+  containerClasses: String = Header.defaultObject.containerClasses
 )(implicit messages: Messages, request: RequestHeader)
 @defining("service.name") { serviceNameKey =>
   @defining(if(messages.isDefinedAt(serviceNameKey)) Some(messages(serviceNameKey)) else None) { serviceNameFromMessages =>
@@ -41,7 +42,8 @@
       userResearchBanner = userResearchBanner,
       phaseBanner = phaseBanner,
       displayHmrcBanner = displayHmrcBanner,
-      additionalBannersBlock = additionalBannersBlock
+      additionalBannersBlock = additionalBannersBlock,
+      containerClasses = containerClasses
     ))
   }
 }

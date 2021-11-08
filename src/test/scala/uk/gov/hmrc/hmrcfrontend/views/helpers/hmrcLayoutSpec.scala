@@ -29,7 +29,7 @@ import play.api.mvc.MessagesRequest
 import play.api.test.FakeRequest
 import play.api.test.Helpers.{contentAsString, stubMessagesApi, _}
 import play.twirl.api.Html
-import uk.gov.hmrc.govukfrontend.views.html.components.GovukBackLink
+import uk.gov.hmrc.govukfrontend.views.html.components.{FullWidthPageLayout, GovukBackLink}
 import uk.gov.hmrc.govukfrontend.views.viewmodels.backlink.BackLink
 import uk.gov.hmrc.helpers.views.JsoupHelpers
 import uk.gov.hmrc.hmrcfrontend.config.AssetsConfig
@@ -436,6 +436,24 @@ class hmrcLayoutSpec extends AnyWordSpecLike with Matchers with JsoupHelpers wit
       backLink                should have size 1
       backLink.attr("href") shouldBe "my-back-link"
       backLink.html()       shouldBe "Back Welsh"
+    }
+
+    "allow overriding of the default page layout" in {
+      val hmrcLayout          = app.injector.instanceOf[HmrcLayout]
+      val fullWidthPageLayout = app.injector.instanceOf[FullWidthPageLayout]
+      val messages            = getMessages(Lang("en"))
+      val layout              = hmrcLayout(
+        pageLayout = Some(fullWidthPageLayout(_)),
+        beforeContentBlock = Some(Html("beforeContentBlock")),
+        mainContentLayout = None
+      )(Html("contentBlock"))(fakeRequest, messages)
+
+      val document = Jsoup.parse(contentAsString(layout))
+      document.select("body > .govuk-width-container > main") should have size 0
+      document.html()                                         should include("beforeContentBlock")
+      val mainElement = document.select("body > main")
+      mainElement          should have size 1
+      mainElement.html() shouldBe "contentBlock"
     }
   }
 }

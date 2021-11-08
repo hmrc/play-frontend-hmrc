@@ -26,6 +26,9 @@
 @import uk.gov.hmrc.govukfrontend.views.viewmodels.backlink.BackLink
 @import uk.gov.hmrc.govukfrontend.views.viewmodels.phasebanner.PhaseBanner
 @import uk.gov.hmrc.govukfrontend.views.viewmodels.content.Text
+@import uk.gov.hmrc.govukfrontend.views.viewmodels.pagelayout.PageLayout
+@import uk.gov.hmrc.govukfrontend.views.html.components.FixedWidthPageLayout
+@import uk.gov.hmrc.hmrcfrontend.views.Aliases.Header
 
 @this(
         govukLayout: GovukLayout,
@@ -35,7 +38,8 @@
         hmrcLanguageSelectHelper: HmrcLanguageSelectHelper,
         hmrcScripts: HmrcScripts,
         govukBackLink: GovukBackLink,
-        defaultMainContent: TwoThirdsMainContent
+        defaultMainContent: TwoThirdsMainContent,
+        fixedWidthPageLayout: FixedWidthPageLayout
 )
 
 @(
@@ -54,7 +58,9 @@
         beforeContentBlock: Option[Html] = None,
         nonce: Option[String] = None,
         mainContentLayout: Option[Html => Html] = Some(defaultMainContent(_)),
-        additionalBannersBlock: Option[Html] = None
+        additionalBannersBlock: Option[Html] = None,
+        pageLayout: Option[PageLayout => Html] = Some(fixedWidthPageLayout(_)),
+        headerContainerClasses: String = Header.defaultObject.containerClasses
 )(contentBlock: Html)(implicit request: RequestHeader, messages: Messages)
 
 @headerBlock = {
@@ -65,7 +71,8 @@
         userResearchBanner = userResearchBannerUrl.map(url => UserResearchBanner(url = url)),
         phaseBanner = phaseBanner,
         displayHmrcBanner = displayHmrcBanner,
-        additionalBannersBlock = additionalBannersBlock
+        additionalBannersBlock = additionalBannersBlock,
+        containerClasses = headerContainerClasses
     )
 }
 
@@ -91,5 +98,6 @@
     footerBlock = Some(hmrcStandardFooter(accessibilityStatementUrl = accessibilityStatementUrl)),
     mainContentLayout = mainContentLayout,
     assetPath = None,
-    cspNonce = nonce
+    cspNonce = nonce,
+    pageLayout = pageLayout
 )(contentBlock)

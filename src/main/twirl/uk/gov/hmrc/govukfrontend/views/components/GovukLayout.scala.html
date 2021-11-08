@@ -15,13 +15,15 @@
  *@
 
 @import uk.gov.hmrc.govukfrontend.views.html.components._
+@import uk.gov.hmrc.govukfrontend.views.viewmodels.pagelayout.PageLayout
 
 @this(
   govukTemplate: GovukTemplate,
   govukHeader: GovukHeader,
   govukFooter: GovukFooter,
   govukBackLink: GovukBackLink,
-  defaultMainContentLayout: TwoThirdsMainContent
+  defaultMainContentLayout: TwoThirdsMainContent,
+  fixedWidthPageLayout: FixedWidthPageLayout
 )
 
 @(
@@ -35,7 +37,8 @@
   scriptsBlock: Option[Html] = None,
   mainContentLayout: Option[Html => Html] = Some(defaultMainContentLayout(_)),
   assetPath: Option[String] = None,
-  cspNonce: Option[String] = None
+  cspNonce: Option[String] = None,
+  pageLayout: Option[PageLayout => Html] = Some(fixedWidthPageLayout(_))
 )(contentBlock: Html)(implicit messages: Messages)
 
 @headerDefault = {
@@ -73,5 +76,6 @@
   mainClasses = Some("govuk-main-wrapper--auto-spacing"),
   bodyEndBlock = Some(bodyEndDefault),
   assetPath = assetPath,
-  cspNonce = cspNonce
+  cspNonce = cspNonce,
+  pageLayout = pageLayout
 )(mainContent)
