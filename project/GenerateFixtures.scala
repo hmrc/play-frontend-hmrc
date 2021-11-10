@@ -39,7 +39,11 @@ case class GenerateFixtures(fixturesDir: File, frontend: String, version: String
 
     IO.write(testFixturesDir / "VERSION.txt", version)
 
-    for (example <- getExamples()) {
+    val patchedFixturesDir                                     = fixturesDir / s"patched-fixtures"
+    def patchedVersionDoesNotExist(example: JsObject): Boolean =
+      !(patchedFixturesDir / (example \ "exampleId").as[String]).isDirectory
+
+    for (example <- getExamples() if patchedVersionDoesNotExist(example)) {
       val componentName = (example \ "componentName").as[String]
       val componentJson = Json.obj(
         "name" -> componentName
