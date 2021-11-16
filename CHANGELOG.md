@@ -8,6 +8,28 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 For compatibility information see `govukFrontendVersion` and `hmrcFrontendVersion` in
 [LibDependencies](project/LibDependencies.scala)
 
+## [1.26.0] - 2021-11-16
+
+### Updated
+
+- [Documented known issue with tracking consent integration when services set `platform.frontend.host` locally](docs/maintainers/journal/2021-11-15-tracking-consent-config-assumes-platform-tech-host-not-set-locally.md).
+
+### Compatible with
+
+- [hmrc/hmrc-frontend v3.1.0](https://github.com/hmrc/hmrc-frontend/releases/tag/v3.1.0)
+- [alphagov/govuk-frontend v3.14.0](https://github.com/alphagov/govuk-frontend/releases/tag/v3.14.0)
+
+## [1.25.0] - 2021-11-10
+
+### Updated
+
+- hmrc-frontend to v3.1.0 which brings govuk-frontend to v3.14.0
+
+### Compatible with
+
+- [hmrc/hmrc-frontend v3.1.0](https://github.com/hmrc/hmrc-frontend/releases/tag/v3.1.0)
+- [alphagov/govuk-frontend v3.14.0](https://github.com/alphagov/govuk-frontend/releases/tag/v3.14.0)
+
 ## [1.24.0] - 2021-11-05
 
 ### Updated
