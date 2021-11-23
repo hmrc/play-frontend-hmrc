@@ -8,6 +8,18 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 For compatibility information see `govukFrontendVersion` and `hmrcFrontendVersion` in
 [LibDependencies](project/LibDependencies.scala)
 
+## [1.27.0] - 2021-11-24
+
+### Updated
+
+- Added helper methods `withUrlsFromConfig` and `withMessagesCount` to the `AccountMenu` allowing for menu item links to be passed in via configuration and for the setting of message count on the messages link.
+
+### Compatible with
+
+- [hmrc/hmrc-frontend v3.1.0](https://github.com/hmrc/hmrc-frontend/releases/tag/v3.1.0)
+- [alphagov/govuk-frontend v3.14.0](https://github.com/alphagov/govuk-frontend/releases/tag/v3.14.0)
+
+
 ## [1.26.0] - 2021-11-16
 
 ### Updated

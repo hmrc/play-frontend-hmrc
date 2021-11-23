@@ -723,7 +723,85 @@ click on a component on the sidebar and see the `Twirl` examples matching the pr
 
 The account menu component is a port
 from [assets-frontend](http://hmrc.github.io/assets-frontend/components/account-header/index.html), this pattern is
-currently being iterated outside this repository by the PTA team and so might be subject to breaking API changes.
+currently being iterated outside this repository by the PTA team and might be subject to breaking API changes.
+
+
+### Component Configuration
+
+This component provides default menu links but also provides a way to 
+override the links via configuration.
+
+If you wish to override the default links you will need to have the below configuration in your application.conf file.
+
+One thing to note is that the `href` is built up from concatenating `host + href` values.
+
+```
+pta-account-menu {
+  account-home = {
+    host = ${pta-account-menu.pertax-frontend.host}
+    href = ${pta-account-menu.account-home.host}"/personal-account-custom"
+  }
+
+  messages = {
+    host = ${pta-account-menu.pertax-frontend.host}
+    href = ${pta-account-menu.messages.host}"/personal-account/messages-custom"
+  }
+
+  check-progress = {
+    host = ${pta-account-menu.tracking-frontend.host}
+    href = ${pta-account-menu.check-progress.host}"/track-custom"
+  }
+
+  your-profile = {
+    host = ${pta-account-menu.pertax-frontend.host}
+    href = ${pta-account-menu.your-profile.host}"/personal-account/your-profile-custom"
+  }
+}
+```
+
+If you wish to override the pertax-frontend host value you can do so by setting the `pta-account-menu.pertax-frontend.host` value.
+
+```
+pta-account-menu {
+  pertax-frontend.host = "http://pertax-frontend-host"
+}
+```
+
+NOTE: If you override the `platform.frontend.host` configuration value, it will take precedence over the `pta-account-menu.pertax-frontend.host` value.
+
+You may also wish to override the host per service value, this can be done by the below configuration.
+
+```
+pta-account-menu {
+  messages.host         = "http://localhost:12346"
+  account-home.host     = "http://localhost:12347"
+  your-profile.host     = "http://localhost:12348"
+  check-progress.host   = "http://localhost:12345"
+}
+```
+
+### Component Usage
+
+To use the links from configuration you can use the helper method `withUrlsFromConfig()` on the `AccountMenu` instance. The configuration will need to be supplied implicitly 
+as seen in the example below.
+
+```
+@this(
+  hmrcAccountMenu: HmrcAccountMenu
+)(implicit accountMenuConfig: AccountMenuConfig)
+
+@hmrcAccountMenu(
+  AccountMenu().withUrlsFromConfig()
+)    
+```
+
+To set the message count on the `AccountMessages` link, you can use the helper method `withMessagesCount` as below.
+
+```
+@hmrcAccountMenu(
+  AccountMenu().withMessagesCount(10)
+)
+```
 
 ## Troubleshooting
 
