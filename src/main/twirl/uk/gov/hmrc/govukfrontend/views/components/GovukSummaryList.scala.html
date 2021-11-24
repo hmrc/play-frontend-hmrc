@@ -20,6 +20,12 @@
 @import params._
 <dl class="@toClasses("govuk-summary-list", classes)"@toAttributes(attributes)>
   @for(row <- rows) {
+    @*
+     * It's possible to vary column widths using width override classes in a similar way as
+     * described by the govuk table component. See the following links:
+     *   - https://design-system.service.gov.uk/styles/spacing/#width-override-classes
+     *   - https://design-system.service.gov.uk/components/table/#custom-column-widths
+     *@
     <div class="@toClasses("govuk-summary-list__row", row.classes)">
       <dt class="@toClasses("govuk-summary-list__key", row.key.classes)">
         @row.key.content.asHtml
