@@ -8,6 +8,17 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 For compatibility information see `govukFrontendVersion` and `hmrcFrontendVersion` in
 [LibDependencies](project/LibDependencies.scala)
 
+## [1.28.0] - 2021-12-02
+
+### Added
+
+- Added `HmrcInternalGtmScript` and `HmrcInternalHead` helpers to add GTM snippet to internal services.
+
+### Compatible with
+
+- [hmrc/hmrc-frontend v3.1.0](https://github.com/hmrc/hmrc-frontend/releases/tag/v3.1.0)
+- [alphagov/govuk-frontend v3.14.0](https://github.com/alphagov/govuk-frontend/releases/tag/v3.14.0)
+
 ## [1.27.0] - 2021-11-24
 
 ### Updated
