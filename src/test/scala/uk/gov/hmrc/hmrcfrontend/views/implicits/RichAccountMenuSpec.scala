@@ -17,17 +17,17 @@
 package uk.gov.hmrc.hmrcfrontend.views.implicits
 
 import org.scalatest.matchers.should.Matchers
+import org.scalatest.prop.TableDrivenPropertyChecks._
+import org.scalatest.prop.TableFor5
 import org.scalatest.wordspec.AnyWordSpec
 import play.api.Configuration
 import play.api.i18n.{Lang, Messages}
 import play.api.test.FakeRequest
 import uk.gov.hmrc.helpers.MessagesSupport
 import uk.gov.hmrc.hmrcfrontend.config.AccountMenuConfig
-import uk.gov.hmrc.hmrcfrontend.views.viewmodels.accountmenu._
 import uk.gov.hmrc.hmrcfrontend.views.html.components.implicits._
+import uk.gov.hmrc.hmrcfrontend.views.viewmodels.accountmenu._
 import uk.gov.hmrc.hmrcfrontend.views.viewmodels.language.En
-import org.scalatest.prop.TableDrivenPropertyChecks._
-import org.scalatest.prop.TableFor4
 
 class RichAccountMenuSpec extends AnyWordSpec with Matchers with MessagesSupport {
 
@@ -35,25 +35,44 @@ class RichAccountMenuSpec extends AnyWordSpec with Matchers with MessagesSupport
 
     "return a copy of the account menu with default urls replaced with those from config" in new Context {
       val originalAccountMenu: AccountMenu = AccountMenu()
-      val updatedAccountMenu: AccountMenu  = originalAccountMenu.withUrlsFromConfig()(enMessages, FakeRequest())
+      originalAccountMenu shouldBe AccountMenu(
+        accountHome = AccountHome(),
+        messages = AccountMessages(),
+        checkProgress = CheckProgress(),
+        yourProfile = YourProfile(),
+        businessTaxAccount = None,
+        language = En
+      )
 
+      val updatedAccountMenu: AccountMenu = originalAccountMenu.withUrlsFromConfig()(enMessages, FakeRequest())
       updatedAccountMenu shouldBe AccountMenu(
         accountHome = AccountHome(href = defaultAccountHomeHref),
         messages = AccountMessages(href = defaultMessagesHref),
         checkProgress = CheckProgress(href = defaultCheckProgressHref),
         yourProfile = YourProfile(href = defaultYourProfileHomeHref),
+        businessTaxAccount = None,
         language = En
       )
     }
 
     "return a copy of the account menu with default urls and correctly set active links" in new Context {
-      val activeLinkCombinations: TableFor4[AccountHome, AccountMessages, CheckProgress, YourProfile] =
+      val activeLinkCombinations
+        : TableFor5[AccountHome, AccountMessages, CheckProgress, YourProfile, Option[BusinessTaxAccount]] =
         Table(
-          ("accountHomeActive", "messagesActive", "checkProgressActive", "yourProfileActive"),
-          (AccountHome(active = true), AccountMessages(), CheckProgress(), YourProfile()),
-          (AccountHome(), AccountMessages(active = true), CheckProgress(), YourProfile()),
-          (AccountHome(), AccountMessages(), CheckProgress(active = true), YourProfile()),
-          (AccountHome(), AccountMessages(), CheckProgress(), YourProfile(active = true))
+          (
+            "accountHomeActive",
+            "messagesActive",
+            "checkProgressActive",
+            "yourProfileActive",
+            "businessTaxAccountActive"
+          ),
+          (AccountHome(), AccountMessages(), CheckProgress(), YourProfile(), None),
+          (AccountHome(), AccountMessages(), CheckProgress(), YourProfile(), Some(BusinessTaxAccount())),
+          (AccountHome(active = true), AccountMessages(), CheckProgress(), YourProfile(), Some(BusinessTaxAccount())),
+          (AccountHome(), AccountMessages(active = true), CheckProgress(), YourProfile(), Some(BusinessTaxAccount())),
+          (AccountHome(), AccountMessages(), CheckProgress(active = true), YourProfile(), Some(BusinessTaxAccount())),
+          (AccountHome(), AccountMessages(), CheckProgress(), YourProfile(active = true), Some(BusinessTaxAccount())),
+          (AccountHome(), AccountMessages(), CheckProgress(), YourProfile(), Some(BusinessTaxAccount(active = true)))
         )
 
       forAll(activeLinkCombinations) {
@@ -61,13 +80,15 @@ class RichAccountMenuSpec extends AnyWordSpec with Matchers with MessagesSupport
           accountHomeActive: AccountHome,
           messagesActive: AccountMessages,
           checkProgressActive: CheckProgress,
-          yourProfileActive: YourProfile
+          yourProfileActive: YourProfile,
+          businessTaxAccountActive: Option[BusinessTaxAccount]
         ) =>
           val accountMenu: AccountMenu = AccountMenu(
             accountHome = accountHomeActive,
             messages = messagesActive,
             checkProgress = checkProgressActive,
-            yourProfile = yourProfileActive
+            yourProfile = yourProfileActive,
+            businessTaxAccount = businessTaxAccountActive
           ).withUrlsFromConfig()(enMessages, FakeRequest())
 
           accountMenu shouldBe AccountMenu(
@@ -75,6 +96,7 @@ class RichAccountMenuSpec extends AnyWordSpec with Matchers with MessagesSupport
             messages = AccountMessages(href = defaultMessagesHref, messagesActive.active),
             checkProgress = CheckProgress(href = defaultCheckProgressHref, checkProgressActive.active),
             yourProfile = YourProfile(href = defaultYourProfileHomeHref, yourProfileActive.active),
+            businessTaxAccount = businessTaxAccountActive.map(_.copy(href = defaultBusinessTaxAccountHref)),
             language = En
           )
       }
@@ -94,15 +116,40 @@ class RichAccountMenuSpec extends AnyWordSpec with Matchers with MessagesSupport
         language = En
       )
     }
+
+    "return a copy of the account menu with a business tax account link with its default url replaced from config" in new Context {
+      val businessTaxAccount: Option[BusinessTaxAccount] = Some(BusinessTaxAccount())
+
+      val originalAccountMenu: AccountMenu = AccountMenu(businessTaxAccount = businessTaxAccount)
+      originalAccountMenu shouldBe AccountMenu(
+        accountHome = AccountHome(),
+        messages = AccountMessages(),
+        checkProgress = CheckProgress(),
+        yourProfile = YourProfile(),
+        businessTaxAccount = Some(BusinessTaxAccount()),
+        language = En
+      )
+
+      val updatedAccountMenu: AccountMenu = originalAccountMenu.withUrlsFromConfig()(enMessages, FakeRequest())
+      updatedAccountMenu shouldBe AccountMenu(
+        accountHome = AccountHome(href = defaultAccountHomeHref),
+        messages = AccountMessages(href = defaultMessagesHref),
+        checkProgress = CheckProgress(href = defaultCheckProgressHref),
+        yourProfile = YourProfile(href = defaultYourProfileHomeHref),
+        businessTaxAccount = Some(BusinessTaxAccount(href = defaultBusinessTaxAccountHref)),
+        language = En
+      )
+    }
   }
 
   trait Context {
     val defaultHost = "localhost:110110"
 
-    val defaultAccountHomeHref     = s"$defaultHost/personal-account"
-    val defaultMessagesHref        = s"$defaultHost/personal-account/messages"
-    val defaultCheckProgressHref   = s"$defaultHost/track"
-    val defaultYourProfileHomeHref = s"$defaultHost/personal-account/your-profile"
+    val defaultAccountHomeHref        = s"$defaultHost/personal-account"
+    val defaultMessagesHref           = s"$defaultHost/personal-account/messages"
+    val defaultCheckProgressHref      = s"$defaultHost/track"
+    val defaultYourProfileHomeHref    = s"$defaultHost/personal-account/your-profile"
+    val defaultBusinessTaxAccountHref = s"$defaultHost/business-tax/home"
 
     val enMessages: Messages = messagesApi.preferred(Seq(Lang("en")))
     val cyMessages: Messages = messagesApi.preferred(Seq(Lang("cy")))
@@ -110,10 +157,11 @@ class RichAccountMenuSpec extends AnyWordSpec with Matchers with MessagesSupport
     implicit val accountMenuConfig: AccountMenuConfig = new AccountMenuConfig(
       Configuration.from(
         Map(
-          "pta-account-menu.account-home.href"   -> defaultAccountHomeHref,
-          "pta-account-menu.messages.href"       -> defaultMessagesHref,
-          "pta-account-menu.check-progress.href" -> defaultCheckProgressHref,
-          "pta-account-menu.your-profile.href"   -> defaultYourProfileHomeHref
+          "pta-account-menu.account-home.href"         -> defaultAccountHomeHref,
+          "pta-account-menu.messages.href"             -> defaultMessagesHref,
+          "pta-account-menu.check-progress.href"       -> defaultCheckProgressHref,
+          "pta-account-menu.your-profile.href"         -> defaultYourProfileHomeHref,
+          "pta-account-menu.business-tax-account.href" -> defaultBusinessTaxAccountHref
         )
       )
     )

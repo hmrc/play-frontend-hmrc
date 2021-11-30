@@ -30,6 +30,10 @@ Check progress      </a>
 Your profile      </a>
     </li>
 
+      <li>
+        <a href="#business-tax-account" class="hmrc-account-menu__link">
+Business tax account        </a>
+      </li>
 
     <li>
       <a href="#" class="hmrc-account-menu__link">
