@@ -17,6 +17,18 @@
 package uk.gov.hmrc.hmrcfrontend.views
 package components
 
+import play.twirl.api.HtmlFormat
 import uk.gov.hmrc.hmrcfrontend.views.html.components._
 
-class HmrcInternalHeaderSpec extends TemplateUnitSpec[InternalHeader, HmrcInternalHeader]("hmrcInternalHeader")
+import scala.util.Try
+
+class HmrcInternalHeaderSpec extends TemplateUnitSpec[InternalHeader, HmrcInternalHeader]("hmrcInternalHeader") {
+
+  override def render(templateParams: InternalHeader): Try[HtmlFormat.Appendable] = {
+    // The following line is needed to ensure known state of the statically initialised reverse router
+    // used to calculate asset paths.
+    hmrcfrontend.RoutesPrefix.setPrefix("")
+
+    super.render(templateParams)
+  }
+}

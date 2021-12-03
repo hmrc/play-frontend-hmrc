@@ -20,7 +20,7 @@ import uk.gov.hmrc.supportfrontend.views.UtilsSupport
 
 trait Utils extends UtilsSupport {
 
-  private[views] def isNonEmptyOptionString(value: Option[String]) = value match {
+  private[views] def isNonEmptyOptionString(value: Option[String]): Boolean = value match {
     case Some(NonEmptyString(_)) => true
     case _                       => false
   }
