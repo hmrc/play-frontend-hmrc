@@ -16,20 +16,7 @@
 
 package uk.gov.hmrc.hmrcfrontend.views.viewmodels.accountmenu
 
-import play.api.libs.json._
-import uk.gov.hmrc.hmrcfrontend.views.viewmodels.language.{En, Language}
+import uk.gov.hmrc.hmrcfrontend.views.viewmodels.JsonRoundtripSpec
+import uk.gov.hmrc.hmrcfrontend.views.viewmodels.accountmenu.Generators._
 
-case class AccountMenu(
-  accountHome: AccountHome = AccountHome(),
-  messages: AccountMessages = AccountMessages(),
-  checkProgress: CheckProgress = CheckProgress(),
-  yourProfile: YourProfile = YourProfile(),
-  businessTaxAccount: Option[BusinessTaxAccount] = None,
-  signOut: SignOut = SignOut(),
-  language: Language = En
-)
-
-object AccountMenu {
-
-  implicit def jsonFormats: OFormat[AccountMenu] = Json.using[Json.WithDefaultValues].format[AccountMenu]
-}
+class BusinessTaxAccountSpec extends JsonRoundtripSpec[BusinessTaxAccount]

@@ -77,6 +77,20 @@
       </a>
     </li>
 
+    @businessTaxAccount match {
+      case Some(businessTaxAccount) => {
+        <li>
+          <a href="@businessTaxAccount.href" class="hmrc-account-menu__link@if(businessTaxAccount.active){ hmrc-account-menu__link--active}">
+            @language match {
+              case Cy => {Cyfrif treth busnes}
+              case _ => {Business tax account}
+            }
+          </a>
+        </li>
+      }
+      case _ => {}
+    }
+
     <li>
       <a href="@signOut.href" class="hmrc-account-menu__link">
         @language match {

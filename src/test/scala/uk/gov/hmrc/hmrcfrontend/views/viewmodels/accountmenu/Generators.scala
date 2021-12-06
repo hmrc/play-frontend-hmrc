@@ -45,6 +45,13 @@ object Generators {
     } yield AccountMessages(href = href, active = active, messageCount = messageCount)
   }
 
+  implicit val arbBusinessTaxAccount: Arbitrary[BusinessTaxAccount] = Arbitrary {
+    for {
+      href   <- genAlphaStr()
+      active <- arbBool.arbitrary
+    } yield BusinessTaxAccount(href = href, active = active)
+  }
+
   implicit val arbYourProfile: Arbitrary[YourProfile] = Arbitrary {
     for {
       href <- genAlphaStr()
@@ -59,17 +66,19 @@ object Generators {
 
   implicit val arbAccountMenu: Arbitrary[AccountMenu] = Arbitrary {
     for {
-      accountHome   <- arbAccountHome.arbitrary
-      messages      <- arbMessages.arbitrary
-      checkProgress <- arbCheckProgress.arbitrary
-      yourProfile   <- arbYourProfile.arbitrary
-      signOut       <- arbSignOut.arbitrary
-      language      <- arbLanguage.arbitrary
+      accountHome        <- arbAccountHome.arbitrary
+      messages           <- arbMessages.arbitrary
+      checkProgress      <- arbCheckProgress.arbitrary
+      yourProfile        <- arbYourProfile.arbitrary
+      signOut            <- arbSignOut.arbitrary
+      businessTaxAccount <- Gen.option(arbBusinessTaxAccount.arbitrary)
+      language           <- arbLanguage.arbitrary
     } yield AccountMenu(
       accountHome = accountHome,
       messages = messages,
       checkProgress = checkProgress,
       yourProfile = yourProfile,
+      businessTaxAccount = businessTaxAccount,
       signOut = signOut,
       language = language
     )

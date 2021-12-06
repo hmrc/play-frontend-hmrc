@@ -784,6 +784,11 @@ pta-account-menu {
     host = ${pta-account-menu.pertax-frontend.host}
     href = ${pta-account-menu.your-profile.host}"/personal-account/your-profile-custom"
   }
+  
+  business-tax-account = {
+    host = ${pta-account-menu.business-tax-account-frontend.host}
+    href = ${pta-account-menu.business-tax-account.host}"/business-account"
+  }
 }
 ```
 
@@ -801,10 +806,11 @@ You may also wish to override the host per service value, this can be done by th
 
 ```
 pta-account-menu {
-  messages.host         = "http://localhost:12346"
-  account-home.host     = "http://localhost:12347"
-  your-profile.host     = "http://localhost:12348"
-  check-progress.host   = "http://localhost:12345"
+  messages.host             = "http://localhost:12346"
+  account-home.host         = "http://localhost:12347"
+  your-profile.host         = "http://localhost:12348"
+  check-progress.host       = "http://localhost:12345"
+  business-tax-account.host = "http://localhost:12349"
 }
 ```
 
@@ -830,6 +836,9 @@ To set the message count on the `AccountMessages` link, you can use the helper m
   AccountMenu().withMessagesCount(10)
 )
 ```
+
+There is also an optional `Business tax account` link provided in the `AccountMenu`, by default it is set to `None` and wont be displayed. 
+If you do wish to use it there is default configuration for it, and it will also be pulled in via the `withUrlsFromConfig()` helper method.  
 
 ## Troubleshooting
 

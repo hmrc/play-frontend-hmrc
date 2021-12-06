@@ -19,7 +19,7 @@ package uk.gov.hmrc.hmrcfrontend.views.implicits
 import play.api.i18n.Messages
 import play.api.mvc.RequestHeader
 import uk.gov.hmrc.hmrcfrontend.config.AccountMenuConfig
-import uk.gov.hmrc.hmrcfrontend.views.viewmodels.accountmenu.AccountMenu
+import uk.gov.hmrc.hmrcfrontend.views.viewmodels.accountmenu.{AccountMenu, BusinessTaxAccount}
 import uk.gov.hmrc.hmrcfrontend.views.viewmodels.language.{Cy, En}
 
 trait RichAccountMenuSupport extends {
@@ -43,6 +43,9 @@ trait RichAccountMenuSupport extends {
         ),
         yourProfile = accountMenu.yourProfile.copy(
           href = updateDefault(accountMenu.yourProfile.href, accountMenuConfig.yourProfileHref)
+        ),
+        businessTaxAccount = accountMenu.businessTaxAccount.map(businessAccount =>
+          businessAccount.copy(href = updateDefault(businessAccount.href, accountMenuConfig.businessTaxAccountHref))
         ),
         language = if (messages.lang.code == "cy") Cy else En
       )
