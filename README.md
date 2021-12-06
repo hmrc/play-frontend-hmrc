@@ -635,6 +635,34 @@ tracking-consent-frontend {
 `gtm.container` can be one of: `a`, `b`, `c`, `d`, `e`, `f` or `sdes`. Consult with the CIPSAGA team
 to identify which GTM container you should be using in your service.
 
+### Adding GTM to internal services
+
+If you would like to add GTM to an internal service, you can do so using the [HmrcInternalHead](https://github.com/hmrc/play-frontend-hmrc/blob/main/src/main/twirl/uk/gov/hmrc/hmrcfrontend/views/helpers/HmrcInternalHead.scala.html) 
+helper, which will add the GTM snippet in the `<head>` block. It should be used as demonstrated below in your own 
+`Layout.scala`. You will need to pass through a CSP nonce as demonstrated in the example to allow the GTM script.
+
+```scala
+@import views.html.helper.CSPNonce
+@import uk.gov.hmrc.govukfrontend.views.html.components.GovukLayout
+@import uk.gov.hmrc.hmrcfrontend.views.html.helpers.HmrcInternalHead
+@import uk.gov.hmrc.hmrcfrontend.views.html.components.HmrcInternalHeader
+@import uk.gov.hmrc.hmrcfrontend.views.viewmodels.internalheader.InternalHeader
+
+@this(
+        govukLayout: GovukLayout,
+        hmrcInternalHead: HmrcInternalHead,
+        hmrcInternalHeader: HmrcInternalHeader
+)
+@(pageTitle: Option[String] = None)(contentBlock: Html)(implicit request: Request[_], messages: Messages)
+
+@govukLayout(
+  pageTitle = pageTitle,
+  headBlock = Some(hmrcInternalHead(nonce = CSPNonce.get)),
+  headerBlock = Some(hmrcInternalHeader(InternalHeader()))
+)(contentBlock)
+
+```
+
 ## Warning users before timing them out
 
 In order to meet the accessibility [WCAG 2.1 Principle 2: Operable](https://www.w3.org/TR/WCAG21/#operable) you must
