@@ -8,6 +8,17 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 For compatibility information see `govukFrontendVersion` and `hmrcFrontendVersion` in
 [LibDependencies](project/LibDependencies.scala)
 
+## [1.31.0] - 2021-12-07
+
+### Updated
+
+- Set default version to Play 2.8 in PlayCrossCompilation
+
+### Compatible with
+
+- [hmrc/hmrc-frontend v3.4.0](https://github.com/hmrc/hmrc-frontend/releases/tag/v3.4.0)
+- [alphagov/govuk-frontend v3.14.0](https://github.com/alphagov/govuk-frontend/releases/tag/v3.14.0)
+
 ## [1.30.0] - 2021-12-06
 
 ### Updated
