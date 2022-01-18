@@ -8,6 +8,24 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 For compatibility information see `govukFrontendVersion` and `hmrcFrontendVersion` in
 [LibDependencies](project/LibDependencies.scala)
 
+## [2.0.0] - 2022-01-18
+
+### Removed
+
+- Major version has been bumped because this is the first release since we've had to remove builds for Play 2.6 and
+  Play 2.7 support from the library. No breaking API changes have been made.
+
+### Changed
+
+- HmrcReportTechnicalIssue component tabnabbing protections are now only added if a non-empty referrerUrl has been
+  provided. May trigger a DAST alert if you're not using our helper and not supplying a referrerUrl, recommendation is 
+  to upgrade your usage to the HmrcReportTechnicalIssueHelper or explicitly supply a referrerUrl.
+
+### Compatible with
+
+- [hmrc/hmrc-frontend v3.4.0](https://github.com/hmrc/hmrc-frontend/releases/tag/v3.4.0)
+- [alphagov/govuk-frontend v3.14.0](https://github.com/alphagov/govuk-frontend/releases/tag/v3.14.0)
+
 ## [1.31.0] - 2021-12-07
 
 ### Updated

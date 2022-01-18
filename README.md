@@ -737,7 +737,7 @@ compilation pipeline, follow the [steps detailed here](docs/maintainers/sass-com
 ## Play Framework and Scala compatibility notes
 This library is currently compatible with:
 * Scala 2.12
-* Play 2.6, Play 2.7, Play 2.8
+* Play 2.8
 
 ## Example Templates
 
