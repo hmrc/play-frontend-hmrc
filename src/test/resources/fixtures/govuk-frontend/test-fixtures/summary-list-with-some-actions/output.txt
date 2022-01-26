@@ -22,17 +22,15 @@
               </ul>
           </dd>
       </div>
-      <div class="govuk-summary-list__row">
+      <div class="govuk-summary-list__row govuk-summary-list__row--no-actions">
         <dt class="govuk-summary-list__key">
           Date of birth
         </dt>
         <dd class="govuk-summary-list__value">
           13/08/1980
         </dd>
-          
-          <span class="govuk-summary-list__actions"></span>
       </div>
-      <div class="govuk-summary-list__row">
+      <div class="govuk-summary-list__row govuk-summary-list__row--no-actions">
         <dt class="govuk-summary-list__key">
           Contact information
         </dt>
@@ -48,7 +46,5 @@
           Address line 5
         </p>
         </dd>
-          
-          <span class="govuk-summary-list__actions"></span>
       </div>
 </dl>

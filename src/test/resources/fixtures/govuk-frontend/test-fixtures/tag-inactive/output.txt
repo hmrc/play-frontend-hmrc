@@ -1,3 +1,3 @@
-<strong class="govuk-tag govuk-tag--inactive">
+<strong class="govuk-tag govuk-tag--grey">
   alpha
 </strong>

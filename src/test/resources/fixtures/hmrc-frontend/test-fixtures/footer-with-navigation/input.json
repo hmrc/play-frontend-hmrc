@@ -2,6 +2,7 @@
   "navigation" : [ {
     "title" : "Two column list",
     "columns" : 2,
+    "width" : "two-thirds",
     "items" : [ {
       "href" : "#1",
       "text" : "Navigation item 1"
@@ -23,6 +24,7 @@
     } ]
   }, {
     "title" : "Single column list",
+    "width" : "one-third",
     "items" : [ {
       "href" : "#1",
       "text" : "Navigation item 1"

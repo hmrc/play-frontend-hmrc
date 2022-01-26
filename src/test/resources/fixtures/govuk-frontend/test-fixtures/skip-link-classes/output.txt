@@ -1,1 +1,1 @@
-<a href="#content" class="govuk-skip-link app-skip-link--custom-class">Skip link</a>
+<a href="#content" class="govuk-skip-link app-skip-link--custom-class" data-module="govuk-skip-link">Skip link</a>

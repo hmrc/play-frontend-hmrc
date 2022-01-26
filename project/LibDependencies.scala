@@ -5,10 +5,9 @@ import play.sbt.PlayImport.ws
 import sbt.ModuleID
 
 object LibDependencies {
-  val govukFrontendVersion: String     = "3.13.0"
-  val hmrcFrontendVersion: String      = "3.4.0"
-  val playFrontendGovukVersion: String = "2.0.0"
-  val playLanguageVersion: String      = "5.0.0"
+  val govukFrontendVersion: String = "4.0.0"
+  val hmrcFrontendVersion: String  = "4.3.0"
+  val playLanguageVersion: String  = "5.0.0"
 
   val compile: Seq[ModuleID] = dependencies(
     shared = Seq(
@@ -16,17 +15,8 @@ object LibDependencies {
       "com.typesafe.play"  %% "filters-helpers" % PlayVersion.current,
       "uk.gov.hmrc.webjars" % "hmrc-frontend"   % hmrcFrontendVersion
     ),
-    play26 = Seq(
-      "uk.gov.hmrc" %% "play-language"       % s"$playLanguageVersion-play-26",
-      "uk.gov.hmrc" %% "play-frontend-govuk" % s"$playFrontendGovukVersion-play-26"
-    ),
-    play27 = Seq(
-      "uk.gov.hmrc" %% "play-language"       % s"$playLanguageVersion-play-27",
-      "uk.gov.hmrc" %% "play-frontend-govuk" % s"$playFrontendGovukVersion-play-27"
-    ),
     play28 = Seq(
-      "uk.gov.hmrc" %% "play-language"       % s"$playLanguageVersion-play-28",
-      "uk.gov.hmrc" %% "play-frontend-govuk" % s"$playFrontendGovukVersion-play-28"
+      "uk.gov.hmrc" %% "play-language" % s"$playLanguageVersion-play-28"
     )
   )
 
@@ -45,12 +35,6 @@ object LibDependencies {
       "org.bitbucket.cowwoc"          % "diff-match-patch"         % "1.2"               % Test,
       "com.typesafe.play"            %% "play-test"                % PlayVersion.current % Test,
       ws                              % Test
-    ),
-    play26 = Seq(
-      "org.scalatestplus.play" %% "scalatestplus-play" % "3.1.3" % Test
-    ),
-    play27 = Seq(
-      "org.scalatestplus.play" %% "scalatestplus-play" % "4.0.3" % Test
     ),
     play28 = Seq(
       "org.scalatestplus.play" %% "scalatestplus-play" % "5.1.0" % Test

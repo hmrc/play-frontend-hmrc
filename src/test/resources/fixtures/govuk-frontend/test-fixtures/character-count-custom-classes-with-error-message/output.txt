@@ -4,9 +4,9 @@
   <label class="govuk-label" for="with-custom-error-class">
     With custom error class
   </label>
-  <span id="with-custom-error-class-error" class="govuk-error-message">
+  <p id="with-custom-error-class-error" class="govuk-error-message">
   <span class="govuk-visually-hidden">Error:</span> Error message
-  </span>
+  </p>
   <textarea class="govuk-textarea govuk-textarea--error govuk-js-character-count govuk-textarea--error app-character-count--custom-modifier" id="with-custom-error-class" name="with-custom-error-class" rows="5" aria-describedby="with-custom-error-class-info with-custom-error-class-error"></textarea>
 </div>
 

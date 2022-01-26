@@ -1,6 +1,7 @@
 {
   "navigation" : [ {
     "title" : "Single column list 1",
+    "width" : "one-third",
     "columns" : 1,
     "items" : [ {
       "href" : "#1",
@@ -23,6 +24,7 @@
     } ]
   }, {
     "title" : "Single column list 2",
+    "width" : "one-third",
     "columns" : 1,
     "items" : [ {
       "href" : "#1",
@@ -45,6 +47,7 @@
     } ]
   }, {
     "title" : "Single column list 3",
+    "width" : "one-third",
     "columns" : 1,
     "items" : [ {
       "href" : "#1",

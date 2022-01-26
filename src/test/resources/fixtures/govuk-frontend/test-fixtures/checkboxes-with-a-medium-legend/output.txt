@@ -6,9 +6,9 @@
   <div id="waste-hint" class="govuk-hint">
     Select all that apply
   </div>
-  <span id="waste-error" class="govuk-error-message">
+  <p id="waste-error" class="govuk-error-message">
   <span class="govuk-visually-hidden">Error:</span> Select which types of waste you transport regularly
-  </span>
+  </p>
   <div class="govuk-checkboxes"    data-module="govuk-checkboxes">
           <div class="govuk-checkboxes__item">
             <input class="govuk-checkboxes__input" id="waste" name="waste" type="checkbox" value="animal">

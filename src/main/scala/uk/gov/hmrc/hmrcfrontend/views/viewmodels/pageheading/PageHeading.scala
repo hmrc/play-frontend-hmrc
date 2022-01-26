@@ -20,7 +20,8 @@ import play.api.libs.json._
 
 case class PageHeading(
   text: String = "",
-  section: Option[String] = None
+  section: Option[String] = None,
+  language: Option[String] = None
 )
 
 object PageHeading {

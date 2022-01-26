@@ -34,8 +34,6 @@
 
 @idPrefixStr = @{idPrefix.getNonEmptyOrElse(name)}
 
-@isConditional = @{items.exists(_.conditionalHtml.exists(_.body.nonEmpty))}
-
 @hintSnippet(describedBy: String) = @{
   hint.fold((describedBy, HtmlFormat.empty)) { hint =>
     val hintId = idPrefixStr + "-hint"
@@ -68,7 +66,7 @@
 }
 
 @divSnippet = {
-  <div class="@toClasses("govuk-radios", classes, "govuk-radios--conditional".when(isConditional))"@toAttributes(attributes)@if(isConditional) { data-module="govuk-radios"}>
+  <div class="@toClasses("govuk-radios", classes)"@toAttributes(attributes) data-module="govuk-radios">
   @for((item, index) <- items.zip(Stream from 1)) {
     @defining(itemId(item, index)) { id =>
     @defining(s"conditional-$id") { conditionalId =>

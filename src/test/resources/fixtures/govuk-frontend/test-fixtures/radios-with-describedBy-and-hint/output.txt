@@ -1,4 +1,3 @@
-
 <div class="govuk-form-group">
 <fieldset class="govuk-fieldset" aria-describedby="some-id example-hint-describedby-hint">
   <legend class="govuk-fieldset__legend">
@@ -7,7 +6,7 @@
   <div id="example-hint-describedby-hint" class="govuk-hint">
     This includes changing your last name or spelling your name differently.
   </div>
-  <div class="govuk-radios">
+  <div class="govuk-radios"    data-module="govuk-radios">
         <div class="govuk-radios__item">
           <input class="govuk-radios__input" id="example-hint-describedby" name="example-hint-describedby" type="radio" value="yes">
           <label class="govuk-label govuk-radios__label" for="example-hint-describedby">
