@@ -8,6 +8,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 For compatibility information see `govukFrontendVersion` and `hmrcFrontendVersion` in
 [LibDependencies](project/LibDependencies.scala)
 
+## [3.1.0] - 2022-01-28
+
+### Added
+
+- Added `HmrcPageHeadingHelper` component which allows the language parameter to be passed in implicitly, instead of directly using the `HmrcPageHeading` component in which the language parameter would need to be provided manually.
+
 ## [3.0.0] - 2022-01-28
 
 ### Changed

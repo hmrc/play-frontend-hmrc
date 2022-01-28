@@ -1,4 +1,4 @@
-/*
+@*
  * Copyright 2022 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,11 +12,16 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- */
+ *@
 
-package uk.gov.hmrc.hmrcfrontend.views.viewmodels.pageheading
+@import uk.gov.hmrc.hmrcfrontend.views.html.components.HmrcPageHeading
+@import uk.gov.hmrc.hmrcfrontend.views.viewmodels.pageheading.PageHeading
 
-import uk.gov.hmrc.hmrcfrontend.views.viewmodels.JsonRoundtripSpec
-import uk.gov.hmrc.hmrcfrontend.views.viewmodels.pageheading.Generators._
+@this(hmrcNewTabLink: HmrcPageHeading)
 
-class PageHeadingSpec extends JsonRoundtripSpec[PageHeading]
+@(pageHeading: PageHeading)(implicit messages: Messages)
+@hmrcNewTabLink(PageHeading(
+    text = pageHeading.text,
+    section = pageHeading.section,
+    language = Some(messages.lang.language)
+))

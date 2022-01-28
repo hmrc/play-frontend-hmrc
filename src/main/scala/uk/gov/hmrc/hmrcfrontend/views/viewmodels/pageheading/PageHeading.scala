@@ -25,6 +25,5 @@ case class PageHeading(
 )
 
 object PageHeading {
-
   implicit def jsonFormats: OFormat[PageHeading] = Json.using[Json.WithDefaultValues].format[PageHeading]
 }
