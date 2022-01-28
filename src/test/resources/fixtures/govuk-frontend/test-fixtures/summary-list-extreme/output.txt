@@ -51,7 +51,7 @@
                   </li>
                   <li class="govuk-summary-list__actions-list-item">
                     <a class="govuk-link" href="#">
-                      Coom</a>
+                      Zoom</a>
                   </li>
                   <li class="govuk-summary-list__actions-list-item">
                     <a class="govuk-link" href="#">

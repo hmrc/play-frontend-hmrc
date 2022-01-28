@@ -3,9 +3,9 @@
   <legend class="govuk-fieldset__legend">
     Filter by
   </legend>
-  <span id="nationality-error" class="govuk-error-message">
+  <p id="nationality-error" class="govuk-error-message">
   <span class="govuk-visually-hidden">Error:</span> Select a thing
-  </span>
+  </p>
   <div class="govuk-checkboxes govuk-checkboxes--small"    data-module="govuk-checkboxes">
           <div class="govuk-checkboxes__item">
             <input class="govuk-checkboxes__input" id="nationality" name="nationality" type="checkbox" value="a">

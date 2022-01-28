@@ -1,10 +1,9 @@
-
 <div class="govuk-form-group">
 <fieldset class="govuk-fieldset">
   <legend class="govuk-fieldset__legend">
     How do you want to be contacted?
   </legend>
-  <div class="govuk-radios govuk-radios--inline govuk-radios--conditional" data-module="govuk-radios">
+  <div class="govuk-radios govuk-radios--inline"    data-module="govuk-radios">
         <div class="govuk-radios__item">
           <input class="govuk-radios__input" id="how-contacted" name="how-contacted" type="radio" value="email" data-aria-controls="conditional-how-contacted">
           <label class="govuk-label govuk-radios__label" for="how-contacted">

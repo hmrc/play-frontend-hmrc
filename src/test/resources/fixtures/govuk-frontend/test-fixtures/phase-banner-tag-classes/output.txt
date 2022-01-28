@@ -1,6 +1,6 @@
 <div class="govuk-phase-banner">
   <p class="govuk-phase-banner__content">
-    <strong class="govuk-tag govuk-phase-banner__content__tag govuk-tag--inactive">
+    <strong class="govuk-tag govuk-phase-banner__content__tag govuk-tag--grey">
       alpha
     </strong>
     <span class="govuk-phase-banner__text">

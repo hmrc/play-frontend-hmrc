@@ -8,14 +8,14 @@
       "text" : "Additional description"
     },
     "content" : {
-      "html" : "<ul class=\"govuk-list govuk-list--bullet\">\n  <li>Example item 1</li>\n</ul>\n"
+      "html" : "<p class=\"govuk-body\">\n  We need to know your nationality so we can work out which elections you’re entitled to vote in. If you cannot provide your nationality, you’ll have to send copies of identity documents through the post.\n</p>\n<ul class=\"govuk-list govuk-list--bullet\">\n  <li>Example item 1</li>\n</ul>\n"
     }
   }, {
     "heading" : {
       "text" : "Test 2"
     },
     "summary" : {
-      "html" : "<span class=\"govuk-!-font-weight-regular\">Additional description</span>"
+      "html" : "<span class=\"govuk-!-font-weight-regular\">Additional description (wrapped in span)</span>"
     },
     "content" : {
       "html" : "<ul class=\"govuk-list govuk-list--bullet\">\n  <li>Example item 2</li>\n</ul>\n"

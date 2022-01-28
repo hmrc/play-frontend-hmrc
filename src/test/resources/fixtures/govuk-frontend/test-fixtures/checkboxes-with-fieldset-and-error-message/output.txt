@@ -3,9 +3,9 @@
   <legend class="govuk-fieldset__legend">
     What is your nationality?
   </legend>
-  <span id="nationality-error" class="govuk-error-message">
+  <p id="nationality-error" class="govuk-error-message">
   <span class="govuk-visually-hidden">Error:</span> Please accept the terms and conditions
-  </span>
+  </p>
   <div class="govuk-checkboxes"    data-module="govuk-checkboxes">
           <div class="govuk-checkboxes__item">
             <input class="govuk-checkboxes__input" id="nationality" name="nationality" type="checkbox" value="british">

@@ -12,7 +12,10 @@
             </div>
         </div>
         <div id="with-descriptions-content-1" class="govuk-accordion__section-content" aria-labelledby="with-descriptions-heading-1">
-          <ul class="govuk-list govuk-list--bullet">
+          <p class="govuk-body">
+  We need to know your nationality so we can work out which elections you’re entitled to vote in. If you cannot provide your nationality, you’ll have to send copies of identity documents through the post.
+</p>
+<ul class="govuk-list govuk-list--bullet">
   <li>Example item 1</li>
 </ul>
 
@@ -26,7 +29,7 @@
             </span>
           </h2>
             <div class="govuk-accordion__section-summary govuk-body" id="with-descriptions-summary-2">
-              <span class="govuk-!-font-weight-regular">Additional description</span>
+              <span class="govuk-!-font-weight-regular">Additional description (wrapped in span)</span>
             </div>
         </div>
         <div id="with-descriptions-content-2" class="govuk-accordion__section-content" aria-labelledby="with-descriptions-heading-2">

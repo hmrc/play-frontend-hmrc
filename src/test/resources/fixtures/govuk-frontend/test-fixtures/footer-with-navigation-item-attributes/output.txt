@@ -1,7 +1,7 @@
 <footer class="govuk-footer " role="contentinfo">
   <div class="govuk-width-container ">
       <div class="govuk-footer__navigation">
-          <div class="govuk-footer__section">
+          <div class="govuk-footer__section govuk-grid-column-full">
             <h2 class="govuk-footer__heading govuk-heading-m">Single column list 1</h2>
               <ul class="govuk-footer__list ">
                     <li class="govuk-footer__list-item">

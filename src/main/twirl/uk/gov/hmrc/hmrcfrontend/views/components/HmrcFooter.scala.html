@@ -23,7 +23,7 @@
   @if(navigation.nonEmpty){
    <div class="govuk-footer__navigation">
    @for(nav <- navigation) {
-    <div class="govuk-footer__section">
+    <div class="govuk-footer__section govuk-grid-column-@{nav.width.getOrElse("full")}">
      <h2 class="govuk-footer__heading govuk-heading-m">@nav.title</h2>
      @if(nav.items.nonEmpty) {
       <ul class="govuk-footer__list @if(nav.columns.exists(_ > 0)) { govuk-footer__list--columns-@nav.columns}">

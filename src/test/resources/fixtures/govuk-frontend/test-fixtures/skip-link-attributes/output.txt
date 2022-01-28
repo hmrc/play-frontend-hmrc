@@ -1,1 +1,1 @@
-<a href="#content" class="govuk-skip-link" data-test="attribute" aria-label="Skip to content">Skip link</a>
+<a href="#content" class="govuk-skip-link" data-test="attribute" aria-label="Skip to content" data-module="govuk-skip-link">Skip link</a>

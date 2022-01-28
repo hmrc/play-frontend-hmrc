@@ -8,9 +8,9 @@
   <div id="dob-errors-hint" class="govuk-hint">
     For example, 31 3 1980
   </div>
-  <span id="dob-errors-error" class="govuk-error-message">
+  <p id="dob-errors-error" class="govuk-error-message">
   <span class="govuk-visually-hidden">Error:</span> Error message goes here
-  </span>
+  </p>
   <div class="govuk-date-input" id="dob-errors">
     <div class="govuk-date-input__item">
       <div class="govuk-form-group">

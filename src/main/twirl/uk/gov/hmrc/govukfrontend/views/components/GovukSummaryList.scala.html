@@ -20,7 +20,7 @@
 @import params._
 <dl class="@toClasses("govuk-summary-list", classes)"@toAttributes(attributes)>
   @for(row <- rows) {
-    <div class="@toClasses("govuk-summary-list__row", row.classes)">
+    <div class="@toClasses("govuk-summary-list__row", "govuk-summary-list__row--no-actions".when(anyRowHasActions && row.actions.isEmpty), row.classes)">
       <dt class="@toClasses("govuk-summary-list__key", row.key.classes)">
         @row.key.content.asHtml
       </dt>
@@ -43,11 +43,6 @@
             </ul>
           }
         </dd>
-      } else {
-        @if(anyRowHasActions) {
-          @* Add dummy column to extend border *@
-          <span class="govuk-summary-list__actions"></span>
-        }
       }
     </div>
   }

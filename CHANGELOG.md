@@ -8,6 +8,21 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 For compatibility information see `govukFrontendVersion` and `hmrcFrontendVersion` in
 [LibDependencies](project/LibDependencies.scala)
 
+## [3.0.0] - 2022-01-28
+
+### Changed
+
+- Uplifted to use v4.0.0 of govuk-frontend. Please read the [release notes](https://github.com/alphagov/govuk-frontend/releases/tag/v4.0.0)
+  when uplifting your service, and check that components still display as expected.
+- `HmrcPageHeading` now supports Welsh language (note that the language parameter will need to passed in manually for 
+  Welsh translation).
+
+### Compatible with
+
+- [hmrc/hmrc-frontend v4.3.0](https://github.com/hmrc/hmrc-frontend/releases/tag/v4.3.0)
+- [alphagov/govuk-frontend v4.0.0](https://github.com/alphagov/govuk-frontend/releases/tag/v4.0.0)
+
+
 ## [2.0.0] - 2022-01-18
 
 ### Removed

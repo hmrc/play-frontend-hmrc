@@ -1,4 +1,3 @@
-
 <div class="govuk-form-group">
 <fieldset class="govuk-fieldset" aria-describedby="housing-act-hint">
   <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
@@ -9,7 +8,7 @@
   <div id="housing-act-hint" class="govuk-hint">
     Select one of the options below.
   </div>
-  <div class="govuk-radios">
+  <div class="govuk-radios"    data-module="govuk-radios">
         <div class="govuk-radios__item">
           <input class="govuk-radios__input" id="housing-act" name="housing-act" type="radio" value="part-2">
           <label class="govuk-label govuk-radios__label" for="housing-act">

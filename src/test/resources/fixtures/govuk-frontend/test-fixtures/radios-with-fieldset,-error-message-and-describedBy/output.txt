@@ -1,13 +1,12 @@
-
 <div class="govuk-form-group govuk-form-group--error">
 <fieldset class="govuk-fieldset" aria-describedby="some-id example-error">
   <legend class="govuk-fieldset__legend">
     Have you changed your name?
   </legend>
-  <span id="example-error" class="govuk-error-message">
+  <p id="example-error" class="govuk-error-message">
   <span class="govuk-visually-hidden">Error:</span> Please select an option
-  </span>
-  <div class="govuk-radios">
+  </p>
+  <div class="govuk-radios"    data-module="govuk-radios">
         <div class="govuk-radios__item">
           <input class="govuk-radios__input" id="example" name="example" type="radio" value="yes">
           <label class="govuk-label govuk-radios__label" for="example">

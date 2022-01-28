@@ -27,10 +27,10 @@
 *@
 @(params: ErrorMessage)
 @import params._
-<span @id.map {id => id="@id"} class="@toClasses("govuk-error-message", classes)"@toAttributes(attributes)>
+<p @id.map {id => id="@id"} class="@toClasses("govuk-error-message", classes)"@toAttributes(attributes)>
  @visuallyHiddenText match {
    case Some(NonEmptyString(text)) => {<span class="govuk-visually-hidden">@text:</span>}
    case Some(_) | None => {}
  }
  @content.asHtml
-</span>
+</p>

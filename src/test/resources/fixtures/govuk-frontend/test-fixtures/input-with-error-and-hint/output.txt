@@ -5,7 +5,7 @@
   <div id="with-error-hint-hint" class="govuk-hint">
     Hint
   </div>
-  <span id="with-error-hint-error" class="govuk-error-message">
+  <p id="with-error-hint-error" class="govuk-error-message">
   <span class="govuk-visually-hidden">Error:</span> Error message
-  </span>
+  </p>
 <input class="govuk-input govuk-input--error" id="with-error-hint" name="with-error-hint" type="text" aria-describedby="with-error-hint-hint with-error-hint-error"></div>

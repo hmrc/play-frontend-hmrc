@@ -5,8 +5,8 @@
   <div id="with-hint-error-hint" class="govuk-hint">
     Hint
   </div>
-  <span id="with-hint-error-error" class="govuk-error-message">
+  <p id="with-hint-error-error" class="govuk-error-message">
   <span class="govuk-visually-hidden">Error:</span> Error message
-  </span>
+  </p>
   <textarea class="govuk-textarea govuk-textarea--error" id="with-hint-error" name="with-hint-error" rows="5" aria-describedby="with-hint-error-hint with-hint-error-error"></textarea>
 </div>

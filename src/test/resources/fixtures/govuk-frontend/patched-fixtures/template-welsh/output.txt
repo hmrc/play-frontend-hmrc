@@ -23,7 +23,7 @@
 <body class="govuk-template__body app-body-class">
 <script>document.body.className = ((document.body.className) ? document.body.className + ' js-enabled' : 'js-enabled');</script>
 
-<a href="#main-content" class="govuk-skip-link">Ewch yn syth i‘r prif gynnwys</a>
+<a href="#main-content" class="govuk-skip-link" data-module="govuk-skip-link">Ewch yn syth i‘r prif gynnwys</a>
 <header role="banner">Custom header</header>
 <div class="govuk-width-container ">
     <p>Customised before content, <a class="govuk-link" href="#">this is a link</a>.        <main class="govuk-main-wrapper app-main-class" id="main-content" role="main">

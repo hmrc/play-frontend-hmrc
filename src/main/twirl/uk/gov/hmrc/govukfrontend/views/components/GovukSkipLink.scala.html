@@ -19,4 +19,4 @@
 @(params: SkipLink)
 @import params._
 @require(href.nonEmpty)
-<a href="@{"#content".?:(href)}" class="@toClasses("govuk-skip-link", classes)"@toAttributes(attributes)>@content.asHtml</a>
+<a href="@{"#content".?:(href)}" class="@toClasses("govuk-skip-link", classes)"@toAttributes(attributes) data-module="govuk-skip-link">@content.asHtml</a>

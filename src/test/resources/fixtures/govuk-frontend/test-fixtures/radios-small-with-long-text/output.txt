@@ -1,10 +1,9 @@
-
 <div class="govuk-form-group">
 <fieldset class="govuk-fieldset">
   <legend class="govuk-fieldset__legend">
     Venenatis Condimentum
   </legend>
-  <div class="govuk-radios govuk-radios--small">
+  <div class="govuk-radios govuk-radios--small"    data-module="govuk-radios">
         <div class="govuk-radios__item">
           <input class="govuk-radios__input" id="foo" name="foo" type="radio" value="nullam">
           <label class="govuk-label govuk-radios__label" for="foo">
