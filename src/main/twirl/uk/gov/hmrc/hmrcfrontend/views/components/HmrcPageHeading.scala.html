@@ -14,15 +14,18 @@
  * limitations under the License.
  *@
 
+@import uk.gov.hmrc.hmrcfrontend.views.viewmodels.language.Cy
+
 @this()
 
 @(params: PageHeading)
 @import params._
+
 <header class="hmrc-page-heading">
   <h1 class="govuk-heading-xl">@text</h1>
   @section match {
     case Some(NonEmptyString(x)) => {<p class="govuk-caption-xl hmrc-caption-xl"><span class="govuk-visually-hidden">@language match {
-      case Some("cy") => {Teitl yr adran hon yw }
+      case Some(Cy.code) => {Teitl yr adran hon yw }
       case _ => {This section is }
     }</span>@x</p>}
     case _ => {}
