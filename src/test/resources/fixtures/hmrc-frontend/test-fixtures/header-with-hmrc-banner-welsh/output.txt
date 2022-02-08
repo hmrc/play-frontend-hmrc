@@ -1,6 +1,6 @@
 
 <header role="banner">
-  <div class="govuk-header hmrc-header  hmrc-header--with-additional-navigation" data-module="header">
+  <div class="govuk-header hmrc-header  hmrc-header--with-additional-navigation" data-module="govuk-header">
     <div class="govuk-header__container govuk-width-container">
       <div class="govuk-header__logo">
         <a href="/" class="govuk-header__link govuk-header__link--homepage">

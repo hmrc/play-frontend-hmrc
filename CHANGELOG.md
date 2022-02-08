@@ -8,6 +8,19 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 For compatibility information see `govukFrontendVersion` and `hmrcFrontendVersion` in
 [LibDependencies](project/LibDependencies.scala)
 
+## [3.3.0] - 2022-02-08
+
+### Fixed
+
+- Updated `HmrcHeader` Twirl template to align with the changes made in hmrc-frontend v4.4.0 which fixes behaviour of
+  navigation dropdown menu on mobile by adding "govuk-" prefix to data-module attribute of header.
+
+### Compatible with
+
+- [hmrc/hmrc-frontend v4.4.0](https://github.com/hmrc/hmrc-frontend/releases/tag/v4.4.0)
+- [alphagov/govuk-frontend v4.0.0](https://github.com/alphagov/govuk-frontend/releases/tag/v4.0.0)
+
+
 ## [3.2.0] - 2022-02-03
 
 ### Fixed
