@@ -22,7 +22,7 @@
 @import params._
 
 <header role="banner">
-    <div class="govuk-header @toClasses("hmrc-header", classes) @if(signOutHref.exists(_.nonEmpty) || languageToggle.exists(_.linkMap.nonEmpty)){ hmrc-header--with-additional-navigation}else{}" data-module="header"
+    <div class="govuk-header @toClasses("hmrc-header", classes) @if(signOutHref.exists(_.nonEmpty) || languageToggle.exists(_.linkMap.nonEmpty)){ hmrc-header--with-additional-navigation}else{}" data-module="govuk-header"
             @toAttributes(attributes)>
       <div class="@toClasses("govuk-header__container ", containerClasses)">
         <div class="govuk-header__logo">
