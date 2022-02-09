@@ -2,4 +2,5 @@
   <label class="govuk-label" for="with-describedby">
     With describedBy
   </label>
-<input class="govuk-input" id="with-describedby" name="with-describedby" type="text" aria-describedby="some-id"></div>
+<input class="govuk-input" id="with-describedby" name="with-describedby" type="text" aria-describedby="some-id">
+</div>

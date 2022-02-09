@@ -7,21 +7,24 @@
         <label class="govuk-label govuk-date-input__label" for="with-attributes-day">
           Day
         </label>
-      <input class="govuk-input govuk-date-input__input govuk-input--width-2" id="with-attributes-day" name="day" type="text" pattern="[0-9]*" inputmode="numeric"></div>
+      <input class="govuk-input govuk-date-input__input govuk-input--width-2" id="with-attributes-day" name="day" type="text" pattern="[0-9]*" inputmode="numeric">
+      </div>
     </div>
     <div class="govuk-date-input__item">
       <div class="govuk-form-group">
         <label class="govuk-label govuk-date-input__label" for="with-attributes-month">
           Month
         </label>
-      <input class="govuk-input govuk-date-input__input govuk-input--width-2" id="with-attributes-month" name="month" type="text" pattern="[0-9]*" inputmode="numeric"></div>
+      <input class="govuk-input govuk-date-input__input govuk-input--width-2" id="with-attributes-month" name="month" type="text" pattern="[0-9]*" inputmode="numeric">
+      </div>
     </div>
     <div class="govuk-date-input__item">
       <div class="govuk-form-group">
         <label class="govuk-label govuk-date-input__label" for="with-attributes-year">
           Year
         </label>
-      <input class="govuk-input govuk-date-input__input govuk-input--width-4" id="with-attributes-year" name="year" type="text" pattern="[0-9]*" inputmode="numeric"></div>
+      <input class="govuk-input govuk-date-input__input govuk-input--width-4" id="with-attributes-year" name="year" type="text" pattern="[0-9]*" inputmode="numeric">
+      </div>
     </div>
   </div>
 </div>

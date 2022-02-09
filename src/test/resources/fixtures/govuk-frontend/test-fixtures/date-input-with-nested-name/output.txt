@@ -7,21 +7,24 @@
         <label class="govuk-label govuk-date-input__label" for="with-nested-name-day[dd]">
           Day[dd]
         </label>
-      <input class="govuk-input govuk-date-input__input " id="with-nested-name-day[dd]" name="day[dd]" type="text" pattern="[0-9]*" inputmode="numeric"></div>
+      <input class="govuk-input govuk-date-input__input " id="with-nested-name-day[dd]" name="day[dd]" type="text" pattern="[0-9]*" inputmode="numeric">
+      </div>
     </div>
     <div class="govuk-date-input__item">
       <div class="govuk-form-group">
         <label class="govuk-label govuk-date-input__label" for="with-nested-name-month[mm]">
           Month[mm]
         </label>
-      <input class="govuk-input govuk-date-input__input " id="with-nested-name-month[mm]" name="month[mm]" type="text" pattern="[0-9]*" inputmode="numeric"></div>
+      <input class="govuk-input govuk-date-input__input " id="with-nested-name-month[mm]" name="month[mm]" type="text" pattern="[0-9]*" inputmode="numeric">
+      </div>
     </div>
     <div class="govuk-date-input__item">
       <div class="govuk-form-group">
         <label class="govuk-label govuk-date-input__label" for="with-nested-name-year[yyyy]">
           Year[yyyy]
         </label>
-      <input class="govuk-input govuk-date-input__input " id="with-nested-name-year[yyyy]" name="year[yyyy]" type="text" pattern="[0-9]*" inputmode="numeric"></div>
+      <input class="govuk-input govuk-date-input__input " id="with-nested-name-year[yyyy]" name="year[yyyy]" type="text" pattern="[0-9]*" inputmode="numeric">
+      </div>
     </div>
   </div>
 </div>
