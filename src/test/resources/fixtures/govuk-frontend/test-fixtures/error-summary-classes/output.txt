@@ -1,4 +1,4 @@
-<div class="govuk-error-summary extra-class one-more-class" aria-labelledby="error-summary-title" role="alert" tabindex="-1" data-module="govuk-error-summary">
+<div class="govuk-error-summary extra-class one-more-class" aria-labelledby="error-summary-title" role="alert" data-module="govuk-error-summary">
   <h2 class="govuk-error-summary__title" id="error-summary-title">
     There is a problem
   </h2>

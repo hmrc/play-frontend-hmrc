@@ -2,4 +2,5 @@
   <label class="govuk-label" for="with-inputmode">
     With inputmode
   </label>
-<input class="govuk-input" id="with-inputmode" name="with-inputmode" type="text" inputmode="decimal"></div>
+<input class="govuk-input" id="with-inputmode" name="with-inputmode" type="text" inputmode="decimal">
+</div>

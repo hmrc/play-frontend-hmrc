@@ -25,7 +25,8 @@ case class ErrorSummary(
   classes: String = "",
   attributes: Map[String, String] = Map.empty,
   title: Content = Empty,
-  description: Content = Empty
+  description: Content = Empty,
+  disableAutoFocus: Boolean = false
 )
 
 object ErrorSummary {
@@ -38,7 +39,8 @@ object ErrorSummary {
         (__ \ "classes").readWithDefault[String](defaultObject.classes) and
         (__ \ "attributes").readWithDefault[Map[String, String]](defaultObject.attributes) and
         Content.readsHtmlOrText((__ \ "titleHtml"), (__ \ "titleText")) and
-        Content.readsHtmlOrText((__ \ "descriptionHtml"), (__ \ "descriptionText"))
+        Content.readsHtmlOrText((__ \ "descriptionHtml"), (__ \ "descriptionText")) and
+        (__ \ "disableAutoFocus").readWithDefault[Boolean](defaultObject.disableAutoFocus)
     )(ErrorSummary.apply _)
 
   implicit def jsonWrites: OWrites[ErrorSummary] =
@@ -47,7 +49,8 @@ object ErrorSummary {
         (__ \ "classes").write[String] and
         (__ \ "attributes").write[Map[String, String]] and
         Content.writesContent("titleHtml", "titleText") and
-        Content.writesContent("descriptionHtml", "descriptionText")
+        Content.writesContent("descriptionHtml", "descriptionText") and
+        (__ \ "disableAutoFocus").write[Boolean]
     )(unlift(ErrorSummary.unapply))
 
 }
