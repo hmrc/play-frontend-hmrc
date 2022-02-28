@@ -688,9 +688,10 @@ returning them to the supplied `signOutUrl`.
 
 The instructions below assume you have set up play-frontend-hmrc as indicated above.
 
-1. Identify the `signOutUrl` that will be used when users click 'Sign Out' on the timeout dialog. A sensible choice for this is the
-   url that is already supplied as the `signOutUrl` parameter to the `hmrcStandardHeader` component, which controls the sign
-   out link in the GOV.UK header. See related guidance above.
+1. Identify the `signOutUrl` that should be used when users click 'Sign Out' on the timeout dialog. Your service may already be 
+   supplying a `signOutUrl` parameter to the `hmrcStandardHeader` component, which controls the sign out link in the GOV.UK 
+   header. Reusing this value may be a sensible choice. Refer to guidance above to understand how this argument is used by the 
+   timeout dialog.
 
 1. Update your layout template to pass in the `hmrcTimeoutDialogHelper` in the HEAD element, supplying the signOutUrl as
    a parameter. For example if using `hmrcLayout`, pass `Some(hmrcTimeoutDialogHelper(signOutUrl = signOutUrl))` in the 
