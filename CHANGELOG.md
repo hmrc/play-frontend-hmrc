@@ -12,7 +12,7 @@ For compatibility information see `govukFrontendVersion` and `hmrcFrontendVersio
 
 ### Changed
 
-- Tried to improve integration guidance for hmrc timeout dialog in README around use of signOutUrl
+- Updated integration guidance for hmrc timeout dialog in README around use of signOutUrl
 
 ### Compatible with
 
