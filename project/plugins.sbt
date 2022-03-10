@@ -3,20 +3,15 @@ resolvers += Resolver.url("HMRC-open-artefacts-ivy2", url("https://open.artefact
   Resolver.ivyStylePatterns
 )
 
-addSbtPlugin(
-  sys.env.get("PLAY_VERSION") match {
-    case Some("2.8") => "com.typesafe.play" % "sbt-plugin" % "2.8.7"
-    case Some("2.7") => "com.typesafe.play" % "sbt-plugin" % "2.7.9"
-    case _           => "com.typesafe.play" % "sbt-plugin" % "2.6.25"
-  }
-)
+sys.env.getOrElse("PLAY_VERSION", "2.8") match {
+  case "2.8" =>
+    Seq(
+      "com.typesafe.play" % "sbt-plugin" % "2.8.8",
+      "com.typesafe.sbt"  % "sbt-twirl"  % "1.5.1" // chosen for compatibility with play 2.8.8 -> twirl-api 1.5.1
+    ).map(addSbtPlugin)
+}
 
-addSbtPlugin("com.typesafe.sbt" % "sbt-twirl" % "1.4.2")
-
-addSbtPlugin("uk.gov.hmrc" % "sbt-auto-build" % "3.5.0")
-
-addSbtPlugin("uk.gov.hmrc" % "sbt-play-cross-compilation" % "2.2.0")
-
-addSbtPlugin("com.eed3si9n" % "sbt-buildinfo" % "0.7.0")
-
-addSbtPlugin("org.scalameta" % "sbt-scalafmt" % "2.4.0")
+addSbtPlugin("uk.gov.hmrc"   % "sbt-auto-build"             % "3.6.0")
+addSbtPlugin("uk.gov.hmrc"   % "sbt-play-cross-compilation" % "2.3.0")
+addSbtPlugin("com.eed3si9n"  % "sbt-buildinfo"              % "0.7.0")
+addSbtPlugin("org.scalameta" % "sbt-scalafmt"               % "2.4.0")
