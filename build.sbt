@@ -1,6 +1,9 @@
 import play.sbt.PlayImport.PlayKeys.playMonitoredFiles
 
-val silencerVersion = "1.7.2"
+val scala2_12 = "2.12.15"
+val scala2_13 = "2.13.7"
+
+val silencerVersion = "1.7.7"
 
 lazy val IntegrationTest = config("it") extend Test
 
@@ -11,7 +14,8 @@ lazy val root = (project in file("."))
   .settings(
     name := "play-frontend-hmrc",
     majorVersion := 3,
-    scalaVersion := "2.12.13",
+    scalaVersion := scala2_12,
+    crossScalaVersions := Seq(scala2_12, scala2_13),
     libraryDependencies ++= LibDependencies(),
     TwirlKeys.templateImports := templateImports,
     PlayCrossCompilation.playCrossCompilationSettings,

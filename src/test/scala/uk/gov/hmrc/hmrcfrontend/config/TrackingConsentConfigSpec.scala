@@ -69,7 +69,7 @@ class TrackingConsentConfigSpec extends AnyWordSpec with Matchers {
         )
       )
       val config                            = application.injector.instanceOf[TrackingConsentConfig]
-      config.trackingUrl should equal(Some("http://localhost:12345/tracking-consent/tracking.js"))
+      config.trackingUrl() should equal(Some("http://localhost:12345/tracking-consent/tracking.js"))
     }
 
     "return the correct url to tracking consent when running in an MDTP environment i.e. with platform.frontend.host defined" in {
@@ -80,13 +80,13 @@ class TrackingConsentConfigSpec extends AnyWordSpec with Matchers {
         )
       )
       val config                            = application.injector.instanceOf[TrackingConsentConfig]
-      config.trackingUrl should equal(Some("/tracking-consent/tracking.js"))
+      config.trackingUrl() should equal(Some("/tracking-consent/tracking.js"))
     }
 
     "return None if an tracking-consent-frontend.gtm.container does not exist in application.conf" in {
       implicit val application: Application = buildApp(Map.empty)
       val config                            = application.injector.instanceOf[TrackingConsentConfig]
-      config.trackingUrl should equal(None)
+      config.trackingUrl() should equal(None)
     }
   }
 
@@ -98,7 +98,7 @@ class TrackingConsentConfigSpec extends AnyWordSpec with Matchers {
         )
       )
       val config                            = application.injector.instanceOf[TrackingConsentConfig]
-      config.optimizelyGtmUrl should equal(Some("http://localhost:12345/tracking-consent/tracking/optimizely.js"))
+      config.optimizelyGtmUrl() should equal(Some("http://localhost:12345/tracking-consent/tracking/optimizely.js"))
     }
 
     "return the correct url to the optimizely gtm snippet when running in an MDTP environment i.e. with platform.frontend.host defined" in {
@@ -109,13 +109,13 @@ class TrackingConsentConfigSpec extends AnyWordSpec with Matchers {
         )
       )
       val config                            = application.injector.instanceOf[TrackingConsentConfig]
-      config.optimizelyGtmUrl should equal(Some("/tracking-consent/tracking/optimizely.js"))
+      config.optimizelyGtmUrl() should equal(Some("/tracking-consent/tracking/optimizely.js"))
     }
 
     "return None if an tracking-consent-frontend.gtm.container does not exist in application.conf" in {
       implicit val application: Application = buildApp(Map.empty)
       val config                            = application.injector.instanceOf[TrackingConsentConfig]
-      config.optimizelyGtmUrl should equal(None)
+      config.optimizelyGtmUrl() should equal(None)
     }
   }
 }

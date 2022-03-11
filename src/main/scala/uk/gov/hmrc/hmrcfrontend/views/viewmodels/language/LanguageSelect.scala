@@ -29,7 +29,7 @@ case class LanguageSelect(language: Language, private val languageLinks: (Langua
   // This behaviour is mirrored here both to pass the unit tests and to
   // maintain parity with `hmrc-frontend`.
   val languageToggle: LanguageToggle = {
-    val linkMapWithDefaults: Map[Language, String] = Map(En -> "", Cy -> "") ++ languageLinks
+    val linkMapWithDefaults = Map[Language, String](En -> "", Cy -> "") ++ languageLinks
     LanguageToggle(linkMapWithDefaults.toArray: _*)
   }
 
