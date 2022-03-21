@@ -8,7 +8,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 For compatibility information see `govukFrontendVersion` and `hmrcFrontendVersion` in
 [LibDependencies](project/LibDependencies.scala)
 
-## [3.6.0] - 2022-03-21
+## [3.7.0] - 2022-03-21
 
 ### Changed
 
