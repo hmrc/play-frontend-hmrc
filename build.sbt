@@ -1,18 +1,21 @@
-import play.sbt.PlayImport.PlayKeys._
+import play.sbt.PlayImport.PlayKeys.playMonitoredFiles
 
-val libName         = "play-frontend-hmrc"
-val silencerVersion = "1.7.2"
+val scala2_12 = "2.12.15"
+val scala2_13 = "2.13.7"
+
+val silencerVersion = "1.7.7"
 
 lazy val IntegrationTest = config("it") extend Test
 
-lazy val root = Project(libName, file("."))
+lazy val root = (project in file("."))
   .enablePlugins(PlayScala, SbtTwirl, BuildInfoPlugin)
   .disablePlugins(PlayLayoutPlugin)
   .configs(IntegrationTest)
   .settings(
-    name := libName,
+    name := "play-frontend-hmrc",
     majorVersion := 3,
-    scalaVersion := "2.12.13",
+    scalaVersion := scala2_12,
+    crossScalaVersions := Seq(scala2_12, scala2_13),
     libraryDependencies ++= LibDependencies(),
     TwirlKeys.templateImports := templateImports,
     PlayCrossCompilation.playCrossCompilationSettings,
@@ -24,7 +27,7 @@ lazy val root = Project(libName, file("."))
       compilerPlugin("com.github.ghik" % "silencer-plugin" % silencerVersion cross CrossVersion.full),
       "com.github.ghik" % "silencer-lib" % silencerVersion % Provided cross CrossVersion.full
     ),
-    (generateGovukFixtures in Test) := {
+    Test / generateGovukFixtures := {
       val generateFixtures = GenerateFixtures(
         fixturesDir = baseDirectory.value / "src/test/resources/fixtures/govuk-frontend",
         frontend = "govuk",
@@ -32,7 +35,7 @@ lazy val root = Project(libName, file("."))
       )
       generateFixtures.generate()
     },
-    (generateHmrcFixtures in Test) := {
+    Test / generateHmrcFixtures := {
       val generateFixtures = GenerateFixtures(
         fixturesDir = baseDirectory.value / "src/test/resources/fixtures/hmrc-frontend",
         frontend = "hmrc",
@@ -40,14 +43,14 @@ lazy val root = Project(libName, file("."))
       )
       generateFixtures.generate()
     },
-    parallelExecution in sbt.Test := false,
-    playMonitoredFiles ++= (sourceDirectories in (Compile, TwirlKeys.compileTemplates)).value,
-    unmanagedResourceDirectories in Test ++= Seq(baseDirectory(_ / "target/web/public/test").value),
+    Test / parallelExecution := false,
+    playMonitoredFiles ++= (Compile / TwirlKeys.compileTemplates / sourceDirectories).value,
+    Test / unmanagedResourceDirectories ++= Seq(baseDirectory(_ / "target/web/public/test").value),
     buildInfoKeys ++= Seq[BuildInfoKey](
       "playVersion"          -> PlayCrossCompilation.playVersion,
       "govukFrontendVersion" -> LibDependencies.govukFrontendVersion,
       "hmrcFrontendVersion"  -> LibDependencies.hmrcFrontendVersion,
-      sources in (Compile, TwirlKeys.compileTemplates)
+      Compile / TwirlKeys.compileTemplates / sources
     ),
     buildInfoPackage := "hmrcfrontendbuildinfo"
   )

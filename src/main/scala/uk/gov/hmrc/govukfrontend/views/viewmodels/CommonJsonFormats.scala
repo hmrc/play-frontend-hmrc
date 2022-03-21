@@ -19,7 +19,6 @@ package uk.gov.hmrc.govukfrontend.views.viewmodels
 import play.api.libs.json._
 import play.twirl.api.Html
 
-import scala.collection.Seq
 import scala.util.Try
 
 object CommonJsonFormats {
@@ -90,13 +89,14 @@ object CommonJsonFormats {
 
   def forgivingSeqReads[T](implicit readsT: Reads[T]): Reads[Seq[T]] = new Reads[Seq[T]] {
     override def reads(json: JsValue): JsResult[Seq[T]] =
-      json.validate[Seq[JsValue]].map { jsValues =>
+      // JsRequest uses scala.collection.Seq, where as default Seq for Scala 2.13 is scala.collection.immutable.Seq
+      json.validate[scala.collection.Seq[JsValue]].map { jsValues =>
         forgivingSeqValidates(jsValues)(readsT)
       }
   }
 
-  private def forgivingSeqValidates[T](jsValues: Seq[JsValue])(implicit readsT: Reads[T]): Seq[T] =
-    jsValues flatMap { jsValue =>
+  private def forgivingSeqValidates[T](jsValues: scala.collection.Seq[JsValue])(implicit readsT: Reads[T]): Seq[T] =
+    jsValues.toSeq.flatMap { jsValue =>
       val maybeValidated: Option[JsResult[T]] =
         Try(jsValue.validate[T](readsT)).toOption
       maybeValidated.flatMap(_.asOpt)

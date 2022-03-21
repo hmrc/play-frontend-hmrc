@@ -8,6 +8,17 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 For compatibility information see `govukFrontendVersion` and `hmrcFrontendVersion` in
 [LibDependencies](project/LibDependencies.scala)
 
+## [3.7.0] - 2022-03-21
+
+### Changed
+
+- Builds for Scala 2.13 in addition to 2.12
+
+### Compatible with
+
+- [hmrc/hmrc-frontend v4.7.0](https://github.com/hmrc/hmrc-frontend/releases/tag/v4.7.0)
+- [alphagov/govuk-frontend v4.0.1](https://github.com/alphagov/govuk-frontend/releases/tag/v4.0.1)
+
 ## [3.6.0] - 2022-03-17
 
 ### Changed
@@ -16,9 +27,8 @@ For compatibility information see `govukFrontendVersion` and `hmrcFrontendVersio
 
 ### Compatible with
 
-- [hmrc/hmrc-frontend v4.5.0](https://github.com/hmrc/hmrc-frontend/releases/tag/v4.7.0)
+- [hmrc/hmrc-frontend v4.7.0](https://github.com/hmrc/hmrc-frontend/releases/tag/v4.7.0)
 - [alphagov/govuk-frontend v4.0.1](https://github.com/alphagov/govuk-frontend/releases/tag/v4.0.1)
-
 
 ## [3.5.0] - 2022-02-28
 
@@ -84,7 +94,7 @@ For compatibility information see `govukFrontendVersion` and `hmrcFrontendVersio
 
 - Uplifted to use v4.0.0 of govuk-frontend. Please read the [release notes](https://github.com/alphagov/govuk-frontend/releases/tag/v4.0.0)
   when uplifting your service, and check that components still display as expected.
-- `HmrcPageHeading` now supports Welsh language (note that the language parameter will need to passed in manually for 
+- `HmrcPageHeading` now supports Welsh language (note that the language parameter will need to passed in manually for
   Welsh translation).
 
 ### Compatible with
@@ -102,7 +112,7 @@ For compatibility information see `govukFrontendVersion` and `hmrcFrontendVersio
 ### Changed
 
 - HmrcReportTechnicalIssue component tabnabbing protections are now only added if a non-empty referrerUrl has been
-  provided. May trigger a DAST alert if you're not using our helper and not supplying a referrerUrl, recommendation is 
+  provided. May trigger a DAST alert if you're not using our helper and not supplying a referrerUrl, recommendation is
   to upgrade your usage to the HmrcReportTechnicalIssueHelper or explicitly supply a referrerUrl.
 
 ### Compatible with
@@ -263,9 +273,9 @@ lang.code`
 
 ### Fixed
 
-- Updated `HmrcReportTechnicalIssue` component to include `rel="noreferrer noopener"` to guard against reverse 
+- Updated `HmrcReportTechnicalIssue` component to include `rel="noreferrer noopener"` to guard against reverse
 tabnapping.
-- Fixed use of unsafe `.get` on optional `language` parameter in `HmrcNewTabLink`  
+- Fixed use of unsafe `.get` on optional `language` parameter in `HmrcNewTabLink`
 
 ### Compatible with
 
@@ -278,7 +288,7 @@ tabnapping.
 ### Added
 
 - Added `HmrcNewTabLinkHelper` and associated viewmodel `NewTabLinkHelper` so that services can add a link to a new tab
-which uses an implicit `Messages` for internationalization, rather than having to pass in an explicit string representing 
+which uses an implicit `Messages` for internationalization, rather than having to pass in an explicit string representing
 a language code.
 
 ### Compatible with
@@ -302,7 +312,7 @@ a language code.
 
 ### Added
 
-- Added a "Troubleshooting" section to the README, with a link to the "Typography" section of GOV.UK Design System 
+- Added a "Troubleshooting" section to the README, with a link to the "Typography" section of GOV.UK Design System
 
 ### Compatible with
 
@@ -326,7 +336,7 @@ a language code.
 
 ### Changed
 
-- Added a dependency on v2.0.0 of `play-frontend-govuk`. This is an empty release of the deprecated library to force 
+- Added a dependency on v2.0.0 of `play-frontend-govuk`. This is an empty release of the deprecated library to force
 eviction of any incorrectly added direct dependencies on non-empty `play-frontend-govuk`
 
 ### Compatible with
@@ -460,7 +470,7 @@ eviction of any incorrectly added direct dependencies on non-empty `play-fronten
 
 ### Changed
 
-- Inlined the library play-frontend-govuk into play-frontend-hmrc. See 
+- Inlined the library play-frontend-govuk into play-frontend-hmrc. See
 [ADR](docs/maintainers/adr/0011-inline-play-frontend-govuk.md)
 
 **Action required**:
@@ -490,7 +500,7 @@ eviction of any incorrectly added direct dependencies on non-empty `play-fronten
   - Component names starting with a lower-case letter
 
 **Actions required**:
-  - Convert all Twirl templates to use dependency injection with the `@this()` directive. See 
+  - Convert all Twirl templates to use dependency injection with the `@this()` directive. See
     [here](https://www.playframework.com/documentation/2.8.x/ScalaTemplatesDependencyInjection)
   - Replace any references to play-frontend component classes starting with a lower-case letter to upper-case.
     For example if you have references
@@ -557,7 +567,7 @@ eviction of any incorrectly added direct dependencies on non-empty `play-fronten
 ### Changed
 
 - Updated version of `play-frontend-govuk` to 0.83.0
-  - withFormField helpers will now return error messages with their default strings translated 
+  - withFormField helpers will now return error messages with their default strings translated
 
 ### Compatible with
 
@@ -720,7 +730,7 @@ eviction of any incorrectly added direct dependencies on non-empty `play-fronten
 
 - Remove hard dependency on the govuk-frontend webjar as per
   [ADR](https://github.com/hmrc/play-frontend-govuk/blob/master/docs/maintainers/adr/0004-remove-hard-dependency-on-the-govuk-frontend-webjar.md)
-  
+
 ### Compatible with
 
 - [hmrc/hmrc-frontend v1.36.0](https://github.com/hmrc/hmrc-frontend/releases/tag/v1.36.0)
@@ -1277,7 +1287,7 @@ both play-frontend-govuk and play-frontend-hmrc are dependencies.
 
 ## [0.28.0] - 2020-12-01
 
-## Changed 
+## Changed
 
 - `hmrcReportTechnicalIssue` - updated content as per hmrc-frontend v1.21.0
 
@@ -1381,7 +1391,7 @@ both play-frontend-govuk and play-frontend-hmrc are dependencies.
 
 ### Updated
 
-- hmrcTimeoutDialog 
+- hmrcTimeoutDialog
 - hmrcReportTechnicalIssue
 - hmrcNewTabLink
 
