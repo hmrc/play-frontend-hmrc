@@ -26,7 +26,7 @@ trait HmrcPageHeading {
   protected def pageHeadingCaption(content: Content): Html = if (content.nonEmpty)
     HtmlFormat.fill(
       List(
-        Html(""" <span class="govuk-caption-xl hmrc-caption-xl">"""),
+        Html(""" <span class="hmrc-caption">"""),
         content.asHtml,
         Html("</span>")
       )

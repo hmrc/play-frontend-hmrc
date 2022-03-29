@@ -8,6 +8,17 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 For compatibility information see `govukFrontendVersion` and `hmrcFrontendVersion` in
 [LibDependencies](project/LibDependencies.scala)
 
+## [3.9.0] - 2022-03-29
+
+### Changed
+
+- Updated HmrcPageHeading component to accept additional classes for header, h1 and caption elements
+
+### Compatible with
+
+- [hmrc/hmrc-frontend v4.9.1](https://github.com/hmrc/hmrc-frontend/releases/tag/v4.9.1)
+- [alphagov/govuk-frontend v4.0.1](https://github.com/alphagov/govuk-frontend/releases/tag/v4.0.1)
+
 ## [3.8.0] - 2022-03-25
 
 ### Changed

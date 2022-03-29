@@ -23,8 +23,17 @@ object Generators {
 
   implicit val arbPageHeading: Arbitrary[PageHeading] = Arbitrary {
     for {
-      text    <- genAlphaStr()
-      section <- Gen.option(genAlphaStr())
-    } yield PageHeading(text = text, section = section)
+      text           <- genAlphaStr()
+      section        <- Gen.option(genAlphaStr())
+      classes        <- Gen.option(genAlphaStr())
+      headingClasses <- Gen.option(genAlphaStr())
+      captionClasses <- Gen.option(genAlphaStr())
+    } yield PageHeading(
+      text = text,
+      section = section,
+      classes = classes,
+      headingClasses = headingClasses,
+      captionClasses = captionClasses
+    )
   }
 }
