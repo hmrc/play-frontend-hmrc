@@ -1,46 +1,40 @@
 
 <h1 class="govuk-heading-xl">You have added 2 directors</h1>
 <div class="govuk-form-group">
-  <dl class="hmrc-list-with-actions hmrc-list-with-actions--short">
-  <div class="hmrc-list-with-actions__item">
-    <dt class="hmrc-list-with-actions__name">
-      Director One
-    </dt>
-    <div class="hmrc-list-with-actions__actions">
-        <dd class="hmrc-list-with-actions__action">
-          <a class="govuk-link" href="#change-item-1">
-      <span aria-hidden="true">Change</span>
-              <span class="govuk-visually-hidden">Change Director One</span>
-        </a>
-        </dd>
-        <dd class="hmrc-list-with-actions__action">
-          <a class="govuk-link" href="#remove-item-1">
-      <span aria-hidden="true">Remove</span>
-              <span class="govuk-visually-hidden">Remove Director One from the list</span>
-        </a>
-        </dd>
-    </div>
-  </div>
-  <div class="hmrc-list-with-actions__item">
-    <dt class="hmrc-list-with-actions__name">
-      Director Two
-    </dt>
-    <div class="hmrc-list-with-actions__actions">
-        <dd class="hmrc-list-with-actions__action">
-          <a class="govuk-link" href="#change-item-2">
-      <span aria-hidden="true">Change</span>
-              <span class="govuk-visually-hidden">Change Director Two</span>
-        </a>
-        </dd>
-        <dd class="hmrc-list-with-actions__action">
-          <a class="govuk-link" href="#remove-item-2">
-      <span aria-hidden="true">Remove</span>
-              <span class="govuk-visually-hidden">Remove Director Two from the list</span>
-        </a>
-        </dd>
-    </div>
-  </div>
-</dl>
+  
+  <dl class="govuk-summary-list hmrc-list-with-actions hmrc-list-with-actions--short">
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key govuk-!-font-weight-regular hmrc-summary-list__key">
+          Director One
+        </dt>
+          <dd class="govuk-summary-list__actions hmrc-summary-list__actions">
+              <ul class="govuk-summary-list__actions-list">
+                  <li class="govuk-summary-list__actions-list-item">
+                    <a class="govuk-link" href="#change-item-1"><span aria-hidden="true">Change</span><span class="govuk-visually-hidden">Change Director One</span></a>
+                  </li>
+                  <li class="govuk-summary-list__actions-list-item">
+                    <a class="govuk-link" href="#remove-item-1"><span aria-hidden="true">Remove</span><span class="govuk-visually-hidden">Remove Director One from the list</span></a>
+                  </li>
+              </ul>
+          </dd>
+      </div>
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key govuk-!-font-weight-regular hmrc-summary-list__key">
+          Director Two
+        </dt>
+          <dd class="govuk-summary-list__actions hmrc-summary-list__actions">
+              <ul class="govuk-summary-list__actions-list">
+                  <li class="govuk-summary-list__actions-list-item">
+                    <a class="govuk-link" href="#change-item-2"><span aria-hidden="true">Change</span><span class="govuk-visually-hidden">Change Director Two</span></a>
+                  </li>
+                  <li class="govuk-summary-list__actions-list-item">
+                    <a class="govuk-link" href="#remove-item-2"><span aria-hidden="true">Remove</span><span class="govuk-visually-hidden">Remove Director Two from the list</span></a>
+                  </li>
+              </ul>
+          </dd>
+      </div>
+  </dl>
+
 
 </div>
 <form method="post" novalidate action="#add-director">

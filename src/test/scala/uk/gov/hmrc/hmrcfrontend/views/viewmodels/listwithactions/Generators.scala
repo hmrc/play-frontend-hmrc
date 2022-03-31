@@ -41,7 +41,8 @@ object Generators {
       name    <- arbContent.arbitrary
       n       <- Gen.chooseNum(0, 5)
       actions <- Gen.listOfN(n, arbAction.arbitrary)
-    } yield ListWithActionsItem(name = name, actions = actions)
+      classes <- Gen.option(genAlphaStr())
+    } yield ListWithActionsItem(name = name, actions = actions, classes = classes)
   }
 
   implicit val arbListWithActions: Arbitrary[ListWithActions] = Arbitrary {

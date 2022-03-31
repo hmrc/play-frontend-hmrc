@@ -1,40 +1,34 @@
-<dl class="hmrc-list-with-actions">
-  <div class="hmrc-list-with-actions__item">
-    <dt class="hmrc-list-with-actions__name">
-      Sydney Russell
-    </dt>
-    <div class="hmrc-list-with-actions__actions">
-        <dd class="hmrc-list-with-actions__action">
-          <a class="govuk-link" href="#c1url">
-      <span aria-hidden="true">Change</span>
-              <span class="govuk-visually-hidden">Change Sydney Russell</span>
-        </a>
-        </dd>
-        <dd class="hmrc-list-with-actions__action">
-          <a class="govuk-link" href="#r1url">
-      <span aria-hidden="true">Remove</span>
-              <span class="govuk-visually-hidden">Remove Sydney Russell from the list</span>
-        </a>
-        </dd>
-    </div>
-  </div>
-  <div class="hmrc-list-with-actions__item">
-    <dt class="hmrc-list-with-actions__name">
-      Michael Cain
-    </dt>
-    <div class="hmrc-list-with-actions__actions">
-        <dd class="hmrc-list-with-actions__action">
-          <a class="govuk-link" href="#c2url">
-      <span aria-hidden="true">Change</span>
-              <span class="govuk-visually-hidden">Change Michael Cain</span>
-        </a>
-        </dd>
-        <dd class="hmrc-list-with-actions__action">
-          <a class="govuk-link" href="#r2url">
-      <span aria-hidden="true">Remove</span>
-              <span class="govuk-visually-hidden">Remove Michael Cain from the list</span>
-        </a>
-        </dd>
-    </div>
-  </div>
-</dl>
+
+  <dl class="govuk-summary-list hmrc-list-with-actions">
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key govuk-!-font-weight-regular hmrc-summary-list__key">
+          Sydney Russell
+        </dt>
+          <dd class="govuk-summary-list__actions hmrc-summary-list__actions">
+              <ul class="govuk-summary-list__actions-list">
+                  <li class="govuk-summary-list__actions-list-item">
+                    <a class="govuk-link" href="#c1url"><span aria-hidden="true">Change</span><span class="govuk-visually-hidden">Change Sydney Russell</span></a>
+                  </li>
+                  <li class="govuk-summary-list__actions-list-item">
+                    <a class="govuk-link" href="#r1url"><span aria-hidden="true">Remove</span><span class="govuk-visually-hidden">Remove Sydney Russell from the list</span></a>
+                  </li>
+              </ul>
+          </dd>
+      </div>
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key govuk-!-font-weight-regular hmrc-summary-list__key">
+          Michael Cain
+        </dt>
+          <dd class="govuk-summary-list__actions hmrc-summary-list__actions">
+              <ul class="govuk-summary-list__actions-list">
+                  <li class="govuk-summary-list__actions-list-item">
+                    <a class="govuk-link" href="#c2url"><span aria-hidden="true">Change</span><span class="govuk-visually-hidden">Change Michael Cain</span></a>
+                  </li>
+                  <li class="govuk-summary-list__actions-list-item">
+                    <a class="govuk-link" href="#r2url"><span aria-hidden="true">Remove</span><span class="govuk-visually-hidden">Remove Michael Cain from the list</span></a>
+                  </li>
+              </ul>
+          </dd>
+      </div>
+  </dl>
+

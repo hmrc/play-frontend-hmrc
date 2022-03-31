@@ -1,46 +1,40 @@
 
 <h1 class="govuk-heading-xl">Rydych wedi ychwanegu 2 o eitemau</h1>
 <div class="govuk-form-group">
-  <dl class="hmrc-list-with-actions hmrc-list-with-actions--short">
-  <div class="hmrc-list-with-actions__item">
-    <dt class="hmrc-list-with-actions__name">
-      Eitem un
-    </dt>
-    <div class="hmrc-list-with-actions__actions">
-        <dd class="hmrc-list-with-actions__action">
-          <a class="govuk-link" href="#c1url">
-      <span aria-hidden="true">Newid</span>
-              <span class="govuk-visually-hidden">Newid Eitem un</span>
-        </a>
-        </dd>
-        <dd class="hmrc-list-with-actions__action">
-          <a class="govuk-link" href="#r1url">
-      <span aria-hidden="true">Dileu</span>
-              <span class="govuk-visually-hidden">Dileu’r Eitem un o’r rhestr</span>
-        </a>
-        </dd>
-    </div>
-  </div>
-  <div class="hmrc-list-with-actions__item">
-    <dt class="hmrc-list-with-actions__name">
-      Eitem dau
-    </dt>
-    <div class="hmrc-list-with-actions__actions">
-        <dd class="hmrc-list-with-actions__action">
-          <a class="govuk-link" href="#c2url">
-      <span aria-hidden="true">Newid</span>
-              <span class="govuk-visually-hidden">Newid Eitem dau</span>
-        </a>
-        </dd>
-        <dd class="hmrc-list-with-actions__action">
-          <a class="govuk-link" href="#r2url">
-      <span aria-hidden="true">Dileu</span>
-              <span class="govuk-visually-hidden">Dileu’r Eitem dau o’r rhestr</span>
-        </a>
-        </dd>
-    </div>
-  </div>
-</dl>
+  
+  <dl class="govuk-summary-list hmrc-list-with-actions hmrc-list-with-actions--short">
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key govuk-!-font-weight-regular hmrc-summary-list__key">
+          Eitem un
+        </dt>
+          <dd class="govuk-summary-list__actions hmrc-summary-list__actions">
+              <ul class="govuk-summary-list__actions-list">
+                  <li class="govuk-summary-list__actions-list-item">
+                    <a class="govuk-link" href="#c1url"><span aria-hidden="true">Newid</span><span class="govuk-visually-hidden">Newid Eitem un</span></a>
+                  </li>
+                  <li class="govuk-summary-list__actions-list-item">
+                    <a class="govuk-link" href="#r1url"><span aria-hidden="true">Dileu</span><span class="govuk-visually-hidden">Dileu’r Eitem un o’r rhestr</span></a>
+                  </li>
+              </ul>
+          </dd>
+      </div>
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key govuk-!-font-weight-regular hmrc-summary-list__key">
+          Eitem dau
+        </dt>
+          <dd class="govuk-summary-list__actions hmrc-summary-list__actions">
+              <ul class="govuk-summary-list__actions-list">
+                  <li class="govuk-summary-list__actions-list-item">
+                    <a class="govuk-link" href="#c2url"><span aria-hidden="true">Newid</span><span class="govuk-visually-hidden">Newid Eitem dau</span></a>
+                  </li>
+                  <li class="govuk-summary-list__actions-list-item">
+                    <a class="govuk-link" href="#r2url"><span aria-hidden="true">Dileu</span><span class="govuk-visually-hidden">Dileu’r Eitem dau o’r rhestr</span></a>
+                  </li>
+              </ul>
+          </dd>
+      </div>
+  </dl>
+
 
 </div>
 <form method="post" novalidate action="#addItem">
