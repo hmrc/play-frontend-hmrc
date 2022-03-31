@@ -1,2 +1,2 @@
 <header class="hmrc-page-heading">
-  <h1 class="govuk-heading-xl">Beth yw dy enw?</h1><p class="govuk-caption-xl hmrc-caption-xl"><span class="govuk-visually-hidden">Teitl yr adran hon yw </span>Manylion personol</p></header>
+  <h1 class="govuk-heading-xl">Beth yw dy enw?</h1><p class="hmrc-caption govuk-caption-xl"><span class="govuk-visually-hidden">Teitl yr adran hon yw </span>Manylion personol</p></header>

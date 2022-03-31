@@ -31,7 +31,7 @@ class HmrcPageHeadingSpec extends AnyWordSpec with Matchers {
         isPageHeading = true,
         content = HtmlContent(
           """What is your name? """
-            + """<span class="govuk-caption-xl hmrc-caption-xl">"""
+            + """<span class="hmrc-caption">"""
             + """Personal details"""
             + """</span>"""
         ),
@@ -59,7 +59,7 @@ class HmrcPageHeadingSpec extends AnyWordSpec with Matchers {
         isPageHeading = true,
         content = HtmlContent(
           """What is your name? """
-            + """<span class="govuk-caption-xl hmrc-caption-xl">"""
+            + """<span class="hmrc-caption">"""
             + """Personal details"""
             + """</span>"""
         ),
@@ -76,7 +76,7 @@ class HmrcPageHeadingSpec extends AnyWordSpec with Matchers {
         isPageHeading = true,
         content = HtmlContent(
           """&lt;page-title&gt; """
-            + """<span class="govuk-caption-xl hmrc-caption-xl">"""
+            + """<span class="hmrc-caption">"""
             + """&lt;page-section&gt;"""
             + """</span>"""
         ),
@@ -92,7 +92,7 @@ class HmrcPageHeadingSpec extends AnyWordSpec with Matchers {
         isPageHeading = true,
         content = HtmlContent(
           """<page-title> """
-            + """<span class="govuk-caption-xl hmrc-caption-xl">"""
+            + """<span class="hmrc-caption">"""
             + """<page-section>"""
             + """</span>"""
         ),
@@ -119,7 +119,7 @@ class HmrcPageHeadingSpec extends AnyWordSpec with Matchers {
         content = HtmlContent(
           """<h1 class="govuk-fieldset__heading hmrc-page-heading govuk-!-margin-top-0 govuk-!-margin-bottom-0">"""
             + """Where do you live? """
-            + """<span class="govuk-caption-xl hmrc-caption-xl">"""
+            + """<span class="hmrc-caption">"""
             + """Personal details"""
             + """</span>"""
             + """</h1>"""
@@ -151,7 +151,7 @@ class HmrcPageHeadingSpec extends AnyWordSpec with Matchers {
         content = HtmlContent(
           """<h1 class="govuk-fieldset__heading hmrc-page-heading govuk-!-margin-top-0 govuk-!-margin-bottom-0">"""
             + """Where do you live? """
-            + """<span class="govuk-caption-xl hmrc-caption-xl">"""
+            + """<span class="hmrc-caption">"""
             + """Personal details"""
             + """</span>"""
             + """</h1>"""
@@ -169,7 +169,7 @@ class HmrcPageHeadingSpec extends AnyWordSpec with Matchers {
         content = HtmlContent(
           """<h1 class="govuk-fieldset__heading hmrc-page-heading govuk-!-margin-top-0 govuk-!-margin-bottom-0">"""
             + """&lt;page-title&gt; """
-            + """<span class="govuk-caption-xl hmrc-caption-xl">"""
+            + """<span class="hmrc-caption">"""
             + """&lt;page-section&gt;"""
             + """</span>"""
             + """</h1>"""
@@ -187,7 +187,7 @@ class HmrcPageHeadingSpec extends AnyWordSpec with Matchers {
         content = HtmlContent(
           """<h1 class="govuk-fieldset__heading hmrc-page-heading govuk-!-margin-top-0 govuk-!-margin-bottom-0">"""
             + """<page-title> """
-            + """<span class="govuk-caption-xl hmrc-caption-xl">"""
+            + """<span class="hmrc-caption">"""
             + """<page-section>"""
             + """</span>"""
             + """</h1>"""

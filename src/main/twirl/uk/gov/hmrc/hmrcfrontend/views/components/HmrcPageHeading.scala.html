@@ -21,10 +21,10 @@
 @(params: PageHeading)
 @import params._
 
-<header class="hmrc-page-heading">
-  <h1 class="govuk-heading-xl">@text</h1>
+<header class="@toClasses("hmrc-page-heading", classes.getOrElse(""))">
+  <h1 class="@toClasses(headingClasses.getOrElse("govuk-heading-xl"))">@text</h1>
   @section match {
-    case Some(NonEmptyString(x)) => {<p class="govuk-caption-xl hmrc-caption-xl"><span class="govuk-visually-hidden">@language match {
+    case Some(NonEmptyString(x)) => {<p class="hmrc-caption @toClasses(captionClasses.getOrElse("govuk-caption-xl"))"><span class="govuk-visually-hidden">@language match {
       case Some(Cy.code) => {Teitl yr adran hon yw }
       case _ => {This section is }
     }</span>@x</p>}
