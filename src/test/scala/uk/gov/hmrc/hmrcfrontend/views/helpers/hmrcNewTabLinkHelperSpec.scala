@@ -114,7 +114,7 @@ class hmrcNewTabLinkHelperSpec extends AnyWordSpecLike with Matchers with Messag
       links.first.attr("href")   shouldBe ""
       links.first.attr("rel")    shouldBe "noopener noreferrer"
       links.first.attr("target") shouldBe "_blank"
-      links.text()               shouldBe "Rhywfaint o destun cyswllt (yn agor ffenestr neu dab newydd)"
+      links.text()               shouldBe "Rhywfaint o destun cyswllt (yn agor tab newydd)"
     }
 
     "render link with the no link text for unsupported language" in {
