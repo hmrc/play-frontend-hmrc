@@ -1,23 +1,19 @@
-<dl class="hmrc-list-with-actions app-custom-class">
-  <div class="hmrc-list-with-actions__item">
-    <dt class="hmrc-list-with-actions__name">
-      Oranges
-    </dt>
-    <div class="hmrc-list-with-actions__actions">
-    </div>
-  </div>
-  <div class="hmrc-list-with-actions__item">
-    <dt class="hmrc-list-with-actions__name">
-      Apples
-    </dt>
-    <div class="hmrc-list-with-actions__actions">
-    </div>
-  </div>
-  <div class="hmrc-list-with-actions__item">
-    <dt class="hmrc-list-with-actions__name">
-      Pears
-    </dt>
-    <div class="hmrc-list-with-actions__actions">
-    </div>
-  </div>
-</dl>
+
+  <dl class="govuk-summary-list hmrc-list-with-actions app-custom-class">
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key govuk-!-font-weight-regular hmrc-summary-list__key">
+          Oranges
+        </dt>
+      </div>
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key govuk-!-font-weight-regular hmrc-summary-list__key">
+          Apples
+        </dt>
+      </div>
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key govuk-!-font-weight-regular hmrc-summary-list__key">
+          Pears
+        </dt>
+      </div>
+  </dl>
+

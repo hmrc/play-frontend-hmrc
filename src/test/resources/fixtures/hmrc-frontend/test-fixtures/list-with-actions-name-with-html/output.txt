@@ -1,9 +1,9 @@
-<dl class="hmrc-list-with-actions">
-  <div class="hmrc-list-with-actions__item">
-    <dt class="hmrc-list-with-actions__name">
-      <span>email@email.com</span>
-    </dt>
-    <div class="hmrc-list-with-actions__actions">
-    </div>
-  </div>
-</dl>
+
+  <dl class="govuk-summary-list hmrc-list-with-actions">
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key govuk-!-font-weight-regular hmrc-summary-list__key">
+          <span>email@email.com</span>
+        </dt>
+      </div>
+  </dl>
+

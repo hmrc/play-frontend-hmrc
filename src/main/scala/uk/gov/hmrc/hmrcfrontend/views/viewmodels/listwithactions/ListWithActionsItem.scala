@@ -21,7 +21,8 @@ import uk.gov.hmrc.govukfrontend.views.viewmodels.content.{Content, Empty}
 
 final case class ListWithActionsItem(
   name: Content = Empty,
-  actions: Seq[ListWithActionsAction] = Nil
+  actions: Seq[ListWithActionsAction] = Nil,
+  classes: Option[String] = None
 )
 
 object ListWithActionsItem {

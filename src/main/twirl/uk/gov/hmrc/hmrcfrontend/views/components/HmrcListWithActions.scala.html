@@ -17,25 +17,40 @@
 @import uk.gov.hmrc.hmrcfrontend.views.viewmodels.listwithactions.ListWithActions
 @import uk.gov.hmrc.hmrcfrontend.views.viewmodels.listwithactions.ListWithActionsAction
 @import uk.gov.hmrc.govukfrontend.views.viewmodels.content.NonEmptyHtml
+@import uk.gov.hmrc.hmrcfrontend.views.viewmodels.listwithactions.ListWithActionsItem
 
 @this()
 
 @(params: ListWithActions)
 @import params._
+
+@noActionsClasses(item: ListWithActionsItem) = @{
+    if(items.exists(_.actions.nonEmpty) && item.actions.isEmpty) "govuk-summary-list__row--no-actions" else ""
+}
+
 @if(items.nonEmpty) {
-    <dl class="@toClasses("hmrc-list-with-actions", classes)" @toAttributes(attributes)>
+    <dl class="@toClasses("govuk-summary-list", "hmrc-list-with-actions", classes)" @toAttributes(attributes)>
     @for(item <- items) {
-        <div class="hmrc-list-with-actions__item">
-            <dt class="hmrc-list-with-actions__name">
+        <div class="@toClasses("govuk-summary-list__row", noActionsClasses(item), item.classes.getOrElse(""))">
+            <dt class="govuk-summary-list__key govuk-!-font-weight-regular hmrc-summary-list__key">
             @item.name.asHtml
             </dt>
-            <div class="hmrc-list-with-actions__actions">
-            @for(action <- item.actions) {
-                <dd class="hmrc-list-with-actions__action">
-                @actionLink(action)
+            @if(item.actions.nonEmpty) {
+                <dd class="govuk-summary-list__actions hmrc-summary-list__actions">
+                    @item.actions match {
+                      case action +: Nil => { @actionLink(action) }
+                      case actions       => {
+                          <ul class="govuk-summary-list__actions-list">
+                          @for(action <- actions) {
+                              <li class="govuk-summary-list__actions-list-item">
+                              @actionLink(action)
+                              </li>
+                          }
+                          </ul>
+                      }
+                    }
                 </dd>
             }
-            </div>
         </div>
     }
     </dl>

@@ -8,6 +8,18 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 For compatibility information see `govukFrontendVersion` and `hmrcFrontendVersion` in
 [LibDependencies](project/LibDependencies.scala)
 
+## [4.0.0] - 2022-03-31
+
+### Changed
+
+- Update the list-with-actions component and added the ability to add custom classes to the row element
+- Updated hmrc-frontend to 5.0.2
+
+### Compatible with
+
+- [hmrc/hmrc-frontend v5.0.2](https://github.com/hmrc/hmrc-frontend/releases/tag/v5.0.2)
+- [alphagov/govuk-frontend v4.0.1](https://github.com/alphagov/govuk-frontend/releases/tag/v4.0.1)
+
 ## [3.9.0] - 2022-03-29
 
 ### Changed
