@@ -17,6 +17,7 @@
 package uk.gov.hmrc.hmrcfrontend.views.config
 
 import org.scalatest.matchers.must.Matchers
+import org.scalatest.prop.TableFor2
 import org.scalatest.wordspec.AnyWordSpec
 import uk.gov.hmrc.govukfrontend.views.Aliases.Text
 import uk.gov.hmrc.govukfrontend.views.viewmodels.content.HtmlContent
@@ -31,11 +32,11 @@ class HmrcPageHeadingSpec extends AnyWordSpec with Matchers {
         isPageHeading = true,
         content = HtmlContent(
           """What is your name? """
-            + """<span class="hmrc-caption">"""
+            + """<span class="hmrc-caption govuk-caption-xl">"""
             + """Personal details"""
             + """</span>"""
         ),
-        classes = "govuk-label--xl hmrc-page-heading govuk-!-margin-top-0 govuk-!-margin-bottom-2"
+        classes = "hmrc-page-heading govuk-!-margin-top-0 govuk-!-margin-bottom-2 govuk-label--xl"
       )
     }
 
@@ -45,7 +46,7 @@ class HmrcPageHeadingSpec extends AnyWordSpec with Matchers {
         content = HtmlContent(
           """What is your name?"""
         ),
-        classes = "govuk-label--xl hmrc-page-heading govuk-!-margin-top-0 govuk-!-margin-bottom-2"
+        classes = "hmrc-page-heading govuk-!-margin-top-0 govuk-!-margin-bottom-2 govuk-label--xl"
       )
     }
 
@@ -59,11 +60,11 @@ class HmrcPageHeadingSpec extends AnyWordSpec with Matchers {
         isPageHeading = true,
         content = HtmlContent(
           """What is your name? """
-            + """<span class="hmrc-caption">"""
+            + """<span class="hmrc-caption govuk-caption-xl">"""
             + """Personal details"""
             + """</span>"""
         ),
-        classes = "govuk-label--xl hmrc-page-heading govuk-!-margin-top-0 govuk-!-margin-bottom-2 foo bar",
+        classes = "hmrc-page-heading govuk-!-margin-top-0 govuk-!-margin-bottom-2 foo bar",
         attributes = Map("foo" -> "bar")
       )
     }
@@ -76,11 +77,11 @@ class HmrcPageHeadingSpec extends AnyWordSpec with Matchers {
         isPageHeading = true,
         content = HtmlContent(
           """&lt;page-title&gt; """
-            + """<span class="hmrc-caption">"""
+            + """<span class="hmrc-caption govuk-caption-xl">"""
             + """&lt;page-section&gt;"""
             + """</span>"""
         ),
-        classes = "govuk-label--xl hmrc-page-heading govuk-!-margin-top-0 govuk-!-margin-bottom-2"
+        classes = "hmrc-page-heading govuk-!-margin-top-0 govuk-!-margin-bottom-2 govuk-label--xl"
       )
     }
 
@@ -92,11 +93,11 @@ class HmrcPageHeadingSpec extends AnyWordSpec with Matchers {
         isPageHeading = true,
         content = HtmlContent(
           """<page-title> """
-            + """<span class="hmrc-caption">"""
+            + """<span class="hmrc-caption govuk-caption-xl">"""
             + """<page-section>"""
             + """</span>"""
         ),
-        classes = "govuk-label--xl hmrc-page-heading govuk-!-margin-top-0 govuk-!-margin-bottom-2"
+        classes = "hmrc-page-heading govuk-!-margin-top-0 govuk-!-margin-bottom-2 govuk-label--xl"
       )
     }
 
@@ -110,6 +111,39 @@ class HmrcPageHeadingSpec extends AnyWordSpec with Matchers {
         case e: IllegalArgumentException => // pass
       }
     }
+
+    "always use last matched label css for caption size" in {
+      import org.scalatest.prop.TableDrivenPropertyChecks._
+
+      val cssLabelCombinations: TableFor2[String, String] = Table(
+        ("labelCss", "expectedCaptionCss"),
+        ("govuk-label--xl govuk-label--m   govuk-label--l", "govuk-caption-l"),
+        ("govuk-label--xl  govuk-label--m       govuk-label-l", "govuk-caption-m"),
+        ("govuk-label--xl  foo   bar", "govuk-caption-xl"),
+        ("govuk-label--l  govuk-label--xx", "govuk-caption-l"),
+        (" foo   bar", "govuk-caption-xl"),
+        ("", "govuk-caption-xl")
+      )
+
+      forAll(cssLabelCombinations) { (labelCss: String, expectedCaptionCss: String) =>
+        HmrcPageHeadingLabel(
+          content = Text("What is your name?"),
+          caption = Text("Personal details"),
+          classes = labelCss
+        ) mustBe Label(
+          isPageHeading = true,
+          content = HtmlContent(
+            """What is your name? """
+              + s"""<span class="hmrc-caption $expectedCaptionCss">"""
+              + """Personal details"""
+              + """</span>"""
+          ),
+          classes =
+            s"hmrc-page-heading govuk-!-margin-top-0 govuk-!-margin-bottom-2${if (labelCss.nonEmpty) s" $labelCss"
+            else ""}"
+        )
+      }
+    }
   }
 
   "HmrcPageHeadingLegend" must {
@@ -119,7 +153,7 @@ class HmrcPageHeadingSpec extends AnyWordSpec with Matchers {
         content = HtmlContent(
           """<h1 class="govuk-fieldset__heading hmrc-page-heading govuk-!-margin-top-0 govuk-!-margin-bottom-0">"""
             + """Where do you live? """
-            + """<span class="hmrc-caption">"""
+            + """<span class="hmrc-caption govuk-caption-xl">"""
             + """Personal details"""
             + """</span>"""
             + """</h1>"""
@@ -147,11 +181,11 @@ class HmrcPageHeadingSpec extends AnyWordSpec with Matchers {
         classes = "foo bar"
       ) mustBe Legend(
         isPageHeading = false,
-        classes = "govuk-fieldset__legend--xl foo bar",
+        classes = "foo bar",
         content = HtmlContent(
           """<h1 class="govuk-fieldset__heading hmrc-page-heading govuk-!-margin-top-0 govuk-!-margin-bottom-0">"""
             + """Where do you live? """
-            + """<span class="hmrc-caption">"""
+            + """<span class="hmrc-caption govuk-caption-xl">"""
             + """Personal details"""
             + """</span>"""
             + """</h1>"""
@@ -169,7 +203,7 @@ class HmrcPageHeadingSpec extends AnyWordSpec with Matchers {
         content = HtmlContent(
           """<h1 class="govuk-fieldset__heading hmrc-page-heading govuk-!-margin-top-0 govuk-!-margin-bottom-0">"""
             + """&lt;page-title&gt; """
-            + """<span class="hmrc-caption">"""
+            + """<span class="hmrc-caption govuk-caption-xl">"""
             + """&lt;page-section&gt;"""
             + """</span>"""
             + """</h1>"""
@@ -187,7 +221,7 @@ class HmrcPageHeadingSpec extends AnyWordSpec with Matchers {
         content = HtmlContent(
           """<h1 class="govuk-fieldset__heading hmrc-page-heading govuk-!-margin-top-0 govuk-!-margin-bottom-0">"""
             + """<page-title> """
-            + """<span class="hmrc-caption">"""
+            + """<span class="hmrc-caption govuk-caption-xl">"""
             + """<page-section>"""
             + """</span>"""
             + """</h1>"""
@@ -205,6 +239,38 @@ class HmrcPageHeadingSpec extends AnyWordSpec with Matchers {
         case e: IllegalArgumentException => // pass
       }
     }
-  }
 
+    "always use last matched legend css for caption size" in {
+      import org.scalatest.prop.TableDrivenPropertyChecks._
+
+      val cssLegendCombinations: TableFor2[String, String] = Table(
+        ("legendCss", "expectedCaptionCss"),
+        ("govuk-fieldset__legend--xl govuk-fieldset__legend--m   govuk-fieldset__legend--l", "govuk-caption-l"),
+        ("govuk-fieldset__legend--xl  govuk-fieldset__legend--m       govuk-fieldset__legend-l", "govuk-caption-m"),
+        ("govuk-fieldset__legend--xl  foo   bar", "govuk-caption-xl"),
+        ("govuk-fieldset__legend--m  govuk-fieldset__legend--xx govuk-fieldset__legend--yy", "govuk-caption-m"),
+        (" foo   bar", "govuk-caption-xl"),
+        ("", "govuk-caption-xl")
+      )
+
+      forAll(cssLegendCombinations) { (legendCss: String, expectedCaptionCss: String) =>
+        HmrcPageHeadingLegend(
+          content = Text("Where do you live?"),
+          caption = Text("Personal details"),
+          classes = legendCss
+        ) mustBe Legend(
+          isPageHeading = false,
+          content = HtmlContent(
+            """<h1 class="govuk-fieldset__heading hmrc-page-heading govuk-!-margin-top-0 govuk-!-margin-bottom-0">"""
+              + """Where do you live? """
+              + s"""<span class="hmrc-caption $expectedCaptionCss">"""
+              + """Personal details"""
+              + """</span>"""
+              + """</h1>"""
+          ),
+          classes = legendCss
+        )
+      }
+    }
+  }
 }
