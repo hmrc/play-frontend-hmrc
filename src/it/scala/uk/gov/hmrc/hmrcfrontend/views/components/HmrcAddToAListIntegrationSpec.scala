@@ -11,7 +11,7 @@ import uk.gov.hmrc.support.TemplateIntegrationBaseSpec
 
 import scala.util.Try
 
-object HmrcAddToAListSpec
+object HmrcAddToAListIntegrationSpec
     extends TemplateIntegrationBaseSpec[AddToAList](
       componentName = "hmrcAddToAList",
       seed = None
