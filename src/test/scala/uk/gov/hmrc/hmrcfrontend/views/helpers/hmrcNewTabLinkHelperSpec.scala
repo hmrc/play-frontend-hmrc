@@ -131,5 +131,13 @@ class hmrcNewTabLinkHelperSpec extends AnyWordSpecLike with Matchers with Messag
       links.first.attr("target") shouldBe "_blank"
       links.text()               shouldBe "Ciao raggazzi"
     }
+
+    "render link without trailing space, so that it can be included in some outer element without trimming" in {
+      val newTabLinkHelper     = NewTabLinkHelper(text = "Some link text")
+      val hmrcNewTabLinkHelper = new HmrcNewTabLinkHelper(new HmrcNewTabLink())
+      val component            = hmrcNewTabLinkHelper(newTabLinkHelper)(englishMessages)
+
+      component.toString should endWith(">Some link text (opens in a new tab)</a>")
+    }
   }
 }
