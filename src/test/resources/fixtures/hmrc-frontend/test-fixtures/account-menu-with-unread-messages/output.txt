@@ -28,7 +28,7 @@ Check progress      </a>
 
     <li>
       <a href="#" class="hmrc-account-menu__link">
-Your profile      </a>
+Profile and settings      </a>
     </li>
 
 
