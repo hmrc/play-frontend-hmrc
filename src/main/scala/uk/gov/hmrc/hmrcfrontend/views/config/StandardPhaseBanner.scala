@@ -15,11 +15,28 @@
  */
 
 package uk.gov.hmrc.hmrcfrontend.views.config
+
 import play.api.i18n.Messages
+import play.api.mvc.RequestHeader
 import play.twirl.api.HtmlFormat
 import uk.gov.hmrc.govukfrontend.views.Aliases.{HtmlContent, PhaseBanner, Tag, Text}
+import uk.gov.hmrc.hmrcfrontend.config.ContactFrontendConfig
+import uk.gov.hmrc.hmrcfrontend.views.Utils.urlEncode
 
 trait StandardPhaseBanner {
+
+  protected def contactFrontendBetaFeedbackUrl()(implicit request: RequestHeader, cfConfig: ContactFrontendConfig) = {
+    println("cfConfig.referrerUrl is: " + cfConfig.referrerUrl)
+
+    val queryStringParams: Seq[String] = Seq(
+      cfConfig.serviceId.map(id => "service=" + id),
+      cfConfig.referrerUrl.map(url => "referrerUrl=" + urlEncode(url))
+    ).flatten
+
+    val queryString = if (queryStringParams.isEmpty) "" else "?" + queryStringParams.mkString("&")
+    cfConfig.baseUrl.getOrElse("") + "/contact/beta-feedback" + queryString
+  }
+
   def apply(phase: String, url: String)(implicit messages: Messages): PhaseBanner =
     PhaseBanner(
       tag = Some(Tag(content = Text(phase))),
@@ -33,6 +50,13 @@ trait StandardPhaseBanner {
 
 class StandardBetaBanner extends StandardPhaseBanner {
   def apply(url: String)(implicit messages: Messages): PhaseBanner = apply(phase = "beta", url = url)
+
+  def apply()(implicit
+    request: RequestHeader,
+    contactFrontendConfig: ContactFrontendConfig,
+    messages: Messages
+  ): PhaseBanner =
+    apply(url = contactFrontendBetaFeedbackUrl())
 }
 
 class StandardAlphaBanner extends StandardPhaseBanner {
