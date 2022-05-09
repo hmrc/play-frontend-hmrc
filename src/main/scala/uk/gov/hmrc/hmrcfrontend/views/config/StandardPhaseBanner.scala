@@ -25,16 +25,16 @@ import uk.gov.hmrc.hmrcfrontend.views.Utils.urlEncode
 
 trait StandardPhaseBanner {
 
-  protected def contactFrontendBetaFeedbackUrl()(implicit request: RequestHeader, cfConfig: ContactFrontendConfig) = {
-    println("cfConfig.referrerUrl is: " + cfConfig.referrerUrl)
-
+  protected def contactFrontendBetaFeedbackUrl(
+    contactFrontendConfig: ContactFrontendConfig
+  )(implicit request: RequestHeader) = {
     val queryStringParams: Seq[String] = Seq(
-      cfConfig.serviceId.map(id => "service=" + id),
-      cfConfig.referrerUrl.map(url => "referrerUrl=" + urlEncode(url))
+      contactFrontendConfig.serviceId.map(id => "service=" + id),
+      contactFrontendConfig.referrerUrl.map(url => "referrerUrl=" + urlEncode(url))
     ).flatten
 
     val queryString = if (queryStringParams.isEmpty) "" else "?" + queryStringParams.mkString("&")
-    cfConfig.baseUrl.getOrElse("") + "/contact/beta-feedback" + queryString
+    contactFrontendConfig.baseUrl.getOrElse("") + "/contact/beta-feedback" + queryString
   }
 
   def apply(phase: String, url: String)(implicit messages: Messages): PhaseBanner =
@@ -51,12 +51,11 @@ trait StandardPhaseBanner {
 class StandardBetaBanner extends StandardPhaseBanner {
   def apply(url: String)(implicit messages: Messages): PhaseBanner = apply(phase = "beta", url = url)
 
-  def apply()(implicit
+  def apply(contactFrontendConfig: ContactFrontendConfig)(implicit
     request: RequestHeader,
-    contactFrontendConfig: ContactFrontendConfig,
     messages: Messages
   ): PhaseBanner =
-    apply(url = contactFrontendBetaFeedbackUrl())
+    apply(url = contactFrontendBetaFeedbackUrl(contactFrontendConfig))
 }
 
 class StandardAlphaBanner extends StandardPhaseBanner {

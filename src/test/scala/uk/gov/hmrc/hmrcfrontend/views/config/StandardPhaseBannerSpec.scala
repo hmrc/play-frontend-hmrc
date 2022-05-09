@@ -77,16 +77,16 @@ class StandardPhaseBannerSpec extends AnyWordSpec with Matchers with MessagesSup
       )
     }
 
-    "return formatted URL with config values for beta-feedback in contact-frontend when no URL provided" in {
-      implicit val request: RequestHeader          = FakeRequest()
-      implicit val cfConfig: ContactFrontendConfig = new ContactFrontendConfig(Configuration.empty) {
+    "return formatted URL with config values for beta-feedback in contact-frontend when passed config" in {
+      implicit val request: RequestHeader = FakeRequest()
+      val cfConfig: ContactFrontendConfig = new ContactFrontendConfig(Configuration.empty) {
         override def serviceId: Option[String]                    = Some("my-service")
         override def baseUrl                                      = Some("tax.service.gov.uk")
         override def referrerUrl(implicit request: RequestHeader) =
           Some("/help/terms-and-conditions")
       }
 
-      val phaseBanner: PhaseBanner = standardBetaBanner()
+      val phaseBanner: PhaseBanner = standardBetaBanner(cfConfig)
       phaseBanner.content mustBe HtmlContent(
         "This is a new service – your <a class=\"govuk-link\" href=" +
           "\"tax.service.gov.uk/contact/beta-feedback?service=my-service&amp;referrerUrl=%2Fhelp%2Fterms-and-conditions\"" +
@@ -94,15 +94,15 @@ class StandardPhaseBannerSpec extends AnyWordSpec with Matchers with MessagesSup
       )
     }
 
-    "return formatted URL with empty config values for beta-feedback in contact-frontend when no URL provided" in {
-      implicit val request: RequestHeader          = FakeRequest()
-      implicit val cfConfig: ContactFrontendConfig = new ContactFrontendConfig(Configuration.empty) {
+    "return formatted URL with empty config values for beta-feedback in contact-frontend when passed config" in {
+      implicit val request: RequestHeader = FakeRequest()
+      val cfConfig: ContactFrontendConfig = new ContactFrontendConfig(Configuration.empty) {
         override def serviceId: Option[String]                    = None
         override def baseUrl                                      = None
         override def referrerUrl(implicit request: RequestHeader) = None
       }
 
-      val phaseBanner: PhaseBanner = standardBetaBanner()
+      val phaseBanner: PhaseBanner = standardBetaBanner(cfConfig)
       phaseBanner.content mustBe HtmlContent(
         "This is a new service – your <a class=\"govuk-link\" href=" +
           "\"/contact/beta-feedback\">feedback</a> will help us to improve it."
