@@ -551,10 +551,10 @@ in your layout template and passing into `hmrcLayout` or `govukLayout` in place 
 ## Adding a beta feedback banner
 
 If you would like to add a banner to your service stating that your service is in beta, and providing a link to a feedback
-form, you can do so use the `StandardBetaBanner` viewmodel to construct a `PhaseModel`, which is bound to a `GovukPhaseBanner` Twirl template.
+form, you can do so use the `StandardBetaBanner` viewmodel to construct a `PhaseBanner`, which is bound to a `GovukPhaseBanner` Twirl template.
 
 The `HmrcLayout`, `HmrcStandardHeader` and `HmrcStandardHeader` all have constructor methods that take in an optional 
-`PhaseModel` and then bind to the appropriate template.
+`PhaseBanner` and then bind to the appropriate template.
 
 For developers wanting to implement a beta feedback banner in your service, these steps should be followed:
 1. Inject an instance of `StandardBetaBanner` into your template
