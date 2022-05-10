@@ -16,6 +16,7 @@ of implementing frontend microservices straightforward and idiomatic for Scala d
 - [Useful implicits](#useful-implicits)
 - [Using the HMRC layout](#using-the-hmrc-layout)
 - [Helping users report technical issues](#helping-users-report-technical-issues)
+- [Adding a beta feedback banner](#adding-a-beta-feedback-banner)
 - [Opening links in a new tab](#opening-links-in-a-new-tab)
 - [Accessibility statement links](#accessibility-statement-links)
 - [CharacterCount with Welsh language support](#charactercount-with-welsh-language-support)
@@ -362,7 +363,7 @@ To use this component,
     
     @this(hmrcLayout: HmrcLayout, standardBetaBanner: StandardBetaBanner)
 
-    @(pageTitle: String)(contentBlock: Html)(implicit request: RequestHeader, messages: Messages)
+    @(pageTitle: String, appConfig: AppConfig)(contentBlock: Html)(implicit request: RequestHeader, messages: Messages)
 
     @hmrcLayout(
       pageTitle = Some(pageTitle),
@@ -546,6 +547,55 @@ in your layout template and passing into `hmrcLayout` or `govukLayout` in place 
       @contentBlock
       @hmrcReportTechnicalIssueHelper()
     }
+
+## Adding a beta feedback banner
+
+If you would like to add a banner to your service stating that your service is in beta, and providing a link to a feedback
+form, you can do so use the `StandardBetaBanner` viewmodel to construct a `PhaseModel`, which is bound to a `GovukPhaseBanner` Twirl template.
+
+The `HmrcLayout`, `HmrcStandardHeader` and `HmrcStandardHeader` all have constructor methods that take in an optional 
+`PhaseModel` and then bind to the appropriate template.
+
+For developers wanting to implement a beta feedback banner in your service, these steps should be followed:
+1. Inject an instance of `StandardBetaBanner` into your template
+1. Call the `apply` method with either:
+    1. An explicit `url` parameter, OR
+    1. An implicit instance of `ContactFrontendConfig` injected into your template
+    
+If you pass an implicit, injected instance of `ContactFrontendConfig` to your `StandardBetaBanner`, then the beta feedback
+banner will be bound with a URL pointing to beta feedback form in the `contact-frontend` microservice, together with
+URL parameters `referrerUrl` and `service`. 
+
+As with [Helping users report technical issues](#helping-users-report-technical-issues), add the following to your 
+`application.conf`:
+
+```
+contact-frontend.serviceId = "<any-service-id>"
+```
+
+You can then use the banner as per below (note the injected implicit `ContactFrontendConfig`):
+
+    ```scala 
+    @import uk.gov.hmrc.hmrcfrontend.views.html.helpers.HmrcLayout
+    @import uk.gov.hmrc.hmrcfrontend.views.config.StandardBetaBanner
+    @import views.html.helper.CSPNonce
+    @import config.AppConfig
+    @import uk.gov.hmrc.hmrcfrontend.config.ContactFrontendConfig
+    @import uk.gov.hmrc.anyfrontend.controllers.routes
+    
+    @this(hmrcLayout: HmrcLayout, standardBetaBanner: StandardBetaBanner)(implicit cfConfig: ContactFrontendConfig)
+
+    @(pageTitle: String, appConfig: AppConfig)(contentBlock: Html)(implicit request: RequestHeader, messages: Messages)
+
+    @hmrcLayout(
+      pageTitle = Some(pageTitle),
+      isWelshTranslationAvailable = true, /* or false if your service has not been translated */
+      serviceUrl = Some(routes.IndexController.index().url),
+      signOutUrl = Some(routes.SignOutController.signOut().url),
+      phaseBanner = Some(standardBetaBanner()),
+      nonce = CSPNonce.get,
+    )(contentBlock)
+    ```
 
 ## Opening links in a new tab
 

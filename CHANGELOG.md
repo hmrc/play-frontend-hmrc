@@ -8,6 +8,19 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 For compatibility information see `govukFrontendVersion` and `hmrcFrontendVersion` in
 [LibDependencies](project/LibDependencies.scala)
 
+## [3.16.0] - 2022-05-10
+
+### Changed
+
+- Added new `apply()` method for `StandardBetaBanner`, taking in an implicit `ContactFrontendConfig` and constructing URL
+using values from `application.conf`
+
+### Compatible with
+
+- [hmrc/hmrc-frontend v5.0.4](https://github.com/hmrc/hmrc-frontend/releases/tag/v5.0.4)
+- [alphagov/govuk-frontend v4.0.1](https://github.com/alphagov/govuk-frontend/releases/tag/v4.0.1)
+
+
 ## [3.15.0] - 2022-04-28
 
 ### Changed
