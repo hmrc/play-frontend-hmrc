@@ -8,6 +8,19 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 For compatibility information see `govukFrontendVersion` and `hmrcFrontendVersion` in
 [LibDependencies](project/LibDependencies.scala)
 
+## [3.19.0] - 2022-05-20
+
+### Changed
+
+- Updated `HmrcUserResearchBanner`, we've added extra visually-hidden text to the "No thanks" button to help users of assistive technology more easily understand the purpose of the button and what will happen when it's used.
+- Updated `hmrc-frontend` to v5.0.6
+
+### Compatible with
+
+- [hmrc/hmrc-frontend v5.0.6](https://github.com/hmrc/hmrc-frontend/releases/tag/v5.0.6)
+- [alphagov/govuk-frontend v4.0.1](https://github.com/alphagov/govuk-frontend/releases/tag/v4.0.1)
+
+
 ## [3.18.0] - 2022-05-19
 
 ### Changed

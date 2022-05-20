@@ -9,7 +9,7 @@
         </a>
     </div>
     <button class="govuk-link hmrc-user-research-banner__close">
-        Dim diolch
+        <span aria-hidden="true">Dim diolch</span><span class="govuk-visually-hidden">Dim diolch, nid wyf am gymryd rhan yn yr ymchwil defnyddwyr - cuddio'r neges hon</span>
     </button>
   </div>
 </div>
