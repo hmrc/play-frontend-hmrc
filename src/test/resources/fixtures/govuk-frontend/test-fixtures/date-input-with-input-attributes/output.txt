@@ -14,7 +14,7 @@
         <label class="govuk-label govuk-date-input__label" for="dob-with-input-attributes-day">
           Day
         </label>
-      <input class="govuk-input govuk-date-input__input govuk-input--width-2" id="dob-with-input-attributes-day" name="dob-with-input-attributes-day" type="text" pattern="[0-9]*" inputmode="numeric" data-example-day="day">
+      <input class="govuk-input govuk-date-input__input govuk-input--width-2" id="dob-with-input-attributes-day" name="dob-with-input-attributes-day" type="text" inputmode="numeric" data-example-day="day">
       </div>
     </div>
     <div class="govuk-date-input__item">
@@ -22,7 +22,7 @@
         <label class="govuk-label govuk-date-input__label" for="dob-with-input-attributes-month">
           Month
         </label>
-      <input class="govuk-input govuk-date-input__input govuk-input--width-2" id="dob-with-input-attributes-month" name="dob-with-input-attributes-month" type="text" pattern="[0-9]*" inputmode="numeric" data-example-month="month">
+      <input class="govuk-input govuk-date-input__input govuk-input--width-2" id="dob-with-input-attributes-month" name="dob-with-input-attributes-month" type="text" inputmode="numeric" data-example-month="month">
       </div>
     </div>
     <div class="govuk-date-input__item">
@@ -30,7 +30,7 @@
         <label class="govuk-label govuk-date-input__label" for="dob-with-input-attributes-year">
           Year
         </label>
-      <input class="govuk-input govuk-date-input__input govuk-input--width-4" id="dob-with-input-attributes-year" name="dob-with-input-attributes-year" type="text" pattern="[0-9]*" inputmode="numeric" data-example-year="year">
+      <input class="govuk-input govuk-date-input__input govuk-input--width-4" id="dob-with-input-attributes-year" name="dob-with-input-attributes-year" type="text" inputmode="numeric" data-example-year="year">
       </div>
     </div>
   </div>
