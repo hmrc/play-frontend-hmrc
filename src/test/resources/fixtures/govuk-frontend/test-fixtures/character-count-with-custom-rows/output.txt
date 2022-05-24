@@ -7,7 +7,7 @@
   <textarea class="govuk-textarea govuk-js-character-count" id="custom-rows" name="custom" rows="8" aria-describedby="custom-rows-info"></textarea>
 </div>
 
-  <div id="custom-rows-info" class="govuk-hint govuk-character-count__message" aria-live="polite">
+  <div id="custom-rows-info" class="govuk-hint govuk-character-count__message">
   You can enter up to 10 characters
 </div>
 

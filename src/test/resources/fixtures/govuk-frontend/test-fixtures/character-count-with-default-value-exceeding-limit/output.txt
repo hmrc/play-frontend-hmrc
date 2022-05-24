@@ -13,7 +13,7 @@ NW1 6XE
 </textarea>
 </div>
 
-  <div id="exceeding-characters-info" class="govuk-hint govuk-character-count__message" aria-live="polite">
+  <div id="exceeding-characters-info" class="govuk-hint govuk-character-count__message">
   You can enter up to 10 characters
 </div>
 

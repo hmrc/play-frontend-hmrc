@@ -69,7 +69,10 @@ abstract class TemplateTestHelper[T: Reads](componentName: String)
                   println(s"Exception: $message")
 
                   fail
-                case Failure(exception)                            => fail(exception)
+                case Failure(exception)                            =>
+                  println(s"Failed to render for the $componentName template")
+                  println(s"Exception: ${exception.getMessage}")
+                  fail(exception)
               }
             }
           }

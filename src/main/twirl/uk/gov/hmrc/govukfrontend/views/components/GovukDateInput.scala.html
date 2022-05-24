@@ -94,7 +94,7 @@
             ),
           classes = s"govuk-date-input__input ${item.classes}",
           autocomplete = item.autocomplete,
-          pattern = Option(item.pattern.getNonEmptyOrElse("[0-9]*")),
+          pattern = item.pattern,
           attributes = item.attributes
         ))
       </div>
