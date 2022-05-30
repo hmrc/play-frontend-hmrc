@@ -7,7 +7,7 @@
   <textarea class="govuk-textarea hmrc-js-character-count" id="with-threshold" name="with-threshold" rows="5" aria-describedby="with-threshold-info"></textarea>
 </div>
 
-      <div id="with-threshold-info" class="govuk-hint hmrc-character-count__message" aria-live="polite">
+      <div id="with-threshold-info" class="govuk-hint hmrc-character-count__message">
   You can enter up to 10 characters
 </div>
 

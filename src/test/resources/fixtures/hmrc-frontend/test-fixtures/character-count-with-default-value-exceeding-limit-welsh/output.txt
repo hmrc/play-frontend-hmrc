@@ -13,7 +13,7 @@ NW1 6XE
 </textarea>
 </div>
 
-      <div id="exceeding-characters-info" class="govuk-hint hmrc-character-count__message" aria-live="polite">
+      <div id="exceeding-characters-info" class="govuk-hint hmrc-character-count__message">
   Gallwch nodi hyd at 10 o gymeriadau
 </div>
 

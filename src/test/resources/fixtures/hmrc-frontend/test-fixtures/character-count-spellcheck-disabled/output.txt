@@ -7,7 +7,7 @@
   <textarea class="govuk-textarea hmrc-js-character-count" id="without-spellcheck" name="without-spellcheck" rows="5" spellcheck="false" aria-describedby="without-spellcheck-info"></textarea>
 </div>
 
-      <div id="without-spellcheck-info" class="govuk-hint hmrc-character-count__message" aria-live="polite">
+      <div id="without-spellcheck-info" class="govuk-hint hmrc-character-count__message">
   You can enter up to 10 characters
 </div>
 

@@ -88,4 +88,9 @@ object CharacterCount {
         (__ \ "language").write[Language]
     )(unlift(CharacterCount.unapply))
 
+  private implicit def readsStringOrNumber: Reads[String] = {
+    case JsString(s) => JsSuccess(s)
+    case JsNumber(n) => JsSuccess(n.toString)
+    case _           => JsError("Unable to parse as String or Number")
+  }
 }
