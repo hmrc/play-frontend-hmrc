@@ -7,7 +7,7 @@
   <textarea class="govuk-textarea hmrc-js-character-count" id="more-detail-welsh" name="more-detail-welsh" rows="5" aria-describedby="more-detail-welsh-info"></textarea>
 </div>
 
-      <div id="more-detail-welsh-info" class="govuk-hint hmrc-character-count__message" aria-live="polite">
+      <div id="more-detail-welsh-info" class="govuk-hint hmrc-character-count__message">
   Gallwch nodi hyd at 10 o gymeriadau
 </div>
 

@@ -55,15 +55,13 @@
   @govukHint(Hint(
    content = Text("Gallwch nodi hyd at " + params.maxLength.getOrElse(params.maxWords.getOrElse(0)) + {if(params.maxWords.isDefined) " o eiriau" else " o gymeriadau"}),
    id = Some(params.id + "-info"),
-   classes = "hmrc-character-count__message" + {if (params.countMessageClasses == "") "" else " " + params.countMessageClasses},
-   attributes = Map("aria-live" -> "polite")
+   classes = "hmrc-character-count__message" + {if (params.countMessageClasses == "") "" else " " + params.countMessageClasses}
   ))
  } else {
   @govukHint(Hint(
    content = Text("You can enter up to " + params.maxLength.getOrElse(params.maxWords.getOrElse(0)) + {if(params.maxWords.isDefined) " words" else " characters"}),
    id = Some(params.id + "-info"),
-   classes = "hmrc-character-count__message" + {if (params.countMessageClasses == "") "" else " " + params.countMessageClasses},
-   attributes = Map("aria-live" -> "polite")
+   classes = "hmrc-character-count__message" + {if (params.countMessageClasses == "") "" else " " + params.countMessageClasses}
   ))
  }
  </div>

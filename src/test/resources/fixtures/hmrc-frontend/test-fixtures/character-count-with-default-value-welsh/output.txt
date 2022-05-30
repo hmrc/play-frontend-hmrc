@@ -10,7 +10,7 @@ NW1 6XE
 </textarea>
 </div>
 
-      <div id="with-default-value-welsh-info" class="govuk-hint hmrc-character-count__message" aria-live="polite">
+      <div id="with-default-value-welsh-info" class="govuk-hint hmrc-character-count__message">
   Gallwch nodi hyd at 100 o gymeriadau
 </div>
 

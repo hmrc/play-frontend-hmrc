@@ -7,7 +7,7 @@
   <textarea class="govuk-textarea hmrc-js-character-count" id="with-formgroup" name="with-formgroup" rows="5" aria-describedby="with-formgroup-info"></textarea>
 </div>
 
-      <div id="with-formgroup-info" class="govuk-hint hmrc-character-count__message" aria-live="polite">
+      <div id="with-formgroup-info" class="govuk-hint hmrc-character-count__message">
   You can enter up to 10 characters
 </div>
 
