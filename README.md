@@ -17,6 +17,7 @@ of implementing frontend microservices straightforward and idiomatic for Scala d
 - [Using the HMRC layout](#using-the-hmrc-layout)
 - [Helping users report technical issues](#helping-users-report-technical-issues)
 - [Adding a beta feedback banner](#adding-a-beta-feedback-banner)
+- [Adding a User Research Banner](#adding-a-user-research-banner)  
 - [Opening links in a new tab](#opening-links-in-a-new-tab)
 - [Accessibility statement links](#accessibility-statement-links)
 - [CharacterCount with Welsh language support](#charactercount-with-welsh-language-support)
@@ -596,6 +597,25 @@ You can then use the banner as per below (note the injected implicit `ContactFro
       nonce = CSPNonce.get,
     )(contentBlock)
     ```
+## Adding a User Research Banner
+
+The User Research Banner is a component used to display a blue banner, containing link text inviting the service user to 
+take part in user research. The Twirl template is [HmrcUserResearchBanner.scala.html](https://github.com/hmrc/play-frontend-hmrc/blob/main/src/main/twirl/uk/gov/hmrc/hmrcfrontend/views/components/HmrcUserResearchBanner.scala.html), 
+and the viewmodel is [UserResearchBanner.scala](https://github.com/hmrc/play-frontend-hmrc/blob/main/src/main/scala/uk/gov/hmrc/hmrcfrontend/views/viewmodels/userresearchbanner/UserResearchBanner.scala).
+
+The banner contains hard coded content, available in English and Welsh, with translation handled automatically via the 
+Play `language` from an implicit `request`. It is not possible to change this content, as it has been provided by 
+Research Services, and needs to be consistent across tax.service.gov.uk. 
+
+If your service uses `HmrcLayout.scala.html`, you can add the `HmrcUserResearchBanner` as shown:
+
+    @hmrcLayout(
+      pageTitle = ...
+      ...
+      userResearchBannerUrl = Some("your-user-research-url-here")
+    )(contentBlock)
+
+Research Services will tell you what URL to use for your service.
 
 ## Opening links in a new tab
 
