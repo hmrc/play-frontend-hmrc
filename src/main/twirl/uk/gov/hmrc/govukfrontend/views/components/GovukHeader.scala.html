@@ -68,11 +68,16 @@
     @(serviceName, navigation) match {
       case (Some(NonEmptyString(_)), _) | (_, Some(_)) => {
         <div class="govuk-header__content">
-          @serviceName.mapNonEmpty { serviceName =>
-            <a href="@serviceUrl" class="govuk-header__link govuk-header__link--service-name">
-              @serviceName
-            </a>
+          @serviceName match {
+            case Some(NonEmptyString(s)) => {
+              @serviceUrl.getOrElse("") match {
+                case NonEmptyString(url) => { <a href="@url" class="govuk-header__link govuk-header__service-name">@s</a> }
+                case _ => { <span class="govuk-header__service-name">@s</span> }
+              }
+            }
+            case _ => {}
           }
+
           @navigation.map { navigation =>
             <nav aria-label="@params.navigationLabel.getOrElse("Menu")" class="govuk-header__navigation @navigationClasses">
               <button type="button" class="govuk-header__menu-button govuk-js-header-toggle" aria-controls="navigation" aria-label="@params.menuButtonLabel.getOrElse("Show or hide menu")">Menu</button>
@@ -99,4 +104,3 @@
     }
   </div>
 </header>
-

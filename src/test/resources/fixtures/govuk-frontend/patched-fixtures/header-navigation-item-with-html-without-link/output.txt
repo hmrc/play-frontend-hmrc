@@ -29,7 +29,7 @@
       </a>
     </div>
     <div class="govuk-header__content">
-    <a href="/components/header" class="govuk-header__link govuk-header__link--service-name">
+    <a href="/components/header" class="govuk-header__link govuk-header__service-name">
       Service Name
     </a>
     <nav aria-label="Menu" class="govuk-header__navigation ">

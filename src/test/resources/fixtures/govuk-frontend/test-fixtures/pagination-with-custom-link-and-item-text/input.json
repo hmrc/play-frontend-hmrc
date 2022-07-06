@@ -1,0 +1,20 @@
+{
+  "previous" : {
+    "href" : "/previous",
+    "text" : "Previous page"
+  },
+  "next" : {
+    "href" : "/next",
+    "text" : "Next page"
+  },
+  "items" : [ {
+    "number" : "one",
+    "href" : "/page/1"
+  }, {
+    "number" : "two",
+    "current" : true
+  }, {
+    "number" : "three",
+    "href" : "/page/3"
+  } ]
+}

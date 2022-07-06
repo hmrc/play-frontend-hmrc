@@ -21,7 +21,7 @@
     "role" : "alert",
     "hidden" : true,
     "actions" : [ {
-      "text" : "Hide this message",
+      "text" : "Hide cookie message",
       "type" : "button"
     } ]
   }, {
@@ -29,7 +29,7 @@
     "role" : "alert",
     "hidden" : true,
     "actions" : [ {
-      "text" : "Hide this message",
+      "text" : "Hide cookie message",
       "type" : "button"
     } ]
   } ]

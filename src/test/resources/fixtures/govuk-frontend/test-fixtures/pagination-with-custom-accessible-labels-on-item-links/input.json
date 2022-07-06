@@ -1,0 +1,21 @@
+{
+  "previous" : {
+    "href" : "/previous"
+  },
+  "next" : {
+    "href" : "/next"
+  },
+  "items" : [ {
+    "number" : 1,
+    "href" : "/page/1",
+    "visuallyHiddenText" : "1st page"
+  }, {
+    "number" : 2,
+    "current" : true,
+    "visuallyHiddenText" : "2nd page (you are currently on this page)"
+  }, {
+    "number" : 3,
+    "href" : "/page/3",
+    "visuallyHiddenText" : "3rd page"
+  } ]
+}
