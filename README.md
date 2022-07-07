@@ -4,7 +4,7 @@ This library contains all the Twirl components and helpers needed to implement f
 tax platform.
 
 play-frontend-hmrc is a Scala Twirl implementation of 
-[govuk-frontend](https://www.github.com/hmrc/govuk-frontend) and
+[govuk-frontend](https://www.github.com/alphagov/govuk-frontend) and
 [hmrc-frontend](https://www.github.com/hmrc/hmrc-frontend), adding to it Play, HMRC and tax platform-specific 
 components and helpers that make the process
 of implementing frontend microservices straightforward and idiomatic for Scala developers.
