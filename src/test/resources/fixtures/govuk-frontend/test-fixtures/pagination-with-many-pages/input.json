@@ -1,0 +1,34 @@
+{
+  "previous" : {
+    "href" : "/previous"
+  },
+  "next" : {
+    "href" : "/next"
+  },
+  "items" : [ {
+    "number" : 1,
+    "href" : "/page/1"
+  }, {
+    "ellipsis" : true
+  }, {
+    "number" : 8,
+    "href" : "/page/8"
+  }, {
+    "number" : 9,
+    "href" : "/page/9"
+  }, {
+    "number" : 10,
+    "current" : true
+  }, {
+    "number" : 11,
+    "href" : "/page/11"
+  }, {
+    "number" : 12,
+    "href" : "/page/12"
+  }, {
+    "ellipsis" : true
+  }, {
+    "number" : 40,
+    "href" : "/page/40"
+  } ]
+}

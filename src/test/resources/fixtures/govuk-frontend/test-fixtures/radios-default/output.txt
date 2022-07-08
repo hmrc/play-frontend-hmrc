@@ -10,7 +10,7 @@
       </label>
         </div>
         <div class="govuk-radios__item">
-          <input class="govuk-radios__input" id="example-default-2" name="example-default" type="radio" value="no" checked>
+          <input class="govuk-radios__input" id="example-default-2" name="example-default" type="radio" value="no">
           <label class="govuk-label govuk-radios__label" for="example-default-2">
         No
       </label>

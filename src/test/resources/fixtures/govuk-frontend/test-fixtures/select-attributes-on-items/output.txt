@@ -2,6 +2,6 @@
   
   <select class="govuk-select" id="with-item-attributes" name="with-item-attributes">
       <option value="1" data-attribute="ABC" data-second-attribute="DEF">Option 1</option>
-      <option value="2" data-attribute="GHI" data-second-attribute="JKL">Option 2</option>
+      <option value="2" selected data-attribute="GHI" data-second-attribute="JKL">Option 2</option>
   </select>
 </div>

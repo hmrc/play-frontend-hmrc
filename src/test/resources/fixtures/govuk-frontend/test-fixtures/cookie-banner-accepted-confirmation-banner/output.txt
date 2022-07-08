@@ -10,7 +10,7 @@
 
       <div class="govuk-button-group">
             <button type="button" class="govuk-button" data-module="govuk-button">
-              Hide this message
+              Hide cookie message
             </button>
       </div>
     </div>

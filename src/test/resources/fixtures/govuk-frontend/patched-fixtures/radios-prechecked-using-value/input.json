@@ -1,0 +1,11 @@
+{
+  "name" : "example-default",
+  "items" : [ {
+    "value" : "yes",
+    "text" : "Yes"
+  }, {
+    "value" : "no",
+    "text" : "No"
+  } ],
+  "value" : "no"
+}

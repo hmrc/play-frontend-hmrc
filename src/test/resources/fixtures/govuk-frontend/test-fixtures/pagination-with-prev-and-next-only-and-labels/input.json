@@ -1,0 +1,12 @@
+{
+  "previous" : {
+    "text" : "Previous page",
+    "labelText" : "1 of 3",
+    "href" : "/previous"
+  },
+  "next" : {
+    "text" : "Next page",
+    "labelText" : "3 of 3",
+    "href" : "/next"
+  }
+}

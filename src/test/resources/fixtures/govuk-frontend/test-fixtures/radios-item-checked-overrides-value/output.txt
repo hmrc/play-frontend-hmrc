@@ -1,0 +1,22 @@
+<div class="govuk-form-group">
+  <div class="govuk-radios"    data-module="govuk-radios">
+        <div class="govuk-radios__item">
+          <input class="govuk-radios__input" id="colors" name="colors" type="radio" value="red">
+          <label class="govuk-label govuk-radios__label" for="colors">
+        Red
+      </label>
+        </div>
+        <div class="govuk-radios__item">
+          <input class="govuk-radios__input" id="colors-2" name="colors" type="radio" value="green">
+          <label class="govuk-label govuk-radios__label" for="colors-2">
+        Green
+      </label>
+        </div>
+        <div class="govuk-radios__item">
+          <input class="govuk-radios__input" id="colors-3" name="colors" type="radio" value="blue">
+          <label class="govuk-label govuk-radios__label" for="colors-3">
+        Blue
+      </label>
+        </div>
+  </div>
+</div>

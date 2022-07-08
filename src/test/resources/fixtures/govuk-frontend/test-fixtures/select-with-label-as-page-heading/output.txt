@@ -1,5 +1,5 @@
 <div class="govuk-form-group">
-  <h1 class="govuk-label-wrapper"><label class="govuk-label" for="select-3">
+  <h1 class="govuk-label-wrapper"><label class="govuk-label govuk-label--l" for="select-3">
       Label text goes here
     </label>
     </h1>
