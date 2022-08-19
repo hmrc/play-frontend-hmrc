@@ -8,14 +8,7 @@
           Director One
         </dt>
           <dd class="govuk-summary-list__actions hmrc-summary-list__actions">
-              <ul class="govuk-summary-list__actions-list">
-                  <li class="govuk-summary-list__actions-list-item">
-                    <a class="govuk-link" href="#change-item-1"><span aria-hidden="true">Change</span><span class="govuk-visually-hidden">Change Director One</span></a>
-                  </li>
-                  <li class="govuk-summary-list__actions-list-item">
-                    <a class="govuk-link" href="#remove-item-1"><span aria-hidden="true">Remove</span><span class="govuk-visually-hidden">Remove Director One from the list</span></a>
-                  </li>
-              </ul>
+              <ul class="govuk-summary-list__actions-list"><li class="govuk-summary-list__actions-list-item"><a class="govuk-link" href="#change-item-1"><span aria-hidden="true">Change</span><span class="govuk-visually-hidden">Change Director One</span></a></li><li class="govuk-summary-list__actions-list-item"><a class="govuk-link" href="#remove-item-1"><span aria-hidden="true">Remove</span><span class="govuk-visually-hidden">Remove Director One from the list</span></a></li></ul>
           </dd>
       </div>
       <div class="govuk-summary-list__row">
@@ -23,14 +16,7 @@
           Director Two
         </dt>
           <dd class="govuk-summary-list__actions hmrc-summary-list__actions">
-              <ul class="govuk-summary-list__actions-list">
-                  <li class="govuk-summary-list__actions-list-item">
-                    <a class="govuk-link" href="#change-item-2"><span aria-hidden="true">Change</span><span class="govuk-visually-hidden">Change Director Two</span></a>
-                  </li>
-                  <li class="govuk-summary-list__actions-list-item">
-                    <a class="govuk-link" href="#remove-item-2"><span aria-hidden="true">Remove</span><span class="govuk-visually-hidden">Remove Director Two from the list</span></a>
-                  </li>
-              </ul>
+              <ul class="govuk-summary-list__actions-list"><li class="govuk-summary-list__actions-list-item"><a class="govuk-link" href="#change-item-2"><span aria-hidden="true">Change</span><span class="govuk-visually-hidden">Change Director Two</span></a></li><li class="govuk-summary-list__actions-list-item"><a class="govuk-link" href="#remove-item-2"><span aria-hidden="true">Remove</span><span class="govuk-visually-hidden">Remove Director Two from the list</span></a></li></ul>
           </dd>
       </div>
   </dl>

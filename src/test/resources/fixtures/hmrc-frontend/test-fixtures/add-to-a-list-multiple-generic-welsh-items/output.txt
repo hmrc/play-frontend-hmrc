@@ -8,14 +8,7 @@
           Eitem un
         </dt>
           <dd class="govuk-summary-list__actions hmrc-summary-list__actions">
-              <ul class="govuk-summary-list__actions-list">
-                  <li class="govuk-summary-list__actions-list-item">
-                    <a class="govuk-link" href="#c1url"><span aria-hidden="true">Newid</span><span class="govuk-visually-hidden">Newid Eitem un</span></a>
-                  </li>
-                  <li class="govuk-summary-list__actions-list-item">
-                    <a class="govuk-link" href="#r1url"><span aria-hidden="true">Dileu</span><span class="govuk-visually-hidden">Dileu’r Eitem un o’r rhestr</span></a>
-                  </li>
-              </ul>
+              <ul class="govuk-summary-list__actions-list"><li class="govuk-summary-list__actions-list-item"><a class="govuk-link" href="#c1url"><span aria-hidden="true">Newid</span><span class="govuk-visually-hidden">Newid Eitem un</span></a></li><li class="govuk-summary-list__actions-list-item"><a class="govuk-link" href="#r1url"><span aria-hidden="true">Dileu</span><span class="govuk-visually-hidden">Dileu’r Eitem un o’r rhestr</span></a></li></ul>
           </dd>
       </div>
       <div class="govuk-summary-list__row">
@@ -23,14 +16,7 @@
           Eitem dau
         </dt>
           <dd class="govuk-summary-list__actions hmrc-summary-list__actions">
-              <ul class="govuk-summary-list__actions-list">
-                  <li class="govuk-summary-list__actions-list-item">
-                    <a class="govuk-link" href="#c2url"><span aria-hidden="true">Newid</span><span class="govuk-visually-hidden">Newid Eitem dau</span></a>
-                  </li>
-                  <li class="govuk-summary-list__actions-list-item">
-                    <a class="govuk-link" href="#r2url"><span aria-hidden="true">Dileu</span><span class="govuk-visually-hidden">Dileu’r Eitem dau o’r rhestr</span></a>
-                  </li>
-              </ul>
+              <ul class="govuk-summary-list__actions-list"><li class="govuk-summary-list__actions-list-item"><a class="govuk-link" href="#c2url"><span aria-hidden="true">Newid</span><span class="govuk-visually-hidden">Newid Eitem dau</span></a></li><li class="govuk-summary-list__actions-list-item"><a class="govuk-link" href="#r2url"><span aria-hidden="true">Dileu</span><span class="govuk-visually-hidden">Dileu’r Eitem dau o’r rhestr</span></a></li></ul>
           </dd>
       </div>
   </dl>

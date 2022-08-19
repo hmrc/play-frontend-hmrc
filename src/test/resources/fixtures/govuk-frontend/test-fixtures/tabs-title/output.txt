@@ -10,6 +10,6 @@
         </li>
   </ul>
       <div class="govuk-tabs__panel" id="tab-1">
-        Information about tabs
+          <p class="govuk-body">Information about tabs</p>
       </div>
 </div>

@@ -24,7 +24,9 @@ case class Footer(
   navigation: Seq[FooterNavigation] = Seq.empty,
   containerClasses: String = "",
   classes: String = "",
-  attributes: Map[String, String] = Map.empty
+  attributes: Map[String, String] = Map.empty,
+  contentLicence: Option[ContentLicence] = None,
+  copyright: Option[Copyright] = None
 )
 
 object Footer {
@@ -37,7 +39,9 @@ object Footer {
         (__ \ "navigation").readWithDefault[Seq[FooterNavigation]](defaultObject.navigation) and
         (__ \ "containerClasses").readWithDefault[String](defaultObject.containerClasses) and
         (__ \ "classes").readWithDefault[String](defaultObject.classes) and
-        (__ \ "attributes").readWithDefault[Map[String, String]](defaultObject.attributes)
+        (__ \ "attributes").readWithDefault[Map[String, String]](defaultObject.attributes) and
+        (__ \ "contentLicence").readNullable[ContentLicence] and
+        (__ \ "copyright").readNullable[Copyright]
     )(Footer.apply _)
 
   implicit def jsonWrites: OWrites[Footer] =
@@ -46,7 +50,9 @@ object Footer {
         (__ \ "navigation").write[Seq[FooterNavigation]] and
         (__ \ "containerClasses").write[String] and
         (__ \ "classes").write[String] and
-        (__ \ "attributes").write[Map[String, String]]
+        (__ \ "attributes").write[Map[String, String]] and
+        (__ \ "contentLicence").writeNullable[ContentLicence] and
+        (__ \ "copyright").writeNullable[Copyright]
     )(unlift(Footer.unapply))
 
 }

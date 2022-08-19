@@ -33,7 +33,7 @@ abstract class TemplateUnitBaseSpec[T: Reads](hmrcComponentName: String)
     "character-count-spellcheck-enabled"
   )
 
-  override protected val skip: Seq[String] = skipBecauseOfSpellcheckOrdering
+  override protected val skippedExamples: Seq[String] = skipBecauseOfSpellcheckOrdering
 
   matchTwirlAndNunjucksHtml(fixturesDirs)
 
