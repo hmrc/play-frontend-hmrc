@@ -17,7 +17,7 @@
 package uk.gov.hmrc.helpers.views
 
 import com.googlecode.htmlcompressor.compressor.HtmlCompressor
-import com.googlecode.htmlcompressor.compressor.HtmlCompressor.ALL_TAGS
+import com.googlecode.htmlcompressor.compressor.HtmlCompressor.{ALL_TAGS, BLOCK_TAGS_MAX}
 
 trait PreProcessor {
 
@@ -29,8 +29,8 @@ trait PreProcessor {
     * @param html
     * @return
     */
-  def preProcess(html: String): String = {
-    compressor.setRemoveSurroundingSpaces(ALL_TAGS)
+  def compressHtml(html: String, maximumCompression: Boolean = false): String = {
+    compressor.setRemoveSurroundingSpaces(if (maximumCompression) ALL_TAGS else BLOCK_TAGS_MAX)
     compressor.compress(asDecimalSpecialCharacters(html: String))
   }
 

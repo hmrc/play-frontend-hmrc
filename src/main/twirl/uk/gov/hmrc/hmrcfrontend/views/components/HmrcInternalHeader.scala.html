@@ -44,26 +44,18 @@
 
       <!--[if IE 8]>
       <img src="@calculateAssetPath(None, file = "components/banner/images/hmrc_crest_18px_x2.png")">
-      <![endif]-->
-
-      <span class="hmrc-internal-header__logo-text">
-        @language match {
+      <![endif]--><span class="hmrc-internal-header__logo-text">@language match {
           case Cy => { Cyllid a Thollau EM }
           case _  => { HM Revenue &amp; Customs }
-        }
-      </span>
+        }</span>
     </a>
-  </div>
-  @serviceName match {
-    case Some(NonEmptyString(x)) => {
-      <div class="hmrc-internal-header__service-name">
+  </div>@serviceName match {
+    case Some(NonEmptyString(x)) => {<div class="hmrc-internal-header__service-name">
         <a href="@serviceUrl" class="hmrc-internal-header__link">
-        @x
+          @x
         </a>
-      </div>
-      }
+      </div>}
     case _ => {}
-  }
-</div>
+  }</div>
 
 </header>

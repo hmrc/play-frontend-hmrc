@@ -71,8 +71,8 @@
           @serviceName match {
             case Some(NonEmptyString(s)) => {
               @serviceUrl.getOrElse("") match {
-                case NonEmptyString(url) => { <a href="@url" class="govuk-header__link govuk-header__service-name">@s</a> }
-                case _ => { <span class="govuk-header__service-name">@s</span> }
+                case NonEmptyString(url) => { <a href="@url" class="govuk-header__link govuk-header__service-name"> @s </a> }
+                case _ => { <span class="govuk-header__service-name"> @s </span> }
               }
             }
             case _ => {}

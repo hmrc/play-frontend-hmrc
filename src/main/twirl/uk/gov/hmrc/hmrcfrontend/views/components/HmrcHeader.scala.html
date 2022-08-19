@@ -146,8 +146,14 @@
   @serviceName match {
     case Some(NonEmptyString(s)) => {
       @serviceUrl match {
-        case NonEmptyString(_) => { <a href="@serviceUrl" class="hmrc-header__service-name hmrc-header__service-name--linked">@s</a> }
-        case _ => { <span class="hmrc-header__service-name ">@s</span> }
+        case NonEmptyString(_) => {
+          <a href="@serviceUrl" class="hmrc-header__service-name hmrc-header__service-name--linked">
+            @s
+          </a>}
+        case _ => {
+          <span class="hmrc-header__service-name ">
+            @s
+          </span>}
       }
     }
     case _ => {}

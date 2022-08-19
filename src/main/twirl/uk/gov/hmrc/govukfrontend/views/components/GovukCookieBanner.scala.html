@@ -19,8 +19,7 @@
 @(params: CookieBanner)
 @import params._
 
-<div class="@toClasses("govuk-cookie-banner ", classes)" data-nosnippet role="region" aria-label="@ariaLabel.getOrElse("Cookie banner")"@if(hidden){ hidden}@toAttributes(attributes)>
-  @for(message <- messages) {
+<div class="@toClasses("govuk-cookie-banner ", classes)" data-nosnippet role="region" aria-label="@ariaLabel.getOrElse("Cookie banner")"@if(hidden){ hidden}@toAttributes(attributes)>@for(message <- messages) {
     <div class="@toClasses("govuk-cookie-banner__message govuk-width-container", message.classes)"@message.role.mapNonEmpty {role => role="@role"} @toAttributes(message.attributes) @if(message.hidden){ hidden}>
       <div class="govuk-grid-row">
         <div class="govuk-grid-column-two-thirds">
@@ -29,13 +28,10 @@
               @message.heading.asHtml
             </h2>
           }
-          <div class="govuk-cookie-banner__content">
-            @message.content match {
+          <div class="govuk-cookie-banner__content">@message.content match {
               case NonEmptyHtml(html) => {@html}
               case NonEmptyText(text) => {<p class="govuk-body">@text</p>}
-              case _ => {}
-            }
-          </div>
+              case _ => {}}</div>
         </div>
       </div>
       @message.actions.map { actions =>
@@ -67,5 +63,4 @@
         </div>
        }
     </div>
-  }
-</div>
+  }</div>
