@@ -51,16 +51,14 @@
     })
   ) { itemType =>
 
-    <h1 class="govuk-heading-xl">
-      @(language, itemList.length) match {
-        case (Cy, 0) => { Nid ydych wedi ychwanegu unrhyw eitemau }
-        case (_, 0) => { You have not added any items }
-        case (Cy, 1) => { Rydych wedi ychwanegu 1 @itemType.singular}
-        case (_, 1) => { You have added 1 @itemType.singular}
-        case (Cy, n) => { Rydych wedi ychwanegu @n @itemType.plural}
-        case (_, n) => { You have added @n @itemType.plural}
-      }
-    </h1>
+    <h1 class="govuk-heading-xl">@(language, itemList.length) match {
+        case (Cy, 0) => {Nid ydych wedi ychwanegu unrhyw eitemau }
+        case (_, 0) => {You have not added any items }
+        case (Cy, 1) => {Rydych wedi ychwanegu 1 @itemType.singular}
+        case (_, 1) => {You have added 1 @itemType.singular}
+        case (Cy, n) => {Rydych wedi ychwanegu @n @itemType.plural}
+        case (_, n) => {You have added @n @itemType.plural}
+      }</h1>
 
     <div class="govuk-form-group">
       @hmrcListWithActions(ListWithActions(items = itemList map (item => ListWithActionsItem(

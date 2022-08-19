@@ -22,12 +22,15 @@
 @import params._
  @if(!events.isEmpty) {
  <ol class="hmrc-timeline">
-@for(event <- events) {
- <li class="hmrc-timeline__event"><h@headingLevel class="hmrc-timeline__event-title">@event.title</h@headingLevel><time class="hmrc-timeline__event-meta"@event.datetime match {
-   case Some(NonEmptyString(x)) => { datetime="@x"}
-   case _ => {}
-  }>@event.time</time>
- <div class="hmrc-timeline__event-content">@Html(event.content)</div></li>
- }
+@for(event <- events) {<li class="hmrc-timeline__event">
+    <h@headingLevel class="hmrc-timeline__event-title">@event.title</h@headingLevel>
+    <time class="hmrc-timeline__event-meta"@event.datetime match {
+    case Some(NonEmptyString(x)) => { datetime="@x"}
+    case _ => {}
+   }>@event.time</time>
+   <div class="hmrc-timeline__event-content">
+     @Html(event.content)
+   </div>
+ </li>}
  </ol>
 }

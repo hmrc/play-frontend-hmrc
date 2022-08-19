@@ -45,8 +45,8 @@
         </p>
         </dd>
           <dd class="govuk-summary-list__actions">
-            <ul class="govuk-summary-list__actions-list"><li class="govuk-summary-list__actions-list-item"><a class="govuk-link" href="#">
-              Edit<span class="govuk-visually-hidden"> contact information</span>
+              <ul class="govuk-summary-list__actions-list"><li class="govuk-summary-list__actions-list-item"><a class="govuk-link" href="#">
+                      Edit<span class="govuk-visually-hidden"> contact information</span>
                   </a></li><li class="govuk-summary-list__actions-list-item"><a class="govuk-link" href="#">
                       Change<span class="govuk-visually-hidden"> contact information</span>
                   </a></li></ul>

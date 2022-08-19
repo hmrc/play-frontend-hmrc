@@ -29,7 +29,7 @@
 }
 
 @if(items.nonEmpty) {
-    <dl class="@toClasses("govuk-summary-list", "hmrc-list-with-actions", classes)" @toAttributes(attributes)>
+    <dl class="@toClasses("govuk-summary-list", "hmrc-list-with-actions", classes)"@toAttributes(attributes)>
     @for(item <- items) {
         <div class="@toClasses("govuk-summary-list__row", noActionsClasses(item), item.classes.getOrElse(""))">
             <dt class="govuk-summary-list__key govuk-!-font-weight-regular hmrc-summary-list__key">
@@ -48,23 +48,11 @@
     </dl>
 }
 
-@actionLink(action: ListWithActionsAction) = {<a class="@toClasses("govuk-link", action.classes)" href="@action.href" @toAttributes(action.attributes)>
-    @actionContent(action)
-    </a>}
+@actionLink(action: ListWithActionsAction) = {<a class="@toClasses("govuk-link", action.classes)" href="@action.href"@toAttributes(action.attributes)>@actionContent(action)</a>}
 
-@actionContent(action: ListWithActionsAction) = {
-    @action.content match {
-        case NonEmptyHtml(html) => {@html}
-        case _ => {
-            @action.visuallyHiddenText match {
-                case Some(NonEmptyString(visuallyHiddenText)) => {
-                    <span aria-hidden="true">@action.content.asHtml</span>
-                    <span class="govuk-visually-hidden">@visuallyHiddenText</span>
-                }
-                case _ => {
-                    @action.content.asHtml
-                }
-            }
-        }
-    }
-}
+@actionContent(action: ListWithActionsAction) = {@action.content match {
+    case NonEmptyHtml(html) => {@html}
+    case _ => {@action.visuallyHiddenText match {
+        case Some(NonEmptyString(visuallyHiddenText)) => {<span aria-hidden="true">@action.content.asHtml</span><span class="govuk-visually-hidden">@visuallyHiddenText</span>}
+        case _ => {@action.content.asHtml}
+    }}}}

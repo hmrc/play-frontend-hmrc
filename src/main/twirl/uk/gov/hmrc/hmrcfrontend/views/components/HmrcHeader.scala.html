@@ -80,7 +80,7 @@
 
           @if(navigation.getOrElse(Seq.empty).nonEmpty) {
           <nav class="govuk-header__navigation" aria-label="Top Level Navigation">
-            <button type="button" class="govuk-header__menu-button govuk-js-header-toggle" aria-controls="navigation" aria-label="Show or hide Top Level Navigation">Menu</button>
+            <button type="button" class="govuk-header__menu-button govuk-js-header-toggle" aria-controls="navigation" aria-label="Show or hide Top Level Navigation" hidden>Menu</button>
             <ul id="navigation" class="@toClasses("govuk-header__navigation-list", navigationClasses)">
             @for(item <- navigation.getOrElse(Seq.empty).filter(item => item.content.nonEmpty)) {
               <li class="govuk-header__navigation-item@if(item.active){ govuk-header__navigation-item--active}else{}">
@@ -146,8 +146,14 @@
   @serviceName match {
     case Some(NonEmptyString(s)) => {
       @serviceUrl match {
-        case NonEmptyString(_) => { <a href="@serviceUrl" class="hmrc-header__service-name hmrc-header__service-name--linked">@s</a> }
-        case _ => { <span class="hmrc-header__service-name ">@s</span> }
+        case NonEmptyString(_) => {
+          <a href="@serviceUrl" class="hmrc-header__service-name hmrc-header__service-name--linked">
+            @s
+          </a>}
+        case _ => {
+          <span class="hmrc-header__service-name ">
+            @s
+          </span>}
       }
     }
     case _ => {}

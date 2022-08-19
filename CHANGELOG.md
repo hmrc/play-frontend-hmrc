@@ -9,6 +9,20 @@ For compatibility information see `govukFrontendVersion` and `hmrcFrontendVersio
 [LibDependencies](project/LibDependencies.scala)
 
 
+## [3.24.0] - 2022-08-31
+
+### Changed
+
+- Updated `hmrc-frontend` to v5.5.0
+- Use `BLOCK_TAGS_MAX` instead of `ALL_TAGS` when compressing HTML, to properly compare whitespace that could affect inline layout
+- Fix existing twirl templates / patched examples to align with nunjucks output (previously tests were passing because we weren't considering significant whitespace)
+- Reinstate previously-skipped examples where unit tests now pass
+
+### Compatible with
+
+- [hmrc/hmrc-frontend v5.5.0](https://github.com/hmrc/hmrc-frontend/releases/tag/v5.5.0)
+- [alphagov/govuk-frontend v4.3.1](https://github.com/alphagov/govuk-frontend/releases/tag/v4.3.1)
+
 ## [3.23.0] - 2022-08-22
 
 ### Changed
