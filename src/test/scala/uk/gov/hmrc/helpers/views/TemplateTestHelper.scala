@@ -36,7 +36,8 @@ abstract class TemplateTestHelper[T: Reads](componentName: String)
 
   protected val baseFixturesDirectory: String
 
-  protected val skip: Seq[String]
+  protected val skippedExamples: Seq[String]
+  protected val rawDiffExamples: Seq[String] = Nil
 
   protected lazy val fixturesDirs: Seq[File] = {
     val dir         = baseFixturesDirectory
@@ -46,33 +47,39 @@ abstract class TemplateTestHelper[T: Reads](componentName: String)
     fixturesDir.children.toSeq
   }
 
-  protected def matchTwirlAndNunjucksHtml(fixtureDirectories: Seq[File]) =
+  protected def matchTwirlAndNunjucksHtml(fixtureDirectories: Seq[File]): Unit =
     exampleNames(fixtureDirectories, componentName)
       .foreach { fixtureDirExampleName =>
         val (fixtureDir, exampleName) = fixtureDirExampleName
 
         s"$exampleName" should {
-          if (!skip.contains(exampleName)) {
+          if (!skippedExamples.contains(exampleName)) {
 
             "render the same html as the nunjucks renderer" in {
-              val tryTwirlHtml = renderExample(fixtureDir, exampleName)
+              val tryTwirlHtml    = renderExample(fixtureDir, exampleName)
+              val tryNunjucksHtml = getNunjucksHtml(fixtureDir, exampleName)
 
-              tryTwirlHtml match {
-                case Success(twirlHtml)                            =>
-                  val preProcessedTwirlHtml    = preProcess(twirlHtml)
-                  val preProcessedNunjucksHtml =
-                    preProcess(nunjucksHtml(fixtureDir, exampleName).success.value)
+              (tryTwirlHtml, tryNunjucksHtml) match {
+                case (Success(twirlHtml), Success(nunjucksHtml))        =>
+                  val maybePreProcess: String => String =
+                    if (rawDiffExamples.contains(exampleName)) identity else preProcess
+                  val preProcessedTwirlHtml             = maybePreProcess(twirlHtml)
+                  val preProcessedNunjucksHtml          = maybePreProcess(nunjucksHtml)
 
                   preProcessedTwirlHtml shouldBe preProcessedNunjucksHtml
-                case Failure(TemplateValidationException(message)) =>
-                  println(s"Failed to validate the parameters for the $componentName template")
+                case (Failure(TemplateValidationException(message)), _) =>
+                  println(s"Failed to validate the parameters for the $componentName twirl template")
                   println(s"Exception: $message")
 
                   fail
-                case Failure(exception)                            =>
-                  println(s"Failed to render for the $componentName template")
-                  println(s"Exception: ${exception.getMessage}")
-                  fail(exception)
+                case (Failure(twirlException), _)                       =>
+                  println(s"Failed to render for the $componentName twirl template")
+                  println(s"Exception: ${twirlException.getMessage}")
+                  fail(twirlException)
+                case (_, Failure(nunjucksException))                    =>
+                  println(s"Failed to get the $componentName nunjucks template")
+                  println(s"Exception: ${nunjucksException.getMessage}")
+                  fail(nunjucksException)
               }
             }
           }
@@ -126,7 +133,7 @@ abstract class TemplateTestHelper[T: Reads](componentName: String)
   private def readInputJson(fixturesDir: File, exampleName: String): String =
     (fixturesDir / exampleName / "input.json").contentAsString
 
-  private def nunjucksHtml(fixtureDir: File, exampleName: String): Try[String] =
+  private def getNunjucksHtml(fixtureDir: File, exampleName: String): Try[String] =
     Try(readOutputFile(fixtureDir, exampleName))
 
   private def readOutputFile(fixturesDir: File, exampleName: String): String =

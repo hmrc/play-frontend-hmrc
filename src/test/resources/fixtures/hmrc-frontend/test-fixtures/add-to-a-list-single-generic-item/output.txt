@@ -8,14 +8,7 @@
           item one
         </dt>
           <dd class="govuk-summary-list__actions hmrc-summary-list__actions">
-              <ul class="govuk-summary-list__actions-list">
-                  <li class="govuk-summary-list__actions-list-item">
-                    <a class="govuk-link" href="#c1url"><span aria-hidden="true">Change</span><span class="govuk-visually-hidden">Change item one</span></a>
-                  </li>
-                  <li class="govuk-summary-list__actions-list-item">
-                    <a class="govuk-link" href="#r1url"><span aria-hidden="true">Remove</span><span class="govuk-visually-hidden">Remove item one from the list</span></a>
-                  </li>
-              </ul>
+              <ul class="govuk-summary-list__actions-list"><li class="govuk-summary-list__actions-list-item"><a class="govuk-link" href="#c1url"><span aria-hidden="true">Change</span><span class="govuk-visually-hidden">Change item one</span></a></li><li class="govuk-summary-list__actions-list-item"><a class="govuk-link" href="#r1url"><span aria-hidden="true">Remove</span><span class="govuk-visually-hidden">Remove item one from the list</span></a></li></ul>
           </dd>
       </div>
   </dl>

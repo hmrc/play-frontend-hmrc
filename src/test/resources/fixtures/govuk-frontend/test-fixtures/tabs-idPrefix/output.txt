@@ -15,9 +15,9 @@
         </li>
   </ul>
       <div class="govuk-tabs__panel" id="custom-1">
-        Panel 1 content
+          <p class="govuk-body">Panel 1 content</p>
       </div>
       <div class="govuk-tabs__panel govuk-tabs__panel--hidden" id="custom-2">
-        Panel 2 content
+          <p class="govuk-body">Panel 2 content</p>
       </div>
 </div>

@@ -8,18 +8,11 @@
           Firstname Lastname
         </dd>
           <dd class="govuk-summary-list__actions govuk-!-width-one-half">
-              <ul class="govuk-summary-list__actions-list">
-                  <li class="govuk-summary-list__actions-list-item">
-                    <a class="govuk-link" href="#">
+              <ul class="govuk-summary-list__actions-list"><li class="govuk-summary-list__actions-list-item"><a class="govuk-link" href="#">
                       Edit<span class="govuk-visually-hidden"> name</span>
-                  </a>
-                  </li>
-                  <li class="govuk-summary-list__actions-list-item">
-                    <a class="govuk-link" href="#">
+                  </a></li><li class="govuk-summary-list__actions-list-item"><a class="govuk-link" href="#">
                       Delete<span class="govuk-visually-hidden"> name</span>
-                  </a>
-                  </li>
-              </ul>
+                  </a></li></ul>
           </dd>
       </div>
       <div class="govuk-summary-list__row">
@@ -52,18 +45,11 @@
         </p>
         </dd>
           <dd class="govuk-summary-list__actions">
-              <ul class="govuk-summary-list__actions-list">
-                  <li class="govuk-summary-list__actions-list-item">
-                    <a class="govuk-link" href="#">
+              <ul class="govuk-summary-list__actions-list"><li class="govuk-summary-list__actions-list-item"><a class="govuk-link" href="#">
                       Edit<span class="govuk-visually-hidden"> contact information</span>
-                  </a>
-                  </li>
-                  <li class="govuk-summary-list__actions-list-item">
-                    <a class="govuk-link" href="#">
+                  </a></li><li class="govuk-summary-list__actions-list-item"><a class="govuk-link" href="#">
                       Change<span class="govuk-visually-hidden"> contact information</span>
-                  </a>
-                  </li>
-              </ul>
+                  </a></li></ul>
           </dd>
       </div>
 </dl>

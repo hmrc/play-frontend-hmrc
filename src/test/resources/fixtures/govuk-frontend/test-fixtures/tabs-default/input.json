@@ -21,7 +21,7 @@
     "label" : "Past year",
     "id" : "past-year",
     "panel" : {
-      "html" : "<h2 class=\"govuk-heading-l\">Past year</h2>\n<table class=\"govuk-table\">\n  <thead class=\"govuk-table__head\">\n    <tr class=\"govuk-table__row\">\n      <th class=\"govuk-table__header\" scope=\"col\">Case manager</th>\n      <th class=\"govuk-table__header\" scope=\"col\">Cases opened</th>\n      <th class=\"govuk-table__header\" scope=\"col\">Cases closed</th>\n    </tr>\n  </thead>\n  <tbody class=\"govuk-table__body\">\n    <tr class=\"govuk-table__row\">\n      <td class=\"govuk-table__cell\">David Francis</td>\n      <td class=\"govuk-table__cell\">1380</td>\n      <td class=\"govuk-table__cell\">1472</td>\n    </tr>\n    <tr class=\"govuk-table__row\">\n      <td class=\"govuk-table__cell\">Paul Farmer</td>\n      <td class=\"govuk-table__cell\">1129</td>\n      <td class=\"govuk-table__cell\">1083</td>\n    </tr>\n    <tr class=\"govuk-table__row\">\n      <td class=\"govuk-table__cell\">Rita Patel</td>\n      <td class=\"govuk-table__cell\">1539</td>\n      <td class=\"govuk-table__cell\">1265</td>\n    </tr>\n  </tbody>\n</table>\n"
+      "text" : "There is no data for this year yet, check back later"
     }
   } ]
 }

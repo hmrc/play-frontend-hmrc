@@ -5,14 +5,7 @@
           Oranges
         </dt>
           <dd class="govuk-summary-list__actions hmrc-summary-list__actions">
-              <ul class="govuk-summary-list__actions-list">
-                  <li class="govuk-summary-list__actions-list-item">
-                    <a class="govuk-link" href="#"><span aria-hidden="true">Edit</span><span class="govuk-visually-hidden">Edit Oranges</span></a>
-                  </li>
-                  <li class="govuk-summary-list__actions-list-item">
-                    <a class="govuk-link" href="#"><span aria-hidden="true">Delete</span><span class="govuk-visually-hidden">Delete Oranges</span></a>
-                  </li>
-              </ul>
+              <ul class="govuk-summary-list__actions-list"><li class="govuk-summary-list__actions-list-item"><a class="govuk-link" href="#"><span aria-hidden="true">Edit</span><span class="govuk-visually-hidden">Edit Oranges</span></a></li><li class="govuk-summary-list__actions-list-item"><a class="govuk-link" href="#"><span aria-hidden="true">Delete</span><span class="govuk-visually-hidden">Delete Oranges</span></a></li></ul>
           </dd>
       </div>
       <div class="govuk-summary-list__row govuk-summary-list__row--no-actions">

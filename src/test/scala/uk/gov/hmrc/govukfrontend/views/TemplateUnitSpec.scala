@@ -109,7 +109,7 @@ abstract class TemplateUnitSpec[T: Reads, C <: Template1[T, HtmlFormat.Appendabl
     "accordion-with-falsey-values"
   )
 
-  override protected val skip = skipBecauseOfJsonValidation ++
+  override protected val skippedExamples: Seq[String] = skipBecauseOfJsonValidation ++
     skipBecauseOfAttributeOrdering ++ skipBecauseRequiredItemsSeemToBeMissing ++
     skipBecauseChangesNeededWithGDS
 

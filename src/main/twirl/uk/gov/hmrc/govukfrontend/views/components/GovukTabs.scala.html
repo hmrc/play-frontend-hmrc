@@ -37,7 +37,10 @@
 
     @for((item, index) <- items.zip(Stream from 1)) {
       <div class="@toClasses("govuk-tabs__panel", "govuk-tabs__panel--hidden".when(index > 1))" id="@itemId(item, index)"@toAttributes(item.panel.attributes)>
-        @item.panel.content.asHtml
+        @item.panel.content match {
+          case textContent: Text if textContent.nonEmpty => {<p class="govuk-body">@textContent.asHtml</p>}
+          case otherContent => {@otherContent.asHtml}
+        }
       </div>
     }
   }

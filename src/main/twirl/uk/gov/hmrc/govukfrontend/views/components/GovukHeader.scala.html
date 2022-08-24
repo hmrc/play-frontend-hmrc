@@ -80,7 +80,7 @@
 
           @navigation.map { navigation =>
             <nav aria-label="@params.navigationLabel.getOrElse("Menu")" class="govuk-header__navigation @navigationClasses">
-              <button type="button" class="govuk-header__menu-button govuk-js-header-toggle" aria-controls="navigation" aria-label="@params.menuButtonLabel.getOrElse("Show or hide menu")">Menu</button>
+              <button type="button" class="govuk-header__menu-button govuk-js-header-toggle" aria-controls="navigation" aria-label="@params.menuButtonLabel.getOrElse("Show or hide menu")" hidden>Menu</button>
               <ul id="navigation" class="govuk-header__navigation-list">
                 @for(item <- navigation) {
                   @if((item.text.nonEmpty || item.content.nonEmpty)) {

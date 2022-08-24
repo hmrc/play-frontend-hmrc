@@ -39,15 +39,7 @@
                 <dd class="govuk-summary-list__actions hmrc-summary-list__actions">
                     @item.actions match {
                       case action +: Nil => { @actionLink(action) }
-                      case actions       => {
-                          <ul class="govuk-summary-list__actions-list">
-                          @for(action <- actions) {
-                              <li class="govuk-summary-list__actions-list-item">
-                              @actionLink(action)
-                              </li>
-                          }
-                          </ul>
-                      }
+                      case actions       => {<ul class="govuk-summary-list__actions-list">@for(action <- actions) {<li class="govuk-summary-list__actions-list-item">@actionLink(action)</li>}</ul>}
                     }
                 </dd>
             }
@@ -56,9 +48,9 @@
     </dl>
 }
 
-@actionLink(action: ListWithActionsAction) = {
-    <a class="@toClasses("govuk-link", action.classes)" href="@action.href" @toAttributes(action.attributes)> @actionContent(action)</a>
-}
+@actionLink(action: ListWithActionsAction) = {<a class="@toClasses("govuk-link", action.classes)" href="@action.href" @toAttributes(action.attributes)>
+    @actionContent(action)
+    </a>}
 
 @actionContent(action: ListWithActionsAction) = {
     @action.content match {

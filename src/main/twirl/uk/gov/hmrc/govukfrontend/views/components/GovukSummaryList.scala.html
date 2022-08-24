@@ -30,17 +30,9 @@
       @if(row.actions.exists(_.items.length > 0)) {
         <dd class="@toClasses("govuk-summary-list__actions", row.actions.map(_.classes).getOrElse(""))">
           @if(row.actions.exists(_.items.length == 1)) {
-            @row.actions.map { actions => @actionLink(actions.items.head) }
+            @row.actions.map {actions => @actionLink(actions.items.head)}
           } else {
-            <ul class="govuk-summary-list__actions-list">
-              @row.actions.map { actions =>
-                @for(action <- actions.items) {
-                  <li class="govuk-summary-list__actions-list-item">
-                    @actionLink(action)
-                  </li>
-                }
-              }
-            </ul>
+            <ul class="govuk-summary-list__actions-list">@row.actions.map { actions =>@for(action <- actions.items) {<li class="govuk-summary-list__actions-list-item">@actionLink(action)</li>}}</ul>
           }
         </dd>
       }
@@ -48,9 +40,9 @@
   }
 </dl>
 
-@actionLink(action: ActionItem) = {
-  <a class="@toClasses("govuk-link", action.classes)" href="@action.href" @toAttributes(action.attributes)> @actionContent(action)</a>
-}
+@actionLink(action: ActionItem) = {<a class="@toClasses("govuk-link", action.classes)" href="@action.href" @toAttributes(action.attributes)>
+  @actionContent(action)
+  </a>}
 
 @actionContent(action: ActionItem) = {@action.content.asHtml@action.visuallyHiddenText.mapNonEmpty { visuallyHiddenText =><span class="govuk-visually-hidden"> @visuallyHiddenText</span> }}
 
