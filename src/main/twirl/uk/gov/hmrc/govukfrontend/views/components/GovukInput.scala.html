@@ -14,8 +14,6 @@
  * limitations under the License.
  *@
 
-@import scala.util.matching.Regex
-
 @this(govukErrorMessage: GovukErrorMessage, govukHint: GovukHint, govukLabel: GovukLabel)
 
 @(params: Input)
@@ -31,6 +29,13 @@
   ))
   @divSnippet
 </div>
+
+@divSnippet = @{
+    val (describedBy1, hintHtml) = hintSnippet(describedBy.getOrElse(""))
+    val (describedBy2, errorMessageHtml) = errorMessageSnippet(describedBy1)
+    val inputHtml = inputSnippet(describedBy2, params.prefix, params.suffix)
+    HtmlFormat.fill(collection.immutable.Seq(hintHtml, errorMessageHtml, inputHtml))
+}
 
 @hintSnippet(describedBy: String) = @{
  hint.fold((describedBy, HtmlFormat.empty)) { hint =>
@@ -63,38 +68,30 @@
   }
 }
 
-@inputPrefix(prefix: Option[PrefixOrSuffix], hasPrefix: Boolean, hasSuffix: Boolean) = {@maybeWrapperStart(hasPrefix, hasSuffix)@maybePrefix(prefix, hasPrefix)}
-
-@maybePrefix(prefix: Option[PrefixOrSuffix], hasPrefix: Boolean) ={@if(hasPrefix) {<div class="@toClasses("govuk-input__prefix", prefix.get.classes)" aria-hidden="true"@toAttributes(prefix.get.attributes)>@prefix.get.content.asHtml</div>
-}}
-
-@maybeWrapperStart(hasPrefix: Boolean, hasSuffix: Boolean) = {@if(hasPrefix || hasSuffix) {<div class="govuk-input__wrapper">}}
-
-@inputSuffix(suffix: Option[PrefixOrSuffix], hasPrefix: Boolean, hasSuffix: Boolean) = {@maybeSuffix(suffix, hasSuffix)@maybeWrapperEnd(hasPrefix: Boolean, hasSuffix: Boolean)}
-
-@maybeSuffix(suffix: Option[PrefixOrSuffix], hasSuffix: Boolean) = {@if(hasSuffix) {<div class="@toClasses("govuk-input__suffix", suffix.get.classes)" aria-hidden="true"@toAttributes(suffix.get.attributes)>@suffix.get.content.asHtml</div>
-}}
-
-@maybeWrapperEnd(hasPrefix: Boolean, hasSuffix: Boolean) = {@if(hasPrefix || hasSuffix) {</div>}}
-
 @inputSnippet(describedBy: String, prefix: Option[PrefixOrSuffix], suffix: Option[PrefixOrSuffix]) = {
-  @defining {
+@defining {
     id="@id" name="@name" type="@inputType" @if(spellcheck.nonEmpty) { spellcheck="@spellcheck"
     } @value.mapNonEmpty {value => value="@value" }@if(describedBy.nonEmpty) { aria-describedby="@describedBy"}
-  } { attrs =>
-  @defining {
-    @autocomplete.mapNonEmpty { autocomplete => autocomplete="@autocomplete"}@pattern.mapNonEmpty { pattern => pattern="@pattern"}@inputmode.mapNonEmpty { inputmode => inputmode="@inputmode"}@toAttributes(attributes)
-  } { otherAttrs =>
-      @(inputPrefix(prefix, prefix.nonEmpty, suffix.nonEmpty))<input class="@toClasses("govuk-input", classes, errorMessage.fold("")(_ => "govuk-input--error"))" @attrs@otherAttrs>@(inputSuffix(suffix, prefix.nonEmpty, suffix.nonEmpty))
-  }}
+} { attrs: Html =>
+    @defining {
+        @autocomplete.mapNonEmpty { autocomplete => autocomplete="@autocomplete"}@pattern.mapNonEmpty { pattern => pattern="@pattern"}@inputmode.mapNonEmpty { inputmode => inputmode="@inputmode"}@toAttributes(attributes)
+    } { otherAttrs: Html =>
+        @maybeWrapperStart(prefix, suffix)@maybePrefix(prefix)@input(attrs, otherAttrs)@maybeSuffix(suffix)@maybeWrapperEnd(prefix, suffix)
+    }}
 }
 
-@divSnippet = @{
-  val (describedBy1, hintHtml) = hintSnippet(describedBy.getOrElse(""))
-  val (describedBy2, errorMessageHtml) = errorMessageSnippet(describedBy1)
-  val inputHtml = inputSnippet(describedBy2, params.prefix, params.suffix)
-  HtmlFormat.fill(collection.immutable.Seq(hintHtml, errorMessageHtml, inputHtml))
-}
+@maybeWrapperStart(affixes: Option[PrefixOrSuffix]*) = {@if(affixes.exists(_.nonEmpty)) {<div class="govuk-input__wrapper">}}
+
+@maybePrefix(prefix: Option[PrefixOrSuffix]) ={@maybeAffix(prefix, "govuk-input__prefix")}
+
+@maybeAffix(affix: Option[PrefixOrSuffix], affixClass: String) ={@affix.map {a =><div class="@toClasses(affixClass, a.classes)" aria-hidden="true"@toAttributes(a.attributes)>@a.content.asHtml</div>
+}}
+
+@input(attrs: Html, otherAttrs: Html) = {<input class="@toClasses("govuk-input", classes, errorMessage.fold("")(_ => "govuk-input--error"))" @attrs@otherAttrs>}
+
+@maybeSuffix(suffix: Option[PrefixOrSuffix]) = {@maybeAffix(suffix, "govuk-input__suffix")}
+
+@maybeWrapperEnd(affixes: Option[PrefixOrSuffix]*) = {@if(affixes.exists(_.nonEmpty)) {</div>}}
 
 
 
