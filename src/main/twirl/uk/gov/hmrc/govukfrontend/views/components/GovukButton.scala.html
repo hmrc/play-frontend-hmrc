@@ -23,14 +23,12 @@
   @if(elem == "a") {
     <a href="@href.getNonEmptyOrElse{#}" role="button" draggable="false" @commonAttributes(classNames)>
       @content.asHtml
-      @iconHtml.trim.indent(2, indentFirstLine = true)
-    </a>
+      @iconHtml.trim.indent(2, indentFirstLine = true)</a>
   } else {
     @if(elem == "button") {
       <button @value.mapNonEmpty {value => value="@value"}@inputType.mapNonEmpty {inputType => type="@inputType"}@buttonAttributes @commonAttributes(classNames)>
         @content.asHtml
-        @iconHtml.trim.indent(2, indentFirstLine = true)
-      </button>
+        @iconHtml.trim.indent(2, indentFirstLine = true)</button>
     } else {
       @if(elem == "input") {
         <input value="@content.asInstanceOf[Text].asHtml" type="@inputTypeAttr.trim"@buttonAttributes @commonAttributes(classNames)>

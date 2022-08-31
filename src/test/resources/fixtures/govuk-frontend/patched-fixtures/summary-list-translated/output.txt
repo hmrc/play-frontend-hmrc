@@ -9,8 +9,10 @@
         </dd>
           <dd class="govuk-summary-list__actions">
               <ul class="govuk-summary-list__actions-list"><li class="govuk-summary-list__actions-list-item"><a class="govuk-link" href="#">
-                      Golygu<span class="govuk-visually-hidden"> enw</span></a></li><li class="govuk-summary-list__actions-list-item"><a class="govuk-link" href="#">
-                      Dileu<span class="govuk-visually-hidden"> enw</span></a></li></ul>
+                      Golygu<span class="govuk-visually-hidden"> enw</span>
+                  </a></li><li class="govuk-summary-list__actions-list-item"><a class="govuk-link" href="#">
+                      Dileu<span class="govuk-visually-hidden"> enw</span>
+                  </a></li></ul>
           </dd>
       </div>
       <div class="govuk-summary-list__row">
@@ -22,7 +24,8 @@
         </dd>
           <dd class="govuk-summary-list__actions">
               <a class="govuk-link" href="#">
-                Golygu<span class="govuk-visually-hidden"> dyddiad geni</span></a>
+                Golygu<span class="govuk-visually-hidden"> dyddiad geni</span>
+              </a>
           </dd>
       </div>
       <div class="govuk-summary-list__row">
@@ -43,7 +46,8 @@
         </dd>
           <dd class="govuk-summary-list__actions">
               <a class="govuk-link" href="#">
-                Golygu<span class="govuk-visually-hidden"> gwybodaeth cyswllt</span></a>
+                Golygu<span class="govuk-visually-hidden"> gwybodaeth cyswllt</span>
+              </a>
           </dd>
       </div>
 </dl>

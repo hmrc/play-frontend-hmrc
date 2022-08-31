@@ -37,7 +37,7 @@ abstract class TemplateTestHelper[T: Reads](componentName: String)
   protected val baseFixturesDirectory: String
 
   protected val skippedExamples: Seq[String]
-  protected val rawDiffExamples: Seq[String] = Nil
+  protected val fullyCompressedExamples: Seq[String] = Nil
 
   protected lazy val fixturesDirs: Seq[File] = {
     val dir         = baseFixturesDirectory
@@ -55,16 +55,17 @@ abstract class TemplateTestHelper[T: Reads](componentName: String)
         s"$exampleName" should {
           if (!skippedExamples.contains(exampleName)) {
 
-            "render the same html as the nunjucks renderer" in {
+            "compare the rendered twirl against the the rendered nunjucks" in {
               val tryTwirlHtml    = renderExample(fixtureDir, exampleName)
               val tryNunjucksHtml = getNunjucksHtml(fixtureDir, exampleName)
 
               (tryTwirlHtml, tryNunjucksHtml) match {
                 case (Success(twirlHtml), Success(nunjucksHtml))        =>
-                  val maybePreProcess: String => String =
-                    if (rawDiffExamples.contains(exampleName)) identity else preProcess
-                  val preProcessedTwirlHtml             = maybePreProcess(twirlHtml)
-                  val preProcessedNunjucksHtml          = maybePreProcess(nunjucksHtml)
+                  val preProcess: String => String =
+                    if (fullyCompressedExamples.contains(exampleName)) compressHtml(_, maximumCompression = true)
+                    else compressHtml(_)
+                  val preProcessedTwirlHtml        = preProcess(twirlHtml)
+                  val preProcessedNunjucksHtml     = preProcess(nunjucksHtml)
 
                   preProcessedTwirlHtml shouldBe preProcessedNunjucksHtml
                 case (Failure(TemplateValidationException(message)), _) =>

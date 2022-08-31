@@ -34,8 +34,7 @@ abstract class TemplateUnitSpec[T: Reads, C <: Template1[T, HtmlFormat.Appendabl
   override protected val baseFixturesDirectory: String = "/fixtures/govuk-frontend"
 
   private val skipBecauseOfJsonValidation             = Seq(
-    "date-input-with-values",
-    "summary-list-value-with-html"
+    "date-input-with-values"
   )
   private val skipBecauseOfAttributeOrdering          = Seq(
     "details-attributes",
@@ -44,64 +43,16 @@ abstract class TemplateUnitSpec[T: Reads, C <: Template1[T, HtmlFormat.Appendabl
   )
   private val skipBecauseRequiredItemsSeemToBeMissing = Seq(
     "select-with-falsey-values",
-    "date-input-items-with-classes",
-    "date-input-with-id-on-items",
-    "date-input-fieldset-html",
-    "date-input-classes",
-    "date-input-with-empty-items",
-    "date-input-items-without-classes",
-    "date-input-no-data",
-    "date-input-attributes",
-    "date-input-custom-pattern",
-    "date-input-with-nested-name",
-    "select-with-describedBy",
-    "select-error",
-    "select-error-and-describedBy",
-    "select-hint",
-    "select-hint-and-describedBy",
-    "select-attributes",
     "select-attributes-on-items",
-    "input-hint-with-describedBy",
-    "input-classes",
-    "input-with-error,-hint-and-describedBy",
-    "input-with-error-and-hint",
-    "input-attributes",
-    "input-inputmode",
-    "input-with-describedBy",
-    "input-value",
-    "input-error-with-describedBy",
-    "input-custom-type",
-    "textarea-with-error-message-and-described-by",
-    "textarea-attributes",
-    "textarea-with-describedBy",
-    "textarea-with-hint-and-error-message",
-    "textarea-with-hint,-error-message-and-described-by",
-    "textarea-with-hint-and-described-by",
-    "textarea-classes",
     "skip-link-default-values",
     "skip-link-html-as-text",
     "skip-link-html",
     "skip-link-attributes",
     "skip-link-classes",
     "skip-link-custom-text",
-    "checkboxes-with-hints-on-items",
     "character-count-spellcheck-enabled",
-    "character-count-custom-classes-with-error-message",
-    "character-count-attributes",
-    "character-count-formGroup-with-classes",
     "character-count-spellcheck-disabled",
-    "character-count-custom-classes-on-countMessage",
-    "character-count-classes",
-    "file-upload-with-error-and-describedBy",
-    "file-upload-attributes",
-    "file-upload-with-describedBy",
-    "file-upload-with-error,-describedBy-and-hint",
-    "file-upload-classes",
-    "file-upload-error",
-    "file-upload-with-hint-and-describedBy",
-    "button-input-type",
-    "button-input-classes",
-    "button-input-attributes"
+    "character-count-custom-classes-on-countMessage"
   )
   private val skipBecauseChangesNeededWithGDS         = Seq(
     "checkboxes-with-falsey-values",
