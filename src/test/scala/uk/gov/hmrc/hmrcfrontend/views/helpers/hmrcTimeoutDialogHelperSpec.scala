@@ -291,5 +291,52 @@ class hmrcTimeoutDialogHelperSpec extends AnyWordSpecLike with Matchers with Jso
       metas                             should have size 1
       metas.first.attr("data-language") should be("cy")
     }
+
+    "render the synchronise tabs data attribute using the hmrc-timeout-dialog enable synchronise tabs key" in {
+      val hmrcTimeoutDialogHelper = buildApp(
+        Map(
+          "hmrc-timeout-dialog.enableSynchroniseTabs" -> "true"
+        )
+      ).injector.instanceOf[HmrcTimeoutDialogHelper]
+
+      val messages = getMessages()
+      val content  = contentAsString(hmrcTimeoutDialogHelper(signOutUrl = "/sign-out")(messages, fakeRequest))
+      val document = Jsoup.parse(content)
+      val metas    = document.select("meta")
+
+      metas                                     should have size 1
+      metas.first.attr("data-synchronise-tabs") should be("true")
+    }
+
+    "render the synchronise tabs data attribute using the passed in synchroniseTabs" in {
+      val hmrcTimeoutDialogHelper = buildApp(
+        Map(
+          "hmrc-timeout-dialog.enableSynchroniseTabs" -> "false"
+        )
+      ).injector.instanceOf[HmrcTimeoutDialogHelper]
+
+      val messages = getMessages()
+      val content  = contentAsString(
+        hmrcTimeoutDialogHelper(signOutUrl = "/sign-out", synchroniseTabs = Some(true))(messages, fakeRequest)
+      )
+      val document = Jsoup.parse(content)
+      val metas    = document.select("meta")
+
+      metas                                     should have size 1
+      metas.first.attr("data-synchronise-tabs") should be("true")
+    }
+
+    "render the synchronise tabs data attribute using default if none passed in" in {
+      val hmrcTimeoutDialogHelper = buildApp().injector.instanceOf[HmrcTimeoutDialogHelper]
+
+      val messages = getMessages()
+      val content  = contentAsString(hmrcTimeoutDialogHelper(signOutUrl = "/sign-out")(messages, fakeRequest))
+      val document = Jsoup.parse(content)
+      val metas    = document.select("meta")
+
+      metas                                     should have size 1
+      metas.first.attr("data-synchronise-tabs") should be("false")
+    }
+
   }
 }

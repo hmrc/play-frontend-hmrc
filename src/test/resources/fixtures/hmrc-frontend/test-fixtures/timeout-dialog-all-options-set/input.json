@@ -7,5 +7,6 @@
   "message" : "message",
   "messageSuffix" : "there is a suffix for the message",
   "keepAliveButtonText" : "keepAliveButtonText",
-  "signOutButtonText" : "signOutButtonText"
+  "signOutButtonText" : "signOutButtonText",
+  "synchroniseTabs" : false
 }

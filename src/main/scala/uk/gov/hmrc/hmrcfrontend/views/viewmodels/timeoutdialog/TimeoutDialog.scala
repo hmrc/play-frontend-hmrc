@@ -29,7 +29,8 @@ case class TimeoutDialog(
   message: Option[String] = None,
   messageSuffix: Option[String] = None,
   keepAliveButtonText: Option[String] = None,
-  signOutButtonText: Option[String] = None
+  signOutButtonText: Option[String] = None,
+  synchroniseTabs: Boolean = false
 )
 
 object TimeoutDialog {

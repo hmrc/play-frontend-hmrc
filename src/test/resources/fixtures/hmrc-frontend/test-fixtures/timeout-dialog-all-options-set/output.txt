@@ -11,4 +11,5 @@
       data-message="message"
       data-message-suffix="there is a suffix for the message"
       data-keep-alive-button-text="keepAliveButtonText"
-      data-sign-out-button-text="signOutButtonText" />
+      data-sign-out-button-text="signOutButtonText"
+      data-synchronise-tabs="false"/>

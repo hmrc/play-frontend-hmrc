@@ -30,7 +30,8 @@
   message: Option[String] = None,
   messageSuffix: Option[String] = None,
   keepAliveButtonText: Option[String] = None,
-  signOutButtonText: Option[String] = None
+  signOutButtonText: Option[String] = None,
+  synchroniseTabs: Option[Boolean] = None
 )(implicit messages: Messages, request: RequestHeader)
 @hmrcTimeoutDialog(TimeoutDialog(
   signOutUrl = Some(signOutUrl),
@@ -43,5 +44,6 @@
   messageSuffix = messageSuffix,
   keepAliveButtonText = keepAliveButtonText,
   signOutButtonText = signOutButtonText,
-  language = Some(messages.lang.code)
+  language = Some(messages.lang.code),
+  synchroniseTabs = synchroniseTabs.getOrElse(timeoutDialogConfig.enableSynchroniseTabs)
 ))
