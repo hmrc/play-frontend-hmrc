@@ -771,7 +771,7 @@ The instructions below assume you have set up play-frontend-hmrc as indicated ab
 
 Additionally, services can choose to opt-in to behaviour to synchronise session extension between different HMRC tabs
 (using the `BroadcastChannel` API in browsers). In practical terms, this means that if a user sees a timeout dialog in
-an active tab, and clicks to extend their session, then the timeout dialogs that have also opted into this behaviour in any background tabs will also be restart the countdowns until they display their timeout warning.
+an active tab, and clicks to extend their session, then the timeout dialogs that have also opted into this behaviour in any background tabs will also restart the countdowns until they display their timeout warning.
 
 This behaviour is currently flagged **off** (`false`) by default. To enable, you can either explicitly pass `Some(true)`
 to the `HmrcTimeoutDialogHelper`, or you can add a boolean `true` or `false` to your `application.conf` with the key 
