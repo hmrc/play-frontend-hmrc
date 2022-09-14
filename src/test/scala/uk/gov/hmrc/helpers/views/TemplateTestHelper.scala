@@ -37,7 +37,9 @@ abstract class TemplateTestHelper[T: Reads](componentName: String)
   protected val baseFixturesDirectory: String
 
   protected val skippedExamples: Seq[String]
-  protected val fullyCompressedExamples: Seq[String] = Nil
+  protected val fullyCompressedExamples: Seq[String] = Seq(
+    "summary-list-translated"
+  )
 
   protected lazy val fixturesDirs: Seq[File] = {
     val dir         = baseFixturesDirectory
