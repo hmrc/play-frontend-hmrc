@@ -3,5 +3,5 @@
   "countdown" : 74,
   "keepAliveUrl" : "?abc=def",
   "signOutUrl" : "?ghi=jkl",
-  "synchroniseTabs" : false
+  "synchroniseTabs" : true
 }

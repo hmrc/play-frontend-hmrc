@@ -767,6 +767,16 @@ The instructions below assume you have set up play-frontend-hmrc as indicated ab
    a parameter. For example if using `hmrcLayout`, pass `Some(hmrcTimeoutDialogHelper(signOutUrl = signOutUrl))` in the 
    `additionalHeadBlock` parameter.
 
+#### Synchronise session between tabs ####
+
+Additionally, services can choose to opt-in to behaviour to synchronise session extension between different HMRC tabs
+(using the `BroadcastChannel` API in browsers). In practical terms, this means that if a user sees a timeout dialog in
+an active tab, and clicks to extend their session, then the timeout dialogs that have also opted into this behaviour in any background tabs will also restart the countdowns until they display their timeout warning.
+
+This behaviour is currently flagged **off** (`false`) by default. To enable, you can either explicitly pass `Some(true)`
+to the `HmrcTimeoutDialogHelper`, or you can add a boolean `true` or `false` to your `application.conf` with the key 
+`hmrc-timeout-dialog.enableSynchroniseTabs`.
+
 #### Customisation ####
 By default, the timeout dialog will redirect to the supplied signOutUrl if they do nothing after the timeout duration
 has elapsed. If you wish users to be redirected to a different URL, a separate `timeoutUrl` can be supplied.
@@ -782,13 +792,14 @@ have a dedicated controller and route defined for this so its use for this purpo
 will be supplied in the `keepAliveUrl` parameter to `hmrcTimeoutDialog`. Do not use `#` in case the current URL
 does not implement HTTP GET.
 
-| Parameter      | Description                                                   | Example |
-| -------------- | ------------------------------------------------------------- | ------- |
-| `signOutUrl`   | The url that will be used when users click 'Sign Out'         | Some(routes.SignOutController.signOut().url) |
-| `timeoutUrl`   | The url that the timeout dialog will redirect to following timeout. Defaults to the `signOutUrl`. | Some(routes.TimeoutController.timeOut().url) |
-| `keepAliveUrl` | A endpoint used to keep the user’s session alive | Some(routes.KeepAliveController.keepAlive().url)
-| `timeout`      | The timeout duration where this differs from `session.timeout` | 1800 |
-| `countdown`    | The number of seconds before timeout the dialog is displayed. The default is 120.| 240 |
+| Parameter         | Description                                                   | Example |
+| ----------------- | ------------------------------------------------------------- | ------- |
+| `signOutUrl`      | The url that will be used when users click 'Sign Out'         | Some(routes.SignOutController.signOut().url) |
+| `timeoutUrl`      | The url that the timeout dialog will redirect to following timeout. Defaults to the `signOutUrl`. | Some(routes.TimeoutController.timeOut().url) |
+| `keepAliveUrl`    | A endpoint used to keep the user’s session alive | Some(routes.KeepAliveController.keepAlive().url)
+| `timeout`         | The timeout duration where this differs from `session.timeout` | 1800 |
+| `countdown`       | The number of seconds before timeout the dialog is displayed. The default is 120.| 240 |
+| `synchroniseTabs` | Allow the timeout dialog to use the `BroadcastChannel` to communicate session activity to other background tabs. Defaults to `None`, i.e. not enabled.| Some(true) |
 
 The timeout dialog’s content can be customised using the following parameters:
 

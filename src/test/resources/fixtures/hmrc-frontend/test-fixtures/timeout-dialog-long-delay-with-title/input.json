@@ -3,5 +3,6 @@
   "timeout" : 700,
   "countdown" : 690,
   "keepAliveUrl" : "?abc=def",
-  "signOutUrl" : "?ghi=jkl"
+  "signOutUrl" : "?ghi=jkl",
+  "synchroniseTabs" : false
 }
