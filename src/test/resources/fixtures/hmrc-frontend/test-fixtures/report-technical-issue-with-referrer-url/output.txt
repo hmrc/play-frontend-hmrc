@@ -1,6 +1,5 @@
 <a lang="en" hreflang="en"
   class="govuk-link hmrc-report-technical-issue "
-  rel="noreferrer noopener"
-  target="_blank"
+ rel="noreferrer noopener"  target="_blank"
   href="/contact/report-technical-problem?newTab=true&amp;service=pay&amp;referrerUrl=https%3A%2F%2Fwww.tax.service.gov.uk%2Fpay%3Fabc%3Ddef"
 >Is this page not working properly? (opens in new tab)</a>

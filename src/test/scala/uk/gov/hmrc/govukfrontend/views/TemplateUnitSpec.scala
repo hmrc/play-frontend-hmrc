@@ -41,6 +41,10 @@ abstract class TemplateUnitSpec[T: Reads, C <: Template1[T, HtmlFormat.Appendabl
     "warning-text-attributes",
     "breadcrumbs-attributes"
   )
+  /* skipBecauseRequiredItemsSeemToBeMissing are for tests that require properties that are missing from the nunjucks
+     template example data, the reason its missing is because of the way the govuk frontend team setup there tests.
+     https://github.com/alphagov/govuk-frontend/issues/2834
+   */
   private val skipBecauseRequiredItemsSeemToBeMissing = Seq(
     "select-with-falsey-values",
     "select-attributes-on-items",
@@ -52,7 +56,12 @@ abstract class TemplateUnitSpec[T: Reads, C <: Template1[T, HtmlFormat.Appendabl
     "skip-link-custom-text",
     "character-count-spellcheck-enabled",
     "character-count-spellcheck-disabled",
-    "character-count-custom-classes-on-countMessage"
+    "character-count-custom-classes-on-countMessage",
+    "checkboxes-item-checked-overrides-values",
+    "checkboxes-with-pre-checked-values",
+    "radios-prechecked-using-value",
+    "radios-with-conditional-items-and-pre-checked-value",
+    "select-with-selected-value"
   )
   private val skipBecauseChangesNeededWithGDS         = Seq(
     "checkboxes-with-falsey-values",
