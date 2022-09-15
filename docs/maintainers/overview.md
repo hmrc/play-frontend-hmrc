@@ -64,7 +64,7 @@ sbt it:test
 
 _Note: The integration tests output produces a bit of noise as the library outputs statistics about the generators to check
 the distribution of the test cases. More information about collecting statistics on generators 
-[here](https://github.com/typelevel/scalacheck/blob/master/doc/UserGuide.md#collecting-generated-test-data)._
+[here](https://github.com/typelevel/scalacheck/blob/main/doc/UserGuide.md#collecting-generated-test-data)._
 
 The integration tests are automatically run as part of the build and publish pipeline with the component renderer 
 run as a sidecar. For this reason, it's important to merge any changes to the component renderer before merging corresponding

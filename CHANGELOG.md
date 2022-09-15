@@ -8,6 +8,17 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 For compatibility information see `govukFrontendVersion` and `hmrcFrontendVersion` in
 [LibDependencies](project/LibDependencies.scala)
 
+## [3.26.0] - 2022-09-15
+
+### Changed
+
+- Documentation update only
+
+### Compatible with
+
+- [hmrc/hmrc-frontend v5.7.0](https://github.com/hmrc/hmrc-frontend/releases/tag/v5.7.0)
+- [alphagov/govuk-frontend v4.3.1](https://github.com/alphagov/govuk-frontend/releases/tag/v4.3.1)
+
 ## [3.25.0] - 2022-09-12
 
 ### Changed
@@ -946,7 +957,7 @@ eviction of any incorrectly added direct dependencies on non-empty `play-fronten
 ### Changed
 
 - Remove hard dependency on the govuk-frontend webjar as per
-  [ADR](https://github.com/hmrc/play-frontend-govuk/blob/master/docs/maintainers/adr/0004-remove-hard-dependency-on-the-govuk-frontend-webjar.md)
+  [ADR](https://github.com/hmrc/play-frontend-govuk/blob/main/docs/maintainers/adr/0004-remove-hard-dependency-on-the-govuk-frontend-webjar.md)
 
 ### Compatible with
 
