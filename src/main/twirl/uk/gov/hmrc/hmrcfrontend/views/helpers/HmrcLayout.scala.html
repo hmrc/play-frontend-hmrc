@@ -60,8 +60,11 @@
         mainContentLayout: Option[Html => Html] = Some(defaultMainContent(_)),
         additionalBannersBlock: Option[Html] = None,
         pageLayout: Option[PageLayout => Html] = Some(fixedWidthPageLayout(_)),
-        headerContainerClasses: String = Header.defaultObject.containerClasses
+        headerContainerClasses: String = Header.defaultObject.containerClasses,
+        backLink: Option[BackLink] = None
 )(contentBlock: Html)(implicit request: RequestHeader, messages: Messages)
+
+@require(!(backLinkUrl.isDefined && backLink.isDefined), "Use backLink or backLinkUrl, but not both")
 
 @headerBlock = {
     @hmrcStandardHeader(
@@ -83,9 +86,8 @@
         @if(isWelshTranslationAvailable) {
             @hmrcLanguageSelectHelper()
         }
-        @backLinkUrl.map(url =>
-            govukBackLink(BackLink(href = url, content = Text(messages("back.text"))))
-        )
+        @{(backLink orElse backLinkUrl.map(url => BackLink(href = url, content = Text(messages("back.text")))))
+            .map(link => govukBackLink(link))}
     }
 }
 

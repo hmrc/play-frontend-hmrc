@@ -29,6 +29,7 @@ import play.api.mvc.MessagesRequest
 import play.api.test.FakeRequest
 import play.api.test.Helpers.{contentAsString, stubMessagesApi, _}
 import play.twirl.api.Html
+import uk.gov.hmrc.govukfrontend.views.Aliases.Text
 import uk.gov.hmrc.govukfrontend.views.html.components.{FullWidthPageLayout, GovukBackLink}
 import uk.gov.hmrc.govukfrontend.views.viewmodels.backlink.BackLink
 import uk.gov.hmrc.helpers.views.JsoupHelpers
@@ -436,6 +437,49 @@ class hmrcLayoutSpec extends AnyWordSpecLike with Matchers with JsoupHelpers wit
       backLink                should have size 1
       backLink.attr("href") shouldBe "my-back-link"
       backLink.html()       shouldBe "Back Welsh"
+    }
+
+    "include the back link if passed a BackLink" in {
+      val hmrcLayout     = app.injector.instanceOf[HmrcLayout]
+      val messages       = getMessages()
+      val customBackLink = BackLink("/some/url", "custom-class", Map("some" -> "attribute"), Text("Custom Back"))
+      val layout         = hmrcLayout(backLink = Some(customBackLink))(
+        Html("")
+      )(fakeRequest, messages)
+      val document       = Jsoup.parse(contentAsString(layout))
+
+      val actualBackLink = document.select(".govuk-back-link")
+      actualBackLink                            should have size 1
+      actualBackLink.attr("href")             shouldBe "/some/url"
+      actualBackLink.hasClass("custom-class") shouldBe true
+      actualBackLink.attr("some")             shouldBe "attribute"
+      actualBackLink.html()                   shouldBe "Custom Back"
+    }
+
+    "add attributes to activate the JavaScript browser back in hmrc-frontend" in {
+      val hmrcLayout                  = app.injector.instanceOf[HmrcLayout]
+      implicit val messages: Messages = getMessages()
+      val layout                      = hmrcLayout(backLink = Some(BackLink.mimicsBrowserBackButtonViaJavaScript))(
+        Html("")
+      )(fakeRequest, messages)
+      val document                    = Jsoup.parse(contentAsString(layout))
+
+      val actualBackLink = document.select(".govuk-back-link")
+      actualBackLink                       should have size 1
+      actualBackLink.attr("href")        shouldBe "#"
+      actualBackLink.attr("data-module") shouldBe "hmrc-back-link"
+      actualBackLink.html()              shouldBe "Back English"
+    }
+
+    "throw an exception if both backLink and backLinkUrl are provided" in {
+      val hmrcLayout = app.injector.instanceOf[HmrcLayout]
+      val messages   = getMessages()
+      the[IllegalArgumentException] thrownBy hmrcLayout(
+        backLinkUrl = Some("/url"),
+        backLink = Some(BackLink())
+      )(
+        Html("")
+      )(fakeRequest, messages) should have message "requirement failed: Use backLink or backLinkUrl, but not both"
     }
 
     "allow overriding of the default page layout" in {

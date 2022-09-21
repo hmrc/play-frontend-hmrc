@@ -17,9 +17,10 @@
 package uk.gov.hmrc.govukfrontend.views.viewmodels
 package backlink
 
+import play.api.i18n.Messages
 import play.api.libs.functional.syntax._
 import play.api.libs.json._
-import uk.gov.hmrc.govukfrontend.views.viewmodels.content.{Content, Empty}
+import uk.gov.hmrc.govukfrontend.views.viewmodels.content.{Content, Empty, Text}
 
 case class BackLink(
   href: String = "",
@@ -31,6 +32,12 @@ case class BackLink(
 object BackLink {
 
   def defaultObject: BackLink = BackLink()
+
+  def mimicsBrowserBackButtonViaJavaScript(implicit messages: Messages): BackLink = BackLink(
+    href = "#",
+    attributes = Map("data-module" -> "hmrc-back-link"),
+    content = Text(messages("back.text"))
+  )
 
   implicit def jsonReads: Reads[BackLink] =
     (
