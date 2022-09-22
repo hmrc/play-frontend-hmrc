@@ -25,6 +25,7 @@ of implementing frontend microservices straightforward and idiomatic for Scala d
 - [Warning users before timing them out](#warning-users-before-timing-them-out)
 - [Display a caption above a page heading label or legend](#hmrcpageheadinglabel-and-hmrcpageheadinglegend)
 - [Adding a sidebar to your Layout](#adding-a-sidebar-to-your-layout)
+- [Adding accessible-autocomplete CSS and Javascript](#adding-accessible-autocomplete-css-and-javascript)
 - [Adding your own SASS compilation pipeline](#adding-your-own-sass-compilation-pipeline)
 - [Play Framework and Scala compatibility notes](#play-framework-and-scala-compatibility-notes)
 - [Troubleshooting](#troubleshooting)  
@@ -811,6 +812,40 @@ The timeout dialog’s content can be customised using the following parameters:
 | `keepAliveButtonText` | The text on the button that keeps the user signed in          | Some(messages("hmrc-timeout-dialog.keep-alive-button-text")) |
 | `signOutButtonText`   | The text for the link which takes the user to a sign out page | Some(messages("hmrc-timeout-dialog.sign-out-button-text")) |
 
+## Adding accessible-autocomplete CSS and Javascript
+
+`play-frontend-hmrc` contains Javascript and CSS assets to enable `<select>` items with autocomplete to improve their 
+accessibility. Currently, this is pulling in the Javascript and CSS from the GOV.UK library [accessible-autocomplete](https://github.com/alphagov/accessible-autocomplete).
+
+If you are currently using [accessible-autocomplete](https://github.com/alphagov/accessible-autocomplete), you can replace 
+your components and routing by using the ones in this library.
+
+You will need to inject the CSS and Javascript into your views as follows:
+```
+@import uk.gov.hmrc.hmrcfrontend.views.html.helpers.HmrcLayout
+@import uk.gov.hmrc.hmrcfrontend.views.html.helpers.HmrcAccessibleAutocompleteCss
+@import uk.gov.hmrc.hmrcfrontend.views.html.helpers.HmrcAccessibleAutocompleteJavascript
+@import views.html.helper.CSPNonce
+
+@this(
+    hmrcLayout: HmrcLayout,
+    autcompleteCss: HmrcAccessibleAutocompleteCss,
+    autocompleteJavascript: HmrcAccessibleAutocompleteJavascript
+)
+
+@(pageTitle: String, contentBlock: Html)(implicit request: RequestHeader, messages: Messages)
+
+@hmrcLayout(
+  pageTitle = Some(pageTitle),
+  additionalHeadBlock = Some(autocompleteCss(CSPNonce.get)),
+  nonce = CSPNonce.get,
+  displayHmrcBanner = true,
+  additionalScriptsBlock = Some(autocompleteJavascript(CSPNonce.get))
+)(contentBlock)
+```
+
+References within your code to the Javascript object `accessibleAutocomplete` should be replaced with `HMRCAccessibleAutocomplete`.
+
 ## Adding your own SASS compilation pipeline
 
 This library will manage SASS compilation for you. However, should you need for any reason to add your own SASS
@@ -818,7 +853,7 @@ compilation pipeline, follow the [steps detailed here](docs/maintainers/sass-com
 
 ## Play Framework and Scala compatibility notes
 This library is currently compatible with:
-* Scala 2.12
+* Scala 2.12 and Scala 2.13
 * Play 2.8
 
 ## Example Templates
