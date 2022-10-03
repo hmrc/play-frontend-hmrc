@@ -847,6 +847,95 @@ You will need to inject the CSS and Javascript into your views as follows:
 
 References within your code to the Javascript object `accessibleAutocomplete` should be replaced with `HMRCAccessibleAutocomplete`.
 
+### Transforming a Select element into an Accessible Autocomplete element
+
+With the above accessible-autocomplete CSS and Javascript, you can transform your Select element into an
+AccessibleAutocomplete element using the `asAccessibleAutocomplete` implicit helper method on a `Select`, as follows.
+
+```scala
+@import uk.gov.hmrc.govukfrontend.views.Implicits.RichSelect
+
+@govukSelect(Select(...).asAccessibleAutocomplete())
+```
+This will set up an accessible autocomplete element with default values set as below
+```text
+defaultValue = ""
+showAllValues = false
+autoselect = false
+```
+More information on these values can be found [here](https://www.npmjs.com/package/accessible-autocomplete) under the `API documentation` heading
+
+If you wish to change these values you can do so by providing an `AccessibleAutocomplete` model into the `asAccessibleAutocomplete` method as seen below
+```scala
+@govukSelect(Select(...).asAccessibleAutocomplete(Some(
+  AccessibleAutocomplete(
+    defaultValue = Some("United Kingdom"),
+    showAllValues = true,
+    autoSelect = true)
+)))
+```
+
+There is a caveat currently with the `defaultValue` property, to use this option you will need to ensure
+that you have a placeholder item in your select element that has an empty value. You will also need to make sure none of
+your select items have the selected property set on them. See example below.
+
+```scala
+@govukSelect(Select(
+        id = "sort",
+        name = "sort",
+        items = Seq(
+            SelectItem(
+                text = "Placeholder text"
+            ),
+            SelectItem(
+                value = Some("published"),
+                text = "Recently published"
+            ),
+            SelectItem(
+                value = Some("updated"),
+                text = "Recently updated"
+            )
+        ),
+        label = Label(
+            content = Text("Sort by")
+        )
+    ).asAccessibleAutocomplete(Some(
+        AccessibleAutocomplete(
+            defaultValue = Some("Recently updated"),
+            showAllValues = true,
+            autoSelect = false)
+    )))
+```
+
+More information on `defaultValue` property can be found [here](https://www.npmjs.com/package/accessible-autocomplete) under the `Null options` heading
+
+A preferred way would be to select a default value using the `selected` attribute on an select item instead of using the `defaultValue` property, as seen below.
+
+```scala
+@govukSelect(Select(
+        id = "sort",
+        name = "sort",
+        items = Seq(
+            SelectItem(
+                value = Some("published"),
+                text = "Recently published"
+            ),
+            SelectItem(
+                value = Some("updated"),
+                text = "Recently updated"
+                selected = true
+            )
+        ),
+        label = Label(
+            content = Text("Sort by")
+        )
+    ).asAccessibleAutocomplete(Some(
+        AccessibleAutocomplete(
+            showAllValues = true,
+            autoSelect = false)
+    )))
+```
+
 ## Adding your own SASS compilation pipeline
 
 This library will manage SASS compilation for you. However, should you need for any reason to add your own SASS
