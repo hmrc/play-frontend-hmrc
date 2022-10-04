@@ -30,6 +30,7 @@ of implementing frontend microservices straightforward and idiomatic for Scala d
 - [Play Framework and Scala compatibility notes](#play-framework-and-scala-compatibility-notes)
 - [Troubleshooting](#troubleshooting)  
 - [Getting help](#getting-help)
+- [Resolve play-frontend-hmrc artefacts](#resolve-play-frontend-hmrc-artefacts)
 - [Useful links](#useful-links)
 - [Owning team readme](#owning-team-readme)
 - [License](#license)
@@ -1059,6 +1060,14 @@ styles to your service's own HTML elements.
 ## Getting help
 
 Please report any issues with this library in Slack at `#team-plat-ui`.
+
+## Resolve play-frontend-hmrc artefacts
+
+HMRC services get this configuration via the [sbt-auto-build library](https://github.com/hmrc/sbt-auto-build/blob/1bb9f5437ed5c2027b4c967585a2dd9a9a6740d0/src/main/scala/uk/gov/hmrc/SbtAutoBuildPlugin.scala#L55), external consumers will need to add the repository below to their SBT config themselves:
+
+```scala
+resolvers += MavenRepository("HMRC-open-artefacts-maven2", "https://open.artefacts.tax.service.gov.uk/maven2")
+```
 
 ## Useful Links
 
