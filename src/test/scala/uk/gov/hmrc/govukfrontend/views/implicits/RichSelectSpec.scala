@@ -26,6 +26,7 @@ import uk.gov.hmrc.govukfrontend.views.viewmodels.label.Label
 import uk.gov.hmrc.govukfrontend.views.viewmodels.select.{Select, SelectItem}
 import uk.gov.hmrc.helpers.MessagesHelpers
 import uk.gov.hmrc.hmrcfrontend.views.config.{HmrcPageHeadingLabel, HmrcSectionCaption}
+import uk.gov.hmrc.hmrcfrontend.views.viewmodels.accessibleautocomplete.AccessibleAutocomplete
 
 class RichSelectSpec extends AnyWordSpec with Matchers with MessagesHelpers with RichFormInputHelpers {
 
@@ -161,6 +162,54 @@ class RichSelectSpec extends AnyWordSpec with Matchers with MessagesHelpers with
         HmrcPageHeadingLabel(
           content = Text("This is some updated text heading"),
           caption = HmrcSectionCaption(Text("This is some updated text caption"))
+        )
+      )
+    }
+  }
+
+  "Given a Select object, calling asAccessibleAutocomplete" should {
+    "set the accessible autocomplete data attributes" in {
+      val select        = Select()
+      val updatedSelect = select.asAccessibleAutocomplete(
+        Some(AccessibleAutocomplete(Some("Test"), showAllValues = true, autoSelect = true))
+      )
+
+      updatedSelect shouldBe Select(attributes =
+        Map(
+          "data-default-value"   -> "Test",
+          "data-show-all-values" -> "true",
+          "data-auto-select"     -> "true",
+          "data-module"          -> "hmrc-accessible-autocomplete"
+        )
+      )
+    }
+
+    "set the default accessible autocomplete data attributes when AccessibleAutocomplete is not provided" in {
+      val select        = Select()
+      val updatedSelect = select.asAccessibleAutocomplete()
+
+      updatedSelect shouldBe Select(attributes =
+        Map(
+          "data-default-value"   -> "",
+          "data-show-all-values" -> "false",
+          "data-auto-select"     -> "false",
+          "data-module"          -> "hmrc-accessible-autocomplete"
+        )
+      )
+    }
+
+    "append the accessible autocomplete data attributes to existing select attributes" in {
+      val select        = Select(attributes = Map("some-attr1" -> "1", "some-attr2" -> "2"))
+      val updatedSelect = select.asAccessibleAutocomplete(Some(AccessibleAutocomplete(Some("Test"))))
+
+      updatedSelect shouldBe Select(attributes =
+        Map(
+          "data-default-value"   -> "Test",
+          "data-show-all-values" -> "false",
+          "data-auto-select"     -> "false",
+          "data-module"          -> "hmrc-accessible-autocomplete",
+          "some-attr1"           -> "1",
+          "some-attr2"           -> "2"
         )
       )
     }

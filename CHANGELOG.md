@@ -8,6 +8,18 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 For compatibility information see `govukFrontendVersion` and `hmrcFrontendVersion` in
 [LibDependencies](project/LibDependencies.scala)
 
+## [3.29.0] - 2022-10-03
+
+### Changed
+
+- Added an implicit helper method `asAccessibleAutocomplete` for the `Select` component, that transforms it into an accessible autocomplete component.
+- Updated `hmrc-frontend` to v5.11.0
+
+### Compatible with
+
+- [hmrc/hmrc-frontend v5.11.0](https://github.com/hmrc/hmrc-frontend/releases/tag/v5.11.0)
+- [alphagov/govuk-frontend v4.3.1](https://github.com/alphagov/govuk-frontend/releases/tag/v4.3.1)
+
 ## [3.28.0] - 2022-09-28
 
 ### Changed
