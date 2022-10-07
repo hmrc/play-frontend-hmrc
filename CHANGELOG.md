@@ -8,6 +8,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 For compatibility information see `govukFrontendVersion` and `hmrcFrontendVersion` in
 [LibDependencies](project/LibDependencies.scala)
 
+## [3.30.0] - 2022-10-03
+
+### Changed
+
+- Updated `hmrc-frontend` to v5.11.1, the new accessible autocomplete css was pulling in webfonts by mistake causing network errors where they weren't available at the path expected by govuk-frontend config.
+
 ## [3.29.0] - 2022-10-03
 
 ### Changed
