@@ -8,13 +8,40 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 For compatibility information see `govukFrontendVersion` and `hmrcFrontendVersion` in
 [LibDependencies](project/LibDependencies.scala)
 
-## [3.30.0] - 2022-10-03
+## [3.33.0] - 2022-10-24
+
+### Changed
+
+- Fixed up the changelog, we got confused with some build changes for services that potentially skip creating a new version if you've only changed non-functional code. That behaviour doesn't apply to libraries and so some changes to the docs which didn't have an entry in the changelog caused our versions in the changelog to drift from the actual release numbers
+
+### Compatible with
+
+- [hmrc/hmrc-frontend v5.11.1](https://github.com/hmrc/hmrc-frontend/releases/tag/v5.11.1)
+- [alphagov/govuk-frontend v4.3.1](https://github.com/alphagov/govuk-frontend/releases/tag/v4.3.1)
+
+## [3.32.0] - 2022-10-07
 
 ### Changed
 
 - Updated `hmrc-frontend` to v5.11.1, the new accessible autocomplete css was pulling in webfonts by mistake causing network errors where they weren't available at the path expected by govuk-frontend config.
 
-## [3.29.0] - 2022-10-03
+### Compatible with
+
+- [hmrc/hmrc-frontend v5.11.1](https://github.com/hmrc/hmrc-frontend/releases/tag/v5.11.1)
+- [alphagov/govuk-frontend v4.3.1](https://github.com/alphagov/govuk-frontend/releases/tag/v4.3.1)
+
+## [3.31.0] - 2022-10-04
+
+### Changed
+
+- Add section to readme describing how to resolve play-frontend-hmrc artefacts if you're not a HMRC service
+
+### Compatible with
+
+- [hmrc/hmrc-frontend v5.11.0](https://github.com/hmrc/hmrc-frontend/releases/tag/v5.11.0)
+- [alphagov/govuk-frontend v4.3.1](https://github.com/alphagov/govuk-frontend/releases/tag/v4.3.1)
+
+## [3.30.0] - 2022-10-03
 
 ### Changed
 
@@ -26,7 +53,7 @@ For compatibility information see `govukFrontendVersion` and `hmrcFrontendVersio
 - [hmrc/hmrc-frontend v5.11.0](https://github.com/hmrc/hmrc-frontend/releases/tag/v5.11.0)
 - [alphagov/govuk-frontend v4.3.1](https://github.com/alphagov/govuk-frontend/releases/tag/v4.3.1)
 
-## [3.28.0] - 2022-09-28
+## [3.29.0] - 2022-09-28
 
 ### Changed
 
@@ -40,7 +67,7 @@ if the referrer is on the same domain
 - [hmrc/hmrc-frontend v5.10.0](https://github.com/hmrc/hmrc-frontend/releases/tag/v5.10.0)
 - [alphagov/govuk-frontend v4.3.1](https://github.com/alphagov/govuk-frontend/releases/tag/v4.3.1)
 
-## [3.27.0] - 2022-09-23
+## [3.28.0] - 2022-09-23
 
 ### Changed
 
@@ -50,6 +77,17 @@ if the referrer is on the same domain
 ### Compatible with
 
 - [hmrc/hmrc-frontend v5.8.0](https://github.com/hmrc/hmrc-frontend/releases/tag/v5.8.0)
+- [alphagov/govuk-frontend v4.3.1](https://github.com/alphagov/govuk-frontend/releases/tag/v4.3.1)
+
+## [3.27.0] - 2022-09-15
+
+### Changed
+
+- Improved test coverage and minor hmrc-frontend bump
+
+### Compatible with
+
+- [hmrc/hmrc-frontend v5.7.1](https://github.com/hmrc/hmrc-frontend/releases/tag/v5.7.1)
 - [alphagov/govuk-frontend v4.3.1](https://github.com/alphagov/govuk-frontend/releases/tag/v4.3.1)
 
 ## [3.26.0] - 2022-09-15
