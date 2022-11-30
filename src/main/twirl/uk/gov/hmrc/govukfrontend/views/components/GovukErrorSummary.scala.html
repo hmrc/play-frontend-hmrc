@@ -18,24 +18,24 @@
 
 @(params: ErrorSummary)
 @import params._
-<div class="@toClasses("govuk-error-summary", classes)" aria-labelledby="error-summary-title" role="alert"@if(disableAutoFocus){ data-disable-auto-focus="true"}@toAttributes(attributes) data-module="govuk-error-summary">
-  <h2 class="govuk-error-summary__title" id="error-summary-title">
-    @title.asHtml
-  </h2>
-  <div class="govuk-error-summary__body">
-    @if(description.nonEmpty) {
-    <p>
-      @description.asHtml
-    </p>
-    }
-    <ul class="govuk-list govuk-error-summary__list">
-      @for(item <- errorList) {
-        <li>
-          @item.href.foldNonEmpty(item.content.asHtml) { itemHref =>
-            <a href="@itemHref"@toAttributes(item.attributes)>@item.content.asHtml</a>
+
+<div class="@toClasses("govuk-error-summary", classes)"@disableAutoFocus.map {value => data-disable-auto-focus="@value"}@toAttributes(attributes) data-module="govuk-error-summary">
+  <div role="alert"><h2 class="govuk-error-summary__title">@title.asHtml</h2>
+      <div class="govuk-error-summary__body">
+        @if(description.nonEmpty) {
+        <p>
+          @description.asHtml
+        </p>
+        }
+        <ul class="govuk-list govuk-error-summary__list">
+          @for(item <- errorList) {
+            <li>
+              @item.href.foldNonEmpty(item.content.asHtml) { itemHref =>
+                <a href="@itemHref"@toAttributes(item.attributes)>@item.content.asHtml</a>
+              }
+            </li>
           }
-        </li>
-      }
-    </ul>
+        </ul>
+      </div>
   </div>
 </div>

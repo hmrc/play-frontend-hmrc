@@ -1,4 +1,5 @@
 
+
 <div class="govuk-character-count" data-module="govuk-character-count" data-maxlength="10">
   <div class="govuk-form-group">
   <label class="govuk-label" for="with-spellcheck">
@@ -6,7 +7,7 @@
   </label>
   <textarea class="govuk-textarea govuk-js-character-count" id="with-spellcheck" name="with-spellcheck" rows="5" spellcheck="true" aria-describedby="with-spellcheck-info"></textarea>
 </div>
-
+  
   <div id="with-spellcheck-info" class="govuk-hint govuk-character-count__message">
   You can enter up to 10 characters
 </div>

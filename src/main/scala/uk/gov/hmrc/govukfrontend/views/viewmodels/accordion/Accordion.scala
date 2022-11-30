@@ -25,7 +25,13 @@ case class Accordion(
   headingLevel: Int = 2,
   classes: String = "",
   attributes: Map[String, String] = Map.empty,
-  items: Seq[Section] = Nil
+  items: Seq[Section] = Nil,
+  hideSection: Option[String] = None,
+  hideAllSections: Option[String] = None,
+  hideSectionAriaLabel: Option[String] = None,
+  showSection: Option[String] = None,
+  showAllSections: Option[String] = None,
+  showSectionAriaLabel: Option[String] = None
 )
 
 object Accordion {
@@ -37,7 +43,13 @@ object Accordion {
       (__ \ "headingLevel").readWithDefault[Int](defaultObject.headingLevel) and
       (__ \ "classes").readWithDefault[String](defaultObject.classes) and
       (__ \ "attributes").readWithDefault[Map[String, String]](defaultObject.attributes)(attributesReads) and
-      (__ \ "items").readWithDefault[Seq[Section]](defaultObject.items)(forgivingSeqReads[Section])
+      (__ \ "items").readWithDefault[Seq[Section]](defaultObject.items)(forgivingSeqReads[Section]) and
+      (__ \ "hideSectionText").readNullable[String] and
+      (__ \ "hideAllSectionsText").readNullable[String] and
+      (__ \ "hideSectionAriaLabelText").readNullable[String] and
+      (__ \ "showSectionText").readNullable[String] and
+      (__ \ "showAllSectionsText").readNullable[String] and
+      (__ \ "showSectionAriaLabelText").readNullable[String]
   )(Accordion.apply _)
 
   implicit def jsonWrites: OWrites[Accordion] = Json.writes[Accordion]

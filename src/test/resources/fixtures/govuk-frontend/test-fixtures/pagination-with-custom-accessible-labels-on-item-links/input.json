@@ -11,6 +11,7 @@
     "visuallyHiddenText" : "1st page"
   }, {
     "number" : 2,
+    "href" : "/page/2",
     "current" : true,
     "visuallyHiddenText" : "2nd page (you are currently on this page)"
   }, {

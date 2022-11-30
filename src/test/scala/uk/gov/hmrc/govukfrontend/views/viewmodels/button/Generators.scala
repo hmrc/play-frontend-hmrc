@@ -33,7 +33,7 @@ object Generators {
       href               <- Gen.option(genAlphaStr())
       classes            <- genAlphaStr()
       attributes         <- genAttributes()
-      preventDoubleClick <- arbBool.arbitrary
+      preventDoubleClick <- Gen.option(arbBool.arbitrary)
       isStartButton      <- arbBool.arbitrary
       content            <- arbContent.arbitrary
     } yield Button(

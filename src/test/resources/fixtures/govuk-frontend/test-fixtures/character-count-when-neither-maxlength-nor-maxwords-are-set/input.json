@@ -1,0 +1,8 @@
+{
+  "id" : "no-maximum",
+  "name" : "no-maximum",
+  "label" : {
+    "text" : "Full address"
+  },
+  "textareaDescriptionText" : "No more than %{count} characters"
+}

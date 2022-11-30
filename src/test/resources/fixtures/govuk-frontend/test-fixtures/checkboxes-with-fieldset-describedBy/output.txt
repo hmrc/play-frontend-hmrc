@@ -1,5 +1,8 @@
 <div class="govuk-form-group">
 <fieldset class="govuk-fieldset" aria-describedby="some-id example-name-hint">
+  <legend class="govuk-fieldset__legend">
+    Which option?
+  </legend>
   <div id="example-name-hint" class="govuk-hint">
     If you have dual nationality, select all options that are relevant to you.
   </div>

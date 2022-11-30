@@ -1,7 +1,10 @@
 {
   "name" : "example-name",
   "fieldset" : {
-    "describedBy" : "some-id"
+    "describedBy" : "some-id",
+    "legend" : {
+      "text" : "Which option?"
+    }
   },
   "items" : [ {
     "value" : "yes",

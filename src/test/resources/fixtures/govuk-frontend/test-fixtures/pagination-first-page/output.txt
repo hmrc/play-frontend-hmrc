@@ -1,6 +1,6 @@
 
 <nav class="govuk-pagination" role="navigation" aria-label="results"><ul class="govuk-pagination__list"><li class="govuk-pagination__item govuk-pagination__item--current">
-            <a class="govuk-link govuk-pagination__link" href="" aria-label="Page 1" aria-current="page">
+            <a class="govuk-link govuk-pagination__link" href="/page/1" aria-label="Page 1" aria-current="page">
               1
             </a>
           </li><li class="govuk-pagination__item">

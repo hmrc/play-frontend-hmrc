@@ -1,0 +1,15 @@
+
+
+<div class="govuk-character-count" data-module="govuk-character-count" data-i18n.textarea-description.other="No more than %{count} characters">
+  <div class="govuk-form-group">
+  <label class="govuk-label" for="no-maximum">
+    Full address
+  </label>
+  <textarea class="govuk-textarea govuk-js-character-count" id="no-maximum" name="no-maximum" rows="5" aria-describedby="no-maximum-info"></textarea>
+</div>
+  
+  <div id="no-maximum-info" class="govuk-hint govuk-character-count__message">
+  
+</div>
+
+</div>

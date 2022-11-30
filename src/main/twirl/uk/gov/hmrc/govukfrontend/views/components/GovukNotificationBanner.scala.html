@@ -42,7 +42,7 @@
 <div class="@toClasses("govuk-notification-banner", classes, if(bannerType.contains("success"))" govuk-notification-banner--success" else "")"
     role="@{bannerRole}"
     aria-labelledby="@{headingAndTitleId}"
-    data-module="govuk-notification-banner"@if(disableAutoFocus.getOrElse(false)){ data-disable-auto-focus="true"}@toAttributes(attributes)>
+    data-module="govuk-notification-banner"@disableAutoFocus.map {value => data-disable-auto-focus="@value"}@toAttributes(attributes)>
     <div class="govuk-notification-banner__header">
         <h@headingLevel class="govuk-notification-banner__title" id="@{headingAndTitleId}">
             @{titleContent.asHtml}

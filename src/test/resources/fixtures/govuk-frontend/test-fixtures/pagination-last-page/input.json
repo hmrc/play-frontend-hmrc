@@ -10,6 +10,7 @@
     "href" : "/page/2"
   }, {
     "number" : 3,
+    "href" : "/page/3",
     "current" : true
   } ]
 }

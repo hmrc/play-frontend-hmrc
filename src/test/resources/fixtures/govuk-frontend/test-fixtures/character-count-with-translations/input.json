@@ -1,0 +1,23 @@
+{
+  "id" : "with-translations",
+  "name" : "with-translations",
+  "maxlength" : 10,
+  "charactersUnderLimitText" : {
+    "other" : "%{count} characters to go",
+    "one" : "One character to go"
+  },
+  "charactersAtLimitText" : "Zero characters left",
+  "charactersOverLimitText" : {
+    "other" : "%{count} characters too many",
+    "one" : "One character too many"
+  },
+  "wordsUnderLimitText" : {
+    "other" : "%{count} words to go",
+    "one" : "One word to go"
+  },
+  "wordsAtLimitText" : "Zero words left",
+  "wordsOverLimitText" : {
+    "other" : "%{count} words too many",
+    "one" : "One word too many"
+  }
+}

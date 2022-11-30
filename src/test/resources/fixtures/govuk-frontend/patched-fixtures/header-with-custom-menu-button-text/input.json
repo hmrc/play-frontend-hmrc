@@ -1,0 +1,17 @@
+{
+  "menuButtonText" : "Dewislen",
+  "navigation" : [ {
+    "href" : "#1",
+    "text" : "Eitem llywio 1",
+    "active" : true
+  }, {
+    "href" : "#2",
+    "text" : "Eitem llywio 2"
+  }, {
+    "href" : "#3",
+    "text" : "Eitem llywio 3"
+  }, {
+    "href" : "#4",
+    "text" : "Eitem llywio 4"
+  } ]
+}

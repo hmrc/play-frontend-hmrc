@@ -30,7 +30,7 @@ case class Button(
   href: Option[String] = None,
   classes: String = "",
   attributes: Map[String, String] = Map.empty,
-  preventDoubleClick: Boolean = false,
+  preventDoubleClick: Option[Boolean] = None,
   isStartButton: Boolean = false,
   content: Content = Empty
 )
@@ -49,7 +49,7 @@ object Button {
         (__ \ "href").readNullable[String] and
         (__ \ "classes").readWithDefault[String](defaultObject.classes) and
         (__ \ "attributes").readWithDefault[Map[String, String]](defaultObject.attributes)(attributesReads) and
-        (__ \ "preventDoubleClick").readWithDefault[Boolean](defaultObject.preventDoubleClick) and
+        (__ \ "preventDoubleClick").readNullable[Boolean] and
         (__ \ "isStartButton").readWithDefault[Boolean](defaultObject.isStartButton) and
         Content.reads
     )(Button.apply _)
@@ -64,7 +64,7 @@ object Button {
         (__ \ "href").writeNullable[String] and
         (__ \ "classes").write[String] and
         (__ \ "attributes").write[Map[String, String]] and
-        (__ \ "preventDoubleClick").write[Boolean] and
+        (__ \ "preventDoubleClick").writeNullable[Boolean] and
         (__ \ "isStartButton").write[Boolean] and
         Content.writes
     )(unlift(Button.unapply))
