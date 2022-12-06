@@ -603,8 +603,8 @@ You can then use the banner as per below (note the injected implicit `ContactFro
 ## Adding a User Research Banner
 
 The User Research Banner is a component used to display a blue banner, containing link text inviting the service user to 
-take part in user research. The Twirl template is [HmrcUserResearchBanner.scala.html](https://github.com/hmrc/play-frontend-hmrc/blob/main/src/main/twirl/uk/gov/hmrc/hmrcfrontend/views/components/HmrcUserResearchBanner.scala.html), 
-and the viewmodel is [UserResearchBanner.scala](https://github.com/hmrc/play-frontend-hmrc/blob/main/src/main/scala/uk/gov/hmrc/hmrcfrontend/views/viewmodels/userresearchbanner/UserResearchBanner.scala).
+take part in user research. The Twirl template is [HmrcUserResearchBanner.scala.html](src/main/twirl/uk/gov/hmrc/hmrcfrontend/views/components/HmrcUserResearchBanner.scala.html), 
+and the viewmodel is [UserResearchBanner.scala](src/main/scala/uk/gov/hmrc/hmrcfrontend/views/viewmodels/userresearchbanner/UserResearchBanner.scala).
 
 The banner contains hard coded content, available in English and Welsh, with translation handled automatically via the 
 Play `language` from an implicit `request`. It is not possible to change this content, as it has been provided by 
@@ -710,7 +710,7 @@ to identify which GTM container you should be using in your service.
 
 ### Adding GTM to internal services
 
-If you would like to add GTM to an internal service, you can do so using the [HmrcInternalHead](https://github.com/hmrc/play-frontend-hmrc/blob/main/src/main/twirl/uk/gov/hmrc/hmrcfrontend/views/helpers/HmrcInternalHead.scala.html) 
+If you would like to add GTM to an internal service, you can do so using the [HmrcInternalHead](src/main/twirl/uk/gov/hmrc/hmrcfrontend/views/helpers/HmrcInternalHead.scala.html) 
 helper, which will add the GTM snippet in the `<head>` block. It should be used as demonstrated below in your own 
 `Layout.scala`. You will need to pass through a CSP nonce as demonstrated in the example to allow the GTM script.
 
@@ -744,7 +744,7 @@ requires that users are able to turn off, adjust or extend the time limit, givin
 a simple action.
 
 On MDTP, users are, by default, automatically timed out of any authenticated service after 15 minutes
-of inactivity. This mechanism, implemented in [SessionTimeoutFilter](https://github.com/hmrc/bootstrap-play/blob/main/bootstrap-frontend-src/main/scala/uk/gov/hmrc/play/bootstrap/frontend/filters/SessionTimeoutFilter.scala),
+of inactivity. This mechanism, implemented in [SessionTimeoutFilter](https://github.com/hmrc/bootstrap-play/blob/main/bootstrap-frontend-play-28/src/main/scala/uk/gov/hmrc/play/bootstrap/frontend/filters/SessionTimeoutFilter.scala),
 clears all non-allow-listed session keys after the timeout duration has elapsed. Services can override this default by adjusting the
 `session.timeout` configuration key in `conf/application.conf`.
 
