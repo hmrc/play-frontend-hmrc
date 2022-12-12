@@ -69,7 +69,14 @@ abstract class TemplateTestHelper[T: Reads](componentName: String)
                   val preProcessedTwirlHtml        = preProcess(twirlHtml)
                   val preProcessedNunjucksHtml     = preProcess(nunjucksHtml)
 
-                  preProcessedTwirlHtml shouldBe preProcessedNunjucksHtml
+                  withClue(s"""
+                       | Twirl output:
+                       | $preProcessedTwirlHtml
+                       | Nunjucks output:
+                       | $preProcessedNunjucksHtml
+                       |""".stripMargin) {
+                    preProcessedTwirlHtml shouldBe preProcessedNunjucksHtml
+                  }
                 case (Failure(TemplateValidationException(message)), _) =>
                   println(s"Failed to validate the parameters for the $componentName twirl template")
                   println(s"Exception: $message")

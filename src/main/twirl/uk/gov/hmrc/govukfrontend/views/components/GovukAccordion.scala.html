@@ -18,7 +18,35 @@
 
 @(params: Accordion)
 @import params._
-<div class="@toClasses("govuk-accordion", classes)" data-module="govuk-accordion" id="@id"@toAttributes(attributes)>
+
+@attrs = {
+    @hideAllSections match {
+        case Some(m) => { data-i18n.hide-all-sections="@{m}" }
+        case None => {}
+    }
+    @hideSection match {
+        case Some(m) => { data-i18n.hide-section="@{m}" }
+        case None => {}
+    }
+    @hideSectionAriaLabel match {
+        case Some(m) => { data-i18n.hide-section-aria-label="@{m}" }
+        case None => {}
+    }
+    @showAllSections match {
+        case Some(m) => { data-i18n.show-all-sections="@{m}" }
+        case None => {}
+    }
+    @showSection match {
+        case Some(m) => { data-i18n.show-section="@{m}" }
+        case None => {}
+    }
+    @showSectionAriaLabel match {
+        case Some(m) => { data-i18n.show-section-aria-label="@{m}" }
+        case None => {}
+    }
+}
+
+<div class="@toClasses("govuk-accordion", classes)" data-module="govuk-accordion" id="@id"@toAttributes(attributes)@attrs>
   @for((item, index) <- items.zip(Stream from 1)) {
     <div class="govuk-accordion__section @if(item.expanded) {govuk-accordion__section--expanded}">
       <div class="govuk-accordion__section-header">

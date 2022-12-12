@@ -1,0 +1,6 @@
+{
+  "name" : "custom-textarea-description",
+  "id" : "custom-textarea-description",
+  "maxlength" : 10,
+  "textareaDescriptionText" : "Gallwch ddefnyddio hyd at %{count} nod"
+}

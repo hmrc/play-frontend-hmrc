@@ -1,6 +1,6 @@
 # Reasons for current patched tests
 
-###1. GovukHeader.scala.html tests
+### 1. GovukHeader.scala.html tests
 
 We have had to patch the header examples to include a relative assets' path for the img elements src attribute, as this path is calculated in the twirl template via the calculateAssetPath method, which uses an assetPath property that can not yet be overridden.
 

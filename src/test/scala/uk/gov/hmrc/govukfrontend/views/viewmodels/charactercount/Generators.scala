@@ -30,11 +30,11 @@ object Generators {
       name             <- genNonEmptyAlphaStr
       rows             <- Gen.chooseNum(0, 5)
       value            <- Gen.option(genAlphaStr())
-      maxLength        <- Gen.option(Gen.chooseNum(0, 10))
+      maxLength        <- Gen.option(Gen.chooseNum(1, 10))
       maxWords         <- Gen
-                            .option(Gen.chooseNum(0, 10))
+                            .option(Gen.chooseNum(1, 10))
                             .retryUntil(optMaxWords => maxLength.nonEmpty || optMaxWords.nonEmpty)
-      threshold        <- Gen.option(Gen.chooseNum(0, 5))
+      threshold        <- Gen.option(Gen.chooseNum(1, 5))
       label            <- arbLabel.arbitrary
       hint             <- Gen.option(arbHint.arbitrary)
       errorMessage     <- Gen.option(arbErrorMessage.arbitrary)

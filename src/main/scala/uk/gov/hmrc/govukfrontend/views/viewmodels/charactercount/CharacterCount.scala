@@ -18,11 +18,11 @@ package uk.gov.hmrc.govukfrontend.views.viewmodels.charactercount
 
 import play.api.libs.functional.syntax._
 import play.api.libs.json._
-import uk.gov.hmrc.supportfrontend.views.IntString
 import uk.gov.hmrc.govukfrontend.views.viewmodels.CommonJsonFormats._
 import uk.gov.hmrc.govukfrontend.views.viewmodels.errormessage.ErrorMessage
 import uk.gov.hmrc.govukfrontend.views.viewmodels.hint.Hint
 import uk.gov.hmrc.govukfrontend.views.viewmodels.label.Label
+import uk.gov.hmrc.supportfrontend.views.IntString
 
 case class CharacterCount(
   id: String = "",
@@ -38,7 +38,14 @@ case class CharacterCount(
   formGroupClasses: String = "",
   classes: String = "",
   attributes: Map[String, String] = Map.empty,
-  countMessageClasses: String = ""
+  countMessageClasses: String = "",
+  charactersUnderLimitText: Option[Map[String, String]] = None,
+  charactersAtLimitText: Option[String] = None,
+  charactersOverLimitText: Option[Map[String, String]] = None,
+  wordsUnderLimitText: Option[Map[String, String]] = None,
+  wordsAtLimitText: Option[String] = None,
+  wordsOverLimitText: Option[Map[String, String]] = None,
+  textareaDescriptionText: Option[String] = None
 )
 
 object CharacterCount {
@@ -60,7 +67,14 @@ object CharacterCount {
         readsFormGroupClasses and
         (__ \ "classes").readWithDefault[String](defaultObject.classes) and
         (__ \ "attributes").readWithDefault[Map[String, String]](defaultObject.attributes) and
-        readsCountMessageClasses
+        readsCountMessageClasses and
+        (__ \ "charactersUnderLimitText").readNullable[Map[String, String]] and
+        (__ \ "charactersAtLimitText").readNullable[String] and
+        (__ \ "charactersOverLimitText").readNullable[Map[String, String]] and
+        (__ \ "wordsUnderLimitText").readNullable[Map[String, String]] and
+        (__ \ "wordsAtLimitText").readNullable[String] and
+        (__ \ "wordsOverLimitText").readNullable[Map[String, String]] and
+        (__ \ "textareaDescriptionText").readNullable[String]
     )(CharacterCount.apply _)
 
   implicit def jsonWrites: OWrites[CharacterCount] =
@@ -78,7 +92,14 @@ object CharacterCount {
         writesFormGroupClasses and
         (__ \ "classes").write[String] and
         (__ \ "attributes").write[Map[String, String]] and
-        writesCountMessageClasses
+        writesCountMessageClasses and
+        (__ \ "charactersUnderLimitText").writeNullable[Map[String, String]] and
+        (__ \ "charactersAtLimitText").writeNullable[String] and
+        (__ \ "charactersOverLimitText").writeNullable[Map[String, String]] and
+        (__ \ "wordsUnderLimitText").writeNullable[Map[String, String]] and
+        (__ \ "wordsAtLimitText").writeNullable[String] and
+        (__ \ "wordsOverLimitText").writeNullable[Map[String, String]] and
+        ((__ \ "textareaDescriptionText").writeNullable[String])
     )(unlift(CharacterCount.unapply))
 
   private implicit def readsStringOrNumber: Reads[String] = {

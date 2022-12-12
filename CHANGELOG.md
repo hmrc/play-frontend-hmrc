@@ -8,6 +8,24 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 For compatibility information see `govukFrontendVersion` and `hmrcFrontendVersion` in
 [LibDependencies](project/LibDependencies.scala)
 
+## [4.0.0] - 2022-12-12
+
+### Changed
+
+- Updated `hmrc-frontend` to v5.12.0
+
+### Breaking changes
+
+You must make the following changes when you migrate to this release.
+
+- GovukErrorSummary now needs an `Option` value for the `disableAutoFocus` field in the `ErrorSummary` model.
+- GovukButton now needs an `Option` value for the `preventDoubleClick` field in the `Button` model.
+
+### Compatible with
+
+- [hmrc/hmrc-frontend v5.12.0](https://github.com/hmrc/hmrc-frontend/releases/tag/v5.12.0)
+- [alphagov/govuk-frontend v4.4.0](https://github.com/alphagov/govuk-frontend/releases/tag/v4.4.0)
+
 ## [3.34.0] - 2022-11-24
 
 ### Changed

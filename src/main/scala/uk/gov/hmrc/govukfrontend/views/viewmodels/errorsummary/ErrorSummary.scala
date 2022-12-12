@@ -26,7 +26,7 @@ case class ErrorSummary(
   attributes: Map[String, String] = Map.empty,
   title: Content = Empty,
   description: Content = Empty,
-  disableAutoFocus: Boolean = false
+  disableAutoFocus: Option[Boolean] = Some(false)
 )
 
 object ErrorSummary {
@@ -40,7 +40,7 @@ object ErrorSummary {
         (__ \ "attributes").readWithDefault[Map[String, String]](defaultObject.attributes) and
         Content.readsHtmlOrText((__ \ "titleHtml"), (__ \ "titleText")) and
         Content.readsHtmlOrText((__ \ "descriptionHtml"), (__ \ "descriptionText")) and
-        (__ \ "disableAutoFocus").readWithDefault[Boolean](defaultObject.disableAutoFocus)
+        (__ \ "disableAutoFocus").readNullable[Boolean]
     )(ErrorSummary.apply _)
 
   implicit def jsonWrites: OWrites[ErrorSummary] =
@@ -50,7 +50,7 @@ object ErrorSummary {
         (__ \ "attributes").write[Map[String, String]] and
         Content.writesContent("titleHtml", "titleText") and
         Content.writesContent("descriptionHtml", "descriptionText") and
-        (__ \ "disableAutoFocus").write[Boolean]
+        (__ \ "disableAutoFocus").writeNullable[Boolean]
     )(unlift(ErrorSummary.unapply))
 
 }

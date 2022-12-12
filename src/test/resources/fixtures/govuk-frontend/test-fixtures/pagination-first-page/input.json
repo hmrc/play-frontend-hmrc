@@ -4,6 +4,7 @@
   },
   "items" : [ {
     "number" : 1,
+    "href" : "/page/1",
     "current" : true
   }, {
     "number" : 2,

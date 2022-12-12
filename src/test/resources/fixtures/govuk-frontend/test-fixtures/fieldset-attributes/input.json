@@ -1,5 +1,8 @@
 {
   "attributes" : {
     "data-attribute" : "value"
+  },
+  "legend" : {
+    "text" : "Which option?"
   }
 }

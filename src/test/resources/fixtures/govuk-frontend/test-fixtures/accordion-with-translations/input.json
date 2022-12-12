@@ -1,0 +1,24 @@
+{
+  "id" : "with-translations",
+  "hideAllSectionsText" : "Collapse all sections",
+  "showAllSectionsText" : "Expand all sections",
+  "hideSectionText" : "Collapse",
+  "hideSectionAriaLabelText" : "Collapse this section",
+  "showSectionText" : "Expand",
+  "showSectionAriaLabelText" : "Expand this section",
+  "items" : [ {
+    "heading" : {
+      "text" : "Section A"
+    },
+    "content" : {
+      "text" : "We need to know your nationality so we can work out which elections you’re entitled to vote in. If you cannot provide your nationality, you’ll have to send copies of identity documents through the post."
+    }
+  }, {
+    "heading" : {
+      "text" : "Section B"
+    },
+    "content" : {
+      "html" : "<ul class=\"govuk-list govuk-list--bullet\">\n  <li>Example item 2</li>\n</ul>\n"
+    }
+  } ]
+}

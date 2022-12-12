@@ -12,6 +12,7 @@
     "href" : "/page/1"
   }, {
     "number" : "two",
+    "href" : "/page/2",
     "current" : true
   }, {
     "number" : "three",

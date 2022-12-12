@@ -44,16 +44,30 @@ class GenerateGovukFixturesSpec extends AnyWordSpec with Matchers {
       fixturesDir.get.children.count(_.isDirectory) should be > 0
     }
 
+    "created example directories should not contain sub folders" in {
+      fixturesDir.isSuccess shouldBe true
+      fixturesDir.get.children.map { maybeDir =>
+        if (maybeDir.isDirectory) {
+          maybeDir.list.count(_.isDirectory)
+        } else
+          0
+      }.sum shouldEqual 0
+    }
+
     fixturesDir.get.children.filter(_.isDirectory).foreach { example =>
       if (!knownEmptyOutput.contains(example.name)) {
         s"create a non-empty output.txt in ${example.name}" in {
-          (example / "output.txt").exists                  shouldBe true
-          (example / "output.txt").contentAsString.isEmpty shouldBe false
+          withClue(s"create a non-empty output.txt for example [${example.name}]") {
+            (example / "output.txt").exists                  shouldBe true
+            (example / "output.txt").contentAsString.isEmpty shouldBe false
+          }
         }
       }
 
       s"create a valid component.json in ${example.name}" in {
-        (example / "component.json").exists shouldBe true
+        withClue(s"create a valid component.json for example [${example.name}]") {
+          (example / "component.json").exists shouldBe true
+        }
 
         val contentTry = Try(Json.parse((example / "component.json").contentAsString))
         contentTry.isSuccess shouldBe true
@@ -68,7 +82,9 @@ class GenerateGovukFixturesSpec extends AnyWordSpec with Matchers {
       }
 
       s"create a valid input.json in ${example.name}" in {
-        (example / "input.json").exists shouldBe true
+        withClue(s"create a valid input.json for example [${example.name}]") {
+          (example / "input.json").exists shouldBe true
+        }
 
         val jsonTry = Try(Json.parse((example / "input.json").contentAsString))
 

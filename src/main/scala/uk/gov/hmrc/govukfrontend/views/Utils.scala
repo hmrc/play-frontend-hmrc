@@ -16,7 +16,10 @@
 
 package uk.gov.hmrc.govukfrontend.views
 
+import play.twirl.api.{Html, HtmlFormat}
 import uk.gov.hmrc.supportfrontend.views.UtilsSupport
+
+import scala.collection.immutable
 
 trait Utils extends UtilsSupport {
 
@@ -30,6 +33,13 @@ trait Utils extends UtilsSupport {
       .map(p => s"$p/$file")
       .getOrElse(uk.gov.hmrc.hmrcfrontend.controllers.routes.Assets.at(s"govuk/$file").url)
 
+  private[views] def govukPluralisedI18nAttributes(
+    translationKey: String,
+    pluralForms: Option[Map[String, String]]
+  ): immutable.Iterable[Html] =
+    pluralForms.getOrElse(Map.empty).map { case (k, v) =>
+      Html(s"""data-i18n.$translationKey.${HtmlFormat.escape(k)}="${HtmlFormat.escape(v)}" """)
+    }
 }
 
 object Utils extends Utils

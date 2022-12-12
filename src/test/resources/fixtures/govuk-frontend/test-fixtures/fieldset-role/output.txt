@@ -1,2 +1,5 @@
 <fieldset class="govuk-fieldset" role="group">
+  <legend class="govuk-fieldset__legend">
+    Which option?
+  </legend>
 </fieldset>

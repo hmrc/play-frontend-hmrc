@@ -1,3 +1,6 @@
 {
-  "describedBy" : "some-id"
+  "describedBy" : "some-id",
+  "legend" : {
+    "text" : "Which option?"
+  }
 }

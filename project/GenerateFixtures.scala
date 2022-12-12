@@ -1,5 +1,5 @@
-import sbt._
 import play.api.libs.json.{JsObject, Json}
+import sbt._
 import scalaj.http.{Http, HttpOptions, HttpRequest}
 
 import scala.util.{Failure, Success, Try}
@@ -43,13 +43,17 @@ case class GenerateFixtures(fixturesDir: File, frontend: String, version: String
     def patchedVersionDoesNotExist(example: JsObject): Boolean =
       !(patchedFixturesDir / (example \ "exampleId").as[String]).isDirectory
 
+    def replaceUnwantedCharactersInFolderName(text: String): String =
+      text.replaceAll("/", "-")
+
     for (example <- getExamples() if patchedVersionDoesNotExist(example)) {
-      val componentName = (example \ "componentName").as[String]
-      val componentJson = Json.obj(
+      val componentName     = (example \ "componentName").as[String]
+      val componentJson     = Json.obj(
         "name" -> componentName
       )
-      val inputJson     = (example \ "input").as[JsObject]
-      val exampleDir    = testFixturesDir / (example \ "exampleId").as[String]
+      val inputJson         = (example \ "input").as[JsObject]
+      val exampleFolderName = (example \ "exampleId").as[String]
+      val exampleDir        = testFixturesDir / replaceUnwantedCharactersInFolderName(exampleFolderName)
 
       IO.createDirectory(exampleDir)
       IO.write(exampleDir / "input.json", Json.prettyPrint(inputJson))

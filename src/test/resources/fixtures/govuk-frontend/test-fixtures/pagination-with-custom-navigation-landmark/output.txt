@@ -11,7 +11,7 @@
               1
             </a>
           </li><li class="govuk-pagination__item govuk-pagination__item--current">
-            <a class="govuk-link govuk-pagination__link" href="" aria-label="Page 2" aria-current="page">
+            <a class="govuk-link govuk-pagination__link" href="/page/2" aria-label="Page 2" aria-current="page">
               2
             </a>
           </li><li class="govuk-pagination__item">

@@ -1,6 +1,6 @@
 {
   "titleText" : "There is a problem",
-  "descriptionText" : "See errors below (▼)",
+  "descriptionText" : "See errors below (>)",
   "errorList" : [ {
     "text" : "Invalid username or password"
   } ]

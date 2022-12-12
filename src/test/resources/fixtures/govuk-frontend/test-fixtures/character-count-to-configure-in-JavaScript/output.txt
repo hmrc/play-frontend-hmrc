@@ -1,0 +1,15 @@
+
+
+<div class="govuk-character-count" data-module="govuk-character-count">
+  <div class="govuk-form-group">
+  <label class="govuk-label" for="to-configure-in-javascript">
+    Full address
+  </label>
+  <textarea class="govuk-textarea govuk-js-character-count" id="to-configure-in-javascript" name="address" rows="5" aria-describedby="to-configure-in-javascript-info"></textarea>
+</div>
+  
+  <div id="to-configure-in-javascript-info" class="govuk-hint govuk-character-count__message">
+  
+</div>
+
+</div>

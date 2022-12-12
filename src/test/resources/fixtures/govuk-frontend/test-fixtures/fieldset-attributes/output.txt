@@ -1,2 +1,5 @@
 <fieldset class="govuk-fieldset" data-attribute="value">
+  <legend class="govuk-fieldset__legend">
+    Which option?
+  </legend>
 </fieldset>

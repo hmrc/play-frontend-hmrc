@@ -1,2 +1,5 @@
 <fieldset class="govuk-fieldset" aria-describedby="some-id">
+  <legend class="govuk-fieldset__legend">
+    Which option?
+  </legend>
 </fieldset>
