@@ -1,8 +1,0 @@
-{
-  "id" : "with-custom-inputmode",
-  "items" : [ {
-    "name" : "day",
-    "pattern" : "[0-9X]*",
-    "inputmode" : "text"
-  } ]
-}

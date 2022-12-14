@@ -1,9 +1,0 @@
-{
-  "messages" : [ {
-    "actions" : [ {
-      "text" : "This is a link",
-      "href" : "/link",
-      "type" : "button"
-    } ]
-  } ]
-}

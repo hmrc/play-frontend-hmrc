@@ -1,5 +1,0 @@
-<fieldset class="govuk-fieldset app-fieldset--custom-modifier">
-  <legend class="govuk-fieldset__legend">
-    Which option?
-  </legend>
-</fieldset>

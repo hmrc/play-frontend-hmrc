@@ -1,9 +1,0 @@
-{
-  "id" : "custom-rows",
-  "name" : "custom",
-  "maxlength" : 10,
-  "label" : {
-    "text" : "Full address"
-  },
-  "rows" : 8
-}

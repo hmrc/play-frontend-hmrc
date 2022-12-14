@@ -16,7 +16,7 @@
       <link rel="apple-touch-icon" href="/assets/govuk/images/govuk-apple-touch-icon.png">
 
   <link href="custom-stylesheet.css" rel="stylesheet">
-  <meta property="og:image" content="/assets/govuk/images/govuk-opengraph-image.png">
+
     
   </head>
   <body class="govuk-template__body app-body-class">

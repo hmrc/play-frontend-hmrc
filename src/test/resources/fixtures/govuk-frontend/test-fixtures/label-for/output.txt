@@ -1,5 +1,0 @@
-
-<label class="govuk-label" for="#dummy-input">
-  National Insurance number
-</label>
-

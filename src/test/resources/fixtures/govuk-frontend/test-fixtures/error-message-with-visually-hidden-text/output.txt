@@ -1,3 +1,0 @@
-<p class="govuk-error-message">
-<span class="govuk-visually-hidden">Gwall:</span> Rhowch eich enw llawn
-</p>

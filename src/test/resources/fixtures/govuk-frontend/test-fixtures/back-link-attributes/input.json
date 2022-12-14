@@ -1,8 +1,0 @@
-{
-  "href" : "#",
-  "html" : "<b>Back to home</b>",
-  "attributes" : {
-    "data-test" : "attribute",
-    "aria-label" : "Back to home"
-  }
-}

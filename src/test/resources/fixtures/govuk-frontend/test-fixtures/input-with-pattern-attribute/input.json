@@ -1,9 +1,0 @@
-{
-  "label" : {
-    "text" : "Numbers only"
-  },
-  "id" : "input-with-pattern-attribute",
-  "name" : "numbers-only",
-  "type" : "number",
-  "pattern" : "[0-9]*"
-}

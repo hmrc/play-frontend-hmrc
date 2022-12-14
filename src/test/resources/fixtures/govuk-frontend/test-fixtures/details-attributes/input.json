@@ -1,8 +1,0 @@
-{
-  "text" : "Here are some more details",
-  "summaryText" : "Expand me",
-  "attributes" : {
-    "data-some-data-attribute" : "i-love-data",
-    "another-attribute" : "foo"
-  }
-}

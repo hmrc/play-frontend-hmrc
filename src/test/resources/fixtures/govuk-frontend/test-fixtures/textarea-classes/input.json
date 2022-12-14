@@ -1,8 +1,0 @@
-{
-  "id" : "with-classes",
-  "name" : "with-classes",
-  "label" : {
-    "text" : "With classes"
-  },
-  "classes" : "app-textarea--custom-modifier"
-}

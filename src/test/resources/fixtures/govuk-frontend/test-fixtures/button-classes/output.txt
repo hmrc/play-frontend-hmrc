@@ -1,3 +1,0 @@
-<button class="govuk-button app-button--custom-modifier" data-module="govuk-button">
-  Submit
-</button>

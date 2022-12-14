@@ -1,8 +1,0 @@
-{
-  "head" : [ {
-    "html" : "Foo <span>bar</span>"
-  } ],
-  "rows" : [ [ {
-    "html" : "Foo <span>bar</span>"
-  } ] ]
-}

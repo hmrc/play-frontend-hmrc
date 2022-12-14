@@ -1,8 +1,0 @@
-{
-  "id" : "user1.profile[address]",
-  "name" : "address",
-  "maxlength" : 10,
-  "label" : {
-    "text" : "Full address"
-  }
-}

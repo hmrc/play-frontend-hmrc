@@ -1,8 +1,0 @@
-{
-  "id" : "file-upload-describedby",
-  "name" : "file-upload-describedby",
-  "label" : {
-    "text" : "Upload a file"
-  },
-  "describedBy" : "some-id"
-}

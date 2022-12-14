@@ -1,3 +1,0 @@
-<strong class="govuk-tag govuk-tag--red">
-  Red
-</strong>

@@ -1,3 +1,0 @@
-<a href="/" role="button" draggable="false" class="govuk-button govuk-button--warning" data-module="govuk-button">
-  Warning button
-</a>

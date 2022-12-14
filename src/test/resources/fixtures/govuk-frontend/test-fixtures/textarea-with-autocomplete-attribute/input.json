@@ -1,8 +1,0 @@
-{
-  "id" : "textarea-with-autocomplete-attribute",
-  "name" : "address",
-  "label" : {
-    "text" : "Full address"
-  },
-  "autocomplete" : "street-address"
-}

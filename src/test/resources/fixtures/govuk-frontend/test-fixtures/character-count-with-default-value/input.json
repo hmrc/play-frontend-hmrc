@@ -1,9 +1,0 @@
-{
-  "id" : "with-default-value",
-  "name" : "default-value",
-  "maxlength" : 100,
-  "label" : {
-    "text" : "Full address"
-  },
-  "value" : "221B Baker Street\nLondon\nNW1 6XE\n"
-}

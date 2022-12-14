@@ -1,9 +1,0 @@
-{
-  "items" : [ {
-    "text" : "Service Manual",
-    "href" : "/service-manual"
-  }, {
-    "text" : "Agile Delivery",
-    "href" : "/service-manual/agile-delivery"
-  } ]
-}

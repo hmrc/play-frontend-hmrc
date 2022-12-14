@@ -1,8 +1,0 @@
-{
-  "id" : "with-custom-type",
-  "name" : "with-custom-type",
-  "label" : {
-    "text" : "With custom type"
-  },
-  "type" : "number"
-}

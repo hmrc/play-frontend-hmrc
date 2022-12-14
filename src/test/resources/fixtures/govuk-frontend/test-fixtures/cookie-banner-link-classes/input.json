@@ -1,9 +1,0 @@
-{
-  "messages" : [ {
-    "actions" : [ {
-      "text" : "Link with custom classes",
-      "href" : "/my-link",
-      "classes" : "my-link-class app-link-class"
-    } ]
-  } ]
-}

@@ -1,9 +1,0 @@
-{
-  "items" : [ {
-    "text" : "Section",
-    "href" : "/section"
-  }, {
-    "text" : "Sub-section",
-    "href" : "/section/sub-section"
-  } ]
-}

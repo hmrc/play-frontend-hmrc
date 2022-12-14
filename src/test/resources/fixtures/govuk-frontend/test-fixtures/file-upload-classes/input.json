@@ -1,8 +1,0 @@
-{
-  "id" : "file-upload-classes",
-  "name" : "file-upload-classes",
-  "label" : {
-    "text" : "Upload a file"
-  },
-  "classes" : "app-file-upload--custom-modifier"
-}

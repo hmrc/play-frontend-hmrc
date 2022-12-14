@@ -1,7 +1,0 @@
-{
-  "rows" : [ [ {
-    "text" : "Foo",
-    "rowspan" : 2,
-    "colspan" : 2
-  } ] ]
-}

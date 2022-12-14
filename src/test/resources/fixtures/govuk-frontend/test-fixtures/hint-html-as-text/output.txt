@@ -1,3 +1,0 @@
-<div class="govuk-hint">
-  Unexpected &lt;strong&gt;bold text&lt;/strong&gt; in body
-</div>

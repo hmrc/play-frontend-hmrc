@@ -1,3 +1,0 @@
-<button value="start" class="govuk-button" data-module="govuk-button">
-  Submit
-</button>

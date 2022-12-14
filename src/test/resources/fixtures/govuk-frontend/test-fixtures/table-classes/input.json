@@ -1,8 +1,0 @@
-{
-  "classes" : "custom-class-goes-here",
-  "rows" : [ [ {
-    "text" : "Jan"
-  }, {
-    "text" : "Feb"
-  } ] ]
-}

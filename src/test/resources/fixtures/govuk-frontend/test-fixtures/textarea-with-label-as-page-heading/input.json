@@ -1,9 +1,0 @@
-{
-  "id" : "textarea-with-page-heading",
-  "name" : "address",
-  "label" : {
-    "text" : "Full address",
-    "classes" : "govuk-label--l",
-    "isPageHeading" : true
-  }
-}

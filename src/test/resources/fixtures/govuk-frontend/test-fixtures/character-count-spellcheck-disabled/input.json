@@ -1,9 +1,0 @@
-{
-  "id" : "without-spellcheck",
-  "name" : "without-spellcheck",
-  "maxlength" : 10,
-  "label" : {
-    "text" : "Without spellcheck"
-  },
-  "spellcheck" : false
-}

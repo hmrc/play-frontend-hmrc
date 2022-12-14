@@ -1,8 +1,0 @@
-{
-  "element" : "button",
-  "text" : "Submit",
-  "attributes" : {
-    "aria-controls" : "example-id",
-    "data-tracking-dimension" : 123
-  }
-}

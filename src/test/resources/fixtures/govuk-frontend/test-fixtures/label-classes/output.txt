@@ -1,5 +1,0 @@
-
-<label class="govuk-label extra-class one-more-class">
-  National Insurance number
-</label>
-

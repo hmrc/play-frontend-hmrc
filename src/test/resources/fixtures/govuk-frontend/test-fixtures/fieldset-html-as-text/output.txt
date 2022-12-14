@@ -1,5 +1,0 @@
-<fieldset class="govuk-fieldset">
-  <legend class="govuk-fieldset__legend">
-    What is &lt;b&gt;your&lt;/b&gt; address?
-  </legend>
-</fieldset>

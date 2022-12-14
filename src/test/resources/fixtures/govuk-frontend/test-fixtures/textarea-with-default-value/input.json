@@ -1,8 +1,0 @@
-{
-  "id" : "full-address",
-  "name" : "address",
-  "value" : "221B Baker Street\nLondon\nNW1 6XE\n",
-  "label" : {
-    "text" : "Full address"
-  }
-}

@@ -1,9 +1,0 @@
-<div class="govuk-form-group govuk-form-group--error">
-  <label class="govuk-label" for="with-error-describedby">
-    With error describedBy
-  </label>
-  <p id="with-error-describedby-error" class="govuk-error-message">
-  <span class="govuk-visually-hidden">Error:</span> Error message
-  </p>
-<input class="govuk-input govuk-input--error" id="with-error-describedby" name="with-error-describedby" type="text" aria-describedby="some-id with-error-describedby-error">
-</div>
