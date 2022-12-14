@@ -13,7 +13,7 @@ lazy val root = (project in file("."))
   .configs(IntegrationTest)
   .settings(
     name := "play-frontend-hmrc",
-    majorVersion := 4,
+    majorVersion := 5,
     scalaVersion := scala2_12,
     crossScalaVersions := Seq(scala2_12, scala2_13),
     libraryDependencies ++= LibDependencies(),

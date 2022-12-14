@@ -103,12 +103,11 @@ Diff between Twirl and Nunjucks outputs (please open diff HTML file in a browser
 
 Prior to merging to trunk, it is a good idea to run all the tests against all supported versions of Scala and Play.
 These checks will also be performed automatically as part of the build pipeline before publishing.
+At time of writing, only Play 2.8 is supported, but this may change as newer versions of Play are made available.
 
-To achieve this, run:
+To test against all supported Scala/Play versions, run the following for each supported version of Play (supported Scala versions are tested implicitly via [PlayCrossCompilation](project/PlayCrossCompilation.scala)):
 
 ```bash
-PLAY_VERSION=2.6 sbt clean +test +it:test && \
-PLAY_VERSION=2.7 sbt clean +test +it:test && \
 PLAY_VERSION=2.8 sbt clean +test +it:test
 ```
 
