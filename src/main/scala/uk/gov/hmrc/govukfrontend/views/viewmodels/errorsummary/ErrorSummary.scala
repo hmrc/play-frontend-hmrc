@@ -26,7 +26,7 @@ case class ErrorSummary(
   attributes: Map[String, String] = Map.empty,
   title: Content = Empty,
   description: Content = Empty,
-  disableAutoFocus: Option[Boolean] = Some(false)
+  disableAutoFocus: Option[Boolean] = None
 )
 
 object ErrorSummary {
