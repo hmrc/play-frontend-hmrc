@@ -5,12 +5,20 @@
 1. Update the value of `govukFrontendVersion` or `hmrcFrontendVersion` in [LibDependencies](../../project/LibDependencies.scala) 
    according to the applicable version of [govuk-frontend](https://github.com/alphagov/govuk-frontend/tags) or
    [hmrc-frontend](https://github.com/hmrc/hmrc-frontend/tags).
+1. If upgrading `govuk-frontend`, [manually publish as a WebJar](#steps-to-manually-publish-govuk-frontend-as-a-webjar).
 1. With `x-govuk-component-renderer` running locally (see below), run `sbt generateGovukFixtures` for `govuk-frontend`
      upgrades or `sbt generateHmrcFixtures` for `hmrc-frontend` upgrades.
 1. Run the unit tests: `sbt clean test`.
 1. Run the integration tests: `sbt clean it:test`.
 1. Compare the two versions of `govuk-frontend` or `hmrc-frontend` (outgoing vs incoming) using a diff tool 
    as shown [below](#examining-components-for-failed-tests).
+   
+### Steps to manually publish `govuk-frontend` as a WebJar
+1. Navigate to https://www.webjars.org/
+1. Click the blue "Add a WebJar" button
+1. Select type as "NPM"
+1. Enter govuk-frontend as the package name, and select 4.1.1 as the version
+1. Click the "Deploy!" button
 
 ### Comparing Differences
 Since some of the components have dependencies, it is easier to start upgrading by starting from components with no dependencies, or, alternatively, from the components on the bottom of a dependency graph, and work our way up.
