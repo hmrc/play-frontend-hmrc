@@ -52,7 +52,7 @@ class hmrcNewTabLinkHelperSpec extends AnyWordSpecLike with Matchers with Messag
       links.first.attr("href")   shouldBe ""
       links.first.attr("rel")    shouldBe "noopener noreferrer"
       links.first.attr("target") shouldBe "_blank"
-      links.text()               shouldBe "Some link text (opens in a new tab)"
+      links.text()               shouldBe "Some link text (opens in new tab)"
     }
 
     "render link with the English link text for all support en codes" in {
@@ -67,7 +67,7 @@ class hmrcNewTabLinkHelperSpec extends AnyWordSpecLike with Matchers with Messag
       links.first.attr("href")   shouldBe ""
       links.first.attr("rel")    shouldBe "noopener noreferrer"
       links.first.attr("target") shouldBe "_blank"
-      links.text()               shouldBe "Some link text (opens in a new tab)"
+      links.text()               shouldBe "Some link text (opens in new tab)"
     }
 
     "render link with the href" in {
@@ -81,7 +81,7 @@ class hmrcNewTabLinkHelperSpec extends AnyWordSpecLike with Matchers with Messag
       links.first.attr("href")   shouldBe "http://www.example.com"
       links.first.attr("rel")    shouldBe "noopener noreferrer"
       links.first.attr("target") shouldBe "_blank"
-      links.text()               shouldBe "Some link text (opens in a new tab)"
+      links.text()               shouldBe "Some link text (opens in new tab)"
     }
 
     "render link with classes" in {
@@ -100,7 +100,7 @@ class hmrcNewTabLinkHelperSpec extends AnyWordSpecLike with Matchers with Messag
       links.first.attr("rel")    shouldBe "noopener noreferrer"
       links.first.attr("target") shouldBe "_blank"
       links.first.attr("class")  shouldBe "govuk-link  custom-class"
-      links.text()               shouldBe "Some link text (opens in a new tab)"
+      links.text()               shouldBe "Some link text (opens in new tab)"
     }
 
     "render link with the Welsh link text" in {
@@ -137,7 +137,7 @@ class hmrcNewTabLinkHelperSpec extends AnyWordSpecLike with Matchers with Messag
       val hmrcNewTabLinkHelper = new HmrcNewTabLinkHelper(new HmrcNewTabLink())
       val component            = hmrcNewTabLinkHelper(newTabLinkHelper)(englishMessages)
 
-      component.toString should endWith(">Some link text (opens in a new tab)</a>")
+      component.toString should endWith(">Some link text (opens in new tab)</a>")
     }
   }
 }

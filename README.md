@@ -624,7 +624,7 @@ Research Services will tell you what URL to use for your service.
 
 The [HmrcNewTabLinkHelper](src/main/twirl/uk/gov/hmrc/hmrcfrontend/views/helpers/HmrcNewTabLinkHelper.scala.html) component
 allows you to link to content that opens in a new tab, with protection against reverse tabnapping. It takes in an implicit
-`Messages` parameter to translate the content `(opens in a new tab)`.
+`Messages` parameter to translate the content `(opens in new tab)`.
 
 It is a wrapper around the `HmrcNewTabLink`, however this helper means that services do not need to explicitly pass in a
 language for internationalization of the link text.
