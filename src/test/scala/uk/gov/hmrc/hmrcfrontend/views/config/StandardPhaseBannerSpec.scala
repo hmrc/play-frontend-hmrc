@@ -38,7 +38,8 @@ class StandardPhaseBannerSpec extends AnyWordSpec with Matchers with MessagesSup
         tag = Some(Tag(content = Text("beta"))),
         content = HtmlContent(
           "This is a new service – your <a class=\"govuk-link\" href=\"/feedback\">feedback</a> will help us to improve it."
-        )
+        ),
+        classes = "govuk-!-display-none-print"
       )
     }
 
@@ -49,7 +50,8 @@ class StandardPhaseBannerSpec extends AnyWordSpec with Matchers with MessagesSup
         tag = Some(Tag(content = Text("beta"))),
         content = HtmlContent(
           "This is a new service – your <a class=\"govuk-link\" href=\"/other-feedback\">feedback</a> will help us to improve it."
-        )
+        ),
+        classes = "govuk-!-display-none-print"
       )
     }
 
@@ -60,7 +62,8 @@ class StandardPhaseBannerSpec extends AnyWordSpec with Matchers with MessagesSup
         tag = Some(Tag(content = Text("beta"))),
         content = HtmlContent(
           "This is a new service – your <a class=\"govuk-link\" href=\"&quot;&gt;&lt;script&gt;console.log(&#x27;evil&#x27;);&lt;/script&gt;&lt;a href=&quot;\">feedback</a> will help us to improve it."
-        )
+        ),
+        classes = "govuk-!-display-none-print"
       )
     }
 
@@ -73,7 +76,8 @@ class StandardPhaseBannerSpec extends AnyWordSpec with Matchers with MessagesSup
         tag = Some(Tag(content = Text("beta"))),
         content = HtmlContent(
           "Gwasanaeth newydd yw hwn – bydd eich <a class=\"govuk-link\" href=\"/feedback\">adborth</a> yn ein helpu i’w wella."
-        )
+        ),
+        classes = "govuk-!-display-none-print"
       )
     }
 
@@ -120,7 +124,8 @@ class StandardPhaseBannerSpec extends AnyWordSpec with Matchers with MessagesSup
         tag = Some(Tag(content = Text("alpha"))),
         content = HtmlContent(
           "This is a new service – your <a class=\"govuk-link\" href=\"/feedback\">feedback</a> will help us to improve it."
-        )
+        ),
+        classes = "govuk-!-display-none-print"
       )
     }
   }

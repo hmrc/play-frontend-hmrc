@@ -45,7 +45,8 @@ trait StandardPhaseBanner {
         s"""${messages("phase.banner.before")} <a class=\"govuk-link\" href=\"${HtmlFormat.escape(url)}\">${messages(
           "phase.banner.link"
         )}</a> ${messages("phase.banner.after")}"""
-      )
+      ),
+      classes = "govuk-!-display-none-print"
     )
 }
 
