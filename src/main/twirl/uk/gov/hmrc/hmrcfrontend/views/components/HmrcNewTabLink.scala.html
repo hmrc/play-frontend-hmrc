@@ -21,7 +21,7 @@
 
 @if(text.nonEmpty) {
  <a class="@toClasses("govuk-link ", classList.getOrElse(""))" target="_blank" rel="noopener noreferrer" href="@href">@text @lang match {
-   case Some("en") => {(opens in a new tab)}
+   case Some("en") => {(opens in new tab)}
    case Some("cy") => {(yn agor tab newydd)}
    case _ => {}
  }</a>}

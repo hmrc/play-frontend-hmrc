@@ -131,7 +131,7 @@ class hmrcReportTechnicalIssueHelperSpec
       val links                          = Jsoup.parse(content).select("a")
 
       links              should have size 1
-      links.first.text shouldBe "A yw’r dudalen hon yn gweithio’n iawn? (yn agor mewn tab newydd)"
+      links.first.text shouldBe "A yw’r dudalen hon yn gweithio’n iawn? (yn agor tab newydd)"
     }
 
     "render no link when serviceId is not set" in {
