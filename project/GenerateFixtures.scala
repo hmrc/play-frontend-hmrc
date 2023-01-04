@@ -39,14 +39,18 @@ case class GenerateFixtures(fixturesDir: File, frontend: String, version: String
 
     IO.write(testFixturesDir / "VERSION.txt", version)
 
-    val patchedFixturesDir                                     = fixturesDir / s"patched-fixtures"
-    def patchedVersionDoesNotExist(example: JsObject): Boolean =
+    val patchedFixturesDir                             = fixturesDir / s"patched-fixtures"
+    def notManuallyPatched(example: JsObject): Boolean =
       !(patchedFixturesDir / (example \ "exampleId").as[String]).isDirectory
+
+    val excludedFixturesDir                               = fixturesDir / s"excluded-fixtures"
+    def notExplicitlyExcluded(example: JsObject): Boolean =
+      !(excludedFixturesDir / (example \ "exampleId").as[String]).isDirectory
 
     def replaceUnwantedCharactersInFolderName(text: String): String =
       text.replaceAll("/", "-")
 
-    for (example <- getExamples() if patchedVersionDoesNotExist(example)) {
+    for (example <- getExamples() if notManuallyPatched(example) && notExplicitlyExcluded(example)) {
       val componentName     = (example \ "componentName").as[String]
       val componentJson     = Json.obj(
         "name" -> componentName

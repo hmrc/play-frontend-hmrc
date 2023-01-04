@@ -14,11 +14,16 @@
  * limitations under the License.
  *@
 
+@import uk.gov.hmrc.govukfrontend.views.html.components._
+
 @this(govukErrorMessage: GovukErrorMessage, govukHint: GovukHint, govukLabel: GovukLabel)
 
 @(params: Select)
 @import params._
-@require(name.nonEmpty && id.nonEmpty)
+@require(name.nonEmpty, "parameter 'name' should not be empty")
+@require(id.nonEmpty, "parameter 'id' should not be empty")
+@require(value.isEmpty || !items.exists(_.selected) || Seq(value) == items.filter(_.selected).map(_.value), "selected item(s) conflict with passed value")
+
 <div class="@toClasses("govuk-form-group", errorMessage.fold("")(_ => "govuk-form-group--error"), formGroupClasses)">
   @govukLabel(Label(
     forAttr = Some(id),
@@ -69,7 +74,9 @@
   } { attrs =>
       <select class="@toClasses("govuk-select", classes, errorMessage.fold("")(_ => "govuk-select--error"))" @attrs>
         @for(item <- items) {
-          <option value="@item.value"@if(item.selected) { selected}@if(item.disabled) { disabled}@toAttributes(item.attributes)>@HtmlFormat.escape(item.text)</option>
+          @defining((value.nonEmpty && item.value == value) || item.selected) { isSelected =>
+            <option value="@item.value"@if(isSelected) { selected}@if(item.disabled) { disabled}@toAttributes(item.attributes)>@HtmlFormat.escape(item.text)</option>
+          }
         }
       </select>
   }

@@ -19,6 +19,7 @@ package dateinput
 
 import play.api.libs.functional.syntax._
 import play.api.libs.json._
+import uk.gov.hmrc.govukfrontend.views.viewmodels.JsonImplicits.RichJsPath
 
 final case class InputItem(
   id: String = "",
@@ -41,7 +42,7 @@ object InputItem {
       (__ \ "id").readWithDefault[String](defaultObject.id) and
         (__ \ "name").readWithDefault[String](defaultObject.name) and
         (__ \ "label").readNullable[String] and
-        (__ \ "value").readNullable[String] and
+        (__ \ "value").readsJsValueToString.map(Option[String]).orElse(Reads.pure(None)) and
         (__ \ "autocomplete").readNullable[String] and
         (__ \ "pattern").readNullable[String] and
         (__ \ "classes").readWithDefault[String](defaultObject.classes) and

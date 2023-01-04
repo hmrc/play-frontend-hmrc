@@ -29,49 +29,7 @@ import scala.util.Try
   */
 abstract class TemplateUnitSpec[T: Reads, C <: Template1[T, HtmlFormat.Appendable]: ClassTag](
   govukComponentName: String
-) extends TemplateTestHelper[T](govukComponentName) {
-
-  override protected val baseFixturesDirectory: String = "/fixtures/govuk-frontend"
-
-  private val skipBecauseOfJsonValidation             = Seq(
-    "date-input-with-values"
-  )
-  private val skipBecauseOfAttributeOrdering          = Seq(
-    "details-attributes",
-    "warning-text-attributes",
-    "breadcrumbs-attributes"
-  )
-  /* skipBecauseRequiredItemsSeemToBeMissing are for tests that require properties that are missing from the nunjucks
-     template example data, the reason its missing is because of the way the govuk frontend team setup there tests.
-     https://github.com/alphagov/govuk-frontend/issues/2834
-   */
-  private val skipBecauseRequiredItemsSeemToBeMissing = Seq(
-    "select-with-falsey-values",
-    "select-attributes-on-items",
-    "skip-link-default-values",
-    "skip-link-html-as-text",
-    "skip-link-html",
-    "skip-link-attributes",
-    "skip-link-classes",
-    "skip-link-custom-text",
-    "character-count-spellcheck-enabled",
-    "character-count-spellcheck-disabled",
-    "character-count-custom-classes-on-countMessage",
-    "checkboxes-item-checked-overrides-values",
-    "checkboxes-with-pre-checked-values",
-    "radios-prechecked-using-value",
-    "radios-with-conditional-items-and-pre-checked-value",
-    "select-with-selected-value"
-  )
-  private val skipBecauseChangesNeededWithGDS         = Seq(
-    "checkboxes-with-falsey-values",
-    "radios-with-falsey-items",
-    "accordion-with-falsey-values"
-  )
-
-  override protected val skippedExamples: Seq[String] = skipBecauseOfJsonValidation ++
-    skipBecauseOfAttributeOrdering ++ skipBecauseRequiredItemsSeemToBeMissing ++
-    skipBecauseChangesNeededWithGDS
+) extends TemplateTestHelper[T]("/fixtures/govuk-frontend", govukComponentName) {
 
   protected val component: C = app.injector.instanceOf[C]
 
@@ -83,7 +41,5 @@ abstract class TemplateUnitSpec[T: Reads, C <: Template1[T, HtmlFormat.Appendabl
     */
   def render(templateParams: T): Try[HtmlFormat.Appendable] =
     Try(component.render(templateParams))
-
-  matchTwirlAndNunjucksHtml(fixturesDirs)
 
 }

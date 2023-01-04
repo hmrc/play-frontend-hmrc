@@ -19,4 +19,34 @@ package components
 
 import uk.gov.hmrc.govukfrontend.views.html.components._
 
-class GovukRadiosSpec extends TemplateUnitSpec[Radios, GovukRadios]("govukRadios")
+class GovukRadiosSpec extends TemplateUnitSpec[Radios, GovukRadios]("govukRadios") {
+
+  "anti-corruption layer" should {
+    "throw if more than one radio item is checked" in {
+      val invalidRadios = Radios(
+        items = Seq(
+          RadioItem(value = Some("ketchup"), checked = true),
+          RadioItem(value = Some("mayo"), checked = true)
+        )
+      )
+
+      the[IllegalArgumentException] thrownBy {
+        component.render(invalidRadios)
+      } should have message "requirement failed: only one checked item allowed in a radio button"
+    }
+
+    "throw if passed value conflicts with checked item" in {
+      val invalidRadios = Radios(
+        items = Seq(
+          RadioItem(value = Some("ketchup"), checked = true),
+          RadioItem(value = Some("mayo"), checked = false)
+        ),
+        value = Some("mayo")
+      )
+
+      the[IllegalArgumentException] thrownBy {
+        component.render(invalidRadios)
+      } should have message "requirement failed: value conflicts with checked item"
+    }
+  }
+}

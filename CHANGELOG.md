@@ -8,10 +8,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 For compatibility information see `govukFrontendVersion` and `hmrcFrontendVersion` in
 [LibDependencies](project/LibDependencies.scala)
 
-## [unreleased] - 2023-01-06
+## [6.0.0] - 2023-01-09
 
 ### Changed
 
+- Added `values` parameter to [GovukCheckboxes](src/main/twirl/uk/gov/hmrc/govukfrontend/views/components/GovukCheckboxes.scala.html) component, as an alternative way of pre-checking checkbox items
+- Added `value` parameter to [GovukRadios](src/main/twirl/uk/gov/hmrc/govukfrontend/views/components/GovukRadios.scala.html) component, as an alternative way of pre-checking a radio item
+- Changed [GovukRadios](src/main/twirl/uk/gov/hmrc/govukfrontend/views/components/GovukRadios.scala.html) component to throw if more than one `RadioItem` is `checked` 
+- Added `value` parameter to [GovukSelect](src/main/twirl/uk/gov/hmrc/govukfrontend/views/components/GovukSelect.scala.html) component, as an alternative way of pre-selecting a select item
 - Updated `README` to include links on CSP configuration for Google Analytics 4
 - Updated maintainers document for upgrading, to include the process for identifying Govuk component updates
 

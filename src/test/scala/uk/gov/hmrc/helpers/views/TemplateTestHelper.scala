@@ -25,7 +25,7 @@ import play.api.libs.json.{JsError, JsSuccess, Json, Reads}
 
 import scala.util.{Failure, Success, Try}
 
-abstract class TemplateTestHelper[T: Reads](componentName: String)
+abstract class TemplateTestHelper[T: Reads](baseFixturesDirectory: String, componentName: String)
     extends TwirlRenderer[T]
     with JsoupHelpers
     with AnyWordSpecLike
@@ -34,9 +34,6 @@ abstract class TemplateTestHelper[T: Reads](componentName: String)
     with GuiceOneAppPerSuite
     with PreProcessor {
 
-  protected val baseFixturesDirectory: String
-
-  protected val skippedExamples: Seq[String]
   protected val fullyCompressedExamples: Seq[String] = Seq(
     "summary-list-translated"
   )
@@ -49,52 +46,53 @@ abstract class TemplateTestHelper[T: Reads](componentName: String)
     fixturesDir.children.toSeq
   }
 
-  protected def matchTwirlAndNunjucksHtml(fixtureDirectories: Seq[File]): Unit =
+  matchTwirlAndNunjucksHtml(fixturesDirs)
+
+  private def matchTwirlAndNunjucksHtml(fixtureDirectories: Seq[File]): Unit =
     exampleNames(fixtureDirectories, componentName)
-      .foreach { fixtureDirExampleName =>
-        val (fixtureDir, exampleName) = fixtureDirExampleName
-
+      .foreach { case (fixtureDir, exampleName) =>
         s"$exampleName" should {
-          if (!skippedExamples.contains(exampleName)) {
+          "compare the rendered twirl against the the rendered nunjucks" in {
+            val tryTwirlHtml    = renderExample(fixtureDir, exampleName)
+            val tryNunjucksHtml = getNunjucksHtml(fixtureDir, exampleName)
 
-            "compare the rendered twirl against the the rendered nunjucks" in {
-              val tryTwirlHtml    = renderExample(fixtureDir, exampleName)
-              val tryNunjucksHtml = getNunjucksHtml(fixtureDir, exampleName)
+            (tryTwirlHtml, tryNunjucksHtml) match {
+              case (_, _) if isExplicitlyExcluded(fixtureDir)         =>
+                pending
+              case (Success(twirlHtml), Success(nunjucksHtml))        =>
+                val preProcess: String => String =
+                  if (fullyCompressedExamples.contains(exampleName)) compressHtml(_, maximumCompression = true)
+                  else compressHtml(_)
+                val preProcessedTwirlHtml        = preProcess(twirlHtml)
+                val preProcessedNunjucksHtml     = preProcess(nunjucksHtml)
 
-              (tryTwirlHtml, tryNunjucksHtml) match {
-                case (Success(twirlHtml), Success(nunjucksHtml))        =>
-                  val preProcess: String => String =
-                    if (fullyCompressedExamples.contains(exampleName)) compressHtml(_, maximumCompression = true)
-                    else compressHtml(_)
-                  val preProcessedTwirlHtml        = preProcess(twirlHtml)
-                  val preProcessedNunjucksHtml     = preProcess(nunjucksHtml)
-
-                  withClue(s"""
+                withClue(s"""
                        | Twirl output:
                        | $preProcessedTwirlHtml
                        | Nunjucks output:
                        | $preProcessedNunjucksHtml
                        |""".stripMargin) {
-                    preProcessedTwirlHtml shouldBe preProcessedNunjucksHtml
-                  }
-                case (Failure(TemplateValidationException(message)), _) =>
-                  println(s"Failed to validate the parameters for the $componentName twirl template")
-                  println(s"Exception: $message")
+                  preProcessedTwirlHtml shouldBe preProcessedNunjucksHtml
+                }
+              case (Failure(TemplateValidationException(message)), _) =>
+                println(s"Failed to validate the parameters for the $componentName twirl template")
+                println(s"Exception: $message")
 
-                  fail
-                case (Failure(twirlException), _)                       =>
-                  println(s"Failed to render for the $componentName twirl template")
-                  println(s"Exception: ${twirlException.getMessage}")
-                  fail(twirlException)
-                case (_, Failure(nunjucksException))                    =>
-                  println(s"Failed to get the $componentName nunjucks template")
-                  println(s"Exception: ${nunjucksException.getMessage}")
-                  fail(nunjucksException)
-              }
+                fail
+              case (Failure(twirlException), _)                       =>
+                println(s"Failed to render for the $componentName twirl template")
+                println(s"Exception: ${twirlException.getMessage}")
+                fail(twirlException)
+              case (_, Failure(nunjucksException))                    =>
+                println(s"Failed to get the $componentName nunjucks template")
+                println(s"Exception: ${nunjucksException.getMessage}")
+                fail(nunjucksException)
             }
           }
         }
       }
+
+  private def isExplicitlyExcluded(fixtureDir: File) = fixtureDir.name.contains("excluded")
 
   /**
     * Traverse the test fixtures directory to fetch all examples for a given component

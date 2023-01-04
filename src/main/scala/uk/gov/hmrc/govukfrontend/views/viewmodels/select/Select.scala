@@ -20,7 +20,23 @@ import play.api.libs.functional.syntax._
 import play.api.libs.json._
 import uk.gov.hmrc.govukfrontend.views.html.components._
 import uk.gov.hmrc.govukfrontend.views.viewmodels.CommonJsonFormats._
+import uk.gov.hmrc.govukfrontend.views.viewmodels.JsonImplicits.RichJsPath
 
+/** Parameters to `GovukSelect` Twirl template
+  *
+  * @param id the id of the `select` element
+  * @param name the name of the `select` element
+  * @param items sequence of `SelectItem`s
+  * @param describedBy optional `aria-describedby` attribute for the `select` element
+  * @param label optional `Label` for the control
+  * @param hint optional `Hint` for the control
+  * @param errorMessage optional `ErrorMessage` to display
+  * @param formGroupClasses optional additional CSS classes to apply to the form group
+  * @param classes optional additional CSS classes to apply to the `govuk-radios` `div`
+  * @param attributes optional additional HTML attributes to apply to the `govuk-select` `div`
+  * @param value optional value of the item that should be `selected`
+  * @note `value` overrides any `selected` `SelectItem`
+  */
 case class Select(
   id: String = "",
   name: String = "",
@@ -31,7 +47,8 @@ case class Select(
   errorMessage: Option[ErrorMessage] = None,
   formGroupClasses: String = "",
   classes: String = "",
-  attributes: Map[String, String] = Map.empty
+  attributes: Map[String, String] = Map.empty,
+  value: Option[String] = None
 )
 
 object Select {
@@ -49,7 +66,8 @@ object Select {
         (__ \ "errorMessage").readNullable[ErrorMessage] and
         readsFormGroupClasses and
         (__ \ "classes").readWithDefault[String](defaultObject.classes) and
-        (__ \ "attributes").readWithDefault[Map[String, String]](defaultObject.attributes)(attributesReads)
+        (__ \ "attributes").readWithDefault[Map[String, String]](defaultObject.attributes)(attributesReads) and
+        (__ \ "value").readsJsValueToString.map(Option[String]).orElse(Reads.pure(None))
     )(Select.apply _)
 
   implicit def jsonWrites: OWrites[Select] =
@@ -63,7 +81,8 @@ object Select {
         (__ \ "errorMessage").writeNullable[ErrorMessage] and
         writesFormGroupClasses and
         (__ \ "classes").write[String] and
-        (__ \ "attributes").write[Map[String, String]]
+        (__ \ "attributes").write[Map[String, String]] and
+        (__ \ "value").writeNullable[String]
     )(unlift(Select.unapply))
 
 }
