@@ -23,7 +23,7 @@
   @if(navigation.nonEmpty){
    <div class="govuk-footer__navigation">
    @for(nav <- navigation) {
-    <div class="govuk-footer__section govuk-grid-column-@{nav.width.getOrElse("full")}">
+    <div class="govuk-footer__section govuk-!-display-none-print govuk-grid-column-@{nav.width.getOrElse("full")}">
      <h2 class="govuk-footer__heading govuk-heading-m">@nav.title</h2>
      @if(nav.items.nonEmpty) {
       <ul class="govuk-footer__list @if(nav.columns.exists(_ > 0)) { govuk-footer__list--columns-@nav.columns}">
@@ -52,7 +52,7 @@
      <h2 class="govuk-visually-hidden">@HtmlFormat.escape(meta.visuallyHiddenTitle.getOrElse(if (language.code == "cy") { "Cysylltiadau cymorth" } else { "Support links" }))</h2>
     @meta.items.map { metaItems =>
      @if(metaItems.nonEmpty) {
-      <ul class="govuk-footer__inline-list">
+      <ul class="govuk-footer__inline-list govuk-!-display-none-print">
       @for(item <- metaItems) {
        <li class="govuk-footer__inline-list-item">
         <a class="govuk-footer__link" href="@item.href"@toAttributes(item.attributes)>
