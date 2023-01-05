@@ -708,6 +708,11 @@ tracking-consent-frontend {
 `gtm.container` can be one of: `a`, `b`, `c`, `d`, `e`, `f` or `sdes`. Consult with the CIPSAGA team
 to identify which GTM container you should be using in your service.
 
+### CSP configuration with Google Analytics 4 (GA4)
+If you are using GA4 for your service's analytics, you will need to include custom CSP configuration in your 
+`application.conf` for this. Please see the section [CSP for Google Analytics 4 (GA4)](https://github.com/hmrc/tracking-consent-frontend#csp-for-google-analytics-4-ga4)
+in the `tracking-consent-frontend` documentation for more information.
+
 ### Adding GTM to internal services
 
 If you would like to add GTM to an internal service, you can do so using the [HmrcInternalHead](src/main/twirl/uk/gov/hmrc/hmrcfrontend/views/helpers/HmrcInternalHead.scala.html) 
