@@ -198,6 +198,15 @@ trait Aliases {
 
   type PageLayout = viewmodels.pagelayout.PageLayout
   val PageLayout = viewmodels.pagelayout.PageLayout
+
+  type Pagination = viewmodels.pagination.Pagination
+  val Pagination = viewmodels.pagination.Pagination
+
+  type PaginationLink = viewmodels.pagination.PaginationLink
+  val PaginationLink = viewmodels.pagination.PaginationLink
+
+  type PaginationItem = viewmodels.pagination.PaginationItem
+  val PaginationItem = viewmodels.pagination.PaginationItem
 }
 
 object Aliases extends Aliases

@@ -16,8 +16,9 @@ import scala.reflect.ClassTag
   */
 abstract class TemplateIntegrationSpec[T: OWrites: Arbitrary, C <: Template1[T, HtmlFormat.Appendable]: ClassTag](
   govukComponentName: String,
-  seed: Option[String] = None
-) extends TemplateIntegrationBaseSpec[T](govukComponentName, seed) {
+  seed: Option[String] = None,
+  maximumCompression: Boolean = false
+) extends TemplateIntegrationBaseSpec[T](govukComponentName, seed, maximumCompression) {
 
   protected val libraryName: String = "govuk"
 

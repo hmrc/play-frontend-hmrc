@@ -34,7 +34,7 @@ object Generators {
 
   val genAttrVal: Gen[(String, String)] = for {
     attr  <- genNonEmptyAlphaStr
-    value <- Gen.alphaStr
+    value <- genNonEmptyAlphaStr
   } yield (attr, value)
 
   def genAttributes(nAttributes: Int = 5) =

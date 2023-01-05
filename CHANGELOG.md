@@ -8,6 +8,30 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 For compatibility information see `govukFrontendVersion` and `hmrcFrontendVersion` in
 [LibDependencies](project/LibDependencies.scala)
 
+## [6.2.0] - 2023-01-12
+
+### Changed
+
+- Added new `GovukPagination` Twirl component with `Pagination` view from `govuk-frontend`. 
+
+### Compatible with
+
+- [hmrc/hmrc-frontend v5.19.0](https://github.com/hmrc/hmrc-frontend/releases/tag/v5.19.0)
+- [alphagov/govuk-frontend v4.4.1](https://github.com/alphagov/govuk-frontend/releases/tag/v4.4.1)
+
+
+## [6.1.0] - 2023-01-12
+
+### Changed
+
+- Documentation change: `CHANGELOG.md` update regarding `h2` elements in `GovukErrorSummary`
+
+### Compatible with
+
+- [hmrc/hmrc-frontend v5.19.0](https://github.com/hmrc/hmrc-frontend/releases/tag/v5.19.0)
+- [alphagov/govuk-frontend v4.4.1](https://github.com/alphagov/govuk-frontend/releases/tag/v4.4.1)
+
+
 ## [6.0.0] - 2023-01-09
 
 ### Changed
