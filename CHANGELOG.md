@@ -8,6 +8,18 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 For compatibility information see `govukFrontendVersion` and `hmrcFrontendVersion` in
 [LibDependencies](project/LibDependencies.scala)
 
+## [5.6.0] - 2023-01-05
+
+### Changed
+
+- Updated `README` to include links on CSP configuration for Google Analytics 4
+
+### Compatible with
+
+- [hmrc/hmrc-frontend v5.19.0](https://github.com/hmrc/hmrc-frontend/releases/tag/v5.19.0)
+- [alphagov/govuk-frontend v4.4.1](https://github.com/alphagov/govuk-frontend/releases/tag/v4.4.1)
+
+
 ## [5.5.0] - 2023-01-04
 
 ### Changed
