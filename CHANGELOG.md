@@ -8,11 +8,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 For compatibility information see `govukFrontendVersion` and `hmrcFrontendVersion` in
 [LibDependencies](project/LibDependencies.scala)
 
-## [5.6.0] - 2023-01-05
+## [unreleased] - 2023-01-06
 
 ### Changed
 
 - Updated `README` to include links on CSP configuration for Google Analytics 4
+- Updated maintainers document for upgrading, to include the process for identifying Govuk component updates
 
 ### Compatible with
 
