@@ -1,5 +1,53 @@
 # Upgrading play-frontend-hmrc
 
+> **Warning**
+> When you bump govuk-frontend version, you need to manually check release changes for new components and new parameters that need to be added to our twirl implementations. They won't currently be automatically detected as missing by our automated tests. Read [comparing differences](#comparing-differences) below for ways you can do this.
+## Check for updated Govuk components
+
+To ensure that our play-frontend-hmrc library stays up to date with govuk-frontend, 
+it is important to regularly review the release [notes](https://github.com/alphagov/govuk-frontend/releases) for govuk-frontend to identify any component updates or new additions. 
+If there are changes to components, we should create tickets to discuss as a team whether we want to incorporate those changes into our forked components in the play-frontend-hmrc library.
+
+As an example, there was previously an update to the header Nunjucks macro that added the ability to localize the 
+text of the mobile navigation menu toggle button using the menuButtonText parameter.
+
+### Release note from Govuk with the updated component change
+
+```
+Localise the navigation menu toggle button
+When using the header Nunjucks macro, you can now translate the text of the mobile navigation menu toggle button by using the menuButtonText parameter.
+
+You should avoid lengthy values for the menuButtonText parameter. If the text is too long it can overflow and cause visual issues.
+
+This was added in pull request #2720: Add parameter to localise mobile menu toggle button.
+```
+
+A ticket was created to track the work that would be required to incorporate an update to the header component that added the ability to localize the text of the mobile navigation menu toggle button using the menuButtonText parameter into our forked component. However, this ticket still needs to be discussed with relevant parties to determine if we want to introduce this change into our forked component.
+
+### Ticket created to capture change 
+
+```
+Description
+
+As a platform developer
+I need to update the hmrc-frontend header component to include the new localisation option
+So that we are keeping our hmrc components in sync with govuk components
+
+What happens if we don’t do it?
+
+We risk not keeping hmrc components in sync with its dependant govuk's library components with its latest enhancements and updates.
+
+Acceptance Criteria
+
+I know this ticket is done when…
+
+Teams can change the menu button label using the menuButtonText property in our header component
+
+Implementation detail: we need to confirm with DR(Design Resources) that we should add this parameter to hmrc fork of header, or whether instead we should just add a translation for this bit of copy, since most hmrc components don't let people provide translation themselves, they just take a lang param and have fixed translations for english and welsh
+```
+
+In some cases, the decision to incorporate updates to components may not be solely up to our team and may require input from design resources. Therefore, we may need to reach out to them for their input on these decisions.
+
 ## Basic Steps
 
 1. Update the value of `govukFrontendVersion` or `hmrcFrontendVersion` in [LibDependencies](../../project/LibDependencies.scala) 
