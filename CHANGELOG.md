@@ -127,6 +127,7 @@ so, if your service depends on url-builder, you'll need to [add a direct depende
 
 You must make the following changes when you migrate to this release.
 
+- Govuk design system team removed the id attribute from the GovukErrorSummary heading, if you were using this as a selector in your tests you should now use the class `govuk-error-summary__title` instead.
 - GovukErrorSummary now needs an `Option` value for the `disableAutoFocus` field in the `ErrorSummary` model.
 - GovukButton now needs an `Option` value for the `preventDoubleClick` field in the `Button` model.
 
