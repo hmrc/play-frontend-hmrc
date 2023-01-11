@@ -21,6 +21,20 @@ import play.api.libs.json._
 import uk.gov.hmrc.govukfrontend.views.html.components._
 import uk.gov.hmrc.govukfrontend.views.viewmodels.CommonJsonFormats._
 
+/** Parameters to `GovukRadios` Twirl template
+  *
+  * @param fieldset optional `Fieldset` used to wrap the radio button control
+  * @param hint optional `Hint` for the control
+  * @param errorMessage optional `ErrorMessage` to display
+  * @param formGroupClasses optional additional CSS classes to apply to the form group
+  * @param idPrefix optional id prefix to use for hint & error elements (defaults to `name`)
+  * @param name the name of the `input` element
+  * @param items sequence of `RadioItem`s
+  * @param classes optional additional CSS classes to apply to the `govuk-radios` `div`
+  * @param attributes optional additional HTML attributes to apply to the `govuk-radios` `div`
+  * @param value optional value of the item that should be `checked`
+  * @note `value` overrides any `checked` `RadioItem`
+  */
 case class Radios(
   fieldset: Option[Fieldset] = None,
   hint: Option[Hint] = None,
@@ -30,7 +44,8 @@ case class Radios(
   name: String = "",
   items: Seq[RadioItem] = Nil,
   classes: String = "",
-  attributes: Map[String, String] = Map.empty
+  attributes: Map[String, String] = Map.empty,
+  value: Option[String] = None
 )
 
 object Radios {
@@ -47,7 +62,8 @@ object Radios {
         (__ \ "name").readWithDefault[String](defaultObject.name) and
         (__ \ "items").readWithDefault[Seq[RadioItem]](defaultObject.items)(forgivingSeqReads[RadioItem]) and
         (__ \ "classes").readWithDefault[String](defaultObject.classes) and
-        (__ \ "attributes").readWithDefault[Map[String, String]](defaultObject.attributes)(attributesReads)
+        (__ \ "attributes").readWithDefault[Map[String, String]](defaultObject.attributes)(attributesReads) and
+        (__ \ "value").readNullable[String]
     )(Radios.apply _)
 
   implicit def jsonWrites: OWrites[Radios] =
@@ -60,7 +76,8 @@ object Radios {
         (__ \ "name").write[String] and
         (__ \ "items").write[Seq[RadioItem]] and
         (__ \ "classes").write[String] and
-        (__ \ "attributes").write[Map[String, String]]
+        (__ \ "attributes").write[Map[String, String]] and
+        (__ \ "value").writeNullable[String]
     )(unlift(Radios.unapply))
 
 }

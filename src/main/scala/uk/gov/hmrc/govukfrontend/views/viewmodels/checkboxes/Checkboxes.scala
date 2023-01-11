@@ -21,6 +21,21 @@ import play.api.libs.json._
 import uk.gov.hmrc.govukfrontend.views.html.components._
 import uk.gov.hmrc.govukfrontend.views.viewmodels.CommonJsonFormats._
 
+/** Parameters to `GovukCheckboxes` Twirl template
+  *
+  * @param describedBy optional `aria-describedby` attribute for the `input` element
+  * @param fieldset optional `Fieldset` used to wrap the checkboxes control
+  * @param hint optional `Hint` for the control
+  * @param errorMessage optional `ErrorMessage` to display
+  * @param formGroupClasses optional additional CSS classes to apply to the form group
+  * @param idPrefix optional id prefix to use for hint & error elements (defaults to `name`)
+  * @param name the name of the `input` element
+  * @param items sequence of `CheckboxItem`s
+  * @param classes optional additional CSS classes to apply to the `govuk-checkboxes` `div`
+  * @param attributes optional additional HTML attributes to apply to the `govuk-checkboxes` `div`
+  * @param values sequence of values of any `items` that should be `checked`
+  * @note `values` override any `checked` `CheckboxItem`(s)
+  */
 case class Checkboxes(
   describedBy: Option[String] = None,
   fieldset: Option[Fieldset] = None,
@@ -31,7 +46,8 @@ case class Checkboxes(
   name: String = "",
   items: Seq[CheckboxItem] = Nil,
   classes: String = "",
-  attributes: Map[String, String] = Map.empty
+  attributes: Map[String, String] = Map.empty,
+  values: Set[String] = Set.empty
 )
 
 object Checkboxes {
@@ -49,7 +65,8 @@ object Checkboxes {
         (__ \ "name").readWithDefault[String](defaultObject.name) and
         (__ \ "items").readWithDefault[Seq[CheckboxItem]](defaultObject.items)(forgivingSeqReads[CheckboxItem]) and
         (__ \ "classes").readWithDefault[String](defaultObject.classes) and
-        (__ \ "attributes").readWithDefault[Map[String, String]](defaultObject.attributes)(attributesReads)
+        (__ \ "attributes").readWithDefault[Map[String, String]](defaultObject.attributes)(attributesReads) and
+        (__ \ "values").readWithDefault[Set[String]](defaultObject.values)
     )(Checkboxes.apply _)
 
   implicit def jsonWrites: OWrites[Checkboxes] =
@@ -63,7 +80,8 @@ object Checkboxes {
         (__ \ "name").write[String] and
         (__ \ "items").write[Seq[CheckboxItem]] and
         (__ \ "classes").write[String] and
-        (__ \ "attributes").write[Map[String, String]]
+        (__ \ "attributes").write[Map[String, String]] and
+        (__ \ "values").write[Set[String]]
     )(unlift(Checkboxes.unapply))
 
 }

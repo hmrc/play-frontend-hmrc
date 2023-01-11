@@ -14,10 +14,15 @@
  * limitations under the License.
  *@
 
+@import uk.gov.hmrc.govukfrontend.views.html.components._
+
 @this(govukErrorMessage: GovukErrorMessage, govukFieldset: GovukFieldset, govukHint: GovukHint, govukLabel: GovukLabel)
 
 @(params: Radios)
 @import params._
+@require(items.count(_.checked) <= 1, "only one checked item allowed in a radio button")
+@require(value.isEmpty || !items.exists(_.checked) || Seq(value) == items.filter(_.checked).map(_.value), "value conflicts with checked item")
+
 @defining(innerHtmlSnippet) { case (describedBy, innerHtml) =>
   <div class="@toClasses("govuk-form-group", errorMessage.fold("")(_ => "govuk-form-group--error"), formGroupClasses)">
     @fieldset.fold(innerHtml) { fieldset =>
@@ -75,8 +80,9 @@
         case None => {
           @defining(item.hint.exists(_.content.nonEmpty)) { hasHint =>
           @defining(s"$id-item-hint") { itemHintId =>
+          @defining((item.value.nonEmpty && item.value == value) || item.checked) { isChecked =>
           @defining {
-            @if(item.checked) { checked}
+            @if(isChecked) { checked}
             @if(item.disabled) { disabled}
             @item.conditionalHtml.filter(_.nonEmpty).map {_ => data-aria-controls="@conditionalId"}
             @if(hasHint) {aria-describedby="@itemHintId"}
@@ -99,11 +105,11 @@
                   }
               </div>
               @item.conditionalHtml.filter(_.nonEmpty).map { conditionalHtml =>
-                <div class="@toClasses("govuk-radios__conditional", "govuk-radios__conditional--hidden".when(!item.checked))" id="@conditionalId">
+                <div class="@toClasses("govuk-radios__conditional", "govuk-radios__conditional--hidden".when(!isChecked))" id="@conditionalId">
                   @conditionalHtml
                 </div>
               }
-          }}}
+          }}}}
         }
       }
     }}

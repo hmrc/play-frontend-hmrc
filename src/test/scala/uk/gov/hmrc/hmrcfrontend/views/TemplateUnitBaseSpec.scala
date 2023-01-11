@@ -24,28 +24,4 @@ import uk.gov.hmrc.helpers.views.TemplateTestHelper
   * components
   */
 abstract class TemplateUnitBaseSpec[T: Reads](hmrcComponentName: String)
-    extends TemplateTestHelper[T](hmrcComponentName) {
-
-  override protected val baseFixturesDirectory: String = "/fixtures/hmrc-frontend"
-
-  val skipBecauseOfSpellcheckOrdering = Seq(
-    "character-count-spellcheck-disabled",
-    "character-count-spellcheck-enabled"
-  )
-
-  val skipBecauseNoActualComponents = Seq(
-    "accessible-autocomplete-default",
-    "accessible-autocomplete-with-autoselect-on",
-    "accessible-autocomplete-with-default-value",
-    "accessible-autocomplete-with-empty-default-value",
-    "accessible-autocomplete-with-label-and-hint",
-    "accessible-autocomplete-with-label-and-hint-and-error",
-    "accessible-autocomplete-with-show-all-values",
-    "accessible-autocomplete-without-optional-data-attributes"
-  )
-
-  override protected val skippedExamples: Seq[String] = skipBecauseOfSpellcheckOrdering ++ skipBecauseNoActualComponents
-
-  matchTwirlAndNunjucksHtml(fixturesDirs)
-
-}
+    extends TemplateTestHelper[T]("/fixtures/hmrc-frontend", hmrcComponentName)

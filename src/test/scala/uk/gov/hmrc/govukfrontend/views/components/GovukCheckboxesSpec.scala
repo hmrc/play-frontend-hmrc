@@ -17,6 +17,48 @@
 package uk.gov.hmrc.govukfrontend.views
 package components
 
+import play.twirl.api.Html
 import uk.gov.hmrc.govukfrontend.views.html.components._
 
-class GovukCheckboxesSpec extends TemplateUnitSpec[Checkboxes, GovukCheckboxes]("govukCheckboxes")
+class GovukCheckboxesSpec extends TemplateUnitSpec[Checkboxes, GovukCheckboxes]("govukCheckboxes") {
+
+  "anti-corruption layer" should {
+    "throw if name is not provided" in {
+      val invalidCheckboxes = Checkboxes()
+
+      the[IllegalArgumentException] thrownBy {
+        component.render(invalidCheckboxes)
+      } should have message "requirement failed: parameter 'name' should not be empty"
+    }
+
+    "throw if passed values conflict with checked items" in {
+      val invalidCheckboxes = Checkboxes(
+        name = "my checkbox",
+        items = Seq(
+          CheckboxItem(value = "ketchup", checked = true),
+          CheckboxItem(value = "mayo", checked = false)
+        ),
+        values = Set("ketchup", "mayo")
+      )
+
+      the[IllegalArgumentException] thrownBy {
+        component.render(invalidCheckboxes)
+      } should have message "requirement failed: checked item(s) conflict with passed value(s)"
+    }
+
+    "not throw if passed values are ordered differently to the checked items" in {
+      val validCheckboxes = Checkboxes(
+        name = "my checkbox",
+        items = Seq(
+          CheckboxItem(value = "ketchup", checked = true),
+          CheckboxItem(value = "mayo", checked = false),
+          CheckboxItem(value = "mustard", checked = true)
+        ),
+        values = Set("mustard", "ketchup")
+      )
+
+      component.render(validCheckboxes) shouldBe an[Html]
+    }
+  }
+
+}
