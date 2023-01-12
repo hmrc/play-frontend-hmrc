@@ -25,18 +25,17 @@ import play.api.libs.json.{JsError, JsSuccess, Json, Reads}
 
 import scala.util.{Failure, Success, Try}
 
-abstract class TemplateTestHelper[T: Reads](baseFixturesDirectory: String, componentName: String)
-    extends TwirlRenderer[T]
+abstract class TemplateTestHelper[T: Reads](
+  baseFixturesDirectory: String,
+  componentName: String,
+  fullyCompressedExamples: Seq[String] = Seq.empty
+) extends TwirlRenderer[T]
     with JsoupHelpers
     with AnyWordSpecLike
     with Matchers
     with TryValues
     with GuiceOneAppPerSuite
     with PreProcessor {
-
-  protected val fullyCompressedExamples: Seq[String] = Seq(
-    "summary-list-translated"
-  )
 
   protected lazy val fixturesDirs: Seq[File] = {
     val dir         = baseFixturesDirectory

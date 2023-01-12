@@ -28,8 +28,9 @@ import scala.util.Try
   * components
   */
 abstract class TemplateUnitSpec[T: Reads, C <: Template1[T, HtmlFormat.Appendable]: ClassTag](
-  govukComponentName: String
-) extends TemplateTestHelper[T]("/fixtures/govuk-frontend", govukComponentName) {
+  govukComponentName: String,
+  fullyCompressedExamples: Seq[String] = Seq.empty
+) extends TemplateTestHelper[T]("/fixtures/govuk-frontend", govukComponentName, fullyCompressedExamples) {
 
   protected val component: C = app.injector.instanceOf[C]
 

@@ -18,7 +18,8 @@ import scala.util.{Failure, Success}
   */
 abstract class TemplateIntegrationBaseSpec[T: OWrites: Arbitrary](
   componentName: String,
-  seed: Option[String] = None
+  seed: Option[String] = None,
+  maximumCompression: Boolean = false
 ) extends Properties(componentName)
     with TemplateServiceClient
     with PreProcessor
@@ -62,8 +63,8 @@ abstract class TemplateIntegrationBaseSpec[T: OWrites: Arbitrary](
         tryRenderTwirl match {
 
           case Success(twirlOutputHtml)                      =>
-            val preProcessedTwirlHtml    = compressHtml(twirlOutputHtml)
-            val preProcessedNunjucksHtml = compressHtml(nunJucksOutputHtml)
+            val preProcessedTwirlHtml    = compressHtml(twirlOutputHtml, maximumCompression)
+            val preProcessedNunjucksHtml = compressHtml(nunJucksOutputHtml, maximumCompression)
             val prop                     = preProcessedTwirlHtml == preProcessedNunjucksHtml
 
             if (!prop) {
