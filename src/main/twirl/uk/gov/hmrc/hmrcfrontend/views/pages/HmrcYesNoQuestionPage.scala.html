@@ -1,0 +1,78 @@
+@*
+ * Copyright 2023 HM Revenue & Customs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *@
+
+@import uk.gov.hmrc.govukfrontend.views.html.components._
+@import uk.gov.hmrc.hmrcfrontend.views.html.helpers.HmrcStandardPage
+
+@this(
+  hmrcStandardPage: HmrcStandardPage,
+  formWithCSRF: FormWithCSRF,
+  govukErrorSummary: GovukErrorSummary,
+  govukRadios: GovukRadios,
+  govukButton: GovukButton
+)
+
+@(questionMessage: String, form: Form[_], action: Call, pageTitle: Option[String] = None, name: Option[String] = None, backLink: Option[BackLink] = None, submitMessage: Option[String] = None)(implicit request: Request[_], messages: Messages)
+
+@hmrcStandardPage(
+  pageTitle = pageTitle,
+  backLink = backLink
+) {
+  @defining(questionMessage.replaceAll("\\.", "-")) { kebabCaseQuestion =>
+    @defining(name.getOrElse(kebabCaseQuestion)) { questionName =>
+
+      @formWithCSRF(action, Symbol("id") -> s"$kebabCaseQuestion-form") {
+
+        @if(form.errors.nonEmpty) {
+          @govukErrorSummary(ErrorSummary().withFormErrorsAsText(form))
+        }
+
+        @govukRadios(Radios(
+          fieldset = Some(Fieldset(
+            legend = Some(Legend(
+              content = Text(messages(questionMessage)),
+              classes = "govuk-fieldset__legend--l",
+              isPageHeading = true
+            ))
+          )),
+          name = questionName,
+          items = Seq(
+            RadioItem(
+              id = Some("yes"),
+              content = Text(messages("yes-no-question.yes")),
+              value = Some("yes"),
+              checked = form(questionName).value.contains("yes")
+            ),
+            RadioItem(
+              id = Some("no"),
+              content = Text(messages("yes-no-question.no")),
+              value = Some("no"),
+              checked = form(questionName).value.contains("no")
+            )
+          ),
+          errorMessage = form(questionName).error.map(err => ErrorMessage(content = Text(messages(err.message, err.args:_*))))
+        ))
+
+        @govukButton(Button(
+          content = Text(messages(submitMessage.getOrElse("button.submit"))),
+          inputType = Some("submit"),
+          preventDoubleClick = Some(true),
+          attributes = Map("id" -> "submit")
+        ))
+      }
+    }
+  }
+}
