@@ -53,7 +53,7 @@ of implementing frontend microservices straightforward and idiomatic for Scala d
     ``` 
 
    If you have a dynamic service name you can skip this step and pass the
-   serviceName into `hmrcLayout` or `hmrcStandardHeader`.
+   serviceName into `hmrcStandardPage` or `hmrcStandardHeader`.
 
 1. Create a layout template for your pages using [HMRC layout](#hmrc-layout)
 
@@ -347,60 +347,69 @@ The following implicit conversions exist for a `String`:
 * `toLabel`
 * `toLegend`
 
-## Using the HMRC layout
-
-The [hmrcLayout](src/main/twirl/uk/gov/hmrc/hmrcfrontend/views/helpers/HmrcLayout.scala.html) helper
-generates a layout for your pages including the `hmrcStandardHeader`, `hmrcStandardFooter`, Welsh language
-toggle, and various banners.
+## Using the HMRC standard page template
+The [`HmrcStandardPage`](src/main/twirl/uk/gov/hmrc/hmrcfrontend/views/helpers/HmrcStandardPage.scala.html) helper
+generates a standard HMRC page layout including the `HmrcStandardHeader`, `HmrcStandardFooter`, Welsh language toggle, and various banners.
+This helper takes [`HmrcStandardPageParams`](src/main/scala/uk/gov/hmrc/hmrcfrontend/views/viewmodels/hmrcstandardpage/HmrcStandardPageParams.scala)
+which includes the following members:
+* [`ServiceURLs`](src/main/scala/uk/gov/hmrc/hmrcfrontend/views/viewmodels/hmrcstandardpage/ServiceURLs.scala) - containing service-specific URLs that will typically need setting once
+* [`Banners`](src/main/scala/uk/gov/hmrc/hmrcfrontend/views/viewmodels/hmrcstandardpage/Banners.scala) - containing details of which banners should be displayed
+* [`TemplateOverrides`](src/main/scala/uk/gov/hmrc/hmrcfrontend/views/viewmodels/hmrcstandardpage/TemplateOverrides.scala) - containing custom layout wrapper overrides or HTML to inject (perhaps set for the whole service, or on a page-by-page basis)
 
 To use this component,
 
-1. Create a layout template `Layout.scala.html` as follows:
+1. Create a custom layout template `Layout.scala.html` to suit your service's needs, for example:
 
-    ```scala 
-    @import uk.gov.hmrc.hmrcfrontend.views.html.helpers.HmrcLayout
-    @import uk.gov.hmrc.hmrcfrontend.views.config.StandardBetaBanner
-    @import views.html.helper.CSPNonce
-    @import config.AppConfig
-    @import uk.gov.hmrc.anyfrontend.controllers.routes
-    
-    @this(hmrcLayout: HmrcLayout, standardBetaBanner: StandardBetaBanner)
+```scala 
+@import uk.gov.hmrc.hmrcfrontend.views.config.StandardBetaBanner
+@import uk.gov.hmrc.hmrcfrontend.views.html.helpers.HmrcStandardPage
+@import uk.gov.hmrc.hmrcfrontend.views.viewmodels.layout._
+@import views.html.helper.CSPNonce
+@import config.AppConfig
+@import uk.gov.hmrc.anyfrontend.controllers.routes
 
-    @(pageTitle: String, appConfig: AppConfig)(contentBlock: Html)(implicit request: RequestHeader, messages: Messages)
+@this(hmrcStandardPage: HmrcStandardPage, standardBetaBanner: StandardBetaBanner)
 
-    @hmrcLayout(
-      pageTitle = Some(pageTitle),
-      isWelshTranslationAvailable = true, /* or false if your service has not been translated */
+@(pageTitle: String, appConfig: AppConfig)(contentBlock: Html)(implicit request: RequestHeader, messages: Messages)
+
+@hmrcStandardPage(
+  HmrcStandardPageParams(
+    serviceURLs = ServiceURLs(
       serviceUrl = Some(routes.IndexController.index().url),
-      signOutUrl = Some(routes.SignOutController.signOut().url),
-      phaseBanner = Some(standardBetaBanner(url = appConfig.betaFeedbackUrl)),
-      nonce = CSPNonce.get,
-    )(contentBlock)
-    ```
+      signOutUrl = Some(routes.SignOutController.signOut().url)
+    ),
+    banners = Banners(
+      phaseBanner = Some(standardBetaBanner(url = appConfig.betaFeedbackUrl))
+    ),
+    serviceName = serviceName,
+    pageTitle = pageTitle,
+    isWelshTranslationAvailable = true, /* or false if your service has not been translated */
+    cspNonce = CSPNonce.get
+  )(contentBlock)
+```
 
-   1. The parameters that can be passed into the `hmrcLayout` and their default values are as follows:
+The parameters that can be passed into the `hmrcStandardPage` are as follows:
 
-      | Parameter                     | Description                                                       | Example                                                   |
-      | ----------------------------- | ----------------------------------------------------------------- | --------------------------------------------------------- |
-      | `pageTitle`                   | This will be bound to govukLayout                                 |                                                           |
-      | `isWelshTranslationAvailable` | Setting to true will display the language toggle                  | `true`                                                      |
-      | `serviceUrl`                  | This will be bound to hmrcStandardHeader                          | `Some(routes.IndexController.index().url)`                 |
-      | `signOutUrl`                  | Passing a value will display the sign out link                    | `Some(routes.SignOutController.signOut().url)`             |
-      | `userResearchBannerUrl`       | Passing a value will display the user research banner             | `Some(UserResearchBanner(url = appConfig.userResearchUrl))` |
-      | `accessibilityStatementUrl`   | Passing a value will override the accessibility statement URL in the [footer](#accessibility-statement-links)                 ||
-      | `backLinkUrl`                 | Passing a value will display a back link                          | `Some(routes.ServiceController.start().url)`               |
-      | `backLink`                    | If you need to add custom attributes, pass a `BackLink` viewmodel instead | `Some(BackLink(href = ..., attributes = ...))`        |
-      | `displayHmrcBanner`           | Setting to true will display the [HMRC banner](https://design.tax.service.gov.uk/hmrc-design-patterns/hmrc-banner/)          ||
-      | `phaseBanner`                 | Passing a value will display alpha or beta banner.                | `Some(standardBetaBanner(url = appConfig.betaFeedbackUrl))` |
-      | `additionalHeadBlock`         | Passing a value will add additional content in the HEAD element   |                                                           |
-      | `additionalScriptsBlock`      | Passing a value will add additional scripts at the end of the BODY|                                                           |
-      | `beforeContentBlock`          | Passing a value will add content between the header and the main element. This content will override any `isWelshTranslationAvailable`, `backLink` or `backLinkUrl` parameter.||
-      | `nonce`                       | This will be bound to hmrcHead, hmrcScripts and govukTemplate     |                                                           |
-      | `mainContentLayout`           | Passing value will override the default two thirds layout         |                                                           |
-      | `serviceName`                 | Pass a value only if your service has a dynamic service name      |                                                           |
-      | `additionalBannersBlock`      | Pass extra html into the header, intended for custom banners.     | `Some(attorneyBanner)`                                     |
-      | `pageLayout`                  | Allow internal services to use a full width layout.               | `Some(fixedWidthPageLayout(_))`                             |
-      | `headerContainerClasses`      | Allow internal services to use a full width header.               | `"govuk-width-container"`                                  |
+      | Parameter                                  | Description                                                       | Example                                                     |
+      | ------------------------------------------ | ----------------------------------------------------------------- | ----------------------------------------------------------- | 
+      | `service.serviceUrl`                       | This will be bound to hmrcStandardHeader                          | `Some(routes.IndexController.index().url)`                  |
+      | `service.signOutUrl`                       | Passing a value will display the sign out link                    | `Some(routes.SignOutController.signOut().url)`              |
+      | `service.accessibilityStatementUrl`        | Passing a value will override the accessibility statement URL in the [footer](#accessibility-statement-links)                  ||
+      | `banners.displayHmrcBanner`                | Setting to true will display the [HMRC banner](https://design.tax.service.gov.uk/hmrc-design-patterns/hmrc-banner/)            ||
+      | `banners.phaseBanner`                      | Passing a value will display alpha or beta banner.                | `Some(standardBetaBanner())`                                |
+      | `banners.userResearchBanner`               | Passing a value will display the user research banner             | `Some(UserResearchBanner(url = appConfig.userResearchUrl))` |
+      | `banners.additionalBannersBlock`           | Pass extra html into the header, intended for custom banners.     | `Some(attorneyBanner)`                                      |
+      | `templateOverrides.additionalHeadBlock`    | Passing a value will add additional content in the HEAD element   |                                                             |
+      | `templateOverrides.additionalScriptsBlock` | Passing a value will add additional scripts at the end of the BODY|                                                             |
+      | `templateOverrides.beforeContentBlock`     | Passing a value will add content between the header and the main element. This content will override any `isWelshTranslationAvailable`, `backLink` or `backLinkUrl` parameter.||
+      | `templateOverrides.mainContentLayout`      | Passing value will override the default two thirds layout         |                                                             |
+      | `templateOverrides.pageLayout`             | Allow internal services to use a full width layout.               | `Some(fixedWidthPageLayout(_))`                             |
+      | `templateOverrides.headerContainerClasses` | Allow internal services to use a full width header.               | `"govuk-width-container"`                                   |
+      | `serviceName`                              | Pass a value only if your service has a dynamic service name      |                                                             |
+      | `pageTitle`                                | This will be bound to govukLayout                                 |                                                             |
+      | `isWelshTranslationAvailable`              | Setting to true will display the language toggle                  | `true`                                                      |
+      | `backLink`                                 | Passing a value will display a back link                          | `Some(BackLink(href = ..., attributes = ...))`              |
+      | `cspNonce`                                 | This will be bound to hmrcHead, hmrcScripts and govukTemplate     | CSPNonce.get                                                |
 
 ### FullWidthPageLayout should only be used by internal services
 
@@ -453,7 +462,7 @@ For example, how you could use HmrcPageHeadingLegend with govukRadios:
 
 ### Adding a sidebar to your Layout
 
-The `HmrcLayout` by default renders the main `contentBlock` of the page in
+The `HmrcStandardPage` by default renders the main `contentBlock` of the page in
 [two thirds width content](https://design-system.service.gov.uk/styles/layout/).
 
 However, if you wish to override the styling of the main content, you can do so by passing in an optional `mainContentLayout`
@@ -463,14 +472,15 @@ If you wish to create a layout with [two thirds, one third styling](https://desi
 (for example if your page has a sidebar), there is a helper `TwoThirdsOneThirdMainContent.scala.html` which can be used
 as follows:
 
-```html
-@import uk.gov.hmrc.hmrcfrontend.views.html.helpers.HmrcLayout
+```scala
 @import uk.gov.hmrc.govukfrontend.views.html.components.TwoThirdsOneThirdMainContent
+@import uk.gov.hmrc.hmrcfrontend.views.html.helpers.HmrcStandardPage
+@import uk.gov.hmrc.hmrcfrontend.views.viewmodels.hmrcstandardpage._
 @import views.html.helper.CSPNonce
 
-@this(
-    hmrcLayout: HmrcLayout,
-    twoThirdsOneThirdMainContent: TwoThirdsOneThirdMainContent
+@this (
+  hmrcStandardPage: HmrcStandardPage,
+  twoThirdsOneThirdMainContent: TwoThirdsOneThirdMainContent
 )
 
 @(pageTitle: String, isWelshTranslationAvailable: Boolean = true)(contentBlock: Html)(implicit request: RequestHeader, messages: Messages)
@@ -480,22 +490,23 @@ as follows:
   <p class="govuk-body">There is my sidebar content</p>
 }
 
-@hmrcLayout(
+@hmrcStandardPage(
+  banners = Banners(displayHmrcBanner = true),
+  templateOverrides = TemplateOverrides(
+    mainContentLayout = Some(twoThirdsOneThirdMainContent(sidebar))
+  ),
   pageTitle = Some(pageTitle),
-  nonce = CSPNonce.get,
   isWelshTranslationAvailable = isWelshTranslationAvailable,
-  displayHmrcBanner = true,
-  mainContentLayout = Some(twoThirdsOneThirdMainContent(sidebar))
+  cspNonce = CSPNonce.get
 )(contentBlock)
-
 ```
 
 Alternatively, you can declare any template and pass it through as a function or partially applied function that has the
 signature `Html => Html`.
 
-For example, you  can add a template `WithSidebarOnLeft.scala.html` as below:
+For example, you can add a template `WithSidebarOnLeft.scala.html` as below:
 
-```html
+```scala
 @this()
 
 @(sidebarContent: Html)(mainContent: Html)
@@ -517,8 +528,11 @@ You can then inject this into your `Layout.scala.html` and partially apply the f
 We provide example templates using the Twirl components through a `Chrome` extension. Please refer to the
 [extension’s github repository](https://github.com/hmrc/play-frontend-govuk-extension) for installation instructions.
 
-With the extension installed, you should be able to go to the [HMRC Design System](https://design.tax.service.gov.uk/hmrc-design-patterns/),
-click on a component on the sidebar and see the `Twirl` examples matching the provided `Nunjucks` templates.
+With the extension installed, you can go to the
+[GOVUK Design System components](https://design-system.service.gov.uk/components/)
+or
+[HMRC Design System patterns](https://design.tax.service.gov.uk/hmrc-design-patterns/)
+pages, click on a component on the sidebar and see the `Twirl` examples matching the provided `Nunjucks` templates.
 
 ### Find working examples
 
@@ -535,7 +549,7 @@ generates a link that allows users to report technical issues with your service.
 
 To configure this helper, add the following configuration to your `application.conf`
 
-```
+```hocon
 contact-frontend.serviceId = "<any-service-id>"
 ```
 
@@ -545,19 +559,21 @@ identifier that is specific to your service and unlikely to be used by any other
 or whitespace.
 
 The component should be added to the bottom of each page in your service. This can be done by defining a reusable block 
-in your layout template and passing into `hmrcLayout` or `govukLayout` in place of contentBlock:
+in your layout template and passing into `hmrcStandardPage` or `govukLayout` in place of contentBlock:
 
-    @content = {
-      @contentBlock
-      @hmrcReportTechnicalIssueHelper()
-    }
+```scala
+@content = {
+  @contentBlock
+  @hmrcReportTechnicalIssueHelper()
+}
+```
 
 ## Adding a beta feedback banner
 
 If you would like to add a banner to your service stating that your service is in beta, and providing a link to a feedback
 form, you can do so use the `StandardBetaBanner` viewmodel to construct a `PhaseBanner`, which is bound to a `GovukPhaseBanner` Twirl template.
 
-The `HmrcLayout`, `HmrcStandardHeader` and `HmrcStandardHeader` all have constructor methods that take in an optional 
+The `HmrcStandardPage`, `HmrcStandardHeader` and `HmrcStandardHeader` all have constructor methods that take in an optional 
 `PhaseBanner` and then bind to the appropriate template.
 
 For developers wanting to implement a beta feedback banner in your service, these steps should be followed:
@@ -573,33 +589,37 @@ URL parameters `referrerUrl` and `service`.
 As with [Helping users report technical issues](#helping-users-report-technical-issues), add the following to your 
 `application.conf`:
 
-```
+```hocon
 contact-frontend.serviceId = "<any-service-id>"
 ```
 
 You can then use the banner as per below (note the injected implicit `ContactFrontendConfig`):
 
-    ```scala 
-    @import uk.gov.hmrc.hmrcfrontend.views.html.helpers.HmrcLayout
-    @import uk.gov.hmrc.hmrcfrontend.views.config.StandardBetaBanner
-    @import views.html.helper.CSPNonce
-    @import config.AppConfig
-    @import uk.gov.hmrc.hmrcfrontend.config.ContactFrontendConfig
-    @import uk.gov.hmrc.anyfrontend.controllers.routes
-    
-    @this(hmrcLayout: HmrcLayout, standardBetaBanner: StandardBetaBanner)(implicit cfConfig: ContactFrontendConfig)
+```scala
+@import uk.gov.hmrc.hmrcfrontend.config.ContactFrontendConfig
+@import uk.gov.hmrc.hmrcfrontend.views.config.StandardBetaBanner
+@import uk.gov.hmrc.hmrcfrontend.views.html.helpers.HmrcStandardPage
+@import uk.gov.hmrc.hmrcfrontend.views.viewmodels.hmrcstandardpage._
+@import views.html.helper.CSPNonce
+@import config.AppConfig
+@import uk.gov.hmrc.anyfrontend.controllers.routes
 
-    @(pageTitle: String, appConfig: AppConfig)(contentBlock: Html)(implicit request: RequestHeader, messages: Messages)
+@this(hmrcStandardPage: HmrcStandardPage, standardBetaBanner: StandardBetaBanner)(implicit cfConfig: ContactFrontendConfig)
 
-    @hmrcLayout(
-      pageTitle = Some(pageTitle),
-      isWelshTranslationAvailable = true, /* or false if your service has not been translated */
-      serviceUrl = Some(routes.IndexController.index().url),
-      signOutUrl = Some(routes.SignOutController.signOut().url),
-      phaseBanner = Some(standardBetaBanner()),
-      nonce = CSPNonce.get,
-    )(contentBlock)
-    ```
+@(pageTitle: String, appConfig: AppConfig)(contentBlock: Html)(implicit request: RequestHeader, messages: Messages)
+
+@hmrcStandardPage(
+  serviceURLs = ServiceURLs(
+    serviceUrl = Some(routes.IndexController.index().url),
+    signOutUrl = Some(routes.SignOutController.signOut().url)
+  ),
+  banners = Banners(phaseBanner = Some(standardBetaBanner())),
+  pageTitle = Some(pageTitle),
+  isWelshTranslationAvailable = true, /* or false if your service has not been translated */
+  nonce = CSPNonce.get,
+)(contentBlock)
+```
+
 ## Adding a User Research Banner
 
 The User Research Banner is a component used to display a blue banner, containing link text inviting the service user to 
@@ -610,13 +630,15 @@ The banner contains hard coded content, available in English and Welsh, with tra
 Play `language` from an implicit `request`. It is not possible to change this content, as it has been provided by 
 Research Services, and needs to be consistent across tax.service.gov.uk. 
 
-If your service uses `HmrcLayout.scala.html`, you can add the `HmrcUserResearchBanner` as shown:
+If your service uses `HmrcStandardPage.scala.html`, you can add the `HmrcUserResearchBanner` as shown:
 
-    @hmrcLayout(
-      pageTitle = ...
-      ...
-      userResearchBannerUrl = Some("your-user-research-url-here")
-    )(contentBlock)
+```scala
+@hmrcStandardPage(
+  serviceURLs = ???,
+  banners = Banners(userResearchBanner = Some(UserResearchBanner(url = "your-user-research-url-here")))
+  pageTitle = ???
+)(contentBlock)
+```
 
 Research Services will tell you what URL to use for your service.
 
@@ -631,21 +653,23 @@ language for internationalization of the link text.
 
 It can be used as follows:
 
-    import uk.gov.hmrc.hmrcfrontend.views.html.helpers.HmrcNewTabLinkHelper
-    import uk.gov.hmrc.hmrcfrontend.views.viewmodels.newtablinkhelper.NewTabLinkHelper
+```scala
+import uk.gov.hmrc.hmrcfrontend.views.html.helpers.HmrcNewTabLinkHelper
+import uk.gov.hmrc.hmrcfrontend.views.viewmodels.newtablinkhelper.NewTabLinkHelper
 
-    @this(hmrcNewTabLinkHelper: HmrcNewTabLinkHelper)
-    @(linkText: String, linkHref: String)(implicit messages: Messages)
+@this(hmrcNewTabLinkHelper: HmrcNewTabLinkHelper)
+@(linkText: String, linkHref: String)(implicit messages: Messages)
 
-    @hmrcNewTabLinkHelper(NewTabLinkHelper(
-      text = linkText,
-      href = Some(linkHref)
-    ))
+@hmrcNewTabLinkHelper(NewTabLinkHelper(
+  text = linkText,
+  href = Some(linkHref)
+))
+```
 
 ## Accessibility statement links
 
 [hmrcStandardFooter](src/main/twirl/uk/gov/hmrc/hmrcfrontend/views/helpers/HmrcStandardFooter.scala.html),
-included as part of `hmrcLayout`, generates the standard GOV.UK footer including the standardised list of footer 
+included as part of `hmrcStandardPage`, generates the standard GOV.UK footer including the standardised list of footer 
 links for tax services.
 
 To configure this helper to link to the
@@ -656,7 +680,7 @@ accessibility statement under https://www.tax.service.gov.uk/accessibility-state
 For example, if your accessibility statement is https://www.tax.service.gov.uk/accessibility-statement/discounted-icecreams,
 this property must be set to `/discounted-icecreams` as follows:
 
-```
+```hocon
 accessibility-statement.service-path = "/discounted-icecreams"
 ```
 
@@ -699,7 +723,7 @@ there is a risk the user’s tracking preferences will not be honoured correctly
 Configure your service’s GTM container in `conf/application.conf`. For example, if you have been
 instructed to use GTM container `a`, the configuration would appear as:
 
-```
+```hocon
 tracking-consent-frontend {
   gtm.container = "a"
 }
@@ -738,7 +762,6 @@ helper, which will add the GTM snippet in the `<head>` block. It should be used 
   headBlock = Some(hmrcInternalHead(nonce = CSPNonce.get)),
   headerBlock = Some(hmrcInternalHeader(InternalHeader()))
 )(contentBlock)
-
 ```
 
 ## Warning users before timing them out
@@ -772,8 +795,8 @@ The instructions below assume you have set up play-frontend-hmrc as indicated ab
    timeout dialog.
 
 1. Update your layout template to pass in the `hmrcTimeoutDialogHelper` in the HEAD element, supplying the signOutUrl as
-   a parameter. For example if using `hmrcLayout`, pass `Some(hmrcTimeoutDialogHelper(signOutUrl = signOutUrl))` in the 
-   `additionalHeadBlock` parameter.
+   a parameter. For example if using `hmrcStandardPage`, pass `Some(hmrcTimeoutDialogHelper(signOutUrl = signOutUrl))` in the 
+   `templateOverrides.additionalHeadBlock` parameter.
 
 #### Synchronise session between tabs ####
 
@@ -828,26 +851,30 @@ If you are currently using [accessible-autocomplete](https://github.com/alphagov
 your components and routing by using the ones in this library.
 
 You will need to inject the CSS and Javascript into your views as follows:
-```
-@import uk.gov.hmrc.hmrcfrontend.views.html.helpers.HmrcLayout
+
+```scala
 @import uk.gov.hmrc.hmrcfrontend.views.html.helpers.HmrcAccessibleAutocompleteCss
 @import uk.gov.hmrc.hmrcfrontend.views.html.helpers.HmrcAccessibleAutocompleteJavascript
+@import uk.gov.hmrc.hmrcfrontend.views.html.helpers.HmrcStandardPage
+@import uk.gov.hmrc.hmrcfrontend.views.viewmodels.hmrcstandardpage._
 @import views.html.helper.CSPNonce
 
-@this(
-    hmrcLayout: HmrcLayout,
-    autcompleteCss: HmrcAccessibleAutocompleteCss,
-    autocompleteJavascript: HmrcAccessibleAutocompleteJavascript
+@this (
+  hmrcStandardPage: HmrcStandardPage,
+  autcompleteCss: HmrcAccessibleAutocompleteCss,
+  autocompleteJavascript: HmrcAccessibleAutocompleteJavascript
 )
 
 @(pageTitle: String, contentBlock: Html)(implicit request: RequestHeader, messages: Messages)
 
-@hmrcLayout(
+@hmrcStandardPage(
+  banners = Banners(displayHmrcBanner = true),
+  templateOverrides = TemplateOverrides(
+    additionalHeadBlock = Some(autocompleteCss(CSPNonce.get)),
+    additionalScriptsBlock = Some(autocompleteJavascript(CSPNonce.get))
+  ),
   pageTitle = Some(pageTitle),
-  additionalHeadBlock = Some(autocompleteCss(CSPNonce.get)),
-  nonce = CSPNonce.get,
-  displayHmrcBanner = true,
-  additionalScriptsBlock = Some(autocompleteJavascript(CSPNonce.get))
+  cspNonce = CSPNonce.get
 )(contentBlock)
 ```
 
@@ -976,7 +1003,7 @@ If you wish to override the default links you will need to have the below config
 
 One thing to note is that the `href` is built up from concatenating `host + href` values.
 
-```
+```hocon
 pta-account-menu {
   account-home = {
     host = ${pta-account-menu.pertax-frontend.host}
@@ -1007,7 +1034,7 @@ pta-account-menu {
 
 If you wish to override the pertax-frontend host value you can do so by setting the `pta-account-menu.pertax-frontend.host` value.
 
-```
+```hocon
 pta-account-menu {
   pertax-frontend.host = "http://pertax-frontend-host"
 }
@@ -1017,7 +1044,7 @@ NOTE: If you override the `platform.frontend.host` configuration value, it will 
 
 You may also wish to override the host per service value, this can be done by the below configuration.
 
-```
+```hocon
 pta-account-menu {
   messages.host             = "http://localhost:12346"
   account-home.host         = "http://localhost:12347"
@@ -1032,7 +1059,7 @@ pta-account-menu {
 To use the links from configuration you can use the helper method `withUrlsFromConfig()` on the `AccountMenu` instance. The configuration will need to be supplied implicitly 
 as seen in the example below.
 
-```
+```scala
 @this(
   hmrcAccountMenu: HmrcAccountMenu
 )(implicit accountMenuConfig: AccountMenuConfig)
@@ -1044,7 +1071,7 @@ as seen in the example below.
 
 To set the message count on the `AccountMessages` link, you can use the helper method `withMessagesCount` as below.
 
-```
+```scala
 @hmrcAccountMenu(
   AccountMenu().withMessagesCount(10)
 )

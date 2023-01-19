@@ -27,20 +27,21 @@ import play.api.i18n.{DefaultLangs, Lang, Messages}
 import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.mvc.MessagesRequest
 import play.api.test.FakeRequest
-import play.api.test.Helpers.{contentAsString, stubMessagesApi, _}
+import play.api.test.Helpers._
 import play.twirl.api.Html
 import uk.gov.hmrc.govukfrontend.views.Aliases.Text
 import uk.gov.hmrc.govukfrontend.views.html.components.{FullWidthPageLayout, GovukBackLink}
 import uk.gov.hmrc.govukfrontend.views.viewmodels.backlink.BackLink
 import uk.gov.hmrc.helpers.views.JsoupHelpers
 import uk.gov.hmrc.hmrcfrontend.config.AssetsConfig
+import uk.gov.hmrc.hmrcfrontend.views.Aliases.UserResearchBanner
 import uk.gov.hmrc.hmrcfrontend.views.config.StandardBetaBanner
-import uk.gov.hmrc.hmrcfrontend.views.html.helpers.HmrcLayout
-import uk.gov.hmrc.hmrcfrontend.views.viewmodels.hmrcstandardpage.TemplateOverrides
+import uk.gov.hmrc.hmrcfrontend.views.html.helpers.HmrcStandardPage
+import uk.gov.hmrc.hmrcfrontend.views.viewmodels.hmrcstandardpage._
 
 import scala.annotation.tailrec
 
-class hmrcLayoutSpec extends AnyWordSpecLike with Matchers with JsoupHelpers with GuiceOneAppPerSuite {
+class hmrcStandardPageSpec extends AnyWordSpecLike with Matchers with JsoupHelpers with GuiceOneAppPerSuite {
 
   override def fakeApplication(): Application =
     new GuiceApplicationBuilder()
@@ -60,46 +61,48 @@ class hmrcLayoutSpec extends AnyWordSpecLike with Matchers with JsoupHelpers wit
       filterElements(elements.nextAll(), func, updatedList)
     }
 
-  implicit val fakeRequest = FakeRequest("GET", "/foo")
+  implicit val fakeRequest: FakeRequest[_] = FakeRequest("GET", "/foo")
 
-  val messages = Map(
+  private val messages = Map(
     "cy" -> Map("back.text" -> "Back Welsh"),
     "en" -> Map("back.text" -> "Back English")
   )
 
-  def getMessages(lang: Lang = Lang("en")): Messages = {
+  private def getMessages(lang: Lang = Lang("en")): Messages = {
     val messagesApi = stubMessagesApi(messages, new DefaultLangs(Seq(lang)))
     new MessagesRequest(FakeRequest(), messagesApi).messages
   }
 
-  val defaultHmrcLayout: Html = {
-    val hmrcLayout = app.injector.instanceOf[HmrcLayout]
-    val messages   = getMessages()
-    hmrcLayout()(Html("Some main content"))(fakeRequest, messages)
-  }
+  implicit val defaultMessages: Messages = getMessages()
 
-  "HmrcLayout" should {
+  private val hmrcStandardPage = app.injector.instanceOf[HmrcStandardPage]
+
+  private val defaultHmrcStandardPage: Html =
+    hmrcStandardPage(HmrcStandardPageParams())(Html("Some main content"))
+
+  "HmrcStandardPage" should {
 
     "render a standard template when passed only content HTML" in {
-      val document = Jsoup.parse(contentAsString(defaultHmrcLayout))
+      val document = Jsoup.parse(contentAsString(defaultHmrcStandardPage))
 
       val template = document.select(".govuk-template")
       template should have size 1
     }
 
     "not bind a service title by default" in {
-      val document = Jsoup.parse(contentAsString(defaultHmrcLayout))
+      val document = Jsoup.parse(contentAsString(defaultHmrcStandardPage))
 
       val serviceNameLink = document.select(".hmrc-header__service-name")
       serviceNameLink should have size 0
     }
 
-    "bind a service title when passed in" in {
-      val hmrcLayout = app.injector.instanceOf[HmrcLayout]
-      val messages   = getMessages()
-      val content    =
-        contentAsString(hmrcLayout(serviceName = Some("My Service Name"))(Html(""))(fakeRequest, messages))
-      val document   = Jsoup.parse(content)
+    "bind a service name when passed in" in {
+      val content  = contentAsString(
+        hmrcStandardPage(HmrcStandardPageParams(serviceName = Some("My Service Name")))(
+          Html("")
+        )
+      )
+      val document = Jsoup.parse(content)
 
       val serviceNameLink = document.select(".hmrc-header__service-name")
       serviceNameLink          should have size 1
@@ -107,39 +110,35 @@ class hmrcLayoutSpec extends AnyWordSpecLike with Matchers with JsoupHelpers wit
     }
 
     "use a default title when none is passed" in {
-      val document = Jsoup.parse(contentAsString(defaultHmrcLayout))
+      val document = Jsoup.parse(contentAsString(defaultHmrcStandardPage))
 
       document.title() shouldBe "GOV.UK - The best place to find government services and information"
     }
 
     "bind a page title when passed" in {
-      val hmrcLayout = app.injector.instanceOf[HmrcLayout]
-      val messages   = getMessages()
-      val layout     = hmrcLayout(pageTitle = Some("My Page Title"))(Html(""))(fakeRequest, messages)
-      val document   = Jsoup.parse(contentAsString(layout))
+      val page     = hmrcStandardPage(HmrcStandardPageParams(pageTitle = Some("My Page Title")))(Html(""))
+      val document = Jsoup.parse(contentAsString(page))
 
       document.title() shouldBe "My Page Title"
     }
 
     "not include the language toggle by default" in {
-      val document = Jsoup.parse(contentAsString(defaultHmrcLayout))
+      val document = Jsoup.parse(contentAsString(defaultHmrcStandardPage))
 
       val languageSelect = document.select(".hmrc-language-select")
       languageSelect should have size 0
     }
 
     "include the language toggle if Welsh translations flagged as available" in {
-      val hmrcLayout = app.injector.instanceOf[HmrcLayout]
-      val messages   = getMessages()
-      val layout     = hmrcLayout(isWelshTranslationAvailable = true)(Html(""))(fakeRequest, messages)
-      val document   = Jsoup.parse(contentAsString(layout))
+      val page     = hmrcStandardPage(HmrcStandardPageParams(isWelshTranslationAvailable = true))(Html(""))
+      val document = Jsoup.parse(contentAsString(page))
 
       val languageSelect = document.select(".hmrc-language-select")
       languageSelect should have size 1
     }
 
     "include a scripts block without a nonce by default" in {
-      val document = Jsoup.parse(contentAsString(defaultHmrcLayout))
+      val document = Jsoup.parse(contentAsString(defaultHmrcStandardPage))
 
       val scripts = document.select("script")
       scripts.last().hasAttr("src")   shouldBe true
@@ -147,10 +146,8 @@ class hmrcLayoutSpec extends AnyWordSpecLike with Matchers with JsoupHelpers wit
     }
 
     "include a scripts block with a nonce if passed" in {
-      val hmrcLayout = app.injector.instanceOf[HmrcLayout]
-      val messages   = getMessages()
-      val layout     = hmrcLayout(nonce = Some("my-nonce"))(Html(""))(fakeRequest, messages)
-      val document   = Jsoup.parse(contentAsString(layout))
+      val page     = hmrcStandardPage(HmrcStandardPageParams(cspNonce = Some("my-nonce")))(Html(""))
+      val document = Jsoup.parse(contentAsString(page))
 
       val scripts = document.select("script")
       scripts.last().hasAttr("src") shouldBe true
@@ -158,28 +155,26 @@ class hmrcLayoutSpec extends AnyWordSpecLike with Matchers with JsoupHelpers wit
     }
 
     "pass the nonce to govukLayout if provided" in {
-      val hmrcLayout = app.injector.instanceOf[HmrcLayout]
-      val messages   = getMessages()
-      val layout     = hmrcLayout(nonce = Some("a-nonce"))(Html(""))(fakeRequest, messages)
-      val document   = Jsoup.parse(contentAsString(layout))
+      val page     = hmrcStandardPage(HmrcStandardPageParams(cspNonce = Some("a-nonce")))(Html(""))
+      val document = Jsoup.parse(contentAsString(page))
 
       val scripts = document.select("script")
       scripts.first.attr("nonce") shouldBe "a-nonce"
     }
 
     "not include signOutUrl in the header by default" in {
-      val document = Jsoup.parse(contentAsString(defaultHmrcLayout))
+      val document = Jsoup.parse(contentAsString(defaultHmrcStandardPage))
 
-      val signoutLink = document.select(".hmrc-sign-out-nav__link")
-      signoutLink should have size 0
+      val signOutLink = document.select(".hmrc-sign-out-nav__link")
+      signOutLink should have size 0
     }
 
     "include signOutUrl in the header if passed" in {
-      val hmrcLayout = app.injector.instanceOf[HmrcLayout]
-      val messages   = getMessages()
-      val layout     =
-        hmrcLayout(signOutUrl = Some("my-signOut-route"))(Html(""))(fakeRequest, messages)
-      val document   = Jsoup.parse(contentAsString(layout))
+      val page     =
+        hmrcStandardPage(HmrcStandardPageParams(serviceURLs = ServiceURLs(signOutUrl = Some("my-signOut-route"))))(
+          Html("")
+        )
+      val document = Jsoup.parse(contentAsString(page))
 
       val signOutLink = document.select(".hmrc-sign-out-nav__link")
       signOutLink                should have size 1
@@ -187,17 +182,15 @@ class hmrcLayoutSpec extends AnyWordSpecLike with Matchers with JsoupHelpers wit
     }
 
     "not include a service url by default" in {
-      val document = Jsoup.parse(contentAsString(defaultHmrcLayout))
+      val document = Jsoup.parse(contentAsString(defaultHmrcStandardPage))
 
       val homepageLink = document.select(".hmrc-header__service-name")
       homepageLink should have size 0
     }
 
     "include empty string for service url if passed a service name" in {
-      val hmrcLayout = app.injector.instanceOf[HmrcLayout]
-      val messages   = getMessages()
-      val layout     = hmrcLayout(serviceName = Some("My Service"))(Html(""))(fakeRequest, messages)
-      val document   = Jsoup.parse(contentAsString(layout))
+      val page     = hmrcStandardPage(HmrcStandardPageParams(serviceName = Some("My Service")))(Html(""))
+      val document = Jsoup.parse(contentAsString(page))
 
       val homepageLink = document.select(".hmrc-header__service-name")
       homepageLink                should have size 1
@@ -205,13 +198,15 @@ class hmrcLayoutSpec extends AnyWordSpecLike with Matchers with JsoupHelpers wit
     }
 
     "include serviceUrl in the header if passed with a service name" in {
-      val hmrcLayout = app.injector.instanceOf[HmrcLayout]
-      val messages   = getMessages()
-      val layout     = hmrcLayout(
-        serviceName = Some("My Service"),
-        serviceUrl = Some("my-homepage-route")
-      )(Html(""))(fakeRequest, messages)
-      val document   = Jsoup.parse(contentAsString(layout))
+      val page     = hmrcStandardPage(
+        HmrcStandardPageParams(
+          serviceURLs = ServiceURLs(
+            serviceUrl = Some("my-homepage-route")
+          ),
+          serviceName = Some("My Service")
+        )
+      )(Html(""))
+      val document = Jsoup.parse(contentAsString(page))
 
       val homepageLink = document.select(".hmrc-header__service-name")
       homepageLink                should have size 1
@@ -220,21 +215,20 @@ class hmrcLayoutSpec extends AnyWordSpecLike with Matchers with JsoupHelpers wit
     }
 
     "not include a user research banner by default" in {
-      val document = Jsoup.parse(contentAsString(defaultHmrcLayout))
+      val document = Jsoup.parse(contentAsString(defaultHmrcStandardPage))
 
       val hmrcBanner = document.select(".hmrc-user-research-banner")
       hmrcBanner should have size 0
     }
 
-    "display a user research banner when passed a URL" in {
-      val hmrcLayout = app.injector.instanceOf[HmrcLayout]
-      val messages   = getMessages()
-      val document   = Jsoup.parse(
+    "display a user research banner when passed" in {
+      val document = Jsoup.parse(
         contentAsString(
-          hmrcLayout(userResearchBannerUrl = Some("my-research-route"))(Html(""))(
-            fakeRequest,
-            messages
-          )
+          hmrcStandardPage(
+            HmrcStandardPageParams(banners =
+              Banners(userResearchBanner = Some(UserResearchBanner(url = "my-research-route")))
+            )
+          )(Html(""))
         )
       )
 
@@ -244,19 +238,18 @@ class hmrcLayoutSpec extends AnyWordSpecLike with Matchers with JsoupHelpers wit
     }
 
     "not include a phase banner by default" in {
-      val document = Jsoup.parse(contentAsString(defaultHmrcLayout))
+      val document = Jsoup.parse(contentAsString(defaultHmrcStandardPage))
 
       val banner = document.select(".govuk-phase-banner")
       banner should have size 0
     }
 
     "include a phase banner when passed a URL" in {
-      val hmrcLayout         = app.injector.instanceOf[HmrcLayout]
       val standardBetaBanner = app.injector.instanceOf[StandardBetaBanner]
-      val messages           = getMessages()
-      val betaBanner         = standardBetaBanner(url = "my-beta-phase-url")(messages)
-      val content            = hmrcLayout(phaseBanner = Some(betaBanner))(Html(""))(fakeRequest, messages)
-      val document           = Jsoup.parse(contentAsString(content))
+      val betaBanner         = standardBetaBanner(url = "my-beta-phase-url")
+      val page               =
+        hmrcStandardPage(HmrcStandardPageParams(banners = Banners(phaseBanner = Some(betaBanner))))(Html(""))
+      val document           = Jsoup.parse(contentAsString(page))
 
       val banner = document.select(".govuk-phase-banner")
       banner                                              should have size 1
@@ -264,17 +257,17 @@ class hmrcLayoutSpec extends AnyWordSpecLike with Matchers with JsoupHelpers wit
     }
 
     "use accessibility statement URL in footer if passed" in {
-      val hmrcLayout = app.injector.instanceOf[HmrcLayout]
-      val messages   = getMessages()
-      val content    = hmrcLayout(accessibilityStatementUrl = Some("some-custom-url"))(Html(""))(fakeRequest, messages)
-      val document   = Jsoup.parse(contentAsString(content))
+      val page     = hmrcStandardPage(
+        HmrcStandardPageParams(serviceURLs = ServiceURLs(accessibilityStatementUrl = Some("some-custom-url")))
+      )(Html(""))
+      val document = Jsoup.parse(contentAsString(page))
 
       val footerLinks: Elements = document.select(".govuk-footer__link")
       footerLinks.select("a[href=\"some-custom-url\"]").text() should be("footer.accessibility.text")
     }
 
     "construct accessibility statement URL using config path in footer if none passed explicitly" in {
-      val document = Jsoup.parse(contentAsString(defaultHmrcLayout))
+      val document = Jsoup.parse(contentAsString(defaultHmrcStandardPage))
 
       val footerLinks: Elements = document.select(".govuk-footer__link")
       footerLinks
@@ -283,7 +276,7 @@ class hmrcLayoutSpec extends AnyWordSpecLike with Matchers with JsoupHelpers wit
     }
 
     "use default govukTemplate content layout by default" in {
-      val document = Jsoup.parse(contentAsString(defaultHmrcLayout))
+      val document = Jsoup.parse(contentAsString(defaultHmrcStandardPage))
 
       val mainContent = document.getElementById("main-content")
       mainContent.childrenSize() shouldBe 1
@@ -302,12 +295,12 @@ class hmrcLayoutSpec extends AnyWordSpecLike with Matchers with JsoupHelpers wit
         Html("<div class=\"my-custom-styling\">" + html.toString() + "</div>")
       }
 
-      val hmrcLayout = app.injector.instanceOf[HmrcLayout]
-      val messages   = getMessages()
-      val content    = contentAsString(
-        hmrcLayout(mainContentLayout = Some(customMainLayout))(Html("Some main content"))(fakeRequest, messages)
+      val content  = contentAsString(
+        hmrcStandardPage(
+          HmrcStandardPageParams(templateOverrides = TemplateOverrides(mainContentLayout = Some(customMainLayout)))
+        )(Html("Some main content"))
       )
-      val document   = Jsoup.parse(content)
+      val document = Jsoup.parse(content)
 
       val mainContent = document.getElementById("main-content")
       mainContent.childrenSize() shouldBe 1
@@ -319,24 +312,24 @@ class hmrcLayoutSpec extends AnyWordSpecLike with Matchers with JsoupHelpers wit
     }
 
     "not display a HMRC banner by default" in {
-      val document = Jsoup.parse(contentAsString(defaultHmrcLayout))
+      val document = Jsoup.parse(contentAsString(defaultHmrcStandardPage))
 
       val hmrcBanner = document.select(".hmrc-banner")
       hmrcBanner should have size 0
     }
 
     "display a HMRC banner when flagged on" in {
-      val hmrcLayout = app.injector.instanceOf[HmrcLayout]
-      val messages   = getMessages()
-      val content    = contentAsString(hmrcLayout(displayHmrcBanner = true)(Html(""))(fakeRequest, messages))
-      val document   = Jsoup.parse(content)
+      val content  = contentAsString(
+        hmrcStandardPage(HmrcStandardPageParams(banners = Banners(displayHmrcBanner = true)))(Html(""))
+      )
+      val document = Jsoup.parse(content)
 
       val hmrcBanner = document.select(".hmrc-banner")
       hmrcBanner should have size 1
     }
 
     "use default hmrcScripts if no scripts passed" in {
-      val document = Jsoup.parse(contentAsString(defaultHmrcLayout))
+      val document = Jsoup.parse(contentAsString(defaultHmrcStandardPage))
 
       val scripts            = document.select("script")
       val scriptsWithSrcAttr = filterElements(scripts, elem => elem.hasAttr("src"), List.empty)
@@ -344,12 +337,13 @@ class hmrcLayoutSpec extends AnyWordSpecLike with Matchers with JsoupHelpers wit
     }
 
     "use custom additional scripts if passed" in {
-      val hmrcLayout         = app.injector.instanceOf[HmrcLayout]
       val assetsConfig       = app.injector.instanceOf[AssetsConfig]
-      val messages           = getMessages()
       val scriptsHtml        = Html("<script src=\"my-custom-script\"></script>")
-      val content            =
-        contentAsString(hmrcLayout(additionalScriptsBlock = Some(scriptsHtml))(Html(""))(fakeRequest, messages))
+      val content            = contentAsString(
+        hmrcStandardPage(
+          HmrcStandardPageParams(templateOverrides = TemplateOverrides(additionalScriptsBlock = Some(scriptsHtml)))
+        )(Html(""))
+      )
       val document: Document = Jsoup.parse(content)
 
       val scriptsWithSrcAttr = filterElements(document.select("script"), _.hasAttr("src"), List.empty)
@@ -359,11 +353,12 @@ class hmrcLayoutSpec extends AnyWordSpecLike with Matchers with JsoupHelpers wit
     }
 
     "use custom additional head content if passed" in {
-      val hmrcLayout         = app.injector.instanceOf[HmrcLayout]
-      val messages           = getMessages()
       val additionalHeadHtml = Html("<script src=\"my-additional-head-script\"></script>")
-      val content            =
-        contentAsString(hmrcLayout(additionalHeadBlock = Some(additionalHeadHtml))(Html(""))(fakeRequest, messages))
+      val content            = contentAsString(
+        hmrcStandardPage(
+          HmrcStandardPageParams(templateOverrides = TemplateOverrides(additionalHeadBlock = Some(additionalHeadHtml)))
+        )(Html(""))
+      )
       val document: Document = Jsoup.parse(content)
 
       val head = document.select("head")
@@ -371,12 +366,14 @@ class hmrcLayoutSpec extends AnyWordSpecLike with Matchers with JsoupHelpers wit
     }
 
     "use custom beforeContent if passed" in {
-      val hmrcLayout         = app.injector.instanceOf[HmrcLayout]
       val backLink           = app.injector.instanceOf[GovukBackLink]
-      val messages           = getMessages()
       val backLinkHtml       = backLink(BackLink(href = "#"))
       val content            =
-        contentAsString(hmrcLayout(beforeContentBlock = Some(backLinkHtml))(Html(""))(fakeRequest, messages))
+        contentAsString(
+          hmrcStandardPage(
+            HmrcStandardPageParams(templateOverrides = TemplateOverrides(beforeContentBlock = Some(backLinkHtml)))
+          )(Html(""))
+        )
       val document: Document = Jsoup.parse(content)
 
       val afterHeader = document.select("header ~ div")
@@ -387,15 +384,17 @@ class hmrcLayoutSpec extends AnyWordSpecLike with Matchers with JsoupHelpers wit
     }
 
     "not use backLink or language toggle if custom beforeContent is passed" in {
-      val hmrcLayout         = app.injector.instanceOf[HmrcLayout]
-      val messages           = getMessages()
       val content            =
         contentAsString(
-          hmrcLayout(
-            isWelshTranslationAvailable = true,
-            backLinkUrl = Some("#"),
-            beforeContentBlock = Some(Html("<div class=\"some-before-class\">Some content</div>"))
-          )(Html(""))(fakeRequest, messages)
+          hmrcStandardPage(
+            HmrcStandardPageParams(
+              templateOverrides = TemplateOverrides(
+                beforeContentBlock = Some(Html("<div class=\"some-before-class\">Some content</div>"))
+              ),
+              isWelshTranslationAvailable = true,
+              backLink = Some(BackLink(href = "#"))
+            )
+          )(Html(""))
         )
       val document: Document = Jsoup.parse(content)
 
@@ -410,44 +409,18 @@ class hmrcLayoutSpec extends AnyWordSpecLike with Matchers with JsoupHelpers wit
     }
 
     "not include a back link by default" in {
-      val document = Jsoup.parse(contentAsString(defaultHmrcLayout))
+      val document = Jsoup.parse(contentAsString(defaultHmrcStandardPage))
 
       val backLink = document.select(".govuk-back-link")
       backLink should have size 0
     }
 
-    "include the back link if passed a url" in {
-      val hmrcLayout = app.injector.instanceOf[HmrcLayout]
-      val messages   = getMessages()
-      val layout     = hmrcLayout(backLinkUrl = Some("my-back-link"))(Html(""))(fakeRequest, messages)
-      val document   = Jsoup.parse(contentAsString(layout))
-
-      val backLink = document.select(".govuk-back-link")
-      backLink                should have size 1
-      backLink.attr("href") shouldBe "my-back-link"
-      backLink.html()       shouldBe "Back English"
-    }
-
-    "correctly translate the back link based on language in messages" in {
-      val hmrcLayout = app.injector.instanceOf[HmrcLayout]
-      val messages   = getMessages(Lang("cy"))
-      val layout     = hmrcLayout(backLinkUrl = Some("my-back-link"))(Html(""))(fakeRequest, messages)
-      val document   = Jsoup.parse(contentAsString(layout))
-
-      val backLink = document.select(".govuk-back-link")
-      backLink                should have size 1
-      backLink.attr("href") shouldBe "my-back-link"
-      backLink.html()       shouldBe "Back Welsh"
-    }
-
     "include the back link if passed a BackLink" in {
-      val hmrcLayout     = app.injector.instanceOf[HmrcLayout]
-      val messages       = getMessages()
       val customBackLink = BackLink("/some/url", "custom-class", Map("some" -> "attribute"), Text("Custom Back"))
-      val layout         = hmrcLayout(backLink = Some(customBackLink))(
+      val page           = hmrcStandardPage(HmrcStandardPageParams(backLink = Some(customBackLink)))(
         Html("")
-      )(fakeRequest, messages)
-      val document       = Jsoup.parse(contentAsString(layout))
+      )
+      val document       = Jsoup.parse(contentAsString(page))
 
       val actualBackLink = document.select(".govuk-back-link")
       actualBackLink                            should have size 1
@@ -457,13 +430,28 @@ class hmrcLayoutSpec extends AnyWordSpecLike with Matchers with JsoupHelpers wit
       actualBackLink.html()                   shouldBe "Custom Back"
     }
 
+    "correctly translate the back link based on language in messages" in {
+      val messages           = getMessages(Lang("cy"))
+      val page               =
+        hmrcStandardPage(
+          HmrcStandardPageParams(backLink = Some(BackLink.withDefaultText(href = "my-back-link")(messages)))
+        )(
+          Html("")
+        )(fakeRequest, messages)
+      val document: Document = Jsoup.parse(contentAsString(page))
+
+      val backLink = document.select(".govuk-back-link")
+      backLink                should have size 1
+      backLink.attr("href") shouldBe "my-back-link"
+      backLink.html()       shouldBe "Back Welsh"
+    }
+
     "add attributes to activate the JavaScript browser back in hmrc-frontend" in {
-      val hmrcLayout                  = app.injector.instanceOf[HmrcLayout]
-      implicit val messages: Messages = getMessages()
-      val layout                      = hmrcLayout(backLink = Some(BackLink.mimicsBrowserBackButtonViaJavaScript))(
-        Html("")
-      )(fakeRequest, messages)
-      val document                    = Jsoup.parse(contentAsString(layout))
+      val page     =
+        hmrcStandardPage(HmrcStandardPageParams(backLink = Some(BackLink.mimicsBrowserBackButtonViaJavaScript)))(
+          Html("")
+        )
+      val document = Jsoup.parse(contentAsString(page))
 
       val actualBackLink = document.select(".govuk-back-link")
       actualBackLink                       should have size 1
@@ -472,28 +460,19 @@ class hmrcLayoutSpec extends AnyWordSpecLike with Matchers with JsoupHelpers wit
       actualBackLink.html()              shouldBe "Back English"
     }
 
-    "throw an exception if both backLink and backLinkUrl are provided" in {
-      val hmrcLayout = app.injector.instanceOf[HmrcLayout]
-      val messages   = getMessages()
-      the[IllegalArgumentException] thrownBy hmrcLayout(
-        backLinkUrl = Some("/url"),
-        backLink = Some(BackLink())
-      )(
-        Html("")
-      )(fakeRequest, messages) should have message "requirement failed: Use backLink or backLinkUrl, but not both"
-    }
-
     "allow overriding of the default page layout" in {
-      val hmrcLayout          = app.injector.instanceOf[HmrcLayout]
       val fullWidthPageLayout = app.injector.instanceOf[FullWidthPageLayout]
-      val messages            = getMessages(Lang("en"))
-      val layout              = hmrcLayout(
-        pageLayout = Some(fullWidthPageLayout(_)),
-        beforeContentBlock = Some(Html("beforeContentBlock")),
-        mainContentLayout = Some(TemplateOverrides.noMainContentLayout)
-      )(Html("contentBlock"))(fakeRequest, messages)
+      val page                = hmrcStandardPage(
+        HmrcStandardPageParams(templateOverrides =
+          TemplateOverrides(
+            pageLayout = Some(fullWidthPageLayout(_)),
+            beforeContentBlock = Some(Html("beforeContentBlock")),
+            mainContentLayout = Some(TemplateOverrides.noMainContentLayout)
+          )
+        )
+      )(Html("contentBlock"))
 
-      val document = Jsoup.parse(contentAsString(layout))
+      val document = Jsoup.parse(contentAsString(page))
       document.select("body > .govuk-width-container > main") should have size 0
       document.html()                                         should include("beforeContentBlock")
       val mainElement = document.select("body > main")
