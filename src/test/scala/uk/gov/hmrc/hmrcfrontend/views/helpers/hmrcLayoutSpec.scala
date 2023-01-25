@@ -25,7 +25,9 @@ import org.scalatestplus.play.guice.GuiceOneAppPerSuite
 import play.api.Application
 import play.api.i18n.{DefaultLangs, Lang, Messages}
 import play.api.inject.guice.GuiceApplicationBuilder
+import play.api.libs.typedmap.TypedMap
 import play.api.mvc.MessagesRequest
+import play.api.mvc.request.RequestAttrKey
 import play.api.test.FakeRequest
 import play.api.test.Helpers.{contentAsString, stubMessagesApi, _}
 import play.twirl.api.Html
@@ -60,7 +62,8 @@ class hmrcLayoutSpec extends AnyWordSpecLike with Matchers with JsoupHelpers wit
       filterElements(elements.nextAll(), func, updatedList)
     }
 
-  implicit val fakeRequest = FakeRequest("GET", "/foo")
+  implicit val fakeRequest: FakeRequest[_] = FakeRequest("GET", "/foo")
+  val requestWithNonce: FakeRequest[_]     = fakeRequest.withAttrs(TypedMap(RequestAttrKey.CSPNonce -> "a-nonce"))
 
   val messages = Map(
     "cy" -> Map("back.text" -> "Back Welsh"),
@@ -149,18 +152,18 @@ class hmrcLayoutSpec extends AnyWordSpecLike with Matchers with JsoupHelpers wit
     "include a scripts block with a nonce if passed" in {
       val hmrcLayout = app.injector.instanceOf[HmrcLayout]
       val messages   = getMessages()
-      val layout     = hmrcLayout(nonce = Some("my-nonce"))(Html(""))(fakeRequest, messages)
+      val layout     = hmrcLayout()(Html(""))(requestWithNonce, messages)
       val document   = Jsoup.parse(contentAsString(layout))
 
       val scripts = document.select("script")
       scripts.last().hasAttr("src") shouldBe true
-      scripts.last().attr("nonce")  shouldBe "my-nonce"
+      scripts.last().attr("nonce")  shouldBe "a-nonce"
     }
 
     "pass the nonce to govukLayout if provided" in {
       val hmrcLayout = app.injector.instanceOf[HmrcLayout]
       val messages   = getMessages()
-      val layout     = hmrcLayout(nonce = Some("a-nonce"))(Html(""))(fakeRequest, messages)
+      val layout     = hmrcLayout()(Html(""))(requestWithNonce, messages)
       val document   = Jsoup.parse(contentAsString(layout))
 
       val scripts = document.select("script")

@@ -19,7 +19,8 @@ package uk.gov.hmrc.hmrcfrontend.views.helpers
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpecLike
 import org.scalatestplus.play.guice.GuiceOneAppPerSuite
-import play.api.mvc.AnyContentAsEmpty
+import play.api.libs.typedmap.TypedMap
+import play.api.mvc.request.RequestAttrKey
 import play.api.test.FakeRequest
 import play.api.test.Helpers.{contentAsString, _}
 import play.twirl.api.Html
@@ -34,7 +35,8 @@ class hmrcInternalHeadSpec
     with JsoupHelpers
     with MessagesSupport {
 
-  implicit val request: FakeRequest[AnyContentAsEmpty.type] = FakeRequest("GET", "/foo")
+  implicit val request: FakeRequest[_] = FakeRequest("GET", "/foo")
+  val requestWithNonce: FakeRequest[_] = request.withAttrs(TypedMap(RequestAttrKey.CSPNonce -> "a-nonce"))
 
   "HmrcInternalHead" should {
     "include the internal GTM script tag" in {
@@ -47,7 +49,7 @@ class hmrcInternalHeadSpec
 
     "include a nonce in each script tag if supplied" in {
       val hmrcInternalHead = app.injector.instanceOf[HmrcInternalHead]
-      val content          = hmrcInternalHead(nonce = Some("a-nonce"))
+      val content          = hmrcInternalHead()(requestWithNonce, implicitly)
 
       val scripts = content.select("script#hmrc-internal-gtm-script-tag")
       scripts                     should have size 1
@@ -57,11 +59,11 @@ class hmrcInternalHeadSpec
     "include a nonce in the IE9+ link tag if supplied" in {
       val hmrcInternalHead = app.injector.instanceOf[HmrcInternalHead]
       hmrcfrontend.RoutesPrefix.setPrefix("/some-service/hmrc-frontend")
-      val content          = contentAsString(hmrcInternalHead(nonce = Some("a-nonce")))
+      val content          = contentAsString(hmrcInternalHead()(requestWithNonce, implicitly))
 
       content should include regex
         """<!--\[if gt IE 8\]><!-->
-          |<link href="/some-service/hmrc-frontend/assets/hmrc-frontend-\d+.\d+.\d+.min.css" media="all" rel="stylesheet" type="text/css" nonce="a-nonce" />
+          |<link href="/some-service/hmrc-frontend/assets/hmrc-frontend-\d+.\d+.\d+.min.css" nonce="a-nonce" media="all" rel="stylesheet" type="text/css" />
           |<!--<!\[endif\]-->""".stripMargin.r
     }
 
@@ -72,7 +74,7 @@ class hmrcInternalHeadSpec
 
       content should include regex
         """<!--\[if gt IE 8\]><!-->
-          |<link href="/some-service/hmrc-frontend/assets/hmrc-frontend-\d+.\d+.\d+.min.css" media="all" rel="stylesheet" type="text/css" />
+          |<link href="/some-service/hmrc-frontend/assets/hmrc-frontend-\d+.\d+.\d+.min.css"  +media="all" rel="stylesheet" type="text/css" />
           |<!--<!\[endif\]-->""".stripMargin.r
     }
 

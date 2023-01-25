@@ -64,13 +64,12 @@
 
 @govukLayout(
     pageTitle = pageTitle,
-    headBlock = Some(hmrcHead(nonce = cspNonce, headBlock = templateOverrides.additionalHeadBlock)),
+    headBlock = Some(hmrcHead(headBlock = templateOverrides.additionalHeadBlock)),
     headerBlock = Some(headerBlock),
-    scriptsBlock = Some(hmrcScripts(nonce = cspNonce, scriptsBlock = templateOverrides.additionalScriptsBlock)),
+    scriptsBlock = Some(hmrcScripts(scriptsBlock = templateOverrides.additionalScriptsBlock)),
     beforeContentBlock = templateOverrides.beforeContentBlock orElse Some(beforeContent),
     footerBlock = Some(hmrcStandardFooter(accessibilityStatementUrl = serviceURLs.accessibilityStatementUrl)),
     mainContentLayout = templateOverrides.mainContentLayout orElse Some(defaultMainContent(_)),
     assetPath = None,
-    cspNonce = cspNonce,
     pageLayout = templateOverrides.pageLayout orElse Some(fixedWidthPageLayout(_))
 )(contentBlock)

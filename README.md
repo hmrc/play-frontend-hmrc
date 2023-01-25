@@ -476,7 +476,6 @@ To use this component,
 @import uk.gov.hmrc.hmrcfrontend.views.config.StandardBetaBanner
 @import uk.gov.hmrc.hmrcfrontend.views.html.helpers.HmrcStandardPage
 @import uk.gov.hmrc.hmrcfrontend.views.viewmodels.layout._
-@import views.html.helper.CSPNonce
 @import config.AppConfig
 @import uk.gov.hmrc.anyfrontend.controllers.routes
 
@@ -495,8 +494,7 @@ To use this component,
     ),
     serviceName = serviceName,
     pageTitle = pageTitle,
-    isWelshTranslationAvailable = true, /* or false if your service has not been translated */
-    cspNonce = CSPNonce.get
+    isWelshTranslationAvailable = true /* or false if your service has not been translated */
   )(contentBlock)
 ```
 
@@ -521,7 +519,6 @@ The parameters that can be passed into the `hmrcStandardPage` are as follows:
       | `pageTitle`                                | This will be bound to govukLayout                                 |                                                             |
       | `isWelshTranslationAvailable`              | Setting to true will display the language toggle                  | `true`                                                      |
       | `backLink`                                 | Passing a value will display a back link                          | `Some(BackLink(href = ..., attributes = ...))`              |
-      | `cspNonce`                                 | This will be bound to hmrcHead, hmrcScripts and govukTemplate     | CSPNonce.get                                                |
 
 
 ### Creating consistent page headings
@@ -588,7 +585,6 @@ as follows:
 @import uk.gov.hmrc.govukfrontend.views.html.components.TwoThirdsOneThirdMainContent
 @import uk.gov.hmrc.hmrcfrontend.views.html.helpers.HmrcStandardPage
 @import uk.gov.hmrc.hmrcfrontend.views.viewmodels.hmrcstandardpage._
-@import views.html.helper.CSPNonce
 
 @this (
   hmrcStandardPage: HmrcStandardPage,
@@ -608,8 +604,7 @@ as follows:
     mainContentLayout = Some(twoThirdsOneThirdMainContent(sidebar))
   ),
   pageTitle = Some(pageTitle),
-  isWelshTranslationAvailable = isWelshTranslationAvailable,
-  cspNonce = CSPNonce.get
+  isWelshTranslationAvailable = isWelshTranslationAvailable
 )(contentBlock)
 ```
 
@@ -683,7 +678,6 @@ You can then use the banner as per below (note the injected implicit `ContactFro
 @import uk.gov.hmrc.hmrcfrontend.views.config.StandardBetaBanner
 @import uk.gov.hmrc.hmrcfrontend.views.html.helpers.HmrcStandardPage
 @import uk.gov.hmrc.hmrcfrontend.views.viewmodels.hmrcstandardpage._
-@import views.html.helper.CSPNonce
 @import config.AppConfig
 @import uk.gov.hmrc.anyfrontend.controllers.routes
 
@@ -698,8 +692,7 @@ You can then use the banner as per below (note the injected implicit `ContactFro
   ),
   banners = Banners(phaseBanner = Some(standardBetaBanner())),
   pageTitle = Some(pageTitle),
-  isWelshTranslationAvailable = true, /* or false if your service has not been translated */
-  nonce = CSPNonce.get,
+  isWelshTranslationAvailable = true /* or false if your service has not been translated */
 )(contentBlock)
 ```
 
@@ -808,12 +801,11 @@ in the `tracking-consent-frontend` documentation for more information.
 
 #### Adding GTM to internal services
 
-If you would like to add GTM to an internal service, you can do so using the [HmrcInternalHead](src/main/twirl/uk/gov/hmrc/hmrcfrontend/views/helpers/HmrcInternalHead.scala.html)
-helper, which will add the GTM snippet in the `<head>` block. It should be used as demonstrated below in your own
-`Layout.scala`. You will need to pass through a CSP nonce as demonstrated in the example to allow the GTM script.
+If you would like to add GTM to an internal service, you can do so using the [HmrcInternalHead](src/main/twirl/uk/gov/hmrc/hmrcfrontend/views/helpers/HmrcInternalHead.scala.html) 
+helper, which will add the GTM snippet in the `<head>` block. It should be used as demonstrated below in your own 
+`Layout.scala`.
 
 ```scala
-@import views.html.helper.CSPNonce
 @import uk.gov.hmrc.govukfrontend.views.html.components.GovukLayout
 @import uk.gov.hmrc.hmrcfrontend.views.html.helpers.HmrcInternalHead
 @import uk.gov.hmrc.hmrcfrontend.views.html.components.HmrcInternalHeader
@@ -828,7 +820,7 @@ helper, which will add the GTM snippet in the `<head>` block. It should be used 
 
 @govukLayout(
   pageTitle = pageTitle,
-  headBlock = Some(hmrcInternalHead(nonce = CSPNonce.get)),
+  headBlock = Some(hmrcInternalHead()),
   headerBlock = Some(hmrcInternalHeader(InternalHeader()))
 )(contentBlock)
 ```
@@ -872,7 +864,6 @@ You will need to inject the CSS and Javascript into your views as follows:
 @import uk.gov.hmrc.hmrcfrontend.views.html.helpers.HmrcAccessibleAutocompleteJavascript
 @import uk.gov.hmrc.hmrcfrontend.views.html.helpers.HmrcStandardPage
 @import uk.gov.hmrc.hmrcfrontend.views.viewmodels.hmrcstandardpage._
-@import views.html.helper.CSPNonce
 
 @this (
   hmrcStandardPage: HmrcStandardPage,
@@ -885,11 +876,10 @@ You will need to inject the CSS and Javascript into your views as follows:
 @hmrcStandardPage(
   banners = Banners(displayHmrcBanner = true),
   templateOverrides = TemplateOverrides(
-    additionalHeadBlock = Some(autocompleteCss(CSPNonce.get)),
-    additionalScriptsBlock = Some(autocompleteJavascript(CSPNonce.get))
+    additionalHeadBlock = Some(autocompleteCss()),
+    additionalScriptsBlock = Some(autocompleteJavascript())
   ),
-  pageTitle = Some(pageTitle),
-  cspNonce = CSPNonce.get
+  pageTitle = Some(pageTitle)
 )(contentBlock)
 ```
 

@@ -15,11 +15,12 @@
  *@
 
 @import uk.gov.hmrc.hmrcfrontend.config.TrackingConsentConfig
+@import views.html.helper.CSPNonce
 
 @this(trackingConsentConfig: TrackingConsentConfig)
 
-@(nonce: Option[String] = None)(implicit messages: Messages)
-@nonceAttribute = { @nonce.map {n => nonce="@n"} }
+@()(implicit request: RequestHeader, messages: Messages)
+@nonceAttribute = { @CSPNonce.attr }
 @trackingConsentConfig.trackingUrl.map { url =>
   <!--[if !IE]>-->
   <script

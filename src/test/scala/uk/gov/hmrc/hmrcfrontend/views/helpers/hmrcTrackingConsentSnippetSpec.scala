@@ -22,6 +22,9 @@ import org.scalatestplus.play.guice.GuiceOneAppPerSuite
 import play.api.Application
 import play.api.i18n.{Lang, Messages}
 import play.api.inject.guice.GuiceApplicationBuilder
+import play.api.libs.typedmap.TypedMap
+import play.api.mvc.request.RequestAttrKey
+import play.api.test.FakeRequest
 import uk.gov.hmrc.helpers.MessagesSupport
 import uk.gov.hmrc.helpers.views.JsoupHelpers
 import uk.gov.hmrc.hmrcfrontend.views.html.helpers.HmrcTrackingConsentSnippet
@@ -43,6 +46,8 @@ class TrackingConsentSnippetSpec
         )
       )
       .build()
+
+  implicit val request = FakeRequest("GET", "/foo")
 
   "TrackingConsentSnippet" should {
 
@@ -71,7 +76,7 @@ class TrackingConsentSnippetSpec
       val welshMessages: Messages = messagesApi.preferred(Seq(Lang("cy")))
 
       val component = app.injector.instanceOf[HmrcTrackingConsentSnippet]
-      val content   = component()(welshMessages)
+      val content   = component()(implicitly, welshMessages)
       val scripts   = content.select("script#tracking-consent-script-tag")
       scripts.first.attr("data-language") should be("cy")
     }
@@ -102,9 +107,12 @@ class TrackingConsentSnippetSpec
     }
 
     "include nonce attribute for all scripts" in {
-      val component = app.injector.instanceOf[HmrcTrackingConsentSnippet]
-      val content   = component(Some("abcdefghij"))
-      val scripts   = content.select("script")
+      val requestWithNonce: FakeRequest[_] =
+        FakeRequest("GET", "/foo").withAttrs(TypedMap(RequestAttrKey.CSPNonce -> "abcdefghij"))
+
+      val component                        = app.injector.instanceOf[HmrcTrackingConsentSnippet]
+      val content                          = component()(requestWithNonce, messages)
+      val scripts                          = content.select("script")
 
       scripts.get(0).attr("nonce") should be("abcdefghij")
       scripts.get(1).attr("nonce") should be("abcdefghij")

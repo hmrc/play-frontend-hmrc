@@ -25,7 +25,9 @@ import org.scalatestplus.play.guice.GuiceOneAppPerSuite
 import play.api.Application
 import play.api.i18n.{DefaultLangs, Lang, Messages}
 import play.api.inject.guice.GuiceApplicationBuilder
+import play.api.libs.typedmap.TypedMap
 import play.api.mvc.MessagesRequest
+import play.api.mvc.request.RequestAttrKey
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import play.twirl.api.Html
@@ -62,6 +64,7 @@ class hmrcStandardPageSpec extends AnyWordSpecLike with Matchers with JsoupHelpe
     }
 
   implicit val fakeRequest: FakeRequest[_] = FakeRequest("GET", "/foo")
+  val requestWithNonce: FakeRequest[_]     = fakeRequest.withAttrs(TypedMap(RequestAttrKey.CSPNonce -> "a-nonce"))
 
   private val messages = Map(
     "cy" -> Map("back.text" -> "Back Welsh"),
@@ -146,16 +149,16 @@ class hmrcStandardPageSpec extends AnyWordSpecLike with Matchers with JsoupHelpe
     }
 
     "include a scripts block with a nonce if passed" in {
-      val page     = hmrcStandardPage(HmrcStandardPageParams(cspNonce = Some("my-nonce")))(Html(""))
+      val page     = hmrcStandardPage(HmrcStandardPageParams())(Html(""))(requestWithNonce, implicitly)
       val document = Jsoup.parse(contentAsString(page))
 
       val scripts = document.select("script")
       scripts.last().hasAttr("src") shouldBe true
-      scripts.last().attr("nonce")  shouldBe "my-nonce"
+      scripts.last().attr("nonce")  shouldBe "a-nonce"
     }
 
     "pass the nonce to govukLayout if provided" in {
-      val page     = hmrcStandardPage(HmrcStandardPageParams(cspNonce = Some("a-nonce")))(Html(""))
+      val page     = hmrcStandardPage(HmrcStandardPageParams())(Html(""))(requestWithNonce, implicitly)
       val document = Jsoup.parse(contentAsString(page))
 
       val scripts = document.select("script")

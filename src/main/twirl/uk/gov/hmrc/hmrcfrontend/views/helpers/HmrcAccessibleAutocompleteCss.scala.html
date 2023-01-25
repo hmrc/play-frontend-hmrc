@@ -15,8 +15,9 @@
  *@
 
 @import uk.gov.hmrc.hmrcfrontend.config.AssetsConfig
+@import views.html.helper.CSPNonce
 
 @this(AssetsConfig: AssetsConfig)
 
-@(nonce: Option[String] = None)
-<link href="@AssetsConfig.autocompleteCssUrl" media="all" rel="stylesheet" type="text/css"@nonce.map {n=> nonce="@n"} />
+@()(implicit requestHeader: RequestHeader)
+<link href="@AssetsConfig.autocompleteCssUrl" @CSPNonce.attr media="all" rel="stylesheet" type="text/css" />

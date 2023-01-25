@@ -16,6 +16,7 @@
 
 @import uk.gov.hmrc.govukfrontend.views.html.components._
 @import uk.gov.hmrc.govukfrontend.views.viewmodels.pagelayout.PageLayout
+@import views.html.helper.CSPNonce
 
 @this(
   govukTemplate: GovukTemplate,
@@ -37,9 +38,8 @@
   scriptsBlock: Option[Html] = None,
   mainContentLayout: Option[Html => Html] = Some(defaultMainContentLayout(_)),
   assetPath: Option[String] = None,
-  cspNonce: Option[String] = None,
   pageLayout: Option[PageLayout => Html] = Some(fixedWidthPageLayout(_))
-)(contentBlock: Html)(implicit messages: Messages)
+)(contentBlock: Html)(implicit requestHeader: RequestHeader, messages: Messages)
 
 @headerDefault = {
   @headerBlock.getOrElse {
@@ -76,6 +76,6 @@
   mainClasses = Some("govuk-main-wrapper--auto-spacing"),
   bodyEndBlock = Some(bodyEndDefault),
   assetPath = assetPath,
-  cspNonce = cspNonce,
+  cspNonce = CSPNonce.get,
   pageLayout = pageLayout
 )(mainContent)
