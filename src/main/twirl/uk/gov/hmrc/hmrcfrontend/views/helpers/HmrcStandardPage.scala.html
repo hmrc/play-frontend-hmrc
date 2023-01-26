@@ -1,0 +1,76 @@
+@*
+ * Copyright 2023 HM Revenue & Customs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *@
+
+@import uk.gov.hmrc.govukfrontend.views.html.components.GovukLayout
+@import uk.gov.hmrc.govukfrontend.views.html.components.GovukBackLink
+@import uk.gov.hmrc.govukfrontend.views.html.components.TwoThirdsMainContent
+@import uk.gov.hmrc.hmrcfrontend.views.html.helpers.HmrcStandardHeader
+@import uk.gov.hmrc.hmrcfrontend.views.html.helpers.HmrcStandardFooter
+@import uk.gov.hmrc.hmrcfrontend.views.html.helpers.HmrcHead
+@import uk.gov.hmrc.hmrcfrontend.views.html.helpers.HmrcLanguageSelectHelper
+@import uk.gov.hmrc.hmrcfrontend.views.html.helpers.HmrcScripts
+@import uk.gov.hmrc.hmrcfrontend.views.viewmodels.hmrcstandardpage.HmrcStandardPageParams
+@import uk.gov.hmrc.govukfrontend.views.html.components.FixedWidthPageLayout
+
+@this(
+        govukLayout: GovukLayout,
+        hmrcStandardHeader: HmrcStandardHeader,
+        hmrcStandardFooter: HmrcStandardFooter,
+        hmrcHead: HmrcHead,
+        hmrcLanguageSelectHelper: HmrcLanguageSelectHelper,
+        hmrcScripts: HmrcScripts,
+        govukBackLink: GovukBackLink,
+        defaultMainContent: TwoThirdsMainContent,
+        fixedWidthPageLayout: FixedWidthPageLayout
+)
+
+@(params: HmrcStandardPageParams)(contentBlock: Html)(implicit request: RequestHeader, messages: Messages)
+@import params._
+
+@headerBlock = {
+    @hmrcStandardHeader(
+        serviceUrl = serviceURLs.serviceUrl,
+        signOutUrl = serviceURLs.signOutUrl,
+        serviceName = serviceName,
+        userResearchBanner = banners.userResearchBanner,
+        phaseBanner = banners.phaseBanner,
+        displayHmrcBanner = banners.displayHmrcBanner,
+        additionalBannersBlock = banners.additionalBannersBlock,
+        containerClasses = templateOverrides.headerContainerClasses
+    )
+}
+
+@beforeContent = {
+    @if(isWelshTranslationAvailable) {
+        @hmrcLanguageSelectHelper()
+    }
+    @backLink.map { link =>
+      @govukBackLink(link)
+    }
+}
+
+@govukLayout(
+    pageTitle = pageTitle,
+    headBlock = Some(hmrcHead(nonce = cspNonce, headBlock = templateOverrides.additionalHeadBlock)),
+    headerBlock = Some(headerBlock),
+    scriptsBlock = Some(hmrcScripts(nonce = cspNonce, scriptsBlock = templateOverrides.additionalScriptsBlock)),
+    beforeContentBlock = templateOverrides.beforeContentBlock orElse Some(beforeContent),
+    footerBlock = Some(hmrcStandardFooter(accessibilityStatementUrl = serviceURLs.accessibilityStatementUrl)),
+    mainContentLayout = templateOverrides.mainContentLayout orElse Some(defaultMainContent(_)),
+    assetPath = None,
+    cspNonce = cspNonce,
+    pageLayout = templateOverrides.pageLayout orElse Some(fixedWidthPageLayout(_))
+)(contentBlock)

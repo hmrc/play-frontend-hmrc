@@ -33,9 +33,17 @@ object BackLink {
 
   def defaultObject: BackLink = BackLink()
 
-  def mimicsBrowserBackButtonViaJavaScript(implicit messages: Messages): BackLink = BackLink(
+  def mimicsBrowserBackButtonViaJavaScript(implicit messages: Messages): BackLink = BackLink.withDefaultText(
     href = "#",
-    attributes = Map("data-module" -> "hmrc-back-link"),
+    attributes = Map("data-module" -> "hmrc-back-link")
+  )
+
+  def withDefaultText(href: String, classes: String = "", attributes: Map[String, String] = Map.empty)(implicit
+    messages: Messages
+  ): BackLink = BackLink(
+    href = href,
+    classes = classes,
+    attributes = attributes,
     content = Text(messages("back.text"))
   )
 

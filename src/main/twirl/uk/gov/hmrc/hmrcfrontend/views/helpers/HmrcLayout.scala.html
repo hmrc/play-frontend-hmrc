@@ -14,30 +14,18 @@
  * limitations under the License.
  *@
 
-@import uk.gov.hmrc.govukfrontend.views.html.components.GovukLayout
-@import uk.gov.hmrc.govukfrontend.views.html.components.GovukBackLink
 @import uk.gov.hmrc.govukfrontend.views.html.components.TwoThirdsMainContent
-@import uk.gov.hmrc.hmrcfrontend.views.html.helpers.HmrcStandardHeader
-@import uk.gov.hmrc.hmrcfrontend.views.html.helpers.HmrcStandardFooter
-@import uk.gov.hmrc.hmrcfrontend.views.html.helpers.HmrcHead
-@import uk.gov.hmrc.hmrcfrontend.views.html.helpers.HmrcLanguageSelectHelper
-@import uk.gov.hmrc.hmrcfrontend.views.html.helpers.HmrcScripts
+@import uk.gov.hmrc.hmrcfrontend.views.html.helpers.HmrcStandardPage
 @import uk.gov.hmrc.hmrcfrontend.views.viewmodels.userresearchbanner.UserResearchBanner
 @import uk.gov.hmrc.govukfrontend.views.viewmodels.backlink.BackLink
 @import uk.gov.hmrc.govukfrontend.views.viewmodels.phasebanner.PhaseBanner
-@import uk.gov.hmrc.govukfrontend.views.viewmodels.content.Text
 @import uk.gov.hmrc.govukfrontend.views.viewmodels.pagelayout.PageLayout
+@import uk.gov.hmrc.hmrcfrontend.views.viewmodels.hmrcstandardpage._
 @import uk.gov.hmrc.govukfrontend.views.html.components.FixedWidthPageLayout
 @import uk.gov.hmrc.hmrcfrontend.views.Aliases.Header
 
 @this(
-        govukLayout: GovukLayout,
-        hmrcStandardHeader: HmrcStandardHeader,
-        hmrcStandardFooter: HmrcStandardFooter,
-        hmrcHead: HmrcHead,
-        hmrcLanguageSelectHelper: HmrcLanguageSelectHelper,
-        hmrcScripts: HmrcScripts,
-        govukBackLink: GovukBackLink,
+        hmrcStandardPage: HmrcStandardPage,
         defaultMainContent: TwoThirdsMainContent,
         fixedWidthPageLayout: FixedWidthPageLayout
 )
@@ -62,44 +50,35 @@
         pageLayout: Option[PageLayout => Html] = Some(fixedWidthPageLayout(_)),
         headerContainerClasses: String = Header.defaultObject.containerClasses,
         backLink: Option[BackLink] = None
-)(contentBlock: Html)(implicit request: RequestHeader, messages: Messages)
+)(@deprecated("HmrcLayout is deprecated, use HmrcStandardPage instead", "6.3.0") contentBlock: Html)(implicit request: RequestHeader, messages: Messages)
 
 @require(!(backLinkUrl.isDefined && backLink.isDefined), "Use backLink or backLinkUrl, but not both")
 
-@headerBlock = {
-    @hmrcStandardHeader(
-        serviceUrl = serviceUrl,
-        signOutUrl = signOutUrl,
-        serviceName = serviceName,
-        userResearchBanner = userResearchBannerUrl.map(url => UserResearchBanner(url = url)),
-        phaseBanner = phaseBanner,
-        displayHmrcBanner = displayHmrcBanner,
-        additionalBannersBlock = additionalBannersBlock,
-        containerClasses = headerContainerClasses
-    )
-}
-
-@beforeContent = {
-    @if(beforeContentBlock.isDefined) {
-        @beforeContentBlock
-    } else {
-        @if(isWelshTranslationAvailable) {
-            @hmrcLanguageSelectHelper()
-        }
-        @{(backLink orElse backLinkUrl.map(url => BackLink(href = url, content = Text(messages("back.text")))))
-            .map(link => govukBackLink(link))}
-    }
-}
-
-@govukLayout(
+@hmrcStandardPage(
+  HmrcStandardPageParams(
+    serviceURLs = ServiceURLs(
+      serviceUrl = serviceUrl,
+      signOutUrl = signOutUrl,
+      accessibilityStatementUrl = accessibilityStatementUrl
+    ),
+    banners = Banners(
+      displayHmrcBanner = displayHmrcBanner,
+      phaseBanner = phaseBanner,
+      userResearchBanner = userResearchBannerUrl.map(url => UserResearchBanner(url = url)),
+      additionalBannersBlock = additionalBannersBlock
+    ),
+    templateOverrides = TemplateOverrides(
+      additionalHeadBlock = additionalHeadBlock,
+      additionalScriptsBlock = additionalScriptsBlock,
+      beforeContentBlock = beforeContentBlock,
+      mainContentLayout = mainContentLayout,
+      pageLayout = pageLayout,
+      headerContainerClasses = headerContainerClasses
+    ),
+    serviceName = serviceName,
     pageTitle = pageTitle,
-    headBlock = Some(hmrcHead(nonce = nonce, headBlock = additionalHeadBlock)),
-    headerBlock = Some(headerBlock),
-    scriptsBlock = Some(hmrcScripts(nonce = nonce, scriptsBlock = additionalScriptsBlock)),
-    beforeContentBlock = Some(beforeContent),
-    footerBlock = Some(hmrcStandardFooter(accessibilityStatementUrl = accessibilityStatementUrl)),
-    mainContentLayout = mainContentLayout,
-    assetPath = None,
-    cspNonce = nonce,
-    pageLayout = pageLayout
+    isWelshTranslationAvailable = isWelshTranslationAvailable,
+    backLink = backLink orElse backLinkUrl.map(url => BackLink.withDefaultText(href = url)),
+    cspNonce = nonce
+  )
 )(contentBlock)
