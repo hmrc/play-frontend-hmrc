@@ -6,7 +6,11 @@
     "bodyClasses": "app-body-class",
     "mainClasses": "app-main-class",
     "cspNonce": "secure-random-csp-nonce",
-    "assetPath": "/assets/govuk"
+    "assetPath": "/assets/govuk",
+    "bodyAttributes": {
+      "attribute-one" : "some-value-one",
+      "attribute-two" : "some-other-value-two"
+    }
   },
   "blocks": {
     "pageTitle": "GOV.UK - Customised page template",

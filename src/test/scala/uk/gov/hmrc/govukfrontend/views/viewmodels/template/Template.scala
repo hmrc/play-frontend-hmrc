@@ -33,7 +33,8 @@ final case class TemplateVariables(
   themeColor: Option[String] = None,
   bodyClasses: Option[String] = None,
   mainClasses: Option[String] = None,
-  cspNonce: Option[String] = None
+  cspNonce: Option[String] = None,
+  bodyAttributes: Map[String, String] = Map.empty
 )
 
 final case class TemplateBlocks(
