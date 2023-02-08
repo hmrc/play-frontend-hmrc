@@ -91,7 +91,8 @@ class GovukTemplateWrapper @javax.inject.Inject() (
       bodyEndBlock = template.blocks.bodyEnd,
       mainClasses = template.variables.mainClasses,
       beforeContentBlock = template.blocks.beforeContent,
-      cspNonce = template.variables.cspNonce
+      cspNonce = template.variables.cspNonce,
+      bodyAttributes = template.variables.bodyAttributes
     )(template.blocks.content.getOrElse(HtmlFormat.empty))
 
   def apply(template: Template): HtmlFormat.Appendable = render(template)
