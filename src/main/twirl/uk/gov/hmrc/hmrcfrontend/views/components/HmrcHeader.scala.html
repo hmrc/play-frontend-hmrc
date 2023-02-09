@@ -79,7 +79,7 @@
           @serviceNameLinkOrSpan(serviceName, serviceUrl)
           @if(navigation.getOrElse(Seq.empty).nonEmpty) {
           <nav class="govuk-header__navigation" aria-label="@if(language == Cy){Gwelywio Lefel Uchaf}else{Top Level Navigation}">
-            <button type="button" class="govuk-header__menu-button govuk-js-header-toggle" aria-controls="navigation" aria-label="@if(language == Cy){Dangos neu guddio'r Gwelywio Lefel Uchaf}else{Show or hide Top Level Navigation}" hidden>@if(language == Cy){Dewislen}else{Menu}</button>
+            <button type="button" class="govuk-header__menu-button govuk-js-header-toggle" aria-controls="navigation" aria-label="@if(language == Cy){Dangos neu guddio’r Gwelywio Lefel Uchaf}else{Show or hide Top Level Navigation}" hidden>@if(language == Cy){Dewislen}else{Menu}</button>
             <ul id="navigation" class="@toClasses("govuk-header__navigation-list", navigationClasses)">
             @for(item <- navigation.getOrElse(Seq.empty).filter(item => item.content.nonEmpty)) {
               <li class="govuk-header__navigation-item@if(item.active){ govuk-header__navigation-item--active}else{}">
