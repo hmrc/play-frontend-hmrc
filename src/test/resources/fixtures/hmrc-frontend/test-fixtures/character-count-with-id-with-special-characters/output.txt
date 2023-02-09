@@ -1,16 +1,17 @@
 
-<div class="hmrc-character-count" data-module="hmrc-character-count" data-language="en" data-maxlength="10">
+  
+
+<div class="govuk-character-count" data-module="govuk-character-count" data-maxlength="10">
   <div class="govuk-form-group">
   <label class="govuk-label" for="user1.profile[address]">
     Full address
   </label>
-  <textarea class="govuk-textarea hmrc-js-character-count" id="user1.profile[address]" name="address" rows="5" aria-describedby="user1.profile[address]-info"></textarea>
+  <textarea class="govuk-textarea govuk-js-character-count" id="user1.profile[address]" name="address" rows="5" aria-describedby="user1.profile[address]-info"></textarea>
 </div>
-
-      <div id="user1.profile[address]-info" class="govuk-hint hmrc-character-count__message">
+  
+  <div id="user1.profile[address]-info" class="govuk-hint govuk-character-count__message">
   You can enter up to 10 characters
 </div>
 
 </div>
-
 

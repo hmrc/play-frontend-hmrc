@@ -14,55 +14,79 @@
  * limitations under the License.
  *@
 
-@import uk.gov.hmrc.govukfrontend.views.html.components.GovukTextarea
-@import uk.gov.hmrc.govukfrontend.views.viewmodels.textarea.Textarea
-@import uk.gov.hmrc.govukfrontend.views.viewmodels.content.Text
-@import uk.gov.hmrc.govukfrontend.views.html.components.GovukHint
-@import uk.gov.hmrc.hmrcfrontend.views.viewmodels.language.{Cy, En}
-@import uk.gov.hmrc.govukfrontend.views.viewmodels.hint.Hint
+@import uk.gov.hmrc.govukfrontend.views.html.components.GovukCharacterCount
+@import uk.gov.hmrc.govukfrontend.views.Aliases.{CharacterCount => GovukFrontendCharacterCount}
 
-@this(govukTextarea: GovukTextarea, govukHint: GovukHint)
+@this(govukCharacterCount: GovukCharacterCount)
 @(params: CharacterCount)(implicit messages: Messages)
 @import params._
 
 @require(name.nonEmpty && id.nonEmpty, "name and id should be non-empty")
 @require(maxLength.isDefined || maxWords.isDefined, "maxLength or maxWords should be provided")
 
-@attrs = {
-  @params.maxLength.filter(_ > 0).map {value => data-maxlength="@value"}
-  @params.threshold.filter(_ > 0).map {value => data-threshold="@value"}
-  @params.maxWords.filter(_ > 0).map {value => data-maxwords="@value"}
-}
-
 @defining(if(params.language == Cy || messages.lang.code == "cy") Cy else En) { messagesLanguage =>
- <div class="hmrc-character-count" data-module="hmrc-character-count" data-language="@{messagesLanguage.code}"@attrs>
- @govukTextarea(Textarea(
-  id = params.id,
-  name = params.name,
-  describedBy = Some(params.id + "-info"),
-  rows = params.rows,
-  spellcheck = {if (params.spellcheck.isDefined) Some(params.spellcheck.get) else None},
-  value = params.value,
-  formGroupClasses = params.formGroupClasses,
-  classes = "hmrc-js-character-count" + {if (params.errorMessage.isDefined) " govuk-textarea--error" else ""} + {if (params.classes == "") "" else " " + params.classes},
-  label = params.label,
-  hint = params.hint,
-  errorMessage = params.errorMessage,
-  attributes = params.attributes
- ))
-
  @if(messagesLanguage == Cy) {
-  @govukHint(Hint(
-   content = Text("Gallwch nodi hyd at " + params.maxLength.getOrElse(params.maxWords.getOrElse(0)) + {if(params.maxWords.isDefined) " o eiriau" else " o gymeriadau"}),
-   id = Some(params.id + "-info"),
-   classes = "hmrc-character-count__message" + {if (params.countMessageClasses == "") "" else " " + params.countMessageClasses}
-  ))
+  @defining(
+   messages match {
+    case messagesImpl: MessagesImpl => messagesImpl.messagesApi.preferred(Seq(Lang("cy")))
+    case _ => messages
+   }
+  ) { welshMessages =>
+   @govukCharacterCount(GovukFrontendCharacterCount(
+    id = params.id,
+    name = params.name,
+    rows = params.rows,
+    value = params.value,
+    maxLength = params.maxLength,
+    maxWords = params.maxWords,
+    threshold = params.threshold,
+    label = params.label,
+    hint = params.hint,
+    errorMessage = params.errorMessage,
+    formGroupClasses = params.formGroupClasses,
+    classes = params.classes,
+    attributes = params.attributes,
+    countMessageClasses = params.countMessageClasses,
+    textareaDescriptionText = Some(
+     if(params.maxWords.isDefined) welshMessages("charactercount.maxwords", params.maxWords.getOrElse(0))
+     else welshMessages("charactercount.maxcharacters", params.maxLength.getOrElse(0))
+    ),
+    charactersUnderLimitText = Some(Map(
+     "other" -> welshMessages("charactercount.charactersunderlimit.plural"),
+     "one" -> welshMessages("charactercount.charactersunderlimit.singular")
+    )),
+    charactersAtLimitText = Some(welshMessages("charactercount.charactersatlimit")),
+    charactersOverLimitText = Some(Map(
+     "other" -> welshMessages("charactercount.charactersoverlimit.plural"),
+     "one" -> welshMessages("charactercount.charactersoverlimit.singular")
+    )),
+    wordsUnderLimitText = Some(Map(
+     "other" -> welshMessages("charactercount.wordsunderlimit.plural"),
+     "one" -> welshMessages("charactercount.wordsunderlimit.singular")
+    )),
+    wordsAtLimitText = Some(welshMessages("charactercount.wordsatlimit")),
+    wordsOverLimitText = Some(Map(
+     "other" -> welshMessages("charactercount.wordsoverlimit.plural"),
+     "one" -> welshMessages("charactercount.wordsoverlimit.singular")
+    ))
+   ))
+  }
  } else {
-  @govukHint(Hint(
-   content = Text("You can enter up to " + params.maxLength.getOrElse(params.maxWords.getOrElse(0)) + {if(params.maxWords.isDefined) " words" else " characters"}),
-   id = Some(params.id + "-info"),
-   classes = "hmrc-character-count__message" + {if (params.countMessageClasses == "") "" else " " + params.countMessageClasses}
+  @govukCharacterCount(GovukFrontendCharacterCount(
+   id = params.id,
+   name = params.name,
+   rows = params.rows,
+   value = params.value,
+   maxLength = params.maxLength,
+   maxWords = params.maxWords,
+   threshold = params.threshold,
+   label = params.label,
+   hint = params.hint,
+   errorMessage = params.errorMessage,
+   formGroupClasses = params.formGroupClasses,
+   classes = params.classes,
+   attributes = params.attributes,
+   countMessageClasses = params.countMessageClasses
   ))
  }
- </div>
 }
