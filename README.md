@@ -14,7 +14,7 @@ of implementing frontend microservices straightforward and idiomatic for Scala d
 - [Getting started](#getting-started)
 - [Using the components](#using-the-components)
 - [Useful implicits](#useful-implicits)
-- [Using the HMRC layout](#using-the-hmrc-layout)
+- [Using the HMRC standard page template](#using-the-hmrc-standard-page-template)
 - [Helping users report technical issues](#helping-users-report-technical-issues)
 - [Adding a beta feedback banner](#adding-a-beta-feedback-banner)
 - [Adding a User Research Banner](#adding-a-user-research-banner)  
