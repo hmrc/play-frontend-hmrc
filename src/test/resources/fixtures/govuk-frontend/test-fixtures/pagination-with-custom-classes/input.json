@@ -1,0 +1,20 @@
+{
+  "classes" : "my-custom-class",
+  "previous" : {
+    "href" : "/previous"
+  },
+  "next" : {
+    "href" : "/next"
+  },
+  "items" : [ {
+    "number" : 1,
+    "href" : "/page/1"
+  }, {
+    "number" : 2,
+    "href" : "/page/2",
+    "current" : true
+  }, {
+    "number" : 3,
+    "href" : "/page/3"
+  } ]
+}

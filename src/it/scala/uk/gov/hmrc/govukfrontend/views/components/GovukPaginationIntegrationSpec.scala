@@ -21,12 +21,8 @@ import uk.gov.hmrc.govukfrontend.views.html.components._
 import uk.gov.hmrc.govukfrontend.views.viewmodels.pagination.Generators._
 
 object GovukPaginationIntegrationSpec
-//    extends TemplateIntegrationSpec[Pagination, GovukPagination](
-//      govukComponentName = "govukPagination",
-//      seed = None,
-//      maximumCompression = true
-//    )
-
-// TODO: This test is currently failing due to a bug in the govuk-frontend with the positioning of a closing
-//  double-quote. The fix has been merged to main but not released yet - once the next bug fix release of
-//  govuk-frontend is released, this test should be un-commented: https://github.com/alphagov/govuk-frontend/pull/3156.
+    extends TemplateIntegrationSpec[Pagination, GovukPagination](
+      govukComponentName = "govukPagination",
+      seed = None,
+      maximumCompression = true
+    )

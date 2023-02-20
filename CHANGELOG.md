@@ -8,6 +8,22 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 For compatibility information see `govukFrontendVersion` and `hmrcFrontendVersion` in
 [LibDependencies](project/LibDependencies.scala)
 
+## [6.7.0] - 2023-02-23
+
+### Changed
+
+- Uplifted version of `govuk-frontend` to `4.5.0`
+- Uplifted version of `hmrc-frontend` to `5.24.0`
+- Added new summary `Card` functionality to `SummaryList`, as implemented in `govuk-frontend`
+- Patched tests for `GovukTemplate`. `govuk-frontend` now allows passing in of custom Opengraph URL, but at this time we
+have decided not to replicate in `play-frontend-hmrc`
+
+### Compatible with
+
+- [hmrc/hmrc-frontend v5.24.0](https://github.com/hmrc/hmrc-frontend/releases/tag/v5.24.0)
+- [alphagov/govuk-frontend v4.5.0](https://github.com/alphagov/govuk-frontend/releases/tag/v4.5.0)
+
+
 ## [6.6.0] - 2023-02-20
 
 ### Changed

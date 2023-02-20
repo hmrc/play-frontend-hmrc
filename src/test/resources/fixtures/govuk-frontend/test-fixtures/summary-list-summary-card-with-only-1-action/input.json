@@ -1,0 +1,28 @@
+{
+  "card" : {
+    "title" : {
+      "text" : "Undergraduate teaching assistant"
+    },
+    "actions" : {
+      "items" : [ {
+        "text" : "My lonely action",
+        "href" : "#"
+      } ]
+    }
+  },
+  "rows" : [ {
+    "key" : {
+      "text" : "Name"
+    },
+    "value" : {
+      "text" : "Firstname Lastname"
+    }
+  }, {
+    "key" : {
+      "text" : "Date of birth"
+    },
+    "value" : {
+      "text" : "13/08/1980"
+    }
+  } ]
+}

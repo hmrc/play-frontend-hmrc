@@ -27,6 +27,8 @@ class GovukPaginationSpec
         "pagination-first-page",
         "pagination-last-page",
         "pagination-with-custom-accessible-labels-on-item-links",
+        "pagination-with-custom-attributes",
+        "pagination-with-custom-classes",
         "pagination-with-custom-link-and-item-text",
         "pagination-with-custom-navigation-landmark",
         "pagination-with-many-pages",
