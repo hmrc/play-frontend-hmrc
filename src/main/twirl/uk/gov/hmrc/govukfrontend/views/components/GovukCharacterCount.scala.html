@@ -71,11 +71,10 @@
     errorMessage = errorMessage,
     formGroupClasses = formGroupClasses,
     classes = toClasses("govuk-js-character-count", if (classes.isEmpty) "" else s" ${classes}"),
-    attributes = attributes,
-    countMessageClasses = countMessageClasses
+    attributes = attributes
   ))
   @govukHint(Hint(id=Some(id+"-info"),
-    classes = "govuk-character-count__message",
+    classes = toClasses("govuk-character-count__message", if (countMessageClasses.isEmpty) "" else s" $countMessageClasses"),
     content = customTextArea
   ))
 </div>

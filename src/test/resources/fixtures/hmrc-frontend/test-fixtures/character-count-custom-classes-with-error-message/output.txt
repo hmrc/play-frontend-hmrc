@@ -1,5 +1,7 @@
 
-<div class="hmrc-character-count" data-module="hmrc-character-count" data-language="en" data-maxlength="10">
+  
+
+<div class="govuk-character-count" data-module="govuk-character-count" data-maxlength="10">
   <div class="govuk-form-group govuk-form-group--error">
   <label class="govuk-label" for="with-custom-error-class">
     With custom error class
@@ -7,13 +9,12 @@
   <p id="with-custom-error-class-error" class="govuk-error-message">
   <span class="govuk-visually-hidden">Error:</span> Error message
   </p>
-  <textarea class="govuk-textarea govuk-textarea--error hmrc-js-character-count govuk-textarea--error app-character-count--custom-modifier" id="with-custom-error-class" name="with-custom-error-class" rows="5" aria-describedby="with-custom-error-class-info with-custom-error-class-error"></textarea>
+  <textarea class="govuk-textarea govuk-textarea--error govuk-js-character-count app-character-count--custom-modifier" id="with-custom-error-class" name="with-custom-error-class" rows="5" aria-describedby="with-custom-error-class-info with-custom-error-class-error"></textarea>
 </div>
-
-      <div id="with-custom-error-class-info" class="govuk-hint hmrc-character-count__message">
+  
+  <div id="with-custom-error-class-info" class="govuk-hint govuk-character-count__message">
   You can enter up to 10 characters
 </div>
 
 </div>
-
 

@@ -1,5 +1,7 @@
 
-<div class="hmrc-character-count" data-module="hmrc-character-count" data-language="cy" data-maxlength="10">
+  
+
+<div class="govuk-character-count" data-module="govuk-character-count" data-maxlength="10" data-i18n.characters-under-limit.other="Mae gennych %{count} o gymeriadau yn weddill" data-i18n.characters-under-limit.one="Mae gennych 1 cymeriad yn weddill" data-i18n.characters-at-limit="Mae gennych 0 o gymeriadau yn weddill" data-i18n.characters-over-limit.other="Mae gennych %{count} o gymeriadau yn ormod" data-i18n.characters-over-limit.one="Mae gennych 1 cymeriad yn ormod" data-i18n.words-under-limit.other="Mae gennych %{count} o eiriau yn weddill" data-i18n.words-under-limit.one="Mae gennych 1 gair yn weddill" data-i18n.words-at-limit="Mae gennych 0 o eiriau yn weddill" data-i18n.words-over-limit.other="Mae gennych %{count} o eiriau yn ormod" data-i18n.words-over-limit.one="Mae gennych 1 gair yn ormod">
   <div class="govuk-form-group govuk-form-group--error">
   <label class="govuk-label" for="exceeding-characters">
     Full address
@@ -7,16 +9,15 @@
   <p id="exceeding-characters-error" class="govuk-error-message">
   <span class="govuk-visually-hidden">Error:</span> Please do not exceed the maximum allowed limit
   </p>
-  <textarea class="govuk-textarea govuk-textarea--error hmrc-js-character-count govuk-textarea--error" id="exceeding-characters" name="exceeding" rows="5" aria-describedby="exceeding-characters-info exceeding-characters-error">221B Baker Street
+  <textarea class="govuk-textarea govuk-textarea--error govuk-js-character-count" id="exceeding-characters" name="exceeding" rows="5" aria-describedby="exceeding-characters-info exceeding-characters-error">221B Baker Street
 London
 NW1 6XE
 </textarea>
 </div>
-
-      <div id="exceeding-characters-info" class="govuk-hint hmrc-character-count__message">
+  
+  <div id="exceeding-characters-info" class="govuk-hint govuk-character-count__message">
   Gallwch nodi hyd at 10 o gymeriadau
 </div>
 
 </div>
-
 

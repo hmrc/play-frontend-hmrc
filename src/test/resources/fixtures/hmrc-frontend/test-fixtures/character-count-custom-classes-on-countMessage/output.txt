@@ -1,16 +1,17 @@
 
-<div class="hmrc-character-count" data-module="hmrc-character-count" data-language="en" data-maxlength="10">
+  
+
+<div class="govuk-character-count" data-module="govuk-character-count" data-maxlength="10">
   <div class="govuk-form-group">
   <label class="govuk-label" for="with-custom-countmessage-class">
     With custom countMessage class
   </label>
-  <textarea class="govuk-textarea hmrc-js-character-count" id="with-custom-countmessage-class" name="with-custom-countmessage-class" rows="5" aria-describedby="with-custom-countmessage-class-info"></textarea>
+  <textarea class="govuk-textarea govuk-js-character-count" id="with-custom-countmessage-class" name="with-custom-countmessage-class" rows="5" aria-describedby="with-custom-countmessage-class-info"></textarea>
 </div>
-
-      <div id="with-custom-countmessage-class-info" class="govuk-hint hmrc-character-count__message app-custom-count-message">
+  
+  <div id="with-custom-countmessage-class-info" class="govuk-hint govuk-character-count__message app-custom-count-message">
   You can enter up to 10 characters
 </div>
 
 </div>
-
 
