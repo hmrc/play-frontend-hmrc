@@ -1,0 +1,23 @@
+{
+  "card" : {
+    "attributes" : {
+      "data-attribute-1" : "value-1",
+      "data-attribute-2" : "value-2"
+    }
+  },
+  "rows" : [ {
+    "key" : {
+      "text" : "Name"
+    },
+    "value" : {
+      "text" : "Firstname Lastname"
+    }
+  }, {
+    "key" : {
+      "text" : "Date of birth"
+    },
+    "value" : {
+      "text" : "13/08/1980"
+    }
+  } ]
+}

@@ -1,6 +1,6 @@
 
 <div class="govuk-accordion" data-module="govuk-accordion" id="accordion-attributes" data-attribute="value">
-      <div class="govuk-accordion__section ">
+      <div class="govuk-accordion__section">
         <div class="govuk-accordion__section-header">
           <h2 class="govuk-accordion__section-heading">
             <span class="govuk-accordion__section-button" id="accordion-attributes-heading-1">

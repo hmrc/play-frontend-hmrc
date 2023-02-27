@@ -1,6 +1,6 @@
 
 <div class="govuk-accordion" data-module="govuk-accordion" id="with-translations" data-i18n.hide-all-sections="Collapse all sections" data-i18n.hide-section="Collapse" data-i18n.hide-section-aria-label="Collapse this section" data-i18n.show-all-sections="Expand all sections" data-i18n.show-section="Expand" data-i18n.show-section-aria-label="Expand this section">
-      <div class="govuk-accordion__section ">
+      <div class="govuk-accordion__section">
         <div class="govuk-accordion__section-header">
           <h2 class="govuk-accordion__section-heading">
             <span class="govuk-accordion__section-button" id="with-translations-heading-1">
@@ -12,7 +12,7 @@
             <p class="govuk-body">We need to know your nationality so we can work out which elections you’re entitled to vote in. If you cannot provide your nationality, you’ll have to send copies of identity documents through the post.</p>
         </div>
       </div>
-      <div class="govuk-accordion__section ">
+      <div class="govuk-accordion__section">
         <div class="govuk-accordion__section-header">
           <h2 class="govuk-accordion__section-heading">
             <span class="govuk-accordion__section-button" id="with-translations-heading-2">

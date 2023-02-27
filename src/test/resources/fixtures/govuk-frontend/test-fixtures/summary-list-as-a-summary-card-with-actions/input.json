@@ -1,0 +1,31 @@
+{
+  "card" : {
+    "title" : {
+      "text" : "Undergraduate teaching assistant"
+    },
+    "actions" : {
+      "items" : [ {
+        "text" : "Delete job history",
+        "href" : "#"
+      }, {
+        "text" : "Withdraw job history",
+        "href" : "#"
+      } ]
+    }
+  },
+  "rows" : [ {
+    "key" : {
+      "text" : "Name"
+    },
+    "value" : {
+      "text" : "Firstname Lastname"
+    }
+  }, {
+    "key" : {
+      "text" : "Date of birth"
+    },
+    "value" : {
+      "text" : "13/08/1980"
+    }
+  } ]
+}

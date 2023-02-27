@@ -14,11 +14,50 @@
  * limitations under the License.
  *@
 
+@import uk.gov.hmrc.govukfrontend.views.viewmodels.summarylist.Card
+
 @this()
 
 @(params: SummaryList)
 @import params._
-<dl class="@toClasses("govuk-summary-list", classes)"@toAttributes(attributes)>
+
+@summaryCard(card: Card) = {
+  <div class="@toClasses("govuk-summary-card", card.classes)"@toAttributes(card.attributes)>
+    <div class="govuk-summary-card__title-wrapper">
+        @card.title.map { cardTitle =>
+          <h@{cardTitle.headingLevel.getOrElse(2)} class="@toClasses("govuk-summary-card__title", cardTitle.classes)">
+             @cardTitle.content.asHtml
+           </h@{cardTitle.headingLevel.getOrElse(2)}>
+        }
+        @card.actions match {
+            case None => {}
+            case Some(cardAction) => {
+              @if(cardAction.items.nonEmpty) {
+                @if(cardAction.items.length == 1) {
+                  <div class="@toClasses("govuk-summary-card__actions", cardAction.classes)">
+                  @actionLink(cardAction.items.head)
+                  </div>
+                } else {
+                  <ul class="@toClasses("govuk-summary-card__actions", cardAction.classes)">
+                  @cardAction.items.map { item =>
+                    <li class="govuk-summary-card__action">
+                      @actionLink(item)
+                    </li>
+                  }
+                  </ul>
+                }
+              }
+            }
+        }
+    </div>
+    <div class="govuk-summary-card__content">
+      @summaryList
+    </div>
+  </div>
+}
+
+@summaryList = {
+  <dl class="@toClasses("govuk-summary-list", classes)"@toAttributes(attributes)>
   @for(row <- rows) {
     <div class="@toClasses("govuk-summary-list__row", "govuk-summary-list__row--no-actions".when(anyRowHasActions && row.actions.isEmpty), row.classes)">
       <dt class="@toClasses("govuk-summary-list__key", row.key.classes)">
@@ -38,7 +77,17 @@
       }
     </div>
   }
-</dl>
+  </dl>
+}
+
+@card match {
+  case Some(sc) => {
+    @summaryCard(sc)
+  }
+  case _ => {
+    @summaryList
+  }
+}
 
 @actionLink(action: ActionItem) = {<a class="@toClasses("govuk-link", action.classes)" href="@action.href"@toAttributes(action.attributes)>
   @actionContent(action)</a>}

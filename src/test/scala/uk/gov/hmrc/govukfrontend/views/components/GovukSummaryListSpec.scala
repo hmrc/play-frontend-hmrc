@@ -23,7 +23,18 @@ import uk.gov.hmrc.helpers.views.JsoupHelpers
 class GovukSummaryListSpec
     extends TemplateUnitSpec[SummaryList, GovukSummaryList](
       govukComponentName = "govukSummaryList",
-      fullyCompressedExamples = Seq("summary-list-translated")
+      fullyCompressedExamples = Seq(
+        "summary-list-as-a-summary-card-with-actions",
+        "summary-list-as-a-summary-card-with-actions-plus-summary-list-actions",
+        "summary-list-extreme",
+        "summary-list-overridden-widths",
+        "summary-list-summary-card-with-custom-attributes",
+        "summary-list-summary-card-with-custom-classes",
+        "summary-list-summary-card-with-only-1-action",
+        "summary-list-translated",
+        "summary-list-with-some-actions",
+        "summary-list-with-actions"
+      )
     )
     with JsoupHelpers {
 
