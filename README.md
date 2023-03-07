@@ -16,9 +16,11 @@ of implementing frontend microservices straightforward and idiomatic for Scala d
 
 - [Getting started](#getting-started)
   - [Compatible Scala and Play Framework versions](#compatible-scala-and-play-framework-versions)
+  - [Understanding library changes between versions](#understanding-library-changes-between-versions)
   - [Integrating with play-frontend-hmrc](#integrating-with-play-frontend-hmrc)
   - [Finding Twirl templates for GOV.UK and HMRC design system components](#finding-twirl-templates-for-govuk-and-hmrc-design-system-components)
   - [Using the components](#using-the-components)
+  - [Handling user input securely](#handling-user-input-securely)
   - [Useful implicits](#useful-implicits)
 - [Creating HMRC-style pages](#creating-hmrc-style-pages)
   - [Using the HMRC standard page template](#using-the-hmrc-standard-page-template)
@@ -54,7 +56,7 @@ This library is currently compatible with:
 * Scala 2.12 / 2.13
 * Play 2.8
 
-### Find out about library changes between versions by reading our changelog
+### Understanding library changes between versions
 
 We summarise what's changed between versions, and importantly any actions that may be required when upgrading past a specific version within our [changelog](CHANGELOG.md).
 
@@ -157,6 +159,79 @@ You can then use the components in your templates as follows:
  )
 ).withFormField(myForm("whereDoYouLive")))  /* wires up things like checked status of inputs from a play form field */
 ```
+
+### Handling user input securely
+
+[Cross-site scripting (XSS)](https://owasp.org/www-community/attacks/xss/)
+is an attack where a malicious actor executes arbitrary JavaScript in the user's browser,
+typically to exfiltrate sensitive data such as cookies or session state,
+by including `<script>` tags, or attributes like `onload` that can execute JavaScript.
+There are a few ways that you can protect your service from these sorts of attack.
+
+#### Content-Security Policy (CSP)
+Disabling the use of inline JavaScript, by removing 'unsafe-inline' from your CSP,
+will reduce the risk of injected JavaScript from running.
+
+#### Sanitising or rejecting user input on submission
+The best way to protect your service against malicious input is to sanitise or reject it as soon as it's submitted.
+This might be via a form submission, or as path/query parameters in a URL.
+Such data should be validated against the most restrictive constraints possible.
+
+Within the Play framework, this can be achieved using custom
+[form mappings](https://www.playframework.com/documentation/2.8.x/ScalaForms)
+or
+[request binders](https://www.playframework.com/documentation/2.8.x/ScalaRequestBinders).
+eg. for Forms:
+```scala
+    val myForm = Form[MyData](
+      mapping(
+        "username" -> Forms.text.verifying(_.matches("""^[^<>"&]*$""")) // This will reject XSS chars
+      )(MyData.apply)(MyData.unapply)
+    )
+```
+
+#### Escaping dynamic data when rendering HTML
+Even if data comes from a trusted API, it may have got there via an insecure route, so it should always be treated as unsafe.
+When including any dynamic data in HTML pages, it should be escaped.
+
+In Twirl templates, including user data with dynamic statements (`@` notation) is automatically escaped by Play.
+
+When passing data values to components in play-frontend-hmrc, you should use one of the types derived from the [`Content`](/uk/gov/hmrc/govukfrontend/views/viewmodels/content/Content.scala) trait:
+* `Text` - for untrusted data that may need to be escaped (eg. dynamic data from a form input, a URL parameter or a backend API).
+**You should use this type by default**.
+* `HtmlContent` - for trusted data that contains embedded HTML (eg. static `Messages` content that includes HTML).
+**Only use this type if you know the value contains trusted data that includes HTML**.
+
+eg.
+```scala
+    SummaryListRow(
+      value = Value(Text(myDataValue))
+    )
+```
+
+#### Messages
+It is worth specifically mentioning the use of HTML in messages.
+Where possible, restrict the use of HTML tags to Twirl templates, and use messages for plain text.
+If messages contain HTML, use `@Messages` to render them inline, or wrap them with `HtmlContent` when passing to a Scala component.
+Be extra careful if messages include user-provided data as parameters.
+
+eg.
+
+`messages.conf`:
+```hocon
+    some.text.message=Welcome {0}
+    some.html.message=<b>Welcome {0}</b>
+```
+
+Twirl template:
+```scala
+    @* Safe - auto-escaped by Play *@
+    <b>@Messages("text.message", username)</b>
+
+    @* Unsafe - HtmlContent used since message contains HTML, but leads to dangerous use of username *@
+    @govUkNotificationBanner(NotificationBanner(content = HtmlContent(Messages("html.message", username))))
+```
+
 
 ### Useful implicits
 
