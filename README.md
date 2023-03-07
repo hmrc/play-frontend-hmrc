@@ -54,6 +54,10 @@ This library is currently compatible with:
 * Scala 2.12 / 2.13
 * Play 2.8
 
+### Find out about library changes between versions by reading our changelog
+
+We summarise what's changed between versions, and importantly any actions that may be required when upgrading past a specific version within our [changelog](CHANGELOG.md).
+
 ### Integrating with play-frontend-hmrc
   
 1. Add the version of [play-frontend-hmrc](https://github.com/hmrc/play-frontend-hmrc/releases) specific to your Play version
@@ -446,6 +450,9 @@ The parameters that can be passed into the `hmrcStandardPage` are as follows:
 
 
 ### Creating consistent page headings
+
+> **Warning**
+> The [hmrc guidance for creating headings with a section (caption)](https://design.tax.service.gov.uk/hmrc-design-patterns/page-heading/) has recently changed. The following helpers are still available but this is no longer the recommended approach. Consult the linked documentation for examples of the new recommendation.
 
 The `HmrcPageHeadingLabel` and `HmrcPageHeadingLegend` helpers let you use a label or legend as a page heading with a section (caption) displayed above it.
 
