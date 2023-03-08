@@ -8,6 +8,19 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 For compatibility information see `govukFrontendVersion` and `hmrcFrontendVersion` in
 [LibDependencies](project/LibDependencies.scala)
 
+## [6.8.0] - 2023-03-08
+
+### Changed
+
+- Added guidance on XSS prevention to README.
+- Reorganised README into more cohesive sections, and used [doctoc](https://github.com/thlorenz/doctoc) to generate the table of contents.
+
+### Compatible with
+
+- [hmrc/hmrc-frontend v5.23.0](https://github.com/hmrc/hmrc-frontend/releases/tag/v5.23.0)
+- [alphagov/govuk-frontend v4.4.1](https://github.com/alphagov/govuk-frontend/releases/tag/v4.4.1)
+
+
 ## [6.7.0] - 2023-02-23
 
 ### Changed
