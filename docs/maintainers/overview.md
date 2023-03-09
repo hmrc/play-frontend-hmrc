@@ -5,6 +5,7 @@
 - [Testing](#testing)
 - [Upgrading](#upgrading)
 - [Translation Decisions](#translation-decisions)
+- [Documentation](#documentation)
 - [Architectural decision records](#architectural-decision-records)
 - [Useful Links](#useful-links)
 
@@ -171,6 +172,13 @@ To date, the following conventions have been followed:
 * boolean attributes are `Option`-wrapped only if the Nunjucks template distinguishes between `null`/`undefined`
   values and `true`/`false` values
 * `id` can be either `Option[String]` or `String` - FIXME
+
+## Documentation
+### Updating the table of contents in the main [README.md](/README.md)
+If you make substantial changes to the README, you can use [doctoc](https://github.com/thlorenz/doctoc) to regenerate the table of contents.
+```shell
+doctoc README.md --maxlevel 3 --github
+```
 
 ## Architectural decision records 
 
