@@ -867,7 +867,7 @@ You will need to inject the CSS and Javascript into your views as follows:
 
 @this (
   hmrcStandardPage: HmrcStandardPage,
-  autcompleteCss: HmrcAccessibleAutocompleteCss,
+  autocompleteCss: HmrcAccessibleAutocompleteCss,
   autocompleteJavascript: HmrcAccessibleAutocompleteJavascript
 )
 

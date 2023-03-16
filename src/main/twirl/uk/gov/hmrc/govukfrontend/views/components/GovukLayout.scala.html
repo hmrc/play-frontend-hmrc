@@ -16,7 +16,6 @@
 
 @import uk.gov.hmrc.govukfrontend.views.html.components._
 @import uk.gov.hmrc.govukfrontend.views.viewmodels.pagelayout.PageLayout
-@import views.html.helper.CSPNonce
 
 @this(
   govukTemplate: GovukTemplate,
@@ -76,6 +75,5 @@
   mainClasses = Some("govuk-main-wrapper--auto-spacing"),
   bodyEndBlock = Some(bodyEndDefault),
   assetPath = assetPath,
-  cspNonce = CSPNonce.get,
   pageLayout = pageLayout
 )(mainContent)

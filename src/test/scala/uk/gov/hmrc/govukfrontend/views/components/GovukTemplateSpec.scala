@@ -17,6 +17,9 @@
 package uk.gov.hmrc.govukfrontend.views
 package components
 
+import play.api.libs.typedmap.TypedMap
+import play.api.mvc.request.RequestAttrKey
+import play.api.test.FakeRequest
 import play.twirl.api.{HtmlFormat, Template1}
 import uk.gov.hmrc.govukfrontend.views.html.components._
 import uk.gov.hmrc.govukfrontend.views.viewmodels.template.Template
@@ -24,6 +27,9 @@ import uk.gov.hmrc.govukfrontend.views.viewmodels.template.Template
 import scala.util.Try
 
 class GovukTemplateSpec extends TemplateUnitSpec[Template, GovukTemplateWrapper]("govukTemplate") {
+
+  val request: FakeRequest[_]                   = FakeRequest()
+  implicit val requestWithNonce: FakeRequest[_] = request.withAttrs(TypedMap(RequestAttrKey.CSPNonce -> "a-nonce"))
 
   "template rendered with default values" should {
     "not have whitespace before the doctype" in {
@@ -55,6 +61,13 @@ class GovukTemplateSpec extends TemplateUnitSpec[Template, GovukTemplateWrapper]
       val ogImage = templateHtml.select("""meta[property="og:image"]""")
       ogImage.first.attr("content") should startWith("/foo/bar")
     }
+
+    "use the nonce from the request" in {
+      val html = govukTemplate.apply()(HtmlFormat.empty)
+
+      val scripts = html.select("script")
+      scripts.first.attr("nonce") shouldBe "a-nonce"
+    }
   }
 
   private val govukTemplate: GovukTemplate = app.injector.instanceOf[GovukTemplate]
@@ -73,7 +86,10 @@ class GovukTemplateWrapper @javax.inject.Inject() (
   govukFooter: GovukFooter,
   govukTemplate: GovukTemplate
 ) extends Template1[Template, HtmlFormat.Appendable] {
-  override def render(template: Template): HtmlFormat.Appendable =
+  override def render(template: Template): HtmlFormat.Appendable = {
+    implicit val requestWithNonce: FakeRequest[_] =
+      FakeRequest().withAttrs(TypedMap(RequestAttrKey.CSPNonce -> "secure-random-csp-nonce"))
+
     govukTemplate.apply(
       htmlLang = template.variables.htmlLang,
       pageTitleLang = template.variables.pageTitleLang,
@@ -91,9 +107,9 @@ class GovukTemplateWrapper @javax.inject.Inject() (
       bodyEndBlock = template.blocks.bodyEnd,
       mainClasses = template.variables.mainClasses,
       beforeContentBlock = template.blocks.beforeContent,
-      cspNonce = template.variables.cspNonce,
       bodyAttributes = template.variables.bodyAttributes
     )(template.blocks.content.getOrElse(HtmlFormat.empty))
+  }
 
   def apply(template: Template): HtmlFormat.Appendable = render(template)
 }

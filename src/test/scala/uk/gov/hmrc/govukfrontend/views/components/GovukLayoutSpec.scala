@@ -39,7 +39,6 @@ class GovukLayoutSpec
     with GuiceOneAppPerSuite {
 
   implicit lazy val request: FakeRequest[_] = FakeRequest()
-  val requestWithNonce: FakeRequest[_]      = request.withAttrs(TypedMap(RequestAttrKey.CSPNonce -> "a-nonce"))
 
   val component: GovukLayout = app.injector.instanceOf[GovukLayout]
 
@@ -222,13 +221,6 @@ class GovukLayoutSpec
 
       val links = html.select("link")
       links.first.attr("href") should startWith("/foo/bar")
-    }
-
-    "use the provided nonce" in {
-      val html = component.apply()(HtmlFormat.empty)(requestWithNonce, implicitly)
-
-      val scripts = html.select("script")
-      scripts.first.attr("nonce") shouldBe "a-nonce"
     }
   }
 }
