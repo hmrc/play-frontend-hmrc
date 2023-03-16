@@ -19,10 +19,10 @@ package uk.gov.hmrc.hmrcfrontend.views.helpers
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpecLike
 import org.scalatestplus.play.guice.GuiceOneAppPerSuite
+import play.api.libs.typedmap.TypedMap
 import play.api.mvc.AnyContentAsEmpty
+import play.api.mvc.request.RequestAttrKey
 import play.api.test.FakeRequest
-import play.api.test.Helpers.contentAsString
-import play.twirl.api.Html
 import uk.gov.hmrc.helpers.MessagesSupport
 import uk.gov.hmrc.helpers.views.JsoupHelpers
 import uk.gov.hmrc.hmrcfrontend.views.html.helpers.HmrcInternalGtmScript
@@ -34,7 +34,8 @@ class hmrcInternalGtmScriptSpec
     with JsoupHelpers
     with MessagesSupport {
 
-  implicit val request: FakeRequest[AnyContentAsEmpty.type] = FakeRequest("GET", "/foo")
+  implicit val request: FakeRequest[AnyContentAsEmpty.type] =
+    FakeRequest("GET", "/foo").withAttrs(TypedMap(RequestAttrKey.CSPNonce -> "a-nonce"))
 
   "HmrcInternalGtmScript" should {
     "render the internal GTM script tag" in {
@@ -47,7 +48,7 @@ class hmrcInternalGtmScriptSpec
 
     "include a nonce in each script tag if supplied" in {
       val hmrcInternalGtmScript = app.injector.instanceOf[HmrcInternalGtmScript]
-      val content               = hmrcInternalGtmScript(cspNonce = Some("a-nonce"))
+      val content               = hmrcInternalGtmScript()
 
       val scripts = content.select("script#hmrc-internal-gtm-script-tag")
       scripts                     should have size 1

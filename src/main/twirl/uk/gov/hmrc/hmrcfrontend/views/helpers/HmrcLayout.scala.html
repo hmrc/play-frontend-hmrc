@@ -44,7 +44,6 @@
         additionalHeadBlock: Option[Html] = None,
         additionalScriptsBlock: Option[Html] = None,
         beforeContentBlock: Option[Html] = None,
-        nonce: Option[String] = None,
         mainContentLayout: Option[Html => Html] = Some(defaultMainContent(_)),
         additionalBannersBlock: Option[Html] = None,
         pageLayout: Option[PageLayout => Html] = Some(fixedWidthPageLayout(_)),
@@ -78,7 +77,6 @@
     serviceName = serviceName,
     pageTitle = pageTitle,
     isWelshTranslationAvailable = isWelshTranslationAvailable,
-    backLink = backLink orElse backLinkUrl.map(url => BackLink.withDefaultText(href = url)),
-    cspNonce = nonce
+    backLink = backLink orElse backLinkUrl.map(url => BackLink.withDefaultText(href = url))
   )
 )(contentBlock)

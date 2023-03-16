@@ -25,6 +25,5 @@ case class HmrcStandardPageParams(
   serviceName: Option[String] = None,
   isWelshTranslationAvailable: Boolean = false,
   pageTitle: Option[String] = None,
-  backLink: Option[BackLink] = None,
-  cspNonce: Option[String] = None
+  backLink: Option[BackLink] = None
 )

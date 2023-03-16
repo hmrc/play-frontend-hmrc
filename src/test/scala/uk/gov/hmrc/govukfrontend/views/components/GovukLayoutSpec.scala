@@ -26,6 +26,8 @@ import uk.gov.hmrc.govukfrontend.views.html.components._
 import org.scalatest.wordspec.AnyWordSpecLike
 import play.api.test.Helpers.{stubMessages, stubMessagesApi}
 import org.scalatestplus.play.guice.GuiceOneAppPerSuite
+import play.api.libs.typedmap.TypedMap
+import play.api.mvc.request.RequestAttrKey
 import uk.gov.hmrc.helpers.MessagesHelpers
 import uk.gov.hmrc.helpers.views.JsoupHelpers
 
@@ -35,7 +37,8 @@ class GovukLayoutSpec
     with MessagesHelpers
     with JsoupHelpers
     with GuiceOneAppPerSuite {
-  implicit lazy val request: FakeRequest[AnyContentAsEmpty.type] = FakeRequest()
+
+  implicit lazy val request: FakeRequest[_] = FakeRequest()
 
   val component: GovukLayout = app.injector.instanceOf[GovukLayout]
 
@@ -181,7 +184,7 @@ class GovukLayoutSpec
       val messages = messagesApi.preferred(Seq(Lang("cy")))
 
       val layoutHtml =
-        component.apply()(HtmlFormat.empty)(messages)
+        component.apply()(HtmlFormat.empty)(implicitly, messages)
 
       val html = layoutHtml.select("html")
       html.attr("lang") shouldBe "cy"
@@ -218,15 +221,6 @@ class GovukLayoutSpec
 
       val links = html.select("link")
       links.first.attr("href") should startWith("/foo/bar")
-    }
-
-    "use the provided nonce" in {
-      val html = component.apply(
-        cspNonce = Some("foo")
-      )(HtmlFormat.empty)
-
-      val scripts = html.select("script")
-      scripts.first.attr("nonce") shouldBe "foo"
     }
   }
 }

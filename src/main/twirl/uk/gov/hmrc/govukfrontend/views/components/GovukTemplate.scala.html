@@ -16,6 +16,7 @@
 
 @import uk.gov.hmrc.govukfrontend.views.html.components._
 @import uk.gov.hmrc.govukfrontend.views.viewmodels.pagelayout.PageLayout
+@import views.html.helper.CSPNonce
 
 @this(
     govukHeader: GovukHeader,
@@ -43,10 +44,9 @@
   mainClasses: Option[String] = None,
   beforeContentBlock: Option[Html] = None,
   assetPath: Option[String] = None,
-  cspNonce: Option[String] = None,
   bodyAttributes: Map[String, String] = Map.empty,
   pageLayout: Option[PageLayout => Html] = Some(fixedWidthPageLayout(_))
-)(contentBlock: Html)<!DOCTYPE html>
+)(contentBlock: Html)(implicit requestHeader: RequestHeader)<!DOCTYPE html>
 <html lang="@htmlLang.getOrElse {en}" class="govuk-template @htmlClasses">
   <head>
     <meta charset="utf-8">
@@ -71,7 +71,7 @@
     <meta property="og:image" content="@calculateAssetPath(assetPath, "images/govuk-opengraph-image.png")">
   </head>
   <body class="govuk-template__body @bodyClasses"@toAttributes(bodyAttributes)>
-    <script@cspNonce.map {n => nonce="@n"}>document.body.className = ((document.body.className) ? document.body.className + ' js-enabled' : 'js-enabled');</script>
+    <script @CSPNonce.attr>document.body.className = ((document.body.className) ? document.body.className + ' js-enabled' : 'js-enabled');</script>
     @bodyStart
 
     @skipLinkBlock.getOrElse {

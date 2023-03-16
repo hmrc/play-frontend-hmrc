@@ -16,16 +16,17 @@
 
 @import uk.gov.hmrc.hmrcfrontend.views.html.helpers.HmrcInternalGtmScript
 @import uk.gov.hmrc.hmrcfrontend.config.AssetsConfig
+@import views.html.helper.CSPNonce
 
 @this(hmrcInternalGtmScript: HmrcInternalGtmScript, assetsConfig: AssetsConfig)
 
-@(headBlock: Option[Html] = None, nonce: Option[String] = None)(implicit request: RequestHeader, messages: Messages)
-@hmrcInternalGtmScript(nonce)
+@(headBlock: Option[Html] = None)(implicit request: RequestHeader, messages: Messages)
+@hmrcInternalGtmScript()
 <!--[if lte IE 8]>
 <script src="@assetsConfig.html5ShivJsUrl"></script>
 <link href="@assetsConfig.hmrcFrontendIe8CssUrl" media="all" rel="stylesheet" type="text/css" />
 <![endif]-->
 <!--[if gt IE 8]><!-->
-<link href="@assetsConfig.hmrcFrontendCssUrl" media="all" rel="stylesheet" type="text/css"@nonce.map {n=> nonce="@n"} />
+<link href="@assetsConfig.hmrcFrontendCssUrl" @CSPNonce.attr media="all" rel="stylesheet" type="text/css" />
 <!--<![endif]-->
 @headBlock
