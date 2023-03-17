@@ -21,7 +21,8 @@ import uk.gov.hmrc.hmrcfrontend.views.viewmodels.language.{En, Language}
 
 case class UserResearchBanner(
   language: Language = En,
-  url: String = ""
+  url: String = "",
+  hideCloseButton: Boolean = false
 )
 
 object UserResearchBanner {

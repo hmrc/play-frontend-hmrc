@@ -8,16 +8,29 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 For compatibility information see `govukFrontendVersion` and `hmrcFrontendVersion` in
 [LibDependencies](project/LibDependencies.scala)
 
-## [7.0.0] - 2023-03-15
+## [7.1.0] - 2023-03-17
 
 ### Changed
 
-- Removed explicit `cspNonce` parameter from various templates - get it from the current request instead
+- Updated markup for the HmrcUserResearchBanner component
+- Added hideCloseButton parameter to UserResearchBanner viewmodel
 - Bumped hmrc-frontend version to v5.26.0
 
 ### Compatible with
 
 - [hmrc/hmrc-frontend v5.26.0](https://github.com/hmrc/hmrc-frontend/releases/tag/v5.26.0)
+- [alphagov/govuk-frontend v4.5.0](https://github.com/alphagov/govuk-frontend/releases/tag/v4.5.0)
+
+
+## [7.0.0] - 2023-03-15
+
+### Changed
+
+- Removed explicit `cspNonce` parameter from various templates - get it from the current request instead
+
+### Compatible with
+
+- [hmrc/hmrc-frontend v5.24.0](https://github.com/hmrc/hmrc-frontend/releases/tag/v5.24.0)
 - [alphagov/govuk-frontend v4.5.0](https://github.com/alphagov/govuk-frontend/releases/tag/v4.5.0)
 
 

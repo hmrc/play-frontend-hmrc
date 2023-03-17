@@ -25,22 +25,24 @@
   <div class="hmrc-user-research-banner__text">
    <h2 class="govuk-heading-s hmrc-user-research-banner__title">
     @language match {
-     case Cy => {Helpwch i wella gwasanaethau CThEM}
-     case _ => {Help improve HMRC services}
+     case Cy => {Helpwch i wella GOV.UK}
+     case _ => {Help make GOV.UK better}
     }
    </h2>
    <a class="govuk-link hmrc-user-research-banner__link" rel="noopener noreferrer" href="@url" target="_blank">
     @language match {
-     case Cy => {Cofrestrwch i gymryd rhan mewn ymchwil defnyddwyr (yn agor tab newydd)}
-     case _ => {Sign up to take part in user research (opens in new tab)}
+     case Cy => {Cofrestrwch i gymryd rhan mewn ymchwil (yn agor tab newydd)}
+     case _ => {Sign up to take part in research (opens in new tab)}
     }
    </a>
   </div>
-  <button class="govuk-link hmrc-user-research-banner__close">
-   @language match {
-    case Cy => {<span aria-hidden="true">Dim diolch</span><span class="govuk-visually-hidden">Dim diolch, nid wyf am gymryd rhan yn yr ymchwil defnyddwyr - cuddio'r neges hon</span>}
-    case _ => {<span aria-hidden="true">No thanks</span><span class="govuk-visually-hidden">No thanks, I do not want to take part in user research, hide this message</span>}
-   }
-  </button>
+  @if(!hideCloseButton) {
+   <button class="govuk-button govuk-button--secondary hmrc-user-research-banner__close">
+    @language match {
+     case Cy => {<span aria-hidden="true">Cuddio’r neges</span> <span class="govuk-visually-hidden">Cuddio’r neges. Dydw i ddim eisiau cymryd rhan mewn ymchwil</span>}
+     case _ => {<span aria-hidden="true">Hide message</span> <span class="govuk-visually-hidden">Hide message. I do not want to take part in research</span>}
+    }
+   </button>
+  }
  </div>
 </div>

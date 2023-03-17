@@ -238,7 +238,7 @@ class hmrcStandardHeaderSpec extends AnyWordSpecLike with Matchers with JsoupHel
       val banners           = document.select(".hmrc-user-research-banner")
 
       banners            should have size 1
-      banners.first.text should include("Help improve HMRC services")
+      banners.first.text should include("Help make GOV.UK better")
 
     }
 
@@ -255,7 +255,7 @@ class hmrcStandardHeaderSpec extends AnyWordSpecLike with Matchers with JsoupHel
       val banners           = document.select(".hmrc-user-research-banner")
 
       banners            should have size 1
-      banners.first.text should include("Helpwch i wella gwasanaethau CThEM")
+      banners.first.text should include("Helpwch i wella GOV.UK")
     }
   }
 }
