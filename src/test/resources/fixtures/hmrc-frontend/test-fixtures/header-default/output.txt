@@ -33,16 +33,17 @@
     <div class="hmrc-user-research-banner" data-module="hmrc-user-research-banner">
   <div class="hmrc-user-research-banner__container govuk-width-container">
     <div class="hmrc-user-research-banner__text">
-        <h2 class="govuk-heading-s hmrc-user-research-banner__title">
-            Help improve HMRC services
-        </h2>
-        <a class="govuk-link hmrc-user-research-banner__link" rel="noopener noreferrer" href="/sign-up-for-user-research" target="_blank">
-            Sign up to take part in user research (opens in new tab)
-        </a>
+      <h2 class="govuk-heading-s hmrc-user-research-banner__title">
+          Help make GOV.UK better
+      </h2>
+      <a class="govuk-link hmrc-user-research-banner__link" rel="noopener noreferrer" href="/sign-up-for-user-research" target="_blank">
+          Sign up to take part in research (opens in new tab)
+      </a>
     </div>
-    <button class="govuk-link hmrc-user-research-banner__close">
-        <span aria-hidden="true">No thanks</span><span class="govuk-visually-hidden">No thanks, I do not want to take part in user research, hide this message</span>
-    </button>
+      <button class="govuk-button govuk-button--secondary hmrc-user-research-banner__close">
+          <span aria-hidden="true">Hide message</span>
+          <span class="govuk-visually-hidden">Hide message. I do not want to take part in research</span>
+      </button>
   </div>
 </div>
 
