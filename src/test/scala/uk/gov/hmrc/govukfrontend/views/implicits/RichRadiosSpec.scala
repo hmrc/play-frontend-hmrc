@@ -18,6 +18,7 @@ package uk.gov.hmrc.govukfrontend.views.implicits
 
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpec
+import play.api.data.Field
 import uk.gov.hmrc.govukfrontend.views.html.components.implicits._
 import uk.gov.hmrc.govukfrontend.views.viewmodels.content.{HtmlContent, Text}
 import uk.gov.hmrc.govukfrontend.views.viewmodels.errormessage.ErrorMessage
@@ -60,6 +61,20 @@ class RichRadiosSpec extends AnyWordSpec with Matchers with MessagesHelpers with
         radioItemGood,
         radioItemBad.copy(checked = true),
         radioItemWorst
+      )
+    }
+
+    "divider should not be marked as checked when field value is set to None" in {
+      val emptyFormField                             = field.copy(value = None)
+      val dividerFromRadiosUpdatedWithEmptyFormField = Radios(
+        items = Seq(
+          RadioItem(divider = Some("or"))
+        )
+      ).withFormField(emptyFormField).items.head
+
+      dividerFromRadiosUpdatedWithEmptyFormField shouldEqual RadioItem(
+        divider = Some("or"),
+        checked = false
       )
     }
 

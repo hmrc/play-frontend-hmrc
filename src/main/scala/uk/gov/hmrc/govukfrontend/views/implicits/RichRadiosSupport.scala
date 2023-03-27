@@ -82,7 +82,7 @@ trait RichRadiosSupport {
     private[views] def withItemsChecked(field: Field): Radios =
       radios.copy(
         items = radios.items.map { radioItem =>
-          if (radioItem.checked == RadioItem.defaultObject.checked) {
+          if (radioItem.checked == RadioItem.defaultObject.checked && radioItem.divider.isEmpty) {
             val isChecked = radioItem.value == field.value
             radioItem.copy(checked = isChecked)
           } else radioItem
