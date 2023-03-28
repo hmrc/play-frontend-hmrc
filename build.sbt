@@ -1,9 +1,9 @@
 import play.sbt.PlayImport.PlayKeys.playMonitoredFiles
 
 val scala2_12 = "2.12.15"
-val scala2_13 = "2.13.7"
+val scala2_13 = "2.13.8"
 
-val silencerVersion = "1.7.7"
+val silencerVersion = "1.7.12"
 
 lazy val IntegrationTest = config("it") extend Test
 
