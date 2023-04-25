@@ -1,0 +1,6 @@
+<div class="govuk-form-group">
+  <label class="govuk-label" for="more-detail-disabled">
+    Can you provide more detail (disabled)?
+  </label>
+  <textarea class="govuk-textarea" id="more-detail-disabled" name="more-detail-disabled" rows="5" disabled></textarea>
+</div>

@@ -40,7 +40,8 @@ case class Input(
   attributes: Map[String, String] = Map.empty,
   spellcheck: Option[Boolean] = None,
   prefix: Option[PrefixOrSuffix] = None,
-  suffix: Option[PrefixOrSuffix] = None
+  suffix: Option[PrefixOrSuffix] = None,
+  disabled: Option[Boolean] = None
 )
 
 object Input {
@@ -65,7 +66,8 @@ object Input {
         (__ \ "attributes").readWithDefault[Map[String, String]](defaultObject.attributes) and
         (__ \ "spellcheck").readNullable[Boolean] and
         (__ \ "prefix").readNullable[PrefixOrSuffix] and
-        (__ \ "suffix").readNullable[PrefixOrSuffix]
+        (__ \ "suffix").readNullable[PrefixOrSuffix] and
+        (__ \ "disabled").readNullable[Boolean]
     )(Input.apply _)
 
   implicit def jsonWrites: OWrites[Input] =
@@ -86,7 +88,8 @@ object Input {
         (__ \ "attributes").write[Map[String, String]] and
         (__ \ "spellcheck").writeNullable[Boolean] and
         (__ \ "prefix").writeNullable[PrefixOrSuffix] and
-        (__ \ "suffix").writeNullable[PrefixOrSuffix]
+        (__ \ "suffix").writeNullable[PrefixOrSuffix] and
+        (__ \ "disabled").writeNullable[Boolean]
     )(unlift(Input.unapply))
 
 }

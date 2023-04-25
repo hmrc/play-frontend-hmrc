@@ -35,8 +35,8 @@ case class Textarea(
   classes: String = "",
   autocomplete: Option[String] = None,
   attributes: Map[String, String] = Map.empty,
-  countMessageClasses: String = "",
-  spellcheck: Option[Boolean] = None
+  spellcheck: Option[Boolean] = None,
+  disabled: Option[Boolean] = None
 )
 
 object Textarea {
@@ -57,8 +57,8 @@ object Textarea {
         (__ \ "classes").readWithDefault[String](defaultObject.classes) and
         (__ \ "autocomplete").readNullable[String] and
         (__ \ "attributes").readWithDefault[Map[String, String]](defaultObject.attributes) and
-        readsCountMessageClasses and
-        (__ \ "spellcheck").readNullable[Boolean]
+        (__ \ "spellcheck").readNullable[Boolean] and
+        (__ \ "disabled").readNullable[Boolean]
     )(Textarea.apply _)
 
   implicit def jsonWrites: OWrites[Textarea] =
@@ -75,8 +75,8 @@ object Textarea {
         (__ \ "classes").write[String] and
         (__ \ "autocomplete").writeNullable[String] and
         (__ \ "attributes").write[Map[String, String]] and
-        writesCountMessageClasses and
-        (__ \ "spellcheck").writeNullable[Boolean]
+        (__ \ "spellcheck").writeNullable[Boolean] and
+        (__ \ "disabled").writeNullable[Boolean]
     )(unlift(Textarea.unapply))
 
 }

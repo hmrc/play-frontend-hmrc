@@ -57,7 +57,7 @@
     @autocomplete.mapNonEmpty { autocomplete =>autocomplete="@autocomplete"}
   } { autocompleteAttr =>
   @defining {
-    id="@id" name="@name" rows="@if(rows != 0) {@rows} else {5}"@if(describedBy.nonEmpty) { aria-describedby="@describedBy"}@autocompleteAttr @toAttributes(attributes) @if(spellcheck.nonEmpty){spellcheck="@if(spellcheck.getOrElse(true)){true}else{false}"}
+    id="@id" name="@name" rows="@if(rows != 0) {@rows} else {5}"@if(describedBy.nonEmpty) { aria-describedby="@describedBy"}@autocompleteAttr@if(spellcheck.nonEmpty){spellcheck="@if(spellcheck.getOrElse(true)){true}else{false}"}@if(disabled.getOrElse(false)) { disabled} @toAttributes(attributes)
   } { attrs =>
     <textarea class="@toClasses("govuk-textarea", errorMessage.fold("")(_ => "govuk-textarea--error"), classes)" @attrs>@value.mapNonEmpty { value =>@HtmlFormat.escape(value)}</textarea>
   }}

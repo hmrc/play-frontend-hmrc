@@ -21,7 +21,7 @@ import play.api.libs.json._
 import uk.gov.hmrc.govukfrontend.views.html.components._
 
 case class WarningText(
-  iconFallbackText: String = "",
+  iconFallbackText: Option[String] = None,
   classes: String = "",
   attributes: Map[String, String] = Map.empty,
   content: Content = Empty
@@ -33,7 +33,7 @@ object WarningText {
 
   implicit def jsonReads: Reads[WarningText] =
     (
-      (__ \ "iconFallbackText").readWithDefault[String](defaultObject.iconFallbackText) and
+      (__ \ "iconFallbackText").readNullable[String] and
         (__ \ "classes").readWithDefault[String](defaultObject.classes) and
         (__ \ "attributes").readWithDefault[Map[String, String]](defaultObject.attributes) and
         Content.reads
@@ -41,7 +41,7 @@ object WarningText {
 
   implicit def jsonWrites: OWrites[WarningText] =
     (
-      (__ \ "iconFallbackText").write[String] and
+      (__ \ "iconFallbackText").writeNullable[String] and
         (__ \ "classes").write[String] and
         (__ \ "attributes").write[Map[String, String]] and
         Content.writes

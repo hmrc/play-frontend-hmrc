@@ -48,7 +48,8 @@ case class Select(
   formGroupClasses: String = "",
   classes: String = "",
   attributes: Map[String, String] = Map.empty,
-  value: Option[String] = None
+  value: Option[String] = None,
+  disabled: Option[Boolean] = None
 )
 
 object Select {
@@ -67,7 +68,8 @@ object Select {
         readsFormGroupClasses and
         (__ \ "classes").readWithDefault[String](defaultObject.classes) and
         (__ \ "attributes").readWithDefault[Map[String, String]](defaultObject.attributes)(attributesReads) and
-        (__ \ "value").readsJsValueToString.map(Option[String]).orElse(Reads.pure(None))
+        (__ \ "value").readsJsValueToString.map(Option[String]).orElse(Reads.pure(None)) and
+        (__ \ "disabled").readNullable[Boolean]
     )(Select.apply _)
 
   implicit def jsonWrites: OWrites[Select] =
@@ -82,7 +84,8 @@ object Select {
         writesFormGroupClasses and
         (__ \ "classes").write[String] and
         (__ \ "attributes").write[Map[String, String]] and
-        (__ \ "value").writeNullable[String]
+        (__ \ "value").writeNullable[String] and
+        (__ \ "disabled").writeNullable[Boolean]
     )(unlift(Select.unapply))
 
 }

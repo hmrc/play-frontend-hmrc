@@ -1,0 +1,20 @@
+{
+  "id" : "select-1-disabled",
+  "name" : "select-1-disabled",
+  "label" : {
+    "text" : "Label text goes here"
+  },
+  "disabled": true,
+  "items" : [ {
+    "value" : 1,
+    "text" : "GOV.UK frontend option 1"
+  }, {
+    "value" : 2,
+    "text" : "GOV.UK frontend option 2",
+    "selected" : true
+  }, {
+    "value" : 3,
+    "text" : "GOV.UK frontend option 3",
+    "disabled" : true
+  } ]
+}

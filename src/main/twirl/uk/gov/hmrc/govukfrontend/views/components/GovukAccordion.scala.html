@@ -46,7 +46,7 @@
     }
 }
 
-<div class="@toClasses("govuk-accordion", classes)" data-module="govuk-accordion" id="@id"@toAttributes(attributes)@attrs>
+<div class="@toClasses("govuk-accordion", classes)" data-module="govuk-accordion" id="@id"@rememberExpanded.map {re => data-remember-expanded="@re"}@toAttributes(attributes)@attrs>
   @for((item, index) <- items.zip(Stream from 1)) {
     <div class="govuk-accordion__section@if(item.expanded){ govuk-accordion__section--expanded}">
       <div class="govuk-accordion__section-header">

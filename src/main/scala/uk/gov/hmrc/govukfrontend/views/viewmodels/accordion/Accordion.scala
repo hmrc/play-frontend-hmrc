@@ -31,7 +31,8 @@ case class Accordion(
   hideSectionAriaLabel: Option[String] = None,
   showSection: Option[String] = None,
   showAllSections: Option[String] = None,
-  showSectionAriaLabel: Option[String] = None
+  showSectionAriaLabel: Option[String] = None,
+  rememberExpanded: Option[Boolean] = None
 )
 
 object Accordion {
@@ -49,7 +50,8 @@ object Accordion {
       (__ \ "hideSectionAriaLabelText").readNullable[String] and
       (__ \ "showSectionText").readNullable[String] and
       (__ \ "showAllSectionsText").readNullable[String] and
-      (__ \ "showSectionAriaLabelText").readNullable[String]
+      (__ \ "showSectionAriaLabelText").readNullable[String] and
+      (__ \ "rememberExpanded").readNullable[Boolean]
   )(Accordion.apply _)
 
   implicit def jsonWrites: OWrites[Accordion] = Json.writes[Accordion]
