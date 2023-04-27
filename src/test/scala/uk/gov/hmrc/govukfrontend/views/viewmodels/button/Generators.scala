@@ -18,7 +18,7 @@ package uk.gov.hmrc.govukfrontend.views.viewmodels.button
 
 import org.scalacheck.Arbitrary._
 import org.scalacheck.{Arbitrary, Gen}
-import uk.gov.hmrc.govukfrontend.views.viewmodels.Generators.{genAlphaStr, genAttributes}
+import uk.gov.hmrc.govukfrontend.views.viewmodels.Generators.{genAlphaStr, genAttributes, genNonEmptyAlphaStr}
 import uk.gov.hmrc.govukfrontend.views.viewmodels.content.Generators._
 
 object Generators {
@@ -36,6 +36,7 @@ object Generators {
       preventDoubleClick <- Gen.option(arbBool.arbitrary)
       isStartButton      <- arbBool.arbitrary
       content            <- arbContent.arbitrary
+      id                 <- Gen.option(Gen.alphaStr.suchThat(_.nonEmpty))
     } yield Button(
       element = element,
       name = name,
@@ -47,7 +48,8 @@ object Generators {
       attributes = attributes,
       preventDoubleClick = preventDoubleClick,
       isStartButton = isStartButton,
-      content = content
+      content = content,
+      id = id
     )
   }
 }

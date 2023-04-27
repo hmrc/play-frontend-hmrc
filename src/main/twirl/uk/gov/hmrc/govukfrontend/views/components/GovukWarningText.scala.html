@@ -21,7 +21,7 @@
 <div class="@toClasses("govuk-warning-text", classes)"@toAttributes(attributes)>
   <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
   <strong class="govuk-warning-text__text">
-    <span class="govuk-warning-text__assistive">@HtmlFormat.escape(iconFallbackText)</span>
+    <span class="govuk-warning-text__assistive">@HtmlFormat.escape(iconFallbackText.getOrElse("Warning"))</span>
     @content.asHtml
   </strong>
 </div>

@@ -34,7 +34,7 @@
           </dt>
           <dd class="govuk-summary-list__value">
             <p class="govuk-body">
-         email@email.com
+          email@email.com
         </p>
         <p class="govuk-body">
           Address line 1<br>

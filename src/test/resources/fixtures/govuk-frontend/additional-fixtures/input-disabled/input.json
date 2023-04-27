@@ -1,0 +1,8 @@
+{
+  "label" : {
+    "text" : "National Insurance number (disabled)"
+  },
+  "id" : "input-example",
+  "name" : "test-name",
+  "disabled": true
+}

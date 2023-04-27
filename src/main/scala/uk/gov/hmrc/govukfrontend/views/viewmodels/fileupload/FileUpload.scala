@@ -33,7 +33,8 @@ case class FileUpload(
   errorMessage: Option[ErrorMessage] = None,
   formGroupClasses: String = "",
   classes: String = "",
-  attributes: Map[String, String] = Map.empty
+  attributes: Map[String, String] = Map.empty,
+  disabled: Option[Boolean] = None
 )
 
 object FileUpload {
@@ -51,7 +52,8 @@ object FileUpload {
         (__ \ "errorMessage").readNullable[ErrorMessage] and
         readsFormGroupClasses and
         (__ \ "classes").readWithDefault[String](defaultObject.classes) and
-        (__ \ "attributes").readWithDefault[Map[String, String]](defaultObject.attributes)
+        (__ \ "attributes").readWithDefault[Map[String, String]](defaultObject.attributes) and
+        (__ \ "disabled").readNullable[Boolean]
     )(FileUpload.apply _)
 
   implicit def jsonWrites: OWrites[FileUpload] =
@@ -65,7 +67,8 @@ object FileUpload {
         (__ \ "errorMessage").writeNullable[ErrorMessage] and
         writesFormGroupClasses and
         (__ \ "classes").write[String] and
-        (__ \ "attributes").write[Map[String, String]]
+        (__ \ "attributes").write[Map[String, String]] and
+        (__ \ "disabled").writeNullable[Boolean]
     )(unlift(FileUpload.unapply))
 
 }

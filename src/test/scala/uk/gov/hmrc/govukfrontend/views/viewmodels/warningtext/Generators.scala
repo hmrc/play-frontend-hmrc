@@ -16,7 +16,7 @@
 
 package uk.gov.hmrc.govukfrontend.views.viewmodels.warningtext
 
-import org.scalacheck.Arbitrary
+import org.scalacheck.{Arbitrary, Gen}
 import uk.gov.hmrc.govukfrontend.views.viewmodels.Generators._
 import uk.gov.hmrc.govukfrontend.views.viewmodels.content.Generators._
 
@@ -24,7 +24,7 @@ object Generators {
 
   implicit val arbWarningText: Arbitrary[WarningText] = Arbitrary {
     for {
-      iconFallbackText <- genAlphaStr()
+      iconFallbackText <- Gen.option(genAlphaStr())
       classes          <- genClasses()
       attributes       <- genAttributes()
       content          <- arbContent.arbitrary

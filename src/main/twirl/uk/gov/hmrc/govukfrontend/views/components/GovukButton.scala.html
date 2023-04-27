@@ -39,7 +39,7 @@
 
 @elem = @{ element.foldNonEmpty(href.foldNonEmpty("button")(_ => "a"))(_.toLowerCase) }
 
-@commonAttributes(classNames: String) = {class="@classNames" data-module="govuk-button"@toAttributes(attributes)}
+@commonAttributes(classNames: String) = {class="@classNames" data-module="govuk-button"@toAttributes(attributes)@id.map { value => id="@value"}}
 
 @buttonAttributes = {
   @name.mapNonEmpty {name => name="@name"}@if(disabled) { disabled="disabled" aria-disabled="true"}@preventDoubleClick.map {value => data-prevent-double-click="@value"}

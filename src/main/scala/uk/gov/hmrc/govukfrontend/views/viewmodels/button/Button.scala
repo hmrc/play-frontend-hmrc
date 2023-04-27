@@ -32,7 +32,8 @@ case class Button(
   attributes: Map[String, String] = Map.empty,
   preventDoubleClick: Option[Boolean] = None,
   isStartButton: Boolean = false,
-  content: Content = Empty
+  content: Content = Empty,
+  id: Option[String] = None
 )
 
 object Button {
@@ -51,7 +52,8 @@ object Button {
         (__ \ "attributes").readWithDefault[Map[String, String]](defaultObject.attributes)(attributesReads) and
         (__ \ "preventDoubleClick").readNullable[Boolean] and
         (__ \ "isStartButton").readWithDefault[Boolean](defaultObject.isStartButton) and
-        Content.reads
+        Content.reads and
+        (__ \ "id").readNullable[String]
     )(Button.apply _)
 
   implicit def jsonWrites: OWrites[Button] =
@@ -66,7 +68,8 @@ object Button {
         (__ \ "attributes").write[Map[String, String]] and
         (__ \ "preventDoubleClick").writeNullable[Boolean] and
         (__ \ "isStartButton").write[Boolean] and
-        Content.writes
+        Content.writes and
+        (__ \ "id").writeNullable[String]
     )(unlift(Button.unapply))
 
 }
