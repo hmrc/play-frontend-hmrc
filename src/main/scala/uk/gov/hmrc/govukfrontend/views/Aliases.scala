@@ -148,6 +148,12 @@ trait Aliases {
   type ActionItem = viewmodels.summarylist.ActionItem
   val ActionItem = viewmodels.summarylist.ActionItem
 
+  type Card = viewmodels.summarylist.Card
+  val Card = viewmodels.summarylist.Card
+
+  type CardTitle = viewmodels.summarylist.CardTitle
+  val CardTitle = viewmodels.summarylist.CardTitle
+
   type Accordion = viewmodels.accordion.Accordion
   val Accordion = viewmodels.accordion.Accordion
 

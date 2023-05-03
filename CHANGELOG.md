@@ -8,6 +8,17 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 For compatibility information see `govukFrontendVersion` and `hmrcFrontendVersion` in
 [LibDependencies](project/LibDependencies.scala)
 
+## [7.7.0] - 2023-05-03
+
+### Changed
+
+- Add empty alt attribute to logo IE8 fallback PNG IN `HmrcHeader`
+
+### Compatible with
+
+- [hmrc/hmrc-frontend v5.31.0](https://github.com/hmrc/hmrc-frontend/releases/tag/v5.31.0)
+- [alphagov/govuk-frontend v4.6.0](https://github.com/alphagov/govuk-frontend/releases/tag/v4.6.0)
+
 ## [7.6.0] - 2023-05-02
 
 ### Changed
@@ -18,7 +29,6 @@ For compatibility information see `govukFrontendVersion` and `hmrcFrontendVersio
 
 - [hmrc/hmrc-frontend v5.30.0](https://github.com/hmrc/hmrc-frontend/releases/tag/v5.30.0)
 - [alphagov/govuk-frontend v4.6.0](https://github.com/alphagov/govuk-frontend/releases/tag/v4.6.0)
-
 
 ## [7.5.0] - 2023-04-27
 

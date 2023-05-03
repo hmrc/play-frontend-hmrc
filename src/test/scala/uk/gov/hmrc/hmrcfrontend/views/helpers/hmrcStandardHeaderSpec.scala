@@ -194,7 +194,7 @@ class hmrcStandardHeaderSpec extends AnyWordSpecLike with Matchers with JsoupHel
       val messages = getMessages()
       val content  = contentAsString(hmrcStandardHeader()(messages, fakeRequest))
       content should include(
-        """<img src="/some-service/hmrc-frontend/assets/govuk/images/govuk-logotype-crown.png" class="govuk-header__logotype-crown-fallback-image" width="36" height="32">"""
+        """<img src="/some-service/hmrc-frontend/assets/govuk/images/govuk-logotype-crown.png" class="govuk-header__logotype-crown-fallback-image" width="36" height="32" alt="">"""
       )
     }
 
