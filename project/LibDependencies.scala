@@ -6,7 +6,7 @@ import sbt.ModuleID
 
 object LibDependencies {
   val govukFrontendVersion: String = "4.6.0"
-  val hmrcFrontendVersion: String  = "5.30.0"
+  val hmrcFrontendVersion: String  = "5.31.0"
   val playLanguageVersion: String  = "6.1.0"
 
   val compile: Seq[ModuleID] = dependencies(
