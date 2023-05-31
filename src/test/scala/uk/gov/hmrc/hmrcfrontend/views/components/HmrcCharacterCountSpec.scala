@@ -16,8 +16,7 @@
 
 package uk.gov.hmrc.hmrcfrontend.views.components
 
-import play.api.i18n.{Lang, Langs}
-import play.api.mvc.{Cookie, RequestHeader}
+import play.api.mvc.RequestHeader
 import play.api.test.FakeRequest
 import play.twirl.api.HtmlFormat
 import uk.gov.hmrc.helpers.MessagesSupport

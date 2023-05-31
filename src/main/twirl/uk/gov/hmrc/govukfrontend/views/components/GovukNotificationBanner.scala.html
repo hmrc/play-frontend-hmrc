@@ -14,9 +14,14 @@
  * limitations under the License.
  *@
 
+@import uk.gov.hmrc.govukfrontend.views.Aliases.NotificationBanner
+@import uk.gov.hmrc.govukfrontend.views.Aliases.Text
+@import uk.gov.hmrc.hmrcfrontend.views.Utils._
+@import uk.gov.hmrc.govukfrontend.views.viewmodels.content._
+
 @this()
 
-@(params: NotificationBanner)
+@(params: NotificationBanner)(implicit messages: Messages)
 @import params._
 
 @bannerRole = @{ role.getNonEmptyOrElse {
@@ -27,7 +32,11 @@
 @titleContent = @{
     if (title.nonEmpty) title
     else {
-        if (bannerType.contains("success")) Text("Success") else Text("Important")
+        if (bannerType.contains("success")) {
+            if (messages.lang.code == "cy") Text("Llwyddiant") else Text("Success")
+        } else {
+            if (messages.lang.code == "cy") Text("Pwysig") else Text("Important")
+        }
     }
 }
 
