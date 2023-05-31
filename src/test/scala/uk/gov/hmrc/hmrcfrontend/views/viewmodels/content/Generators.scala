@@ -17,6 +17,7 @@
 package uk.gov.hmrc.hmrcfrontend.views.viewmodels.content
 
 import org.scalacheck.{Arbitrary, Gen}
+import play.twirl.api.Html
 import uk.gov.hmrc.govukfrontend.views.viewmodels.content.{Content, Empty, HtmlContent, Text}
 import uk.gov.hmrc.hmrcfrontend.views.viewmodels.Generators._
 
@@ -28,8 +29,12 @@ object Generators {
     arbHtml.arbitrary.map(HtmlContent(_))
   }
 
+  val arbEncodedAsciiStr: Arbitrary[String] = Arbitrary {
+    Gen.asciiPrintableStr.map(Html(_)).toString
+  }
+
   implicit val arbText: Arbitrary[Text] = Arbitrary {
-    Gen.frequency((80, Gen.asciiPrintableStr), (20, genHtmlString)).map(Text)
+    Gen.frequency((80, arbEncodedAsciiStr.arbitrary), (20, genHtmlString)).map(Text)
   }
 
   implicit val arbContent: Arbitrary[Content] = Arbitrary {
