@@ -30,7 +30,20 @@
       </div>
     </div>
   </div>
-    <div class="hmrc-user-research-banner" data-module="hmrc-user-research-banner">
+    <div class="govuk-width-container">
+      <div class="govuk-phase-banner">
+  <p class="govuk-phase-banner__content">
+    <strong class="govuk-tag govuk-phase-banner__content__tag">
+      alpha
+    </strong>
+    <span class="govuk-phase-banner__text">
+      This is a new service – your <a class="govuk-link" href="#">feedback</a> will help us to improve it.
+    </span>
+  </p>
+</div>
+
+    </div>
+      <div class="hmrc-user-research-banner" data-module="hmrc-user-research-banner">
   <div class="hmrc-user-research-banner__container govuk-width-container">
     <div class="hmrc-user-research-banner__text">
       <h2 class="govuk-heading-s hmrc-user-research-banner__title">
@@ -47,19 +60,6 @@
   </div>
 </div>
 
-    <div class="govuk-width-container">
-      <div class="govuk-phase-banner">
-  <p class="govuk-phase-banner__content">
-    <strong class="govuk-tag govuk-phase-banner__content__tag">
-      alpha
-    </strong>
-    <span class="govuk-phase-banner__text">
-      This is a new service – your <a class="govuk-link" href="#">feedback</a> will help us to improve it.
-    </span>
-  </p>
-</div>
-
-    </div>
     <div class="govuk-width-container">
       <div class="hmrc-banner">
   <div class="hmrc-organisation-logo">
