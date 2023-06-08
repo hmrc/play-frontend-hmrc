@@ -24,20 +24,21 @@
 @(params: NotificationBanner)(implicit messages: Messages)
 @import params._
 
+@isSuccess = @{ bannerType.contains("success") }
+
 @bannerRole = @{ role.getNonEmptyOrElse {
-  if (bannerType.contains("success")) "alert"
-  else "region"
+    if (isSuccess) "alert" else "region"
 } }
 
 @titleContent = @{
     if (title.nonEmpty) title
-    else {
-        if (bannerType.contains("success")) {
-            if (messages.lang.code == "cy") Text("Llwyddiant") else Text("Success")
+    else Text(
+        if (isSuccess) {
+            messages("govuk.notificationBanner.success")
         } else {
-            if (messages.lang.code == "cy") Text("Pwysig") else Text("Important")
+            messages("govuk.notificationBanner.important")
         }
-    }
+    )
 }
 
 @headingLevel = @{
@@ -48,7 +49,7 @@
     titleId.getOrElse("govuk-notification-banner-title")
 }
 
-<div class="@toClasses("govuk-notification-banner", classes, if(bannerType.contains("success"))" govuk-notification-banner--success" else "")"
+<div class="@toClasses("govuk-notification-banner", classes, if(isSuccess)" govuk-notification-banner--success" else "")"
     role="@{bannerRole}"
     aria-labelledby="@{headingAndTitleId}"
     data-module="govuk-notification-banner"@disableAutoFocus.map {value => data-disable-auto-focus="@value"}@toAttributes(attributes)>
