@@ -8,7 +8,7 @@
 * [ADR-0004](0004-add-contact-and-welsh-information-links-into-footer.md) - Add contact HMRC and Welsh information links to standard footer
 * [ADR-0005](0005-include-govuk-frontend-in-compiled-assets.md) - Include GOV.UK frontend in compiled assets
 * [ADR-0006](0006-allow-service-name-to-be-specified-using-messages-or-a-parameter.md) - Allow service name to be specified using messages or a parameter
-* [ADR-0007](0007-bind-implicit-language-to-twirl-conponent.md) - Populate language parameter from implicit messages
+* [ADR-0007](0007-bind-implicit-language-to-twirl-component.md) - Populate language parameter from implicit messages
 * [ADR-0008](0008-maintain-parity-with-hmrc-frontend.md) - Maintain 1-to-1 parity between govuk-frontend and play-frontend-govuk, and hmrc-frontend and play-frontend-hmrc
 * [ADR-0009](0009-self-publish-webjar.md) - Self-publish the hmrc-frontend webjar used by play-frontend-hmrc
 * [ADR-0010](0010-resolve-naming-collisions-between-libraries.md) - Resolve naming collisions between libraries
@@ -17,8 +17,11 @@
 * [ADR-0013](0013-removing-deprecated-helpers.md) - Removing deprecated helpers
 * [ADR-0014](0014-keep-current-package-structure-and-naming-conventions.md) - Keep current package structure and naming conventions
 * [ADR-0015](0015-introduction-of-implicit-conversions.md) - Introduction of implicit conversions
+* [ADR-0016](0016-use-implicit-messages-to-drive-welsh-translations-in-govuk-twirl-components.md) - Use implicit messages to drive Welsh translations in GOVUK Twirl components
 
 <!-- adrlogstop -->
+
+
 
 
 
