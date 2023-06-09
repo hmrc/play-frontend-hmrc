@@ -24,3 +24,5 @@ this.section.is=This section is
 govukErrorMessage.visuallyHiddenText = Error
 radios.yesnoitems.yes=Yes
 radios.yesnoitems.no=No
+govuk.notificationBanner.success=Success
+govuk.notificationBanner.important=Important

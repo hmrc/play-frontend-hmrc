@@ -18,7 +18,6 @@ package uk.gov.hmrc.govukfrontend.views
 
 import play.api.libs.json._
 import play.twirl.api.{HtmlFormat, Template1}
-import uk.gov.hmrc.helpers.views.TemplateTestHelper
 
 import scala.reflect.ClassTag
 import scala.util.Try
@@ -30,7 +29,7 @@ import scala.util.Try
 abstract class TemplateUnitSpec[T: Reads, C <: Template1[T, HtmlFormat.Appendable]: ClassTag](
   govukComponentName: String,
   fullyCompressedExamples: Seq[String] = Seq.empty
-) extends TemplateTestHelper[T]("/fixtures/govuk-frontend", govukComponentName, fullyCompressedExamples) {
+) extends TemplateUnitBaseSpec[T](govukComponentName, fullyCompressedExamples) {
 
   protected val component: C = app.injector.instanceOf[C]
 

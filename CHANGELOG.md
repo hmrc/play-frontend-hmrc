@@ -8,6 +8,17 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 For compatibility information see `govukFrontendVersion` and `hmrcFrontendVersion` in
 [LibDependencies](project/LibDependencies.scala)
 
+## [7.10.0] - 2023-06-08
+
+### Changed
+
+- Add Welsh translations for default content in [GovukNotificationBanner](src/main/twirl/uk/gov/hmrc/govukfrontend/views/components/GovukNotificationBanner.scala.html)
+
+### Compatible with
+
+- [hmrc/hmrc-frontend v5.37.0](https://github.com/hmrc/hmrc-frontend/releases/tag/v5.37.0)
+- [alphagov/govuk-frontend v4.6.0](https://github.com/alphagov/govuk-frontend/releases/tag/v4.6.0)
+
 ## [7.9.0] - 2023-06-07
 
 ### Changed

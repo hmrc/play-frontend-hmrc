@@ -26,7 +26,7 @@ teams to use this component rather than the more appropriately named hmrcCharact
 
 We therefore made a joint decision to allow as an exception the passing through of an implicit Messages to Twirl
 components, making them Play framework aware, as a pragmatic exception to allow us to maintain our current testing
-strategy whilst not makng a confusing experience for service teams using the library.
+strategy whilst not making a confusing experience for service teams using the library.
 
 ## Decision Drivers
 
@@ -40,7 +40,7 @@ that can be found in implicit scope
 
 * Allow components to take an implicit Messages object and used to populate the language parameter
 * Do nothing, i.e. continue to use the pattern of helpers even when the only additional parameter
-is the implicit languauge
+is the implicit language
 
 ## Decision Outcome
 
