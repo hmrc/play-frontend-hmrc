@@ -41,6 +41,7 @@ import uk.gov.hmrc.hmrcfrontend.views.html.helpers.HmrcLayout
 import uk.gov.hmrc.hmrcfrontend.views.viewmodels.hmrcstandardpage.TemplateOverrides
 
 import scala.annotation.tailrec
+import scala.util.Try
 
 class hmrcLayoutSpec extends AnyWordSpecLike with Matchers with JsoupHelpers with GuiceOneAppPerSuite {
 
@@ -319,6 +320,18 @@ class hmrcLayoutSpec extends AnyWordSpecLike with Matchers with JsoupHelpers wit
       customMainContent.className()    shouldBe "my-custom-styling"
       customMainContent.text()         shouldBe "Some main content"
       customMainContent.childrenSize() shouldBe 0
+    }
+
+    "not use TwoThirdsMainContent layout if passed main content layout is None" in {
+      val hmrcLayout = app.injector.instanceOf[HmrcLayout]
+      val messages   = getMessages()
+      val content    = contentAsString(
+        hmrcLayout(mainContentLayout = None)(Html("Some main content"))(fakeRequest, messages)
+      )
+      val document   = Jsoup.parse(content)
+
+      val mainContent = document.getElementById("main-content")
+      Try(s"Found unexpected content wrapper ${mainContent.child(0).outerHtml()}").toOption shouldBe None
     }
 
     "not display a HMRC banner by default" in {

@@ -53,6 +53,8 @@
 
 @require(!(backLinkUrl.isDefined && backLink.isDefined), "Use backLink or backLinkUrl, but not both")
 
+@noLayoutWrapper = @{ identity[Html] _ }
+
 @hmrcStandardPage(
   HmrcStandardPageParams(
     serviceURLs = ServiceURLs(
@@ -70,7 +72,7 @@
       additionalHeadBlock = additionalHeadBlock,
       additionalScriptsBlock = additionalScriptsBlock,
       beforeContentBlock = beforeContentBlock,
-      mainContentLayout = mainContentLayout,
+      mainContentLayout = mainContentLayout.orElse(Some(noLayoutWrapper)),
       pageLayout = pageLayout,
       headerContainerClasses = headerContainerClasses
     ),
