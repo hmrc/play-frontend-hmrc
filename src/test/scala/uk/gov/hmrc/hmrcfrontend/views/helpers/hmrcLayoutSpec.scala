@@ -322,7 +322,7 @@ class hmrcLayoutSpec extends AnyWordSpecLike with Matchers with JsoupHelpers wit
       customMainContent.childrenSize() shouldBe 0
     }
 
-    "not use TwoThirdsMainContent layout if passed main content layout is None" in {
+    "not use TwoThirdsMainContent layout if main content layout is explicitly passed as None" in {
       val hmrcLayout = app.injector.instanceOf[HmrcLayout]
       val messages   = getMessages()
       val content    = contentAsString(
@@ -515,6 +515,23 @@ class hmrcLayoutSpec extends AnyWordSpecLike with Matchers with JsoupHelpers wit
       val mainElement = document.select("body > main")
       mainElement          should have size 1
       mainElement.html() shouldBe "contentBlock"
+    }
+
+    "not use FixedWidthPageLayout layout and just render content block if page layout is explicitly passed as None" in {
+      val hmrcLayout = app.injector.instanceOf[HmrcLayout]
+      val messages   = getMessages()
+      val content    = contentAsString(
+        hmrcLayout(
+          beforeContentBlock = Some(Html("beforeContentBlock")),
+          pageLayout = None
+        )(Html("Some main content"))(fakeRequest, messages)
+      )
+      val document   = Jsoup.parse(content)
+
+      val afterHeader = document.select("header ~ div")
+      afterHeader.hasClass("govuk-width-container") shouldBe false
+      afterHeader.text()                              should not include "beforeContentBlock"
+      afterHeader.text()                              should include("Some main content")
     }
   }
 }

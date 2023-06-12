@@ -16,6 +16,7 @@
 
 @import uk.gov.hmrc.govukfrontend.views.html.components.TwoThirdsMainContent
 @import uk.gov.hmrc.hmrcfrontend.views.html.helpers.HmrcStandardPage
+@import uk.gov.hmrc.hmrcfrontend.views.viewmodels.hmrcstandardpage.TemplateOverrides._
 @import uk.gov.hmrc.hmrcfrontend.views.viewmodels.userresearchbanner.UserResearchBanner
 @import uk.gov.hmrc.govukfrontend.views.viewmodels.backlink.BackLink
 @import uk.gov.hmrc.govukfrontend.views.viewmodels.phasebanner.PhaseBanner
@@ -53,8 +54,6 @@
 
 @require(!(backLinkUrl.isDefined && backLink.isDefined), "Use backLink or backLinkUrl, but not both")
 
-@noLayoutWrapper = @{ identity[Html] _ }
-
 @hmrcStandardPage(
   HmrcStandardPageParams(
     serviceURLs = ServiceURLs(
@@ -72,8 +71,8 @@
       additionalHeadBlock = additionalHeadBlock,
       additionalScriptsBlock = additionalScriptsBlock,
       beforeContentBlock = beforeContentBlock,
-      mainContentLayout = mainContentLayout.orElse(Some(noLayoutWrapper)),
-      pageLayout = pageLayout,
+      mainContentLayout = mainContentLayout orElse Some(noMainContentLayout),
+      pageLayout = pageLayout orElse Some(noPageLayout),
       headerContainerClasses = headerContainerClasses
     ),
     serviceName = serviceName,
