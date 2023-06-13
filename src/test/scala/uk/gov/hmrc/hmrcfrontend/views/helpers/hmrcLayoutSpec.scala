@@ -41,6 +41,7 @@ import uk.gov.hmrc.hmrcfrontend.views.html.helpers.HmrcLayout
 import uk.gov.hmrc.hmrcfrontend.views.viewmodels.hmrcstandardpage.TemplateOverrides
 
 import scala.annotation.tailrec
+import scala.util.Try
 
 class hmrcLayoutSpec extends AnyWordSpecLike with Matchers with JsoupHelpers with GuiceOneAppPerSuite {
 
@@ -321,6 +322,18 @@ class hmrcLayoutSpec extends AnyWordSpecLike with Matchers with JsoupHelpers wit
       customMainContent.childrenSize() shouldBe 0
     }
 
+    "not use TwoThirdsMainContent layout if main content layout is explicitly passed as None" in {
+      val hmrcLayout = app.injector.instanceOf[HmrcLayout]
+      val messages   = getMessages()
+      val content    = contentAsString(
+        hmrcLayout(mainContentLayout = None)(Html("Some main content"))(fakeRequest, messages)
+      )
+      val document   = Jsoup.parse(content)
+
+      val mainContent = document.getElementById("main-content")
+      Try(s"Found unexpected content wrapper ${mainContent.child(0).outerHtml()}").toOption shouldBe None
+    }
+
     "not display a HMRC banner by default" in {
       val document = Jsoup.parse(contentAsString(defaultHmrcLayout))
 
@@ -502,6 +515,23 @@ class hmrcLayoutSpec extends AnyWordSpecLike with Matchers with JsoupHelpers wit
       val mainElement = document.select("body > main")
       mainElement          should have size 1
       mainElement.html() shouldBe "contentBlock"
+    }
+
+    "not use FixedWidthPageLayout layout and just render content block if page layout is explicitly passed as None" in {
+      val hmrcLayout = app.injector.instanceOf[HmrcLayout]
+      val messages   = getMessages()
+      val content    = contentAsString(
+        hmrcLayout(
+          beforeContentBlock = Some(Html("beforeContentBlock")),
+          pageLayout = None
+        )(Html("Some main content"))(fakeRequest, messages)
+      )
+      val document   = Jsoup.parse(content)
+
+      val afterHeader = document.select("header ~ div")
+      afterHeader.hasClass("govuk-width-container") shouldBe false
+      afterHeader.text()                              should not include "beforeContentBlock"
+      afterHeader.text()                              should include("Some main content")
     }
   }
 }

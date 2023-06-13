@@ -31,4 +31,5 @@ case class TemplateOverrides(
 
 object TemplateOverrides {
   val noMainContentLayout: Html => Html = identity
+  val noPageLayout: PageLayout => Html  = _.contentBlock
 }
