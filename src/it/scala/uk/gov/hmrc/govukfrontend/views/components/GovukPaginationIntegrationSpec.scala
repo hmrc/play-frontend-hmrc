@@ -16,13 +16,33 @@
 
 package uk.gov.hmrc.govukfrontend.views.components
 
-import uk.gov.hmrc.govukfrontend.support.TemplateIntegrationSpec
+import play.api.mvc.RequestHeader
+import play.api.test.FakeRequest
+import play.twirl.api.HtmlFormat
+import uk.gov.hmrc.govukfrontend.views.GovukFrontendDependency.govukFrontendVersion
 import uk.gov.hmrc.govukfrontend.views.html.components._
 import uk.gov.hmrc.govukfrontend.views.viewmodels.pagination.Generators._
+import uk.gov.hmrc.helpers.MessagesSupport
+import uk.gov.hmrc.support.TemplateIntegrationBaseSpec
+
+import scala.util.Try
 
 object GovukPaginationIntegrationSpec
-    extends TemplateIntegrationSpec[Pagination, GovukPagination](
-      govukComponentName = "govukPagination",
+    extends TemplateIntegrationBaseSpec[Pagination](
+      componentName = "govukPagination",
       seed = None,
       maximumCompression = true
     )
+    with MessagesSupport {
+
+  protected val libraryName: String = "govuk"
+
+  protected val libraryVersion: String = govukFrontendVersion
+
+  private val component = app.injector.instanceOf[GovukPagination]
+
+  override def render(pagination: Pagination): Try[HtmlFormat.Appendable] = {
+    implicit val request: RequestHeader = FakeRequest("GET", "/foo")
+    Try(component(pagination))
+  }
+}

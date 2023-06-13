@@ -17,10 +17,17 @@
 package uk.gov.hmrc.govukfrontend.views
 package components
 
+import play.api.i18n.{Lang, Messages}
+import play.api.mvc.RequestHeader
+import play.api.test.FakeRequest
+import play.twirl.api.HtmlFormat
 import uk.gov.hmrc.govukfrontend.views.html.components._
+import uk.gov.hmrc.helpers.MessagesSupport
+
+import scala.util.Try
 
 class GovukPaginationSpec
-    extends TemplateUnitSpec[Pagination, GovukPagination](
+    extends TemplateUnitBaseSpec[Pagination](
       govukComponentName = "govukPagination",
       fullyCompressedExamples = Seq(
         "pagination-default",
@@ -40,3 +47,49 @@ class GovukPaginationSpec
         "pagination-with-previous-only"
       )
     )
+    with MessagesSupport {
+
+  private val component = app.injector.instanceOf[GovukPagination]
+
+  override def render(templateParams: Pagination): Try[HtmlFormat.Appendable] = {
+    implicit val request: RequestHeader = FakeRequest("GET", "/foo")
+
+    Try(component(templateParams))
+  }
+
+  "GovukPagination" when {
+    "implicit messages language is welsh" should {
+      val welshMessages: Messages = messagesApi.preferred(Seq(Lang("cy")))
+
+      "display welsh translation of Previous" in {
+        val pagination = Pagination(
+          previous = Some(
+            PaginationLink(
+              href = "#"
+            )
+          )
+        )
+
+        val content = component(pagination)(welshMessages)
+
+        val title = content.select(".govuk-pagination__prev span")
+        title.text() shouldBe "Blaenorol"
+      }
+
+      "display welsh translation of Next" in {
+        val pagination = Pagination(
+          next = Some(
+            PaginationLink(
+              href = "#"
+            )
+          )
+        )
+
+        val content = component(pagination)(welshMessages)
+
+        val title = content.select(".govuk-pagination__next span")
+        title.text() shouldBe "Nesaf"
+      }
+    }
+  }
+}
