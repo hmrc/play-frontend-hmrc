@@ -14,6 +14,10 @@ For compatibility information see `govukFrontendVersion` and `hmrcFrontendVersio
 
 - Restore previous behaviour of `mainContentLayout` and `pageLayout` in
 [HmrcLayout](src/main/twirl/uk/gov/hmrc/hmrcfrontend/views/helpers/HmrcLayout.scala.html) helper.
+In a previous version (v6.3.0)[https://github.com/hmrc/play-frontend-hmrc/releases/tag/v6.3.0],
+the semantics of passing None changed unintentionally - from causing no layout to be applied, to falling back to applying the default layouts.
+If you pass None to either of these parameters, please double-check your usage after upgrading to this version,
+to ensure there are no unexpected layout changes as a result.
 
 ### Compatible with
 
