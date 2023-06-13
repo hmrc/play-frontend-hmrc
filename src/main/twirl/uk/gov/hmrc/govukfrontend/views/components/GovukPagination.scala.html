@@ -14,6 +14,10 @@
  * limitations under the License.
  *@
 
+@import uk.gov.hmrc.govukfrontend.views.viewmodels.pagination.Pagination
+@import uk.gov.hmrc.hmrcfrontend.views.Utils.toClasses
+@import uk.gov.hmrc.hmrcfrontend.views.Utils.toAttributes
+
 @this()
 
 @(params: Pagination)(implicit messages: Messages)
@@ -23,59 +27,67 @@
 
 <nav class="@toClasses("govuk-pagination", classes, {if(blockLevel) "govuk-pagination--block" else ""})"
 role="navigation" aria-label="@{landmarkLabel.getOrElse("results")}"@toAttributes(attributes)>
-@if(previous.isDefined && previous.get.href.nonEmpty){
-<div class="govuk-pagination__prev">
- <a class="govuk-link govuk-pagination__link" href="@{previous.get.href}" rel="prev"@toAttributes(previous.get.attributes)>
- <svg class="govuk-pagination__icon govuk-pagination__icon--prev" xmlns="http://www.w3.org/2000/svg" height="13" width="15" aria-hidden="true" focusable="false" viewBox="0 0 15 13">
- <path d="m6.5938-0.0078125-6.7266 6.7266 6.7441 6.4062 1.377-1.449-4.1856-3.9768h12.896v-2h-12.984l4.2931-4.293-1.414-1.414z"></path>
- </svg>
- <span class="@toClasses("govuk-pagination__link-title", {if(blockLevel && previous.get.labelText.isEmpty) "govuk-pagination__link-title--decorated" else ""})">@{previous.get.text.getOrElse(messages("govuk.pagination.previous"))}</span>
- @if(previous.get.labelText.isDefined && blockLevel){
- <span class="govuk-visually-hidden">:</span>
- <span class="govuk-pagination__link-label">@{previous.get.labelText.get}</span>
- }</a>
-</div>
-}
-@if(items.getOrElse(Seq.empty).nonEmpty) {
- <ul class="govuk-pagination__list">
-  @items.getOrElse(Seq.empty).map { item =>
-   @if(item.ellipsis.getOrElse(false)) {
-    <li class="govuk-pagination__item govuk-pagination__item--ellipses">&ctdot;</li>
-   } else {
-   @if(item.number.isDefined) {
-    <li class="@toClasses("govuk-pagination__item", {if(item.current.getOrElse(false)) "govuk-pagination__item--current" else ""})">
-     <a class="govuk-link govuk-pagination__link" href="@{item.href}" aria-label="@{item.visuallyHiddenText.getOrElse("Page " + item.number.get)}"@if(item.current.getOrElse(false)){ aria-current="page"} @toAttributes(item.attributes)>
-     @{item.number}
-     </a>
-    </li>
-   }
+  @previous.map { prev =>
+    @if(prev.href.nonEmpty) {
+      <div class="govuk-pagination__prev">
+        <a class="govuk-link govuk-pagination__link" href="@{prev.href}" rel="prev"@toAttributes(prev.attributes)>
+          <svg class="govuk-pagination__icon govuk-pagination__icon--prev" xmlns="http://www.w3.org/2000/svg" height="13" width="15" aria-hidden="true" focusable="false" viewBox="0 0 15 13">
+            <path d="m6.5938-0.0078125-6.7266 6.7266 6.7441 6.4062 1.377-1.449-4.1856-3.9768h12.896v-2h-12.984l4.2931-4.293-1.414-1.414z"></path>
+          </svg>
+          <span class="@toClasses("govuk-pagination__link-title", {if(blockLevel && prev.labelText.isEmpty) "govuk-pagination__link-title--decorated" else ""})">@{prev.text.getOrElse(messages("govuk.pagination.previous"))}</span>
+          @if(blockLevel) {
+            @prev.labelText.map { labelText =>
+              <span class="govuk-visually-hidden">:</span>
+              <span class="govuk-pagination__link-label">@labelText</span>
+            }
+          }
+        </a>
+      </div>
+    }
   }
- }
- </ul>
-}
-@if(next.isDefined && next.get.href.nonEmpty) {
- <div class="govuk-pagination__next">
-  <a class="govuk-link govuk-pagination__link" href="@{next.get.href}" rel="next"@toAttributes(next.get.attributes)>
-  @if(blockLevel) {
-   <svg class="govuk-pagination__icon govuk-pagination__icon--next" xmlns="http://www.w3.org/2000/svg" height="13" width="15" aria-hidden="true" focusable="false" viewBox="0 0 15 13">
-    <path d="m8.107-0.0078125-1.4136 1.414 4.2926 4.293h-12.986v2h12.896l-4.1855 3.9766 1.377 1.4492 6.7441-6.4062-6.7246-6.7266z"></path>
-   </svg>
+  @if(items.getOrElse(Seq.empty).nonEmpty) {
+    <ul class="govuk-pagination__list">
+      @items.getOrElse(Seq.empty).map { item =>
+        @if(item.ellipsis.getOrElse(false)) {
+          <li class="govuk-pagination__item govuk-pagination__item--ellipses">&ctdot;</li>
+        } else {
+          @item.number.map { number =>
+            <li class="@toClasses("govuk-pagination__item", {if(item.current.getOrElse(false)) "govuk-pagination__item--current" else ""})">
+              <a class="govuk-link govuk-pagination__link" href="@{item.href}" aria-label="@{item.visuallyHiddenText.getOrElse(s"""${messages("govuk.pagination.page")} $number""")}"@if(item.current.getOrElse(false)){ aria-current="page"} @toAttributes(item.attributes)>
+                @number
+              </a>
+            </li>
+          }
+        }
+      }
+    </ul>
   }
-  <span class="@toClasses("govuk-pagination__link-title", {if(blockLevel && next.get.labelText.isEmpty) "govuk-pagination__link-title--decorated" else ""})">
-  @{next.get.text.getOrElse(messages("govuk.pagination.next"))}
-   </span>
-  @if(next.get.labelText.isDefined && blockLevel) {
-   <span class="govuk-visually-hidden">:</span>
-   <span class="govuk-pagination__link-label">@{next.get.labelText.get}</span>
+  @next.map { nxt =>
+    @if(nxt.href.nonEmpty) {
+      <div class="govuk-pagination__next">
+        <a class="govuk-link govuk-pagination__link" href="@{nxt.href}" rel="next"@toAttributes(nxt.attributes)>
+          @if(blockLevel) {
+            <svg class="govuk-pagination__icon govuk-pagination__icon--next" xmlns="http://www.w3.org/2000/svg" height="13" width="15" aria-hidden="true" focusable="false" viewBox="0 0 15 13">
+              <path d="m8.107-0.0078125-1.4136 1.414 4.2926 4.293h-12.986v2h12.896l-4.1855 3.9766 1.377 1.4492 6.7441-6.4062-6.7246-6.7266z"></path>
+            </svg>
+          }
+          <span class="@toClasses("govuk-pagination__link-title", {if(blockLevel && nxt.labelText.isEmpty) "govuk-pagination__link-title--decorated" else ""})">
+            @{nxt.text.getOrElse(messages("govuk.pagination.next"))}
+          </span>
+          @if(blockLevel) {
+            @nxt.labelText.map { labelText =>
+              <span class="govuk-visually-hidden">:</span>
+              <span class="govuk-pagination__link-label">@{nxt.labelText.get}</span>
+            }
+          } else {
+            <svg class="govuk-pagination__icon govuk-pagination__icon--next" xmlns="http://www.w3.org/2000/svg" height="13" width="15" aria-hidden="true" focusable="false" viewBox="0 0 15 13">
+              <path d="m8.107-0.0078125-1.4136 1.414 4.2926 4.293h-12.986v2h12.896l-4.1855 3.9766 1.377 1.4492 6.7441-6.4062-6.7246-6.7266z"></path>
+            </svg>
+          }
+        </a>
+      </div>
+    }
   }
-  @if(!blockLevel) {
-   <svg class="govuk-pagination__icon govuk-pagination__icon--next" xmlns="http://www.w3.org/2000/svg" height="13" width="15" aria-hidden="true" focusable="false" viewBox="0 0 15 13">
-    <path d="m8.107-0.0078125-1.4136 1.414 4.2926 4.293h-12.986v2h12.896l-4.1855 3.9766 1.377 1.4492 6.7441-6.4062-6.7246-6.7266z"></path>
-   </svg>
-  }
-  </a>
- </div>
-}
 </nav>
 
 

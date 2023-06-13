@@ -90,6 +90,32 @@ class GovukPaginationSpec
         val title = content.select(".govuk-pagination__next span")
         title.text() shouldBe "Nesaf"
       }
+
+      "display welsh translation of aria-label" in {
+        val pagination = Pagination(
+          items = Some(
+            Seq(
+              PaginationItem(
+                href = "#",
+                number = Some("1")
+              ),
+              PaginationItem(
+                href = "#",
+                number = Some("2"),
+                current = Some(true)
+              )
+            )
+          )
+        )
+
+        val content = component(pagination)(welshMessages)
+
+        val page1 = content.select(".govuk-pagination__item:nth-child(1) a")
+        page1.attr("aria-label") shouldBe "Tudalen 1"
+
+        val page2 = content.select(".govuk-pagination__item:nth-child(2) a")
+        page2.attr("aria-label") shouldBe "Tudalen 2"
+      }
     }
   }
 }
