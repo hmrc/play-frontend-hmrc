@@ -26,3 +26,6 @@ radios.yesnoitems.yes=Iawn
 radios.yesnoitems.no=Na
 govuk.notificationBanner.success=Llwyddiant
 govuk.notificationBanner.important=Pwysig
+govuk.pagination.previous=Blaenorol
+govuk.pagination.next=Nesaf
+govuk.pagination.page=Tudalen
