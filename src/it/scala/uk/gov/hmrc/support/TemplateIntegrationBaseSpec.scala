@@ -11,6 +11,7 @@ import uk.gov.hmrc.helpers.views.{JsoupHelpers, PreProcessor, TemplateValidation
 import uk.gov.hmrc.support.Implicits._
 import uk.gov.hmrc.support.ScalaCheckUtils.{ClassifyParams, classify}
 
+import scala.collection.compat.immutable.LazyList
 import scala.util.{Failure, Success}
 
 /**
@@ -31,14 +32,14 @@ abstract class TemplateIntegrationBaseSpec[T: OWrites: Arbitrary](
     with GuiceOneAppPerSuite {
 
   /**
-    * [[Stream]] of [[org.scalacheck.Prop.classify]] conditions to collect statistics on a property
+    * [[LazyList]] of [[org.scalacheck.Prop.classify]] conditions to collect statistics on a property
     * Used to check the distribution of generated data
     *
     * @param templateParams
-    * @return [[Stream[ClassifyParams]] of arguments to [[org.scalacheck.Prop.classify]]
+    * @return [[LazyList[ClassifyParams]] of arguments to [[org.scalacheck.Prop.classify]]
     */
-  def classifiers(templateParams: T): Stream[ClassifyParams] =
-    Stream.empty[ClassifyParams]
+  def classifiers(templateParams: T): LazyList[ClassifyParams] =
+    LazyList.empty[ClassifyParams]
 
   override def overrideParameters(p: Test.Parameters): Test.Parameters =
     p.withMinSuccessfulTests(20)
@@ -62,7 +63,7 @@ abstract class TemplateIntegrationBaseSpec[T: OWrites: Arbitrary](
 
         tryRenderTwirl match {
 
-          case Success(twirlOutputHtml)                      =>
+          case Success(twirlOutputHtml) =>
             val preProcessedTwirlHtml    = compressHtml(twirlOutputHtml, maximumCompression)
             val preProcessedNunjucksHtml = compressHtml(nunJucksOutputHtml, maximumCompression)
             val prop                     = preProcessedTwirlHtml == preProcessedNunjucksHtml
@@ -77,9 +78,9 @@ abstract class TemplateIntegrationBaseSpec[T: OWrites: Arbitrary](
             }
 
             prop
-          case Failure(TemplateValidationException(message)) =>
+          case Failure(exception)       =>
             println(s"Failed to validate the parameters for the $componentName template")
-            println(s"Exception: $message")
+            println(s"Exception: ${exception.getMessage}")
             println("Skipping property evaluation")
 
             true

@@ -23,16 +23,18 @@ import uk.gov.hmrc.govukfrontend.views.html.components._
 import uk.gov.hmrc.govukfrontend.views.viewmodels.backlink.BackLink
 import uk.gov.hmrc.govukfrontend.views.viewmodels.backlink.Generators._
 
+import scala.collection.compat.immutable.LazyList
+
 object GovukBackLinkIntegrationSpec
     extends TemplateIntegrationSpec[BackLink, GovukBackLink](govukComponentName = "govukBackLink", seed = None) {
 
-  override def classifiers(backLink: BackLink): Stream[ClassifyParams] =
+  override def classifiers(backLink: BackLink): LazyList[ClassifyParams] =
     (backLink.href.isEmpty, "empty href", "non-empty href") #::
       (backLink.href.length > 10, "long href", "short href") #::
       (backLink.classes.isEmpty, "empty classes", "non-empty classes") #::
       (backLink.attributes.isEmpty, "empty attributes", "non-empty attributes") #::
       (backLink.attributes.values.exists(_.isEmpty), "empty attributes values", "non-empty attributes values") #::
       (!backLink.content.nonEmpty, "empty content", "non-empty content") #::
-      Stream.empty[ClassifyParams]
+      LazyList.empty[ClassifyParams]
 
 }
