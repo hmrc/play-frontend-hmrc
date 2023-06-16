@@ -21,10 +21,11 @@ object ScalaCheckUtils {
     */
   @scala.annotation.tailrec
   def classify(conditions: LazyList[ClassifyParams])(prop: Prop): Prop = conditions match {
-    case l if l.isEmpty       => prop
-    case h #:: t if t.isEmpty =>
+    case LazyList()       => prop
+    case h #:: LazyList() =>
       if (h._1) collect(h._2)(prop) else collect(h._3)(prop)
-    case h #:: t              =>
+    case h #:: t          =>
       classify(t)(Prop.classify(h._1, h._2, h._3)(prop))
+    case _                => throw new MatchError(s"Unexpected match error on $conditions")
   }
 }

@@ -63,7 +63,7 @@ abstract class TemplateIntegrationBaseSpec[T: OWrites: Arbitrary](
 
         tryRenderTwirl match {
 
-          case Success(twirlOutputHtml) =>
+          case Success(twirlOutputHtml)                      =>
             val preProcessedTwirlHtml    = compressHtml(twirlOutputHtml, maximumCompression)
             val preProcessedNunjucksHtml = compressHtml(nunJucksOutputHtml, maximumCompression)
             val prop                     = preProcessedTwirlHtml == preProcessedNunjucksHtml
@@ -78,12 +78,14 @@ abstract class TemplateIntegrationBaseSpec[T: OWrites: Arbitrary](
             }
 
             prop
-          case Failure(exception)       =>
+          case Failure(TemplateValidationException(message)) =>
             println(s"Failed to validate the parameters for the $componentName template")
-            println(s"Exception: ${exception.getMessage}")
+            println(s"Exception: $message")
             println("Skipping property evaluation")
 
             true
+          case Failure(exception)                            =>
+            throw exception
         }
       })
   }
