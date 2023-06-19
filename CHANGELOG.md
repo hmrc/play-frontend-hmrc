@@ -8,6 +8,17 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 For compatibility information see `govukFrontendVersion` and `hmrcFrontendVersion` in
 [LibDependencies](project/LibDependencies.scala)
 
+## [7.13.0] - 2023-06-19
+
+### Changed
+
+- Use `LazyList` instead of deprecated `Stream` (using `scala-collection-compat` library for backward compatibility with Scala 2.12)
+
+### Compatible with
+
+- [hmrc/hmrc-frontend v5.37.0](https://github.com/hmrc/hmrc-frontend/releases/tag/v5.37.0)
+- [alphagov/govuk-frontend v4.6.0](https://github.com/alphagov/govuk-frontend/releases/tag/v4.6.0)
+
 ## [7.12.0] - 2023-06-14
 
 ### Changed
