@@ -19,6 +19,8 @@ package uk.gov.hmrc.hmrcfrontend.views.components
 import uk.gov.hmrc.support.ScalaCheckUtils.ClassifyParams
 import uk.gov.hmrc.hmrcfrontend.support.TemplateIntegrationSpec
 import uk.gov.hmrc.hmrcfrontend.views.html.components._
+
+import scala.collection.compat.immutable.LazyList
 // We use the below instead of a true arbitrary as the `hmrc-frontend` Nunjucks
 // model of Header is less flexible and specifically requests the href for `cy`
 // and `en` to be defined.
@@ -29,7 +31,7 @@ import uk.gov.hmrc.hmrcfrontend.views.viewmodels.language.En
 object HmrcHeaderIntegrationSpec
     extends TemplateIntegrationSpec[Header, HmrcHeader](hmrcComponentName = "hmrcHeader", seed = None) {
 
-  override def classifiers(header: Header): Stream[ClassifyParams] =
+  override def classifiers(header: Header): LazyList[ClassifyParams] =
     (header.homepageUrl.isEmpty, "empty homepageUrl", "non-empty homepageUrl") #::
       (header.homepageUrl.length > 10, "long homepageUrl", "short homepageUrl") #::
       (header.assetsPath.isEmpty, "empty assetsPath", "non-empty assetsPath") #::
@@ -53,5 +55,5 @@ object HmrcHeaderIntegrationSpec
       (header.signOutHref.isEmpty, "empty signOutHref", "non-empty signOutHref") #::
       (header.signOutHref.exists(_.length > 10), "long signOutHref", "short signOutHref") #::
       (header.additionalBannersBlock.isEmpty, "no additional banners", "with additional banners") #::
-      Stream.empty[ClassifyParams]
+      LazyList.empty[ClassifyParams]
 }

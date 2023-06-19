@@ -14,6 +14,8 @@
  * limitations under the License.
  *@
 
+@import scala.collection.compat.immutable.LazyList
+
 @this()
 
 @(params: Table)
@@ -34,7 +36,7 @@
   <tbody class="govuk-table__body">
     @for(row <- rows) {
       <tr class="govuk-table__row">
-        @for((cell, index) <- row.zip(Stream from 0)) {
+        @for((cell, index) <- row.zip(LazyList from 0)) {
           @if(index == 0 && firstCellIsHeader) {
             <th scope="row" class="@toClasses("govuk-table__header", cell.classes)"@commonAttrs(cell)>@cell.content.asHtml</th>
           } else {

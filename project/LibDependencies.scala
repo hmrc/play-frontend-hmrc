@@ -11,9 +11,10 @@ object LibDependencies {
 
   val compile: Seq[ModuleID] = dependencies(
     shared = Seq(
-      "com.typesafe.play"  %% "play"            % PlayVersion.current,
-      "com.typesafe.play"  %% "filters-helpers" % PlayVersion.current,
-      "uk.gov.hmrc.webjars" % "hmrc-frontend"   % hmrcFrontendVersion
+      "org.scala-lang.modules" %% "scala-collection-compat" % "2.10.0",
+      "com.typesafe.play"      %% "play"                    % PlayVersion.current,
+      "com.typesafe.play"      %% "filters-helpers"         % PlayVersion.current,
+      "uk.gov.hmrc.webjars"     % "hmrc-frontend"           % hmrcFrontendVersion
     ),
     play28 = Seq(
       "uk.gov.hmrc" %% "play-language" % s"$playLanguageVersion-play-28"

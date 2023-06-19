@@ -14,6 +14,8 @@
  * limitations under the License.
  *@
 
+@import scala.collection.compat.immutable.LazyList
+
 @import uk.gov.hmrc.govukfrontend.views.html.components._
 
 @this(govukErrorMessage: GovukErrorMessage, govukFieldset: GovukFieldset, govukHint: GovukHint, govukLabel: GovukLabel)
@@ -76,7 +78,7 @@
 
 @divSnippet(describedBy: String) = {
   <div class="@toClasses("govuk-checkboxes", classes)"@toAttributes(attributes) data-module="govuk-checkboxes">
-    @for((item, index) <- items.zip(Stream from 1)) {
+    @for((item, index) <- items.zip(LazyList from 1)) {
       @if(item.divider.exists(_.nonEmpty)) {
         <div class="govuk-checkboxes__divider">@item.divider</div>
       } else {
