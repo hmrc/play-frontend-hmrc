@@ -16,13 +16,28 @@
 
 package uk.gov.hmrc.govukfrontend.views.components
 
-import uk.gov.hmrc.govukfrontend.support.TemplateIntegrationSpec
 import uk.gov.hmrc.govukfrontend.views.html.components._
 import uk.gov.hmrc.govukfrontend.views.viewmodels.warningtext.Generators._
 import uk.gov.hmrc.govukfrontend.views.viewmodels.warningtext.WarningText
+import uk.gov.hmrc.helpers.MessagesSupport
+import uk.gov.hmrc.support.TemplateIntegrationBaseSpec
+import uk.gov.hmrc.govukfrontend.views.GovukFrontendDependency.govukFrontendVersion
+import play.twirl.api.HtmlFormat
+
+import scala.util.Try
 
 object GovukWarningTextIntegrationSpec
-    extends TemplateIntegrationSpec[WarningText, GovukWarningText](
-      govukComponentName = "govukWarningText",
+    extends TemplateIntegrationBaseSpec[WarningText](
+      componentName = "govukWarningText",
       seed = None
     )
+    with MessagesSupport {
+  protected val libraryName: String = "govuk"
+
+  protected val libraryVersion: String = govukFrontendVersion
+
+  private val component = app.injector.instanceOf[GovukWarningText]
+
+  def render(warningText: WarningText): Try[HtmlFormat.Appendable] =
+    Try(component(warningText))
+}

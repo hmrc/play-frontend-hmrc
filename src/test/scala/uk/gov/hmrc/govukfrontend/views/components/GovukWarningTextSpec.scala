@@ -17,6 +17,39 @@
 package uk.gov.hmrc.govukfrontend.views
 package components
 
+import play.api.i18n.{Lang, Messages}
+import play.twirl.api.HtmlFormat
 import uk.gov.hmrc.govukfrontend.views.html.components._
+import uk.gov.hmrc.helpers.MessagesSupport
 
-class GovukWarningTextSpec extends TemplateUnitSpec[WarningText, GovukWarningText]("govukWarningText")
+import scala.util.Try
+
+class GovukWarningTextSpec extends TemplateUnitBaseSpec[WarningText]("govukWarningText") with MessagesSupport {
+
+  private val component = app.injector.instanceOf[GovukWarningText]
+
+  override def render(
+    templateParams: WarningText
+  ): Try[HtmlFormat.Appendable] = Try(component(templateParams))
+
+  "GovukWarningText" when {
+    "implicit messages language is welsh" should {
+      val welshMessages: Messages = messagesApi.preferred(Seq(Lang("cy")))
+
+      "display welsh translation of Warning" in {
+        val content = component(WarningText())(welshMessages)
+
+        val assistiveDescription = content.select(".govuk-warning-text__assistive")
+        assistiveDescription.text() shouldBe "Rhybudd"
+      }
+
+      "still allow you to override the assistive description test for the icon" in {
+        val content = component(WarningText(iconFallbackText = Some("asdfghjkl")))(welshMessages)
+
+        val assistiveDescription = content.select(".govuk-warning-text__assistive")
+        assistiveDescription.text() shouldBe "asdfghjkl"
+      }
+
+    }
+  }
+}

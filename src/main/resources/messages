@@ -29,3 +29,4 @@ govuk.notificationBanner.important=Important
 govuk.pagination.previous=Previous
 govuk.pagination.next=Next
 govuk.pagination.page=Page
+govuk.warningText.iconFallbackText=Warning
