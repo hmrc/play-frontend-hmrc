@@ -35,6 +35,9 @@ object Content {
   implicit val reads: Reads[Content] =
     readsHtmlOrText((__ \ "html"), (__ \ "text"))
 
+  def readsWithDefault(defaultContent: Content): Reads[Content] =
+    readsHtmlOrText((__ \ "html"), (__ \ "text"), defaultContent)
+
   def writesContent(htmlField: String = "html", textField: String = "text"): OWrites[Content] =
     new OWrites[Content] {
       override def writes(content: Content): JsObject = content match {
@@ -46,11 +49,11 @@ object Content {
 
   implicit val writes: OWrites[Content] = writesContent()
 
-  def readsHtmlOrText(htmlJsPath: JsPath, textJsPath: JsPath): Reads[Content] =
+  def readsHtmlOrText(htmlJsPath: JsPath, textJsPath: JsPath, defaultContent: Content = Empty): Reads[Content] =
     readsHtmlContent(htmlJsPath)
       .widen[Content]
       .orElse(readsText(textJsPath).widen[Content])
-      .orElse(Reads.pure[Content](Empty))
+      .orElse(Reads.pure[Content](defaultContent))
 
   def readsHtmlContent(jsPath: JsPath = (__ \ "html")): Reads[HtmlContent] =
     jsPath.readsJsValueToString.map(HtmlContent(_))

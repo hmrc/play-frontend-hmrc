@@ -6,7 +6,7 @@ resolvers += Resolver.url("HMRC-open-artefacts-ivy2", url("https://open.artefact
 sys.env.getOrElse("PLAY_VERSION", "2.8") match {
   case "2.8" =>
     Seq(
-      "com.typesafe.play" % "sbt-plugin" % "2.8.18",
+      "com.typesafe.play" % "sbt-plugin" % "2.8.19",
       "com.typesafe.sbt"  % "sbt-twirl"  % "1.5.1"
     ).map(addSbtPlugin)
 }

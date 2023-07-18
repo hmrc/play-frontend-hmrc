@@ -1,0 +1,5 @@
+{
+  "name" : "Inverse",
+  "text" : "Inverse button",
+  "classes" : "govuk-button--inverse"
+}

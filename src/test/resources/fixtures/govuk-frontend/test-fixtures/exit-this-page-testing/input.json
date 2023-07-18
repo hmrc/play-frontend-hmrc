@@ -1,0 +1,9 @@
+{
+  "text" : "Exit this test",
+  "redirectUrl" : "https://www.test.co.uk",
+  "id" : "test-id",
+  "classes" : "test-class",
+  "attributes" : {
+    "test-attribute" : true
+  }
+}

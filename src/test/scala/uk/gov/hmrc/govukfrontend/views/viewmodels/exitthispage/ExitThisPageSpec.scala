@@ -14,18 +14,9 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.hmrcfrontend.views.viewmodels.userresearchbanner
+package uk.gov.hmrc.govukfrontend.views.viewmodels.exitthispage
 
-import org.scalacheck.Arbitrary
-import uk.gov.hmrc.hmrcfrontend.views.viewmodels.Generators.{genAlphaStr, genNonEmptyAlphaStr}
-import uk.gov.hmrc.hmrcfrontend.views.viewmodels.language.Generators.arbLanguage
+import uk.gov.hmrc.govukfrontend.views.viewmodels.JsonRoundtripSpec
+import uk.gov.hmrc.govukfrontend.views.viewmodels.exitthispage.Generators._
 
-object Generators {
-
-  implicit val arbUserResearchBanner: Arbitrary[UserResearchBanner] = Arbitrary {
-    for {
-      language <- arbLanguage.arbitrary
-      url      <- genNonEmptyAlphaStr
-    } yield UserResearchBanner(language = language, url = url)
-  }
-}
+class ExitThisPageSpec extends JsonRoundtripSpec[ExitThisPage]
