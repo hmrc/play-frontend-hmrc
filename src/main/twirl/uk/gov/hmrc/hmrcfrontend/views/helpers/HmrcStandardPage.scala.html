@@ -24,6 +24,7 @@
 @import uk.gov.hmrc.hmrcfrontend.views.html.helpers.HmrcScripts
 @import uk.gov.hmrc.hmrcfrontend.views.viewmodels.hmrcstandardpage.HmrcStandardPageParams
 @import uk.gov.hmrc.govukfrontend.views.html.components.FixedWidthPageLayout
+@import uk.gov.hmrc.govukfrontend.views.html.components.GovukExitThisPage
 
 @this(
         govukLayout: GovukLayout,
@@ -33,6 +34,7 @@
         hmrcLanguageSelectHelper: HmrcLanguageSelectHelper,
         hmrcScripts: HmrcScripts,
         govukBackLink: GovukBackLink,
+        govukExitThisPage: GovukExitThisPage,
         defaultMainContent: TwoThirdsMainContent,
         fixedWidthPageLayout: FixedWidthPageLayout
 )
@@ -59,6 +61,9 @@
     }
     @backLink.map { link =>
       @govukBackLink(link)
+    }
+    @exitThisPage.map { exit =>
+        @govukExitThisPage(exit)
     }
 }
 

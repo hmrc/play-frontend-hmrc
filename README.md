@@ -519,6 +519,7 @@ The parameters that can be passed into the `hmrcStandardPage` are as follows:
       | `pageTitle`                                | This will be bound to govukLayout                                 |                                                             |
       | `isWelshTranslationAvailable`              | Setting to true will display the language toggle                  | `true`                                                      |
       | `backLink`                                 | Passing a value will display a back link                          | `Some(BackLink(href = ..., attributes = ...))`              |
+      | `exitThisPage`                             | Passing a value will display an "Exit This Page" button           | `Some(ExitThisPage())`                                      |
 
 
 ### Creating consistent page headings
@@ -1076,6 +1077,34 @@ import uk.gov.hmrc.hmrcfrontend.views.viewmodels.newtablinkhelper.NewTabLinkHelp
   text = linkText,
   href = Some(linkHref)
 ))
+```
+
+### Adding an "Exit this page" button
+
+The `GovukExitThisPage` component will add to the page a red "sticky" button saying "Exit this page" or custom text, 
+which when clicked will redirect the user to another website (default is set to `www.bbc.co.uk/weather`). This component has been
+designed to help users viewing sensitive information that could put them at risk. For example, when a potential victim 
+is using a service to help them leave a domestic abuser. More information about when to use this component can be found 
+in the [GOV.UK Design System](https://design-system.service.gov.uk/components/exit-this-page/). 
+
+To ensure the button is correctly positioned on the page, use the `HmrcStandardPage` component and pass through an 
+`ExitThisPage` case class. If you are using the default content as below, the button text will automatically be 
+translated if the user is viewing the Welsh version of the page.
+
+```scala 
+@import uk.gov.hmrc.hmrcfrontend.views.html.helpers.HmrcStandardPage
+@import uk.gov.hmrc.hmrcfrontend.views.viewmodels.layout._
+@import config.AppConfig
+
+@this(hmrcStandardPage: HmrcStandardPage)
+
+@(pageTitle: String, appConfig: AppConfig)(contentBlock: Html)(implicit request: RequestHeader, messages: Messages)
+
+@hmrcStandardPage(
+  HmrcStandardPageParams(
+    ....
+    exitThisPage = Some(ExitThisPage()) /* custom parameters can be passed in such as redirectUrl or button text */
+  )(contentBlock)
 ```
 
 
