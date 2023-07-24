@@ -213,6 +213,9 @@ trait Aliases {
 
   type PaginationItem = viewmodels.pagination.PaginationItem
   val PaginationItem = viewmodels.pagination.PaginationItem
+
+  type ExitThisPage = viewmodels.exitthispage.ExitThisPage
+  val ExitThisPage = viewmodels.exitthispage.ExitThisPage
 }
 
 object Aliases extends Aliases

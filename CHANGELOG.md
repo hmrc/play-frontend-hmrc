@@ -8,6 +8,19 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 For compatibility information see `govukFrontendVersion` and `hmrcFrontendVersion` in
 [LibDependencies](project/LibDependencies.scala)
 
+## [7.15.0] - 2023-07-21
+
+### Changed
+
+- Updated version of `govuk-frontend` to [v4.7.0](https://github.com/alphagov/govuk-frontend/releases/tag/v4.7.0)
+- Added new `ExitThePage` component from `govuk-frontend`, with Welsh translations of default text
+
+### Compatible with
+
+- [hmrc/hmrc-frontend v5.41.0](https://github.com/hmrc/hmrc-frontend/releases/tag/v5.41.0)
+- [alphagov/govuk-frontend v4.7.0](https://github.com/alphagov/govuk-frontend/releases/tag/v4.7.0)
+
+
 ## [7.14.0] - 2023-06-27
 
 ### Changed

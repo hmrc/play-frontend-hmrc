@@ -1,0 +1,37 @@
+@*
+ * Copyright 2023 HM Revenue & Customs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *@
+
+@import uk.gov.hmrc.govukfrontend.views.html.components.GovukButton
+@import uk.gov.hmrc.govukfrontend.views.viewmodels.button.Button
+@import uk.gov.hmrc.govukfrontend.views.viewmodels.content.Text
+
+
+@this(govukButton: GovukButton)
+
+@(params: ExitThisPage)(implicit messages: Messages)
+@import params._
+
+<div@id.map{txt => id="@txt" } class="@toClasses("govuk-exit-this-page", classes)" data-module="govuk-exit-this-page"@toAttributes(attributes)
+@activatedText.map { txt => data-i18n.activated="@txt"}
+@timedOutText.map { txt => data-i18n.timed-out="@txt"}
+@pressTwoMoreTimesText.map { txt => data-i18n.press-two-more-times="@txt"}
+@pressOneMoreTimeText.map { txt => data-i18n.press-one-more-time="@txt"}
+>
+@govukButton(Button(
+   content = if(content.nonEmpty) content else Text(messages("govuk.exitThisPage.contentFallbackText")),
+   classes = "govuk-button--warning govuk-exit-this-page__button govuk-js-exit-this-page-button",
+   href = redirectUrl.orElse(Some(messages("govuk.exitThisPage.redirectUrlFallback")))
+))</div>
