@@ -34,6 +34,7 @@ import play.twirl.api.Html
 import uk.gov.hmrc.govukfrontend.views.Aliases.Text
 import uk.gov.hmrc.govukfrontend.views.html.components.{FullWidthPageLayout, GovukBackLink}
 import uk.gov.hmrc.govukfrontend.views.viewmodels.backlink.BackLink
+import uk.gov.hmrc.govukfrontend.views.viewmodels.exitthispage.ExitThisPage
 import uk.gov.hmrc.helpers.views.JsoupHelpers
 import uk.gov.hmrc.hmrcfrontend.config.AssetsConfig
 import uk.gov.hmrc.hmrcfrontend.views.Aliases.UserResearchBanner
@@ -67,8 +68,16 @@ class hmrcStandardPageSpec extends AnyWordSpecLike with Matchers with JsoupHelpe
   val requestWithNonce: FakeRequest[_]     = fakeRequest.withAttrs(TypedMap(RequestAttrKey.CSPNonce -> "a-nonce"))
 
   private val messages = Map(
-    "cy" -> Map("back.text" -> "Back Welsh"),
-    "en" -> Map("back.text" -> "Back English")
+    "cy" -> Map(
+      "back.text"                              -> "Back Welsh",
+      "govuk.exitThisPage.redirectUrlFallback" -> "www.some-safe-cy.url",
+      "govuk.exitThisPage.contentFallbackText" -> "Gadael y dudalen hon"
+    ),
+    "en" -> Map(
+      "back.text"                              -> "Back English",
+      "govuk.exitThisPage.redirectUrlFallback" -> "www.some-safe-en.url",
+      "govuk.exitThisPage.contentFallbackText" -> "Exit this page"
+    )
   )
 
   private def getMessages(lang: Lang = Lang("en")): Messages = {
@@ -447,6 +456,28 @@ class hmrcStandardPageSpec extends AnyWordSpecLike with Matchers with JsoupHelpe
       backLink                should have size 1
       backLink.attr("href") shouldBe "my-back-link"
       backLink.html()       shouldBe "Back Welsh"
+    }
+
+    "include exit this page if passed an ExitThisPage" in {
+      val page     = hmrcStandardPage(HmrcStandardPageParams(exitThisPage = Some(ExitThisPage())))(Html(""))
+      val document = Jsoup.parse(contentAsString(page))
+
+      val exitThisPageButton = document.select(".govuk-exit-this-page__button")
+      exitThisPageButton                should have size 1
+      exitThisPageButton.text()       shouldBe "Exit this page"
+      exitThisPageButton.attr("href") shouldBe "www.some-safe-en.url"
+    }
+
+    "correctly translate exit this page based on language in messages" in {
+      val messages = getMessages(Lang("cy"))
+      val page     =
+        hmrcStandardPage(HmrcStandardPageParams(exitThisPage = Some(ExitThisPage())))(Html(""))(fakeRequest, messages)
+      val document = Jsoup.parse(contentAsString(page))
+
+      val exitThisPageButton = document.select(".govuk-exit-this-page__button")
+      exitThisPageButton                should have size 1
+      exitThisPageButton.text()       shouldBe "Gadael y dudalen hon"
+      exitThisPageButton.attr("href") shouldBe "www.some-safe-cy.url"
     }
 
     "add attributes to activate the JavaScript browser back in hmrc-frontend" in {
