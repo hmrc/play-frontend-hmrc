@@ -8,6 +8,21 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 For compatibility information see `govukFrontendVersion` and `hmrcFrontendVersion` in
 [LibDependencies](project/LibDependencies.scala)
 
+## [7.18.0] - 2023-08-10
+
+### Changed
+
+- Updated version of `hmrc-frontend` to [v5.45.0](https://github.com/hmrc/hmrc-frontend/releases/tag/v5.45.0)
+- As part of above uplift, Webjar for `accessible-autocmplete` removed from `sbt` dependencies. If required, can be 
+  manually added to dependencies as `org.webjars.npm % accessible-autocomplete % xx.xx.xx`, where `xx.xx.xx` is the 
+  [latest version](https://mvnrepository.com/artifact/org.webjars.npm/accessible-autocomplete)
+
+### Compatible with
+
+- [hmrc/hmrc-frontend v5.45.0](https://github.com/hmrc/hmrc-frontend/releases/tag/v5.45.0)
+- [alphagov/govuk-frontend v4.7.0](https://github.com/alphagov/govuk-frontend/releases/tag/v4.7.0)
+
+
 ## [7.17.0] - 2023-08-03
 
 ### Changed
