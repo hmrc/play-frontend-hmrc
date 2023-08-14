@@ -1107,6 +1107,10 @@ translated if the user is viewing the Welsh version of the page.
   )(contentBlock)
 ```
 
+If you are not using the GOV.uk standard [two-thirds width layout](https://design-system.service.gov.uk/styles/layout/),
+please note that the sticky button may overlay your main content when scrolled. For example, it will overlay a sidebar or 
+full-width layout. Services with wider main content may wish to carry out additional testing before deciding whether to 
+implement this component.
 
 ## Advanced configuration
 ### Adding your own SASS compilation pipeline
