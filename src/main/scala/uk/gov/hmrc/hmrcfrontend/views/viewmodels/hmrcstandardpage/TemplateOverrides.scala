@@ -26,6 +26,7 @@ case class TemplateOverrides(
   beforeContentBlock: Option[Html] = None,
   mainContentLayout: Option[Html => Html] = None,
   pageLayout: Option[PageLayout => Html] = None,
+  isFullWidth: Boolean = false,
   headerContainerClasses: String = Header.defaultObject.containerClasses
 )
 

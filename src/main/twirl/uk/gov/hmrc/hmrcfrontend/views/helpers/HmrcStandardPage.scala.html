@@ -14,9 +14,11 @@
  * limitations under the License.
  *@
 
+@import uk.gov.hmrc.govukfrontend.views.html.components.FullWidthMainContent
 @import uk.gov.hmrc.govukfrontend.views.html.components.GovukLayout
 @import uk.gov.hmrc.govukfrontend.views.html.components.GovukBackLink
 @import uk.gov.hmrc.govukfrontend.views.html.components.TwoThirdsMainContent
+@import uk.gov.hmrc.govukfrontend.views.html.components.TwoThirdsOneThirdMainContent
 @import uk.gov.hmrc.hmrcfrontend.views.html.helpers.HmrcStandardHeader
 @import uk.gov.hmrc.hmrcfrontend.views.html.helpers.HmrcStandardFooter
 @import uk.gov.hmrc.hmrcfrontend.views.html.helpers.HmrcHead
@@ -35,11 +37,13 @@
         hmrcScripts: HmrcScripts,
         govukBackLink: GovukBackLink,
         govukExitThisPage: GovukExitThisPage,
-        defaultMainContent: TwoThirdsMainContent,
+        twoThirdsMainContent: TwoThirdsMainContent,
+        twoThirdsOneThirdMainContent: TwoThirdsOneThirdMainContent,
+        fullWidthMainContent: FullWidthMainContent,
         fixedWidthPageLayout: FixedWidthPageLayout
 )
 
-@(params: HmrcStandardPageParams)(contentBlock: Html)(implicit request: RequestHeader, messages: Messages)
+@(params: HmrcStandardPageParams)(contentBlock: Html, sidebarContent: Option[Html] = None)(implicit request: RequestHeader, messages: Messages)
 @import params._
 
 @headerBlock = {
@@ -74,7 +78,16 @@
     scriptsBlock = Some(hmrcScripts(scriptsBlock = templateOverrides.additionalScriptsBlock)),
     beforeContentBlock = templateOverrides.beforeContentBlock orElse Some(beforeContent),
     footerBlock = Some(hmrcStandardFooter(accessibilityStatementUrl = serviceURLs.accessibilityStatementUrl)),
-    mainContentLayout = templateOverrides.mainContentLayout orElse Some(defaultMainContent(_)),
+    mainContentLayout = templateOverrides.mainContentLayout orElse
+        Some(sidebarContent match {
+            case Some(sidebarHtml) => twoThirdsOneThirdMainContent(sidebarHtml)(_)
+            case None =>
+                if(templateOverrides.isFullWidth) {
+                    fullWidthMainContent(_)
+                } else {
+                    twoThirdsMainContent(_)
+                }
+        }),
     assetPath = None,
     pageLayout = templateOverrides.pageLayout orElse Some(fixedWidthPageLayout(_))
 )(contentBlock)
