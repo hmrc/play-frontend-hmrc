@@ -81,12 +81,7 @@
     mainContentLayout = templateOverrides.mainContentLayout orElse
         Some(sidebarContent match {
             case Some(sidebarHtml) => twoThirdsOneThirdMainContent(sidebarHtml)(_)
-            case None =>
-                if(templateOverrides.isFullWidth) {
-                    fullWidthMainContent(_)
-                } else {
-                    twoThirdsMainContent(_)
-                }
+            case None => twoThirdsMainContent(_)
         }),
     assetPath = None,
     pageLayout = templateOverrides.pageLayout orElse Some(fixedWidthPageLayout(_))
