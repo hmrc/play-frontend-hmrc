@@ -37,6 +37,7 @@ of implementing frontend microservices straightforward and idiomatic for Scala d
   - [Adding accessible autocomplete to a select input](#adding-accessible-autocomplete-to-a-select-input)
   - [Warning users before timing them out](#warning-users-before-timing-them-out)
   - [Opening links in a new tab](#opening-links-in-a-new-tab)
+  - [Adding an Exit This Page button](#adding-an-exit-this-page-button)
 - [Advanced configuration](#advanced-configuration)
   - [Adding your own SASS compilation pipeline](#adding-your-own-sass-compilation-pipeline)
   - [Configuring non-HMRC projects to resolve play-frontend-hmrc artefacts](#configuring-non-hmrc-projects-to-resolve-play-frontend-hmrc-artefacts)
