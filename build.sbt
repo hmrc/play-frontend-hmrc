@@ -1,60 +1,108 @@
-import play.sbt.PlayImport.PlayKeys.playMonitoredFiles
-
-val scala2_12 = "2.12.15"
-val scala2_13 = "2.13.8"
-
-val silencerVersion = "1.7.12"
+val scala2_12 = "2.12.18"
+val scala2_13 = "2.13.11"
 
 lazy val IntegrationTest = config("it") extend Test
 
-lazy val root = (project in file("."))
+lazy val commonSettings = Seq(
+  majorVersion     := 7,
+  isPublicArtefact := true,
+  scalaVersion     := scala2_13,
+  libraryDependencySchemes += "org.scala-lang.modules" %% "scala-xml" % VersionScheme.Always, // required since we're cross building for Play 2.8 which isn't compatible with sbt 1.9
+)
+
+lazy val sharedSettings: Seq[sbt.Def.SettingsDefinition] = Seq(
+  scalacOptions    += "-Wconf:src=views/.*:s",
+  scalacOptions    += "-Wconf:src=routes/.*:s",
+  sharedSources,
+  TwirlKeys.templateImports := templateImports,
+  Test / generateGovukFixtures := {
+    val generateFixtures = GenerateFixtures(
+      fixturesDir = baseDirectory.value / "src/test/resources/fixtures/govuk-frontend",
+      frontend = "govuk",
+      version = LibDependencies.govukFrontendVersion
+    )
+    generateFixtures.generate()
+  },
+  Test / generateHmrcFixtures := {
+    val generateFixtures = GenerateFixtures(
+      fixturesDir = baseDirectory.value / "src/test/resources/fixtures/hmrc-frontend",
+      frontend = "hmrc",
+      version = LibDependencies.hmrcFrontendVersion
+    )
+    generateFixtures.generate()
+  },
+  Test / parallelExecution := false,
+  Test / unmanagedResourceDirectories ++= Seq(baseDirectory(_ / "target/web/public/test").value),
+  buildInfoKeys ++= Seq[BuildInfoKey](
+//      "playVersion"          -> PlayCrossCompilation.playVersion,
+    "govukFrontendVersion" -> LibDependencies.govukFrontendVersion,
+    "hmrcFrontendVersion"  -> LibDependencies.hmrcFrontendVersion,
+    Compile / TwirlKeys.compileTemplates / sources // needed? hmrcfrontendbuildinfo.BuildInfo.twirlCompileTemplates_sources doesn't seem to be used
+  ),
+  buildInfoPackage := "hmrcfrontendbuildinfo"
+)
+
+lazy val library = (project in file("."))
+  .settings(
+    commonSettings,
+    publish / skip := true
+  )
+  .aggregate(
+    /*sys.env.get("PLAY_VERSION") match {
+      case Some("2.8") => playFrontendHmrcPlay28
+      case Some("2.9") => playFrontendHmrcPlay29
+      case _           => sys.error("Unsupported PLAY_VERSION")
+    }*/
+    playFrontendHmrcPlay28,
+    playFrontendHmrcPlay29
+  )
+
+  val sharedSources = Seq(
+    Compile         / unmanagedSourceDirectories   += baseDirectory.value / s"../src-common/main/scala",
+    Compile         / unmanagedResourceDirectories += baseDirectory.value / s"../src-common/main/resources",
+    Test            / unmanagedSourceDirectories   += baseDirectory.value / s"../src-common/test/scala",
+    Test            / unmanagedResourceDirectories += baseDirectory.value / s"../src-common/test/resources",
+    Compile / TwirlKeys.compileTemplates / sourceDirectories += baseDirectory.value / s"../src-common/main/twirl"
+  )
+
+
+lazy val playFrontendHmrcPlay28 = Project("play-frontend-hmrc-play-28", file("play-frontend-hmrc-play-28"))
   .enablePlugins(PlayScala, SbtTwirl, BuildInfoPlugin)
   .disablePlugins(PlayLayoutPlugin)
   .configs(IntegrationTest)
+  .settings(commonSettings)
+  .settings(sharedSettings :_*)
   .settings(
-    name := "play-frontend-hmrc",
-    majorVersion := 7,
-    scalaVersion := scala2_12,
     crossScalaVersions := Seq(scala2_12, scala2_13),
-    libraryDependencies ++= LibDependencies(),
-    TwirlKeys.templateImports := templateImports,
-    PlayCrossCompilation.playCrossCompilationSettings,
-    isPublicArtefact := true,
-    // ***************
-    // Use the silencer plugin to suppress warnings from unused imports in compiled twirl templates
-    scalacOptions += "-P:silencer:pathFilters=views;routes",
-    libraryDependencies ++= Seq(
-      compilerPlugin("com.github.ghik" % "silencer-plugin" % silencerVersion cross CrossVersion.full),
-      "com.github.ghik" % "silencer-lib" % silencerVersion % Provided cross CrossVersion.full
-    ),
-    Test / generateGovukFixtures := {
-      val generateFixtures = GenerateFixtures(
-        fixturesDir = baseDirectory.value / "src/test/resources/fixtures/govuk-frontend",
-        frontend = "govuk",
-        version = LibDependencies.govukFrontendVersion
-      )
-      generateFixtures.generate()
-    },
-    Test / generateHmrcFixtures := {
-      val generateFixtures = GenerateFixtures(
-        fixturesDir = baseDirectory.value / "src/test/resources/fixtures/hmrc-frontend",
-        frontend = "hmrc",
-        version = LibDependencies.hmrcFrontendVersion
-      )
-      generateFixtures.generate()
-    },
-    Test / parallelExecution := false,
-    playMonitoredFiles ++= (Compile / TwirlKeys.compileTemplates / sourceDirectories).value,
-    Test / unmanagedResourceDirectories ++= Seq(baseDirectory(_ / "target/web/public/test").value),
+    libraryDependencies ++= LibDependencies.shared ++ LibDependencies.play28,
+     // what is this used for? (note, it's the version the library was compiled with, not the service)
+     // Only looks like hmrcfrontendbuildinfo.BuildInfo.hmrcFrontendVersion and govukFrontendVersion are used.
     buildInfoKeys ++= Seq[BuildInfoKey](
-      "playVersion"          -> PlayCrossCompilation.playVersion,
-      "govukFrontendVersion" -> LibDependencies.govukFrontendVersion,
-      "hmrcFrontendVersion"  -> LibDependencies.hmrcFrontendVersion,
-      Compile / TwirlKeys.compileTemplates / sources
+      "playVersion"          -> LibDependencies.play28Version
     ),
-    buildInfoPackage := "hmrcfrontendbuildinfo"
+    // Is this needed?
+    PlayKeys.playMonitoredFiles ++= (Compile / TwirlKeys.compileTemplates / sourceDirectories).value,
   )
   .settings(inConfig(IntegrationTest)(Defaults.itSettings): _*)
+  .settings(IntegrationTest / unmanagedSourceDirectories   += baseDirectory.value / s"../src-common/it/scala")
+  .settings(inConfig(IntegrationTest)(org.scalafmt.sbt.ScalafmtPlugin.scalafmtConfigSettings))
+
+lazy val playFrontendHmrcPlay29 = Project("play-frontend-hmrc-play-29", file("play-frontend-hmrc-play-29"))
+  .enablePlugins(PlayScala, SbtTwirl, BuildInfoPlugin)
+  .disablePlugins(PlayLayoutPlugin)
+  .configs(IntegrationTest)
+  .settings(commonSettings)
+  .settings(sharedSettings :_*)
+  .settings(
+    crossScalaVersions := Seq(scala2_13),
+    libraryDependencies ++= LibDependencies.shared ++ LibDependencies.play29,
+    buildInfoKeys ++= Seq[BuildInfoKey](
+      "playVersion"          -> LibDependencies.play29Version
+    ),
+    PlayKeys.playMonitoredFiles ++= (Compile / TwirlKeys.compileTemplates / sourceDirectories).value,
+  )
+  .settings(inConfig(IntegrationTest)(Defaults.itSettings): _*)
+  .settings(IntegrationTest / unmanagedSourceDirectories   += baseDirectory.value / s"../src-common/it/scala")
   .settings(inConfig(IntegrationTest)(org.scalafmt.sbt.ScalafmtPlugin.scalafmtConfigSettings))
 
 lazy val templateImports: Seq[String] = Seq(
