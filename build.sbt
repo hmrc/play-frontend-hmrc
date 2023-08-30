@@ -65,10 +65,8 @@ lazy val library = (project in file("."))
     Compile / TwirlKeys.compileTemplates / sourceDirectories += baseDirectory.value / s"../src-common/main/twirl"
   )
 
-
 lazy val playFrontendHmrcPlay28 = Project("play-frontend-hmrc-play-28", file("play-frontend-hmrc-play-28"))
-  .enablePlugins(PlayScala, SbtTwirl, BuildInfoPlugin)
-  .disablePlugins(PlayLayoutPlugin)
+  .enablePlugins(SbtTwirl, BuildInfoPlugin)
   .configs(IntegrationTest)
   .settings(commonSettings)
   .settings(sharedSettings :_*)
@@ -81,15 +79,14 @@ lazy val playFrontendHmrcPlay28 = Project("play-frontend-hmrc-play-28", file("pl
       "playVersion"          -> LibDependencies.play28Version
     ),
     // Is this needed?
-    PlayKeys.playMonitoredFiles ++= (Compile / TwirlKeys.compileTemplates / sourceDirectories).value,
+    //PlayKeys.playMonitoredFiles ++= (Compile / TwirlKeys.compileTemplates / sourceDirectories).value,
   )
   .settings(inConfig(IntegrationTest)(Defaults.itSettings): _*)
   .settings(IntegrationTest / unmanagedSourceDirectories   += baseDirectory.value / s"../src-common/it/scala")
   .settings(inConfig(IntegrationTest)(org.scalafmt.sbt.ScalafmtPlugin.scalafmtConfigSettings))
 
 lazy val playFrontendHmrcPlay29 = Project("play-frontend-hmrc-play-29", file("play-frontend-hmrc-play-29"))
-  .enablePlugins(PlayScala, SbtTwirl, BuildInfoPlugin)
-  .disablePlugins(PlayLayoutPlugin)
+  .enablePlugins(SbtTwirl, BuildInfoPlugin)
   .configs(IntegrationTest)
   .settings(commonSettings)
   .settings(sharedSettings :_*)
@@ -99,7 +96,7 @@ lazy val playFrontendHmrcPlay29 = Project("play-frontend-hmrc-play-29", file("pl
     buildInfoKeys ++= Seq[BuildInfoKey](
       "playVersion"          -> LibDependencies.play29Version
     ),
-    PlayKeys.playMonitoredFiles ++= (Compile / TwirlKeys.compileTemplates / sourceDirectories).value,
+    //PlayKeys.playMonitoredFiles ++= (Compile / TwirlKeys.compileTemplates / sourceDirectories).value,
   )
   .settings(inConfig(IntegrationTest)(Defaults.itSettings): _*)
   .settings(IntegrationTest / unmanagedSourceDirectories   += baseDirectory.value / s"../src-common/it/scala")

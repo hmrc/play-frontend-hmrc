@@ -9,8 +9,8 @@ addSbtPlugin("org.scalameta" % "sbt-scalafmt"               % "2.4.0")
 libraryDependencySchemes += "org.scala-lang.modules" %% "scala-xml" % VersionScheme.Always // required since we're cross building for Play 2.8 which isn't compatible with sbt 1.9
 
 // TODO only for Play 2.8?
-addSbtPlugin("com.typesafe.play" % "sbt-plugin" % "2.8.20") // needed to compile Assets as well as provide sbt-twirl (sbt-routes-compiler?)
-//addSbtPlugin("com.typesafe.sbt"  % "sbt-twirl"  % "1.5.1")
+//addSbtPlugin("com.typesafe.play" % "sbt-plugin" % "2.8.20") // needed to compile Assets as well as provide sbt-twirl (sbt-routes-compiler?)
+addSbtPlugin("com.typesafe.sbt"  % "sbt-twirl"  % "1.5.1")
 
 //addSbtPlugin("com.typesafe.play" % "sbt-plugin" % "2.9.0-M7")
 //addSbtPlugin("com.typesafe.play"  % "sbt-twirl"  % "1.6.0-RC4")
