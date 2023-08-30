@@ -12,9 +12,7 @@ object LibDependencies {
     "org.scala-lang.modules" %% "scala-collection-compat" % "2.10.0",
     "uk.gov.hmrc.webjars"     % "hmrc-frontend"           % hmrcFrontendVersion,
 
-    "com.vladsch.flexmark"          % "flexmark-all"             % "0.35.10"           % Test,
     "org.jsoup"                     % "jsoup"                    % "1.13.1"            % Test,
-    "org.scalatest"                %% "scalatest"                % "3.2.3"             % Test,
     "org.scalatestplus"            %% "scalatestplus-mockito"    % "1.0.0-M2"          % Test,
     "org.scalatestplus"            %% "scalatestplus-scalacheck" % "3.1.0.0-RC2"       % Test,
     "org.scalacheck"               %% "scalacheck"               % "1.15.3"            % Test,
@@ -31,7 +29,8 @@ object LibDependencies {
 
     "com.typesafe.play"      %% "play-test"             % play28Version % Test,
     "com.typesafe.play"      %% "play-ahc-ws"           % play28Version % Test,
-    "org.scalatestplus.play" %% "scalatestplus-play"    % "5.1.0"       % Test
+    "org.scalatestplus.play" %% "scalatestplus-play"    % "5.1.0"       % Test,
+    "com.vladsch.flexmark"   %  "flexmark-all"          % "0.35.10"     % Test
   )
 
   val play29 = Seq(
@@ -41,6 +40,7 @@ object LibDependencies {
 
     "com.typesafe.play"      %% "play-test"             % play29Version % Test,
     "com.typesafe.play"      %% "play-ahc-ws"           % play29Version % Test,
-    "org.scalatestplus.play" %% "scalatestplus-play"    % "6.0.0-M6"    % Test
+    "org.scalatestplus.play" %% "scalatestplus-play"    % "6.0.0-M6"    % Test,
+    "com.vladsch.flexmark"   %  "flexmark-all"          % "0.62.2"      % Test
   )
 }

@@ -6,8 +6,7 @@ lazy val IntegrationTest = config("it") extend Test
 lazy val commonSettings = Seq(
   majorVersion     := 7,
   isPublicArtefact := true,
-  scalaVersion     := scala2_13,
-  libraryDependencySchemes += "org.scala-lang.modules" %% "scala-xml" % VersionScheme.Always, // required since we're cross building for Play 2.8 which isn't compatible with sbt 1.9
+  scalaVersion     := scala2_13
 )
 
 lazy val sharedSettings: Seq[sbt.Def.SettingsDefinition] = Seq(
@@ -48,13 +47,10 @@ lazy val library = (project in file("."))
     publish / skip := true
   )
   .aggregate(
-    /*sys.env.get("PLAY_VERSION") match {
+    sys.env.get("PLAY_VERSION") match {
       case Some("2.8") => playFrontendHmrcPlay28
-      case Some("2.9") => playFrontendHmrcPlay29
-      case _           => sys.error("Unsupported PLAY_VERSION")
-    }*/
-    playFrontendHmrcPlay28,
-    playFrontendHmrcPlay29
+      case _           => playFrontendHmrcPlay29
+    }
   )
 
   val sharedSources = Seq(
@@ -62,17 +58,25 @@ lazy val library = (project in file("."))
     Compile         / unmanagedResourceDirectories += baseDirectory.value / s"../src-common/main/resources",
     Test            / unmanagedSourceDirectories   += baseDirectory.value / s"../src-common/test/scala",
     Test            / unmanagedResourceDirectories += baseDirectory.value / s"../src-common/test/resources",
-    Compile / TwirlKeys.compileTemplates / sourceDirectories += baseDirectory.value / s"../src-common/main/twirl"
+    Compile / TwirlKeys.compileTemplates / sourceDirectories += baseDirectory.value / s"../src-common/main/twirl",
+    Compile / routes / sources ++= {
+      //baseDirectory.value / s"../src-common/main/resources/hmrcfrontend.routes"
+      // compile any routes files in the root named "routes" or "*.routes"
+      val dirs = (unmanagedResourceDirectories in Compile).value
+      (dirs * "routes").get ++ (dirs * "*.routes").get
+    },
+    Compile         / unmanagedSourceDirectories   += crossTarget.value / s"routes/main"
   )
 
 lazy val playFrontendHmrcPlay28 = Project("play-frontend-hmrc-play-28", file("play-frontend-hmrc-play-28"))
-  .enablePlugins(SbtTwirl, BuildInfoPlugin)
+  .enablePlugins(SbtTwirl, RoutesCompiler, BuildInfoPlugin)
   .configs(IntegrationTest)
   .settings(commonSettings)
   .settings(sharedSettings :_*)
   .settings(
     crossScalaVersions := Seq(scala2_12, scala2_13),
     libraryDependencies ++= LibDependencies.shared ++ LibDependencies.play28,
+    libraryDependencySchemes += "org.scala-lang.modules" %% "scala-xml" % VersionScheme.Always, // required since we're cross building for Play 2.8 which isn't compatible with sbt 1.9
      // what is this used for? (note, it's the version the library was compiled with, not the service)
      // Only looks like hmrcfrontendbuildinfo.BuildInfo.hmrcFrontendVersion and govukFrontendVersion are used.
     buildInfoKeys ++= Seq[BuildInfoKey](
@@ -86,7 +90,7 @@ lazy val playFrontendHmrcPlay28 = Project("play-frontend-hmrc-play-28", file("pl
   .settings(inConfig(IntegrationTest)(org.scalafmt.sbt.ScalafmtPlugin.scalafmtConfigSettings))
 
 lazy val playFrontendHmrcPlay29 = Project("play-frontend-hmrc-play-29", file("play-frontend-hmrc-play-29"))
-  .enablePlugins(SbtTwirl, BuildInfoPlugin)
+  .enablePlugins(SbtTwirl, RoutesCompiler, BuildInfoPlugin)
   .configs(IntegrationTest)
   .settings(commonSettings)
   .settings(sharedSettings :_*)
