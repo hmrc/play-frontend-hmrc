@@ -71,7 +71,6 @@ lazy val library = (project in file("."))
 lazy val playFrontendHmrcPlay28 = Project("play-frontend-hmrc-play-28", file("play-frontend-hmrc-play-28"))
   .enablePlugins(PlayScala, BuildInfoPlugin) // AssetsSpec requires that this library is a fully fledged Play service (rather than just SbtTwirl, RoutesCompiler) // TODO AssetTest could move to IntegrationTest module instead
   .disablePlugins(PlayLayoutPlugin)
-  .configs(IntegrationTest)
   .settings(commonSettings)
   .settings(sharedSettings :_*)
   .settings(
@@ -86,14 +85,10 @@ lazy val playFrontendHmrcPlay28 = Project("play-frontend-hmrc-play-28", file("pl
     // Is this needed?
     //PlayKeys.playMonitoredFiles ++= (Compile / TwirlKeys.compileTemplates / sourceDirectories).value,
   )
-  .settings(inConfig(IntegrationTest)(Defaults.itSettings): _*)
-  .settings(IntegrationTest / unmanagedSourceDirectories   += baseDirectory.value / s"../src-common/it/scala")
-  .settings(inConfig(IntegrationTest)(org.scalafmt.sbt.ScalafmtPlugin.scalafmtConfigSettings))
 
 lazy val playFrontendHmrcPlay29 = Project("play-frontend-hmrc-play-29", file("play-frontend-hmrc-play-29"))
   .enablePlugins(PlayScala, BuildInfoPlugin) // AssetsSpec requires that this library is a fully fledged Play service (rather than just SbtTwirl, RoutesCompiler) // TODO AssetTest could move to IntegrationTest module instead
   .disablePlugins(PlayLayoutPlugin)
-  .configs(IntegrationTest)
   .settings(commonSettings)
   .settings(sharedSettings :_*)
   .settings(
@@ -104,9 +99,6 @@ lazy val playFrontendHmrcPlay29 = Project("play-frontend-hmrc-play-29", file("pl
     ),
     //PlayKeys.playMonitoredFiles ++= (Compile / TwirlKeys.compileTemplates / sourceDirectories).value,
   )
-  .settings(inConfig(IntegrationTest)(Defaults.itSettings): _*)
-  .settings(IntegrationTest / unmanagedSourceDirectories   += baseDirectory.value / s"../src-common/it/scala")
-  .settings(inConfig(IntegrationTest)(org.scalafmt.sbt.ScalafmtPlugin.scalafmtConfigSettings))
 
 lazy val templateImports: Seq[String] = Seq(
   "_root_.play.twirl.api.Html",
@@ -122,6 +114,26 @@ lazy val templateImports: Seq[String] = Seq(
   "_root_.play.twirl.api.TwirlFeatureImports._",
   "_root_.play.twirl.api.TwirlHelperImports._"
 )
+
+lazy val playFrontendHmrcIntegrationTestPlay28 = Project("play-frontend-hmrc-it-play-28", file("play-frontend-hmrc-it-play-28"))
+  .settings(
+    commonSettings,
+    publish / skip := true
+  )
+  //.enablePlugins(PlayScala) // AssetsSpec requires that this library is a fully fledged Play service (rather than just SbtTwirl, RoutesCompiler) // TODO AssetTest could move to IntegrationTest module instead
+  //.disablePlugins(PlayLayoutPlugin)
+  .settings(Test / unmanagedSourceDirectories += baseDirectory.value / s"../src-common/it/scala")
+  .dependsOn(playFrontendHmrcPlay28 % "test->test")
+
+lazy val playFrontendHmrcIntegrationTestPlay29 = Project("play-frontend-hmrc-it-play-29", file("play-frontend-hmrc-it-play-29"))
+  .settings(
+    commonSettings,
+    publish / skip := true
+  )
+  //.enablePlugins(PlayScala) // AssetsSpec requires that this library is a fully fledged Play service (rather than just SbtTwirl, RoutesCompiler) // TODO AssetTest could move to IntegrationTest module instead
+  //.disablePlugins(PlayLayoutPlugin)
+  .settings(Test / unmanagedSourceDirectories += baseDirectory.value / s"../src-common/it/scala")
+  .dependsOn(playFrontendHmrcPlay29 % "test->test")
 
 lazy val generateGovukFixtures = taskKey[Unit]("Generate unit test fixtures for GOV.UK")
 lazy val generateHmrcFixtures  = taskKey[Unit]("Generate unit test fixtures for HMRC")
