@@ -32,3 +32,5 @@ govuk.pagination.page=Page
 govuk.warningText.iconFallbackText=Warning
 govuk.exitThisPage.contentFallbackText=Exit this page
 govuk.exitThisPage.redirectUrlFallback=https://www.bbc.co.uk/weather
+february=February
+february.abbrv=Feb

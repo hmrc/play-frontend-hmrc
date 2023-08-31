@@ -38,6 +38,7 @@ of implementing frontend microservices straightforward and idiomatic for Scala d
   - [Warning users before timing them out](#warning-users-before-timing-them-out)
   - [Opening links in a new tab](#opening-links-in-a-new-tab)
   - [Adding an Exit This Page button](#adding-an-exit-this-page-button)
+  - [Validating DateInput using DateValidationSupport](#Validating-DateInput-using-the-DateValidationSupport)
 - [Advanced configuration](#advanced-configuration)
   - [Adding your own SASS compilation pipeline](#adding-your-own-sass-compilation-pipeline)
   - [Configuring non-HMRC projects to resolve play-frontend-hmrc artefacts](#configuring-non-hmrc-projects-to-resolve-play-frontend-hmrc-artefacts)
@@ -1112,6 +1113,46 @@ If you are not using the GOV.uk standard [two-thirds width layout](https://desig
 please note that the sticky button may overlay your main content when scrolled. For example, it will overlay a sidebar or 
 full-width layout. Services with wider main content may wish to carry out additional testing before deciding whether to 
 implement this component.
+
+### Validating DateInput using DateValidationSupport
+
+Date input validation is a commonly needed tool, but different teams have separately created their 
+own unique solutions for validating date inputs. As GOVUK guidelines for date validation evolve, 
+we've opted to offer date validation support. This support ensures that a date provided by the 
+DateInput is indeed valid, aligning with the changing standards for date validation.
+
+### Provided date validation constraints
+
+- yearBefore(localDate: LocalDate) - validates whether the year is before the localDate provided
+
+### Using govukDate validation mapping
+
+We offer a govukDate mapping that validates the authenticity of the date. In the example below, the govukDate mapping, furnished by the DateValidationSupport object, is utilized in conjunction with the provided `yearBefore` constraint.
+
+```scala
+  def form()(implicit messagesApi: MessagesApi) = Form[SomeForm](
+    mapping(
+      "userAction"       -> optional(text),
+      "contact-date"     -> govukDate.verifying(yearBefore(LocalDate.parse("2024-01-01")))
+    )(SomeForm.apply)(SomeForm.unapply)
+  )
+```
+
+The example below illustrates the application of a custom constraint in conjunction with the govukDate mapping. This combination is used to ascertain whether a date falls after a specific date
+
+```scala
+  def form()(implicit messagesApi: MessagesApi) = Form[SomeForm](
+    mapping(
+      "userAction"       -> optional(text),
+      "contact-date"     -> govukDate.verifying("date.after", (govukDate: GovUKDate) => {
+        govukDate.localDate().exists { localDate =>
+          val afterDate = LocalDate.parse("2023-01-30")
+          localDate.isAfter(afterDate)
+        }
+      })
+    )(SomeForm.apply)(SomeForm.unapply)
+  )
+```
 
 ## Advanced configuration
 ### Adding your own SASS compilation pipeline
