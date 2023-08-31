@@ -1,8 +1,6 @@
 val scala2_12 = "2.12.18"
 val scala2_13 = "2.13.11"
 
-lazy val IntegrationTest = config("it") extend Test
-
 lazy val commonSettings = Seq(
   majorVersion     := 7,
   isPublicArtefact := true,
@@ -59,18 +57,17 @@ lazy val library = (project in file("."))
     Test            / unmanagedSourceDirectories   += baseDirectory.value / s"../src-common/test/scala",
     Test            / unmanagedResourceDirectories += baseDirectory.value / s"../src-common/test/resources",
     Compile / TwirlKeys.compileTemplates / sourceDirectories += baseDirectory.value / s"../src-common/main/twirl",
-    //Compile / routes / sources ++= {
-    //  //baseDirectory.value / s"../src-common/main/resources/hmrcfrontend.routes"
-    //  // compile any routes files in the root named "routes" or "*.routes"
-    //  val dirs = (unmanagedResourceDirectories in Compile).value
-    //  (dirs * "routes").get ++ (dirs * "*.routes").get
-    //},
-    //Compile         / unmanagedSourceDirectories   += crossTarget.value / s"routes/main"
+    Compile / routes / sources ++= {
+      //baseDirectory.value / s"../src-common/main/resources/hmrcfrontend.routes"
+      // compile any routes files in the root named "routes" or "*.routes"
+      val dirs = (Compile / unmanagedResourceDirectories).value
+      (dirs * "routes").get ++ (dirs * "*.routes").get
+    },
+    Compile         / unmanagedSourceDirectories   += crossTarget.value / s"routes/main"
   )
 
 lazy val playFrontendHmrcPlay28 = Project("play-frontend-hmrc-play-28", file("play-frontend-hmrc-play-28"))
-  .enablePlugins(PlayScala, BuildInfoPlugin) // AssetsSpec requires that this library is a fully fledged Play service (rather than just SbtTwirl, RoutesCompiler) // TODO AssetTest could move to IntegrationTest module instead
-  .disablePlugins(PlayLayoutPlugin)
+  .enablePlugins(SbtTwirl, RoutesCompiler, BuildInfoPlugin)
   .settings(commonSettings)
   .settings(sharedSettings :_*)
   .settings(
@@ -87,8 +84,7 @@ lazy val playFrontendHmrcPlay28 = Project("play-frontend-hmrc-play-28", file("pl
   )
 
 lazy val playFrontendHmrcPlay29 = Project("play-frontend-hmrc-play-29", file("play-frontend-hmrc-play-29"))
-  .enablePlugins(PlayScala, BuildInfoPlugin) // AssetsSpec requires that this library is a fully fledged Play service (rather than just SbtTwirl, RoutesCompiler) // TODO AssetTest could move to IntegrationTest module instead
-  .disablePlugins(PlayLayoutPlugin)
+  .enablePlugins(SbtTwirl, RoutesCompiler, BuildInfoPlugin)
   .settings(commonSettings)
   .settings(sharedSettings :_*)
   .settings(
@@ -97,6 +93,7 @@ lazy val playFrontendHmrcPlay29 = Project("play-frontend-hmrc-play-29", file("pl
     buildInfoKeys ++= Seq[BuildInfoKey](
       "playVersion"          -> LibDependencies.play29Version
     ),
+    TwirlKeys.constructorAnnotations += "@javax.inject.Inject()",
     //PlayKeys.playMonitoredFiles ++= (Compile / TwirlKeys.compileTemplates / sourceDirectories).value,
   )
 
@@ -116,22 +113,22 @@ lazy val templateImports: Seq[String] = Seq(
 )
 
 lazy val playFrontendHmrcIntegrationTestPlay28 = Project("play-frontend-hmrc-it-play-28", file("play-frontend-hmrc-it-play-28"))
+  .enablePlugins(PlayScala) // AssetsSpec requires that this library is a fully fledged Play service
+  .disablePlugins(PlayLayoutPlugin)
   .settings(
     commonSettings,
     publish / skip := true
   )
-  //.enablePlugins(PlayScala) // AssetsSpec requires that this library is a fully fledged Play service (rather than just SbtTwirl, RoutesCompiler) // TODO AssetTest could move to IntegrationTest module instead
-  //.disablePlugins(PlayLayoutPlugin)
   .settings(Test / unmanagedSourceDirectories += baseDirectory.value / s"../src-common/it/scala")
   .dependsOn(playFrontendHmrcPlay28 % "test->test")
 
 lazy val playFrontendHmrcIntegrationTestPlay29 = Project("play-frontend-hmrc-it-play-29", file("play-frontend-hmrc-it-play-29"))
+  .enablePlugins(PlayScala) // AssetsSpec requires that this library is a fully fledged Play service
+  .disablePlugins(PlayLayoutPlugin)
   .settings(
     commonSettings,
     publish / skip := true
   )
-  //.enablePlugins(PlayScala) // AssetsSpec requires that this library is a fully fledged Play service (rather than just SbtTwirl, RoutesCompiler) // TODO AssetTest could move to IntegrationTest module instead
-  //.disablePlugins(PlayLayoutPlugin)
   .settings(Test / unmanagedSourceDirectories += baseDirectory.value / s"../src-common/it/scala")
   .dependsOn(playFrontendHmrcPlay29 % "test->test")
 
