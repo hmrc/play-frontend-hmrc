@@ -1,5 +1,7 @@
+import uk.gov.hmrc.DefaultBuildSettings
+
 val scala2_12 = "2.12.18"
-val scala2_13 = "2.13.11"
+val scala2_13 = "2.13.12"
 
 ThisBuild / majorVersion     := 7
 ThisBuild / isPublicArtefact := true
@@ -15,26 +17,24 @@ lazy val sharedSettings: Seq[sbt.Def.SettingsDefinition] = Seq(
   Test / generateGovukFixtures := {
     val generateFixtures = GenerateFixtures(
       fixturesDir = baseDirectory.value / "src/test/resources/fixtures/govuk-frontend",
-      frontend = "govuk",
-      version = LibDependencies.govukFrontendVersion
+      frontend    = "govuk",
+      version     = LibDependencies.govukFrontendVersion
     )
     generateFixtures.generate()
   },
   Test / generateHmrcFixtures := {
     val generateFixtures = GenerateFixtures(
       fixturesDir = baseDirectory.value / "src/test/resources/fixtures/hmrc-frontend",
-      frontend = "hmrc",
-      version = LibDependencies.hmrcFrontendVersion
+      frontend    = "hmrc",
+      version     = LibDependencies.hmrcFrontendVersion
     )
     generateFixtures.generate()
   },
   Test / parallelExecution := false,
   Test / unmanagedResourceDirectories ++= Seq(baseDirectory(_ / "target/web/public/test").value),
   buildInfoKeys ++= Seq[BuildInfoKey](
-//      "playVersion"          -> PlayCrossCompilation.playVersion,
     "govukFrontendVersion" -> LibDependencies.govukFrontendVersion,
-    "hmrcFrontendVersion"  -> LibDependencies.hmrcFrontendVersion,
-//    Compile / TwirlKeys.compileTemplates / sources // needed? hmrcfrontendbuildinfo.BuildInfo.twirlCompileTemplates_sources doesn't seem to be used
+    "hmrcFrontendVersion"  -> LibDependencies.hmrcFrontendVersion
   ),
   buildInfoPackage := "hmrcfrontendbuildinfo"
 )
@@ -72,11 +72,7 @@ lazy val playFrontendHmrcPlay28 = Project("play-frontend-hmrc-play-28", file("pl
     libraryDependencySchemes += "org.scala-lang.modules" %% "scala-xml" % VersionScheme.Always, // required since we're cross building for Play 2.8 which isn't compatible with sbt 1.9
      // what is this used for? (note, it's the version the library was compiled with, not the service)
      // Only looks like hmrcfrontendbuildinfo.BuildInfo.hmrcFrontendVersion and govukFrontendVersion are used.
-    buildInfoKeys ++= Seq[BuildInfoKey](
-      "playVersion"          -> LibDependencies.play28Version
-    ),
-    // Is this needed?
-    //PlayKeys.playMonitoredFiles ++= (Compile / TwirlKeys.compileTemplates / sourceDirectories).value,
+    buildInfoKeys ++= Seq[BuildInfoKey]("playVersion" -> LibDependencies.play28Version)
   )
 
 lazy val playFrontendHmrcPlay29 = Project("play-frontend-hmrc-play-29", file("play-frontend-hmrc-play-29"))
@@ -85,10 +81,7 @@ lazy val playFrontendHmrcPlay29 = Project("play-frontend-hmrc-play-29", file("pl
   .settings(
     crossScalaVersions := Seq(scala2_13),
     libraryDependencies ++= LibDependencies.shared ++ LibDependencies.play29,
-    buildInfoKeys ++= Seq[BuildInfoKey](
-      "playVersion"          -> LibDependencies.play29Version
-    ),
-    //PlayKeys.playMonitoredFiles ++= (Compile / TwirlKeys.compileTemplates / sourceDirectories).value,
+    buildInfoKeys ++= Seq[BuildInfoKey]("playVersion" -> LibDependencies.play29Version)
   )
 
 lazy val templateImports: Seq[String] = Seq(
@@ -106,33 +99,26 @@ lazy val templateImports: Seq[String] = Seq(
   "_root_.play.twirl.api.TwirlHelperImports._"
 )
 
-lazy val itPlay28 = Project("it-play-28", file("it-play-28"))
+lazy val it = project
+  .settings(publish / skip := true)
+  .aggregate(
+    sys.env.get("PLAY_VERSION") match {
+      case Some("2.8") => itPlay28
+      case _           => itPlay29
+    }
+  )
+
+lazy val itPlay28 = (project in file("it-play-28"))
   .enablePlugins(PlayScala) // AssetsSpec requires that this library is a fully fledged Play service
   .disablePlugins(PlayLayoutPlugin)
-  .settings(
-    // TODO will be available in DefaultBuildSettings.itSettings
-    publish / skip := true,
-    Test / fork := false,
-    Test / testGrouping := uk.gov.hmrc.DefaultBuildSettings.oneForkedJvmPerTest(
-      (Test / definedTests).value,
-      (Test / javaOptions ).value
-    )
-  )
+  .settings(DefaultBuildSettings.itSettings)
   .settings(Test / unmanagedSourceDirectories += baseDirectory.value / s"../src-common/it/scala")
   .dependsOn(playFrontendHmrcPlay28 % "test->test")
 
-lazy val itPlay29 = Project("it-play-29", file("it-play-29"))
+lazy val itPlay29 = (project in file("it-play-29"))
   .enablePlugins(PlayScala) // AssetsSpec requires that this library is a fully fledged Play service
   .disablePlugins(PlayLayoutPlugin)
-  .settings(
-    // TODO will be available in DefaultBuildSettings.itSettings
-    publish / skip := true,
-    Test / fork := false,
-    Test / testGrouping := uk.gov.hmrc.DefaultBuildSettings.oneForkedJvmPerTest(
-      (Test / definedTests).value,
-      (Test / javaOptions ).value
-    )
-  )
+  .settings(DefaultBuildSettings.itSettings)
   .settings(Test / unmanagedSourceDirectories += baseDirectory.value / s"../src-common/it/scala")
   .dependsOn(playFrontendHmrcPlay29 % "test->test")
 

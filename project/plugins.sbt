@@ -14,5 +14,5 @@ addSbtPlugin("org.scalameta" % "sbt-scalafmt"               % "2.4.0")
 
 sys.env.get("PLAY_VERSION") match {
   case Some("2.8") => addSbtPlugin("com.typesafe.play" % "sbt-plugin"  % "2.8.20")
-  case _           => addSbtPlugin("com.typesafe.play" % "sbt-plugin"  % "2.9.0-M7")
+  case _           => addSbtPlugin("com.typesafe.play" % "sbt-plugin"  % "2.9.0-RC2")
 }
