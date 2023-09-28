@@ -3,9 +3,9 @@
 This library contains all the Twirl components and helpers needed to implement frontend microservices on the HMRC
 tax platform.
 
-play-frontend-hmrc is a Scala Twirl implementation of 
+play-frontend-hmrc is a Scala Twirl implementation of
 [govuk-frontend](https://www.github.com/alphagov/govuk-frontend) and
-[hmrc-frontend](https://www.github.com/hmrc/hmrc-frontend), adding to it Play, HMRC and tax platform-specific 
+[hmrc-frontend](https://www.github.com/hmrc/hmrc-frontend), adding to it Play, HMRC and tax platform-specific
 components and helpers that make the process
 of implementing frontend microservices straightforward and idiomatic for Scala developers.
 
@@ -54,20 +54,23 @@ of implementing frontend microservices straightforward and idiomatic for Scala d
 ### Compatible Scala and Play Framework versions
 
 This library is currently compatible with:
-* Scala 2.12 / 2.13
-* Play 2.8
+* Play 2.8 - Scala 2.12 / 2.13
+* Play 2.9 - Scala 2.13
 
 ### Understanding library changes between versions
 
 We summarise what's changed between versions, and importantly any actions that may be required when upgrading past a specific version within our [changelog](CHANGELOG.md).
 
 ### Integrating with play-frontend-hmrc
-  
-1. Add the version of [play-frontend-hmrc](https://github.com/hmrc/play-frontend-hmrc/releases) specific to your Play version
-    in your `project/AppDependencies.scala` file. For example,
-    ```sbt
-    libraryDependencies += "uk.gov.hmrc" %% "play-frontend-hmrc" % "x.y.z-play-28"
+
+1. Add the library to the project dependencies:
+    ```scala
+    libraryDependencies += "uk.gov.hmrc" %% "play-frontend-hmrc-play-xx" % "x.y.z"
     ```
+
+    Where play-xx is your version of Play (e.g. play-29).
+
+    Note, this has changed since 7.x.x, previously the play version was included in the artefact version, it is now included in the artefact name.
 
 2. Add a route for the hmrc-frontend static assets in `conf/app.routes`:
     ```scala
@@ -77,7 +80,7 @@ We summarise what's changed between versions, and importantly any actions that m
 3. Define your service name in your messages files. For example,
     ```scala
     service.name = Any tax service
-    ``` 
+    ```
 
    If you have a dynamic service name you can skip this step and pass the
    serviceName into `hmrcStandardPage` or `hmrcStandardHeader`.
@@ -99,7 +102,7 @@ pages, click on a component on the sidebar and see the `Twirl` examples matching
 
 ### Using the components
 
-To use our components and helpers, you will first need to import them from 
+To use our components and helpers, you will first need to import them from
 their corresponding packages in `uk.gov.hmrc.govukfrontend.views.html.components`,
 `uk.gov.hmrc.hmrcfrontend.views.html.components` or `uk.gov.hmrc.hmrcfrontend.views.html.helpers`.
 
@@ -107,8 +110,8 @@ For most components, their parameters are encapsulated within view models, case 
 that live within a subpackage of `uk.gov.hmrc(govuk|hmrc)frontend.views.viewmodels` and are aliased for use
 under `uk.gov.hmrc(govuk|hmrc)frontend.views.html.components`.
 
-The following will import all components, helpers, view models, and implicits. This is the most succinct import method, 
-but may require additional imports to resolve ambiguous import compilation errors for some view models. It may 
+The following will import all components, helpers, view models, and implicits. This is the most succinct import method,
+but may require additional imports to resolve ambiguous import compilation errors for some view models. It may
 also cause unused import warnings.
 
 ```scala
@@ -144,15 +147,15 @@ You can then use the components in your templates as follows:
    RadioItem(
      content = Text("England"),
      value = Some("england")
-   ), 
+   ),
    RadioItem(
      content = Text("Scotland"),
      value = Some("scotland")
-   ), 
+   ),
    RadioItem(
      content = Text("Wales"),
      value = Some("wales")
-   ), 
+   ),
    RadioItem(
      content = Text("Northern Ireland"),
      value = Some("northern-ireland")
@@ -236,7 +239,7 @@ Twirl template:
 
 ### Useful implicits
 
-The following imports will summon implicit classes that include extension methods for HTML trims, pads, indents, 
+The following imports will summon implicit classes that include extension methods for HTML trims, pads, indents,
 handling HTML emptiness and wiring Play forms.
 
 ```scala
@@ -300,8 +303,8 @@ exist for the following classes:
 * Textarea
 * DateInput
 
-These methods allow either `Text` or `HtmlContent` content to be passed through to the form inputs and set as either 
-label or fieldset legend, depending on the underlying component. The methods will also concatenate and apply styling for 
+These methods allow either `Text` or `HtmlContent` content to be passed through to the form inputs and set as either
+label or fieldset legend, depending on the underlying component. The methods will also concatenate and apply styling for
 the content as below:
 
 | Parameter              | Styling applied                                                                                                    |
@@ -429,13 +432,13 @@ To use this class you will need to have an implicit `Messages` in scope.
 
 #### RichStringSupport
 
-The implicit class `RichStringSupport` hydrates the basic `String` class with a series of extension helper methods to 
+The implicit class `RichStringSupport` hydrates the basic `String` class with a series of extension helper methods to
 convert a `String` to a component without the need for nesting in case classes, or for wrapping as `Text`.
 
-These methods are called as standard extension methods, for example: 
+These methods are called as standard extension methods, for example:
 
 ```scala
-import uk.gov.hmrc.govukfrontend.views.html.components.implicits._ 
+import uk.gov.hmrc.govukfrontend.views.html.components.implicits._
 
 "This is a string for a fieldset legend".toFieldset
 ```
@@ -473,7 +476,7 @@ To use this component,
 
 1. Create a custom layout template `Layout.scala.html` to suit your service's needs, for example:
 
-```scala 
+```scala
 @import uk.gov.hmrc.hmrcfrontend.views.config.StandardBetaBanner
 @import uk.gov.hmrc.hmrcfrontend.views.html.helpers.HmrcStandardPage
 @import uk.gov.hmrc.hmrcfrontend.views.viewmodels.layout._
@@ -502,7 +505,7 @@ To use this component,
 The parameters that can be passed into the `hmrcStandardPage` are as follows:
 
       | Parameter                                  | Description                                                       | Example                                                     |
-      | ------------------------------------------ | ----------------------------------------------------------------- | ----------------------------------------------------------- | 
+      | ------------------------------------------ | ----------------------------------------------------------------- | ----------------------------------------------------------- |
       | `service.serviceUrl`                       | This will be bound to hmrcStandardHeader                          | `Some(routes.IndexController.index().url)`                  |
       | `service.signOutUrl`                       | Passing a value will display the sign out link                    | `Some(routes.SignOutController.signOut().url)`              |
       | `service.accessibilityStatementUrl`        | Passing a value will override the accessibility statement URL in the [footer](#accessibility-statement-links)                  ||
@@ -561,7 +564,7 @@ For example, how you could use `HmrcPageHeadingLegend` with `GovukRadios`:
 @govukRadios(Radios(
   fieldset = Some(Fieldset(
     legend = Some(HmrcPageHeadingLegend(content = Text("Where do you live?"), caption = HmrcSectionCaption(Text("Personal details")))
-  )), 
+  )),
   hint = Some(Hint(content = Text("This example shows a page heading inside a <legend>"))),
   items = List("England", "Scotland", "Wales", "Northern Ireland") map { place =>
     RadioItem(
@@ -653,7 +656,7 @@ You can find working examples of the use of play-frontend-hmrc in the following 
 If you would like to add a banner to your service stating that your service is in beta, and providing a link to a feedback
 form, you can do so use the `StandardBetaBanner` viewmodel to construct a `PhaseBanner`, which is bound to a `GovukPhaseBanner` Twirl template.
 
-The `HmrcStandardPage`, `HmrcStandardHeader` and `HmrcStandardHeader` all have constructor methods that take in an optional 
+The `HmrcStandardPage`, `HmrcStandardHeader` and `HmrcStandardHeader` all have constructor methods that take in an optional
 `PhaseBanner` and then bind to the appropriate template.
 
 For developers wanting to implement a beta feedback banner in your service, these steps should be followed:
@@ -661,12 +664,12 @@ For developers wanting to implement a beta feedback banner in your service, thes
 1. Call the `apply` method with either:
     1. An explicit `url` parameter, OR
     1. An implicit instance of `ContactFrontendConfig` injected into your template
-    
+
 If you pass an implicit, injected instance of `ContactFrontendConfig` to your `StandardBetaBanner`, then the beta feedback
 banner will be bound with a URL pointing to beta feedback form in the `contact-frontend` microservice, together with
-URL parameters `referrerUrl` and `service`. 
+URL parameters `referrerUrl` and `service`.
 
-As with [Helping users report technical issues](#helping-users-report-technical-issues), add the following to your 
+As with [Helping users report technical issues](#helping-users-report-technical-issues), add the following to your
 `application.conf`:
 
 ```hocon
@@ -701,13 +704,13 @@ You can then use the banner as per below (note the injected implicit `ContactFro
 
 ### Adding a User Research Banner
 
-The User Research Banner is a component used to display a blue banner, containing link text inviting the service user to 
-take part in user research. The Twirl template is [HmrcUserResearchBanner.scala.html](src/main/twirl/uk/gov/hmrc/hmrcfrontend/views/components/HmrcUserResearchBanner.scala.html), 
+The User Research Banner is a component used to display a blue banner, containing link text inviting the service user to
+take part in user research. The Twirl template is [HmrcUserResearchBanner.scala.html](src/main/twirl/uk/gov/hmrc/hmrcfrontend/views/components/HmrcUserResearchBanner.scala.html),
 and the viewmodel is [UserResearchBanner.scala](src/main/scala/uk/gov/hmrc/hmrcfrontend/views/viewmodels/userresearchbanner/UserResearchBanner.scala).
 
-The banner contains hard coded content, available in English and Welsh, with translation handled automatically via the 
-Play `language` from an implicit `request`. It is not possible to change this content, as it has been provided by 
-Research Services, and needs to be consistent across tax.service.gov.uk. 
+The banner contains hard coded content, available in English and Welsh, with translation handled automatically via the
+Play `language` from an implicit `request`. It is not possible to change this content, as it has been provided by
+Research Services, and needs to be consistent across tax.service.gov.uk.
 
 If your service uses `HmrcStandardPage.scala.html`, you can add the `HmrcUserResearchBanner` as shown:
 
@@ -725,7 +728,7 @@ Research Services will tell you what URL to use for your service.
 ### Linking to your accessibility statement
 
 [hmrcStandardFooter](src/main/twirl/uk/gov/hmrc/hmrcfrontend/views/helpers/HmrcStandardFooter.scala.html),
-included as part of `hmrcStandardPage`, generates the standard GOV.UK footer including the standardised list of footer 
+included as part of `hmrcStandardPage`, generates the standard GOV.UK footer including the standardised list of footer
 links for tax services.
 
 To configure this helper to link to the
@@ -803,8 +806,8 @@ in the `tracking-consent-frontend` documentation for more information.
 
 #### Adding GTM to internal services
 
-If you would like to add GTM to an internal service, you can do so using the [HmrcInternalHead](src/main/twirl/uk/gov/hmrc/hmrcfrontend/views/helpers/HmrcInternalHead.scala.html) 
-helper, which will add the GTM snippet in the `<head>` block. It should be used as demonstrated below in your own 
+If you would like to add GTM to an internal service, you can do so using the [HmrcInternalHead](src/main/twirl/uk/gov/hmrc/hmrcfrontend/views/helpers/HmrcInternalHead.scala.html)
+helper, which will add the GTM snippet in the `<head>` block. It should be used as demonstrated below in your own
 `Layout.scala`.
 
 ```scala
@@ -1082,17 +1085,17 @@ import uk.gov.hmrc.hmrcfrontend.views.viewmodels.newtablinkhelper.NewTabLinkHelp
 
 ### Adding an "Exit this page" button
 
-The `GovukExitThisPage` component will add to the page a red "sticky" button saying "Exit this page" or custom text, 
+The `GovukExitThisPage` component will add to the page a red "sticky" button saying "Exit this page" or custom text,
 which when clicked will redirect the user to another website (default is set to `www.bbc.co.uk/weather`). This component has been
-designed to help users viewing sensitive information that could put them at risk. For example, when a potential victim 
-is using a service to help them leave a domestic abuser. More information about when to use this component can be found 
-in the [GOV.UK Design System](https://design-system.service.gov.uk/components/exit-this-page/). 
+designed to help users viewing sensitive information that could put them at risk. For example, when a potential victim
+is using a service to help them leave a domestic abuser. More information about when to use this component can be found
+in the [GOV.UK Design System](https://design-system.service.gov.uk/components/exit-this-page/).
 
-To ensure the button is correctly positioned on the page, use the `HmrcStandardPage` component and pass through an 
-`ExitThisPage` case class. If you are using the default content as below, the button text will automatically be 
+To ensure the button is correctly positioned on the page, use the `HmrcStandardPage` component and pass through an
+`ExitThisPage` case class. If you are using the default content as below, the button text will automatically be
 translated if the user is viewing the Welsh version of the page.
 
-```scala 
+```scala
 @import uk.gov.hmrc.hmrcfrontend.views.html.helpers.HmrcStandardPage
 @import uk.gov.hmrc.hmrcfrontend.views.viewmodels.layout._
 @import config.AppConfig
@@ -1109,8 +1112,8 @@ translated if the user is viewing the Welsh version of the page.
 ```
 
 If you are not using the GOV.uk standard [two-thirds width layout](https://design-system.service.gov.uk/styles/layout/),
-please note that the sticky button may overlay your main content when scrolled. For example, it will overlay a sidebar or 
-full-width layout. Services with wider main content may wish to carry out additional testing before deciding whether to 
+please note that the sticky button may overlay your main content when scrolled. For example, it will overlay a sidebar or
+full-width layout. Services with wider main content may wish to carry out additional testing before deciding whether to
 implement this component.
 
 ## Advanced configuration
@@ -1134,11 +1137,11 @@ Please report any issues with this library in Slack at `#team-plat-ui`.
 ### Troubleshooting
 
 If you are adding HTML elements to your page such as `<h1>` or `<p>`, you will need to add the CSS classes for the [GDS
-Transport fonts](https://design-system.service.gov.uk/styles/typography/) from the GOV.UK Design System. A full list of 
+Transport fonts](https://design-system.service.gov.uk/styles/typography/) from the GOV.UK Design System. A full list of
 the CSS classes can be found at https://design-system.service.gov.uk/styles/typography/.
 
-These styles have been applied to the component supplied in `play-frontend-hmrc`, but you will need to manually add the 
-styles to your service's own HTML elements. 
+These styles have been applied to the component supplied in `play-frontend-hmrc`, but you will need to manually add the
+styles to your service's own HTML elements.
 
 ### Useful Links
 
