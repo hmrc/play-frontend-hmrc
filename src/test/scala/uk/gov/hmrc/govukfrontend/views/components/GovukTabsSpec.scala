@@ -38,7 +38,7 @@ class GovukTabsSpec extends TemplateUnitBaseSpec[Tabs]("govukTabs") with Message
 
   "GovukTabs" when {
     "implicit messages language is English" should {
-      "display Egnlish default title if none passed in" in {
+      "display English default title if none passed in" in {
         val tabs = Tabs(
           title = ""
         )
