@@ -8,6 +8,18 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 For compatibility information see `govukFrontendVersion` and `hmrcFrontendVersion` in
 [LibDependencies](project/LibDependencies.scala)
 
+## [7.22.0] - 2023-10-05
+
+### Changed
+
+- Added wrapper around deprecated HmrcLayout to surface deprecation warning that was being swallowed by Play
+
+### Compatible with
+
+- [hmrc/hmrc-frontend v5.49.0](https://github.com/hmrc/hmrc-frontend/releases/tag/v5.49.0)
+- [alphagov/govuk-frontend v4.7.0](https://github.com/alphagov/govuk-frontend/releases/tag/v4.7.0)
+
+
 ## [7.21.0] - 2023-09-29
 
 ### Changed

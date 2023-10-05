@@ -23,7 +23,6 @@
 @import uk.gov.hmrc.govukfrontend.views.viewmodels.pagelayout.PageLayout
 @import uk.gov.hmrc.hmrcfrontend.views.viewmodels.hmrcstandardpage._
 @import uk.gov.hmrc.govukfrontend.views.html.components.FixedWidthPageLayout
-@import uk.gov.hmrc.hmrcfrontend.views.Aliases.Header
 
 @this(
         hmrcStandardPage: HmrcStandardPage,
@@ -32,25 +31,25 @@
 )
 
 @(
-        serviceName: Option[String] = None,
-        pageTitle: Option[String] = None,
-        isWelshTranslationAvailable: Boolean = false,
-        signOutUrl: Option[String] = None,
-        serviceUrl: Option[String] = None,
-        userResearchBannerUrl: Option[String] = None,
-        accessibilityStatementUrl: Option[String] = None,
-        backLinkUrl: Option[String] = None,
-        displayHmrcBanner: Boolean = false,
-        phaseBanner: Option[PhaseBanner] = None,
-        additionalHeadBlock: Option[Html] = None,
-        additionalScriptsBlock: Option[Html] = None,
-        beforeContentBlock: Option[Html] = None,
-        mainContentLayout: Option[Html => Html] = Some(defaultMainContent(_)),
-        additionalBannersBlock: Option[Html] = None,
-        pageLayout: Option[PageLayout => Html] = Some(fixedWidthPageLayout(_)),
-        headerContainerClasses: String = Header.defaultObject.containerClasses,
-        backLink: Option[BackLink] = None
-)(@deprecated("HmrcLayout is deprecated, use HmrcStandardPage instead", "6.3.0") contentBlock: Html)(implicit request: RequestHeader, messages: Messages)
+        serviceName: Option[String],
+        pageTitle: Option[String],
+        isWelshTranslationAvailable: Boolean,
+        signOutUrl: Option[String],
+        serviceUrl: Option[String],
+        userResearchBannerUrl: Option[String],
+        accessibilityStatementUrl: Option[String],
+        backLinkUrl: Option[String],
+        displayHmrcBanner: Boolean,
+        phaseBanner: Option[PhaseBanner],
+        additionalHeadBlock: Option[Html],
+        additionalScriptsBlock: Option[Html],
+        beforeContentBlock: Option[Html],
+        mainContentLayout: Option[Html => Html],
+        additionalBannersBlock: Option[Html],
+        pageLayout: Option[PageLayout => Html],
+        headerContainerClasses: String,
+        backLink: Option[BackLink]
+)(contentBlock: Html)(implicit request: RequestHeader, messages: Messages)
 
 @require(!(backLinkUrl.isDefined && backLink.isDefined), "Use backLink or backLinkUrl, but not both")
 
