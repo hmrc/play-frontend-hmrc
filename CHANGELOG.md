@@ -8,6 +8,19 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 For compatibility information see `govukFrontendVersion` and `hmrcFrontendVersion` in
 [LibDependencies](project/LibDependencies.scala)
 
+## [7.23.0] - 2023-10-09
+
+### Changed
+
+- Added Welsh translation of default title `Contents` to `GovukTabs`
+- Change type of `title` from `String` to `Option[String]` in `Tab` to support the translation change
+- Require an implicit instance of `Messages` to be passed through the `GovukTabs` component
+
+### Compatible with
+
+- [hmrc/hmrc-frontend v5.49.0](https://github.com/hmrc/hmrc-frontend/releases/tag/v5.49.0)
+- [alphagov/govuk-frontend v4.7.0](https://github.com/alphagov/govuk-frontend/releases/tag/v4.7.0)
+
 ## [7.22.0] - 2023-10-05
 
 ### Changed

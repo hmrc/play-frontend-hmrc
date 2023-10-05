@@ -16,10 +16,32 @@
 
 package uk.gov.hmrc.govukfrontend.views.components
 
-import uk.gov.hmrc.govukfrontend.support.TemplateIntegrationSpec
+import play.api.mvc.RequestHeader
+import play.api.test.FakeRequest
+import play.twirl.api.HtmlFormat
+import uk.gov.hmrc.govukfrontend.views.GovukFrontendDependency.govukFrontendVersion
 import uk.gov.hmrc.govukfrontend.views.html.components._
-import uk.gov.hmrc.govukfrontend.views.viewmodels.tabs.Tabs
 import uk.gov.hmrc.govukfrontend.views.viewmodels.tabs.Generators._
+import uk.gov.hmrc.helpers.MessagesSupport
+import uk.gov.hmrc.support.TemplateIntegrationBaseSpec
+
+import scala.util.Try
 
 object GovukTabsIntegrationSpec
-    extends TemplateIntegrationSpec[Tabs, GovukTabs](govukComponentName = "govukTabs", seed = None)
+    extends TemplateIntegrationBaseSpec[Tabs](
+      componentName = "govukTabs",
+      seed = None
+    )
+    with MessagesSupport {
+
+  protected val libraryName: String = "govuk"
+
+  protected val libraryVersion: String = govukFrontendVersion
+
+  private val component = app.injector.instanceOf[GovukTabs]
+
+  override def render(tabs: Tabs): Try[HtmlFormat.Appendable] = {
+    implicit val request: RequestHeader = FakeRequest("GET", "/foo")
+    Try(component(tabs))
+  }
+}
