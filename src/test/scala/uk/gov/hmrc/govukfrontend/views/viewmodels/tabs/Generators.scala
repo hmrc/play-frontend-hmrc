@@ -42,7 +42,7 @@ object Generators {
     for {
       id         <- Gen.option(genAlphaStr())
       idPrefix   <- Gen.option(genAlphaStr())
-      title      <- genAlphaStr()
+      title      <- genNonEmptyAlphaStr
       n          <- Gen.chooseNum(0, 5)
       items      <- Gen.listOfN(n, arbTabItem.arbitrary)
       classes    <- genClasses()

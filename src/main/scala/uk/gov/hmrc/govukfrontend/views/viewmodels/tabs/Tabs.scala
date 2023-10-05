@@ -23,7 +23,7 @@ import uk.gov.hmrc.govukfrontend.views.viewmodels.CommonJsonFormats._
 case class Tabs(
   id: Option[String] = None,
   idPrefix: Option[String] = None,
-  title: String = "Contents",
+  title: String = "",
   items: Seq[TabItem] = Seq.empty,
   classes: String = "",
   attributes: Map[String, String] = Map.empty
