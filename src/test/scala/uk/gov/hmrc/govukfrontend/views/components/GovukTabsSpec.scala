@@ -50,10 +50,10 @@ class GovukTabsSpec extends TemplateUnitBaseSpec[Tabs]("govukTabs") with Message
       }
     }
 
-    "implicit messages language is welsh" should {
+    "implicit messages language is Welsh" should {
       val welshMessages: Messages = messagesApi.preferred(Seq(Lang("cy")))
 
-      "display welsh translation of default title if none passed in" in {
+      "display Welsh translation of default title if none passed in" in {
         val tabs = Tabs(
           title = ""
         )
