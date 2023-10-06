@@ -34,3 +34,4 @@ govuk.exitThisPage.contentFallbackText=Exit this page
 govuk.exitThisPage.redirectUrlFallback=https://www.bbc.co.uk/weather
 february=February
 february.abbrv=Feb
+constraints.date=Date failed to validate

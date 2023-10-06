@@ -16,108 +16,134 @@
 
 package uk.gov.hmrc.govukfrontend.views.viewmodels.dateinput
 
-import play.api.data.Forms.text
+import play.api.data.Forms._
+import play.api.data.format.Formatter
 import play.api.data.validation._
-import play.api.data.{Forms, Mapping}
+import play.api.data.{FieldMapping, FormError, Forms, Mapping}
 import play.api.i18n.MessagesApi
-import uk.gov.hmrc.govukfrontend.views.viewmodels.dateinput.DateValidationSupport.toLocalDate
-import uk.gov.hmrc.hmrcfrontend.views.viewmodels.language.{Cy, En}
 
-import java.time.Month._
+import java.time.Month.{of => _, _}
 import java.time.{LocalDate, Month}
-import scala.util.{Failure, Success, Try}
+import scala.util.{Success, Try}
 
 object DateValidationSupport {
 
-  def yearBefore(beforeDate: LocalDate): Constraint[GovUKDate] = Constraint("year.before") { govukDate =>
-    val valid: Option[Boolean] = govukDate.localDate().map { localDate =>
-      localDate.isBefore(beforeDate)
-    }
+  trait MonthValidator {
+    def validate(monthAsString: String): Option[Month]
+  }
 
-    valid match {
-      case Some(passed) =>
-        if(passed)
-          Valid
-        else
-          Invalid(Seq(ValidationError(s"Date is not before ${beforeDate.getYear}")))
-      case _ => Invalid(Seq(ValidationError(s"Invalid date!")))
+  class HardCodedMonthValidator extends MonthValidator {
+
+    private val numericMonths = Map(
+      "1" -> JANUARY,
+      "2" -> FEBRUARY,
+      "3" -> MARCH,
+      "4" -> APRIL,
+      "5" -> MAY,
+      "6" -> JUNE,
+      "7" -> JULY,
+      "8" -> AUGUST,
+      "9" -> SEPTEMBER,
+      "10" -> OCTOBER,
+      "11" -> NOVEMBER,
+      "12" -> DECEMBER,
+    )
+
+    private val englishMonths = Map(
+      "jan" -> JANUARY,
+      "feb" -> FEBRUARY,
+      "mar" -> MARCH,
+      "apr" -> APRIL,
+      "may" -> MAY,
+      "jun" -> JUNE,
+      "jul" -> JULY,
+      "aug" -> AUGUST,
+      "sep" -> SEPTEMBER,
+      "oct" -> OCTOBER,
+      "nov" -> NOVEMBER,
+      "dec" -> DECEMBER,
+      "january" -> JANUARY,
+      "february" -> FEBRUARY,
+      "march" -> MARCH,
+      "april" -> APRIL,
+      "may" -> MAY,
+      "june" -> JUNE,
+      "july" -> JULY,
+      "august" -> AUGUST,
+      "september" -> SEPTEMBER,
+      "october" -> OCTOBER,
+      "november" -> NOVEMBER,
+      "december" -> DECEMBER,
+    )
+
+    private val welshMonths = Map(
+      // TODO all the proper values
+      "foo" -> JANUARY,
+      "bar" -> FEBRUARY,
+      "mar" -> MARCH,
+      "apr" -> APRIL,
+      "may" -> MAY,
+      "jun" -> JUNE,
+      "jul" -> JULY,
+      "aug" -> AUGUST,
+      "sep" -> SEPTEMBER,
+      "oct" -> OCTOBER,
+      "nov" -> NOVEMBER,
+      "dec" -> DECEMBER,
+    )
+
+    override def validate(monthAsString: String): Option[Month] = {
+      val lowercaseMonth = monthAsString.toLowerCase
+      numericMonths.get(lowercaseMonth) orElse englishMonths.get(lowercaseMonth) orElse welshMonths.get(lowercaseMonth)
     }
   }
 
-  private def validDate()(implicit messagesApi: MessagesApi): Constraint[(String, String, String)] =
-    Constraint("constraints.date") { dateData: (String, String, String) =>
-      toLocalDate(dateData) match {
-        case Some(_) => Valid
-        case _       => Invalid(Seq(ValidationError("Not a valid date!")))
+  val mv = new HardCodedMonthValidator
+
+  val monthFormatter: FieldMapping[Int] = of[Int](new Formatter[Int] {
+    override def bind(key: String, data: Map[String, String]): Either[Seq[FormError], Int] = {
+      data.get(key).map(_.trim).filter(_.nonEmpty) match {
+        case None => Left(Seq(FormError(s"$key", "error.required")))
+        case Some(month) => mv.validate(month) match {
+          case None => Left(Seq(FormError(s"$key", "error.invalid")))
+          case Some(validMonth) => Right(validMonth.getValue)
+        }
       }
     }
 
-  def toLocalDate(dateData: (String, String, String))(implicit messagesApi: MessagesApi): Option[LocalDate] = {
-    val day   = dateData._1
-    val month = dateData._2
-    val year  = dateData._3
+    override def unbind(key: String, value: Int): Map[String, String] = Map(
+      s"$key" -> value.toString,
+    )
+  })
 
-    Try(month.toInt) match {
-      case Success(_) =>
-        Try(LocalDate.of(year.toInt, month.toInt, day.toInt)) match {
-          case Success(date) => Some(date)
-          case Failure(_)    => None
-        }
-      case Failure(_) =>
-        // TODO: we fetch english and welsh month values to assert against, this is a just an example of fetching and using the messages values
-        val messagesWelsh                 = messagesApi.messages(Cy.code)
-        val messagesEnglish               = messagesApi.messages(En.code)
-        val enFebruaryLong: String        = messagesEnglish("february").toLowerCase
-        val enFebruaryAbbreviated: String = messagesEnglish("february.abbrv").toLowerCase
-        val cyFebruaryLong: String        = messagesWelsh("february").toLowerCase
-        val cyFebruaryAbbreviated: String = messagesWelsh("february.abbrv").toLowerCase
-        val monthEnum: Option[Month]      = month.toLowerCase match {
-          case "jan" | "january"   => Some(JANUARY)
-          case d
-              if d == enFebruaryLong | d == enFebruaryAbbreviated | d == cyFebruaryLong | d == cyFebruaryAbbreviated =>
-            Some(FEBRUARY)
-          case "mar" | "march"     => Some(MARCH)
-          case "apr" | "april"     => Some(APRIL)
-          case "may"               => Some(MAY)
-          case "jun" | "june"      => Some(JUNE)
-          case "jul" | "july"      => Some(JULY)
-          case "aug" | "august"    => Some(AUGUST)
-          case "sep" | "september" => Some(SEPTEMBER)
-          case "oct" | "october"   => Some(OCTOBER)
-          case "nov" | "november"  => Some(NOVEMBER)
-          case "dec" | "december"  => Some(DECEMBER)
-          case _                   => None
-        }
 
-        monthEnum match {
-          case Some(m) =>
-            Try(LocalDate.of(year.toInt, m, day.toInt)) match {
-              case Success(date) => Some(date)
-              case Failure(_)    => None
-            }
-          case _       => None
-        }
-    }
+  def yearBefore(beforeDate: LocalDate): Constraint[LocalDate] = Constraint("year.before") { govukDate =>
+    // TODO localise error message
+    if (govukDate.isBefore(beforeDate))
+      Valid
+    else
+      Invalid(Seq(ValidationError(s"Date is not before ${beforeDate.getYear}")))
   }
 
-  def govukDate()(implicit messagesApi: MessagesApi): Mapping[GovUKDate] =
+  private def validDate()(implicit messagesApi: MessagesApi): Constraint[(Int, Int, Int)] =
+    Constraint("constraints.date") { ymd: (Int, Int, Int) =>
+      Try(LocalDate.of(ymd._1, ymd._2, ymd._3)) match {
+        case Success(_) => Valid
+        case _ => Invalid(Seq(ValidationError("error.invalid")))
+      }
+    }
+
+  def govukDate()(implicit messagesApi: MessagesApi): Mapping[LocalDate] =
     Forms
       .tuple(
-        "day"   -> text,
-        "month" -> text,
-        "year"  -> text
+        "year" -> number(min = 1900, max = 2100),
+        "month" -> monthFormatter,
+        "day" -> number(min = 1, max = 31)
       )
       .verifying(validDate)
       .transform(
-        validatedDateTuple => GovUKDate(validatedDateTuple._1, validatedDateTuple._2, validatedDateTuple._3),
-        dateData => (dateData.day, dateData.month, dateData.year)
+        { case (day, month, year) => LocalDate.of(year, month, day) },
+        (date: LocalDate) => (date.getDayOfMonth, date.getMonthValue, date.getYear)
       )
 }
 
-abstract class DateData(day: String, month: String, year: String)(implicit messagesApi: MessagesApi) {
-  def localDate(): Option[LocalDate] =
-    toLocalDate(day, month, year)
-}
-
-case class GovUKDate(day: String, month: String, year: String)(implicit messagesApi: MessagesApi)
-    extends DateData(day: String, month: String, year: String)
