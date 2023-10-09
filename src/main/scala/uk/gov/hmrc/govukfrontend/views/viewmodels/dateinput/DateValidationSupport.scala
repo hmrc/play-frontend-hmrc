@@ -57,10 +57,14 @@ object DateValidationSupport {
       .toFormatter(welshLocale)
 
     override def validate(monthAsString: String): Option[Int] = {
-      val fullMonthTry = Try(fullMonthFormatter.parse(monthAsString)).map(_.get(MONTH_OF_YEAR))
-      val abbreviatedMonthTry = Try(abbreviatedMonthFormatter.parse(monthAsString)).map(_.get(MONTH_OF_YEAR))
-      val welshFullMonthTry = Try(welshFullMonthFormatter.parse(monthAsString)).map(_.get(MONTH_OF_YEAR))
-      val welshAbbreviatedMonthTry = Try(welshAbbreviatedMonthFormatter.parse(monthAsString)).map(_.get(MONTH_OF_YEAR))
+      def tryFormatMonth(dateTimeFormatter: DateTimeFormatter): Try[Int] = {
+        Try(dateTimeFormatter.parse(monthAsString)).map(_.get(MONTH_OF_YEAR))
+      }
+
+      val fullMonthTry = tryFormatMonth(fullMonthFormatter)
+      val abbreviatedMonthTry = tryFormatMonth(abbreviatedMonthFormatter)
+      val welshFullMonthTry = tryFormatMonth(welshFullMonthFormatter)
+      val welshAbbreviatedMonthTry = tryFormatMonth(welshAbbreviatedMonthFormatter)
       val numericMonthTry = Try(monthAsString.toInt).filter(month => month >= 1 && month <= 12)
 
       fullMonthTry.orElse(abbreviatedMonthTry).orElse(welshFullMonthTry).orElse(welshAbbreviatedMonthTry).orElse(numericMonthTry).toOption
