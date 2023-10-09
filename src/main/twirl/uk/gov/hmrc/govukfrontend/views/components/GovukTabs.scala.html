@@ -22,7 +22,7 @@
 @import params._
 <div@id.mapNonEmpty {id => id="@id"} class="@toClasses("govuk-tabs", classes)"@toAttributes(attributes) data-module="govuk-tabs">
   <h2 class="govuk-tabs__title">
-    @HtmlFormat.escape({title.getOrElse(messages("govuk.tabs.titleFallbackText"))})
+    @{title.map(HtmlFormat.escape _).getOrElse(messages("govuk.tabs.titleFallbackText"))}
   </h2>
 
   @if(items.nonEmpty) {
