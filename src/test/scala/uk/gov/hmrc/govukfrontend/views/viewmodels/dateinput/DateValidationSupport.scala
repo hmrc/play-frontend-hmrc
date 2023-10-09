@@ -23,7 +23,7 @@ import play.api.data.{FieldMapping, FormError, Forms, Mapping}
 import play.api.i18n.MessagesApi
 
 import java.time.LocalDate
-import java.time.Month.{of => _, _}
+import java.time.Month.{of => _}
 import java.time.format.{DateTimeFormatter, DateTimeFormatterBuilder}
 import java.time.temporal.ChronoField.MONTH_OF_YEAR
 import java.util.Locale
@@ -36,22 +36,23 @@ object DateValidationSupport {
   }
 
   class FormatterMonthValidator extends MonthValidator {
-    val welshLocale = new Locale("cy")
-    val fullMonthFormat = "MMMM"
-    val abbrMonthFormat = "MMM"
-    val fullMonthFormatter: DateTimeFormatter = new DateTimeFormatterBuilder()
+    private final val abbrMonthFormat = "MMM"
+    private final val fullMonthFormat = "MMMM"
+    private final val welshLocale = new Locale("cy")
+
+    private final val fullMonthFormatter: DateTimeFormatter = new DateTimeFormatterBuilder()
       .parseCaseInsensitive()
       .appendPattern(fullMonthFormat)
       .toFormatter()
-    val abbreviatedMonthFormatter: DateTimeFormatter = new DateTimeFormatterBuilder()
+    private final val abbreviatedMonthFormatter: DateTimeFormatter = new DateTimeFormatterBuilder()
       .parseCaseInsensitive()
       .appendPattern(abbrMonthFormat)
       .toFormatter()
-    val welshFullMonthFormatter: DateTimeFormatter = new DateTimeFormatterBuilder()
+    private final val welshFullMonthFormatter: DateTimeFormatter = new DateTimeFormatterBuilder()
       .parseCaseInsensitive()
       .appendPattern(fullMonthFormat)
       .toFormatter(welshLocale)
-    val welshAbbreviatedMonthFormatter: DateTimeFormatter = new DateTimeFormatterBuilder()
+    private final val welshAbbreviatedMonthFormatter: DateTimeFormatter = new DateTimeFormatterBuilder()
       .parseCaseInsensitive()
       .appendPattern(abbrMonthFormat)
       .toFormatter(welshLocale)
@@ -67,7 +68,12 @@ object DateValidationSupport {
       val welshAbbreviatedMonthTry = tryFormatMonth(welshAbbreviatedMonthFormatter)
       val numericMonthTry = Try(monthAsString.toInt).filter(month => month >= 1 && month <= 12)
 
-      fullMonthTry.orElse(abbreviatedMonthTry).orElse(welshFullMonthTry).orElse(welshAbbreviatedMonthTry).orElse(numericMonthTry).toOption
+      fullMonthTry
+        .orElse(abbreviatedMonthTry)
+        .orElse(welshFullMonthTry)
+        .orElse(welshAbbreviatedMonthTry)
+        .orElse(numericMonthTry)
+        .toOption
     }
   }
 

@@ -45,22 +45,57 @@ class DateValidationSupportSpec extends AnyWordSpec with Matchers with MessagesS
   }
 
   "DateValidationSupport.govukDate" should {
-    "convert valid date with numeric month to LocalDate" in new Setup {
-      val form: Form[SomeFormWithDate] = testForm.bind(formData("1", "12", "2023"))
-      form.errors should be(Nil)
-      form.value  should be(Some(SomeFormWithDate(LocalDate.of(2023, 12, 1))))
-    }
-
     "convert valid date with various months to LocalDate" should {
-      // Ionawr, Chwefror, Mawrth, Ebrill, Mai, Mehefin, Gorffennaf, Awst, Medi, Hydref, Tachwedd and Rhagfyr
       val months = Table(
         ("month", "expectedMonth"),
+        // English month names
         ("January", 1),
+        ("February", 2),
+        ("March", 3),
+        ("April", 4),
+        ("May", 5),
+        ("June", 6),
+        ("July", 7),
+        ("August", 8),
+        ("September", 9),
+        ("October", 10),
+        ("November", 11),
+        ("December", 12),
+        // English abbreviated month names, where different
+        ("Jan", 1),
         ("Feb", 2),
-        ("mar", 3),
+        ("Mar", 3),
+        ("Apr", 4),
+        ("Jun", 6),
+        ("Jul", 7),
+        ("Aug", 8),
+        ("Sep", 9),
+        ("Oct", 10),
+        ("Nov", 11),
+        ("Dec", 12),
         ("3", 3),
-        ("ionawr", 1),
+        // Welsh month names
+        ("Ionawr", 1),
+        ("Chwefror", 2),
+        ("Mawrth", 3),
+        ("Ebrill", 4),
+        ("Mai", 5),
+        ("Mehefin", 6),
+        ("Gorffennaf", 7),
+        ("Awst", 8),
+        ("Medi", 9),
+        ("Hydref", 10),
+        ("Tachwedd", 11),
+        ("Rhagfyr", 12),
+        // Welsh abbreviated month names, where different (according to the library we're using)
+        ("Ion", 1),
         ("Chwef", 2),
+        ("Maw", 3),
+        ("Meh", 6),
+        ("Gorff", 7),
+        ("Hyd", 10),
+        ("Tach", 11),
+        ("Rhag", 12),
       )
 
       forAll(months) { (month: String, expectedMonth: Int) =>
@@ -72,6 +107,12 @@ class DateValidationSupportSpec extends AnyWordSpec with Matchers with MessagesS
           form.value should be(Some(SomeFormWithDate(LocalDate.of(year.toInt, expectedMonth, day.toInt))))
         }
       }
+    }
+
+    "convert valid date with numeric month to LocalDate" in new Setup {
+      val form: Form[SomeFormWithDate] = testForm.bind(formData("1", "12", "2023"))
+      form.errors should be(Nil)
+      form.value  should be(Some(SomeFormWithDate(LocalDate.of(2023, 12, 1))))
     }
 
     "reject invalid date where day < 1" in new Setup {
@@ -91,6 +132,11 @@ class DateValidationSupportSpec extends AnyWordSpec with Matchers with MessagesS
 
     "reject invalid date where month > 12" in new Setup {
       val form: Form[SomeFormWithDate] = testForm.bind(formData("1", "13", "2023"))
+      form.errors should be(List(FormError("dateOfBirth.month", Seq("error.invalid"), Nil)))
+    }
+
+    "reject invalid date where month is not a known English/Welsh month" in new Setup {
+      val form: Form[SomeFormWithDate] = testForm.bind(formData("1", "Foo", "2023"))
       form.errors should be(List(FormError("dateOfBirth.month", Seq("error.invalid"), Nil)))
     }
   }
