@@ -22,92 +22,60 @@ import play.api.data.validation._
 import play.api.data.{FieldMapping, FormError, Forms, Mapping}
 import play.api.i18n.MessagesApi
 
+import java.time.LocalDate
 import java.time.Month.{of => _, _}
-import java.time.{LocalDate, Month}
+import java.time.format.{DateTimeFormatter, DateTimeFormatterBuilder}
+import java.time.temporal.ChronoField.MONTH_OF_YEAR
+import java.util.Locale
 import scala.util.{Success, Try}
 
 object DateValidationSupport {
 
   trait MonthValidator {
-    def validate(monthAsString: String): Option[Month]
+    def validate(monthAsString: String): Option[Int]
   }
 
-  class HardCodedMonthValidator extends MonthValidator {
+  class FormatterMonthValidator extends MonthValidator {
+    val welshLocale = new Locale("cy")
+    val fullMonthFormat = "MMMM"
+    val abbrMonthFormat = "MMM"
+    val fullMonthFormatter: DateTimeFormatter = new DateTimeFormatterBuilder()
+      .parseCaseInsensitive()
+      .appendPattern(fullMonthFormat)
+      .toFormatter()
+    val abbreviatedMonthFormatter: DateTimeFormatter = new DateTimeFormatterBuilder()
+      .parseCaseInsensitive()
+      .appendPattern(abbrMonthFormat)
+      .toFormatter()
+    val welshFullMonthFormatter: DateTimeFormatter = new DateTimeFormatterBuilder()
+      .parseCaseInsensitive()
+      .appendPattern(fullMonthFormat)
+      .toFormatter(welshLocale)
+    val welshAbbreviatedMonthFormatter: DateTimeFormatter = new DateTimeFormatterBuilder()
+      .parseCaseInsensitive()
+      .appendPattern(abbrMonthFormat)
+      .toFormatter(welshLocale)
 
-    private val numericMonths = Map(
-      "1"  -> JANUARY,
-      "2"  -> FEBRUARY,
-      "3"  -> MARCH,
-      "4"  -> APRIL,
-      "5"  -> MAY,
-      "6"  -> JUNE,
-      "7"  -> JULY,
-      "8"  -> AUGUST,
-      "9"  -> SEPTEMBER,
-      "10" -> OCTOBER,
-      "11" -> NOVEMBER,
-      "12" -> DECEMBER
-    )
+    override def validate(monthAsString: String): Option[Int] = {
+      val fullMonthTry = Try(fullMonthFormatter.parse(monthAsString)).map(_.get(MONTH_OF_YEAR))
+      val abbreviatedMonthTry = Try(abbreviatedMonthFormatter.parse(monthAsString)).map(_.get(MONTH_OF_YEAR))
+      val welshFullMonthTry = Try(welshFullMonthFormatter.parse(monthAsString)).map(_.get(MONTH_OF_YEAR))
+      val welshAbbreviatedMonthTry = Try(welshAbbreviatedMonthFormatter.parse(monthAsString)).map(_.get(MONTH_OF_YEAR))
+      val numericMonthTry = Try(monthAsString.toInt).filter(month => month >= 1 && month <= 12)
 
-    private val englishMonths = Map(
-      "jan"       -> JANUARY,
-      "feb"       -> FEBRUARY,
-      "mar"       -> MARCH,
-      "apr"       -> APRIL,
-      "may"       -> MAY,
-      "jun"       -> JUNE,
-      "jul"       -> JULY,
-      "aug"       -> AUGUST,
-      "sep"       -> SEPTEMBER,
-      "oct"       -> OCTOBER,
-      "nov"       -> NOVEMBER,
-      "dec"       -> DECEMBER,
-      "january"   -> JANUARY,
-      "february"  -> FEBRUARY,
-      "march"     -> MARCH,
-      "april"     -> APRIL,
-      "may"       -> MAY,
-      "june"      -> JUNE,
-      "july"      -> JULY,
-      "august"    -> AUGUST,
-      "september" -> SEPTEMBER,
-      "october"   -> OCTOBER,
-      "november"  -> NOVEMBER,
-      "december"  -> DECEMBER
-    )
-
-    private val welshMonths = Map(
-      // TODO all the proper values
-      "foo" -> JANUARY,
-      "bar" -> FEBRUARY,
-      "mar" -> MARCH,
-      "apr" -> APRIL,
-      "may" -> MAY,
-      "jun" -> JUNE,
-      "jul" -> JULY,
-      "aug" -> AUGUST,
-      "sep" -> SEPTEMBER,
-      "oct" -> OCTOBER,
-      "nov" -> NOVEMBER,
-      "dec" -> DECEMBER
-    )
-
-    override def validate(monthAsString: String): Option[Month] = {
-      val lowercaseMonth = monthAsString.toLowerCase
-      numericMonths.get(lowercaseMonth) orElse englishMonths.get(lowercaseMonth) orElse welshMonths.get(lowercaseMonth)
+      fullMonthTry.orElse(abbreviatedMonthTry).orElse(welshFullMonthTry).orElse(welshAbbreviatedMonthTry).orElse(numericMonthTry).toOption
     }
   }
 
-  val mv = new HardCodedMonthValidator
-
+  val monthValidator = new FormatterMonthValidator
   val monthFormatter: FieldMapping[Int] = of[Int](new Formatter[Int] {
     override def bind(key: String, data: Map[String, String]): Either[Seq[FormError], Int] =
       data.get(key).map(_.trim).filter(_.nonEmpty) match {
-        case None        => Left(Seq(FormError(s"$key", "error.required")))
+        case None => Left(Seq(FormError(s"$key", "error.required")))
         case Some(month) =>
-          mv.validate(month) match {
-            case None             => Left(Seq(FormError(s"$key", "error.invalid")))
-            case Some(validMonth) => Right(validMonth.getValue)
+          monthValidator.validate(month) match {
+            case None => Left(Seq(FormError(s"$key", "error.invalid")))
+            case Some(validMonth) => Right(validMonth)
           }
       }
 
@@ -127,9 +95,9 @@ object DateValidationSupport {
   def govukDate(implicit messagesApi: MessagesApi): Mapping[LocalDate] =
     Forms
       .tuple(
-        "year"  -> number(min = 1900, max = 2100),
+        "year" -> number(min = 1900, max = 2100),
         "month" -> monthFormatter,
-        "day"   -> number(min = 1, max = 31)
+        "day" -> number(min = 1, max = 31)
       )
       .verifying(isValidDate)
       .transform(
@@ -141,7 +109,7 @@ object DateValidationSupport {
     Constraint("constraints.date") { ymd: (Int, Int, Int) =>
       Try(LocalDate.of(ymd._1, ymd._2, ymd._3)) match {
         case Success(_) => Valid
-        case _          => Invalid(Seq(ValidationError("error.invalid")))
+        case _ => Invalid(Seq(ValidationError("error.invalid")))
       }
     }
 

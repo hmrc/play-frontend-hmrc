@@ -16,18 +16,17 @@
 
 package uk.gov.hmrc.govukfrontend.views.viewmodels.dateinput
 
-import DateValidationSupport._
 import org.scalatest.matchers.should.Matchers
+import org.scalatest.prop.TableDrivenPropertyChecks
 import org.scalatest.wordspec.AnyWordSpec
-import play.api.data.{Form, FormError}
 import play.api.data.Forms.mapping
-import play.api.i18n.{Lang, Messages}
+import play.api.data.{Form, FormError}
+import uk.gov.hmrc.govukfrontend.views.viewmodels.dateinput.DateValidationSupport._
 import uk.gov.hmrc.helpers.MessagesSupport
 
 import java.time.LocalDate
-import scala.List
 
-class DateValidationSupportSpec extends AnyWordSpec with Matchers with MessagesSupport {
+class DateValidationSupportSpec extends AnyWordSpec with Matchers with MessagesSupport with TableDrivenPropertyChecks {
 
   trait Setup {
     case class SomeFormWithDate(dateOfBirth: LocalDate)
@@ -50,6 +49,29 @@ class DateValidationSupportSpec extends AnyWordSpec with Matchers with MessagesS
       val form: Form[SomeFormWithDate] = testForm.bind(formData("1", "12", "2023"))
       form.errors should be(Nil)
       form.value  should be(Some(SomeFormWithDate(LocalDate.of(2023, 12, 1))))
+    }
+
+    "convert valid date with various months to LocalDate" should {
+      // Ionawr, Chwefror, Mawrth, Ebrill, Mai, Mehefin, Gorffennaf, Awst, Medi, Hydref, Tachwedd and Rhagfyr
+      val months = Table(
+        ("month", "expectedMonth"),
+        ("January", 1),
+        ("Feb", 2),
+        ("mar", 3),
+        ("3", 3),
+        ("ionawr", 1),
+        ("Chwef", 2),
+      )
+
+      forAll(months) { (month: String, expectedMonth: Int) =>
+        s"work for month $month" in new Setup {
+          val day = "1"
+          val year = "2023"
+          val form: Form[SomeFormWithDate] = testForm.bind(formData(day, month, year))
+          form.errors should be(Nil)
+          form.value should be(Some(SomeFormWithDate(LocalDate.of(year.toInt, expectedMonth, day.toInt))))
+        }
+      }
     }
 
     "reject invalid date where day < 1" in new Setup {
