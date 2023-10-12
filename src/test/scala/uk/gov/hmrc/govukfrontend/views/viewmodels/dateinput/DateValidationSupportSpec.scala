@@ -21,6 +21,7 @@ import org.scalatest.prop.TableDrivenPropertyChecks
 import org.scalatest.wordspec.AnyWordSpec
 import play.api.data.Forms.mapping
 import play.api.data.{Form, FormError}
+import uk.gov.hmrc.govukfrontend.views.viewmodels.date.{DateEntered, GovUkDate, MonthEntered}
 import uk.gov.hmrc.govukfrontend.views.viewmodels.dateinput.DateValidationSupport._
 import uk.gov.hmrc.helpers.MessagesSupport
 
@@ -29,7 +30,7 @@ import java.time.LocalDate
 class DateValidationSupportSpec extends AnyWordSpec with Matchers with MessagesSupport with TableDrivenPropertyChecks {
 
   trait Setup {
-    case class SomeFormWithDate(dateOfBirth: LocalDate)
+    case class SomeFormWithDate(dateOfBirth: GovUkDate)
 
     val testForm: Form[SomeFormWithDate] = Form[SomeFormWithDate](
       mapping(
@@ -95,16 +96,25 @@ class DateValidationSupportSpec extends AnyWordSpec with Matchers with MessagesS
         ("Gorff", 7),
         ("Hyd", 10),
         ("Tach", 11),
-        ("Rhag", 12),
+        ("Rhag", 12)
       )
 
-      forAll(months) { (month: String, expectedMonth: Int) =>
-        s"work for month $month" in new Setup {
-          val day = "1"
-          val year = "2023"
-          val form: Form[SomeFormWithDate] = testForm.bind(formData(day, month, year))
+      forAll(months) { (enteredMonth: String, expectedMonth: Int) =>
+        s"work for month $enteredMonth" in new Setup {
+          val day                          = "1"
+          val year                         = "2023"
+          val form: Form[SomeFormWithDate] = testForm.bind(formData(day, enteredMonth, year))
           form.errors should be(Nil)
-          form.value should be(Some(SomeFormWithDate(LocalDate.of(year.toInt, expectedMonth, day.toInt))))
+          form.value  should be(
+            Some(
+              SomeFormWithDate(
+                GovUkDate(
+                  DateEntered(day.toInt, MonthEntered(enteredMonth, expectedMonth), year.toInt),
+                  LocalDate.of(year.toInt, expectedMonth, day.toInt)
+                )
+              )
+            )
+          )
         }
       }
     }
@@ -112,7 +122,9 @@ class DateValidationSupportSpec extends AnyWordSpec with Matchers with MessagesS
     "convert valid date with numeric month to LocalDate" in new Setup {
       val form: Form[SomeFormWithDate] = testForm.bind(formData("1", "12", "2023"))
       form.errors should be(Nil)
-      form.value  should be(Some(SomeFormWithDate(LocalDate.of(2023, 12, 1))))
+      form.value  should be(
+        Some(SomeFormWithDate(GovUkDate(DateEntered(1, MonthEntered("12", 12), 2023), LocalDate.of(2023, 12, 1))))
+      )
     }
 
     "reject invalid date where day < 1" in new Setup {
@@ -138,6 +150,16 @@ class DateValidationSupportSpec extends AnyWordSpec with Matchers with MessagesS
     "reject invalid date where month is not a known English/Welsh month" in new Setup {
       val form: Form[SomeFormWithDate] = testForm.bind(formData("1", "Foo", "2023"))
       form.errors should be(List(FormError("dateOfBirth.month", Seq("error.invalid"), Nil)))
+    }
+
+    "bind entered value back to the form data" in new Setup {
+      val govukDate: GovUkDate = GovUkDate(1, MonthEntered("dec", 12), 2023)
+      val form: Form[SomeFormWithDate] = testForm.fill(SomeFormWithDate(govukDate))
+      form.data should be(Map(
+        "dateOfBirth.day"   -> "1",
+        "dateOfBirth.month" -> "dec",
+        "dateOfBirth.year"  -> "2023"
+      ))
     }
   }
 }
