@@ -231,14 +231,16 @@ class DateValidationSupportSpec extends AnyWordSpec with Matchers with MessagesS
       }
     }
     "nothing is entered" should {
-      "prompt the user to enter something" in {
-        pending
-        // If nothing is entered
-        //Highlight the date input as a whole.
-        //
-        //Say ‘Enter [whatever it is]’. For example, ‘Enter your date of birth’.
-        //
+      "prompt the user to enter something" in new Setup {
+        val form: Form[SomeFormWithDate] = testForm.bind(formData("", "", ""))
+        form.errors should be(List(FormError("dateOfBirth", Seq("govuk.dateInput.error.date.missing"), Nil)))
       }
+
+      // If nothing is entered
+      //Highlight the date input as a whole.
+      //
+      //Say ‘Enter [whatever it is]’. For example, ‘Enter your date of birth’.
+      //
     }
 
 
