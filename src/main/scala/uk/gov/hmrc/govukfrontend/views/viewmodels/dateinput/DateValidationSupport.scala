@@ -97,11 +97,12 @@ object DateValidationSupport {
   def govukDate(
     invalidDateError: String = "govuk.dateInput.error.date.invalid",
     missingDayError: String = "govuk.dateInput.error.day.missing",
-    missingMonthError: String = "govuk.dateInput.error.month.missing"
+    missingMonthError: String = "govuk.dateInput.error.month.missing",
+    missingYearError: String = "govuk.dateInput.error.year.missing"
   ): Mapping[GovUkDate] =
     Forms
       .tuple(
-        "year"  -> number,
+        "year"  -> text.verifying(isValidYear(invalidDateError, missingYearError)),
         "month" -> monthMapping(invalidDateError, missingMonthError),
         "day"   -> text.verifying(isValidDay(invalidDateError, missingDayError))
       )
@@ -110,6 +111,16 @@ object DateValidationSupport {
         { case (year, month, day) => GovUkDate(day, month, year) },
         (govUkDate: GovUkDate) => (govUkDate.entered.year, govUkDate.entered.month, govUkDate.entered.day)
       )
+
+  private def isValidYear(invalidDateError: String, missingYearError: String): Constraint[String] =
+    Constraint("constraints.year") {
+      case empty if empty.trim.isEmpty => Invalid(Seq(ValidationError(missingYearError, "Date")))
+      case nonEmpty =>
+        Try(nonEmpty.toInt) match {
+          case Success(_) => Valid
+          case _            => Invalid(Seq(ValidationError(invalidDateError, "Date")))
+        }
+    }
 
   private def isValidDay(invalidDateError: String, missingDayError: String): Constraint[String] =
     Constraint("constraints.day") {
@@ -121,9 +132,9 @@ object DateValidationSupport {
         }
     }
 
-  private def isValidDate(invalidDateError: String): Constraint[(Int, MonthEntered, String)] =
-    Constraint("constraints.date") { ymd: (Int, MonthEntered, String) =>
-      Try(LocalDate.of(ymd._1, ymd._2.value, ymd._3.toInt)) match {
+  private def isValidDate(invalidDateError: String): Constraint[(String, MonthEntered, String)] =
+    Constraint("constraints.date") { ymd: (String, MonthEntered, String) =>
+      Try(LocalDate.of(ymd._1.toInt, ymd._2.value, ymd._3.toInt)) match {
         case Success(_) => Valid
         case _          => Invalid(Seq(ValidationError(invalidDateError, "Date")))
       }

@@ -20,7 +20,7 @@ import java.time.LocalDate
 import scala.language.implicitConversions
 
 case class MonthEntered(entered: String, value: Int)
-case class DateEntered(day: String, month: MonthEntered, year: Int)
+case class DateEntered(day: String, month: MonthEntered, year: String)
 
 case class GovUkDate(
   entered: DateEntered,
@@ -29,9 +29,9 @@ case class GovUkDate(
 
 object GovUkDate {
 
-  def apply(day: String, month: MonthEntered, year: Int): GovUkDate = GovUkDate(
+  def apply(day: String, month: MonthEntered, year: String): GovUkDate = GovUkDate(
     entered = DateEntered(day, month, year),
-    value = LocalDate.of(year, month.value, day.toInt)
+    value = LocalDate.of(year.toInt, month.value, day.toInt)
   )
 
   implicit def toLocalDate(govUkDate: GovUkDate): LocalDate = govUkDate.value
@@ -40,7 +40,7 @@ object GovUkDate {
     entered = DateEntered(
       day = localDate.getDayOfMonth.toString,
       month = MonthEntered(localDate.getMonthValue.toString, localDate.getMonthValue),
-      year = localDate.getYear
+      year = localDate.getYear.toString
     ),
     value = localDate
   )
