@@ -65,7 +65,8 @@ object DateValidationSupport {
       def tryFormatMonth(dateTimeFormatter: DateTimeFormatter): Try[Int] =
         Try(dateTimeFormatter.parse(monthAsString)).map(_.get(MONTH_OF_YEAR))
 
-      Try(monthAsString.toInt).filter(month => month >= 1 && month <= 12)
+      Try(monthAsString.toInt)
+        .filter(month => month >= 1 && month <= 12)
         .orElse(tryFormatMonth(abbreviatedMonthFormatter))
         .orElse(tryFormatMonth(fullMonthFormatter))
         .orElse(tryFormatMonth(welshAbbreviatedMonthFormatter))
@@ -76,51 +77,56 @@ object DateValidationSupport {
 
   private val monthValidator = new FormatterMonthValidator
 
-  private val monthMapping: FieldMapping[MonthEntered] = of[MonthEntered](new Formatter[MonthEntered] {
-    override def bind(key: String, data: Map[String, String]): Either[Seq[FormError], MonthEntered] =
-      data.get(key).map(_.trim).filter(_.nonEmpty) match {
-        case None          => Left(Seq(FormError(s"$key", "error.required")))
-        case Some(entered) =>
-          monthValidator.validate(entered) match {
-            case None             => Left(Seq(FormError(s"$key", "error.invalid")))
-            case Some(validMonth) => Right(MonthEntered(entered, validMonth))
-          }
-      }
+  private def monthMapping(invalidDateError: String, missingMonthError: String): FieldMapping[MonthEntered] =
+    of[MonthEntered](new Formatter[MonthEntered] {
+      override def bind(key: String, data: Map[String, String]): Either[Seq[FormError], MonthEntered] =
+        data.get(key).map(_.trim).filter(_.nonEmpty) match {
+          case None          => Left(Seq(FormError(s"$key", missingMonthError, Seq("Date"))))
+          case Some(entered) =>
+            monthValidator.validate(entered) match {
+              case None             => Left(Seq(FormError(s"$key", invalidDateError, Seq("Date"))))
+              case Some(validMonth) => Right(MonthEntered(entered, validMonth))
+            }
+        }
 
-    override def unbind(key: String, value: MonthEntered): Map[String, String] = Map(
-      s"$key" -> value.entered
-    )
-  })
+      override def unbind(key: String, value: MonthEntered): Map[String, String] = Map(
+        s"$key" -> value.entered
+      )
+    })
 
-  // TODO how to customise error messages for number constraints?
-  def govukDate: Mapping[GovUkDate] =
+  def govukDate(
+    invalidDateError: String = "govuk.dateInput.error.date.invalid",
+    missingDayError: String = "govuk.dateInput.error.day.missing",
+    missingMonthError: String = "govuk.dateInput.error.month.missing"
+  ): Mapping[GovUkDate] =
     Forms
       .tuple(
-        "year"  -> number(min = 1900, max = 2100),
-        "month" -> monthMapping,
-        "day"   -> number(min = 1, max = 31)
+        "year"  -> number,
+        "month" -> monthMapping(invalidDateError, missingMonthError),
+        "day"   -> text.verifying(isValidDay(invalidDateError, missingDayError))
       )
-      .verifying(isValidDate)
+      .verifying(isValidDate(invalidDateError))
       .transform(
         { case (year, month, day) => GovUkDate(day, month, year) },
         (govUkDate: GovUkDate) => (govUkDate.entered.year, govUkDate.entered.month, govUkDate.entered.day)
       )
 
-  private def isValidDate: Constraint[(Int, MonthEntered, Int)] =
-    Constraint("constraints.date") { ymd: (Int, MonthEntered, Int) =>
-      Try(LocalDate.of(ymd._1, ymd._2.value, ymd._3)) match {
-        case Success(_) => Valid
-        case _          => Invalid(Seq(ValidationError("error.invalid")))
-      }
+  private def isValidDay(invalidDateError: String, missingDayError: String): Constraint[String] =
+    Constraint("constraints.day") {
+      case empty if empty.trim.isEmpty => Invalid(Seq(ValidationError(missingDayError, "Date")))
+      case nonEmpty                    =>
+        Try(nonEmpty.toInt) match {
+          case Success(day) if day >= 1 && day <= 31 => Valid
+          case _                                     => Invalid(Seq(ValidationError(invalidDateError, "Date")))
+        }
     }
 
-  // TODO move to a separate trait?
-  def yearBefore(beforeDate: LocalDate): Constraint[LocalDate] = Constraint("year.before") { govukDate =>
-    // TODO localise error message
-    if (govukDate.isBefore(beforeDate))
-      Valid
-    else
-      Invalid(Seq(ValidationError(s"Date is not before ${beforeDate.getYear}")))
-  }
+  private def isValidDate(invalidDateError: String): Constraint[(Int, MonthEntered, String)] =
+    Constraint("constraints.date") { ymd: (Int, MonthEntered, String) =>
+      Try(LocalDate.of(ymd._1, ymd._2.value, ymd._3.toInt)) match {
+        case Success(_) => Valid
+        case _          => Invalid(Seq(ValidationError(invalidDateError, "Date")))
+      }
+    }
 
 }
