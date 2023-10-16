@@ -230,6 +230,7 @@ class DateValidationSupportSpec extends AnyWordSpec with Matchers with MessagesS
         pending
       }
     }
+
     "nothing is entered" should {
       "prompt the user to enter something" in new Setup {
         val form: Form[SomeFormWithDate] = testForm.bind(formData("", "", ""))
