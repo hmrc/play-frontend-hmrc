@@ -34,6 +34,7 @@ object GovUkDate {
     value = LocalDate.of(year.toInt, month.value, day.toInt)
   )
 
+  // Convenience methods so that teams can use a GovUkDate in place of a LocalDate
   implicit def toLocalDate(govUkDate: GovUkDate): LocalDate = govUkDate.value
 
   implicit def fromLocalDate(localDate: LocalDate): GovUkDate = GovUkDate(

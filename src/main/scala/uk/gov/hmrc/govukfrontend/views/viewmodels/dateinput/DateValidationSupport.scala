@@ -82,7 +82,7 @@ object DateValidationSupport {
 
   // this version includes the GOVUK-recommended error for when all 3 fields are empty
   // but it's not pretty
-  def govukDate(
+  def govUkDate(
     invalidDateError: String = "govuk.dateInput.error.date.invalid",
     missingDateError: String = "govuk.dateInput.error.date.missing",
     missingDayError: String = "govuk.dateInput.error.day.missing",
@@ -153,7 +153,7 @@ object DateValidationSupport {
   // this version doesn't include the GOVUK-recommended error for when all 3 fields are empty
   // and it might be difficult/impossible to add some GOVUK-recommended errors, eg. for multiple missing fields
   // but it uses more idiomatic Play verification, which may make it more maintainable
-  def govukDateAlt(
+  def govUkDateAlt(
     invalidDateError: String = "govuk.dateInput.error.date.invalid",
     missingDayError: String = "govuk.dateInput.error.day.missing",
     missingMonthError: String = "govuk.dateInput.error.month.missing",

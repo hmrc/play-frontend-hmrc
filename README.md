@@ -1116,42 +1116,36 @@ implement this component.
 
 ### Validating DateInput using DateValidationSupport
 
-Date input validation is a commonly needed tool, but different teams have separately created their 
-own unique solutions for validating date inputs. As GOVUK guidelines for date validation evolve, 
-we've opted to offer date validation support. This support ensures that a date provided by the 
-DateInput is indeed valid, aligning with the changing standards for date validation.
+Date input validation is commonly required, but different teams have separately created their own unique solutions for validating date inputs.
+As [GOVUK guidelines for date validation](https://design-system.service.gov.uk/components/date-input/) evolve,
+particularly to support the entry of month names as well as numbers, we've opted to offer date validation support.
+This ensures that a date provided by the DateInput is indeed valid, and supports full and abbreviated month names in both English and Welsh.
 
-### Provided date validation constraints
+The current implementation applies the following validation rules, with GOVUK-standard error messages by default:
+* If nothing is entered
+* If the date is incomplete
+* If the date entered cannot be correct
 
-- yearBefore(localDate: LocalDate) - validates whether the year is before the localDate provided
+Date inputs validated using `govUkDate` return a `GovUkDate` type, which can be used with `LocalDate` to apply further domain validation.
+In addition, date inputs bound to `GovUkDate` in this way will have the entered date bound back to the form eg. if the user returns to amend their answers.
 
-### Using govukDate validation mapping
+### Using the govUkDate validation mapping
 
-We offer a govukDate mapping that validates the authenticity of the date. In the example below, the govukDate mapping, furnished by the DateValidationSupport object, is utilized in conjunction with the provided `yearBefore` constraint.
-
-```scala
-  def form()(implicit messagesApi: MessagesApi) = Form[SomeForm](
-    mapping(
-      "userAction"       -> optional(text),
-      "contact-date"     -> govukDate.verifying(yearBefore(LocalDate.parse("2024-01-01")))
-    )(SomeForm.apply)(SomeForm.unapply)
-  )
-```
-
-The example below illustrates the application of a custom constraint in conjunction with the govukDate mapping. This combination is used to ascertain whether a date falls after a specific date
+The example below illustrates the application of a custom constraint in conjunction with the govUkDate mapping.
 
 ```scala
-  def form()(implicit messagesApi: MessagesApi) = Form[SomeForm](
-    mapping(
-      "userAction"       -> optional(text),
-      "contact-date"     -> govukDate.verifying("date.after", (govukDate: GovUKDate) => {
-        govukDate.localDate().exists { localDate =>
-          val afterDate = LocalDate.parse("2023-01-30")
-          localDate.isAfter(afterDate)
-        }
-      })
-    )(SomeForm.apply)(SomeForm.unapply)
-  )
+def form()(implicit messagesApi: MessagesApi) = Form[SomeForm](
+  mapping(
+    "userAction" -> optional(text),
+    "contact-date" -> govUkDate.verifying(
+      "date.after",
+      (govUkDate: GovUKDate) => {
+        val afterDate = LocalDate.parse("2023-01-30")
+        govUkDate.isAfter(afterDate)
+      }
+    )
+  )(SomeForm.apply)(SomeForm.unapply)
+)
 ```
 
 ## Advanced configuration

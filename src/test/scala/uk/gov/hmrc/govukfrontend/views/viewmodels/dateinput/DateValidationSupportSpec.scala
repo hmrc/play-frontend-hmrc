@@ -34,7 +34,7 @@ class DateValidationSupportSpec extends AnyWordSpec with Matchers with MessagesS
 
     val testForm: Form[SomeFormWithDate] = Form[SomeFormWithDate](
       mapping(
-        "dateOfBirth" -> govukDate()
+        "dateOfBirth" -> govUkDate()
 //          .verifying("my.own.error.before", _.isBefore(LocalDate.now()))
       )(SomeFormWithDate.apply)(SomeFormWithDate.unapply)
     )
@@ -161,7 +161,7 @@ class DateValidationSupportSpec extends AnyWordSpec with Matchers with MessagesS
       "support custom error message where day is missing" in new Setup {
         override val testForm: Form[SomeFormWithDate] = Form[SomeFormWithDate](
           mapping(
-            "dateOfBirth" -> govukDate(missingDayError = "my.custom.error")
+            "dateOfBirth" -> govUkDate(missingDayError = "my.custom.error")
           )(SomeFormWithDate.apply)(SomeFormWithDate.unapply)
         )
         val form: Form[SomeFormWithDate]              = testForm.bind(formData("  ", "12", "2023"))
@@ -201,7 +201,7 @@ class DateValidationSupportSpec extends AnyWordSpec with Matchers with MessagesS
       "support custom error message where month is missing" in new Setup {
         override val testForm: Form[SomeFormWithDate] = Form[SomeFormWithDate](
           mapping(
-            "dateOfBirth" -> govukDate(missingMonthError = "my.custom.error")
+            "dateOfBirth" -> govUkDate(missingMonthError = "my.custom.error")
           )(SomeFormWithDate.apply)(SomeFormWithDate.unapply)
         )
         val form: Form[SomeFormWithDate]              = testForm.bind(formData("1", "  ", "2023"))
@@ -220,7 +220,7 @@ class DateValidationSupportSpec extends AnyWordSpec with Matchers with MessagesS
       "support custom error message where year is missing" in new Setup {
         override val testForm: Form[SomeFormWithDate] = Form[SomeFormWithDate](
           mapping(
-            "dateOfBirth" -> govukDate(missingYearError = "my.custom.error")
+            "dateOfBirth" -> govUkDate(missingYearError = "my.custom.error")
           )(SomeFormWithDate.apply)(SomeFormWithDate.unapply)
         )
         val form: Form[SomeFormWithDate]              = testForm.bind(formData("1", "12", "  "))
@@ -280,7 +280,7 @@ class DateValidationSupportSpec extends AnyWordSpec with Matchers with MessagesS
       "support custom error message where date is invalid" in new Setup {
         override val testForm: Form[SomeFormWithDate] = Form[SomeFormWithDate](
           mapping(
-            "dateOfBirth" -> govukDate(invalidDateError = "my.invalid.date.error")
+            "dateOfBirth" -> govUkDate(invalidDateError = "my.invalid.date.error")
           )(SomeFormWithDate.apply)(SomeFormWithDate.unapply)
         )
 
@@ -289,16 +289,18 @@ class DateValidationSupportSpec extends AnyWordSpec with Matchers with MessagesS
       }
     }
 
-    "bind entered value back to the form data" in new Setup {
-      val govukDate: GovUkDate         = GovUkDate("1", MonthEntered("dec", 12), "2023")
-      val form: Form[SomeFormWithDate] = testForm.fill(SomeFormWithDate(govukDate))
-      form.data should be(
-        Map(
-          "dateOfBirth.day"   -> "1",
-          "dateOfBirth.month" -> "dec",
-          "dateOfBirth.year"  -> "2023"
+    "date is bound back to the form" should {
+      "bind entered month value back to the form data" in new Setup {
+        val govukDate: GovUkDate         = GovUkDate("1", MonthEntered("dec", 12), "2023")
+        val form: Form[SomeFormWithDate] = testForm.fill(SomeFormWithDate(govukDate))
+        form.data should be(
+          Map(
+            "dateOfBirth.day"   -> "1",
+            "dateOfBirth.month" -> "dec",
+            "dateOfBirth.year"  -> "2023"
+          )
         )
-      )
+      }
     }
   }
 }
