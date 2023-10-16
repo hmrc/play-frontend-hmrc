@@ -37,4 +37,3 @@ govuk.dateInput.error.date.missing = Enter a date
 govuk.dateInput.error.day.missing = {0} must include a day
 govuk.dateInput.error.month.missing = {0} must include a month
 govuk.dateInput.error.year.missing = {0} must include a year
-constraints.date=Date failed to validate

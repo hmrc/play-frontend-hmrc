@@ -32,5 +32,3 @@ govuk.pagination.page=Tudalen
 govuk.warningText.iconFallbackText=Rhybudd
 govuk.exitThisPage.contentFallbackText=Gadael y dudalen hon
 govuk.exitThisPage.redirectUrlFallback=https://www.bbc.co.uk/weather
-february=Chwefror
-february.abbrv=Chwef
