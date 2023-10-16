@@ -104,11 +104,11 @@ class DateValidationSupportSpec extends AnyWordSpec with Matchers with MessagesS
 
         forAll(months) { (enteredMonth: String, expectedMonth: Int) =>
           s"work for month $enteredMonth" in new Setup {
-            val day = "1"
-            val year = "2023"
+            val day                          = "1"
+            val year                         = "2023"
             val form: Form[SomeFormWithDate] = testForm.bind(formData(day, enteredMonth, year))
             form.errors should be(Nil)
-            form.value should be(
+            form.value  should be(
               Some(
                 SomeFormWithDate(
                   GovUkDate(
@@ -125,7 +125,7 @@ class DateValidationSupportSpec extends AnyWordSpec with Matchers with MessagesS
       "convert valid date with numeric month to LocalDate" in new Setup {
         val form: Form[SomeFormWithDate] = testForm.bind(formData("1", "12", "2023"))
         form.errors should be(Nil)
-        form.value should be(
+        form.value  should be(
           Some(SomeFormWithDate(GovUkDate(DateEntered("1", MonthEntered("12", 12), "2023"), LocalDate.of(2023, 12, 1))))
         )
       }
@@ -134,17 +134,23 @@ class DateValidationSupportSpec extends AnyWordSpec with Matchers with MessagesS
     "day is invalid or missing" should {
       "reject invalid date where day < 1" in new Setup {
         val form: Form[SomeFormWithDate] = testForm.bind(formData("0", "12", "2023"))
-        form.errors should be(List(FormError("dateOfBirth.day", Seq("govuk.dateInput.error.date.invalid"), Seq("Date"))))
+        form.errors should be(
+          List(FormError("dateOfBirth.day", Seq("govuk.dateInput.error.date.invalid"), Seq("Date")))
+        )
       }
 
       "reject invalid date where day > 31" in new Setup {
         val form: Form[SomeFormWithDate] = testForm.bind(formData("32", "12", "2023"))
-        form.errors should be(List(FormError("dateOfBirth.day", Seq("govuk.dateInput.error.date.invalid"), Seq("Date"))))
+        form.errors should be(
+          List(FormError("dateOfBirth.day", Seq("govuk.dateInput.error.date.invalid"), Seq("Date")))
+        )
       }
 
       "reject invalid date where day is not numeric" in new Setup {
         val form: Form[SomeFormWithDate] = testForm.bind(formData("foo", "12", "2023"))
-        form.errors should be(List(FormError("dateOfBirth.day", Seq("govuk.dateInput.error.date.invalid"), Seq("Date"))))
+        form.errors should be(
+          List(FormError("dateOfBirth.day", Seq("govuk.dateInput.error.date.invalid"), Seq("Date")))
+        )
       }
 
       "reject invalid date where day is empty" in new Setup {
@@ -158,7 +164,7 @@ class DateValidationSupportSpec extends AnyWordSpec with Matchers with MessagesS
             "dateOfBirth" -> govukDate(missingDayError = "my.custom.error")
           )(SomeFormWithDate.apply)(SomeFormWithDate.unapply)
         )
-        val form: Form[SomeFormWithDate] = testForm.bind(formData("  ", "12", "2023"))
+        val form: Form[SomeFormWithDate]              = testForm.bind(formData("  ", "12", "2023"))
         form.errors should be(List(FormError("dateOfBirth.day", Seq("my.custom.error"), Seq("Date"))))
       }
     }
@@ -166,22 +172,30 @@ class DateValidationSupportSpec extends AnyWordSpec with Matchers with MessagesS
     "month is invalid or missing" should {
       "reject invalid date where month < 1" in new Setup {
         val form: Form[SomeFormWithDate] = testForm.bind(formData("1", "0", "2023"))
-        form.errors should be(List(FormError("dateOfBirth.month", Seq("govuk.dateInput.error.date.invalid"), Seq("Date"))))
+        form.errors should be(
+          List(FormError("dateOfBirth.month", Seq("govuk.dateInput.error.date.invalid"), Seq("Date")))
+        )
       }
 
       "reject invalid date where month > 12" in new Setup {
         val form: Form[SomeFormWithDate] = testForm.bind(formData("1", "13", "2023"))
-        form.errors should be(List(FormError("dateOfBirth.month", Seq("govuk.dateInput.error.date.invalid"), Seq("Date"))))
+        form.errors should be(
+          List(FormError("dateOfBirth.month", Seq("govuk.dateInput.error.date.invalid"), Seq("Date")))
+        )
       }
 
       "reject invalid date where month is not a known English/Welsh month" in new Setup {
         val form: Form[SomeFormWithDate] = testForm.bind(formData("1", "Foo", "2023"))
-        form.errors should be(List(FormError("dateOfBirth.month", Seq("govuk.dateInput.error.date.invalid"), Seq("Date"))))
+        form.errors should be(
+          List(FormError("dateOfBirth.month", Seq("govuk.dateInput.error.date.invalid"), Seq("Date")))
+        )
       }
 
       "reject invalid date where month is missing" in new Setup {
         val form: Form[SomeFormWithDate] = testForm.bind(formData("1", "  ", "2023"))
-        form.errors should be(List(FormError("dateOfBirth.month", Seq("govuk.dateInput.error.month.missing"), Seq("Date"))))
+        form.errors should be(
+          List(FormError("dateOfBirth.month", Seq("govuk.dateInput.error.month.missing"), Seq("Date")))
+        )
       }
 
       "support custom error message where month is missing" in new Setup {
@@ -190,7 +204,7 @@ class DateValidationSupportSpec extends AnyWordSpec with Matchers with MessagesS
             "dateOfBirth" -> govukDate(missingMonthError = "my.custom.error")
           )(SomeFormWithDate.apply)(SomeFormWithDate.unapply)
         )
-        val form: Form[SomeFormWithDate] = testForm.bind(formData("1", "  ", "2023"))
+        val form: Form[SomeFormWithDate]              = testForm.bind(formData("1", "  ", "2023"))
         form.errors should be(List(FormError("dateOfBirth.month", Seq("my.custom.error"), Seq("Date"))))
       }
     }
@@ -198,7 +212,9 @@ class DateValidationSupportSpec extends AnyWordSpec with Matchers with MessagesS
     "year is missing" should {
       "reject invalid date where year is missing" in new Setup {
         val form: Form[SomeFormWithDate] = testForm.bind(formData("1", "12", "  "))
-        form.errors should be(List(FormError("dateOfBirth.year", Seq("govuk.dateInput.error.year.missing"), Seq("Date"))))
+        form.errors should be(
+          List(FormError("dateOfBirth.year", Seq("govuk.dateInput.error.year.missing"), Seq("Date")))
+        )
       }
 
       "support custom error message where year is missing" in new Setup {
@@ -207,7 +223,7 @@ class DateValidationSupportSpec extends AnyWordSpec with Matchers with MessagesS
             "dateOfBirth" -> govukDate(missingYearError = "my.custom.error")
           )(SomeFormWithDate.apply)(SomeFormWithDate.unapply)
         )
-        val form: Form[SomeFormWithDate] = testForm.bind(formData("1", "12", "  "))
+        val form: Form[SomeFormWithDate]              = testForm.bind(formData("1", "12", "  "))
         form.errors should be(List(FormError("dateOfBirth.year", Seq("my.custom.error"), Seq("Date"))))
       }
     }
@@ -243,7 +259,6 @@ class DateValidationSupportSpec extends AnyWordSpec with Matchers with MessagesS
       //Say ‘Enter [whatever it is]’. For example, ‘Enter your date of birth’.
       //
     }
-
 
     // Validation implemented by each service?  Or should we provide the prescribed error messages?
     //If the date is in the future when it needs to be in the past
