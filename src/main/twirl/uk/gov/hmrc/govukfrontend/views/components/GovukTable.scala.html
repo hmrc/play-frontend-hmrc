@@ -14,6 +14,9 @@
  * limitations under the License.
  *@
 
+@import uk.gov.hmrc.govukfrontend.views.Utils._
+@import uk.gov.hmrc.govukfrontend.views.viewmodels.table._
+
 @import scala.collection.compat.immutable.LazyList
 
 @this()
@@ -25,8 +28,8 @@
     <caption class="@toClasses("govuk-table__caption", captionClasses)">@caption</caption>
   }
   @head.map { head =>
-    <thead class="govuk-table__head">
-     <tr class="govuk-table__row">
+    <thead class="govuk-table__head"@toAttributes(headAttributes)>
+     <tr class="govuk-table__row"@toAttributes(headRowAttributes)>
        @for(item <- head) {
          <th scope="col" class="@toClasses("govuk-table__header", item.format.foldNonEmpty(""){ itemFormat => s"govuk-table__header--$itemFormat"}, item.classes)"@headItemAttrs(item)>@item.content.asHtml</th>
        }

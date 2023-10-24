@@ -27,7 +27,9 @@ case class Table(
   captionClasses: String = "",
   firstCellIsHeader: Boolean = false,
   classes: String = "",
-  attributes: Map[String, String] = Map.empty
+  attributes: Map[String, String] = Map.empty,
+  headAttributes: Map[String, String] = Map.empty,
+  headRowAttributes: Map[String, String] = Map.empty
 )
 
 object Table {
@@ -45,7 +47,9 @@ object Table {
         (__ \ "captionClasses").readWithDefault[String](defaultObject.captionClasses) and
         (__ \ "firstCellIsHeader").readWithDefault[Boolean](defaultObject.firstCellIsHeader) and
         (__ \ "classes").readWithDefault[String](defaultObject.classes) and
-        (__ \ "attributes").readWithDefault[Map[String, String]](defaultObject.attributes)(attributesReads)
+        (__ \ "attributes").readWithDefault[Map[String, String]](defaultObject.attributes)(attributesReads) and
+        (__ \ "headAttributes").readWithDefault[Map[String, String]](defaultObject.attributes)(attributesReads) and
+        (__ \ "headRowAttributes").readWithDefault[Map[String, String]](defaultObject.attributes)(attributesReads)
     )(Table.apply _)
   }
 
@@ -57,7 +61,9 @@ object Table {
         (__ \ "captionClasses").write[String] and
         (__ \ "firstCellIsHeader").write[Boolean] and
         (__ \ "classes").write[String] and
-        (__ \ "attributes").write[Map[String, String]]
+        (__ \ "attributes").write[Map[String, String]] and
+        (__ \ "headAttributes").write[Map[String, String]] and
+        (__ \ "headRowAttributes").write[Map[String, String]]
     )(unlift(Table.unapply))
 
 }
