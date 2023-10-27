@@ -17,9 +17,23 @@
 package uk.gov.hmrc.govukfrontend.views
 package components
 
+import play.api.mvc.RequestHeader
+import play.api.test.FakeRequest
+import play.twirl.api.HtmlFormat
 import uk.gov.hmrc.govukfrontend.views.html.components._
+import uk.gov.hmrc.helpers.MessagesSupport
 
-class GovukBackLinkSpec extends TemplateUnitSpec[BackLink, GovukBackLink]("govukBackLink") {
+import scala.util.Try
+
+class GovukBackLinkSpec extends TemplateUnitBaseSpec[BackLink]("govukBackLink") with MessagesSupport {
+
+  private val component = app.injector.instanceOf[GovukBackLink]
+
+  def render(templateParams: BackLink): Try[HtmlFormat.Appendable] = {
+    implicit val request: RequestHeader = FakeRequest("GET", "/foo")
+
+    Try(component(templateParams))
+  }
 
   "backLink" should {
     "render the default example with an anchor, href and text correctly" in {

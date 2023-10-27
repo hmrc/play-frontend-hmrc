@@ -8,6 +8,19 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 For compatibility information see `govukFrontendVersion` and `hmrcFrontendVersion` in
 [LibDependencies](project/LibDependencies.scala)
 
+## [7.24.0] - 2023-10-30
+
+### Changed
+
+- Added Welsh translation of `Back` to `GovukBackLink`
+- Require an implicit instance of `Messages` to be passed through the `GovukBackLink` component
+- Uplifted version of `hmrc-frontend` to `5.51.0`
+
+### Compatible with
+
+- [hmrc/hmrc-frontend v5.51.0](https://github.com/hmrc/hmrc-frontend/releases/tag/v5.51.0)
+- [alphagov/govuk-frontend v4.7.0](https://github.com/alphagov/govuk-frontend/releases/tag/v4.7.0)
+
 ## [7.23.0] - 2023-10-09
 
 ### Changed
