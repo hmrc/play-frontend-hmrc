@@ -17,13 +17,9 @@
 package uk.gov.hmrc.govukfrontend.views
 package components
 
-import play.api.mvc.RequestHeader
-import play.api.test.FakeRequest
 import play.twirl.api.HtmlFormat
 import uk.gov.hmrc.support.ScalaCheckUtils.ClassifyParams
-import uk.gov.hmrc.govukfrontend.support.TemplateIntegrationSpec
 import uk.gov.hmrc.govukfrontend.views.GovukFrontendDependency.govukFrontendVersion
-import uk.gov.hmrc.govukfrontend.views.components.GovukNotificationBannerIntegrationSpec.app
 import uk.gov.hmrc.govukfrontend.views.html.components._
 import uk.gov.hmrc.govukfrontend.views.viewmodels.backlink.BackLink
 import uk.gov.hmrc.govukfrontend.views.viewmodels.backlink.Generators._
@@ -46,10 +42,8 @@ object GovukBackLinkIntegrationSpec
 
   private val component = app.injector.instanceOf[GovukBackLink]
 
-  override def render(notificationBanner: BackLink): Try[HtmlFormat.Appendable] = {
-    implicit val request: RequestHeader = FakeRequest("GET", "/foo")
+  override def render(notificationBanner: BackLink): Try[HtmlFormat.Appendable] =
     Try(component(notificationBanner))
-  }
 
   override def classifiers(backLink: BackLink): LazyList[ClassifyParams] =
     (backLink.href.isEmpty, "empty href", "non-empty href") #::

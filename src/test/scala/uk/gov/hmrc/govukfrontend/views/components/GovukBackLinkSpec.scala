@@ -29,11 +29,7 @@ class GovukBackLinkSpec extends TemplateUnitBaseSpec[BackLink]("govukBackLink") 
 
   private val component = app.injector.instanceOf[GovukBackLink]
 
-  def render(templateParams: BackLink): Try[HtmlFormat.Appendable] = {
-    implicit val request: RequestHeader = FakeRequest("GET", "/foo")
-
-    Try(component(templateParams))
-  }
+  def render(templateParams: BackLink): Try[HtmlFormat.Appendable] = Try(component(templateParams))
 
   "backLink" should {
     "render the default example with an anchor, href and text correctly" in {
