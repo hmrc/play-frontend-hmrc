@@ -23,10 +23,9 @@ import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpecLike
 import org.scalatestplus.play.guice.GuiceOneAppPerSuite
 import play.api.Application
-import play.api.i18n.{DefaultLangs, Lang, Messages}
+import play.api.i18n.Lang
 import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.libs.typedmap.TypedMap
-import play.api.mvc.MessagesRequest
 import play.api.mvc.request.RequestAttrKey
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
@@ -35,6 +34,7 @@ import uk.gov.hmrc.govukfrontend.views.Aliases.Text
 import uk.gov.hmrc.govukfrontend.views.html.components.{FullWidthPageLayout, GovukBackLink}
 import uk.gov.hmrc.govukfrontend.views.viewmodels.backlink.BackLink
 import uk.gov.hmrc.govukfrontend.views.viewmodels.exitthispage.ExitThisPage
+import uk.gov.hmrc.helpers.MessagesSupport
 import uk.gov.hmrc.helpers.views.JsoupHelpers
 import uk.gov.hmrc.hmrcfrontend.config.AssetsConfig
 import uk.gov.hmrc.hmrcfrontend.views.Aliases.UserResearchBanner
@@ -44,7 +44,12 @@ import uk.gov.hmrc.hmrcfrontend.views.viewmodels.hmrcstandardpage._
 
 import scala.annotation.tailrec
 
-class hmrcStandardPageSpec extends AnyWordSpecLike with Matchers with JsoupHelpers with GuiceOneAppPerSuite {
+class hmrcStandardPageSpec
+    extends AnyWordSpecLike
+    with Matchers
+    with JsoupHelpers
+    with GuiceOneAppPerSuite
+    with MessagesSupport {
 
   override def fakeApplication(): Application =
     new GuiceApplicationBuilder()
@@ -66,26 +71,6 @@ class hmrcStandardPageSpec extends AnyWordSpecLike with Matchers with JsoupHelpe
 
   implicit val fakeRequest: FakeRequest[_] = FakeRequest("GET", "/foo")
   val requestWithNonce: FakeRequest[_]     = fakeRequest.withAttrs(TypedMap(RequestAttrKey.CSPNonce -> "a-nonce"))
-
-  private val messages = Map(
-    "cy" -> Map(
-      "back.text"                              -> "Back Welsh",
-      "govuk.exitThisPage.redirectUrlFallback" -> "www.some-safe-cy.url",
-      "govuk.exitThisPage.contentFallbackText" -> "Gadael y dudalen hon"
-    ),
-    "en" -> Map(
-      "back.text"                              -> "Back English",
-      "govuk.exitThisPage.redirectUrlFallback" -> "www.some-safe-en.url",
-      "govuk.exitThisPage.contentFallbackText" -> "Exit this page"
-    )
-  )
-
-  private def getMessages(lang: Lang = Lang("en")): Messages = {
-    val messagesApi = stubMessagesApi(messages, new DefaultLangs(Seq(lang)))
-    new MessagesRequest(FakeRequest(), messagesApi).messages
-  }
-
-  implicit val defaultMessages: Messages = getMessages()
 
   private val hmrcStandardPage = app.injector.instanceOf[HmrcStandardPage]
 
@@ -275,7 +260,7 @@ class hmrcStandardPageSpec extends AnyWordSpecLike with Matchers with JsoupHelpe
       val document = Jsoup.parse(contentAsString(page))
 
       val footerLinks: Elements = document.select(".govuk-footer__link")
-      footerLinks.select("a[href=\"some-custom-url\"]").text() should be("footer.accessibility.text")
+      footerLinks.select("a[href=\"some-custom-url\"]").text() should be("Accessibility statement")
     }
 
     "construct accessibility statement URL using config path in footer if none passed explicitly" in {
@@ -284,7 +269,7 @@ class hmrcStandardPageSpec extends AnyWordSpecLike with Matchers with JsoupHelpe
       val footerLinks: Elements = document.select(".govuk-footer__link")
       footerLinks
         .select("a[href=\"http://localhost:12346/accessibility-statement/test-service-path?referrerUrl=%2Ffoo\"]")
-        .text() should be("footer.accessibility.text")
+        .text() should be("Accessibility statement")
     }
 
     "use default govukTemplate content layout by default" in {
@@ -443,7 +428,7 @@ class hmrcStandardPageSpec extends AnyWordSpecLike with Matchers with JsoupHelpe
     }
 
     "correctly translate the back link based on language in messages" in {
-      val messages           = getMessages(Lang("cy"))
+      val messages           = messagesApi.preferred(Seq(Lang("cy")))
       val page               =
         hmrcStandardPage(
           HmrcStandardPageParams(backLink = Some(BackLink.withDefaultText(href = "my-back-link")(messages)))
@@ -455,7 +440,7 @@ class hmrcStandardPageSpec extends AnyWordSpecLike with Matchers with JsoupHelpe
       val backLink = document.select(".govuk-back-link")
       backLink                should have size 1
       backLink.attr("href") shouldBe "my-back-link"
-      backLink.html()       shouldBe "Back Welsh"
+      backLink.html()       shouldBe "Yn ôl"
     }
 
     "include exit this page if passed an ExitThisPage" in {
@@ -465,11 +450,11 @@ class hmrcStandardPageSpec extends AnyWordSpecLike with Matchers with JsoupHelpe
       val exitThisPageButton = document.select(".govuk-exit-this-page__button")
       exitThisPageButton                should have size 1
       exitThisPageButton.text()       shouldBe "Exit this page"
-      exitThisPageButton.attr("href") shouldBe "www.some-safe-en.url"
+      exitThisPageButton.attr("href") shouldBe "https://www.bbc.co.uk/weather"
     }
 
     "correctly translate exit this page based on language in messages" in {
-      val messages = getMessages(Lang("cy"))
+      val messages = messagesApi.preferred(Seq(Lang("cy")))
       val page     =
         hmrcStandardPage(HmrcStandardPageParams(exitThisPage = Some(ExitThisPage())))(Html(""))(fakeRequest, messages)
       val document = Jsoup.parse(contentAsString(page))
@@ -477,7 +462,7 @@ class hmrcStandardPageSpec extends AnyWordSpecLike with Matchers with JsoupHelpe
       val exitThisPageButton = document.select(".govuk-exit-this-page__button")
       exitThisPageButton                should have size 1
       exitThisPageButton.text()       shouldBe "Gadael y dudalen hon"
-      exitThisPageButton.attr("href") shouldBe "www.some-safe-cy.url"
+      exitThisPageButton.attr("href") shouldBe "https://www.bbc.co.uk/weather"
     }
 
     "add attributes to activate the JavaScript browser back in hmrc-frontend" in {
@@ -491,7 +476,7 @@ class hmrcStandardPageSpec extends AnyWordSpecLike with Matchers with JsoupHelpe
       actualBackLink                       should have size 1
       actualBackLink.attr("href")        shouldBe "#"
       actualBackLink.attr("data-module") shouldBe "hmrc-back-link"
-      actualBackLink.html()              shouldBe "Back English"
+      actualBackLink.html()              shouldBe "Back"
     }
 
     "allow overriding of the default page layout" in {
