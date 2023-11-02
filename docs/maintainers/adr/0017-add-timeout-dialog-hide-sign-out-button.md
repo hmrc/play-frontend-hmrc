@@ -46,8 +46,8 @@ so as not to encourage its use for HMRC production microservices
 
 ### Negative Consequences
 
-* There will be an undocumented and intested feature in `play-frontend-hmrc`. This ADR is intended to document the 
-  reasoning behind this divergence.
+* There will be an undocumented and untested feature in `play-frontend-hmrc`. This ADR is intended to document the 
+  reasoning behind this design decision.
 
 ## Links
 
