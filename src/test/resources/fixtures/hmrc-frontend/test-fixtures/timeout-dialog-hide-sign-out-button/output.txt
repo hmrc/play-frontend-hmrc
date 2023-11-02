@@ -12,5 +12,5 @@
       data-message-suffix=""
       data-keep-alive-button-text=""
       data-sign-out-button-text=""
-      data-synchronise-tabs="false"
-      data-hide-sign-out-button=""/>
+      data-synchronise-tabs=""
+      data-hide-sign-out-button="true"/>

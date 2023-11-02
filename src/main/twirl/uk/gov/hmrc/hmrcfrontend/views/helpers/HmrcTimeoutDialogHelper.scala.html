@@ -45,5 +45,5 @@
   keepAliveButtonText = keepAliveButtonText,
   signOutButtonText = signOutButtonText,
   language = Some(messages.lang.code),
-  synchroniseTabs = synchroniseTabs.getOrElse(timeoutDialogConfig.enableSynchroniseTabs)
+  synchroniseTabs = synchroniseTabs.orElse(Some(timeoutDialogConfig.enableSynchroniseTabs))
 ))

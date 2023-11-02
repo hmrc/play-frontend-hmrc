@@ -18,6 +18,7 @@
 * [ADR-0014](0014-keep-current-package-structure-and-naming-conventions.md) - Keep current package structure and naming conventions
 * [ADR-0015](0015-introduction-of-implicit-conversions.md) - Introduction of implicit conversions
 * [ADR-0016](0016-use-implicit-messages-to-drive-welsh-translations-in-govuk-twirl-components.md) - Use implicit messages to drive Welsh translations in GOVUK Twirl components
+* [ADR-0017](0017-add-timeout-dialog-hide-sign-out-button.md) - Add timeout-dialog hideSignOutButton
 
 <!-- adrlogstop -->
 
