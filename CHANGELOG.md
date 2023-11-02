@@ -8,6 +8,19 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 For compatibility information see `govukFrontendVersion` and `hmrcFrontendVersion` in
 [LibDependencies](project/LibDependencies.scala)
 
+## [7.25.0] - 2023-11-02
+
+### Changed
+
+- Uplifted version of `hmrc-frontend` to `5.52.0`
+- Patched tests and added ADR to reflect changes to `hmrc-frontend` for `timeout-dialog` that will not be reflected in 
+  Scala implementation
+
+### Compatible with
+
+- [hmrc/hmrc-frontend v5.52.0](https://github.com/hmrc/hmrc-frontend/releases/tag/v5.52.0)
+- [alphagov/govuk-frontend v4.7.0](https://github.com/alphagov/govuk-frontend/releases/tag/v4.7.0)
+
 ## [7.24.0] - 2023-10-30
 
 ### Changed
