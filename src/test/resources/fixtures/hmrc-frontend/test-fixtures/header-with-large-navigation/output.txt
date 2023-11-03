@@ -29,8 +29,8 @@
         </a>
       </div>
       <div class="govuk-header__content">
-      <nav class="govuk-header__navigation" aria-label="Top Level Navigation">
-        <button type="button" class="govuk-header__menu-button govuk-js-header-toggle" aria-controls="navigation" aria-label="Show or hide Top Level Navigation" hidden>Menu</button>
+      <nav class="govuk-header__navigation" aria-label="Top Level Menu">
+        <button type="button" class="govuk-header__menu-button govuk-js-header-toggle" aria-controls="navigation" aria-label="Show or hide Top Level Menu" hidden>Menu</button>
         <ul id="navigation" class="govuk-header__navigation-list">
               <li class="govuk-header__navigation-item">
                 <a class="govuk-header__link" href="/browse/benefits">
