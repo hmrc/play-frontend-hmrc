@@ -20,6 +20,7 @@ import play.api.data.Field
 import play.api.i18n.Messages
 import uk.gov.hmrc.govukfrontend.views.viewmodels.content.Content
 import uk.gov.hmrc.govukfrontend.views.viewmodels.select.{Select, SelectItem}
+import uk.gov.hmrc.hmrcfrontend.views.Aliases.En
 import uk.gov.hmrc.hmrcfrontend.views.viewmodels.accessibleautocomplete.AccessibleAutocomplete
 
 trait RichSelectSupport {
@@ -62,7 +63,9 @@ trait RichSelectSupport {
     def withHeadingAndSectionCaption(heading: Content, sectionCaption: Content): Select =
       withHeadingLabel(select, heading, Some(sectionCaption))((sl, ul) => sl.copy(label = ul))
 
-    def asAccessibleAutocomplete(accessibleAutocomplete: Option[AccessibleAutocomplete] = None): Select = {
+    def asAccessibleAutocomplete(
+      accessibleAutocomplete: Option[AccessibleAutocomplete] = None
+    )(implicit messages: Messages): Select = {
       def toMapOfDataAttributes(accessibleAutocomplete: AccessibleAutocomplete): Map[String, String] =
         Map(
           "data-auto-select"     -> accessibleAutocomplete.autoSelect.toString,
@@ -74,7 +77,9 @@ trait RichSelectSupport {
       val dataAttributes =
         toMapOfDataAttributes(accessibleAutocomplete.getOrElse(AccessibleAutocomplete(None)))
 
-      select.copy(attributes = select.attributes ++ dataAttributes)
+      val maybeDataLanguage = Map("data-language" -> messages.lang.code).filterNot(_._2 == En.code)
+
+      select.copy(attributes = select.attributes ++ dataAttributes ++ maybeDataLanguage)
     }
 
     private[views] def withName(field: Field): Select =

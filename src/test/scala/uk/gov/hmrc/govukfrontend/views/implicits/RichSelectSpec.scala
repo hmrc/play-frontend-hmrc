@@ -18,6 +18,7 @@ package uk.gov.hmrc.govukfrontend.views.implicits
 
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpec
+import play.api.i18n.{Lang, Messages}
 import uk.gov.hmrc.govukfrontend.views.html.components.implicits._
 import uk.gov.hmrc.govukfrontend.views.viewmodels.content.{HtmlContent, Text}
 import uk.gov.hmrc.govukfrontend.views.viewmodels.errormessage.ErrorMessage
@@ -180,6 +181,25 @@ class RichSelectSpec extends AnyWordSpec with Matchers with MessagesHelpers with
           "data-show-all-values" -> "true",
           "data-auto-select"     -> "true",
           "data-module"          -> "hmrc-accessible-autocomplete"
+        )
+      )
+    }
+
+    "set data-language when the current language is not English" in {
+      implicit val messages: Messages = messagesApi.preferred(Seq(Lang("cy")))
+
+      val select        = Select()
+      val updatedSelect = select.asAccessibleAutocomplete(
+        Some(AccessibleAutocomplete(Some("Test"), showAllValues = true, autoSelect = true))
+      )
+
+      updatedSelect shouldBe Select(attributes =
+        Map(
+          "data-default-value"   -> "Test",
+          "data-show-all-values" -> "true",
+          "data-auto-select"     -> "true",
+          "data-module"          -> "hmrc-accessible-autocomplete",
+          "data-language"        -> "cy"
         )
       )
     }
