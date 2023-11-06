@@ -3,10 +3,10 @@ import sbt._
 object LibDependencies {
   val govukFrontendVersion: String = "4.7.0"
   val hmrcFrontendVersion: String  = "5.55.0"
-  val playLanguageVersion: String  = "6.0.0-SNAPSHOT"
+  val playLanguageVersion: String  = "7.0.0-SNAPSHOT"
 
   val play28Version = "2.8.20"
-  val play29Version = "2.9.0-M7"
+  val play29Version = "2.9.0"
 
   val shared = Seq(
     "org.scala-lang.modules" %% "scala-collection-compat" % "2.10.0",
@@ -40,7 +40,7 @@ object LibDependencies {
 
     "com.typesafe.play"      %% "play-test"             % play29Version % Test,
     "com.typesafe.play"      %% "play-ahc-ws"           % play29Version % Test,
-    "org.scalatestplus.play" %% "scalatestplus-play"    % "6.0.0-M6"    % Test,
-    "com.vladsch.flexmark"   %  "flexmark-all"          % "0.62.2"      % Test
+    "org.scalatestplus.play" %% "scalatestplus-play"    % "6.0.0"       % Test,
+    "com.vladsch.flexmark"   %  "flexmark-all"          % "0.64.8"      % Test
   )
 }
