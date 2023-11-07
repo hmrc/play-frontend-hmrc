@@ -52,7 +52,7 @@ is interested in taking on the work to update the scaffolding and writing a blog
 * Bad, because we've seen quite a few services with business rules coupled to the "is a valid date" rules - so migrating
   to our thing might lead to accidental regressions, could be an impractical amount of effort, and we might not be able
   to satisfy enough peoples requirements to make it worthwhile for us to maintain
-* Bad, because teams might trust out implementation too much, miss some impactful consequence as a result, and would
+* Bad, because teams might trust our implementation too much, miss some impactful consequence as a result, and would
   probably assume that they don't need to do their own user testing. For example: how should the date be displayed on a
   check your answers page? If a user then tries to edit it, does it need to be edited in the format it was entered? And, 
   if the user enters "jan" but the input is sent as 01, does that impact auditing in any way?
