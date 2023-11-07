@@ -70,6 +70,8 @@ is interested in taking on the work to update the scaffolding and writing a blog
 * Good, because it should reduce the amount of duplicated effort if people can refer to this example
 * Good, because we can still revisit option 3 in the future, but with a hopefully clearer picture of its value / how it
   should look
+* Good, because we can use feedback / pain points / emergent patterns from teams implementing the date validation to
+  inform any potential library-provided solution, instead of committing to the wrong thing now
 
 ## Links
 
