@@ -19,6 +19,7 @@
 * [ADR-0015](0015-introduction-of-implicit-conversions.md) - Introduction of implicit conversions
 * [ADR-0016](0016-use-implicit-messages-to-drive-welsh-translations-in-govuk-twirl-components.md) - Use implicit messages to drive Welsh translations in GOVUK Twirl components
 * [ADR-0017](0017-add-timeout-dialog-hide-sign-out-button.md) - Add timeout-dialog hideSignOutButton
+* [ADR-0018](0018-help-teams-implement-new-date-guidance.md) - Help teams implement new date guidance
 
 <!-- adrlogstop -->
 
