@@ -71,6 +71,7 @@ trait RichSelectSupport {
           "data-auto-select"     -> accessibleAutocomplete.autoSelect.toString,
           "data-show-all-values" -> accessibleAutocomplete.showAllValues.toString,
           "data-default-value"   -> accessibleAutocomplete.defaultValue.getOrElse(""),
+          "data-min-length"      -> accessibleAutocomplete.minLength.map(_.toString).getOrElse(""),
           "data-module"          -> accessibleAutocomplete.dataModule
         )
 
