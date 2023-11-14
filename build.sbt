@@ -24,7 +24,7 @@ lazy val sharedSettings: Seq[sbt.Def.SettingsDefinition] = Seq(
   },
   Test / generateHmrcFixtures := {
     val generateFixtures = GenerateFixtures(
-      fixturesDir = baseDirectory.value / "./src-common/test/resources/fixtures/hmrc-frontend",
+      fixturesDir = baseDirectory.value / "../src-common/test/resources/fixtures/hmrc-frontend",
       frontend = "hmrc",
       version = LibDependencies.hmrcFrontendVersion
     )
