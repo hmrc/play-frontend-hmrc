@@ -18,7 +18,7 @@
   <!--[if IE 8]>
     <img src="/assets/components/banner/images/hmrc_crest_18px.png">
   <![endif]-->
-    <p class="govuk-body-s">        Cyllid a Thollau EM
+    <p class="govuk-body-s">        Cyllid a Thollau EF
 </p>
   </div>
 </div>

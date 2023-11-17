@@ -30,7 +30,7 @@
       </div>
       <div class="govuk-header__content">
         <span  class="hmrc-header__service-name ">
-          Gwasanaeth gyda Banner CThEM
+          Gwasanaeth gyda Banner CThEF
         </span>
 
           <nav class="hmrc-language-select" aria-label="Choose a language">
@@ -67,7 +67,7 @@
   <!--[if IE 8]>
     <img src="/assets/components/banner/images/hmrc_crest_18px.png">
   <![endif]-->
-    <p class="govuk-body-s">        Cyllid a Thollau EM
+    <p class="govuk-body-s">        Cyllid a Thollau EF
 </p>
   </div>
 </div>

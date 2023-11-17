@@ -11,7 +11,7 @@ sys.env.getOrElse("PLAY_VERSION", "2.8") match {
     ).map(addSbtPlugin)
 }
 
-addSbtPlugin("uk.gov.hmrc"   % "sbt-auto-build"             % "3.14.0")
+addSbtPlugin("uk.gov.hmrc"   % "sbt-auto-build"             % "3.15.0")
 addSbtPlugin("uk.gov.hmrc"   % "sbt-play-cross-compilation" % "2.3.0")
 addSbtPlugin("com.eed3si9n"  % "sbt-buildinfo"              % "0.7.0")
 addSbtPlugin("org.scalameta" % "sbt-scalafmt"               % "2.4.0")

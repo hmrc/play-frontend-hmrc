@@ -19,7 +19,7 @@
 					<!--<![endif]-->
 					<!--[if IE 8]>
 							<img src="/assets/components/banner/images/hmrc_crest_18px_x2.png">
-					<![endif]--><span class="hmrc-internal-header__logo-text">									Cyllid a Thollau EM
+					<![endif]--><span class="hmrc-internal-header__logo-text">									Cyllid a Thollau EF
 </span>
 					</a>
 			</div></div>
