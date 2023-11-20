@@ -1,4 +1,4 @@
-  <nav class="hmrc-language-select" aria-label="Language switcher">
+  <nav class="hmrc-language-select govuk-!-display-none-print" aria-label="Language switcher">
     <ul class="hmrc-language-select__list">
       <li class="hmrc-language-select__list-item">
         <span aria-current="true">English</span>
