@@ -1,7 +1,5 @@
 package uk.gov.hmrc.hmrcfrontend.views.components
 
-import play.api.mvc.RequestHeader
-import play.api.test.FakeRequest
 import play.twirl.api.HtmlFormat
 import uk.gov.hmrc.helpers.MessagesSupport
 import uk.gov.hmrc.hmrcfrontend.views.HmrcFrontendDependency.hmrcFrontendVersion
@@ -24,8 +22,7 @@ object HmrcCharacterCountIntegrationSpec
 
   private val component = app.injector.instanceOf[HmrcCharacterCount]
 
-  override def render(characterCount: CharacterCount): Try[HtmlFormat.Appendable] = {
-    implicit val request: RequestHeader = FakeRequest("GET", "/foo")
+  override def render(characterCount: CharacterCount): Try[HtmlFormat.Appendable] =
     Try(component(characterCount))
-  }
+
 }

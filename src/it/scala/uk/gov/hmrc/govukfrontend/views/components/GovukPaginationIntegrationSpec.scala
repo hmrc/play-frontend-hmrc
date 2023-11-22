@@ -16,8 +16,6 @@
 
 package uk.gov.hmrc.govukfrontend.views.components
 
-import play.api.mvc.RequestHeader
-import play.api.test.FakeRequest
 import play.twirl.api.HtmlFormat
 import uk.gov.hmrc.govukfrontend.views.GovukFrontendDependency.govukFrontendVersion
 import uk.gov.hmrc.govukfrontend.views.html.components._
@@ -41,8 +39,6 @@ object GovukPaginationIntegrationSpec
 
   private val component = app.injector.instanceOf[GovukPagination]
 
-  override def render(pagination: Pagination): Try[HtmlFormat.Appendable] = {
-    implicit val request: RequestHeader = FakeRequest("GET", "/foo")
+  override def render(pagination: Pagination): Try[HtmlFormat.Appendable] =
     Try(component(pagination))
-  }
 }
