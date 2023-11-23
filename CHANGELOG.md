@@ -8,6 +8,20 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 For compatibility information see `govukFrontendVersion` and `hmrcFrontendVersion` in
 [LibDependencies](project/LibDependencies.scala)
 
+## [8.0.0] - 2023-11-22
+
+### Changed
+
+- Cross built for Play 2.9 as well as Play 2.8
+- The play version is included in the artefact name rather than the version.
+  ```scala
+  libraryDependencies += "uk.gov.hmrc" %% "play-frontend-hmrc" % "x.y.z-play-28"
+  ```
+  is replaced by
+  ```scala
+   libraryDependencies += "uk.gov.hmrc" %% "play-frontend-hmrc-play-28" % "x.y.z"
+  ```
+
 ## [7.30.0] - 2023-11-22
 
 ### Changed
@@ -158,8 +172,8 @@ For compatibility information see `govukFrontendVersion` and `hmrcFrontendVersio
 ### Changed
 
 - Updated version of `hmrc-frontend` to [v5.45.0](https://github.com/hmrc/hmrc-frontend/releases/tag/v5.45.0)
-- As part of above uplift, Webjar for `accessible-autocmplete` removed from `sbt` dependencies. If required, can be 
-  manually added to dependencies as `org.webjars.npm % accessible-autocomplete % xx.xx.xx`, where `xx.xx.xx` is the 
+- As part of above uplift, Webjar for `accessible-autocmplete` removed from `sbt` dependencies. If required, can be
+  manually added to dependencies as `org.webjars.npm % accessible-autocomplete % xx.xx.xx`, where `xx.xx.xx` is the
   [latest version](https://mvnrepository.com/artifact/org.webjars.npm/accessible-autocomplete)
 
 ### Compatible with
@@ -353,7 +367,7 @@ to ensure there are no unexpected layout changes as a result.
 
 ### Changed
 
-- Fixed a bug with the divider RadioItem being marked as checked when `withFormField(field)` is provided a field with a value set to None 
+- Fixed a bug with the divider RadioItem being marked as checked when `withFormField(field)` is provided a field with a value set to None
 
 ### Compatible with
 
@@ -419,7 +433,7 @@ have decided not to replicate in `play-frontend-hmrc`
 
 ### Changed
 
-- Updated the `HmrcCharacterCount` to use the underlying `GovukCharacterCount`, with translations passed in. 
+- Updated the `HmrcCharacterCount` to use the underlying `GovukCharacterCount`, with translations passed in.
 - As part of `HmrcCharacterCount` changes, classes on the `HmrcCharacterCount` have now changed from `hmrc-character-count`
 to `govuk-character-count`. Tests relying on classes applied to the character, such as UI tests, may need to be updated
 to reflect this.
@@ -446,7 +460,7 @@ to reflect this.
 
 ### Changed
 
-- Added `bodyAttributes` option parameter to the `GovukTemplate`. You can now set attributes in the `<body>` element of 
+- Added `bodyAttributes` option parameter to the `GovukTemplate`. You can now set attributes in the `<body>` element of
   page template
 
 ### Compatible with
@@ -459,7 +473,7 @@ to reflect this.
 
 ### Changed
 
-- Deprecated `HmrcLayout` template; added new `HmrcStandardPage` template to replace it. 
+- Deprecated `HmrcLayout` template; added new `HmrcStandardPage` template to replace it.
 
 ### Compatible with
 
@@ -471,7 +485,7 @@ to reflect this.
 
 ### Changed
 
-- Added new `GovukPagination` Twirl component with `Pagination` view from `govuk-frontend`. 
+- Added new `GovukPagination` Twirl component with `Pagination` view from `govuk-frontend`.
 
 ### Compatible with
 
@@ -497,7 +511,7 @@ to reflect this.
 
 - Added `values` parameter to [GovukCheckboxes](src/main/twirl/uk/gov/hmrc/govukfrontend/views/components/GovukCheckboxes.scala.html) component, as an alternative way of pre-checking checkbox items
 - Added `value` parameter to [GovukRadios](src/main/twirl/uk/gov/hmrc/govukfrontend/views/components/GovukRadios.scala.html) component, as an alternative way of pre-checking a radio item
-- Changed [GovukRadios](src/main/twirl/uk/gov/hmrc/govukfrontend/views/components/GovukRadios.scala.html) component to throw if more than one `RadioItem` is `checked` 
+- Changed [GovukRadios](src/main/twirl/uk/gov/hmrc/govukfrontend/views/components/GovukRadios.scala.html) component to throw if more than one `RadioItem` is `checked`
 - Added `value` parameter to [GovukSelect](src/main/twirl/uk/gov/hmrc/govukfrontend/views/components/GovukSelect.scala.html) component, as an alternative way of pre-selecting a select item
 - Updated `README` to include links on CSP configuration for Google Analytics 4
 - Updated maintainers document for upgrading, to include the process for identifying Govuk component updates
@@ -513,7 +527,7 @@ to reflect this.
 ### Changed
 
 - Updated version of `hmrc-frontend` to `5.19.0`
-- Updated `HmrcFooter` and `StandardPhaseBanner` to include the class `govuk-!-display-none-print` for improved 
+- Updated `HmrcFooter` and `StandardPhaseBanner` to include the class `govuk-!-display-none-print` for improved
   accessibility
 
 ### Compatible with
@@ -784,7 +798,7 @@ if the referrer is on the same domain
 ### Changed
 
 - Updated `hmrc-frontend` to v5.2.0
-- Updated the `HmrcCharacterCount.scala.html` to remove `aria-live` in live with `govuk-frontend` v4.1.0 and 
+- Updated the `HmrcCharacterCount.scala.html` to remove `aria-live` in live with `govuk-frontend` v4.1.0 and
   `hmrc-frontend` v5.2.0
 
 ### Compatible with
@@ -890,7 +904,7 @@ using values from `application.conf`
 
 ### Fixed
 
-- Corrected `CHANGELOG` which had got out of alignment with actual versions (`v3.10.0` was listed here as `v4.0.0`, 
+- Corrected `CHANGELOG` which had got out of alignment with actual versions (`v3.10.0` was listed here as `v4.0.0`,
   `v3.11.0` was listed here as `v4.1.0`)
 
 ### Compatible with
