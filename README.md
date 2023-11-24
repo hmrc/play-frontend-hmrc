@@ -989,7 +989,7 @@ requires that users are able to turn off, adjust or extend the time limit, givin
 a simple action.
 
 On MDTP, users are, by default, automatically timed out of any authenticated service after 15 minutes
-of inactivity. This mechanism, implemented in [SessionTimeoutFilter](https://github.com/hmrc/bootstrap-play/blob/main/bootstrap-frontend-play-28/scala/uk/gov/hmrc/play/bootstrap/frontend/filters/SessionTimeoutFilter.scala),
+of inactivity. This mechanism, implemented in [SessionTimeoutFilter](https://github.com/hmrc/bootstrap-play/blob/main/bootstrap-frontend-play-28/src/main/scala/uk/gov/hmrc/play/bootstrap/frontend/filters/SessionTimeoutFilter.scala),
 clears all non-allow-listed session keys after the timeout duration has elapsed. Services can override this default by adjusting the
 `session.timeout` configuration key in `conf/application.conf`.
 
