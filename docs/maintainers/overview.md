@@ -11,6 +11,11 @@
 
 ## Testing
 
+### Publish a SNAPSHOT version locally
+
+This can be useful for testing your changes in a service, and for demo'ing. We have a script in the 
+root of the repo that publishes locally all the play / scala versions we support `./publishLocal.sh`
+
 ### Unit Tests
 
 The unit tests work against three sets of fixtures specific to the govuk-frontend and hmrc-frontend 
