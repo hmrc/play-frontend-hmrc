@@ -465,13 +465,13 @@ The following implicit conversions exist for a `String`:
 ## Creating HMRC-style pages
 
 ### Using the HMRC standard page template
-The [`HmrcStandardPage`](src/main/twirl/uk/gov/hmrc/hmrcfrontend/views/helpers/HmrcStandardPage.scala.html) helper
+The [`HmrcStandardPage`](play-frontend-hmrc-play-30/src/main/twirl/uk/gov/hmrc/hmrcfrontend/views/helpers/HmrcStandardPage.scala.html) helper
 generates a standard HMRC page layout including the `HmrcStandardHeader`, `HmrcStandardFooter`, Welsh language toggle, and various banners.
-This helper takes [`HmrcStandardPageParams`](src/main/scala/uk/gov/hmrc/hmrcfrontend/views/viewmodels/hmrcstandardpage/HmrcStandardPageParams.scala)
+This helper takes [`HmrcStandardPageParams`](play-frontend-hmrc-play-30/src/main/scala/uk/gov/hmrc/hmrcfrontend/views/viewmodels/hmrcstandardpage/HmrcStandardPageParams.scala)
 which includes the following members:
-* [`ServiceURLs`](src/main/scala/uk/gov/hmrc/hmrcfrontend/views/viewmodels/hmrcstandardpage/ServiceURLs.scala) - containing service-specific URLs that will typically need setting once
-* [`Banners`](src/main/scala/uk/gov/hmrc/hmrcfrontend/views/viewmodels/hmrcstandardpage/Banners.scala) - containing details of which banners should be displayed
-* [`TemplateOverrides`](src/main/scala/uk/gov/hmrc/hmrcfrontend/views/viewmodels/hmrcstandardpage/TemplateOverrides.scala) - containing custom layout wrapper overrides or HTML to inject (perhaps set for the whole service, or on a page-by-page basis)
+* [`ServiceURLs`](play-frontend-hmrc-play-30/src/main/scala/uk/gov/hmrc/hmrcfrontend/views/viewmodels/hmrcstandardpage/ServiceURLs.scala) - containing service-specific URLs that will typically need setting once
+* [`Banners`](play-frontend-hmrc-play-30/src/main/scala/uk/gov/hmrc/hmrcfrontend/views/viewmodels/hmrcstandardpage/Banners.scala) - containing details of which banners should be displayed
+* [`TemplateOverrides`](play-frontend-hmrc-play-30/src/main/scala/uk/gov/hmrc/hmrcfrontend/views/viewmodels/hmrcstandardpage/TemplateOverrides.scala) - containing custom layout wrapper overrides or HTML to inject (perhaps set for the whole service, or on a page-by-page basis)
 
 To use this component,
 
@@ -706,8 +706,8 @@ You can then use the banner as per below (note the injected implicit `ContactFro
 ### Adding a User Research Banner
 
 The User Research Banner is a component used to display a blue banner, containing link text inviting the service user to
-take part in user research. The Twirl template is [HmrcUserResearchBanner.scala.html](src/main/twirl/uk/gov/hmrc/hmrcfrontend/views/components/HmrcUserResearchBanner.scala.html),
-and the viewmodel is [UserResearchBanner.scala](src/main/scala/uk/gov/hmrc/hmrcfrontend/views/viewmodels/userresearchbanner/UserResearchBanner.scala).
+take part in user research. The Twirl template is [HmrcUserResearchBanner.scala.html](play-frontend-hmrc-play-30/src/main/twirl/uk/gov/hmrc/hmrcfrontend/views/components/HmrcUserResearchBanner.scala.html),
+and the viewmodel is [UserResearchBanner.scala](play-frontend-hmrc-play-30/src/main/scala/uk/gov/hmrc/hmrcfrontend/views/viewmodels/userresearchbanner/UserResearchBanner.scala).
 
 The banner contains hard coded content, available in English and Welsh, with translation handled automatically via the
 Play `language` from an implicit `request`. It is not possible to change this content, as it has been provided by
@@ -728,7 +728,7 @@ Research Services will tell you what URL to use for your service.
 
 ### Linking to your accessibility statement
 
-[hmrcStandardFooter](src/main/twirl/uk/gov/hmrc/hmrcfrontend/views/helpers/HmrcStandardFooter.scala.html),
+[hmrcStandardFooter](play-frontend-hmrc-play-30/src/main/twirl/uk/gov/hmrc/hmrcfrontend/views/helpers/HmrcStandardFooter.scala.html),
 included as part of `hmrcStandardPage`, generates the standard GOV.UK footer including the standardised list of footer
 links for tax services.
 
@@ -751,7 +751,7 @@ within accessibility-statement-frontend, the default behaviour can be overridden
 
 ### Helping users report technical issues
 
-The [hmrcReportTechnicalIssueHelper](src/main/twirl/uk/gov/hmrc/hmrcfrontend/views/helpers/HmrcReportTechnicalIssueHelper.scala.html) component
+The [hmrcReportTechnicalIssueHelper](play-frontend-hmrc-play-30/src/main/twirl/uk/gov/hmrc/hmrcfrontend/views/helpers/HmrcReportTechnicalIssueHelper.scala.html) component
 generates a link that allows users to report technical issues with your service.
 
 To configure this helper, add the following configuration to your `application.conf`
@@ -781,7 +781,7 @@ in your layout template and passing into `hmrcStandardPage` or `govukLayout` in 
 
 If you intend to use Google Analytics or Optimizely to measure usage of your service, you will need to integrate with
 [tracking-consent-frontend](https://www.github.com/hmrc/tracking-consent-frontend). The
-[hmrcHead](src/main/twirl/uk/gov/hmrc/hmrcfrontend/views/helpers/HmrcHead.scala.html)
+[hmrcHead](play-frontend-hmrc-play-30/src/main/twirl/uk/gov/hmrc/hmrcfrontend/views/helpers/HmrcHead.scala.html)
 helper generates the necessary HTML SCRIPT tags that must be injected into the HEAD element for every page on your
 service provided it is configured correctly as below.
 
@@ -807,7 +807,7 @@ in the `tracking-consent-frontend` documentation for more information.
 
 #### Adding GTM to internal services
 
-If you would like to add GTM to an internal service, you can do so using the [HmrcInternalHead](src/main/twirl/uk/gov/hmrc/hmrcfrontend/views/helpers/HmrcInternalHead.scala.html)
+If you would like to add GTM to an internal service, you can do so using the [HmrcInternalHead](play-frontend-hmrc-play-30/src/main/twirl/uk/gov/hmrc/hmrcfrontend/views/helpers/HmrcInternalHead.scala.html)
 helper, which will add the GTM snippet in the `<head>` block. It should be used as demonstrated below in your own
 `Layout.scala`.
 
@@ -835,7 +835,7 @@ helper, which will add the GTM snippet in the `<head>` block. It should be used 
 ## Using common HMRC patterns
 ### Adding a dynamic character count to a text input
 
-[hmrcCharacterCount](src/main/twirl/uk/gov/hmrc/hmrcfrontend/views/components/HmrcCharacterCount.scala.html) is an
+[hmrcCharacterCount](play-frontend-hmrc-play-30/src/main/twirl/uk/gov/hmrc/hmrcfrontend/views/components/HmrcCharacterCount.scala.html) is an
 implementation of the GOV.UK CharacterCount that translates the dynamic words / characters remaining
 text into English or Welsh using the Play framework Message API. You do not need to pass through the
 language explicitly to this component, just pass through an implicit Messages.
@@ -989,11 +989,11 @@ requires that users are able to turn off, adjust or extend the time limit, givin
 a simple action.
 
 On MDTP, users are, by default, automatically timed out of any authenticated service after 15 minutes
-of inactivity. This mechanism, implemented in [SessionTimeoutFilter](https://github.com/hmrc/bootstrap-play/blob/main/bootstrap-frontend-play-28/src/main/scala/uk/gov/hmrc/play/bootstrap/frontend/filters/SessionTimeoutFilter.scala),
+of inactivity. This mechanism, implemented in [SessionTimeoutFilter](https://github.com/hmrc/bootstrap-play/blob/main/bootstrap-frontend-play-28/scala/uk/gov/hmrc/play/bootstrap/frontend/filters/SessionTimeoutFilter.scala),
 clears all non-allow-listed session keys after the timeout duration has elapsed. Services can override this default by adjusting the
 `session.timeout` configuration key in `conf/application.conf`.
 
-The [hmrcTimeoutDialogHelper](src/main/twirl/uk/gov/hmrc/hmrcfrontend/views/helpers/HmrcTimeoutDialogHelper.scala.html)
+The [hmrcTimeoutDialogHelper](play-frontend-hmrc-play-30/src/main/twirl/uk/gov/hmrc/hmrcfrontend/views/helpers/HmrcTimeoutDialogHelper.scala.html)
 component helps services meet this accessibility obligation by delivering an accessible timeout warning
 inside a modal dialog a configurable number of seconds before they are due to be timed out. The dialog warns the user with the message
 'For your security, we will sign you out in X minutes.' which is updated every minute until 60 seconds are remaining, at
@@ -1062,7 +1062,7 @@ The timeout dialog’s content can be customised using the following parameters:
 
 ### Opening links in a new tab
 
-The [HmrcNewTabLinkHelper](src/main/twirl/uk/gov/hmrc/hmrcfrontend/views/helpers/HmrcNewTabLinkHelper.scala.html) component
+The [HmrcNewTabLinkHelper](play-frontend-hmrc-play-30/src/main/twirl/uk/gov/hmrc/hmrcfrontend/views/helpers/HmrcNewTabLinkHelper.scala.html) component
 allows you to link to content that opens in a new tab, with protection against reverse tabnapping. It takes in an implicit
 `Messages` parameter to translate the content `(opens in new tab)`.
 
@@ -1125,7 +1125,7 @@ compilation pipeline, follow the [steps detailed here](docs/maintainers/sass-com
 
 ### Configuring non-HMRC projects to resolve play-frontend-hmrc artefacts
 
-HMRC services get this configuration via the [sbt-auto-build library](https://github.com/hmrc/sbt-auto-build/blob/1bb9f5437ed5c2027b4c967585a2dd9a9a6740d0/src/main/scala/uk/gov/hmrc/SbtAutoBuildPlugin.scala#L55), external consumers will need to add the repository below to their SBT config themselves:
+HMRC services get this configuration via the [sbt-auto-build library](https://github.com/hmrc/sbt-auto-build/blob/1bb9f5437ed5c2027b4c967585a2dd9a9a6740d0/scala/uk/gov/hmrc/SbtAutoBuildPlugin.scala#L55), external consumers will need to add the repository below to their SBT config themselves:
 
 ```scala
 resolvers += MavenRepository("HMRC-open-artefacts-maven2", "https://open.artefacts.tax.service.gov.uk/maven2")
