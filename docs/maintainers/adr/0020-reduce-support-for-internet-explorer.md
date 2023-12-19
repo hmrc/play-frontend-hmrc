@@ -1,7 +1,7 @@
-# Drop support for Internet Explorer
+# Reduce support for Internet Explorer
 
-* Status: proposed
-* Date: 2023-12-15
+* Status: accepted
+* Date: 2023-12-19
 
 Technical Story: PLATUI-2686
 
@@ -19,7 +19,7 @@ removing any IE-specific polyfills.
 * Direction taken by Government Digital Service
 * Industry trends to drop support for IE
 * Overhead of maintaining and testing IE-specific implementations
-* Minimal number of users still using IE (recent sample found the number was less than 0.6% of users)
+* Minimal number of users still using IE (recent sample found the number was less than 0.6% of users over a 2-week period)
 * Security risk to end-users of continuing to use a browser beyond its End-Of-Life date
 * Impact to service teams using our libraries
 
@@ -34,6 +34,8 @@ removing any IE-specific polyfills.
 Chosen option: "Provide minimal support for IE in our libraries" because, whilst we don't want to continue supporting
 outdated browsers that pose a security risk to the few end users that are still using them,
 we recognise that dropping all support may end up breaking many services, requiring a lot of service teams' effort to fix.
+If there are components like the timeout dialog that are required to work in all browsers,
+we'll work out a way to load these separately.
 
 ## Pros and Cons of the Options
 

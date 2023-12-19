@@ -21,7 +21,7 @@
 * [ADR-0017](0017-add-timeout-dialog-hide-sign-out-button.md) - Add timeout-dialog hideSignOutButton
 * [ADR-0018](0018-help-teams-implement-new-date-guidance.md) - Help teams implement new date guidance
 * [ADR-0019](0019-add-welsh-language-support-to-govuk-accessible-autocomplete.md) - Add Welsh language support to the GOVUK accessible autocomplete wrapper
-* [ADR-0020](0020-drop-support-for-internet-explorer.md) - Drop support for Internet Explorer
+* [ADR-0020](0020-reduce-support-for-internet-explorer.md) - Reduce support for Internet Explorer
 
 <!-- adrlogstop -->
 
