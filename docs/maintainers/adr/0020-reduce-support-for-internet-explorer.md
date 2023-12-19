@@ -8,19 +8,24 @@ Technical Story: PLATUI-2686
 ## Context and Problem Statement
 
 [govuk-frontend v5.0.0](https://github.com/alphagov/govuk-frontend/releases/tag/v5.0.0)
-drops support for Internet Explorer (IE) versions 8 through 10 by preventing loading of its Javascript (JS)
+reduces support for Internet Explorer (IE) versions 8 through 10 by preventing loading of its Javascript (JS)
 and removing various IE-specific polyfills.  IE11 is still supported via graceful degradation to a non-JS experience.
 
-We propose to follow the same approach in our frontend libraries, preventing loading of our own JS and
-removing any IE-specific polyfills.
+We propose to follow the same approach in both our
+[hmrc-frontend](https://github.com/hmrc/hmrc-frontend/)
+and
+[play-frontend-hmrc](https://github.com/hmrc/play-frontend-hmrc/)
+libraries, preventing loading of our own JS and removing any IE-specific polyfills.
 
 ## Decision Drivers
 
 * Direction taken by Government Digital Service
 * Industry trends to drop support for IE
 * Overhead of maintaining and testing IE-specific implementations
-* Minimal number of users still using IE (recent sample found the number was less than 0.6% of users over a 2-week period)
-* Security risk to end-users of continuing to use a browser beyond its End-Of-Life date
+* Minimal number of users still using IE. A recent sample found the number was less than 0.6% of users over a 2-week period,
+whereas the [GDS Service Manual](https://www.gov.uk/service-manual/technology/designing-for-different-browsers-and-devices)
+only mandates support for IE11 where at least 2% of a service's users are using it.
+* Security risk to end-users of continuing to use a browser beyond its [End-Of-Life in June 2022](https://learn.microsoft.com/en-us/lifecycle/products/internet-explorer-11)
 * Impact to service teams using our libraries
 
 ## Considered Options
