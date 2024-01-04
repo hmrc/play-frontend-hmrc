@@ -1,5 +1,5 @@
 <a lang="en" hreflang="en"
-  class="govuk-link hmrc-report-technical-issue govuk-!-display-none-print "
+  class="govuk-link hmrc-report-technical-issue "
   target="_blank"
   href="https://www.tax.service.gov.uk/contact/report-technical-problem?newTab=true&amp;service=my-production-service"
 >Is this page not working properly? (opens in new tab)</a>

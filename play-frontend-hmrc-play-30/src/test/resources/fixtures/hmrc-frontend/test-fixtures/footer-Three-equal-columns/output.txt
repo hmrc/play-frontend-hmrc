@@ -1,7 +1,7 @@
 <footer class="govuk-footer " role="contentinfo">
   <div class="govuk-width-container ">
       <div class="govuk-footer__navigation">
-          <div class="govuk-footer__section govuk-!-display-none-print govuk-grid-column-one-third">
+          <div class="govuk-footer__section govuk-grid-column-one-third">
             <h2 class="govuk-footer__heading govuk-heading-m">Single column list 1</h2>
               <ul class="govuk-footer__list govuk-footer__list--columns-1">
                     <li class="govuk-footer__list-item">
@@ -36,7 +36,7 @@
                     </li>
               </ul>
           </div>
-          <div class="govuk-footer__section govuk-!-display-none-print govuk-grid-column-one-third">
+          <div class="govuk-footer__section govuk-grid-column-one-third">
             <h2 class="govuk-footer__heading govuk-heading-m">Single column list 2</h2>
               <ul class="govuk-footer__list govuk-footer__list--columns-1">
                     <li class="govuk-footer__list-item">
@@ -71,7 +71,7 @@
                     </li>
               </ul>
           </div>
-          <div class="govuk-footer__section govuk-!-display-none-print govuk-grid-column-one-third">
+          <div class="govuk-footer__section govuk-grid-column-one-third">
             <h2 class="govuk-footer__heading govuk-heading-m">Single column list 3</h2>
               <ul class="govuk-footer__list govuk-footer__list--columns-1">
                     <li class="govuk-footer__list-item">

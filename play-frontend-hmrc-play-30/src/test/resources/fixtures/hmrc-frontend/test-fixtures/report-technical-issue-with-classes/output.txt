@@ -1,5 +1,5 @@
 <a lang="cy" hreflang="cy"
-  class="govuk-link hmrc-report-technical-issue govuk-!-display-none-print govuk-!-font-weight-bold my-custom-class"
+  class="govuk-link hmrc-report-technical-issue govuk-!-font-weight-bold my-custom-class"
   target="_blank"
   href="/contact/report-technical-problem?newTab=true&amp;service=the-url-safe-service-id"
 >A yw’r dudalen hon yn gweithio’n iawn? (yn agor tab newydd)</a>
