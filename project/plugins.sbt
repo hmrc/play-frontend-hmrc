@@ -9,7 +9,7 @@ sys.env.get("PLAY_VERSION") match {
   case _           => libraryDependencySchemes := libraryDependencySchemes.value // or any empty DslEntry
 }
 
-addSbtPlugin("uk.gov.hmrc"   % "sbt-auto-build" % "3.17.0")
+addSbtPlugin("uk.gov.hmrc"   % "sbt-auto-build" % "3.18.0")
 addSbtPlugin("org.scalameta" % "sbt-scalafmt"   % "2.4.0")
 
 sys.env.get("PLAY_VERSION") match {

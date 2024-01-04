@@ -136,7 +136,7 @@ lazy val itPlay28              = (project in file("it-play-28"))
   .enablePlugins(PlayScala) // AssetsSpec requires that this library is a fully fledged Play service
   .disablePlugins(PlayLayoutPlugin)
   .settings(copySources(itPlay30))
-  .settings(DefaultBuildSettings.itSettings)
+  .settings(DefaultBuildSettings.itSettings())
   .settings(
     Test / unmanagedResourceDirectories ++= Seq(baseDirectory(_ / "target/web/public/test").value)
   )
@@ -146,7 +146,7 @@ lazy val itPlay29              = (project in file("it-play-29"))
   .enablePlugins(PlayScala) // AssetsSpec requires that this library is a fully fledged Play service
   .disablePlugins(PlayLayoutPlugin)
   .settings(copySources(itPlay30))
-  .settings(DefaultBuildSettings.itSettings)
+  .settings(DefaultBuildSettings.itSettings())
   .settings(
     Test / unmanagedResourceDirectories ++= Seq(baseDirectory(_ / "target/web/public/test").value)
   )
@@ -155,7 +155,7 @@ lazy val itPlay29              = (project in file("it-play-29"))
 lazy val itPlay30              = (project in file("it-play-30"))
   .enablePlugins(PlayScala) // AssetsSpec requires that this library is a fully fledged Play service
   .disablePlugins(PlayLayoutPlugin)
-  .settings(DefaultBuildSettings.itSettings)
+  .settings(DefaultBuildSettings.itSettings())
   .settings(
     Test / unmanagedResourceDirectories ++= Seq(baseDirectory(_ / "target/web/public/test").value)
   )
