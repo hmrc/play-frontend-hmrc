@@ -26,7 +26,7 @@
       @iconHtml.trim.indent(2, indentFirstLine = true)</a>
   } else {
     @if(elem == "button") {
-      <button @value.mapNonEmpty {value => value="@value"}@inputType.mapNonEmpty {inputType => type="@inputType"}@buttonAttributes @commonAttributes(classNames)>
+      <button @value.mapNonEmpty {value => value="@value"} type="@inputTypeAttr.trim"@buttonAttributes @commonAttributes(classNames)>
         @content.asHtml
         @iconHtml.trim.indent(2, indentFirstLine = true)</button>
     } else {
@@ -42,10 +42,10 @@
 @commonAttributes(classNames: String) = {class="@classNames" data-module="govuk-button"@toAttributes(attributes)@id.map { value => id="@value"}}
 
 @buttonAttributes = {
-  @name.mapNonEmpty {name => name="@name"}@if(disabled) { disabled="disabled" aria-disabled="true"}@preventDoubleClick.map {value => data-prevent-double-click="@value"}
+  @name.mapNonEmpty {name => name="@name"}@if(disabled) { disabled aria-disabled="true"}@preventDoubleClick.map {value => data-prevent-double-click="@value"}
 }
 
-@classNames = @{ toClasses("govuk-button", classes, "govuk-button--disabled".when(disabled)) }
+@classNames = @{ toClasses("govuk-button", classes) }
 
 @iconHtmlSnippet(classNames: String) = @{
   if(isStartButton) {
