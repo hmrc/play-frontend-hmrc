@@ -1,4 +1,4 @@
 {
-  "for" : "#dummy-input",
+  "for" : "test-target-element",
   "text" : "National Insurance number"
 }

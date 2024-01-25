@@ -6,7 +6,7 @@
   <div id="example-fieldset-params-hint" class="govuk-hint">
     This includes changing your last name or spelling your name differently.
   </div>
-  <div class="govuk-radios"    data-module="govuk-radios">
+  <div class="govuk-radios" data-module="govuk-radios">
         <div class="govuk-radios__item">
           <input class="govuk-radios__input" id="example-fieldset-params" name="example-fieldset-params" type="radio" value="yes">
           <label class="govuk-label govuk-radios__label" for="example-fieldset-params">

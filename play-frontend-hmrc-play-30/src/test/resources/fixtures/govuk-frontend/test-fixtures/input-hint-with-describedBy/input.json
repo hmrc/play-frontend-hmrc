@@ -4,7 +4,7 @@
   "label" : {
     "text" : "With hint describedBy"
   },
-  "describedBy" : "some-id",
+  "describedBy" : "test-target-element",
   "hint" : {
     "text" : "It’s on your National Insurance card, benefit letter, payslip or P60. For example, ‘QQ 12 34 56 C’."
   }

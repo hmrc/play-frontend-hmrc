@@ -1,5 +1,7 @@
 <div class="govuk-form-group">
-  
+  <label class="govuk-label" for="select-with-hint">
+    Label text goes here
+  </label>
   <div id="select-with-hint-hint" class="govuk-hint">
     Hint text goes here
   </div>

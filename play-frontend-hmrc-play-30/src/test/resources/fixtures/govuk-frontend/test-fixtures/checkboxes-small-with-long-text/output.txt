@@ -3,7 +3,7 @@
   <legend class="govuk-fieldset__legend">
     Filter by
   </legend>
-  <div class="govuk-checkboxes govuk-checkboxes--small"    data-module="govuk-checkboxes">
+  <div class="govuk-checkboxes govuk-checkboxes--small" data-module="govuk-checkboxes">
           <div class="govuk-checkboxes__item">
             <input class="govuk-checkboxes__input" id="nationality" name="nationality" type="checkbox" value="nullam">
             <label class="govuk-label govuk-checkboxes__label" for="nationality">

@@ -5,7 +5,7 @@
       How do you want to sign in?
     </h1>
   </legend>
-  <div class="govuk-checkboxes"    data-module="govuk-checkboxes">
+  <div class="govuk-checkboxes" data-module="govuk-checkboxes">
           <div class="govuk-checkboxes__item">
             <input class="govuk-checkboxes__input" id="government-gateway" name="gateway" type="checkbox" value="gov-gateway" aria-describedby="government-gateway-item-hint">
             <label class="govuk-label govuk-checkboxes__label" for="government-gateway">

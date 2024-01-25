@@ -1,0 +1,44 @@
+{
+  "items" : [ {
+    "title" : {
+      "text" : "Company Directors"
+    },
+    "href" : "#",
+    "status" : {
+      "text" : "Completed"
+    }
+  }, {
+    "title" : {
+      "text" : "Registered company details"
+    },
+    "href" : "#",
+    "status" : {
+      "tag" : {
+        "text" : "Not started",
+        "classes" : "govuk-tag--light-blue"
+      }
+    }
+  }, {
+    "title" : {
+      "text" : "Business plan"
+    },
+    "href" : "#",
+    "status" : {
+      "tag" : {
+        "text" : "In progress",
+        "classes" : "govuk-tag--blue"
+      }
+    }
+  }, {
+    "title" : {
+      "text" : "Documentation"
+    },
+    "href" : "#",
+    "status" : {
+      "tag" : {
+        "text" : "Not started",
+        "classes" : "govuk-tag--light-blue"
+      }
+    }
+  } ]
+}

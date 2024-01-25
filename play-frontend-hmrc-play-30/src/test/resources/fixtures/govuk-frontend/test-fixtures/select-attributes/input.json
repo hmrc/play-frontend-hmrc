@@ -1,6 +1,9 @@
 {
   "id" : "with-attributes",
   "name" : "with-attributes",
+  "label" : {
+    "text" : "Label text goes here"
+  },
   "items" : [ {
     "value" : 1,
     "text" : "GOV.UK frontend option 1"

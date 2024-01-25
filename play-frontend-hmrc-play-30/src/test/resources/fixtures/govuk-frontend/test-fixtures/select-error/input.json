@@ -1,6 +1,9 @@
 {
   "id" : "select-with-error",
   "name" : "select-with-error",
+  "label" : {
+    "text" : "Label text goes here"
+  },
   "errorMessage" : {
     "text" : "Error message"
   },

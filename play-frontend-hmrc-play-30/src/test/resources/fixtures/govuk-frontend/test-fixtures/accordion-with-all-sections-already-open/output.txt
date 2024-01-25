@@ -1,4 +1,3 @@
-
 <div class="govuk-accordion" data-module="govuk-accordion" id="all-sections-open-example">
       <div class="govuk-accordion__section govuk-accordion__section--expanded">
         <div class="govuk-accordion__section-header">

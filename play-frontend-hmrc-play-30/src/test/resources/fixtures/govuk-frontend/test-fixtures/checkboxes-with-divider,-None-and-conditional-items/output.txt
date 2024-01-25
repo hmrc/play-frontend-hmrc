@@ -5,7 +5,7 @@
       Do you have any access needs?
     </h1>
   </legend>
-  <div class="govuk-checkboxes"    data-module="govuk-checkboxes">
+  <div class="govuk-checkboxes" data-module="govuk-checkboxes">
           <div class="govuk-checkboxes__item">
             <input class="govuk-checkboxes__input" id="with-divider-and-none-and-conditional-items" name="with-divider-and-none-and-conditional-items" type="checkbox" value="accessible-toilets">
             <label class="govuk-label govuk-checkboxes__label" for="with-divider-and-none-and-conditional-items">

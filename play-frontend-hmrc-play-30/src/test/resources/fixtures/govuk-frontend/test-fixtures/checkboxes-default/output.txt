@@ -1,5 +1,5 @@
 <div class="govuk-form-group">
-  <div class="govuk-checkboxes"    data-module="govuk-checkboxes">
+  <div class="govuk-checkboxes" data-module="govuk-checkboxes">
           <div class="govuk-checkboxes__item">
             <input class="govuk-checkboxes__input" id="nationality" name="nationality" type="checkbox" value="british">
             <label class="govuk-label govuk-checkboxes__label" for="nationality">

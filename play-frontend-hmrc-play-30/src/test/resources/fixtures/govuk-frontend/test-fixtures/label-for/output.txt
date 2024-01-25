@@ -1,5 +1,4 @@
-
-<label class="govuk-label" for="#dummy-input">
+<label class="govuk-label" for="test-target-element">
   National Insurance number
 </label>
 

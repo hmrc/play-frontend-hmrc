@@ -1,5 +1,5 @@
 <table class="govuk-table">
-  <caption class="govuk-table__caption govuk-heading-m">Caption 1: Months and rates</caption>
+  <caption class="govuk-table__caption govuk-table__caption--m">Caption 1: Months and rates</caption>
   <thead class="govuk-table__head">
     <tr class="govuk-table__row">
       <th scope="col" class="govuk-table__header">Month you apply</th>

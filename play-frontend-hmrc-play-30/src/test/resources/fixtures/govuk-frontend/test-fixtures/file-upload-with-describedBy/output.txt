@@ -2,5 +2,5 @@
   <label class="govuk-label" for="file-upload-describedby">
     Upload a file
   </label>
-  <input class="govuk-file-upload" id="file-upload-describedby" name="file-upload-describedby" type="file" aria-describedby="some-id">
+  <input class="govuk-file-upload" id="file-upload-describedby" name="file-upload-describedby" type="file" aria-describedby="test-target-element">
 </div>

@@ -5,5 +5,5 @@
   <p id="file-upload-error-describedby-error" class="govuk-error-message">
   <span class="govuk-visually-hidden">Error:</span> Error message
   </p>
-  <input class="govuk-file-upload govuk-file-upload--error" id="file-upload-error-describedby" name="file-upload-error-describedby" type="file" aria-describedby="some-id file-upload-error-describedby-error">
+  <input class="govuk-file-upload govuk-file-upload--error" id="file-upload-error-describedby" name="file-upload-error-describedby" type="file" aria-describedby="test-target-element file-upload-error-describedby-error">
 </div>

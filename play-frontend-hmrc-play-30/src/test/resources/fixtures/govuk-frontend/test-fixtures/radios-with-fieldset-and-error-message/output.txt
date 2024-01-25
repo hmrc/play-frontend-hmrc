@@ -6,7 +6,7 @@
   <p id="example-error" class="govuk-error-message">
   <span class="govuk-visually-hidden">Error:</span> Please select an option
   </p>
-  <div class="govuk-radios"    data-module="govuk-radios">
+  <div class="govuk-radios" data-module="govuk-radios">
         <div class="govuk-radios__item">
           <input class="govuk-radios__input" id="example" name="example" type="radio" value="yes">
           <label class="govuk-label govuk-radios__label" for="example">

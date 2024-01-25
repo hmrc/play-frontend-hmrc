@@ -1,0 +1,17 @@
+{
+  "idPrefix" : "my-custom-id",
+  "items" : [ {
+    "title" : {
+      "text" : "A Link"
+    },
+    "hint" : {
+      "text" : "Hint text"
+    },
+    "href" : "#",
+    "status" : {
+      "tag" : {
+        "text" : "Status"
+      }
+    }
+  } ]
+}

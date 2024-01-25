@@ -1,7 +1,10 @@
 {
   "id" : "select-with-error",
   "name" : "select-with-error",
-  "describedBy" : "some-id",
+  "label" : {
+    "text" : "Label text goes here"
+  },
+  "describedBy" : "test-target-element",
   "errorMessage" : {
     "text" : "Error message"
   },

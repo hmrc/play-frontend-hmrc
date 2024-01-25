@@ -8,8 +8,7 @@
             Firstname Lastname
           </dd>
             <dd class="govuk-summary-list__actions">
-                <a class="govuk-link govuk-link--no-visited-state" href="#">
-                Edit</a>
+                <a class="govuk-link govuk-link--no-visited-state" href="#">Edit</a>
             </dd>
         </div>
   </dl>

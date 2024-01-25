@@ -3,7 +3,7 @@
   <legend class="govuk-fieldset__legend">
     How do you want to be contacted?
   </legend>
-  <div class="govuk-radios"    data-module="govuk-radios">
+  <div class="govuk-radios" data-module="govuk-radios">
         <div class="govuk-radios__item">
           <input class="govuk-radios__input" id="how-contacted-checked" name="how-contacted-checked" type="radio" value="email" data-aria-controls="conditional-how-contacted-checked">
           <label class="govuk-label govuk-radios__label" for="how-contacted-checked">

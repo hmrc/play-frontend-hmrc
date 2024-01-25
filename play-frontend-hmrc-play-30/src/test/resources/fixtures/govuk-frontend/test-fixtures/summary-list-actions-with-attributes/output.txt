@@ -8,8 +8,7 @@
             Firstname Lastname
           </dd>
             <dd class="govuk-summary-list__actions">
-                <a class="govuk-link" href="#" data-test-attribute="value" data-test-attribute-2="value-2">
-                Edit</a>
+                <a class="govuk-link" href="#" data-test-attribute="value" data-test-attribute-2="value-2">Edit</a>
             </dd>
         </div>
   </dl>

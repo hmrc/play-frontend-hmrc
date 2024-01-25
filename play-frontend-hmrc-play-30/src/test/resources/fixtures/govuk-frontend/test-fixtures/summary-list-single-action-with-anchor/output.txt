@@ -8,8 +8,7 @@
             Firstname Lastname
           </dd>
             <dd class="govuk-summary-list__actions">
-                <a class="govuk-link" href="#">
-                First action</a>
+                <a class="govuk-link" href="#">First action</a>
             </dd>
         </div>
   </dl>

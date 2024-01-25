@@ -1,0 +1,14 @@
+{
+  "name" : "colors",
+  "id" : "colors",
+  "label" : {
+    "text" : "Label text goes here"
+  },
+  "items" : [ {
+    "text" : "Red"
+  }, {
+    "text" : "Green"
+  }, {
+    "text" : "Blue"
+  } ]
+}

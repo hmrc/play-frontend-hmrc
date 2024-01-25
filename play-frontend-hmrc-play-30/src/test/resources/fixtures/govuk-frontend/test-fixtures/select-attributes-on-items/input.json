@@ -1,6 +1,9 @@
 {
   "id" : "with-item-attributes",
   "name" : "with-item-attributes",
+  "label" : {
+    "text" : "Label text goes here"
+  },
   "value" : 2,
   "items" : [ {
     "text" : "Option 1",

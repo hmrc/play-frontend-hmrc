@@ -14,6 +14,7 @@
     "text" : "Irish"
   }, {
     "value" : "other",
+    "text" : "Citizen of another country",
     "hint" : {
       "text" : "Hint for other option here"
     }

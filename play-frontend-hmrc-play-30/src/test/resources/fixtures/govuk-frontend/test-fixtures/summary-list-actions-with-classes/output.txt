@@ -8,8 +8,7 @@
             Firstname Lastname
           </dd>
             <dd class="govuk-summary-list__actions app-custom-class">
-                <a class="govuk-link" href="/edit">
-                Edit</a>
+                <a class="govuk-link" href="/edit">Edit</a>
             </dd>
         </div>
   </dl>

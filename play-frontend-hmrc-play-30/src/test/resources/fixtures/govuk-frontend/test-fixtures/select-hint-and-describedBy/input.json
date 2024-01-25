@@ -1,7 +1,10 @@
 {
   "id" : "select-with-hint",
   "name" : "select-with-hint",
-  "describedBy" : "some-id",
+  "label" : {
+    "text" : "Label text goes here"
+  },
+  "describedBy" : "test-target-element",
   "hint" : {
     "text" : "Hint text goes here"
   },

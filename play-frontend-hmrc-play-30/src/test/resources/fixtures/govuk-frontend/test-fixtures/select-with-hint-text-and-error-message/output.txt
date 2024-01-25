@@ -9,8 +9,11 @@
   <span class="govuk-visually-hidden">Error:</span> Error message goes here
   </p>
   <select class="govuk-select govuk-select--error" id="select-2" name="select-2" aria-describedby="select-2-hint select-2-error">
+      
       <option value="1">GOV.UK frontend option 1</option>
+      
       <option value="2">GOV.UK frontend option 2</option>
+      
       <option value="3">GOV.UK frontend option 3</option>
   </select>
 </div>

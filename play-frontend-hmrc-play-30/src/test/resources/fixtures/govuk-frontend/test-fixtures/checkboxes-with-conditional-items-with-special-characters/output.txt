@@ -3,7 +3,7 @@
   <legend class="govuk-fieldset__legend">
     How do you want to be contacted?
   </legend>
-  <div class="govuk-checkboxes"    data-module="govuk-checkboxes">
+  <div class="govuk-checkboxes" data-module="govuk-checkboxes">
           <div class="govuk-checkboxes__item">
             <input class="govuk-checkboxes__input" id="user.profile[contact-prefs]" name="contact-prefs" type="checkbox" value="email" data-aria-controls="conditional-user.profile[contact-prefs]">
             <label class="govuk-label govuk-checkboxes__label" for="user.profile[contact-prefs]">
