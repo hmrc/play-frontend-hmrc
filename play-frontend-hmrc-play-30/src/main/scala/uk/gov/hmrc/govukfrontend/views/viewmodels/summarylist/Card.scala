@@ -19,11 +19,9 @@ package uk.gov.hmrc.govukfrontend.views.viewmodels.summarylist
 import play.api.libs.functional.syntax._
 import play.api.libs.json.{Json, OWrites, Reads, __}
 import uk.gov.hmrc.govukfrontend.views.viewmodels.CommonJsonFormats.attributesReads
-import uk.gov.hmrc.govukfrontend.views.viewmodels.content.{Content, Empty}
 
 case class Card(
   title: Option[CardTitle] = None,
-  content: Content = Empty,
   actions: Option[Actions] = None,
   classes: String = "",
   attributes: Map[String, String] = Map.empty
@@ -35,7 +33,6 @@ object Card {
 
   implicit def jsonReads: Reads[Card] = (
     (__ \ "title").readNullable[CardTitle] and
-      Content.reads and
       (__ \ "actions").readNullable[Actions] and
       (__ \ "classes").readWithDefault[String](defaultObject.classes) and
       (__ \ "attributes").readWithDefault[Map[String, String]](defaultObject.attributes)(attributesReads)

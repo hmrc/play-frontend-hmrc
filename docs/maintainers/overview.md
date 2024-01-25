@@ -65,7 +65,7 @@ npm start
 
 Once the service is started on port 3000, you can run the integration tests:
 ```sbt
-sbt it:test
+sbt it/test
 ```
 
 _Note: The integration tests output produces a bit of noise as the library outputs statistics about the generators to check
@@ -114,7 +114,7 @@ At time of writing, only Play 2.8 is supported, but this may change as newer ver
 To test against all supported Scala/Play versions, run the following for each supported version of Play (supported Scala versions are tested implicitly via [PlayCrossCompilation](project/PlayCrossCompilation.scala)):
 
 ```bash
-PLAY_VERSION=2.8 sbt clean +test +it:test
+PLAY_VERSION=2.8 sbt clean +test +it/test
 ```
 
 ## Upgrading

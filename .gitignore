@@ -28,3 +28,4 @@ yarn-error.log
 .bloop/
 project/metals.sbt
 project/project/
+x-govuk-component-renderer/
