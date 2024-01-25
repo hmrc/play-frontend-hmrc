@@ -39,14 +39,14 @@ class GovukWarningTextSpec extends TemplateUnitBaseSpec[WarningText]("govukWarni
       "display welsh translation of Warning" in {
         val content = component(WarningText())(welshMessages)
 
-        val assistiveDescription = content.select(".govuk-warning-text__assistive")
+        val assistiveDescription = content.select(".govuk-visually-hidden")
         assistiveDescription.text() shouldBe "Rhybudd"
       }
 
       "still allow you to override the assistive description test for the icon" in {
         val content = component(WarningText(iconFallbackText = Some("asdfghjkl")))(welshMessages)
 
-        val assistiveDescription = content.select(".govuk-warning-text__assistive")
+        val assistiveDescription = content.select(".govuk-visually-hidden")
         assistiveDescription.text() shouldBe "asdfghjkl"
       }
 
