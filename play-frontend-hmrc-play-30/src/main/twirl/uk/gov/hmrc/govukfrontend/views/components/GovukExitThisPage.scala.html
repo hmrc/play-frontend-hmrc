@@ -16,7 +16,9 @@
 
 @import uk.gov.hmrc.govukfrontend.views.html.components.GovukButton
 @import uk.gov.hmrc.govukfrontend.views.viewmodels.button.Button
-@import uk.gov.hmrc.govukfrontend.views.viewmodels.content.Text
+@import uk.gov.hmrc.govukfrontend.views.viewmodels.content.HtmlContent
+@import uk.gov.hmrc.govukfrontend.views.viewmodels.exitthispage.ExitThisPage
+@import uk.gov.hmrc.hmrcfrontend.views.Utils._
 
 
 @this(govukButton: GovukButton)
@@ -24,6 +26,9 @@
 @(params: ExitThisPage)(implicit messages: Messages)
 @import params._
 
+@defaultContent = {
+    <span class="govuk-visually-hidden">@messages("govuk.exitThisPage.visuallyHiddenFallbackText")</span>@messages("govuk.exitThisPage.contentFallbackText")
+}
 <div@id.map{txt => id="@txt" } class="@toClasses("govuk-exit-this-page", classes)" data-module="govuk-exit-this-page"@toAttributes(attributes)
 @activatedText.map { txt => data-i18n.activated="@txt"}
 @timedOutText.map { txt => data-i18n.timed-out="@txt"}
@@ -31,7 +36,8 @@
 @pressOneMoreTimeText.map { txt => data-i18n.press-one-more-time="@txt"}
 >
 @govukButton(Button(
-   content = if(content.nonEmpty) content else Text(messages("govuk.exitThisPage.contentFallbackText")),
+   content = if(content.nonEmpty) content else HtmlContent(defaultContent),
+   attributes = Map("rel" -> "nofollow noreferrer"),
    classes = "govuk-button--warning govuk-exit-this-page__button govuk-js-exit-this-page-button",
    href = redirectUrl.orElse(Some(messages("govuk.exitThisPage.redirectUrlFallback")))
 ))</div>
