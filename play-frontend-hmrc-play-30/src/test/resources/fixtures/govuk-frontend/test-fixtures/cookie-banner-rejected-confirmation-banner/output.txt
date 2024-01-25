@@ -1,5 +1,4 @@
-<div class="govuk-cookie-banner " data-nosnippet role="region" aria-label="Cookie banner">
-    <div class="govuk-cookie-banner__message govuk-width-container" role="alert">
+<div class="govuk-cookie-banner" data-nosnippet role="region" aria-label="Cookie banner">    <div class="govuk-cookie-banner__message govuk-width-container" role="alert">
 
     <div class="govuk-grid-row">
       <div class="govuk-grid-column-two-thirds">

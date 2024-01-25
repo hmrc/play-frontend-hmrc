@@ -1,1 +1,5 @@
+<<<<<<< HEAD
 4.8.0
+=======
+5.0.0
+>>>>>>> a7fafbc5 (PLATUI-2706 WIP - bumped govuk/hmrc-frontend versions and regenerated test fixtures)

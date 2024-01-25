@@ -1,0 +1,13 @@
+<div class="govuk-form-group">
+  <label class="govuk-label" for="colors">
+    Label text goes here
+  </label>
+  <select class="govuk-select" id="colors" name="colors">
+      
+      <option>Red</option>
+      
+      <option>Green</option>
+      
+      <option>Blue</option>
+  </select>
+</div>

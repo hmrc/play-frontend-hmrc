@@ -1,5 +1,5 @@
 <div class="govuk-form-group">
-  <div class="govuk-checkboxes"    data-module="govuk-checkboxes">
+  <div class="govuk-checkboxes" data-module="govuk-checkboxes">
           <div class="govuk-checkboxes__item">
             <input class="govuk-checkboxes__input" id="nationality" name="nationality" type="checkbox" value="british" checked>
             <label class="govuk-label govuk-checkboxes__label" for="nationality">
@@ -23,7 +23,7 @@
   <label class="govuk-label" for="other-country">
     Country
   </label>
-<input class="govuk-input" id="other-country" name="other-country" type="text" value="Ravka">
+  <input class="govuk-input" id="other-country" name="other-country" type="text" value="Ravka">
 </div>
 
             </div>

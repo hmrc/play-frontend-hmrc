@@ -8,8 +8,7 @@
             Firstname Lastname
           </dd>
             <dd class="govuk-summary-list__actions">
-                <a class="govuk-link" href="https://www.gov.uk">
-                Go to GOV.UK</a>
+                <a class="govuk-link" href="https://www.gov.uk">Go to GOV.UK</a>
             </dd>
         </div>
   </dl>

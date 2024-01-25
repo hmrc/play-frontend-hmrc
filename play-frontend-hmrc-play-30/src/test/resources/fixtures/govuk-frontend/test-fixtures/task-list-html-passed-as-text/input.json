@@ -1,0 +1,24 @@
+{
+  "idPrefix" : "my-custom-id",
+  "items" : [ {
+    "title" : {
+      "text" : "<strong>Linked Title</strong>"
+    },
+    "hint" : {
+      "text" : "<strong>Hint</strong>"
+    },
+    "href" : "#",
+    "status" : {
+      "text" : "<strong>Status</strong>"
+    }
+  }, {
+    "title" : {
+      "text" : "<strong>Unlinked Title</strong>"
+    },
+    "status" : {
+      "tag" : {
+        "text" : "<strong>Tag</strong>"
+      }
+    }
+  } ]
+}

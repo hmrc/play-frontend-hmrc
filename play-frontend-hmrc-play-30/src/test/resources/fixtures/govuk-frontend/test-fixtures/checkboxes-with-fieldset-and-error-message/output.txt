@@ -6,7 +6,7 @@
   <p id="nationality-error" class="govuk-error-message">
   <span class="govuk-visually-hidden">Error:</span> Please accept the terms and conditions
   </p>
-  <div class="govuk-checkboxes"    data-module="govuk-checkboxes">
+  <div class="govuk-checkboxes" data-module="govuk-checkboxes">
           <div class="govuk-checkboxes__item">
             <input class="govuk-checkboxes__input" id="nationality" name="nationality" type="checkbox" value="british">
             <label class="govuk-label govuk-checkboxes__label" for="nationality">

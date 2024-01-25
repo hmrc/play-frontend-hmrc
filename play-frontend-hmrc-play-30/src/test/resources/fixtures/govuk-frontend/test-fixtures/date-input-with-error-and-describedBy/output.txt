@@ -1,7 +1,5 @@
-
-
 <div class="govuk-form-group govuk-form-group--error">
-<fieldset class="govuk-fieldset" role="group" aria-describedby="some-id dob-errors-error">
+<fieldset class="govuk-fieldset" role="group" aria-describedby="test-target-element dob-errors-error">
   <legend class="govuk-fieldset__legend">
     What is your date of birth?
   </legend>

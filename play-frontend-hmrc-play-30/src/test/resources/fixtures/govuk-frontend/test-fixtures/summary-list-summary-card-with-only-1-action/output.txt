@@ -1,7 +1,6 @@
 
 <div class="govuk-summary-card">
-    <div class="govuk-summary-card__title-wrapper"><h2 class="govuk-summary-card__title">Undergraduate teaching assistant</h2><div class="govuk-summary-card__actions">  <a class="govuk-link" href="#">
-    My lonely action</a>
+    <div class="govuk-summary-card__title-wrapper"><h2 class="govuk-summary-card__title">Undergraduate teaching assistant</h2><div class="govuk-summary-card__actions">  <a class="govuk-link" href="#">My lonely action<span class="govuk-visually-hidden"> (Undergraduate teaching assistant)</span></a>
 </div></div>
 
     <div class="govuk-summary-card__content">  <dl class="govuk-summary-list">

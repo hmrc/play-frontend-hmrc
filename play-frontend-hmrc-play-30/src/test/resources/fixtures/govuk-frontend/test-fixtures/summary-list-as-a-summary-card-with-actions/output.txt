@@ -1,9 +1,7 @@
 
 <div class="govuk-summary-card">
-    <div class="govuk-summary-card__title-wrapper"><h2 class="govuk-summary-card__title">Undergraduate teaching assistant</h2><ul class="govuk-summary-card__actions"><li class="govuk-summary-card__action">  <a class="govuk-link" href="#">
-    Delete job history</a>
-</li><li class="govuk-summary-card__action">  <a class="govuk-link" href="#">
-    Withdraw job history</a>
+    <div class="govuk-summary-card__title-wrapper"><h2 class="govuk-summary-card__title">Undergraduate teaching assistant</h2><ul class="govuk-summary-card__actions"><li class="govuk-summary-card__action">  <a class="govuk-link" href="#">Delete job history<span class="govuk-visually-hidden"> (Undergraduate teaching assistant)</span></a>
+</li><li class="govuk-summary-card__action">  <a class="govuk-link" href="#">Withdraw job history<span class="govuk-visually-hidden"> (Undergraduate teaching assistant)</span></a>
 </li></ul>
 </div>
 

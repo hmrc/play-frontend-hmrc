@@ -32,7 +32,7 @@
   <div id="add-another-hint" class="govuk-hint">
     You must tell us about all your directors
   </div>
-  <div class="govuk-radios govuk-radios--inline"    data-module="govuk-radios">
+  <div class="govuk-radios govuk-radios--inline" data-module="govuk-radios">
         <div class="govuk-radios__item">
           <input class="govuk-radios__input" id="add-another" name="add-another" type="radio" value="Yes">
           <label class="govuk-label govuk-radios__label" for="add-another">
@@ -50,7 +50,7 @@
 </fieldset>
 </div>
 
-  <button class="govuk-button" data-module="govuk-button">
+  <button type="submit" class="govuk-button" data-module="govuk-button">
   Continue
 </button>
 </form>

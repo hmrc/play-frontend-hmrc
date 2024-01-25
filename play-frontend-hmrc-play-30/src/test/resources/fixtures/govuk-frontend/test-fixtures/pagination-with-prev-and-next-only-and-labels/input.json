@@ -1,12 +1,12 @@
 {
   "previous" : {
     "text" : "Previous page",
-    "labelText" : "1 of 3",
+    "labelText" : "Paying VAT and duty",
     "href" : "/previous"
   },
   "next" : {
     "text" : "Next page",
-    "labelText" : "3 of 3",
+    "labelText" : "Registering an imported vehicle",
     "href" : "/next"
   }
 }

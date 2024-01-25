@@ -3,7 +3,7 @@
   <legend class="govuk-fieldset__legend">
     What is your <b>nationality</b>?
   </legend>
-  <div class="govuk-checkboxes"    data-module="govuk-checkboxes">
+  <div class="govuk-checkboxes" data-module="govuk-checkboxes">
           <div class="govuk-checkboxes__item">
             <input class="govuk-checkboxes__input" id="example-name" name="example-name" type="checkbox" value="british">
             <label class="govuk-label govuk-checkboxes__label" for="example-name">

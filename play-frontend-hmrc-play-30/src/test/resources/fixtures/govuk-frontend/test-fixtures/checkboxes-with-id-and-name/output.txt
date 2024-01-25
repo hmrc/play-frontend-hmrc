@@ -6,7 +6,7 @@
   <div id="with-id-and-name-hint" class="govuk-hint">
     If you have dual nationality, select all options that are relevant to you.
   </div>
-  <div class="govuk-checkboxes"    data-module="govuk-checkboxes">
+  <div class="govuk-checkboxes" data-module="govuk-checkboxes">
           <div class="govuk-checkboxes__item">
             <input class="govuk-checkboxes__input" id="item_british" name="british" type="checkbox" value="yes">
             <label class="govuk-label govuk-checkboxes__label" for="item_british">

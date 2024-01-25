@@ -1,7 +1,7 @@
 {
   "id" : "dob-errors",
   "fieldset" : {
-    "describedBy" : "some-id",
+    "describedBy" : "test-target-element",
     "legend" : {
       "text" : "What is your date of birth?"
     }

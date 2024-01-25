@@ -11,5 +11,5 @@
     "value" : 2,
     "text" : "GOV.UK frontend option 2"
   } ],
-  "describedBy" : "some-id"
+  "describedBy" : "test-target-element"
 }

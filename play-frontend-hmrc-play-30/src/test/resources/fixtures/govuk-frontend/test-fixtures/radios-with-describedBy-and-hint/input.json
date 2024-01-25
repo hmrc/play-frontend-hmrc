@@ -1,7 +1,7 @@
 {
   "name" : "example-hint-describedby",
   "fieldset" : {
-    "describedBy" : "some-id",
+    "describedBy" : "test-target-element",
     "legend" : {
       "text" : "Have you changed your name?"
     }

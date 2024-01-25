@@ -1,9 +1,9 @@
-<footer class="govuk-footer " role="contentinfo">
-  <div class="govuk-width-container ">
+<footer class="govuk-footer" role="contentinfo">
+  <div class="govuk-width-container">
       <div class="govuk-footer__navigation">
           <div class="govuk-footer__section govuk-grid-column-two-thirds">
             <h2 class="govuk-footer__heading govuk-heading-m">Coronavirus (COVID-19)</h2>
-              <ul class="govuk-footer__list ">
+              <ul class="govuk-footer__list">
                     <li class="govuk-footer__list-item">
                       <a class="govuk-footer__link" href="/coronavirus">
                         Coronavirus (COVID-19): guidance and support
@@ -13,7 +13,7 @@
           </div>
           <div class="govuk-footer__section govuk-grid-column-one-third">
             <h2 class="govuk-footer__heading govuk-heading-m">Brexit</h2>
-              <ul class="govuk-footer__list ">
+              <ul class="govuk-footer__list">
                     <li class="govuk-footer__list-item">
                       <a class="govuk-footer__link" href="/brexit">
                         Check what you need to do
@@ -108,7 +108,7 @@
           </div>
           <div class="govuk-footer__section govuk-grid-column-one-third">
             <h2 class="govuk-footer__heading govuk-heading-m">Departments and policy</h2>
-              <ul class="govuk-footer__list ">
+              <ul class="govuk-footer__list">
                     <li class="govuk-footer__list-item">
                       <a class="govuk-footer__link" href="/government/how-government-works">
                         How government works

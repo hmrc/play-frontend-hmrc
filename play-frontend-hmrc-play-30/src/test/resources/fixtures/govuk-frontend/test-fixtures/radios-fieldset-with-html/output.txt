@@ -3,7 +3,7 @@
   <legend class="govuk-fieldset__legend">
     Have <b>you</b> changed your name?
   </legend>
-  <div class="govuk-radios"    data-module="govuk-radios">
+  <div class="govuk-radios" data-module="govuk-radios">
         <div class="govuk-radios__item">
           <input class="govuk-radios__input" id="with-fieldset-html" name="with-fieldset-html" type="radio" value="yes">
           <label class="govuk-label govuk-radios__label" for="with-fieldset-html">

@@ -8,5 +8,5 @@
   <p id="with-error-hint-describedby-error" class="govuk-error-message">
   <span class="govuk-visually-hidden">Error:</span> Error message
   </p>
-<input class="govuk-input govuk-input--error" id="with-error-hint-describedby" name="with-error-hint-describedby" type="text" aria-describedby="some-id with-error-hint-describedby-hint with-error-hint-describedby-error">
+<input class="govuk-input govuk-input--error" id="with-error-hint-describedby" name="with-error-hint-describedby" type="text" aria-describedby="test-target-element with-error-hint-describedby-hint with-error-hint-describedby-error">
 </div>

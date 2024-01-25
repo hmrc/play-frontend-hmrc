@@ -1,4 +1,4 @@
-<fieldset class="govuk-fieldset" aria-describedby="some-id">
+<fieldset class="govuk-fieldset" aria-describedby="test-target-element">
   <legend class="govuk-fieldset__legend">
     Which option?
   </legend>

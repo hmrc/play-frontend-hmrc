@@ -4,5 +4,5 @@
   "label" : {
     "text" : "With describedBy"
   },
-  "describedBy" : "some-id"
+  "describedBy" : "test-target-element"
 }

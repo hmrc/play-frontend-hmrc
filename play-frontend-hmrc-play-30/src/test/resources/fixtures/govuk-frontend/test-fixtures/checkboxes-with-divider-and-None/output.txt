@@ -5,7 +5,7 @@
       Which types of waste do you transport regularly?
     </h1>
   </legend>
-  <div class="govuk-checkboxes"    data-module="govuk-checkboxes">
+  <div class="govuk-checkboxes" data-module="govuk-checkboxes">
           <div class="govuk-checkboxes__item">
             <input class="govuk-checkboxes__input" id="with-divider-and-none" name="with-divider-and-none" type="checkbox" value="animal">
             <label class="govuk-label govuk-checkboxes__label" for="with-divider-and-none">
