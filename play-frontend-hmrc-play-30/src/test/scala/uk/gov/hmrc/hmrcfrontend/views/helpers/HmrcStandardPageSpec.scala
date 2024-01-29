@@ -44,7 +44,7 @@ import uk.gov.hmrc.hmrcfrontend.views.viewmodels.hmrcstandardpage._
 
 import scala.annotation.tailrec
 
-class hmrcStandardPageSpec
+class HmrcStandardPageSpec
     extends AnyWordSpecLike
     with Matchers
     with JsoupHelpers
@@ -449,7 +449,7 @@ class hmrcStandardPageSpec
 
       val exitThisPageButton = document.select(".govuk-exit-this-page__button")
       exitThisPageButton                should have size 1
-      exitThisPageButton.text()       shouldBe "Exit this page"
+      exitThisPageButton.text()       shouldBe "EmergencyExit this page"
       exitThisPageButton.attr("href") shouldBe "https://www.bbc.co.uk/weather"
     }
 
@@ -461,7 +461,7 @@ class hmrcStandardPageSpec
 
       val exitThisPageButton = document.select(".govuk-exit-this-page__button")
       exitThisPageButton                should have size 1
-      exitThisPageButton.text()       shouldBe "Gadael y dudalen hon"
+      exitThisPageButton.text()       shouldBe "EmergencyGadael y dudalen hon"
       exitThisPageButton.attr("href") shouldBe "https://www.bbc.co.uk/weather"
     }
 
