@@ -19,8 +19,8 @@
 @(params: CookieBanner)
 @import params._
 
-<div class="@toClasses("govuk-cookie-banner ", classes)" data-nosnippet role="region" aria-label="@ariaLabel.getOrElse("Cookie banner")"@if(hidden){ hidden}@toAttributes(attributes)>@for(message <- messages) {
-    <div class="@toClasses("govuk-cookie-banner__message govuk-width-container", message.classes)"@message.role.mapNonEmpty {role => role="@role"} @toAttributes(message.attributes) @if(message.hidden){ hidden}>
+<div class="@toClasses("govuk-cookie-banner", classes)" data-nosnippet role="region" aria-label="@ariaLabel.getOrElse("Cookie banner")"@if(hidden){ hidden}@toAttributes(attributes)>@for(message <- messages) {
+    <div class="@toClasses("govuk-cookie-banner__message", message.classes, "govuk-width-container")"@message.role.mapNonEmpty {role => role="@role"} @toAttributes(message.attributes) @if(message.hidden){ hidden}>
       <div class="govuk-grid-row">
         <div class="govuk-grid-column-two-thirds">
           @if(message.heading.nonEmpty) {
