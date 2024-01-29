@@ -32,4 +32,6 @@ govuk.pagination.page=Tudalen
 govuk.warningText.iconFallbackText=Rhybudd
 govuk.exitThisPage.contentFallbackText=Gadael y dudalen hon
 govuk.exitThisPage.redirectUrlFallback=https://www.bbc.co.uk/weather
+# TODO - Welsh translation
+govuk.exitThisPage.visuallyHiddenFallbackText=Emergency
 govuk.tabs.titleFallbackText=Cynnwys
