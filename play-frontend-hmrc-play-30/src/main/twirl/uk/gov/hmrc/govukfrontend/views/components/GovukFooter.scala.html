@@ -18,15 +18,15 @@
 
 @(params: Footer = Footer())
 @import params._
-<footer class="govuk-footer @classes" role="contentinfo"@toAttributes(attributes)>
-  <div class="govuk-width-container @containerClasses">
+<footer class="@toClasses("govuk-footer", classes)" role="contentinfo"@toAttributes(attributes)>
+  <div class="@toClasses("govuk-width-container", containerClasses)">
       @if(navigation.nonEmpty){
         <div class="govuk-footer__navigation">
           @for(nav <- navigation) {
             <div class="govuk-footer__section govuk-grid-column-@{nav.width.getOrElse("full")}">
               <h2 class="govuk-footer__heading govuk-heading-m">@nav.title</h2>
                 @if(nav.items.nonEmpty) {
-                  <ul class="govuk-footer__list @if(nav.columns.exists(_ > 0)) { govuk-footer__list--columns-@nav.columns}">
+                  <ul class="govuk-footer__list@if(nav.columns.exists(_ > 0)) { govuk-footer__list--columns-@nav.columns}">
                   @for(item <- nav.items) {
                     @(item.href, item.text) match {
                       case (Some(NonEmptyString(itemHref)), Some(NonEmptyString(itemText))) => {
