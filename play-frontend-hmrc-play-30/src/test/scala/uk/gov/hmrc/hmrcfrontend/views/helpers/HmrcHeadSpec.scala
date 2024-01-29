@@ -30,7 +30,7 @@ import uk.gov.hmrc.helpers.MessagesSupport
 import uk.gov.hmrc.helpers.views.JsoupHelpers
 import uk.gov.hmrc.hmrcfrontend.views.html.helpers.HmrcHead
 
-class hmrcHeadSpec
+class HmrcHeadSpec
     extends AnyWordSpecLike
     with Matchers
     with GuiceOneAppPerSuite
@@ -69,15 +69,13 @@ class hmrcHeadSpec
       scripts.first.attr("nonce") should be("a-nonce")
     }
 
-    "include a nonce in the IE9+ link tag if supplied" in {
+    "include a nonce in the link tag if supplied" in {
       val hmrcHead = app.injector.instanceOf[HmrcHead]
       hmrcfrontend.RoutesPrefix.setPrefix("/some-service/hmrc-frontend")
       val content  = contentAsString(hmrcHead()(requestWithNonce, implicitly))
 
       content should include regex
-        """<!--\[if gt IE 8\]><!-->
-          |<link href="/some-service/hmrc-frontend/assets/hmrc-frontend-\d+.\d+.\d+.min.css" nonce="a-nonce" media="all" rel="stylesheet" type="text/css" />
-          |<!--<!\[endif\]-->""".stripMargin.r
+        """<link href="/some-service/hmrc-frontend/assets/hmrc-frontend-\d+.\d+.\d+.min.css" nonce="a-nonce" media="all" rel="stylesheet" type="text/css" />""".r
     }
 
     "include the hmrc-frontend minified css bundle" in {
@@ -86,21 +84,7 @@ class hmrcHeadSpec
       val content  = contentAsString(hmrcHead())
 
       content should include regex
-        """<!--\[if gt IE 8\]><!-->
-          |<link href="/some-service/hmrc-frontend/assets/hmrc-frontend-\d+.\d+.\d+.min.css" +media="all" rel="stylesheet" type="text/css" />
-          |<!--<!\[endif\]-->""".stripMargin.r
-    }
-
-    "include the hmrc-frontend minified ie8 css bundle and minified html5shiv bundle" in {
-      val hmrcHead = app.injector.instanceOf[HmrcHead]
-      hmrcfrontend.RoutesPrefix.setPrefix("/some-service/hmrc-frontend")
-      val content  = contentAsString(hmrcHead())
-
-      content should include regex
-        """<!--\[if lte IE 8\]>
-          |<script src="/some-service/hmrc-frontend/assets/vendor/html5shiv.min.js"></script>
-          |<link href="/some-service/hmrc-frontend/assets/hmrc-frontend-ie8-\d+.\d+.\d+.min.css" media="all" rel="stylesheet" type="text/css" />
-          |<!\[endif\]-->""".stripMargin.r
+        """<link href="/some-service/hmrc-frontend/assets/hmrc-frontend-\d+.\d+.\d+.min.css" +media="all" rel="stylesheet" type="text/css" />""".r
     }
 
     "include the supplied headBlock" in {
