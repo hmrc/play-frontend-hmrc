@@ -77,7 +77,7 @@ class GovukPaginationSpec
         title.text() shouldBe "Blaenorol tudalen"
       }
 
-      "display welsh translation of Next" in {
+      "display welsh translation of Next page" in {
         val pagination = Pagination(
           next = Some(
             PaginationLink(
@@ -88,8 +88,8 @@ class GovukPaginationSpec
 
         val content = component(pagination)(welshMessages)
 
-        val title = content.select(".govuk-pagination__next span")
-        title.text() shouldBe "Nesaf"
+        val title = content.select(".govuk-pagination__next span").first()
+        title.text() shouldBe "Nesaf tudalen"
       }
 
       "display welsh translation of aria-label" in {

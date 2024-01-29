@@ -37,7 +37,7 @@ role="navigation" aria-label="@{landmarkLabel.getOrElse(messages("govuk.paginati
           <span class="@toClasses("govuk-pagination__link-title", {if(blockLevel && prev.labelText.isEmpty) "govuk-pagination__link-title--decorated" else ""})">@{prev.text.getOrElse(messages("govuk.pagination.previous"))} @{prev.text match {
             case Some(txt) => {}
             case None => <span class="govuk-visually-hidden"> {messages("govuk.pagination.page").toLowerCase}</span>
-          }}<span>
+          }}</span>
           @if(blockLevel) {
             @prev.labelText.map { labelText =>
               <span class="govuk-visually-hidden">:</span>
@@ -74,9 +74,10 @@ role="navigation" aria-label="@{landmarkLabel.getOrElse(messages("govuk.paginati
               <path d="m8.107-0.0078125-1.4136 1.414 4.2926 4.293h-12.986v2h12.896l-4.1855 3.9766 1.377 1.4492 6.7441-6.4062-6.7246-6.7266z"></path>
             </svg>
           }
-          <span class="@toClasses("govuk-pagination__link-title", {if(blockLevel && nxt.labelText.isEmpty) "govuk-pagination__link-title--decorated" else ""})">
-            @{nxt.text.getOrElse(messages("govuk.pagination.next"))}
-          </span>
+          <span class="@toClasses("govuk-pagination__link-title", {if(blockLevel && nxt.labelText.isEmpty) "govuk-pagination__link-title--decorated" else ""})">@{nxt.text.getOrElse(messages("govuk.pagination.next"))} @{nxt.text match {
+            case Some(txt) => {}
+            case None => <span class="govuk-visually-hidden"> {messages("govuk.pagination.page").toLowerCase}</span>
+          }}</span>
           @if(blockLevel) {
             @nxt.labelText.map { labelText =>
               <span class="govuk-visually-hidden">:</span>
