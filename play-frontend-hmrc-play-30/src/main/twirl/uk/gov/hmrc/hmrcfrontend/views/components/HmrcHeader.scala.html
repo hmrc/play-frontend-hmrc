@@ -32,7 +32,6 @@
       <div class="@toClasses("govuk-header__container ", containerClasses)">
         <div class="govuk-header__logo">
           <a href="@homepageUrl" class="govuk-header__link govuk-header__link--homepage">
-        <span class="govuk-header__logotype">
           @**************************************************************************
           * We use an inline SVG for the crown so that we can cascade the           *
           * currentColor into the crown whilst continuing to support older browsers *
@@ -76,10 +75,6 @@
                 ></path>
             </svg>
         }
-        <span class="govuk-header__logotype-text">
-            GOV.UK
-        </span>
-        </span>
             @productName match {
             case Some(NonEmptyString(x)) => {
             <span class="govuk-header__product-name">
