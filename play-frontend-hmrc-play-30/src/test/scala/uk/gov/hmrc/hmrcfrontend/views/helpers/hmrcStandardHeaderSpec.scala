@@ -32,7 +32,7 @@ import uk.gov.hmrc.hmrcfrontend.views.viewmodels.userresearchbanner.UserResearch
 
 import scala.collection.immutable.List
 
-class hmrcStandardHeaderSpec extends AnyWordSpecLike with Matchers with JsoupHelpers {
+class HmrcStandardHeaderSpec extends AnyWordSpecLike with Matchers with JsoupHelpers {
 
   implicit val fakeRequest = FakeRequest("GET", "/foo")
 
@@ -169,33 +169,6 @@ class hmrcStandardHeaderSpec extends AnyWordSpecLike with Matchers with JsoupHel
 
       homepageLinks                    should have size 1
       homepageLinks.first.attr("href") should be("/foo")
-    }
-
-    "not render the fallback image in modern browser" in {
-      // simulate including the hmrc routes in a frontend microservice via
-      // ->         /hmrc-frontend           hmrcfrontend.Routes
-      hmrcfrontend.RoutesPrefix.setPrefix("/some-service/hmrc-frontend")
-      val hmrcStandardHeader = buildApp().injector.instanceOf[HmrcStandardHeader]
-
-      val messages       = getMessages()
-      val content        = contentAsString(hmrcStandardHeader()(messages, fakeRequest))
-      val document       = Jsoup.parse(content)
-      val fallbackImages = document.select(".govuk-header__logotype-crown-fallback-image")
-
-      fallbackImages should have size 0
-    }
-
-    "include the fallback image wrapped for IE8" in {
-      // simulate including the hmrc routes in a frontend microservice via
-      // ->         /hmrc-frontend           hmrcfrontend.Routes
-      hmrcfrontend.RoutesPrefix.setPrefix("/some-service/hmrc-frontend")
-      val hmrcStandardHeader = buildApp().injector.instanceOf[HmrcStandardHeader]
-
-      val messages = getMessages()
-      val content  = contentAsString(hmrcStandardHeader()(messages, fakeRequest))
-      content should include(
-        """<img src="/some-service/hmrc-frontend/assets/govuk/images/govuk-logotype-crown.png" class="govuk-header__logotype-crown-fallback-image" width="36" height="32" alt="">"""
-      )
     }
 
     "render the hmrc banner" in {
