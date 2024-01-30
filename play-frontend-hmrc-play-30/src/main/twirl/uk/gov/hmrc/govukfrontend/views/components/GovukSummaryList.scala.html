@@ -14,8 +14,8 @@
  * limitations under the License.
  *@
 
-@import uk.gov.hmrc.govukfrontend.views.viewmodels.summarylist.Card
 @import uk.gov.hmrc.govukfrontend.views.viewmodels.summarylist._
+@import uk.gov.hmrc.govukfrontend.views.viewmodels.content.Content
 
 @this()
 
@@ -87,10 +87,10 @@
   }
 }
 
-@actionLink(action: ActionItem, cardTitle: Option[Content]) = {<a class="@toClasses("govuk-link", action.classes)" href="@action.href"@toAttributes(action.attributes)>
-  @action.content.asHtml
-  @if(action.visuallyHiddenText.nonEmpty || cardTitle.exists(_.nonEmpty)){
-    <span class="govuk-visually-hidden">@action.visuallyHiddenText.getOrElse("") @cardTitle.map(ct => s"(${ct.asHtml})" )</span>
-}</a>}
+@actionLink(action: ActionItem, cardTitle: Option[Content]) = {
+    <a class="@toClasses("govuk-link", action.classes)" href="@action.href"@toAttributes(action.attributes)>@action.content.asHtml.trim@visuallyHiddenText(action, cardTitle)</a>}
+
+@visuallyHiddenText(action: ActionItem, cardTitle: Option[Content]) = {@if(action.visuallyHiddenText.exists(_.nonEmpty) || cardTitle.exists(_.nonEmpty)) {<span class="govuk-visually-hidden">
+    @{action.visuallyHiddenText.map(_.trim)}@{cardTitle.map(ct => if(ct.nonEmpty) s" (${ct.asHtml})" else {})}</span>}}
 
 @anyRowHasActions = @{rows.exists(_.actions.fold(false)(_.items.nonEmpty))}
