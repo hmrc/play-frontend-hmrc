@@ -73,12 +73,9 @@
             @row.actions.map {actions => @actionLink(actions.items.head, card.flatMap(_.title).map(_.content))}
           } else {
             <ul class="govuk-summary-list__actions-list">@row.actions.map {actions =>@for(action <- actions.items) {<li class="govuk-summary-list__actions-list-item">@actionLink(action, card.flatMap(_.title).map(_.content))</li>}}</ul>
-          }
-        </dd>
-      }
-    </div>
-  }
-  </dl>
+          }</dd>
+      }</div>
+  }</dl>
 }
 
 @card match {
@@ -90,15 +87,10 @@
   }
 }
 
-@actionLink(action: ActionItem, cardTitle: Option[Content]) = {<a class="@toClasses("govuk-link", action.classes)" href="@action.href"@toAttributes(action.attributes)>
-  @actionContent(action)
-  @{if(action.visuallyHiddenText.isDefined || cardTitle.exists(_.nonEmpty)) {
-    <span class="govuk-visually-hidden">
-      {action.visuallyHiddenText.getOrElse("")}
-      {cardTitle.map(ct => if(ct.nonEmpty) ({ct.asHtml}) else {})}
-    </span>
-  }}
-</a>}
+@actionLink(action: ActionItem, cardTitle: Option[Content]) = {<a class="@toClasses("govuk-link", action.classes)" href="@action.href"@toAttributes(action.attributes)>@actionContent(action)
+  @if(action.visuallyHiddenText.nonEmpty || cardTitle.exists(_.nonEmpty)){
+    <span class="govuk-visually-hidden">@action.visuallyHiddenText.getOrElse("") @cardTitle.map(ct => s"(${ct.asHtml})" )</span>
+}</a>}
 
 @actionContent(action: ActionItem) = {@action.content.asHtml@action.visuallyHiddenText.mapNonEmpty { visuallyHiddenText =><span class="govuk-visually-hidden"> @visuallyHiddenText</span> }}
 

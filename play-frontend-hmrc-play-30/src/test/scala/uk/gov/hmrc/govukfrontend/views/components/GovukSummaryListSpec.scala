@@ -33,7 +33,12 @@ class GovukSummaryListSpec
         "summary-list-summary-card-with-only-1-action",
         "summary-list-translated",
         "summary-list-with-some-actions",
-        "summary-list-with-actions"
+        "summary-list-with-actions",
+        "summary-list-actions-with-html",
+        "summary-list-with-no-first-action",
+        "summary-list-single-action-with-anchor",
+        "summary-list-actions-with-attributes",
+        "summary-list-as-a-summary-card-with-actions-plus-summary-list-actions"
       )
     )
     with JsoupHelpers {
