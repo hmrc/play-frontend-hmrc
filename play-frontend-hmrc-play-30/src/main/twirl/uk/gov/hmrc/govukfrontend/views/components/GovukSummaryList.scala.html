@@ -87,11 +87,10 @@
   }
 }
 
-@actionLink(action: ActionItem, cardTitle: Option[Content]) = {<a class="@toClasses("govuk-link", action.classes)" href="@action.href"@toAttributes(action.attributes)>@actionContent(action)
+@actionLink(action: ActionItem, cardTitle: Option[Content]) = {<a class="@toClasses("govuk-link", action.classes)" href="@action.href"@toAttributes(action.attributes)>
+  @action.content.asHtml
   @if(action.visuallyHiddenText.nonEmpty || cardTitle.exists(_.nonEmpty)){
     <span class="govuk-visually-hidden">@action.visuallyHiddenText.getOrElse("") @cardTitle.map(ct => s"(${ct.asHtml})" )</span>
 }</a>}
-
-@actionContent(action: ActionItem) = {@action.content.asHtml@action.visuallyHiddenText.mapNonEmpty { visuallyHiddenText =><span class="govuk-visually-hidden"> @visuallyHiddenText</span> }}
 
 @anyRowHasActions = @{rows.exists(_.actions.fold(false)(_.items.nonEmpty))}
