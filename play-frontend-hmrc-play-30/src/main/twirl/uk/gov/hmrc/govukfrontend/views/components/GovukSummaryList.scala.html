@@ -15,6 +15,7 @@
  *@
 
 @import uk.gov.hmrc.govukfrontend.views.viewmodels.summarylist.Card
+@import uk.gov.hmrc.govukfrontend.views.viewmodels.summarylist._
 
 @this()
 
@@ -35,13 +36,13 @@
               @if(cardAction.items.nonEmpty) {
                 @if(cardAction.items.length == 1) {
                   <div class="@toClasses("govuk-summary-card__actions", cardAction.classes)">
-                  @actionLink(cardAction.items.head)
+                  @actionLink(cardAction.items.head, card.title.map(_.content))
                   </div>
                 } else {
                   <ul class="@toClasses("govuk-summary-card__actions", cardAction.classes)">
                   @cardAction.items.map { item =>
                     <li class="govuk-summary-card__action">
-                      @actionLink(item)
+                      @actionLink(item, card.title.map(_.content))
                     </li>
                   }
                   </ul>
@@ -69,9 +70,9 @@
       @if(row.actions.exists(_.items.length > 0)) {
         <dd class="@toClasses("govuk-summary-list__actions", row.actions.map(_.classes).getOrElse(""))">
           @if(row.actions.exists(_.items.length == 1)) {
-            @row.actions.map {actions => @actionLink(actions.items.head)}
+            @row.actions.map {actions => @actionLink(actions.items.head, card.flatMap(_.title).map(_.content))}
           } else {
-            <ul class="govuk-summary-list__actions-list">@row.actions.map {actions =>@for(action <- actions.items) {<li class="govuk-summary-list__actions-list-item">@actionLink(action)</li>}}</ul>
+            <ul class="govuk-summary-list__actions-list">@row.actions.map {actions =>@for(action <- actions.items) {<li class="govuk-summary-list__actions-list-item">@actionLink(action, card.flatMap(_.title).map(_.content))</li>}}</ul>
           }
         </dd>
       }
@@ -89,8 +90,15 @@
   }
 }
 
-@actionLink(action: ActionItem) = {<a class="@toClasses("govuk-link", action.classes)" href="@action.href"@toAttributes(action.attributes)>
-  @actionContent(action)</a>}
+@actionLink(action: ActionItem, cardTitle: Option[Content]) = {<a class="@toClasses("govuk-link", action.classes)" href="@action.href"@toAttributes(action.attributes)>
+  @actionContent(action)
+  @{if(action.visuallyHiddenText.isDefined || cardTitle.exists(_.nonEmpty)) {
+    <span class="govuk-visually-hidden">
+      {action.visuallyHiddenText.getOrElse("")}
+      {cardTitle.map(ct => if(ct.nonEmpty) ({ct.asHtml}) else {})}
+    </span>
+  }}
+</a>}
 
 @actionContent(action: ActionItem) = {@action.content.asHtml@action.visuallyHiddenText.mapNonEmpty { visuallyHiddenText =><span class="govuk-visually-hidden"> @visuallyHiddenText</span> }}
 
