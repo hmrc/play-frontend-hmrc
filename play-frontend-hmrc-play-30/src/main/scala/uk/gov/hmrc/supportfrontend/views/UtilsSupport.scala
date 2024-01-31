@@ -53,6 +53,13 @@ trait UtilsSupport {
       if (s != null && s.nonEmpty) Some(s) else None
   }
 
+  def nonEmptyStringOrDefault(optValue: Option[String], default: String): String = {
+    optValue match {
+      case Some(NonEmptyString(value)) => value
+      case _ => default
+    }
+  }
+
   def urlEncode(s: String): String =
     URLEncoder.encode(s, "UTF-8").replace("+", "%20")
 
