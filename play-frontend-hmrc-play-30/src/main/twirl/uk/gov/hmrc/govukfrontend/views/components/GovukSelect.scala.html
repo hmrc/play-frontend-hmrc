@@ -73,7 +73,7 @@
     id="@id" name="@name"@if(disabled.getOrElse(false)) { disabled} @describedBy.toOption.map { describedBy => aria-describedby="@describedBy"}@toAttributes(attributes)
   } { attrs =>
       <select class="@toClasses("govuk-select", classes, errorMessage.fold("")(_ => "govuk-select--error"))" @attrs>
-        @for(item <- items.filter(_.text.nonEmpty)) {
+        @for(item <- items) {
           @defining((value.nonEmpty && item.value == value) || item.selected) { isSelected =>
             @* Allow selecting by text content (the value for an option when no value attribute is specified) *@
             @defining(item.value.getOrElse(item.text)) { effectiveValue =>
