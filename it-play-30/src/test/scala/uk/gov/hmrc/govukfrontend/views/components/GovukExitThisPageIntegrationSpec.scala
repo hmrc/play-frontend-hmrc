@@ -39,6 +39,6 @@ object GovukExitThisPageIntegrationSpec
 
   private val component = app.injector.instanceOf[GovukExitThisPage]
 
-  override def render(notificationBanner: ExitThisPage): Try[HtmlFormat.Appendable] =
-    Try(component(notificationBanner))
+  override def render(exitThisPage: ExitThisPage): Try[HtmlFormat.Appendable] =
+    Try(component(exitThisPage))
 }
