@@ -88,9 +88,9 @@
 }
 
 @actionLink(action: ActionItem, cardTitle: Option[Content]) = {
-    <a class="@toClasses("govuk-link", action.classes)" href="@action.href"@toAttributes(action.attributes)>@action.content.asHtml.trim@visuallyHiddenText(action, cardTitle)</a>}
+    <a class="@toClasses("govuk-link", action.classes)" href="@action.href"@toAttributes(action.attributes)>@action.content.asHtml@visuallyHiddenText(action, cardTitle)</a>}
 
 @visuallyHiddenText(action: ActionItem, cardTitle: Option[Content]) = {@if(action.visuallyHiddenText.exists(_.nonEmpty) || cardTitle.exists(_.nonEmpty)) {<span class="govuk-visually-hidden">
-    @{action.visuallyHiddenText.map(_.trim)}@{cardTitle.map(ct => if(ct.nonEmpty) s" (${ct.asHtml})" else {})}</span>}}
+    @{action.visuallyHiddenText}@{cardTitle.filter(_.nonEmpty).map(ct => s" (${ct.asHtml})")}</span>}}
 
 @anyRowHasActions = @{rows.exists(_.actions.fold(false)(_.items.nonEmpty))}
