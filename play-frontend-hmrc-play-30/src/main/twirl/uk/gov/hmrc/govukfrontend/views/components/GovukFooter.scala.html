@@ -14,6 +14,8 @@
  * limitations under the License.
  *@
 
+@import uk.gov.hmrc.hmrcfrontend.views.Utils.nonEmptyStringOrDefault
+
 @this()
 
 @(params: Footer = Footer())
@@ -49,7 +51,7 @@
     <div class="govuk-footer__meta">
       <div class="govuk-footer__meta-item govuk-footer__meta-item--grow">
         @meta.map { meta =>
-          <h2 class="govuk-visually-hidden">@HtmlFormat.escape(meta.visuallyHiddenTitle.getOrElse("Support links"))</h2>
+          <h2 class="govuk-visually-hidden">@HtmlFormat.escape(nonEmptyStringOrDefault(meta.visuallyHiddenTitle, "Support links"))</h2>
           @meta.items.map { metaItems =>
           @if(metaItems.nonEmpty) {
             <ul class="govuk-footer__inline-list">
