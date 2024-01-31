@@ -14,6 +14,8 @@
  * limitations under the License.
  *@
 
+@import uk.gov.hmrc.hmrcfrontend.views.Utils.nonEmptyStringOrDefault
+
 @this()
 
 @(params: WarningText)(implicit messages: Messages)
@@ -21,7 +23,7 @@
 <div class="@toClasses("govuk-warning-text", classes)"@toAttributes(attributes)>
   <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
   <strong class="govuk-warning-text__text">
-    <span class="govuk-visually-hidden">@HtmlFormat.escape(iconFallbackText.getOrElse(messages("govuk.warningText.iconFallbackText")))</span>
+    <span class="govuk-visually-hidden">@HtmlFormat.escape(nonEmptyStringOrDefault(iconFallbackText, messages("govuk.warningText.iconFallbackText")))</span>
     @content.asHtml
   </strong>
 </div>
