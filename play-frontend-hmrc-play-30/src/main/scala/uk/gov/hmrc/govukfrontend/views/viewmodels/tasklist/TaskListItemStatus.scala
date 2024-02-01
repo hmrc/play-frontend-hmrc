@@ -30,17 +30,17 @@ case class TaskListItemStatus(
 object TaskListItemStatus {
     def defaultObject: TaskListItemStatus = TaskListItemStatus()
 
-    implicit def jsonReads: Reads[TaskListItemStatus] = 
+    implicit def jsonReads: Reads[TaskListItemStatus] =
         (
             (__ \ "tag").readNullable[Tag] and
-                (__ \ "content").readWithDefault[Content](defaultObject.content) and
+                Content.reads and
                 (__ \ "classes").readWithDefault[String](defaultObject.classes)
         )(TaskListItemStatus.apply _)
 
     implicit def jsonWrites: OWrites[TaskListItemStatus] =
         (
             (__ \ "tag").writeNullable[Tag] and
-                (__ \ "content").write[Content] and
+                Content.writes and
                 (__ \ "classes").write[String]
         )(unlift(TaskListItemStatus.unapply))
 }
