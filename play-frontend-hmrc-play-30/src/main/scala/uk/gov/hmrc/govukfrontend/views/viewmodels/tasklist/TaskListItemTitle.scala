@@ -21,22 +21,22 @@ import play.api.libs.functional.syntax._
 import play.api.libs.json._
 
 case class TaskListItemTitle(
-    content: Content = Empty,
-    classes: String = ""
+  content: Content = Empty,
+  classes: String = ""
 )
 
 object TaskListItemTitle {
-    def defaultObject: TaskListItemTitle = TaskListItemTitle()
+  def defaultObject: TaskListItemTitle = TaskListItemTitle()
 
-    implicit def jsonReads: Reads[TaskListItemTitle] =
-        (
-            Content.reads and
-                (__ \ "classes").readWithDefault[String](defaultObject.classes)
-        )(TaskListItemTitle.apply _)
+  implicit def jsonReads: Reads[TaskListItemTitle] =
+    (
+      Content.reads and
+        (__ \ "classes").readWithDefault[String](defaultObject.classes)
+    )(TaskListItemTitle.apply _)
 
-    implicit def jsonWrites: OWrites[TaskListItemTitle] =
-        (
-            Content.writes and
-                (__ \ "classes").write[String]
-        )(unlift(TaskListItemTitle.unapply))
+  implicit def jsonWrites: OWrites[TaskListItemTitle] =
+    (
+      Content.writes and
+        (__ \ "classes").write[String]
+    )(unlift(TaskListItemTitle.unapply))
 }

@@ -170,7 +170,7 @@ class HmrcStandardHeaderSpec extends AnyWordSpecLike with Matchers with JsoupHel
       homepageLinks                    should have size 1
       homepageLinks.first.attr("href") should be("/foo")
     }
-    
+
     "render the hmrc banner" in {
       val hmrcStandardHeader = buildApp().injector.instanceOf[HmrcStandardHeader]
 
