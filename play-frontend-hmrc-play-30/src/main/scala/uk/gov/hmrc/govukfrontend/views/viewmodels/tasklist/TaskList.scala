@@ -21,23 +21,23 @@ import play.api.libs.json._
 import uk.gov.hmrc.govukfrontend.views.viewmodels.CommonJsonFormats._
 
 case class TaskList(
-    items: List[TaskListItem] = List.empty,
-    classes: String = "",
-    attributes: Map[String, String] = Map.empty,
-    idPrefix: String = ""
+  items: List[TaskListItem] = List.empty,
+  classes: String = "",
+  attributes: Map[String, String] = Map.empty,
+  idPrefix: String = ""
 )
 
 object TaskList {
 
-    def defaultObject: TaskList = TaskList()
+  def defaultObject: TaskList = TaskList()
 
-    implicit def jsonReads: Reads[TaskList] = 
-        (
-            (__ \ "items").readWithDefault[List[TaskListItem]](defaultObject.items) and
-                (__ \ "classes").readWithDefault[String](defaultObject.classes) and
-                (__ \ "attributes").readWithDefault[Map[String, String]](defaultObject.attributes)(attributesReads) and
-                (__ \ "idPrefix").readWithDefault[String](defaultObject.idPrefix)
-        )(TaskList.apply _)
+  implicit def jsonReads: Reads[TaskList] =
+    (
+      (__ \ "items").readWithDefault[List[TaskListItem]](defaultObject.items) and
+        (__ \ "classes").readWithDefault[String](defaultObject.classes) and
+        (__ \ "attributes").readWithDefault[Map[String, String]](defaultObject.attributes)(attributesReads) and
+        (__ \ "idPrefix").readWithDefault[String](defaultObject.idPrefix)
+    )(TaskList.apply _)
 
   implicit def jsonWrites: OWrites[TaskList] =
     (
