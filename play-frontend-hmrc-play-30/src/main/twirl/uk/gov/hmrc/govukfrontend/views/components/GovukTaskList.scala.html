@@ -20,7 +20,27 @@
 @import params._
 <ul class="@toClasses("govuk-task-list", classes)" @toAttributes(attributes)>
     @for((item, index) <- params.items.zipWithIndex) {
-        <li>@index</li>
+        @defining(idPrefix.toString + "-" + index + "-hint") { hintId => 
+            @defining(idPrefix.toString + "-" + index + "-status") { statusId =>
+                <li class="@toClasses("govuk-task-list__item", if(item.href.isDefined){ "govuk-task-list__item--with-link" } else { "" }, classes)">
+                    <div class="govuk-task-list__name-and-hint">
+                        @if(item.href.isDefined) {
+                                    <a class="@toClasses("govuk-link govuk-task-list__link", item.title.classes)" href="@item.href" aria-describedby="@if(item.hint.nonEmpty){@hintId}else{@statusId}">@item.title.content</a>
+                                } else {
+                                    <div @if(item.title.classes.nonEmpty){class="@item.title.classes"}>@item.title.content</div>
+                                }
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                    </div>
+                }
+            }
+        </li>
     }
 </ul>
 
