@@ -28,15 +28,15 @@ case class TaskListItemTitle(
 object TaskListItemTitle {
     def defaultObject: TaskListItemTitle = TaskListItemTitle()
 
-    implicit def jsonReads: Reads[TaskListItemTitle] = 
+    implicit def jsonReads: Reads[TaskListItemTitle] =
         (
-            (__ \ "content").readWithDefault[Content](defaultObject.content) and
+            Content.reads and
                 (__ \ "classes").readWithDefault[String](defaultObject.classes)
         )(TaskListItemTitle.apply _)
 
     implicit def jsonWrites: OWrites[TaskListItemTitle] =
         (
-            (__ \ "content").write[Content] and
+            Content.writes and
                 (__ \ "classes").write[String]
         )(unlift(TaskListItemTitle.unapply))
 }
