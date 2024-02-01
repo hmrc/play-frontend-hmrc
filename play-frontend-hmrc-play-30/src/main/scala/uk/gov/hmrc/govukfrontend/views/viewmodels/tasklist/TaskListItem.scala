@@ -24,7 +24,7 @@ case class TaskListItem(
     title: TaskListItemTitle = TaskListItemTitle(),
     hint: Content = Empty,
     status: TaskListItemStatus = TaskListItemStatus(),
-    href: String = "#",
+    href: Option[String] = None,
     classes: String = ""
 )
 
@@ -36,7 +36,7 @@ object TaskListItem {
             (__ \ "title").readWithDefault[TaskListItemTitle](defaultObject.title) and
                 (__ \ "hint").readWithDefault[Content](defaultObject.hint) and
                 (__ \ "status").readWithDefault[TaskListItemStatus](defaultObject.status) and
-                (__ \ "href").readWithDefault[String](defaultObject.href) and
+                (__ \ "href").readNullable[String] and
                 (__ \ "classes").readWithDefault[String](defaultObject.classes)
         )(TaskListItem.apply _)
 
@@ -45,7 +45,7 @@ object TaskListItem {
             (__ \ "title").write[TaskListItemTitle] and
                 (__ \ "hint").write[Content] and
                 (__ \ "status").write[TaskListItemStatus] and
-                (__ \ "href").write[String] and
+                (__ \ "href").writeNullable[String] and
                 (__ \ "classes").write[String]
         )(unlift(TaskListItem.unapply))
 }
