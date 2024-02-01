@@ -19,7 +19,6 @@ package uk.gov.hmrc.govukfrontend.views.viewmodels.tasklist
 import uk.gov.hmrc.govukfrontend.views.viewmodels.content.{Content, Empty}
 import play.api.libs.functional.syntax._
 import play.api.libs.json._
-import uk.gov.hmrc.govukfrontend.views.viewmodels.CommonJsonFormats._
 
 case class TaskListItem(
     title: TaskListItemTitle = TaskListItemTitle(),
