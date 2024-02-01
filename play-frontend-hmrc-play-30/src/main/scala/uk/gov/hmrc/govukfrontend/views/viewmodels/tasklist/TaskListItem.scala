@@ -23,7 +23,7 @@ object TaskListItem {
                 (__ \ "status").readWithDefault[TaskListItemStatus](defaultObject.status) and
                 (__ \ "href").readWithDefault[String](defaultObject.href) and
                 (__ \ "classes").readWithDefault[String](defaultObject.classes)
-        )(TaskList.apply _)
+        )(TaskListItem.apply _)
 
     implicit def jsonWrites: OWrites[TaskListItem] =
         (
@@ -32,6 +32,5 @@ object TaskListItem {
                 (__ \ "status").write[TaskListItemStatus] and
                 (__ \ "href").writeNullable[String] and
                 (__ \ "classes").writeNullable[String]        
-        )(unlift(TaskList.unapply))
-
+        )(unlift(TaskListItem.unapply))
 }
