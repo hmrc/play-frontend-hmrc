@@ -22,25 +22,25 @@ import play.api.libs.functional.syntax._
 import play.api.libs.json._
 
 case class TaskListItemStatus(
-    tag: Option[Tag] = None,
-    content: Content = Empty,
-    classes: String = ""
+  tag: Option[Tag] = None,
+  content: Content = Empty,
+  classes: String = ""
 )
 
 object TaskListItemStatus {
-    def defaultObject: TaskListItemStatus = TaskListItemStatus()
+  def defaultObject: TaskListItemStatus = TaskListItemStatus()
 
-    implicit def jsonReads: Reads[TaskListItemStatus] =
-        (
-            (__ \ "tag").readNullable[Tag] and
-                Content.reads and
-                (__ \ "classes").readWithDefault[String](defaultObject.classes)
-        )(TaskListItemStatus.apply _)
+  implicit def jsonReads: Reads[TaskListItemStatus] =
+    (
+      (__ \ "tag").readNullable[Tag] and
+        Content.reads and
+        (__ \ "classes").readWithDefault[String](defaultObject.classes)
+    )(TaskListItemStatus.apply _)
 
-    implicit def jsonWrites: OWrites[TaskListItemStatus] =
-        (
-            (__ \ "tag").writeNullable[Tag] and
-                Content.writes and
-                (__ \ "classes").write[String]
-        )(unlift(TaskListItemStatus.unapply))
+  implicit def jsonWrites: OWrites[TaskListItemStatus] =
+    (
+      (__ \ "tag").writeNullable[Tag] and
+        Content.writes and
+        (__ \ "classes").write[String]
+    )(unlift(TaskListItemStatus.unapply))
 }
