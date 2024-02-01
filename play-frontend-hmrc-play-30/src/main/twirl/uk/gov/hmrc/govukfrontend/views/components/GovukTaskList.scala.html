@@ -18,4 +18,10 @@
 
 @(params: TaskList)
 @import params._
+<ul class="@toClasses("govuk-task-list", classes)" @toAttributes(attributes)>
+    @for((item, index) <- params.items.zipWithIndex) {
+        <li>@index</li>
+    }
+</ul>
+
 
