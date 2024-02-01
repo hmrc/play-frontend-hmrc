@@ -30,5 +30,4 @@ object TaskList {
         (__ \ "attributes").write[Map[String, String]] and
         (__ \ "idPrefix").write[String]
     )(unlift(TaskList.unapply))
-
 }
