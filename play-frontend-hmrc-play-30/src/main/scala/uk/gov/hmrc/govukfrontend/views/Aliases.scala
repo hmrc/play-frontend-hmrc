@@ -190,6 +190,18 @@ trait Aliases {
   type TabPanel = viewmodels.tabs.TabPanel
   val TabPanel = viewmodels.tabs.TabPanel
 
+  type TaskList = viewmodels.tasklist.TaskList
+  val TaskList = viewmodels.tasklist.TaskList
+
+  type TaskListItem = viewmodels.tasklist.TaskListItem
+  val TaskListItem = viewmodels.tasklist.TaskListItem
+
+  type TaskListItemTitle = viewmodels.tasklist.TaskListItemTitle
+  val TaskListItemTitle = viewmodels.tasklist.TaskListItemTitle
+
+  type TaskListItemStatus = viewmodels.tasklist.TaskListItemStatus
+  val TaskListItemStatus = viewmodels.tasklist.TaskListItemStatus
+
   type Textarea = viewmodels.textarea.Textarea
   val Textarea = viewmodels.textarea.Textarea
 
