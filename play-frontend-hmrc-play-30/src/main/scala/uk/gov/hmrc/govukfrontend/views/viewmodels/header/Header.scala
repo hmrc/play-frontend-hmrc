@@ -33,7 +33,6 @@ final case class Header(
   attributes: Map[String, String] = Map.empty,
   menuButtonLabel: Option[String] = None,
   navigationLabel: Option[String] = None,
-  assetsPath: Option[String] = None,
   menuButtonText: Option[String] = None,
   useTudorCrown: Option[Boolean] = None
 )
