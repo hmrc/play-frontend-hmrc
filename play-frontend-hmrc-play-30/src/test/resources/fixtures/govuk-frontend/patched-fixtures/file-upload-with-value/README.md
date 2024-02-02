@@ -1,0 +1,1 @@
+This fixture is patched due to differences in HTML-encoding of the backslash values by the two renderers
