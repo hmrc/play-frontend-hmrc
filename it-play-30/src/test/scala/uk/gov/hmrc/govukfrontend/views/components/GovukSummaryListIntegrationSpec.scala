@@ -16,27 +16,14 @@
 
 package uk.gov.hmrc.govukfrontend.views.components
 
+import uk.gov.hmrc.govukfrontend.support.TemplateIntegrationSpec
 import uk.gov.hmrc.govukfrontend.views.html.components._
 import uk.gov.hmrc.govukfrontend.views.viewmodels.summarylist.Generators._
 import uk.gov.hmrc.govukfrontend.views.viewmodels.summarylist.SummaryList
-import uk.gov.hmrc.govukfrontend.views.GovukFrontendDependency.govukFrontendVersion
-import uk.gov.hmrc.support.TemplateIntegrationBaseSpec
-import scala.util.Try
-import play.twirl.api.HtmlFormat
 
 object GovukSummaryListIntegrationSpec
-    extends TemplateIntegrationBaseSpec[SummaryList](
-      componentName = "govukSummaryList",
+    extends TemplateIntegrationSpec[SummaryList, GovukSummaryList](
+      govukComponentName = "govukSummaryList",
       seed = None,
       maximumCompression = true
-    ) {
-
-  protected val libraryName: String = "govuk"
-
-  protected val libraryVersion: String = govukFrontendVersion
-
-  private val component = app.injector.instanceOf[GovukSummaryList]
-
-  override def render(summaryList: SummaryList): Try[HtmlFormat.Appendable] =
-    Try(component(summaryList))
-}
+    )
