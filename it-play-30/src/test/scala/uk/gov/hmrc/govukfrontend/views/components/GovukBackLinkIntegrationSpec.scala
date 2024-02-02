@@ -17,33 +17,19 @@
 package uk.gov.hmrc.govukfrontend.views
 package components
 
-import play.twirl.api.HtmlFormat
+import uk.gov.hmrc.govukfrontend.support.MessagesAwareTemplateIntegrationSpec
 import uk.gov.hmrc.support.ScalaCheckUtils.ClassifyParams
-import uk.gov.hmrc.govukfrontend.views.GovukFrontendDependency.govukFrontendVersion
 import uk.gov.hmrc.govukfrontend.views.html.components._
 import uk.gov.hmrc.govukfrontend.views.viewmodels.backlink.BackLink
 import uk.gov.hmrc.govukfrontend.views.viewmodels.backlink.Generators._
-import uk.gov.hmrc.helpers.MessagesSupport
-import uk.gov.hmrc.support.TemplateIntegrationBaseSpec
 
 import scala.collection.compat.immutable.LazyList
-import scala.util.Try
 
 object GovukBackLinkIntegrationSpec
-    extends TemplateIntegrationBaseSpec[BackLink](
-      componentName = "govukBackLink",
+    extends MessagesAwareTemplateIntegrationSpec[BackLink, GovukBackLink](
+      govukComponentName = "govukBackLink",
       seed = None
-    )
-    with MessagesSupport {
-
-  protected val libraryName: String = "govuk"
-
-  protected val libraryVersion: String = govukFrontendVersion
-
-  private val component = app.injector.instanceOf[GovukBackLink]
-
-  override def render(notificationBanner: BackLink): Try[HtmlFormat.Appendable] =
-    Try(component(notificationBanner))
+    ) {
 
   override def classifiers(backLink: BackLink): LazyList[ClassifyParams] =
     (backLink.href.isEmpty, "empty href", "non-empty href") #::
