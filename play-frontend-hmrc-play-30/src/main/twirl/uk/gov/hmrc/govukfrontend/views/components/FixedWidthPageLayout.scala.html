@@ -22,7 +22,7 @@
 
 @import params._
 
-<div class="govuk-width-container ">
+<div class="govuk-width-container">
     @beforeContentBlock
     <main class="govuk-main-wrapper @mainClasses" id="main-content" role="main"@mainLang.filter(_.nonEmpty).map {mainLang => lang="@mainLang"}>
         @contentBlock

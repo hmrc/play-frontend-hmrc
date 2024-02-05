@@ -39,7 +39,7 @@ class FixedWidthPageLayoutSpec extends AnyWordSpec with Matchers with GuiceOneAp
       ) shouldBe Html(
         s"""
            |
-           |<div class="govuk-width-container ">
+           |<div class="govuk-width-container">
            |    beforeContentBlock
            |    <main class="govuk-main-wrapper custom-class" id="main-content" role="main" lang="en">
            |        contentBlock
