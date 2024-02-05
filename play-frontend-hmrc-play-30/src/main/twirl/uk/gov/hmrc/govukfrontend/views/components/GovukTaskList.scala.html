@@ -20,29 +20,30 @@
 @import params._
 <ul class="@toClasses("govuk-task-list", classes)" @toAttributes(attributes)>
     @for((item, index) <- params.items.zipWithIndex) {
-        <!-- idPrefix.toString -->
-        @defining("task-list" + "-" + (index + 1) + "-hint") { hintId => 
-            @defining("task-list" + "-" + (index + 1) + "-status") { statusId =>
-                <li class="@toClasses("govuk-task-list__item", if(item.href.isDefined){ "govuk-task-list__item--with-link" } else { "" }, classes)">
-                    <div class="govuk-task-list__name-and-hint">
-                        @if(item.href.isDefined) {
-                                    <a class="@toClasses("govuk-link govuk-task-list__link", item.title.classes)" href="@item.href" aria-describedby="@if(item.hint.nonEmpty){@hintId @statusId}else{@statusId}">@item.title.content.asHtml</a>
-                                } else {
-                                    <div @if(item.title.classes.nonEmpty){class="@item.title.classes"}>@item.title.content.asHtml</div>
-                                }
+        @defining(if(idPrefix.toString != ""){idPrefix}else{"task-list"}) { prefix =>
+            @defining(prefix + "-" + (index + 1) + "-hint") { hintId => 
+                @defining(prefix + "-" + (index + 1) + "-status") { statusId =>
+                    <li class="@toClasses("govuk-task-list__item", if(item.href.isDefined){ "govuk-task-list__item--with-link" } else { "" }, classes)">
+                        <div class="govuk-task-list__name-and-hint">
+                            @if(item.href.isDefined) {
+                                <a class="@toClasses("govuk-link govuk-task-list__link", item.title.classes)" href="@item.href" aria-describedby="@if(item.hint.nonEmpty){@hintId @statusId}else{@statusId}">@item.title.content.asHtml</a>
+                            } else {
+                                <div @if(item.title.classes.nonEmpty){class="@item.title.classes"}>@item.title.content.asHtml</div>
+                            }
                             @if(item.hint.nonEmpty) {
                                 <div id="@hintId" class="govuk-task-list__hint">
-                                    @item.hint
+                                    @item.hint.asHtml
                                 </div>
                             }
-                    </div>
-                    <div class="@toClasses("govuk-task-list__status", item.status.classes)" id="@statusId">
-                        @if(item.status.tag.isDefined) {
-                            @tagSnippet(item.status.tag)
-                        } else {
-                            @item.status.content.asHtml
-                        }
-                    </div>
+                        </div>
+                        <div class="@toClasses("govuk-task-list__status", item.status.classes)" id="@statusId">
+                            @if(item.status.tag.isDefined) {
+                                @tagSnippet(item.status.tag)
+                            } else {
+                                @item.status.content.asHtml
+                            }
+                        </div>
+                    }
                 }
             }
         </li>
@@ -53,6 +54,7 @@
 @tagSnippet(tag: Option[Tag]) = {
     @tag.orElse(Some(Tag())).map { tag =>
       @govukTag(Tag(
+        attributes = tag.attributes,
         classes = toClasses(tag.classes),
         content = tag.content))}
   }  
