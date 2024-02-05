@@ -16,29 +16,12 @@
 
 package uk.gov.hmrc.govukfrontend.views.components
 
-import play.twirl.api.HtmlFormat
-import uk.gov.hmrc.govukfrontend.views.GovukFrontendDependency.govukFrontendVersion
+import uk.gov.hmrc.govukfrontend.support.MessagesAwareTemplateIntegrationSpec
 import uk.gov.hmrc.govukfrontend.views.html.components._
 import uk.gov.hmrc.govukfrontend.views.viewmodels.notificationbanner.Generators._
-import uk.gov.hmrc.helpers.MessagesSupport
-import uk.gov.hmrc.support.TemplateIntegrationBaseSpec
-
-import scala.util.Try
 
 object GovukNotificationBannerIntegrationSpec
-    extends TemplateIntegrationBaseSpec[NotificationBanner](
-      componentName = "govukNotificationBanner",
+    extends MessagesAwareTemplateIntegrationSpec[NotificationBanner, GovukNotificationBanner](
+      govukComponentName = "govukNotificationBanner",
       seed = None
     )
-    with MessagesSupport {
-
-  protected val libraryName: String = "govuk"
-
-  protected val libraryVersion: String = govukFrontendVersion
-
-  private val component = app.injector.instanceOf[GovukNotificationBanner]
-
-  override def render(notificationBanner: NotificationBanner): Try[HtmlFormat.Appendable] =
-    Try(component(notificationBanner))
-
-}

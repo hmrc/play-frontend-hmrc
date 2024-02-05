@@ -16,28 +16,12 @@
 
 package uk.gov.hmrc.govukfrontend.views.components
 
-import play.twirl.api.HtmlFormat
-import uk.gov.hmrc.govukfrontend.views.GovukFrontendDependency.govukFrontendVersion
+import uk.gov.hmrc.govukfrontend.support.MessagesAwareTemplateIntegrationSpec
 import uk.gov.hmrc.govukfrontend.views.html.components._
 import uk.gov.hmrc.govukfrontend.views.viewmodels.tabs.Generators._
-import uk.gov.hmrc.helpers.MessagesSupport
-import uk.gov.hmrc.support.TemplateIntegrationBaseSpec
-
-import scala.util.Try
 
 object GovukTabsIntegrationSpec
-    extends TemplateIntegrationBaseSpec[Tabs](
-      componentName = "govukTabs",
+    extends MessagesAwareTemplateIntegrationSpec[Tabs, GovukTabs](
+      govukComponentName = "govukTabs",
       seed = None
     )
-    with MessagesSupport {
-
-  protected val libraryName: String = "govuk"
-
-  protected val libraryVersion: String = govukFrontendVersion
-
-  private val component = app.injector.instanceOf[GovukTabs]
-
-  override def render(tabs: Tabs): Try[HtmlFormat.Appendable] =
-    Try(component(tabs))
-}
