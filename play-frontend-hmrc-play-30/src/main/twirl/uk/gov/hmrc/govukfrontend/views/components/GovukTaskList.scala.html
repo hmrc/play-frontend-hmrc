@@ -23,7 +23,7 @@
         @defining(if(idPrefix.toString != ""){idPrefix}else{"task-list"}) { prefix =>
             @defining(prefix + "-" + (index + 1) + "-hint") { hintId => 
                 @defining(prefix + "-" + (index + 1) + "-status") { statusId =>
-                    <li class="@toClasses("govuk-task-list__item", if(item.href.isDefined){ "govuk-task-list__item--with-link" } else { "" }, classes)">
+                    <li class="@toClasses("govuk-task-list__item", if(item.href.isDefined){ "govuk-task-list__item--with-link" } else { "" }, item.classes)">
                         <div class="govuk-task-list__name-and-hint">
                             @if(item.href.isDefined) {
                                 <a class="@toClasses("govuk-link govuk-task-list__link", item.title.classes)" href="@item.href" aria-describedby="@if(item.hint.nonEmpty){@hintId @statusId}else{@statusId}">@item.title.content.asHtml</a>
@@ -50,11 +50,10 @@
     }
 </ul>
 
-
 @tagSnippet(tag: Option[Tag]) = {
     @tag.orElse(Some(Tag())).map { tag =>
       @govukTag(Tag(
         attributes = tag.attributes,
         classes = toClasses(tag.classes),
         content = tag.content))}
-  }  
+  }
