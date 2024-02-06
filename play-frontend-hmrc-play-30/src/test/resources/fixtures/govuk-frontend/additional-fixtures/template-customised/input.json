@@ -7,6 +7,8 @@
     "mainClasses": "app-main-class",
     "cspNonce": "secure-random-csp-nonce",
     "assetPath": "/assets/govuk",
+    "TODO": "assetURL should be an absolute URL - duplicating assetPath for now to enable un-patching of this fixture",
+    "assetUrl": "/assets/govuk",
     "bodyAttributes": {
       "attribute-one" : "some-value-one",
       "attribute-two" : "some-other-value-two"

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" class="govuk-template app-html-class">
+  <head>
+    <meta charset="utf-8">
+    <title>GOV.UK - Customised page template</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta name="theme-color" content="blue">
+
+      <link rel="icon" sizes="48x48" href="/assets/govuk/images/favicon.ico">
+      <link rel="icon" sizes="any" href="/assets/govuk/images/favicon.svg" type="image/svg+xml">
+      <link rel="mask-icon" href="/assets/govuk/images/govuk-icon-mask.svg" color="blue">
+      <link rel="apple-touch-icon" href="/assets/govuk/images/govuk-icon-180.png">
+      <link rel="manifest" href="/assets/govuk/manifest.json">
+
+  <link href="custom-stylesheet.css" rel="stylesheet">
+
+    <meta property="og:image" content="/assets/govuk/images/govuk-opengraph-image.png">
+  </head>
+  <body class="govuk-template__body app-body-class" attribute-one="some-value-one" attribute-two="some-other-value-two">
+    <script nonce="secure-random-csp-nonce">document.body.className += ' js-enabled' + ('noModule' in HTMLScriptElement.prototype ? ' govuk-frontend-supported' : '');</script>
+
+<a href="#main-content" class="govuk-skip-link">Custom skip link</a>
+<header role="banner">Custom header</header>
+      <div class="govuk-width-container">
+<p>Customised before content, <a class="govuk-link" href="#">this is a link</a>.        <main class="govuk-main-wrapper app-main-class" id="main-content" role="main">
+<h1 class="govuk-heading-xl">Customised page template</h1>        </main>
+      </div>
+
+<footer role="contentinfo">Custom footer</footer>
+<script src="custom-script.js"></script>  </body>
+</html>

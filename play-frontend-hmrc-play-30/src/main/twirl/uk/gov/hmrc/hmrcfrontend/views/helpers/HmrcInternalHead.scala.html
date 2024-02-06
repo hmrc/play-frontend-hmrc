@@ -22,11 +22,5 @@
 
 @(headBlock: Option[Html] = None)(implicit request: RequestHeader, messages: Messages)
 @hmrcInternalGtmScript()
-<!--[if lte IE 8]>
-<script src="@assetsConfig.html5ShivJsUrl"></script>
-<link href="@assetsConfig.hmrcFrontendIe8CssUrl" media="all" rel="stylesheet" type="text/css" />
-<![endif]-->
-<!--[if gt IE 8]><!-->
 <link href="@assetsConfig.hmrcFrontendCssUrl" @CSPNonce.attr media="all" rel="stylesheet" type="text/css" />
-<!--<![endif]-->
 @headBlock
