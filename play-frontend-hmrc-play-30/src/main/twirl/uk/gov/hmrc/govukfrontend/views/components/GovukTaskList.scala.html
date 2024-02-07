@@ -29,13 +29,13 @@
                 <li class="@toClasses("govuk-task-list__item", if(item.href.isDefined){ "govuk-task-list__item--with-link" } else { "" }, item.classes)">
                     <div class="govuk-task-list__name-and-hint">
                         @if(item.href.isDefined) {
-                            <a class="@toClasses("govuk-link govuk-task-list__link", item.title.classes)" href="@item.href" aria-describedby="@if(item.hint.nonEmpty){@hintId @statusId}else{@statusId}">@item.title.content.asHtml</a>
+                            <a class="@toClasses("govuk-link govuk-task-list__link", item.title.classes)" href="@item.href" aria-describedby="@if(item.hint.isDefined){@hintId @statusId}else{@statusId}">@item.title.content.asHtml</a>
                         } else {
                             <div @if(item.title.classes.nonEmpty){class="@item.title.classes"}>@item.title.content.asHtml</div>
                         }
-                        @if(item.hint.nonEmpty) {
+                        @item.hint.map { h =>
                             <div id="@hintId" class="govuk-task-list__hint">
-                                @item.hint.asHtml
+                                @h.content.asHtml
                             </div>
                         }
                     </div>

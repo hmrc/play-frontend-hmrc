@@ -19,6 +19,7 @@ package uk.gov.hmrc.govukfrontend.views.viewmodels.tasklist
 import org.scalacheck.{Arbitrary, Gen}
 import uk.gov.hmrc.govukfrontend.views.viewmodels.Generators._
 import uk.gov.hmrc.govukfrontend.views.viewmodels.content.Generators._
+import uk.gov.hmrc.govukfrontend.views.viewmodels.hint.Generators._
 import uk.gov.hmrc.govukfrontend.views.viewmodels.tag.Generators._
 import uk.gov.hmrc.govukfrontend.views.viewmodels.tasklist._
 
@@ -42,7 +43,7 @@ object Generators {
     implicit val arbTaskListItem: Arbitrary[TaskListItem] = Arbitrary {
         for {
             title       <- arbTaskListItemTitle.arbitrary
-            hint        <- arbContent.arbitrary
+            hint        <- Gen.option(arbHint.arbitrary)
             status      <- arbTaskListItemStatus.arbitrary
             href        <- Gen.option(genNonEmptyAlphaStr)
             classes     <- genClasses()
