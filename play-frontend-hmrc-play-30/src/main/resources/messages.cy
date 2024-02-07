@@ -29,10 +29,9 @@ govuk.notificationBanner.important=Pwysig
 govuk.pagination.previous=Blaenorol
 govuk.pagination.next=Nesaf
 govuk.pagination.page=Tudalen
-govuk.pagination.ariaLabel=Pagination
+govuk.pagination.ariaLabel=Tudaleniad
 govuk.warningText.iconFallbackText=Rhybudd
 govuk.exitThisPage.contentFallbackText=Gadael y dudalen hon
 govuk.exitThisPage.redirectUrlFallback=https://www.bbc.co.uk/weather
-# TODO - Welsh translation
-govuk.exitThisPage.visuallyHiddenFallbackText=Emergency
+govuk.exitThisPage.visuallyHiddenFallbackText=Argyfwng
 govuk.tabs.titleFallbackText=Cynnwys
