@@ -16,17 +16,17 @@
 
 package uk.gov.hmrc.govukfrontend.views.viewmodels.tasklist
 
-import uk.gov.hmrc.govukfrontend.views.viewmodels.content.{Content, Empty}
+import uk.gov.hmrc.govukfrontend.views.viewmodels.hint.Hint
 import play.api.libs.functional.syntax._
 import play.api.libs.json._
 
 case class TaskListItem(
-  title: TaskListItemTitle = TaskListItemTitle(),
-  hint: Content = Empty,
-  status: TaskListItemStatus = TaskListItemStatus(),
-  href: Option[String] = None,
-  classes: String = ""
-)
+                         title: TaskListItemTitle = TaskListItemTitle(),
+                         hint: Option[Hint] = None,
+                         status: TaskListItemStatus = TaskListItemStatus(),
+                         href: Option[String] = None,
+                         classes: String = ""
+                       )
 
 object TaskListItem {
   def defaultObject: TaskListItem = TaskListItem()
@@ -34,18 +34,18 @@ object TaskListItem {
   implicit def jsonReads: Reads[TaskListItem] =
     (
       (__ \ "title").readWithDefault[TaskListItemTitle](defaultObject.title) and
-        (__ \ "hint").readWithDefault[Content](defaultObject.hint) and
+        (__ \ "hint").readNullable[Hint] and
         (__ \ "status").readWithDefault[TaskListItemStatus](defaultObject.status) and
         (__ \ "href").readNullable[String] and
         (__ \ "classes").readWithDefault[String](defaultObject.classes)
-    )(TaskListItem.apply _)
+      )(TaskListItem.apply _)
 
   implicit def jsonWrites: OWrites[TaskListItem] =
     (
       (__ \ "title").write[TaskListItemTitle] and
-        (__ \ "hint").write[Content] and
+        (__ \ "hint").writeNullable[Hint] and
         (__ \ "status").write[TaskListItemStatus] and
         (__ \ "href").writeNullable[String] and
         (__ \ "classes").write[String]
-    )(unlift(TaskListItem.unapply))
+      )(unlift(TaskListItem.unapply))
 }
