@@ -25,38 +25,38 @@ import uk.gov.hmrc.govukfrontend.views.viewmodels.tasklist._
 
 object Generators {
 
-    implicit val arbTaskListItemStatus: Arbitrary[TaskListItemStatus] = Arbitrary {
-        for {
-            tag         <- Gen.option(arbTag.arbitrary)
-            content     <- arbContent.arbitrary
-            classes     <- genClasses()
-        } yield TaskListItemStatus(tag = tag, content = content, classes = classes)
-    }
+  implicit val arbTaskListItemStatus: Arbitrary[TaskListItemStatus] = Arbitrary {
+    for {
+      tag     <- Gen.option(arbTag.arbitrary)
+      content <- arbContent.arbitrary
+      classes <- genClasses()
+    } yield TaskListItemStatus(tag = tag, content = content, classes = classes)
+  }
 
-    implicit val arbTaskListItemTitle: Arbitrary[TaskListItemTitle] = Arbitrary {
-        for {
-            content     <- arbContent.arbitrary
-            classes     <- genClasses()
-        } yield TaskListItemTitle(content = content, classes = classes)
-    }
+  implicit val arbTaskListItemTitle: Arbitrary[TaskListItemTitle] = Arbitrary {
+    for {
+      content <- arbContent.arbitrary
+      classes <- genClasses()
+    } yield TaskListItemTitle(content = content, classes = classes)
+  }
 
-    implicit val arbTaskListItem: Arbitrary[TaskListItem] = Arbitrary {
-        for {
-            title       <- arbTaskListItemTitle.arbitrary
-            hint        <- Gen.option(arbHint.arbitrary)
-            status      <- arbTaskListItemStatus.arbitrary
-            href        <- Gen.option(genNonEmptyAlphaStr)
-            classes     <- genClasses()
-        } yield TaskListItem(title = title, hint = hint, status = status, href = href, classes = classes)
-    }
+  implicit val arbTaskListItem: Arbitrary[TaskListItem] = Arbitrary {
+    for {
+      title   <- arbTaskListItemTitle.arbitrary
+      hint    <- Gen.option(arbHint.arbitrary)
+      status  <- arbTaskListItemStatus.arbitrary
+      href    <- Gen.option(genNonEmptyAlphaStr)
+      classes <- genClasses()
+    } yield TaskListItem(title = title, hint = hint, status = status, href = href, classes = classes)
+  }
 
-    implicit val arbTaskList: Arbitrary[TaskList] = Arbitrary {
-        for {
-            n           <- Gen.chooseNum(0, 5)            
-            items       <- Gen.listOfN(n, arbTaskListItem.arbitrary)
-            classes     <- genClasses()
-            attributes  <- genAttributes()
-            idPrefix    <- genNonEmptyAlphaStr
-        } yield TaskList(items = items, classes = classes, attributes = attributes, idPrefix = idPrefix)
-    }
+  implicit val arbTaskList: Arbitrary[TaskList] = Arbitrary {
+    for {
+      n          <- Gen.chooseNum(0, 5)
+      items      <- Gen.listOfN(n, arbTaskListItem.arbitrary)
+      classes    <- genClasses()
+      attributes <- genAttributes()
+      idPrefix   <- genNonEmptyAlphaStr
+    } yield TaskList(items = items, classes = classes, attributes = attributes, idPrefix = idPrefix)
+  }
 }

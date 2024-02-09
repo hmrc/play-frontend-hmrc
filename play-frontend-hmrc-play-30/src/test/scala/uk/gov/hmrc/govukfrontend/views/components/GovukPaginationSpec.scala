@@ -58,10 +58,26 @@ class GovukPaginationSpec
   }
 
   "GovukPagination" when {
-    "implicit messages language is welsh" should {
+    "implicit messages language is Welsh" should {
       val welshMessages: Messages = messagesApi.preferred(Seq(Lang("cy")))
 
-      "display welsh translation of Previous page" in {
+      "use Welsh translation of Pagination as aria-label on main nav element" in {
+        val pagination = Pagination(
+          previous = Some(
+            PaginationLink(
+              href = "#"
+            )
+          )
+        )
+
+        val content = component(pagination)(welshMessages)
+
+        // Include the .first because there is a nested span in the template
+        val nav = content.select(".govuk-pagination").first()
+        nav.attr("aria-label") shouldBe "Tudaleniad"
+      }
+
+      "display Welsh translation of Previous page" in {
         val pagination = Pagination(
           previous = Some(
             PaginationLink(
@@ -77,7 +93,7 @@ class GovukPaginationSpec
         title.text() shouldBe "Blaenorol tudalen"
       }
 
-      "display welsh translation of Next page" in {
+      "display Welsh translation of Next page" in {
         val pagination = Pagination(
           next = Some(
             PaginationLink(
@@ -92,7 +108,7 @@ class GovukPaginationSpec
         title.text() shouldBe "Nesaf tudalen"
       }
 
-      "display welsh translation of aria-label" in {
+      "display Welsh translation of aria-label on page number links" in {
         val pagination = Pagination(
           items = Some(
             Seq(
