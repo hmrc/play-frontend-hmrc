@@ -461,7 +461,7 @@ class HmrcStandardPageSpec
 
       val exitThisPageButton = document.select(".govuk-exit-this-page__button")
       exitThisPageButton                should have size 1
-      exitThisPageButton.text()       shouldBe "EmergencyGadael y dudalen hon"
+      exitThisPageButton.text()       shouldBe "ArgyfwngGadael y dudalen hon"
       exitThisPageButton.attr("href") shouldBe "https://www.bbc.co.uk/weather"
     }
 
