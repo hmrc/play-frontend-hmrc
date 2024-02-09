@@ -27,7 +27,7 @@
 @import params._
 
 @defaultContent = {
-    <span class="govuk-visually-hidden">@messages("govuk.exitThisPage.visuallyHiddenFallbackText")</span>@messages("govuk.exitThisPage.contentFallbackText")
+    <span class="govuk-visually-hidden">@messages("govuk.exitThisPage.visuallyHiddenFallbackText")</span> @messages("govuk.exitThisPage.contentFallbackText")
 }
 <div@id.map{txt => id="@txt" } class="@toClasses("govuk-exit-this-page", classes)" data-module="govuk-exit-this-page"@toAttributes(attributes)
 @activatedText.map { txt => data-i18n.activated="@txt"}

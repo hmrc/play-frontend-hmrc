@@ -56,7 +56,7 @@ class GovukExitThisPageSpec
         val content = component(notificationBanner)(welshMessages)
 
         val button = content.select(".govuk-exit-this-page__button")
-        button.text() shouldBe "ArgyfwngGadael y dudalen hon"
+        button.text() shouldBe "Argyfwng Gadael y dudalen hon"
       }
     }
   }
