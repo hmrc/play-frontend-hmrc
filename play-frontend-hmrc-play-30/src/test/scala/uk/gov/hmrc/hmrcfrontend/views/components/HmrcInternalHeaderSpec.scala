@@ -35,11 +35,43 @@ class HmrcInternalHeaderSpec extends TemplateUnitSpec[InternalHeader, HmrcIntern
       )
       .build()
 
+  def buildAnotherApp(properties: Map[String, String] = Map.empty): Application =
+    new GuiceApplicationBuilder()
+      .configure(properties)
+      .build()
+
   override def render(templateParams: InternalHeader): Try[HtmlFormat.Appendable] = {
     // The following line is needed to ensure known state of the statically initialised reverse router
     // used to calculate asset paths.
     hmrcfrontend.RoutesPrefix.setPrefix("")
 
     super.render(templateParams)
+  }
+
+  "internal header" should {
+
+    """display Tudor crown logo set by config""" in {
+      val anotherApp = buildAnotherApp(
+        Map(
+          "play-frontend-hmrc.useTudorCrown" -> "true"
+        )
+      )
+      val hmrcInternalHeader = anotherApp.injector.instanceOf[HmrcInternalHeader]
+
+      val componentTry = Try(hmrcInternalHeader(InternalHeader()))
+
+      componentTry should be a 'success
+      componentTry.get.body should include("hmrc_tudor_crest_18px_x2.png")
+    }
+
+    """display Tudor crown when no config is found""" in {
+      val anotherApp = buildAnotherApp()
+      val hmrcInternalHeader = anotherApp.injector.instanceOf[HmrcInternalHeader]
+
+      val componentTry = Try(hmrcInternalHeader(InternalHeader()))
+
+      componentTry should be a 'success
+      componentTry.get.body should include("hmrc_tudor_crest_18px_x2.png")
+    }
   }
 }
