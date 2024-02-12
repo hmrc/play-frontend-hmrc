@@ -78,7 +78,7 @@ object Header {
         (__ \ "attributes").readWithDefault[Map[String, String]](defaultObject.attributes) and
         (__ \ "language").readWithDefault[Language](defaultObject.language) and
         (__ \ "displayHmrcBanner").readWithDefault[Boolean](defaultObject.displayHmrcBanner) and
-        (__ \ "displayHmrcBanner").readWithDefault[Boolean](defaultObject.useTudorCrown) and
+        (__ \ "useTudorCrown").readWithDefault[Boolean](defaultObject.useTudorCrown) and
         (__ \ "signOutHref").readNullable[String] and
         (__ \ "languageToggle").readNullable[LanguageToggle] and
         (__ \ "userResearchBanner").readNullable[UserResearchBanner] and

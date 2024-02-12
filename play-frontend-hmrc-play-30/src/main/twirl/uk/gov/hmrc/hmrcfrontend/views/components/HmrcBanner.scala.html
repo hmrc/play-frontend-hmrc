@@ -16,6 +16,7 @@
 
 @import uk.gov.hmrc.hmrcfrontend.views.Utils._
 @import uk.gov.hmrc.hmrcfrontend.views.Aliases.Banner
+@import uk.gov.hmrc.hmrcfrontend.views.viewmodels.language.Cy
 
 @this()
 
@@ -40,7 +41,7 @@
         </svg>
         <!--<![endif]-->
         <!--[if IE 8]>
-        <img src="{{ params.assetsPath | default('/assets') }}/components/banner/images/hmrc_tudor_crest_18px.png">
+            <img src="@calculateAssetPath(None, file = "components/banner/images/hmrc_tudor_crest_18px.png")">
         <![endif]-->
     } else {
         <!--[if gt IE 8]><!-->
@@ -59,7 +60,7 @@
         </svg>
         <!--<![endif]-->
         <!--[if IE 8]>
-        <img src="{{ params.assetsPath | default('/assets') }}/components/banner/images/hmrc_crest_18px.png">
+            <img src="@calculateAssetPath(None, file = "components/banner/images/hmrc_crest_18px.png")">
         <![endif]-->
     }
     <p class="govuk-body-s">
