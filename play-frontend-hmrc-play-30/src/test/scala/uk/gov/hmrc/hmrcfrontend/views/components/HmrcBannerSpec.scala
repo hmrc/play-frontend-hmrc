@@ -60,7 +60,7 @@ class HmrcBannerSpec extends TemplateUnitSpec[Banner, HmrcBanner]("hmrcBanner") 
 
       val componentTry = Try(hmrcBanner(Banner()))
 
-      componentTry should be a 'success
+      componentTry          should be a 'success
       componentTry.get.body should include("hmrc_tudor_crest_18px.png")
     }
 
@@ -70,7 +70,7 @@ class HmrcBannerSpec extends TemplateUnitSpec[Banner, HmrcBanner]("hmrcBanner") 
 
       val componentTry = Try(hmrcBanner(Banner()))
 
-      componentTry should be a 'success
+      componentTry          should be a 'success
       componentTry.get.body should include("hmrc_tudor_crest_18px.png")
     }
   }

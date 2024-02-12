@@ -26,12 +26,12 @@ import scala.util.Try
 class HmrcHeaderSpec extends TemplateUnitSpec[Header, HmrcHeader]("hmrcHeader") {
 
   override def fakeApplication(): Application = new GuiceApplicationBuilder()
-      .configure(
-        Map(
-          "play-frontend-hmrc.useTudorCrown" -> "false"
-        )
+    .configure(
+      Map(
+        "play-frontend-hmrc.useTudorCrown" -> "false"
       )
-      .build()
+    )
+    .build()
 
   def buildAnotherApp(properties: Map[String, String] = Map.empty): Application =
     new GuiceApplicationBuilder()
@@ -57,8 +57,8 @@ class HmrcHeaderSpec extends TemplateUnitSpec[Header, HmrcHeader]("hmrcHeader") 
 
       val componentTry = Try(hmrcHeader(Header()))
 
-      componentTry should be a 'success
-      componentTry.get.body should include ("govuk-logotype-tudor-crown.png")
+      componentTry          should be a 'success
+      componentTry.get.body should include("govuk-logotype-tudor-crown.png")
     }
 
     """display Tudor crown when no config is found""" in {
@@ -67,7 +67,7 @@ class HmrcHeaderSpec extends TemplateUnitSpec[Header, HmrcHeader]("hmrcHeader") 
 
       val componentTry = Try(hmrcHeader(Header()))
 
-      componentTry should be a 'success
+      componentTry          should be a 'success
       componentTry.get.body should include("govuk-logotype-tudor-crown.png")
     }
   }

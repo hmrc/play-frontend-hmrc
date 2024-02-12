@@ -72,6 +72,7 @@ object Generators {
       attributes             <- genAttributes()
       language               <- arbLanguage.arbitrary
       displayHmrcBanner      <- arbBool.arbitrary
+      useTudorCrown          <- Gen.option(arbBool.arbitrary)
       signOutHref            <- Gen.option(genAlphaStr())
       languageToggle         <- Gen.option(arbLanguageToggle.arbitrary)
       phaseBanner            <- Gen.option(arbPhaseBanner.arbitrary)
@@ -90,6 +91,7 @@ object Generators {
       attributes = attributes,
       language = language,
       displayHmrcBanner = displayHmrcBanner,
+      useTudorCrown = useTudorCrown,
       signOutHref = signOutHref,
       inputLanguageToggle = languageToggle,
       phaseBanner = phaseBanner,

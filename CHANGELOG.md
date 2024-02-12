@@ -8,6 +8,17 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 For compatibility information see `govukFrontendVersion` and `hmrcFrontendVersion` in
 [LibDependencies](project/LibDependencies.scala)
 
+## [8.5.0] - 2024-02-12
+
+### Changed
+
+- Feature flag introduced for Tudor Crown icon switch over
+
+### Compatible with
+
+- [hmrc/hmrc-frontend v5.66.0](https://github.com/hmrc/hmrc-frontend/releases/tag/v5.66.0)
+- [alphagov/govuk-frontend v4.8.0](https://github.com/alphagov/govuk-frontend/releases/tag/v4.8.0)
+
 ## [8.4.0] - 2024-01-24
 
 ### Changed

@@ -20,7 +20,7 @@ import play.api.Configuration
 
 import javax.inject.Inject
 
-case class TudorCrownConfig @Inject()(config: Configuration) {
+case class TudorCrownConfig @Inject() (config: Configuration) {
   val useTudorCrown: Boolean =
     config.getOptional[Boolean]("play-frontend-hmrc.useTudorCrown").getOrElse(true)
 }

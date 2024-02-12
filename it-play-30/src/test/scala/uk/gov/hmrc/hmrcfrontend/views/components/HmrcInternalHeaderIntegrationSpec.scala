@@ -16,6 +16,8 @@
 
 package uk.gov.hmrc.hmrcfrontend.views.components
 
+import play.api.Application
+import play.api.inject.guice.GuiceApplicationBuilder
 import uk.gov.hmrc.hmrcfrontend.support.TemplateIntegrationSpec
 import uk.gov.hmrc.hmrcfrontend.views.html.components._
 import uk.gov.hmrc.hmrcfrontend.views.viewmodels.internalheader.Generators._
@@ -24,4 +26,12 @@ object HmrcInternalHeaderIntegrationSpec
     extends TemplateIntegrationSpec[InternalHeader, HmrcInternalHeader](
       hmrcComponentName = "hmrcInternalHeader",
       seed = None
+    ) {
+  override def fakeApplication(): Application = new GuiceApplicationBuilder()
+    .configure(
+      Map(
+        "play-frontend-hmrc.useTudorCrown" -> "false"
+      )
     )
+    .build()
+}

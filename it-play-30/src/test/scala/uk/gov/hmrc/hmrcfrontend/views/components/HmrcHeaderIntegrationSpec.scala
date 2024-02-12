@@ -16,6 +16,8 @@
 
 package uk.gov.hmrc.hmrcfrontend.views.components
 
+import play.api.Application
+import play.api.inject.guice.GuiceApplicationBuilder
 import uk.gov.hmrc.support.ScalaCheckUtils.ClassifyParams
 import uk.gov.hmrc.hmrcfrontend.support.TemplateIntegrationSpec
 import uk.gov.hmrc.hmrcfrontend.views.html.components._
@@ -30,6 +32,14 @@ import uk.gov.hmrc.hmrcfrontend.views.viewmodels.language.En
 
 object HmrcHeaderIntegrationSpec
     extends TemplateIntegrationSpec[Header, HmrcHeader](hmrcComponentName = "hmrcHeader", seed = None) {
+
+  override def fakeApplication(): Application = new GuiceApplicationBuilder()
+    .configure(
+      Map(
+        "play-frontend-hmrc.useTudorCrown" -> "false"
+      )
+    )
+    .build()
 
   override def classifiers(header: Header): LazyList[ClassifyParams] =
     (header.homepageUrl.isEmpty, "empty homepageUrl", "non-empty homepageUrl") #::

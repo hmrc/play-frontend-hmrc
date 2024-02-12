@@ -51,7 +51,7 @@ class HmrcInternalHeaderSpec extends TemplateUnitSpec[InternalHeader, HmrcIntern
   "internal header" should {
 
     """display Tudor crown logo set by config""" in {
-      val anotherApp = buildAnotherApp(
+      val anotherApp         = buildAnotherApp(
         Map(
           "play-frontend-hmrc.useTudorCrown" -> "true"
         )
@@ -60,17 +60,17 @@ class HmrcInternalHeaderSpec extends TemplateUnitSpec[InternalHeader, HmrcIntern
 
       val componentTry = Try(hmrcInternalHeader(InternalHeader()))
 
-      componentTry should be a 'success
+      componentTry          should be a 'success
       componentTry.get.body should include("hmrc_tudor_crest_18px_x2.png")
     }
 
     """display Tudor crown when no config is found""" in {
-      val anotherApp = buildAnotherApp()
+      val anotherApp         = buildAnotherApp()
       val hmrcInternalHeader = anotherApp.injector.instanceOf[HmrcInternalHeader]
 
       val componentTry = Try(hmrcInternalHeader(InternalHeader()))
 
-      componentTry should be a 'success
+      componentTry          should be a 'success
       componentTry.get.body should include("hmrc_tudor_crest_18px_x2.png")
     }
   }
