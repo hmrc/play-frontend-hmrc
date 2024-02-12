@@ -39,6 +39,7 @@ case class Header(
   attributes: Map[String, String] = Map.empty,
   language: Language = En,
   displayHmrcBanner: Boolean = false,
+  useTudorCrown: Boolean = false,
   signOutHref: Option[String] = None,
   private val inputLanguageToggle: Option[LanguageToggle] = None,
   userResearchBanner: Option[UserResearchBanner] = None,
@@ -77,6 +78,7 @@ object Header {
         (__ \ "attributes").readWithDefault[Map[String, String]](defaultObject.attributes) and
         (__ \ "language").readWithDefault[Language](defaultObject.language) and
         (__ \ "displayHmrcBanner").readWithDefault[Boolean](defaultObject.displayHmrcBanner) and
+        (__ \ "displayHmrcBanner").readWithDefault[Boolean](defaultObject.useTudorCrown) and
         (__ \ "signOutHref").readNullable[String] and
         (__ \ "languageToggle").readNullable[LanguageToggle] and
         (__ \ "userResearchBanner").readNullable[UserResearchBanner] and
@@ -98,6 +100,7 @@ object Header {
         (__ \ "attributes").write[Map[String, String]] and
         (__ \ "language").write[Language] and
         (__ \ "displayHmrcBanner").write[Boolean] and
+        (__ \ "useTudorCrown").write[Boolean] and
         (__ \ "signOutHref").writeNullable[String] and
         (__ \ "languageToggle").writeNullable[LanguageToggle] and
         (__ \ "userResearchBanner").writeNullable[UserResearchBanner] and

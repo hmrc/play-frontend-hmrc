@@ -20,7 +20,8 @@ import play.api.libs.json._
 import uk.gov.hmrc.hmrcfrontend.views.viewmodels.language.{En, Language}
 
 case class Banner(
-  language: Language = En
+  language: Language = En,
+  useTudorCrown: Boolean = false
 )
 
 object Banner {
