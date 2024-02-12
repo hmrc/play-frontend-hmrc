@@ -17,12 +17,23 @@
 package uk.gov.hmrc.hmrcfrontend.views
 package components
 
+import play.api.Application
+import play.api.inject.guice.GuiceApplicationBuilder
 import play.twirl.api.HtmlFormat
 import uk.gov.hmrc.hmrcfrontend.views.html.components._
 
 import scala.util.Try
 
 class HmrcInternalHeaderSpec extends TemplateUnitSpec[InternalHeader, HmrcInternalHeader]("hmrcInternalHeader") {
+
+  override def fakeApplication(): Application =
+    new GuiceApplicationBuilder()
+      .configure(
+        Map(
+          "play-frontend-hmrc.useTudorCrown" -> "false"
+        )
+      )
+      .build()
 
   override def render(templateParams: InternalHeader): Try[HtmlFormat.Appendable] = {
     // The following line is needed to ensure known state of the statically initialised reverse router

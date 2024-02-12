@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 HM Revenue & Customs
+ * Copyright 2024 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,17 +14,13 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.hmrcfrontend.views.viewmodels.banner
+package uk.gov.hmrc.hmrcfrontend.config
 
-import play.api.libs.json._
-import uk.gov.hmrc.hmrcfrontend.views.viewmodels.language.{En, Language}
+import play.api.Configuration
 
-case class Banner(
-  language: Language = En,
-  useTudorCrown: Option[Boolean] = None
-)
+import javax.inject.Inject
 
-object Banner {
-
-  implicit def jsonFormats: OFormat[Banner] = Json.using[Json.WithDefaultValues].format[Banner]
+case class TudorCrownConfig @Inject()(config: Configuration) {
+  val useTudorCrown: Boolean =
+    config.getOptional[Boolean]("play-frontend-hmrc.useTudorCrown").getOrElse(true)
 }

@@ -19,8 +19,9 @@
 @import uk.gov.hmrc.hmrcfrontend.views.Aliases.{Banner, Header, UserResearchBanner}
 @import uk.gov.hmrc.hmrcfrontend.views.Utils._
 @import uk.gov.hmrc.hmrcfrontend.views.viewmodels.language.Cy
+@import uk.gov.hmrc.hmrcfrontend.config.TudorCrownConfig
 
-@this(hmrcBanner: HmrcBanner, hmrcUserResearchBanner: HmrcUserResearchBanner, govukPhaseBanner: GovukPhaseBanner)
+@this(hmrcBanner: HmrcBanner, hmrcUserResearchBanner: HmrcUserResearchBanner, govukPhaseBanner: GovukPhaseBanner, tudorCrownConfig: TudorCrownConfig)
 
 @(params: Header)
 @import params._
@@ -46,7 +47,7 @@
           * treat it as an interactive element - without this it will be            *
           * 'focusable' when using the keyboard to navigate.                        *
           **************************************************************************@
-        @if(useTudorCrown) {
+        @if(params.useTudorCrown.getOrElse(tudorCrownConfig.useTudorCrown)) {
             <svg
             aria-hidden="true"
             focusable="false"
@@ -157,7 +158,7 @@
     }
     @if(displayHmrcBanner){
       <div class="govuk-width-container">
-        @hmrcBanner(Banner(language, useTudorCrown))
+        @hmrcBanner(Banner(language))
       </div>
     }
     @additionalBannersBlock

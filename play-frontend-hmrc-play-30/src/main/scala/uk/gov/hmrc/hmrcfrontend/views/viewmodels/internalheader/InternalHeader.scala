@@ -24,7 +24,7 @@ case class InternalHeader(
   serviceName: Option[String] = None,
   serviceUrl: String = "",
   language: Language = En,
-  useTudorCrown: Boolean = false,
+  useTudorCrown: Option[Boolean] = None,
 )
 
 object InternalHeader {

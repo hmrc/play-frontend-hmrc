@@ -17,10 +17,22 @@
 package uk.gov.hmrc.hmrcfrontend.views
 package components
 
+import play.api.Application
+import play.api.inject.guice.GuiceApplicationBuilder
 import uk.gov.hmrc.hmrcfrontend.views.html.components._
+
 import scala.util.Try
 
 class HmrcHeaderSpec extends TemplateUnitSpec[Header, HmrcHeader]("hmrcHeader") {
+
+  override def fakeApplication(): Application =
+    new GuiceApplicationBuilder()
+      .configure(
+        Map(
+          "play-frontend-hmrc.useTudorCrown" -> "false"
+        )
+      )
+      .build()
 
   "header" should {
     """not throw an exception if Some("") is passed as serviceName""" in {
