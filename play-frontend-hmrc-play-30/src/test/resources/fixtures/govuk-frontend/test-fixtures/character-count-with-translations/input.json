@@ -2,6 +2,9 @@
   "id" : "with-translations",
   "name" : "with-translations",
   "maxlength" : 10,
+  "label" : {
+    "text" : "Full address"
+  },
   "charactersUnderLimitText" : {
     "other" : "%{count} characters to go",
     "one" : "One character to go"

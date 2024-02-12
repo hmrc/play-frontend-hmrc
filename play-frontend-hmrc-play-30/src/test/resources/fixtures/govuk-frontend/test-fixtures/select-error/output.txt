@@ -1,5 +1,7 @@
 <div class="govuk-form-group govuk-form-group--error">
-  
+  <label class="govuk-label" for="select-with-error">
+    Label text goes here
+  </label>
   <p id="select-with-error-error" class="govuk-error-message">
   <span class="govuk-visually-hidden">Error:</span> Error message
   </p>

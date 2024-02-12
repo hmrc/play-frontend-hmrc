@@ -1,5 +1,7 @@
 <div class="govuk-form-group">
-  
+  <label class="govuk-label" for="with-item-attributes">
+    Label text goes here
+  </label>
   <select class="govuk-select" id="with-item-attributes" name="with-item-attributes">
       <option value="1" data-attribute="ABC" data-second-attribute="DEF">Option 1</option>
       <option value="2" selected data-attribute="GHI" data-second-attribute="JKL">Option 2</option>

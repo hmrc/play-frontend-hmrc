@@ -1,6 +1,9 @@
 {
   "id" : "with-describedby",
   "name" : "with-describedby",
+  "label" : {
+    "text" : "Label text goes here"
+  },
   "items" : [ {
     "value" : 1,
     "text" : "GOV.UK frontend option 1"
