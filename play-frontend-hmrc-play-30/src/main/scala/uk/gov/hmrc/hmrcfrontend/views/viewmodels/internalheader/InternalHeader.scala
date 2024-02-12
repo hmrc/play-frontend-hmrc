@@ -23,7 +23,8 @@ case class InternalHeader(
   homepageUrl: String = "/",
   serviceName: Option[String] = None,
   serviceUrl: String = "",
-  language: Language = En
+  language: Language = En,
+  useTudorCrown: Boolean = false,
 )
 
 object InternalHeader {
