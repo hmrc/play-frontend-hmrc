@@ -1,6 +1,9 @@
 {
   "id" : "select-with-hint",
   "name" : "select-with-hint",
+  "label" : {
+    "text" : "Label text goes here"
+  },
   "describedBy" : "some-id",
   "hint" : {
     "text" : "Hint text goes here"

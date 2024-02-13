@@ -17,10 +17,26 @@
 package uk.gov.hmrc.hmrcfrontend.views
 package components
 
+import play.api.Application
+import play.api.inject.guice.GuiceApplicationBuilder
 import uk.gov.hmrc.hmrcfrontend.views.html.components._
+
 import scala.util.Try
 
 class HmrcHeaderSpec extends TemplateUnitSpec[Header, HmrcHeader]("hmrcHeader") {
+
+  override def fakeApplication(): Application = new GuiceApplicationBuilder()
+    .configure(
+      Map(
+        "play-frontend-hmrc.useTudorCrown" -> "false"
+      )
+    )
+    .build()
+
+  def buildAnotherApp(properties: Map[String, String] = Map.empty): Application =
+    new GuiceApplicationBuilder()
+      .configure(properties)
+      .build()
 
   "header" should {
     """not throw an exception if Some("") is passed as serviceName""" in {
@@ -29,6 +45,30 @@ class HmrcHeaderSpec extends TemplateUnitSpec[Header, HmrcHeader]("hmrcHeader") 
       val componentTry = Try(component(params))
 
       componentTry should be a 'success
+    }
+
+    """display Tudor crown logo set by config""" in {
+      val anotherApp = buildAnotherApp(
+        Map(
+          "play-frontend-hmrc.useTudorCrown" -> "true"
+        )
+      )
+      val hmrcHeader = anotherApp.injector.instanceOf[HmrcHeader]
+
+      val componentTry = Try(hmrcHeader(Header()))
+
+      componentTry          should be a 'success
+      componentTry.get.body should include("govuk-logotype-tudor-crown.png")
+    }
+
+    """display Tudor crown when no config is found""" in {
+      val anotherApp = buildAnotherApp()
+      val hmrcHeader = anotherApp.injector.instanceOf[HmrcHeader]
+
+      val componentTry = Try(hmrcHeader(Header()))
+
+      componentTry          should be a 'success
+      componentTry.get.body should include("govuk-logotype-tudor-crown.png")
     }
   }
 }

@@ -41,6 +41,7 @@ of implementing frontend microservices straightforward and idiomatic for Scala d
 - [Advanced configuration](#advanced-configuration)
   - [Adding your own SASS compilation pipeline](#adding-your-own-sass-compilation-pipeline)
   - [Configuring non-HMRC projects to resolve play-frontend-hmrc artefacts](#configuring-non-hmrc-projects-to-resolve-play-frontend-hmrc-artefacts)
+  - [Using the Tudor Crown on GOV.UK and HMRC components](#using-the-tudor-crown-on-govuk-and-hmrc-components)
 - [Getting help](#getting-help)
   - [Troubleshooting](#troubleshooting)
   - [Useful Links](#useful-links)
@@ -1125,6 +1126,19 @@ HMRC services get this configuration via the [sbt-auto-build library](https://gi
 ```scala
 resolvers += MavenRepository("HMRC-open-artefacts-maven2", "https://open.artefacts.tax.service.gov.uk/maven2")
 ```
+
+### Using the Tudor Crown on GOV.UK and HMRC components
+
+As of February 2024, there is a requirement for Government departments to use the Tudor Crown logo for HRH King Charles 
+III. This new logo has been added into both the [govuk-frontend](https://github.com/alphagov/govuk-frontend) and 
+[hmrc-frontend](https://github.com/hmrc/hmrc-frontend) libraries. Additionally, the `hmrc-frontend` library has an updated 
+HMRC Crest roundel incorporating the Tudor Crown.
+
+The Tudor Crown will be available in `v8.5.0` and higher of `play-frontend-hmrc`. 
+
+If you are testing locally, you should see the Tudor Crown displayed by default in your service. If you are running in 
+Production, you will see the old St Edwards Crown until this is globally changed via config by PlatUI. Your Production service
+will need to be redeployed in Production for the config change to take effect.
 
 ## Getting help
 

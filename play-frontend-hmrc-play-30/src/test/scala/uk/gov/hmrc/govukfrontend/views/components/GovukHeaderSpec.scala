@@ -17,9 +17,26 @@
 package uk.gov.hmrc.govukfrontend.views
 package components
 
+import play.api.Application
+import play.api.inject.guice.GuiceApplicationBuilder
 import uk.gov.hmrc.govukfrontend.views.html.components._
 
+import scala.util.Try
+
 class GovukHeaderSpec extends TemplateUnitSpec[Header, GovukHeader]("govukHeader") {
+
+  override def fakeApplication(): Application = new GuiceApplicationBuilder()
+    .configure(
+      Map(
+        "play-frontend-hmrc.useTudorCrown" -> "false"
+      )
+    )
+    .build()
+
+  def buildAnotherApp(properties: Map[String, String] = Map.empty): Application =
+    new GuiceApplicationBuilder()
+      .configure(properties)
+      .build()
 
   // The following line is needed to ensure known state of the statically initialised reverse router
   // used to calculate asset paths
@@ -29,6 +46,30 @@ class GovukHeaderSpec extends TemplateUnitSpec[Header, GovukHeader]("govukHeader
     "have a role of banner" in {
       val output = component(Header()).select(".govuk-header")
       output.attr("role") shouldBe "banner"
+    }
+
+    """display Tudor crown logo set by config""" in {
+      val anotherApp  = buildAnotherApp(
+        Map(
+          "play-frontend-hmrc.useTudorCrown" -> "true"
+        )
+      )
+      val govukHeader = anotherApp.injector.instanceOf[GovukHeader]
+
+      val componentTry = Try(govukHeader(Header()))
+
+      componentTry          should be a 'success
+      componentTry.get.body should include("govuk-logotype-tudor-crown.png")
+    }
+
+    """display Tudor crown when no config is found""" in {
+      val anotherApp  = buildAnotherApp()
+      val govukHeader = anotherApp.injector.instanceOf[GovukHeader]
+
+      val componentTry = Try(govukHeader(Header()))
+
+      componentTry          should be a 'success
+      componentTry.get.body should include("govuk-logotype-tudor-crown.png")
     }
   }
 

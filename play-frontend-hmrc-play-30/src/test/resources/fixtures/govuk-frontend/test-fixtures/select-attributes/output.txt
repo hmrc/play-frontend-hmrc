@@ -1,5 +1,7 @@
 <div class="govuk-form-group">
-  
+  <label class="govuk-label" for="with-attributes">
+    Label text goes here
+  </label>
   <select class="govuk-select" id="with-attributes" name="with-attributes" data-attribute="my data value">
       <option value="1">GOV.UK frontend option 1</option>
       <option value="2">GOV.UK frontend option 2</option>

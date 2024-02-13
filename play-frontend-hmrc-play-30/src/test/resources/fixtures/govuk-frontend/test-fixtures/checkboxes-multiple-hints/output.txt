@@ -20,7 +20,9 @@
           </div>
           <div class="govuk-checkboxes__item">
             <input class="govuk-checkboxes__input" id="example-multiple-hints-3" name="example-multiple-hints" type="checkbox" value="other" aria-describedby="example-multiple-hints-hint example-multiple-hints-3-item-hint">
-            
+            <label class="govuk-label govuk-checkboxes__label" for="example-multiple-hints-3">
+        Citizen of another country
+      </label>
             <div id="example-multiple-hints-3-item-hint" class="govuk-hint govuk-checkboxes__hint">
         Hint for other option here
       </div>

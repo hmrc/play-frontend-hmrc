@@ -16,9 +16,20 @@
 
 package uk.gov.hmrc.hmrcfrontend.views.components
 
+import play.api.Application
+import play.api.inject.guice.GuiceApplicationBuilder
 import uk.gov.hmrc.hmrcfrontend.support.TemplateIntegrationSpec
 import uk.gov.hmrc.hmrcfrontend.views.html.components._
 import uk.gov.hmrc.hmrcfrontend.views.viewmodels.banner.Generators._
 
 object HmrcBannerIntegrationSpec
-    extends TemplateIntegrationSpec[Banner, HmrcBanner](hmrcComponentName = "hmrcBanner", seed = None)
+    extends TemplateIntegrationSpec[Banner, HmrcBanner](hmrcComponentName = "hmrcBanner", seed = None) {
+
+  override def fakeApplication(): Application = new GuiceApplicationBuilder()
+    .configure(
+      Map(
+        "play-frontend-hmrc.useTudorCrown" -> "false"
+      )
+    )
+    .build()
+}

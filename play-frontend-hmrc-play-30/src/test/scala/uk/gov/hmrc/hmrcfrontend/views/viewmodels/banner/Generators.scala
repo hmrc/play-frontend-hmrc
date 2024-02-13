@@ -16,14 +16,16 @@
 
 package uk.gov.hmrc.hmrcfrontend.views.viewmodels.banner
 
-import org.scalacheck.Arbitrary
+import org.scalacheck.{Arbitrary, Gen}
+import org.scalacheck.Arbitrary.arbBool
 import uk.gov.hmrc.hmrcfrontend.views.viewmodels.language.Generators.arbLanguage
 
 object Generators {
 
   implicit val arbBanner: Arbitrary[Banner] = Arbitrary {
     for {
-      language <- arbLanguage.arbitrary
-    } yield Banner(language = language)
+      language      <- arbLanguage.arbitrary
+      useTudorCrown <- Gen.option(arbBool.arbitrary)
+    } yield Banner(language = language, useTudorCrown = useTudorCrown)
   }
 }

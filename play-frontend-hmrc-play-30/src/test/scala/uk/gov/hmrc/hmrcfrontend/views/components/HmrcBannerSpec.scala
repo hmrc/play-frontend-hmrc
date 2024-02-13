@@ -17,6 +17,8 @@
 package uk.gov.hmrc.hmrcfrontend.views
 package components
 
+import play.api.Application
+import play.api.inject.guice.GuiceApplicationBuilder
 import play.twirl.api.HtmlFormat
 import uk.gov.hmrc.hmrcfrontend.views.html.components._
 
@@ -24,11 +26,52 @@ import scala.util.Try
 
 class HmrcBannerSpec extends TemplateUnitSpec[Banner, HmrcBanner]("hmrcBanner") {
 
+  override def fakeApplication(): Application =
+    new GuiceApplicationBuilder()
+      .configure(
+        Map(
+          "play-frontend-hmrc.useTudorCrown" -> "false"
+        )
+      )
+      .build()
+
+  def buildAnotherApp(properties: Map[String, String] = Map.empty): Application =
+    new GuiceApplicationBuilder()
+      .configure(properties)
+      .build()
+
   override def render(templateParams: Banner): Try[HtmlFormat.Appendable] = {
     // The following line is needed to ensure known state of the statically initialised reverse router
     // used to calculate asset paths.
     hmrcfrontend.RoutesPrefix.setPrefix("")
 
     super.render(templateParams)
+  }
+
+  "banner" should {
+
+    """display Tudor crown logo set by config""" in {
+      val anotherApp = buildAnotherApp(
+        Map(
+          "play-frontend-hmrc.useTudorCrown" -> "true"
+        )
+      )
+      val hmrcBanner = anotherApp.injector.instanceOf[HmrcBanner]
+
+      val componentTry = Try(hmrcBanner(Banner()))
+
+      componentTry          should be a 'success
+      componentTry.get.body should include("hmrc_tudor_crest_18px.png")
+    }
+
+    """display Tudor crown when no config is found""" in {
+      val anotherApp = buildAnotherApp()
+      val hmrcBanner = anotherApp.injector.instanceOf[HmrcBanner]
+
+      val componentTry = Try(hmrcBanner(Banner()))
+
+      componentTry          should be a 'success
+      componentTry.get.body should include("hmrc_tudor_crest_18px.png")
+    }
   }
 }
