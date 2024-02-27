@@ -44,6 +44,13 @@ trait RichDateInputSupport {
         .withInputItems(field)
         .withTextErrorMessage(field)
 
+    def withFormFieldWithMonthAndYear(field: Field): DateInput =
+      dateInput
+        .withId(field)
+        .withInputItems(field)
+        .withTextErrorMessage(field)
+        .withMonthAndYearOnly(field)
+
     /**
       * Extension method to allow a Play form Field to be used to populate parameters in a DateInput, as per
       * withFormField, with form errors bound as HtmlContent objects.
@@ -55,12 +62,17 @@ trait RichDateInputSupport {
         .withId(field)
         .withInputItems(field)
         .withHtmlErrorMessage(field)
+        .withMonthAndYearOnly()
 
     def withHeading(heading: Content): DateInput =
       withHeadingLegend(dateInput, heading, None)((di, ul) => di.copy(fieldset = Some(ul.toFieldset)))
 
     def withHeadingAndSectionCaption(heading: Content, sectionCaption: Content): DateInput =
       withHeadingLegend(dateInput, heading, Some(sectionCaption))((di, ul) => di.copy(fieldset = Some(ul.toFieldset)))
+
+    private[views] def withMonthAndYearOnly(): DateInput =
+      if (dateInput.items.length == 3) dateInput.copy(items = dateInput.items.tail)
+      else dateInput
 
     private[views] def withId(field: Field): DateInput =
       withStringProperty(field.name, dateInput.id, dateInput)((dateInput, id) => dateInput.copy(id = id))
