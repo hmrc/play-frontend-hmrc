@@ -20,7 +20,7 @@ import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpec
 import org.scalatestplus.play.guice.GuiceOneAppPerSuite
 import play.api.Application
-import play.api.data.Forms.{mapping, text}
+import play.api.data.Forms.{date, mapping, text}
 import play.api.data.{Field, Form, FormError}
 import play.api.i18n.{Lang, Messages}
 import play.api.inject.guice.GuiceApplicationBuilder
@@ -93,14 +93,20 @@ class RichDateInputSpec extends AnyWordSpec with Matchers with MessagesSupport w
       dateInput.id shouldBe "date-input-id"
     }
 
-    "create three InputItems" in {
-      val dateInput = DateInput().withFormField(dateField)
+    "create three InputItems if none passed in" in {
+      val dateInput = DateInput().withFormField(dateField).withDayMonthYear(dateField)
 
       dateInput.items should have length 3
     }
 
+    "create two InputItems for withMonthAndYearOnly" in {
+      val dateInput = DateInput().withFormField(dateField).withMonthAndYearOnly(dateField)
+
+      dateInput.items should have length 2
+    }
+
     "populate the labels for the three InputItems" in {
-      val dateInput = DateInput().withFormField(dateField)
+      val dateInput = DateInput().withFormField(dateField).withDayMonthYear(dateField)
 
       dateInput.items.head.label.get shouldBe "Day"
       dateInput.items(1).label.get   shouldBe "Month"
@@ -110,19 +116,44 @@ class RichDateInputSpec extends AnyWordSpec with Matchers with MessagesSupport w
     "populate the labels for the three InputItems in Welsh" in {
       implicit val messages: Messages = messagesApi.preferred(Seq(Lang("cy")))
 
-      val dateInput = DateInput().withFormField(dateField)
+      val dateInput = DateInput().withFormField(dateField).withDayMonthYear(dateField)
 
       dateInput.items.head.label.get shouldBe "Diwrnod"
       dateInput.items(1).label.get   shouldBe "Mis"
       dateInput.items(2).label.get   shouldBe "Blwyddyn"
     }
 
+    "populate the labels for the two InputItems" in {
+      val dateInput = DateInput().withFormField(dateField).withMonthAndYearOnly(dateField)
+
+      dateInput.items.length         shouldBe 2
+      dateInput.items.head.label.get shouldBe "Month"
+      dateInput.items.last.label.get shouldBe "Year"
+    }
+
+    "populate the labels for the two InputItems in Welsh" in {
+      implicit val messages: Messages = messagesApi.preferred(Seq(Lang("cy")))
+
+      val dateInput = DateInput().withFormField(dateField).withMonthAndYearOnly(dateField)
+
+      dateInput.items.length         shouldBe 2
+      dateInput.items.head.label.get shouldBe "Mis"
+      dateInput.items.last.label.get shouldBe "Blwyddyn"
+    }
+
     "populate the id for each of the three InputItems" in {
-      val dateInput = DateInput().withFormField(dateField)
+      val dateInput = DateInput().withFormField(dateField).withDayMonthYear(dateField)
 
       dateInput.items.head.id shouldBe "date.day"
       dateInput.items(1).id   shouldBe "date.month"
       dateInput.items(2).id   shouldBe "date.year"
+    }
+
+    "populate the id for each of the two InputItems" in {
+      val dateInput = DateInput().withFormField(dateField).withMonthAndYearOnly(dateField)
+
+      dateInput.items(0).id shouldBe "date.month"
+      dateInput.items(1).id shouldBe "date.year"
     }
 
     "not overwrite any previously populated ids for each of the three InputItems" in {
@@ -140,7 +171,7 @@ class RichDateInputSpec extends AnyWordSpec with Matchers with MessagesSupport w
     }
 
     "populate the name for each of the three InputItems" in {
-      val dateInput = DateInput().withFormField(dateField)
+      val dateInput = DateInput().withFormField(dateField).withDayMonthYear(dateField)
 
       dateInput.items.head.name shouldBe "date.day"
       dateInput.items(1).name   shouldBe "date.month"
@@ -161,10 +192,9 @@ class RichDateInputSpec extends AnyWordSpec with Matchers with MessagesSupport w
       dateInput.items(2).name   shouldBe "year-different"
     }
 
-    "overwrite any previously populated InputItems where less than three are passed" in {
+    "overwrite any previously populated InputItems where less than two are passed" in {
       val dateInput = DateInput(items =
         Seq(
-          InputItem(name = "day-different"),
           InputItem(name = "month-different")
         )
       ).withFormField(dateField)

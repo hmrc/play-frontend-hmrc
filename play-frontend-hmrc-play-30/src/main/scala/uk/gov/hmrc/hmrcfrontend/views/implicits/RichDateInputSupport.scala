@@ -62,6 +62,73 @@ trait RichDateInputSupport {
     def withHeadingAndSectionCaption(heading: Content, sectionCaption: Content): DateInput =
       withHeadingLegend(dateInput, heading, Some(sectionCaption))((di, ul) => di.copy(fieldset = Some(ul.toFieldset)))
 
+    def withMonthAndYearOnly(field: Field): DateInput =
+      dateInput.copy(items =
+        Seq(
+          InputItem(
+            id = s"${field.name}.month",
+            name = s"${field.name}.month",
+            value = field("month").value,
+            label = Some(messages(s"date.input.month")),
+            classes = "govuk-input--width-2"
+          ),
+          InputItem(
+            id = s"${field.name}.year",
+            name = s"${field.name}.year",
+            value = field("year").value,
+            label = Some(messages(s"date.input.year")),
+            classes = "govuk-input--width-4"
+          )
+        )
+      )
+
+    def withDayAndMonth(field: Field): DateInput =
+      dateInput.copy(items =
+        Seq(
+          InputItem(
+            id = s"${field.name}.day",
+            name = s"${field.name}.day",
+            value = field("day").value,
+            label = Some(messages(s"date.input.day")),
+            classes = "govuk-input--width-2"
+          ),
+          InputItem(
+            id = s"${field.name}.month",
+            name = s"${field.name}.month",
+            value = field("month").value,
+            label = Some(messages(s"date.input.month")),
+            classes = "govuk-input--width-2"
+          )
+        )
+      )
+
+    def withDayMonthYear(field: Field): DateInput =
+      dateInput.copy(items =
+        Seq(
+          InputItem(
+            id = s"${field.name}.day",
+            name = s"${field.name}.day",
+            value = field("day").value,
+            label = Some(messages(s"date.input.day")),
+            classes = "govuk-input--width-2"
+          ),
+          InputItem(
+            id = s"${field.name}.month",
+            name = s"${field.name}.month",
+            value = field("month").value,
+            label = Some(messages(s"date.input.month")),
+            classes = "govuk-input--width-2"
+          ),
+          InputItem(
+            id = s"${field.name}.year",
+            name = s"${field.name}.year",
+            value = field("year").value,
+            label = Some(messages(s"date.input.year")),
+            classes = "govuk-input--width-4"
+          )
+        )
+      )
+
     private[views] def withId(field: Field): DateInput =
       withStringProperty(field.name, dateInput.id, dateInput)((dateInput, id) => dateInput.copy(id = id))
 
@@ -83,15 +150,17 @@ trait RichDateInputSupport {
         )
       }
 
-      val dateInputItems = if (dateInput.items.size == 3) dateInput.items else Seq.fill(3)(InputItem.defaultObject)
+      dateInput
 
-      val items = Seq(
-        inputItem(dateInputItems(0), "day", className = "govuk-input--width-2"),
-        inputItem(dateInputItems(1), "month", className = "govuk-input--width-2"),
-        inputItem(dateInputItems(2), "year", className = "govuk-input--width-4")
-      )
-
-      dateInput.copy(items = items)
+//      val items: Seq[InputItem] =
+//        if (dateInput.items.isEmpty) Seq(
+//                inputItem(InputItem.defaultObject, "day", className = "govuk-input--width-2"),
+//                inputItem(InputItem.defaultObject, "month", className = "govuk-input--width-2"),
+//                inputItem(InputItem.defaultObject, "year", className = "govuk-input--width-4")
+//              )
+//        else dateInput.items
+//
+//      dateInput.copy(items = items)
     }
 
     private[views] def withTextErrorMessage(field: Field): DateInput = {
