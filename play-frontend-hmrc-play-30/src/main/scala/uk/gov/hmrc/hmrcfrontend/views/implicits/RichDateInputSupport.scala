@@ -62,6 +62,10 @@ trait RichDateInputSupport {
     def withHeadingAndSectionCaption(heading: Content, sectionCaption: Content): DateInput =
       withHeadingLegend(dateInput, heading, Some(sectionCaption))((di, ul) => di.copy(fieldset = Some(ul.toFieldset)))
 
+    def withMonthAndYearOnly(): DateInput =
+      if (dateInput.items.length == 3) dateInput.copy(items = dateInput.items.tail)
+      else dateInput
+
     private[views] def withId(field: Field): DateInput =
       withStringProperty(field.name, dateInput.id, dateInput)((dateInput, id) => dateInput.copy(id = id))
 
@@ -83,13 +87,25 @@ trait RichDateInputSupport {
         )
       }
 
-      val dateInputItems = if (dateInput.items.size == 3) dateInput.items else Seq.fill(3)(InputItem.defaultObject)
+      val dateInputItems = dateInput.items.size match {
+        case 2 => dateInput.items
+        case 3 => dateInput.items
+        case _ => Seq.fill(3)(InputItem.defaultObject)
+      }
 
-      val items = Seq(
-        inputItem(dateInputItems(0), "day", className = "govuk-input--width-2"),
-        inputItem(dateInputItems(1), "month", className = "govuk-input--width-2"),
-        inputItem(dateInputItems(2), "year", className = "govuk-input--width-4")
-      )
+      val items: Seq[InputItem] = {
+        if (dateInputItems.size == 2)
+          Seq(
+            inputItem(dateInputItems(0), "month", className = "govuk-input--width-2"),
+            inputItem(dateInputItems(1), "year", className = "govuk-input--width-4")
+          )
+        else
+          Seq(
+            inputItem(dateInputItems(0), "day", className = "govuk-input--width-2"),
+            inputItem(dateInputItems(1), "month", className = "govuk-input--width-2"),
+            inputItem(dateInputItems(2), "year", className = "govuk-input--width-4")
+          )
+      }
 
       dateInput.copy(items = items)
     }
