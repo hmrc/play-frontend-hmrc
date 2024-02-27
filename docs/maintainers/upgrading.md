@@ -1,7 +1,8 @@
 # Upgrading play-frontend-hmrc
 
 > **Warning**
-> When you bump govuk-frontend version, you need to manually check release changes for new components and new parameters that need to be added to our twirl implementations. They won't currently be automatically detected as missing by our automated tests. Read [comparing differences](#comparing-differences) below for ways you can do this.
+> When you bump govuk-frontend version, you need to manually check release changes for new components and new parameters that need to be added to our Twirl implementations. They won't currently be automatically detected as missing by our automated tests. Read [comparing differences](#comparing-differences) below for ways you can do this.
+
 ## Check for updated Govuk components
 
 To ensure that our play-frontend-hmrc library stays up to date with govuk-frontend, 
@@ -123,6 +124,10 @@ index 51d2d346..713db75d 100644
    type: object
    required: true
 ```
+### Comparing forked components in other repos
+As noted above, some of our `play-frontend-hmrc` components are not direct ports, but are manually created and need to be kept manually aligned with `govuk-frontend` in particular. 
+
+For example, if there are changs to the `GovukCookieBanner` template or styles, these should be compared against the cookie banner in `tracking-consent-frontend` (see [banner.ts](https://github.com/hmrc/tracking-consent-frontend/blob/main/js/src/ui/banner.ts)).
 
 #### Adding New Components
 When running the above steps, there will be test failures if existing components have changed. However, there will be no
