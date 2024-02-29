@@ -19,6 +19,7 @@
 @(params: DateInput)
 @import params._
 @require(id.nonEmpty, "id should not be empty")
+@require(items.nonEmpty, "items should not be empty")
 @require(if (items.nonEmpty) items.forall(_.name.nonEmpty) else true, "all item.names should be defined")
 @defining(innerHtmlSnippet) { case (describedBy, innerHtml) =>
   <div class="@toClasses("govuk-form-group", errorMessage.fold("")(_ => "govuk-form-group--error"), formGroupClasses)">

@@ -16,6 +16,8 @@
 
 package uk.gov.hmrc.govukfrontend.views.viewmodels.dateinput
 
+import play.api.data.Field
+import play.api.i18n.Messages
 import play.api.libs.functional.syntax._
 import play.api.libs.json._
 import uk.gov.hmrc.govukfrontend.views.html.components._
@@ -33,9 +35,33 @@ case class DateInput(
   attributes: Map[String, String] = Map.empty
 )
 
+//type DateInputItems = Seq[InputItem]
+
 object DateInput {
 
   def defaultObject: DateInput = DateInput()
+
+  def dayMonthYearInputItems(field: Field)(implicit messages: Messages) = Seq(InputItem(
+    id = s"${field.name}.day",
+    name = s"${field.name}.day",
+    value = field("day").value,
+    label = Some(messages(s"date.input.day")),
+    classes = "govuk-input--width-2"
+  ),
+  InputItem(
+    id = s"${field.name}.month",
+    name = s"${field.name}.month",
+    value = field("month").value,
+    label = Some(messages(s"date.input.month")),
+    classes = "govuk-input--width-2"
+  ),
+  InputItem(
+    id = s"${field.name}.year",
+    name = s"${field.name}.year",
+    value = field("year").value,
+    label = Some(messages(s"date.input.year")),
+    classes = "govuk-input--width-4"
+  ))
 
   implicit def jsonReads: Reads[DateInput] =
     (
@@ -64,3 +90,5 @@ object DateInput {
     )(unlift(DateInput.unapply))
 
 }
+
+

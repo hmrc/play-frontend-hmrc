@@ -69,29 +69,13 @@ trait RichDateInputSupport {
       def errorClass(itemField: Field) =
         if (field.errors.nonEmpty || itemField.errors.nonEmpty) "govuk-input--error" else ""
 
-      def inputItem(inputItem: InputItem, key: String, className: String): InputItem = {
-        val defaultInputItem = InputItem.defaultObject
-        val classes          = if (inputItem.classes == defaultInputItem.classes) className else inputItem.classes
-
+      def inputItem(inputItem: InputItem): InputItem = {
         inputItem.copy(
-          id = if (inputItem.id == defaultInputItem.id) s"${field.name}.$key" else inputItem.id,
-          name = if (inputItem.name == defaultInputItem.name) s"${field.name}.$key" else inputItem.name,
-          value = if (inputItem.value == defaultInputItem.value) field(key).value else inputItem.value,
-          label =
-            if (inputItem.label == defaultInputItem.label) Some(messages(s"date.input.$key")) else inputItem.label,
-          classes = s"$classes ${errorClass(field(key))}".trim
+          classes = s"${inputItem.classes} ${errorClass(field)}".trim
         )
       }
 
-      val dateInputItems = if (dateInput.items.size == 3) dateInput.items else Seq.fill(3)(InputItem.defaultObject)
-
-      val items = Seq(
-        inputItem(dateInputItems(0), "day", className = "govuk-input--width-2"),
-        inputItem(dateInputItems(1), "month", className = "govuk-input--width-2"),
-        inputItem(dateInputItems(2), "year", className = "govuk-input--width-4")
-      )
-
-      dateInput.copy(items = items)
+      dateInput.copy(items = dateInput.items.map(inputItem))
     }
 
     private[views] def withTextErrorMessage(field: Field): DateInput = {
