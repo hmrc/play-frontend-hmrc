@@ -90,10 +90,9 @@
             }
             case _ => {}
           }
-
-          @navigation.map { nav =>
-            <nav aria-label="@params.navigationLabel.getOrElse(menuButtonText.getOrElse("Menu"))" class="govuk-header__navigation @navigationClasses">
-              <button type="button" class="govuk-header__menu-button govuk-js-header-toggle" aria-controls="navigation" aria-label="@params.menuButtonLabel.getOrElse("Show or hide menu")" hidden>@{menuButtonText.getOrElse("Menu")}</button>
+          @navigation.map { navigation =>
+            <nav aria-label="@params.navigationLabel.getOrElse(menuButtonText.getOrElse("Menu"))" class="@toClasses("govuk-header__navigation", navigationClasses)">
+              <button type="button" class="govuk-header__menu-button govuk-js-header-toggle" aria-controls="navigation" @menuButtonAriaLabel hidden> @{menuButtonText.getOrElse("Menu")} </button>
               <ul id="navigation" class="govuk-header__navigation-list">
                 @for(item <- nav) {
                   @if((item.text.nonEmpty || item.content.nonEmpty)) {
