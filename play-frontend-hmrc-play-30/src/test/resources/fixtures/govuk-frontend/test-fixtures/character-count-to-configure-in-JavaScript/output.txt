@@ -7,7 +7,6 @@
 </div>
 
   <div id="to-configure-in-javascript-info" class="govuk-hint govuk-character-count__message">
-  
-</div>
-
+    
+  </div>
 </div>

@@ -1,25 +1,24 @@
 <div class="govuk-form-group">
-<fieldset class="govuk-fieldset" aria-describedby="test-target-element example-hint-describedby-hint">
-  <legend class="govuk-fieldset__legend">
-    Have you changed your name?
-  </legend>
-  <div id="example-hint-describedby-hint" class="govuk-hint">
-    This includes changing your last name or spelling your name differently.
-  </div>
-  <div class="govuk-radios" data-module="govuk-radios">
-        <div class="govuk-radios__item">
-          <input class="govuk-radios__input" id="example-hint-describedby" name="example-hint-describedby" type="radio" value="yes">
-          <label class="govuk-label govuk-radios__label" for="example-hint-describedby">
-        Yes
-      </label>
-        </div>
-        <div class="govuk-radios__item">
-          <input class="govuk-radios__input" id="example-hint-describedby-2" name="example-hint-describedby" type="radio" value="no">
-          <label class="govuk-label govuk-radios__label" for="example-hint-describedby-2">
-        No
-      </label>
-        </div>
-  </div>
-
-</fieldset>
+  <fieldset class="govuk-fieldset" aria-describedby="test-target-element example-hint-describedby-hint">
+    <legend class="govuk-fieldset__legend">
+      Have you changed your name?
+    </legend>
+    <div id="example-hint-describedby-hint" class="govuk-hint">
+      This includes changing your last name or spelling your name differently.
+    </div>
+    <div class="govuk-radios" data-module="govuk-radios">
+      <div class="govuk-radios__item">
+        <input class="govuk-radios__input" id="example-hint-describedby" name="example-hint-describedby" type="radio" value="yes">
+        <label class="govuk-label govuk-radios__label" for="example-hint-describedby">
+          Yes
+        </label>
+      </div>
+      <div class="govuk-radios__item">
+        <input class="govuk-radios__input" id="example-hint-describedby-2" name="example-hint-describedby" type="radio" value="no">
+        <label class="govuk-label govuk-radios__label" for="example-hint-describedby-2">
+          No
+        </label>
+      </div>
+    </div>
+  </fieldset>
 </div>

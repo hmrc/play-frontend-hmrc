@@ -145,38 +145,37 @@
       <hr class="govuk-footer__section-break">
     <div class="govuk-footer__meta">
       <div class="govuk-footer__meta-item govuk-footer__meta-item--grow">
-          <h2 class="govuk-visually-hidden">Support links</h2>
-            <ul class="govuk-footer__inline-list">
-                <li class="govuk-footer__inline-list-item">
-                  <a class="govuk-footer__link" href="/help">
-                    Help
-                  </a>
-                </li>
-                <li class="govuk-footer__inline-list-item">
-                  <a class="govuk-footer__link" href="/help/cookies">
-                    Cookies
-                  </a>
-                </li>
-                <li class="govuk-footer__inline-list-item">
-                  <a class="govuk-footer__link" href="/contact">
-                    Contact
-                  </a>
-                </li>
-                <li class="govuk-footer__inline-list-item">
-                  <a class="govuk-footer__link" href="/help/terms-conditions">
-                    Terms and conditions
-                  </a>
-                </li>
-                <li class="govuk-footer__inline-list-item">
-                  <a class="govuk-footer__link" href="/cymraeg">
-                    Rhestr o Wasanaethau Cymraeg
-                  </a>
-                </li>
-            </ul>
-            <div class="govuk-footer__meta-custom">
-              Built by the <a class="govuk-footer__link" href="#">Government Digital Service</a>
-            </div>
-
+        <h2 class="govuk-visually-hidden">Support links</h2>
+        <ul class="govuk-footer__inline-list">
+          <li class="govuk-footer__inline-list-item">
+            <a class="govuk-footer__link" href="/help">
+              Help
+            </a>
+          </li>
+          <li class="govuk-footer__inline-list-item">
+            <a class="govuk-footer__link" href="/help/cookies">
+              Cookies
+            </a>
+          </li>
+          <li class="govuk-footer__inline-list-item">
+            <a class="govuk-footer__link" href="/contact">
+              Contact
+            </a>
+          </li>
+          <li class="govuk-footer__inline-list-item">
+            <a class="govuk-footer__link" href="/help/terms-conditions">
+              Terms and conditions
+            </a>
+          </li>
+          <li class="govuk-footer__inline-list-item">
+            <a class="govuk-footer__link" href="/cymraeg">
+              Rhestr o Wasanaethau Cymraeg
+            </a>
+          </li>
+        </ul>
+        <div class="govuk-footer__meta-custom">
+          Built by the <a class="govuk-footer__link" href="#">Government Digital Service</a>
+        </div>
         <svg
           aria-hidden="true"
           focusable="false"
@@ -192,19 +191,21 @@
           />
         </svg>
         <span class="govuk-footer__licence-description">
-            All content is available under the
-            <a
-              class="govuk-footer__link"
-              href="https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/"
-              rel="license"
-            >Open Government Licence v3.0</a>, except where otherwise stated
+          All content is available under the
+          <a
+            class="govuk-footer__link"
+            href="https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/"
+            rel="license"
+          >Open Government Licence v3.0</a>, except where otherwise stated
         </span>
       </div>
       <div class="govuk-footer__meta-item">
         <a
           class="govuk-footer__link govuk-footer__copyright-logo"
           href="https://www.nationalarchives.gov.uk/information-management/re-using-public-sector-information/uk-government-licensing-framework/crown-copyright/"
-        >© Crown copyright</a>
+        >
+          © Crown copyright
+        </a>
       </div>
     </div>
   </div>

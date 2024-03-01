@@ -5,9 +5,9 @@
     </h2>
     <div class="govuk-error-summary__body">
       <ul class="govuk-list govuk-error-summary__list">
-          <li>
-            <a href="#error-1">Descriptive link to the &lt;b&gt;question&lt;/b&gt; with an error</a>
-          </li>
+        <li>
+          <a href="#error-1">Descriptive link to the &lt;b&gt;question&lt;/b&gt; with an error</a>
+        </li>
       </ul>
     </div>
   </div>

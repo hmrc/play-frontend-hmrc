@@ -10,7 +10,6 @@
 </div>
 
   <div id="with-hint-info" class="govuk-hint govuk-character-count__message">
-  You can enter up to 10 characters
-</div>
-
+    You can enter up to 10 characters
+  </div>
 </div>

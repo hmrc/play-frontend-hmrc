@@ -5,7 +5,7 @@
     Full address
   </label>
   <p id="exceeding-characters-error" class="govuk-error-message">
-  <span class="govuk-visually-hidden">Error:</span> Please do not exceed the maximum allowed limit
+    <span class="govuk-visually-hidden">Error:</span> Please do not exceed the maximum allowed limit
   </p>
   <textarea class="govuk-textarea govuk-textarea--error govuk-js-character-count" id="exceeding-characters" name="exceeding" rows="5" aria-describedby="exceeding-characters-info exceeding-characters-error">221B Baker Street
 London
@@ -14,8 +14,7 @@ NW1 6XE
 </div>
 
   <div id="exceeding-characters-info" class="govuk-hint govuk-character-count__message">
-  Gallwch nodi hyd at 10 o gymeriadau
-</div>
-
+    Gallwch nodi hyd at 10 o gymeriadau
+  </div>
 </div>
 

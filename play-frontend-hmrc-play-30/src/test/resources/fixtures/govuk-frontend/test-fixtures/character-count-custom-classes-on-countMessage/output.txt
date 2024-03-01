@@ -7,7 +7,6 @@
 </div>
 
   <div id="with-custom-countmessage-class-info" class="govuk-hint govuk-character-count__message app-custom-count-message">
-  You can enter up to 10 characters
-</div>
-
+    You can enter up to 10 characters
+  </div>
 </div>

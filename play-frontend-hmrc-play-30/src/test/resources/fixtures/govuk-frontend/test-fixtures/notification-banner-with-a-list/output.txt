@@ -4,12 +4,13 @@
       Important
     </h2>
   </div>
-  <div class="govuk-notification-banner__content"><h3 class="govuk-notification-banner__heading">4 files uploaded</h3>
-<ul class="govuk-list govuk-list--bullet govuk-!-margin-bottom-0">
-  <li><a href="#" class="govuk-notification-banner__link">government-strategy.pdf</a></li>
-  <li><a href="#" class="govuk-notification-banner__link">government-strategy-v2.pdf</a></li>
-  <li><a href="#" class="govuk-notification-banner__link">government-strategy-v3-FINAL.pdf</a></li>
-  <li><a href="#" class="govuk-notification-banner__link">government-strategy-v4-FINAL-v2.pdf</a></li>
-</ul>
-</div>
+  <div class="govuk-notification-banner__content">
+    <h3 class="govuk-notification-banner__heading">4 files uploaded</h3>
+    <ul class="govuk-list govuk-list--bullet govuk-!-margin-bottom-0">
+      <li><a href="#" class="govuk-notification-banner__link">government-strategy.pdf</a></li>
+      <li><a href="#" class="govuk-notification-banner__link">government-strategy-v2.pdf</a></li>
+      <li><a href="#" class="govuk-notification-banner__link">government-strategy-v3-FINAL.pdf</a></li>
+      <li><a href="#" class="govuk-notification-banner__link">government-strategy-v4-FINAL-v2.pdf</a></li>
+    </ul>
+  </div>
 </div>

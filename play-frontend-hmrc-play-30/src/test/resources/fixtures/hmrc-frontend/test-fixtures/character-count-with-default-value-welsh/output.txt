@@ -11,8 +11,7 @@ NW1 6XE
 </div>
 
   <div id="with-default-value-welsh-info" class="govuk-hint govuk-character-count__message">
-  Gallwch nodi hyd at 100 o gymeriadau
-</div>
-
+    Gallwch nodi hyd at 100 o gymeriadau
+  </div>
 </div>
 

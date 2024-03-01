@@ -1,14 +1,16 @@
 <div class="govuk-accordion" data-module="govuk-accordion" id="accordion-heading">
-      <div class="govuk-accordion__section">
-        <div class="govuk-accordion__section-header">
-          <h3 class="govuk-accordion__section-heading">
-            <span class="govuk-accordion__section-button" id="accordion-heading-heading-1">
-              Section A
-            </span>
-          </h3>
-        </div>
-        <div id="accordion-heading-content-1" class="govuk-accordion__section-content" aria-labelledby="accordion-heading-heading-1">
-            <p class="govuk-body">Some content</p>
-        </div>
-      </div>
+  <div class="govuk-accordion__section">
+    <div class="govuk-accordion__section-header">
+      <h3 class="govuk-accordion__section-heading">
+        <span class="govuk-accordion__section-button" id="accordion-heading-heading-1">
+          Section A
+        </span>
+      </h3>
+    </div>
+    <div id="accordion-heading-content-1" class="govuk-accordion__section-content">
+      <p class="govuk-body">
+        Some content
+      </p>
+    </div>
+  </div>
 </div>

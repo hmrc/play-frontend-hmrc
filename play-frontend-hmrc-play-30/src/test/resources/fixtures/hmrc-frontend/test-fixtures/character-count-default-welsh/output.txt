@@ -8,8 +8,7 @@
 </div>
 
   <div id="more-detail-welsh-info" class="govuk-hint govuk-character-count__message">
-  Gallwch nodi hyd at 10 o gymeriadau
-</div>
-
+    Gallwch nodi hyd at 10 o gymeriadau
+  </div>
 </div>
 

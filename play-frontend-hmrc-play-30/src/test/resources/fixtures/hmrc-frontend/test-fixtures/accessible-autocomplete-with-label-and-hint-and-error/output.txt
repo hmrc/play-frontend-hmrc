@@ -9,7 +9,7 @@
   </div>
 
         <p id="location-picker-error" class="govuk-error-message">
-  <span class="govuk-visually-hidden">Error:</span> 
+    <span class="govuk-visually-hidden">Error:</span> 
   </p>
 
     <select id="location-picker" data-show-all-values="false" data-auto-select="false" data-default-value="" data-module="hmrc-accessible-autocomplete">
