@@ -1,4 +1,5 @@
-<h1 class="govuk-label-wrapper"><label class="govuk-label">
+<h1 class="govuk-label-wrapper">
+  <label class="govuk-label">
     National Insurance number
   </label>
-  </h1>
+</h1>

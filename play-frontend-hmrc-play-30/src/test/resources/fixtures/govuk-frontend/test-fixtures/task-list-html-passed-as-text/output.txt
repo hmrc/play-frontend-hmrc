@@ -1,23 +1,28 @@
+
 <ul class="govuk-task-list">
-<li class="govuk-task-list__item govuk-task-list__item--with-link">
-      <div class="govuk-task-list__name-and-hint">
-          <a class="govuk-link govuk-task-list__link" href="#" aria-describedby="my-custom-id-1-hint my-custom-id-1-status">&lt;strong&gt;Linked Title&lt;/strong&gt;</a>
-          <div id="my-custom-id-1-hint" class="govuk-task-list__hint">
-            &lt;strong&gt;Hint&lt;/strong&gt;
-          </div>
+  <li class="govuk-task-list__item govuk-task-list__item--with-link">
+    <div class="govuk-task-list__name-and-hint">
+      <a class="govuk-link govuk-task-list__link" href="#" aria-describedby="my-custom-id-1-hint my-custom-id-1-status">
+        &lt;strong&gt;Linked Title&lt;/strong&gt;
+      </a>
+      <div id="my-custom-id-1-hint" class="govuk-task-list__hint">
+        &lt;strong&gt;Hint&lt;/strong&gt;
       </div>
-      <div class="govuk-task-list__status" id="my-custom-id-1-status">
-          &lt;strong&gt;Status&lt;/strong&gt;
+    </div>
+    <div class="govuk-task-list__status" id="my-custom-id-1-status">
+      &lt;strong&gt;Status&lt;/strong&gt;
+    </div>
+  </li>
+  <li class="govuk-task-list__item">
+    <div class="govuk-task-list__name-and-hint">
+      <div>
+        &lt;strong&gt;Unlinked Title&lt;/strong&gt;
       </div>
-    </li>
-<li class="govuk-task-list__item">
-      <div class="govuk-task-list__name-and-hint">
-          <div>&lt;strong&gt;Unlinked Title&lt;/strong&gt;</div>
-      </div>
-      <div class="govuk-task-list__status" id="my-custom-id-2-status">
-          <strong class="govuk-tag">
-      &lt;strong&gt;Tag&lt;/strong&gt;
-    </strong>
-      </div>
-    </li>
+    </div>
+    <div class="govuk-task-list__status" id="my-custom-id-2-status">
+      <strong class="govuk-tag">
+        &lt;strong&gt;Tag&lt;/strong&gt;
+      </strong>
+    </div>
+  </li>
 </ul>

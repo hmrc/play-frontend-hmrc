@@ -4,6 +4,7 @@
       Important
     </h2>
   </div>
-  <div class="govuk-notification-banner__content"><p class="govuk-notification-banner__heading">You have 9 days to send a response.</p>
-</div>
+  <div class="govuk-notification-banner__content">
+    <p class="govuk-notification-banner__heading">You have 9 days to send a response.</p>
+  </div>
 </div>

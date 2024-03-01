@@ -5,7 +5,7 @@
         <label class="govuk-label govuk-date-input__label" for="with-custom-pattern-day">
           Day
         </label>
-      <input class="govuk-input govuk-date-input__input " id="with-custom-pattern-day" name="day" type="text" pattern="[0-8]*" inputmode="numeric">
+        <input class="govuk-input govuk-date-input__input " id="with-custom-pattern-day" name="day" type="text" pattern="[0-8]*" inputmode="numeric">
       </div>
     </div>
   </div>

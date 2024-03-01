@@ -4,5 +4,6 @@
       Important
     </h2>
   </div>
-  <div class="govuk-notification-banner__content"></div>
+  <div class="govuk-notification-banner__content">
+  </div>
 </div>

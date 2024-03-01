@@ -7,7 +7,6 @@
 </div>
 
   <div id="custom-textarea-description-info" class="govuk-hint govuk-character-count__message">
-  Gallwch ddefnyddio hyd at 10 nod
-</div>
-
+    Gallwch ddefnyddio hyd at 10 nod
+  </div>
 </div>

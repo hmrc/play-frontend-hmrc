@@ -6,7 +6,7 @@
     hint
   </div>
   <p id="file-upload-error-describedby-hint-error" class="govuk-error-message">
-  <span class="govuk-visually-hidden">Error:</span> Error message
+    <span class="govuk-visually-hidden">Error:</span> Error message
   </p>
   <input class="govuk-file-upload govuk-file-upload--error" id="file-upload-error-describedby-hint" name="file-upload-error-describedby-hint" type="file" aria-describedby="test-target-element file-upload-error-describedby-hint-hint file-upload-error-describedby-hint-error">
 </div>

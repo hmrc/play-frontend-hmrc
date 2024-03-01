@@ -3,7 +3,7 @@
     Upload a file
   </label>
   <p id="file-upload-with-error-error" class="govuk-error-message">
-  <span class="govuk-visually-hidden">Error:</span> Error message
+    <span class="govuk-visually-hidden">Error:</span> Error message
   </p>
   <input class="govuk-file-upload govuk-file-upload--error" id="file-upload-with-error" name="file-upload-with-error" type="file" aria-describedby="file-upload-with-error-error">
 </div>

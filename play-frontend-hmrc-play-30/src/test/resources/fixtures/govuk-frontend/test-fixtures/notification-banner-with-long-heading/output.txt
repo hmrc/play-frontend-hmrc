@@ -5,5 +5,8 @@
     </h2>
   </div>
   <div class="govuk-notification-banner__content">
-      <p class="govuk-notification-banner__heading">This publication was withdrawn on 7 March 2014, before being sent in, sent back, queried, lost, found, subjected to public inquiry, lost again, and finally buried in soft peat for three months and recycled as firelighters.</p></div>
+    <p class="govuk-notification-banner__heading">
+      This publication was withdrawn on 7 March 2014, before being sent in, sent back, queried, lost, found, subjected to public inquiry, lost again, and finally buried in soft peat for three months and recycled as firelighters.
+    </p>
+  </div>
 </div>

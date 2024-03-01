@@ -5,8 +5,8 @@
     </tr>
   </thead>
   <tbody class="govuk-table__body">
-        <tr class="govuk-table__row">
-          <td class="govuk-table__cell">Foo <span>bar</span></td>
-        </tr>
+    <tr class="govuk-table__row">
+      <td class="govuk-table__cell">Foo <span>bar</span></td>
+    </tr>
   </tbody>
 </table>

@@ -4,13 +4,12 @@
     With custom error class
   </label>
   <p id="with-custom-error-class-error" class="govuk-error-message">
-  <span class="govuk-visually-hidden">Error:</span> Error message
+    <span class="govuk-visually-hidden">Error:</span> Error message
   </p>
   <textarea class="govuk-textarea govuk-textarea--error govuk-js-character-count app-character-count--custom-modifier" id="with-custom-error-class" name="with-custom-error-class" rows="5" aria-describedby="with-custom-error-class-info with-custom-error-class-error"></textarea>
 </div>
 
   <div id="with-custom-error-class-info" class="govuk-hint govuk-character-count__message">
-  You can enter up to 10 characters
-</div>
-
+    You can enter up to 10 characters
+  </div>
 </div>

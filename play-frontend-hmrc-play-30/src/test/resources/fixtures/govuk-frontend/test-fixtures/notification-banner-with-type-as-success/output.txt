@@ -5,5 +5,8 @@
     </h2>
   </div>
   <div class="govuk-notification-banner__content">
-      <p class="govuk-notification-banner__heading">Email sent to example@email.com</p></div>
+    <p class="govuk-notification-banner__heading">
+      Email sent to example@email.com
+    </p>
+  </div>
 </div>

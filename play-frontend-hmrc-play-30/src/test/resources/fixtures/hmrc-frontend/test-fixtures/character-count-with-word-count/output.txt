@@ -8,8 +8,7 @@
 </div>
 
   <div id="word-count-info" class="govuk-hint govuk-character-count__message">
-  You can enter up to 10 words
-</div>
-
+    You can enter up to 10 words
+  </div>
 </div>
 

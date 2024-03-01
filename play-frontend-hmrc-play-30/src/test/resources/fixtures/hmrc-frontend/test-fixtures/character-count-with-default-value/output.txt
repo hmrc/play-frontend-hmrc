@@ -11,8 +11,7 @@ NW1 6XE
 </div>
 
   <div id="with-default-value-info" class="govuk-hint govuk-character-count__message">
-  You can enter up to 100 characters
-</div>
-
+    You can enter up to 100 characters
+  </div>
 </div>
 

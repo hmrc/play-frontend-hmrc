@@ -1,5 +1,9 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 4.8.0
 =======
 5.0.0
 >>>>>>> a7fafbc5 (PLATUI-2706 WIP - bumped govuk/hmrc-frontend versions and regenerated test fixtures)
+=======
+5.2.0
+>>>>>>> e70e6af5 (PLATUI: Generated fixtures for govuk-frontend 5.2.0 and hmrc-frontend 6.3.0 using local webjar and hack to get x-govuk-component-renderer to generate fixtures)

@@ -8,8 +8,7 @@
 </div>
 
   <div id="word-count-info" class="govuk-hint govuk-character-count__message">
-  Gallwch nodi hyd at 10 o eiriau
-</div>
-
+    Gallwch nodi hyd at 10 o eiriau
+  </div>
 </div>
 
