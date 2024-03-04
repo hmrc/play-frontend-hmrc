@@ -63,7 +63,7 @@
           </div>
         }
       </div>
-      <div id="@id-content-@index" class="govuk-accordion__section-content" aria-labelledby="@id-heading-@index">
+      <div id="@id-content-@index" class="govuk-accordion__section-content">
         @item.content match {
           case textContent: Text if textContent.nonEmpty => {<p class="govuk-body">@textContent.asHtml</p>}
           case otherContent => {@otherContent.asHtml}
