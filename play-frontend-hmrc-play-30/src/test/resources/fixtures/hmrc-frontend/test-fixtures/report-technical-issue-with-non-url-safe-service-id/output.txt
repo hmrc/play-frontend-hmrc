@@ -1,5 +1,0 @@
-<a lang="en" hreflang="en"
-  class="govuk-link hmrc-report-technical-issue "
-  target="_blank"
-  href="/contact/report-technical-problem?newTab=true&amp;service=Build%20%26%20Deploy"
->Is this page not working properly? (opens in new tab)</a>

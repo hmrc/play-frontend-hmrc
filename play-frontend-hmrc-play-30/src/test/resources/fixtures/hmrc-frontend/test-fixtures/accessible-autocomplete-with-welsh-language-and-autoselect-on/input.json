@@ -1,7 +1,0 @@
-{
-  "label" : {
-    "text" : "Dewiswch wlad"
-  },
-  "id" : "location-picker",
-  "select" : "<select id=\"location-picker\" data-language=\"cy\" data-show-all-values=\"false\" data-auto-select=\"true\" data-default-value=\"\" data-module=\"hmrc-accessible-autocomplete\">\n  <option value=\"fr\">France</option>\n  <option value=\"de\">Germany</option>\n  <option value=\"gb\">United Kingdom</option>\n  <option value=\"us\">United States</option>\n</select>\n"
-}

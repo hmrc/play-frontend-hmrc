@@ -10,11 +10,7 @@
     "value" : "other",
     "text" : "Citizen of another country",
     "conditional" : {
-<<<<<<< HEAD
-      "html" : "<div class=\"govuk-form-group\">\n  <label class=\"govuk-label\" for=\"other-country\">\n    Country\n  </label>\n<input class=\"govuk-input\" id=\"other-country\" name=\"other-country\" type=\"text\" value=\"Ravka\">\n</div>\n"
-=======
       "html" : "<div class=\"govuk-form-group\">\n  <label class=\"govuk-label\" for=\"other-country\">\n    Country\n  </label>\n  <input class=\"govuk-input\" id=\"other-country\" name=\"other-country\" type=\"text\" value=\"Ravka\">\n</div>\n"
->>>>>>> a7fafbc5 (PLATUI-2706 WIP - bumped govuk/hmrc-frontend versions and regenerated test fixtures)
     }
   } ],
   "values" : [ "british", "other" ]

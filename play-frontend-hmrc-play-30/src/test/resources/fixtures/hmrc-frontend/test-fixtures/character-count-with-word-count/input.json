@@ -1,8 +1,0 @@
-{
-  "id" : "word-count",
-  "name" : "word-count",
-  "maxwords" : 10,
-  "label" : {
-    "text" : "Full address"
-  }
-}

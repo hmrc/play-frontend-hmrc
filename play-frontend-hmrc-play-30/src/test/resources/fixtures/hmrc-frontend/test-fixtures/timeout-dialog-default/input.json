@@ -1,7 +1,0 @@
-{
-  "timeout" : 75,
-  "countdown" : 74,
-  "keepAliveUrl" : "?abc=def",
-  "signOutUrl" : "?ghi=jkl",
-  "synchroniseTabs" : false
-}

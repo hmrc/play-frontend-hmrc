@@ -1,7 +1,0 @@
-{
-  "events" : [ {
-    "title" : "event one",
-    "time" : "15 July 2020",
-    "content" : "<p class=\"govuk-body\">singleExampleContent1</p>"
-  } ]
-}

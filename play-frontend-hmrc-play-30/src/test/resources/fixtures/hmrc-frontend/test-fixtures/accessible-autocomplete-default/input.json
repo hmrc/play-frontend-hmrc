@@ -1,7 +1,0 @@
-{
-  "label" : {
-    "text" : "Select country"
-  },
-  "id" : "location-picker",
-  "select" : "<select id=\"location-picker\" data-show-all-values=\"false\" data-auto-select=\"false\" data-default-value=\"\" data-module=\"hmrc-accessible-autocomplete\">\n  <option value=\"fr\">France</option>\n  <option value=\"de\">Germany</option>\n  <option value=\"gb\">United Kingdom</option>\n</select>\n"
-}

@@ -16,6 +16,7 @@
 
 package uk.gov.hmrc.govukfrontend.views.viewmodels.tasklist
 
+import uk.gov.hmrc.govukfrontend.views.viewmodels.content.{Content, Empty}
 import uk.gov.hmrc.govukfrontend.views.viewmodels.hint.Hint
 import play.api.libs.functional.syntax._
 import play.api.libs.json._

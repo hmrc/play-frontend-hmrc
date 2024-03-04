@@ -1,6 +1,0 @@
-{
-  "serviceName" : "Service with HMRC Banner and an additional one",
-  "language" : "en",
-  "displayHmrcBanner" : true,
-  "additionalBannersBlock" : "<div class=\"custom-banner govuk-body\">for example an attorney banner</div>"
-}

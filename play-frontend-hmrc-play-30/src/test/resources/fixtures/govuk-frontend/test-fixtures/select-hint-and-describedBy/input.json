@@ -4,11 +4,7 @@
   "label" : {
     "text" : "Label text goes here"
   },
-<<<<<<< HEAD
-  "describedBy" : "some-id",
-=======
   "describedBy" : "test-target-element",
->>>>>>> a7fafbc5 (PLATUI-2706 WIP - bumped govuk/hmrc-frontend versions and regenerated test fixtures)
   "hint" : {
     "text" : "Hint text goes here"
   },

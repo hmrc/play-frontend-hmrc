@@ -2,19 +2,8 @@
   <label class="govuk-label" for="with-describedby">
     Label text goes here
   </label>
-<<<<<<< HEAD
-  <select class="govuk-select" id="with-describedby" name="with-describedby" aria-describedby="some-id">
-=======
   <select class="govuk-select" id="with-describedby" name="with-describedby" aria-describedby="test-target-element">
-<<<<<<< HEAD
-      
->>>>>>> a7fafbc5 (PLATUI-2706 WIP - bumped govuk/hmrc-frontend versions and regenerated test fixtures)
-      <option value="1">GOV.UK frontend option 1</option>
-      
-      <option value="2">GOV.UK frontend option 2</option>
-=======
     <option value="1">GOV.UK frontend option 1</option>
     <option value="2">GOV.UK frontend option 2</option>
->>>>>>> e70e6af5 (PLATUI: Generated fixtures for govuk-frontend 5.2.0 and hmrc-frontend 6.3.0 using local webjar and hack to get x-govuk-component-renderer to generate fixtures)
   </select>
 </div>

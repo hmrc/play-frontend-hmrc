@@ -1,9 +1,0 @@
-{
-  "headingLevel" : 3,
-  "events" : [ {
-    "title" : "event one",
-    "datetime" : "2020-07-14",
-    "time" : "14 July 2020",
-    "content" : "<p class=\"govuk-body\">exampleContent1</p>"
-  } ]
-}

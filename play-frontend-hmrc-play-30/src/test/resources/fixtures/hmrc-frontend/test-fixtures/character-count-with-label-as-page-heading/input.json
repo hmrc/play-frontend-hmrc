@@ -1,9 +1,0 @@
-{
-  "id" : "textarea-with-page-heading",
-  "name" : "address",
-  "maxlength" : 10,
-  "label" : {
-    "text" : "Full address",
-    "isPageHeading" : true
-  }
-}

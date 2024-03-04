@@ -1,8 +1,0 @@
-{
-  "language" : "cy",
-  "timeout" : 70,
-  "countdown" : 68,
-  "keepAliveUrl" : "?abc=def",
-  "signOutUrl" : "?ghi=jkl",
-  "synchroniseTabs" : false
-}
