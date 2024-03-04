@@ -59,7 +59,7 @@ class GovukHeaderSpec extends TemplateUnitSpec[Header, GovukHeader]("govukHeader
       val componentTry = Try(govukHeader(Header()))
 
       componentTry          should be a 'success
-      componentTry.get.body should include("govuk-logotype-tudor-crown.png")
+      componentTry.get.body should include("M22.6 10.4c-1")
     }
 
     """display Tudor crown when no config is found""" in {
@@ -69,7 +69,7 @@ class GovukHeaderSpec extends TemplateUnitSpec[Header, GovukHeader]("govukHeader
       val componentTry = Try(govukHeader(Header()))
 
       componentTry          should be a 'success
-      componentTry.get.body should include("govuk-logotype-tudor-crown.png")
+      componentTry.get.body should include("M22.6 10.4c-1")
     }
   }
 
