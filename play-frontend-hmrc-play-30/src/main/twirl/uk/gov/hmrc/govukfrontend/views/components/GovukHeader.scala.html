@@ -15,6 +15,7 @@
  *@
 
 @import uk.gov.hmrc.govukfrontend.views.Aliases.Header
+@import uk.gov.hmrc.govukfrontend.views.Aliases.HeaderNavigation
 @import uk.gov.hmrc.hmrcfrontend.views.Utils._
 @import uk.gov.hmrc.hmrcfrontend.config.TudorCrownConfig
 
@@ -75,8 +76,7 @@
         }
       </a>
     </div>
-    @(serviceName, navigation) match {
-      case (Some(NonEmptyString(_)), _) | (_, Some(_)) => {
+    @if(serviceName.exists(_.nonEmpty) || navigation.exists(_.nonEmpty)) {
         <div class="govuk-header__content">
           @serviceName match {
             case Some(NonEmptyString(s)) => {
@@ -88,7 +88,7 @@
             case _ => {}
           }
 
-          @navigation.map { navigation =>
+          @navigation.filter(_.nonEmpty).map { navigation =>
             <nav aria-label="@params.navigationLabel.getOrElse(menuButtonText.getOrElse("Menu"))" class="@toClasses("govuk-header__navigation", navigationClasses)">
               <button type="button" class="govuk-header__menu-button govuk-js-header-toggle" aria-controls="navigation" @menuButtonAriaLabel hidden> @{menuButtonText.getOrElse("Menu")} </button>
               <ul id="navigation" class="govuk-header__navigation-list">
@@ -109,8 +109,6 @@
             </nav>
           }
         </div>
-      }
-      case _ => {}
     }
   </div>
 </header>
