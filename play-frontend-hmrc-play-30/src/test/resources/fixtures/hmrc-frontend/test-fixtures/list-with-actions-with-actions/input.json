@@ -1,0 +1,40 @@
+{
+  "items" : [ {
+    "name" : {
+      "text" : "Oranges"
+    },
+    "actions" : [ {
+      "href" : "#",
+      "text" : "Edit",
+      "visuallyHiddenText" : "Edit Oranges"
+    }, {
+      "href" : "#",
+      "text" : "Delete",
+      "visuallyHiddenText" : "Delete Oranges",
+      "classes" : "custom-css-for-action"
+    } ],
+    "classes" : "custom-css-for-item"
+  }, {
+    "name" : {
+      "text" : "Apples"
+    },
+    "actions" : [ {
+      "href" : "#",
+      "text" : "Change",
+      "visuallyHiddenText" : "Change Apples"
+    } ]
+  }, {
+    "name" : {
+      "text" : "Pears"
+    },
+    "actions" : [ {
+      "href" : "#",
+      "text" : "Edit",
+      "visuallyHiddenText" : "Edit Pears"
+    }, {
+      "href" : "#",
+      "text" : "Change",
+      "visuallyHiddenText" : "Change Pears"
+    } ]
+  } ]
+}

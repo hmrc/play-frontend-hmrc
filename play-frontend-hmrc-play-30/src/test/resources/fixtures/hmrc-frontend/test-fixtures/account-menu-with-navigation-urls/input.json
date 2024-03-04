@@ -1,0 +1,18 @@
+{
+  "accountHome" : {
+    "href" : "#account-home",
+    "active" : true
+  },
+  "messages" : {
+    "href" : "#messages"
+  },
+  "checkProgress" : {
+    "href" : "#check-progress"
+  },
+  "yourProfile" : {
+    "href" : "#your-profile"
+  },
+  "signOut" : {
+    "href" : "#sign-out"
+  }
+}

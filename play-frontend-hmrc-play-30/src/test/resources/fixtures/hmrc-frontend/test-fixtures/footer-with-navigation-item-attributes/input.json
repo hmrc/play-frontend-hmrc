@@ -1,0 +1,12 @@
+{
+  "navigation" : [ {
+    "items" : [ {
+      "href" : "#1",
+      "text" : "Navigation item 1",
+      "attributes" : {
+        "data-attribute" : "my-attribute",
+        "data-attribute-2" : "my-attribute-2"
+      }
+    } ]
+  } ]
+}

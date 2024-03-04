@@ -1,0 +1,16 @@
+
+<meta name="hmrc-timeout-dialog"
+      content="hmrc-timeout-dialog"
+      data-language=""
+      data-timeout="75"
+      data-countdown="74"
+      data-keep-alive-url="?abc=def"
+      data-sign-out-url="?ghi=jkl"
+      data-timeout-url=""
+      data-title=""
+      data-message=""
+      data-message-suffix=""
+      data-keep-alive-button-text=""
+      data-sign-out-button-text=""
+      data-synchronise-tabs="false"
+      data-hide-sign-out-button=""/>

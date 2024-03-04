@@ -1,0 +1,13 @@
+{
+  "serviceName" : "Gwasanaeth gyda Banner CThEF",
+  "language" : "cy",
+  "displayHmrcBanner" : true,
+  "languageToggle" : {
+    "en" : {
+      "href" : "/components/header/with-hmrc-banner-english/preview"
+    },
+    "cy" : {
+      "href" : "/components/header/with-hmrc-banner-welsh/preview"
+    }
+  }
+}

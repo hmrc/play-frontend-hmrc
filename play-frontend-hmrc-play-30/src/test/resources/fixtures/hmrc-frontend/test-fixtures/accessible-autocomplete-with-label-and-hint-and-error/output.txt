@@ -1,0 +1,21 @@
+
+<div class="govuk-form-group govuk-form-group--error">
+    <label class="govuk-label" for="location-picker">
+    Select country
+  </label>
+
+        <div id="location-picker-hint" class="govuk-hint">
+    Please select a country
+  </div>
+
+        <p id="location-picker-error" class="govuk-error-message">
+    <span class="govuk-visually-hidden">Error:</span> 
+  </p>
+
+    <select id="location-picker" data-show-all-values="false" data-auto-select="false" data-default-value="" data-module="hmrc-accessible-autocomplete">
+  <option value="fr">France</option>
+  <option value="de">Germany</option>
+  <option value="gb">United Kingdom</option>
+</select>
+
+</div>

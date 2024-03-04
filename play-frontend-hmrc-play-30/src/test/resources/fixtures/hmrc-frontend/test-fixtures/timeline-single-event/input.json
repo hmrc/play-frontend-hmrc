@@ -1,0 +1,8 @@
+{
+  "events" : [ {
+    "title" : "event one",
+    "datetime" : "2020-07-15",
+    "time" : "15 July 2020",
+    "content" : "<p class=\"govuk-body\">singleExampleContent1</p>"
+  } ]
+}

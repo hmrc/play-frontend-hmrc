@@ -1,0 +1,11 @@
+{
+  "items" : [ {
+    "name" : {
+      "text" : "Sydney Russell"
+    },
+    "actions" : [ {
+      "html" : "Edit<span class=\"visually-hidden\"> name</span>",
+      "href" : "#"
+    } ]
+  } ]
+}

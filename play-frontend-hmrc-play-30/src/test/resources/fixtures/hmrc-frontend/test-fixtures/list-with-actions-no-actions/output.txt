@@ -1,0 +1,25 @@
+
+  <dl class="govuk-summary-list hmrc-list-with-actions">
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key govuk-!-font-weight-regular hmrc-summary-list__key">
+          Fred Bloggs
+        </dt>
+      </div>
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key govuk-!-font-weight-regular hmrc-summary-list__key">
+          Eric Taylor
+        </dt>
+      </div>
+      <div class="govuk-summary-list__row">
+        <dt class="govuk-summary-list__key govuk-!-font-weight-regular hmrc-summary-list__key">
+          <p class="govuk-body">
+  James Smith
+</p>
+<p class="govuk-body">
+  email@email.com
+</p>
+
+        </dt>
+      </div>
+  </dl>
+

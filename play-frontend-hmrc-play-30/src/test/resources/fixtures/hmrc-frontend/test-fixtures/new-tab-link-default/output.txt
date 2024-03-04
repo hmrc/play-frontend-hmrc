@@ -1,0 +1,1 @@
+<a class="govuk-link " target="_blank" rel="noopener noreferrer" href="https://www.gov.uk/working-tax-credit/eligibility">find out if you qualify for tax credits (opens in new tab)</a>

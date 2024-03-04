@@ -1,0 +1,1 @@
+<a class="govuk-link govuk-!-font-weight-bold my-custom-class" target="_blank" rel="noopener noreferrer" href="http://example.com">an example link (opens in new tab)</a>
