@@ -61,6 +61,6 @@
     <div class="govuk-notification-banner__content">@content match {
         case NonEmptyHtml(html) => {@html}
         case NonEmptyText(text) => {<p class="govuk-notification-banner__heading">@text</p>}
-        case _ => {}
+        case _ => { }
     }</div>
 </div>
