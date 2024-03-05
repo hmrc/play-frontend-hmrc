@@ -70,7 +70,9 @@
 
 @maybeWrapperStart(hasPrefix: Boolean, hasSuffix: Boolean) = {@if(hasPrefix || hasSuffix) {<div class="govuk-input__wrapper"> }}
 
-@inputSuffix(suffix: Option[PrefixOrSuffix], hasPrefix: Boolean, hasSuffix: Boolean) = {@maybeSuffix(suffix, hasSuffix)@maybeWrapperEnd(hasPrefix: Boolean, hasSuffix: Boolean)}
+@inputSuffix(suffix: Option[PrefixOrSuffix], hasPrefix: Boolean, hasSuffix: Boolean) = {
+    @maybeSuffix(suffix, hasSuffix)@maybeWrapperEnd(hasPrefix: Boolean, hasSuffix: Boolean)
+}
 
 @maybeSuffix(suffix: Option[PrefixOrSuffix], hasSuffix: Boolean) = {@if(hasSuffix) {
     <div class="@toClasses("govuk-input__suffix", suffix.get.classes)" aria-hidden="true"@toAttributes(suffix.get.attributes)>@suffix.get.content.asHtml</div>
