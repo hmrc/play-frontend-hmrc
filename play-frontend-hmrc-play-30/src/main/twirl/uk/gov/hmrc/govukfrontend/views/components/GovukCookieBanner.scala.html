@@ -39,27 +39,18 @@
       @message.actions.map { actions =>
         <div class="govuk-button-group">
           @for(action <- actions) {
-            @if(action.href.exists(_.nonEmpty)) {
-               @if(action.inputType.exists(_ == "button")) {
-                   @govukButton(Button(
-                       content = Text(action.text),
-                       inputType = Some("button"),
-                       classes = action.classes,
-                       attributes = action.attributes,
-                       href = action.href
-                   ))
-               } else {
-                   <a class="@toClasses("govuk-link", action.classes)" href="@{action.href}"@toAttributes(action.attributes)>@action.text</a>
-               }
+            @if(action.href.getOrElse("").isEmpty || action.inputType.exists(_ == "button"))  {
+              @govukButton(Button(
+                content = Text(action.text),
+                inputType = Some(action.inputType.getOrElse("button")),
+                classes = action.classes,
+                attributes = action.attributes,
+                href = action.href,
+                value = action.value,
+                name = action.name
+              ))
             } else {
-                @govukButton(Button(
-                    content = Text(action.text),
-                    value = action.value,
-                    name = action.name,
-                    inputType = action.inputType,
-                    classes = action.classes,
-                    attributes = action.attributes
-                ))
+              <a class="@toClasses("govuk-link", action.classes)" href="@{action.href}"@toAttributes(action.attributes)>@action.text</a>
             }
           }
         </div>
