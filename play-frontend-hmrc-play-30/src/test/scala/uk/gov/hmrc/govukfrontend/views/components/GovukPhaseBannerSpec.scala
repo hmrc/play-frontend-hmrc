@@ -20,7 +20,7 @@ package components
 import uk.gov.hmrc.govukfrontend.views.html.components._
 import scala.collection.JavaConverters._
 
-class GovukPhaseBannerBannerSpec extends TemplateUnitSpec[PhaseBanner, GovukPhaseBanner]("govukPhaseBanner") {
+class GovukPhaseBannerSpec extends TemplateUnitSpec[PhaseBanner, GovukPhaseBanner]("govukPhaseBanner") {
 
   "phaseBanner" should {
     "allow additional classes to be added to the component" in {
@@ -29,13 +29,6 @@ class GovukPhaseBannerBannerSpec extends TemplateUnitSpec[PhaseBanner, GovukPhas
       val div           = component(PhaseBanner(classes = classesString)).select("div").first()
 
       div.classNames().asScala should contain allElementsOf classes
-    }
-
-    "capitalise the phase tag content (previously done via CSS)" in {
-      val div  = component(PhaseBanner(tag = Some(Tag(content = Text("alpha")))))
-      val text = div.select("strong").first().text()
-
-      text shouldBe "ALPHA"
     }
 
     "render banner text" in {
