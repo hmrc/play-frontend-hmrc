@@ -33,7 +33,7 @@
           <div class="govuk-cookie-banner__content">@message.content match {
               case NonEmptyHtml(html) => {@html}
               case NonEmptyText(text) => {<p class="govuk-body">@text</p>}
-              case _ => {}}</div>
+              case _ => { }}</div>
         </div>
       </div>
       @message.actions.map { actions =>
