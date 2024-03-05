@@ -54,10 +54,17 @@ object Generators {
     )
   }
 
+  def isValidPaginationItem(paginationItem: PaginationItem): Boolean =
+    (paginationItem.number, paginationItem.ellipsis, paginationItem.current) match {
+      case (Some(n), None, _) if n.nonEmpty => true
+      case (None, Some(true), None)         => true
+      case _                                => false
+    }
+
   implicit val arbPagination: Arbitrary[Pagination] = Arbitrary {
     for {
       nItems        <- Gen.chooseNum(1, 5)
-      items         <- Gen.option(Gen.listOfN(nItems, arbPaginationItem.arbitrary))
+      items         <- Gen.option(Gen.listOfN(nItems, arbPaginationItem.arbitrary.suchThat(isValidPaginationItem)))
       previous      <- Gen.option(arbPaginationLink.arbitrary)
       next          <- Gen.option(arbPaginationLink.arbitrary)
       landmarkLabel <- Gen.option(genNonEmptyAlphaStr)
