@@ -31,6 +31,13 @@ class GovukPhaseBannerBannerSpec extends TemplateUnitSpec[PhaseBanner, GovukPhas
       div.classNames().asScala should contain allElementsOf classes
     }
 
+    "capitalise the phase tag content (previously done via CSS)" in {
+      val div  = component(PhaseBanner(tag = Some(Tag(content = Text("alpha")))))
+      val text = div.select("strong").first().text()
+
+      text shouldBe "ALPHA"
+    }
+
     "render banner text" in {
       val text = component(
         PhaseBanner(content = HtmlContent("This is a new service – your feedback will help us to improve it."))

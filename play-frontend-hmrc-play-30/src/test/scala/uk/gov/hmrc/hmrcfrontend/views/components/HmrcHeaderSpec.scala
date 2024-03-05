@@ -58,7 +58,21 @@ class HmrcHeaderSpec extends TemplateUnitSpec[Header, HmrcHeader]("hmrcHeader") 
       val componentTry = Try(hmrcHeader(Header()))
 
       componentTry          should be a 'success
-      componentTry.get.body should include("govuk-logotype-tudor-crown.png")
+      componentTry.get.body should include("M22.6 10.4c-1")
+    }
+
+    """display St Edwards crown logo when set by config""" in {
+      val anotherApp = buildAnotherApp(
+        Map(
+          "play-frontend-hmrc.useTudorCrown" -> "false"
+        )
+      )
+      val hmrcHeader = anotherApp.injector.instanceOf[HmrcHeader]
+
+      val componentTry = Try(hmrcHeader(Header()))
+
+      componentTry should be a 'success
+      componentTry.get.body should include("M6.7 12.2c1")
     }
 
     """display Tudor crown when no config is found""" in {
@@ -68,7 +82,7 @@ class HmrcHeaderSpec extends TemplateUnitSpec[Header, HmrcHeader]("hmrcHeader") 
       val componentTry = Try(hmrcHeader(Header()))
 
       componentTry          should be a 'success
-      componentTry.get.body should include("govuk-logotype-tudor-crown.png")
+      componentTry.get.body should include("M22.6 10.4c-1")
     }
   }
 }
