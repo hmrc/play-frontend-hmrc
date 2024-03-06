@@ -26,15 +26,6 @@ import scala.util.Try
 
 class HmrcInternalHeaderSpec extends TemplateUnitSpec[InternalHeader, HmrcInternalHeader]("hmrcInternalHeader") {
 
-  override def fakeApplication(): Application =
-    new GuiceApplicationBuilder()
-      .configure(
-        Map(
-          "play-frontend-hmrc.useTudorCrown" -> "false"
-        )
-      )
-      .build()
-
   def buildAnotherApp(properties: Map[String, String] = Map.empty): Application =
     new GuiceApplicationBuilder()
       .configure(properties)
@@ -61,7 +52,21 @@ class HmrcInternalHeaderSpec extends TemplateUnitSpec[InternalHeader, HmrcIntern
       val componentTry = Try(hmrcInternalHeader(InternalHeader()))
 
       componentTry          should be a 'success
-      componentTry.get.body should include("hmrc_tudor_crest_18px_x2.png")
+      componentTry.get.body should include("m28.5,16.6c.82-.34")
+    }
+
+    """display St Edwards crown logo when set by config""" in {
+      val anotherApp = buildAnotherApp(
+        Map(
+          "play-frontend-hmrc.useTudorCrown" -> "false"
+        )
+      )
+      val hmrcInternalHeader = anotherApp.injector.instanceOf[HmrcInternalHeader]
+
+      val componentTry = Try(hmrcInternalHeader(InternalHeader()))
+
+      componentTry should be a 'success
+      componentTry.get.body should include("M104.32,73.72,101")
     }
 
     """display Tudor crown when no config is found""" in {
@@ -71,7 +76,7 @@ class HmrcInternalHeaderSpec extends TemplateUnitSpec[InternalHeader, HmrcIntern
       val componentTry = Try(hmrcInternalHeader(InternalHeader()))
 
       componentTry          should be a 'success
-      componentTry.get.body should include("hmrc_tudor_crest_18px_x2.png")
+      componentTry.get.body should include("m28.5,16.6c.82-.34")
     }
   }
 }
