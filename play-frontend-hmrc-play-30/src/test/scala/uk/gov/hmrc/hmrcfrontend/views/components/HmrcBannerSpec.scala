@@ -26,15 +26,6 @@ import scala.util.Try
 
 class HmrcBannerSpec extends TemplateUnitSpec[Banner, HmrcBanner]("hmrcBanner") {
 
-  override def fakeApplication(): Application =
-    new GuiceApplicationBuilder()
-      .configure(
-        Map(
-          "play-frontend-hmrc.useTudorCrown" -> "false"
-        )
-      )
-      .build()
-
   def buildAnotherApp(properties: Map[String, String] = Map.empty): Application =
     new GuiceApplicationBuilder()
       .configure(properties)
@@ -61,17 +52,31 @@ class HmrcBannerSpec extends TemplateUnitSpec[Banner, HmrcBanner]("hmrcBanner") 
       val componentTry = Try(hmrcBanner(Banner()))
 
       componentTry          should be a 'success
-      componentTry.get.body should include("hmrc_tudor_crest_18px.png")
+      componentTry.get.body should include("m28.5,16.6c.82-.34")
     }
 
-    """display Tudor crown when no config is found""" in {
+    """display St Edwards crown logo when set by config""" in {
+      val anotherApp = buildAnotherApp(
+        Map(
+          "play-frontend-hmrc.useTudorCrown" -> "false"
+        )
+      )
+      val hmrcBanner = anotherApp.injector.instanceOf[HmrcBanner]
+
+      val componentTry = Try(hmrcBanner(Banner()))
+
+      componentTry          should be a 'success
+      componentTry.get.body should include("M104.32,73.72,101")
+    }
+
+    """display HMRC Crest with Tudor Crown  when no config is found""" in {
       val anotherApp = buildAnotherApp()
       val hmrcBanner = anotherApp.injector.instanceOf[HmrcBanner]
 
       val componentTry = Try(hmrcBanner(Banner()))
 
       componentTry          should be a 'success
-      componentTry.get.body should include("hmrc_tudor_crest_18px.png")
+      componentTry.get.body should include("m28.5,16.6c.82-.34")
     }
   }
 }

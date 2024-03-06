@@ -25,14 +25,6 @@ import scala.util.Try
 
 class HmrcHeaderSpec extends TemplateUnitSpec[Header, HmrcHeader]("hmrcHeader") {
 
-  override def fakeApplication(): Application = new GuiceApplicationBuilder()
-    .configure(
-      Map(
-        "play-frontend-hmrc.useTudorCrown" -> "false"
-      )
-    )
-    .build()
-
   def buildAnotherApp(properties: Map[String, String] = Map.empty): Application =
     new GuiceApplicationBuilder()
       .configure(properties)
@@ -71,7 +63,7 @@ class HmrcHeaderSpec extends TemplateUnitSpec[Header, HmrcHeader]("hmrcHeader") 
 
       val componentTry = Try(hmrcHeader(Header()))
 
-      componentTry should be a 'success
+      componentTry          should be a 'success
       componentTry.get.body should include("M6.7 12.2c1")
     }
 
