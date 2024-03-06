@@ -27,7 +27,7 @@
 @import params._
 
 <header role="banner">
-    <div class="govuk-header @toClasses("hmrc-header", classes) @if(signOutHref.exists(_.nonEmpty) || languageToggle.exists(_.linkMap.nonEmpty)){ hmrc-header--with-additional-navigation}else{}" data-module="govuk-header"
+    <div class="govuk-header @toClasses("hmrc-header", classes)@if(signOutHref.exists(_.nonEmpty) || languageToggle.exists(_.linkMap.nonEmpty)){ hmrc-header--with-additional-navigation}else{}" data-module="govuk-header"
             @toAttributes(attributes)>
       <div class="@toClasses("govuk-header__container ", containerClasses)">
         <div class="govuk-header__logo">
@@ -84,9 +84,9 @@
         <div class="govuk-header__content">
           @serviceNameLinkOrSpan(serviceName, serviceUrl)
           @if(navigation.getOrElse(Seq.empty).nonEmpty) {
-          <nav class="govuk-header__navigation" aria-label="@if(language == Cy){Dewislen Lefel Uchaf}else{Top Level Menu}">
-            <button type="button" class="govuk-header__menu-button govuk-js-header-toggle" aria-controls="navigation" aria-label="@if(language == Cy){Dangos neu guddio’r Ddewislen Lefel Uchaf}else{Show or hide Top Level Menu}" hidden>@if(language == Cy){Dewislen}else{Menu}</button>
-            <ul id="navigation" class="@toClasses("govuk-header__navigation-list", navigationClasses)">
+          <nav aria-label="@if(language == Cy){Dewislen}else{Menu}" class="@toClasses("govuk-header__navigation", navigationClasses)">
+            <button type="button" class="govuk-header__menu-button govuk-js-header-toggle" aria-controls="navigation" @menuButtonAriaLabel hidden> @menuButtonText </button>
+            <ul id="navigation" class="govuk-header__navigation-list">
             @for(item <- navigation.getOrElse(Seq.empty).filter(item => item.content.nonEmpty)) {
               <li class="govuk-header__navigation-item@if(item.active){ govuk-header__navigation-item--active}else{}">
                 @if(item.href.getOrElse("") != "") {
@@ -152,15 +152,23 @@
     case Some(NonEmptyString(s)) => {
       @serviceUrl match {
         case NonEmptyString(_) => {
-          <a href="@serviceUrl" class="hmrc-header__service-name hmrc-header__service-name--linked">
+          <a href="@serviceUrl" class="govuk-header__link govuk-header__service-name hmrc-header__service-name hmrc-header__service-name--linked">
             @s
           </a>}
         case _ => {
-          <span class="hmrc-header__service-name ">
+          <span class="govuk-header__service-name hmrc-header__service-name">
             @s
           </span>}
       }
     }
     case _ => {}
   }
+}
+
+@menuButtonText = {
+  @if(language == Cy){Dewislen}else{Menu}
+}
+
+@menuButtonAriaLabel = {
+  @params.menuButtonLabel.filterNot(menuButtonText.toString == _).map { label => aria-label="@label"}
 }

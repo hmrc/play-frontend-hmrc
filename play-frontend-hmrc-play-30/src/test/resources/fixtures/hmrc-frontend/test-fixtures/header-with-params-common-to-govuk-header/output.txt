@@ -1,5 +1,6 @@
 
-<header class="govuk-header hmrc-header c1" role="banner" data-module="govuk-header" data-test-attribute-3="value-3">
+<header role="banner">
+<div class="govuk-header hmrc-header c1" data-module="govuk-header" data-test-attribute-3="value-3">
   <div class="govuk-header__container cc1">
     <div class="govuk-header__logo">
       <a href="#h1" class="govuk-header__link govuk-header__link--homepage">
@@ -22,7 +23,7 @@
       </a>
     </div>
     <div class="govuk-header__content">
-      <a href="#s1" class="govuk-header__link govuk-header__service-name">
+      <a href="#s1" class="govuk-header__link govuk-header__service-name hmrc-header__service-name hmrc-header__service-name--linked">
         Service name
       </a>
       <nav aria-label="Menu" class="govuk-header__navigation nc1">
@@ -55,4 +56,5 @@
       </nav>
     </div>
   </div>
+</div>
 </header>

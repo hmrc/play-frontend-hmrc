@@ -12,7 +12,6 @@ lazy val sharedSettings: Seq[sbt.Def.SettingsDefinition] = Seq(
   scalacOptions += "-Wconf:src=views/.*:s",
   scalacOptions += "-Wconf:src=routes/.*:s",
   TwirlKeys.templateImports := templateImports,
-  resolvers += Resolver.mavenLocal, // TODO remove
   TwirlKeys.constructorAnnotations += "@javax.inject.Inject()",
   Test / generateGovukFixtures := {
     val generateFixtures = GenerateFixtures(
