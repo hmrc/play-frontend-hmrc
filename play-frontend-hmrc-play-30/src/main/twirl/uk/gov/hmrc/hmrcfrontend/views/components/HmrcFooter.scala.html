@@ -31,10 +31,10 @@
 }
 
 @govukFooter(GfFooter(
- meta = Some(GfMeta(
-  visuallyHiddenTitle = Some(params.meta.flatMap(_.visuallyHiddenTitle).getOrElse(messages("footer.support.links"))),
-  content = params.meta.map(_.content).getOrElse(Empty),
-  items = params.meta.flatMap(_.items.map(toGovukFooterItems))
+ meta = params.meta.map(hfMeta => GfMeta(
+  visuallyHiddenTitle = hfMeta.visuallyHiddenTitle.orElse(Some(messages("footer.support.links"))),
+  content = hfMeta.content,
+  items = hfMeta.items.map(toGovukFooterItems)
  )),
  navigation = params.navigation.map(hNavigation => GfFooterNavigation(title = hNavigation.title, columns = hNavigation.columns, items = toGovukFooterItems(hNavigation.items), width = hNavigation.width)),
  contentLicence = Some(ContentLicence(HtmlContent(contentLicenceHtml))),
