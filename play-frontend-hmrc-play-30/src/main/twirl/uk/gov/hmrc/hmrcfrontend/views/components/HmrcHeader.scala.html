@@ -20,18 +20,23 @@
 @import uk.gov.hmrc.hmrcfrontend.views.Utils._
 @import uk.gov.hmrc.hmrcfrontend.views.viewmodels.language.Cy
 @import uk.gov.hmrc.hmrcfrontend.config.TudorCrownConfig
+@import uk.gov.hmrc.hmrcfrontend.views.Utils.nonEmptyStringOrDefault
 
 @this(hmrcBanner: HmrcBanner, hmrcUserResearchBanner: HmrcUserResearchBanner, govukPhaseBanner: GovukPhaseBanner, tudorCrownConfig: TudorCrownConfig)
 
 @(params: Header)
 @import params._
 
+@containerClassList = @{
+  Seq("govuk-header__container", nonEmptyStringOrDefault(Option(containerClasses), "govuk-width-container")).mkString(" ")
+}
+
 <header role="banner">
-    <div class="govuk-header @toClasses("hmrc-header", classes)@if(signOutHref.exists(_.nonEmpty) || languageToggle.exists(_.linkMap.nonEmpty)){ hmrc-header--with-additional-navigation}else{}" data-module="govuk-header"
+    <div class="govuk-header @toClasses("hmrc-header", classes)@if(signOutHref.exists(_.nonEmpty) || languageToggle.exists(_.linkMap.nonEmpty)){ hmrc-header--with-additional-navigation}" data-module="govuk-header"
             @toAttributes(attributes)>
-      <div class="@toClasses("govuk-header__container ", containerClasses)">
+      <div class="@toClasses(containerClassList)">
         <div class="govuk-header__logo">
-          <a href="@homepageUrl" class="govuk-header__link govuk-header__link--homepage">
+          <a href="@nonEmptyStringOrDefault(Option(homepageUrl), "/")" class="govuk-header__link govuk-header__link--homepage">
           @**************************************************************************
           * The SVG needs `focusable="false"` so that Internet Explorer does        *
           * not treat it as an interactive element - without this it will be        *
@@ -88,7 +93,7 @@
             <button type="button" class="govuk-header__menu-button govuk-js-header-toggle" aria-controls="navigation" @menuButtonAriaLabel hidden> @menuButtonText </button>
             <ul id="navigation" class="govuk-header__navigation-list">
             @for(item <- navigation.getOrElse(Seq.empty).filter(item => item.content.nonEmpty)) {
-              <li class="govuk-header__navigation-item@if(item.active){ govuk-header__navigation-item--active}else{}">
+              <li class="govuk-header__navigation-item@if(item.active){ govuk-header__navigation-item--active}">
                 @if(item.href.getOrElse("") != "") {
                 <a class="govuk-header__link" href="@item.href" @toAttributes(item.attributes)>
                 }

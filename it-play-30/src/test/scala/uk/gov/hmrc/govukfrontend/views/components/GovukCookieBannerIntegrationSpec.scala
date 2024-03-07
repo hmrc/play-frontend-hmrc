@@ -23,5 +23,6 @@ import uk.gov.hmrc.govukfrontend.views.viewmodels.cookiebanner.Generators._
 object GovukCookieBannerIntegrationSpec
     extends TemplateIntegrationSpec[CookieBanner, GovukCookieBanner](
       govukComponentName = "govukCookieBanner",
-      seed = None
+      seed = None,
+      maximumCompression = true
     )

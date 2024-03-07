@@ -56,7 +56,7 @@ class HmrcInternalHeaderSpec extends TemplateUnitSpec[InternalHeader, HmrcIntern
     }
 
     """display St Edwards crown logo when set by config""" in {
-      val anotherApp = buildAnotherApp(
+      val anotherApp         = buildAnotherApp(
         Map(
           "play-frontend-hmrc.useTudorCrown" -> "false"
         )
@@ -65,7 +65,7 @@ class HmrcInternalHeaderSpec extends TemplateUnitSpec[InternalHeader, HmrcIntern
 
       val componentTry = Try(hmrcInternalHeader(InternalHeader()))
 
-      componentTry should be a 'success
+      componentTry          should be a 'success
       componentTry.get.body should include("M104.32,73.72,101")
     }
 

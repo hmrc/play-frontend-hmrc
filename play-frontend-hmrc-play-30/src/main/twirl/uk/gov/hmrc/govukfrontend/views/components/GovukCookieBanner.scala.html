@@ -42,7 +42,7 @@
             @if(action.href.getOrElse("").isEmpty || action.inputType.exists(_ == "button"))  {
               @govukButton(Button(
                 content = Text(action.text),
-                inputType = Some(action.inputType.getOrElse("button")),
+                inputType = action.inputType.filter(_.nonEmpty).orElse(Some("button")),
                 classes = action.classes,
                 attributes = action.attributes,
                 href = action.href,
@@ -56,4 +56,5 @@
         </div>
        }
     </div>
-  }</div>
+  }
+</div>
