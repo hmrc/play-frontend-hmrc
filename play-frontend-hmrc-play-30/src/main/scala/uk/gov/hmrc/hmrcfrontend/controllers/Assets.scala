@@ -17,7 +17,6 @@
 package uk.gov.hmrc.hmrcfrontend.controllers
 
 import controllers.{AssetsBuilder, AssetsMetadata}
-import play.api.Environment
 
 import javax.inject.{Inject, Singleton}
 import play.api.http.HttpErrorHandler
@@ -28,5 +27,4 @@ import play.api.http.HttpErrorHandler
  * when using Assets.
  */
 @Singleton
-class Assets @Inject() (errorHandler: HttpErrorHandler, meta: AssetsMetadata, env: Environment)
-    extends AssetsBuilder(errorHandler, meta, env)
+class Assets @Inject() (errorHandler: HttpErrorHandler, meta: AssetsMetadata) extends AssetsBuilder(errorHandler, meta)

@@ -44,6 +44,6 @@
   attributes = params.attributes
 ))
 
-@toGovukFooterItems(hfFooterItems: Seq[HfFooterItem]): Seq[GfFooterItem] = @{
-  hfFooterItems.map(hfFooterItem => GfFooterItem(text = hfFooterItem.text, href = hfFooterItem.href, attributes = hfFooterItem.attributes))
+@toGovukFooterItems(hfFooterItems: Seq[HfFooterItem]) = @{
+    hfFooterItems.map(hfFooterItem => GfFooterItem(text = hfFooterItem.text, href = hfFooterItem.href, attributes = hfFooterItem.attributes))
 }
