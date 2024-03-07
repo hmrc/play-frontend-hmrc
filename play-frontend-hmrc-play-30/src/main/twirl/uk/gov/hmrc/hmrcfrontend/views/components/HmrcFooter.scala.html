@@ -16,35 +16,34 @@
 
 @import uk.gov.hmrc.govukfrontend.views.html.components.GovukFooter
 @import uk.gov.hmrc.hmrcfrontend.views.viewmodels.footer.{Footer => HfFooter, FooterItem => HfFooterItem}
-@import uk.gov.hmrc.govukfrontend.views.viewmodels.content.Empty
 @import uk.gov.hmrc.govukfrontend.views.Aliases.Text
 @import uk.gov.hmrc.govukfrontend.views.viewmodels.footer.{Footer => GfFooter, Copyright, FooterItem => GfFooterItem, FooterNavigation => GfFooterNavigation, Meta => GfMeta, ContentLicence}
 @import uk.gov.hmrc.govukfrontend.views.viewmodels.content.HtmlContent
 
 @this(govukFooter: GovukFooter)
 
-@(params: HfFooter = HfFooter())(implicit messages: Messages, request: RequestHeader)
+@(params: HfFooter = HfFooter())(implicit messages: Messages)
 
 @contentLicenceHtml = {
- @messages("footer.content.licence.before.link")
- <a class="govuk-footer__link" href="https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/" rel="license">@messages("footer.content.licence.link.text")</a>@messages("footer.content.licence.after.link")
+  @messages("footer.content.licence.before.link")
+    <a class="govuk-footer__link" href="https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/" rel="license">@messages("footer.content.licence.link.text")</a>@messages("footer.content.licence.after.link")
 }
 
 @govukFooter(GfFooter(
- meta = params.meta.map(hfMeta => GfMeta(
-  visuallyHiddenTitle = hfMeta.visuallyHiddenTitle.orElse(Some(messages("footer.support.links"))),
-  content = hfMeta.content,
-  items = hfMeta.items.map(toGovukFooterItems)
- )),
- navigation = params.navigation.map(hNavigation => GfFooterNavigation(title = hNavigation.title, columns = hNavigation.columns, items = toGovukFooterItems(hNavigation.items), width = hNavigation.width)),
- contentLicence = Some(ContentLicence(HtmlContent(contentLicenceHtml))),
- copyright = Some(Copyright(Text(messages("footer.crown.copyright")))),
- containerClasses = params.containerClasses,
- classes = params.classes,
- attributes = params.attributes
+  meta = params.meta.map(hfMeta => GfMeta(
+    visuallyHiddenTitle = hfMeta.visuallyHiddenTitle.orElse(Some(messages("footer.support.links"))),
+    content = hfMeta.content,
+    items = hfMeta.items.map(toGovukFooterItems)
+  )),
+  navigation = params.navigation.map(hNavigation => GfFooterNavigation(
+    title = hNavigation.title, columns = hNavigation.columns, items = toGovukFooterItems(hNavigation.items), width = hNavigation.width)),
+  contentLicence = Some(ContentLicence(HtmlContent(contentLicenceHtml))),
+  copyright = Some(Copyright(Text(messages("footer.crown.copyright")))),
+  containerClasses = params.containerClasses,
+  classes = params.classes,
+  attributes = params.attributes
 ))
 
-@toGovukFooterItems(hfFooterItems: Seq[HfFooterItem]) = @{
- val items: Seq[GfFooterItem] = hfFooterItems.map(hfFooterItem => GfFooterItem(text = hfFooterItem.text, href = hfFooterItem.href, attributes = hfFooterItem.attributes))
- items
+@toGovukFooterItems(hfFooterItems: Seq[HfFooterItem]): Seq[GfFooterItem] = @{
+  hfFooterItems.map(hfFooterItem => GfFooterItem(text = hfFooterItem.text, href = hfFooterItem.href, attributes = hfFooterItem.attributes))
 }
