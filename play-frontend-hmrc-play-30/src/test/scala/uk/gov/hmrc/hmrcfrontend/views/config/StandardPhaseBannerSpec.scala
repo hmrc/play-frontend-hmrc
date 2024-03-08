@@ -35,7 +35,7 @@ class StandardPhaseBannerSpec extends AnyWordSpec with Matchers with MessagesSup
       val phaseBanner = standardBetaBanner(url = "/feedback")
 
       phaseBanner mustBe PhaseBanner(
-        tag = Some(Tag(content = Text("BETA"))),
+        tag = Some(Tag(content = Text("Beta"))),
         content = HtmlContent(
           "This is a new service – your <a class=\"govuk-link\" href=\"/feedback\">feedback</a> will help us to improve it."
         ),
@@ -47,7 +47,7 @@ class StandardPhaseBannerSpec extends AnyWordSpec with Matchers with MessagesSup
       val phaseBanner = standardBetaBanner(url = "/other-feedback")
 
       phaseBanner mustBe PhaseBanner(
-        tag = Some(Tag(content = Text("BETA"))),
+        tag = Some(Tag(content = Text("Beta"))),
         content = HtmlContent(
           "This is a new service – your <a class=\"govuk-link\" href=\"/other-feedback\">feedback</a> will help us to improve it."
         ),
@@ -59,7 +59,7 @@ class StandardPhaseBannerSpec extends AnyWordSpec with Matchers with MessagesSup
       val phaseBanner = standardBetaBanner(url = "\"><script>console.log('evil');</script><a href=\"")
 
       phaseBanner mustBe PhaseBanner(
-        tag = Some(Tag(content = Text("BETA"))),
+        tag = Some(Tag(content = Text("Beta"))),
         content = HtmlContent(
           "This is a new service – your <a class=\"govuk-link\" href=\"&quot;&gt;&lt;script&gt;console.log(&#x27;evil&#x27;);&lt;/script&gt;&lt;a href=&quot;\">feedback</a> will help us to improve it."
         ),
@@ -73,7 +73,7 @@ class StandardPhaseBannerSpec extends AnyWordSpec with Matchers with MessagesSup
       val phaseBanner = standardBetaBanner(url = "/feedback")
 
       phaseBanner mustBe PhaseBanner(
-        tag = Some(Tag(content = Text("BETA"))),
+        tag = Some(Tag(content = Text("Beta"))),
         content = HtmlContent(
           "Gwasanaeth newydd yw hwn – bydd eich <a class=\"govuk-link\" href=\"/feedback\">adborth</a> yn ein helpu i’w wella."
         ),
@@ -121,7 +121,7 @@ class StandardPhaseBannerSpec extends AnyWordSpec with Matchers with MessagesSup
       val phaseBanner = standardAlphaBanner(url = "/feedback")
 
       phaseBanner mustBe PhaseBanner(
-        tag = Some(Tag(content = Text("ALPHA"))),
+        tag = Some(Tag(content = Text("Alpha"))),
         content = HtmlContent(
           "This is a new service – your <a class=\"govuk-link\" href=\"/feedback\">feedback</a> will help us to improve it."
         ),

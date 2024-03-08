@@ -51,7 +51,7 @@ trait StandardPhaseBanner {
 }
 
 class StandardBetaBanner extends StandardPhaseBanner {
-  def apply(url: String)(implicit messages: Messages): PhaseBanner = apply(phase = "BETA", url = url)
+  def apply(url: String)(implicit messages: Messages): PhaseBanner = apply(phase = "Beta", url = url)
 
   def apply()(implicit
     contactFrontendConfig: ContactFrontendConfig,
@@ -62,5 +62,5 @@ class StandardBetaBanner extends StandardPhaseBanner {
 }
 
 class StandardAlphaBanner extends StandardPhaseBanner {
-  def apply(url: String)(implicit messages: Messages): PhaseBanner = apply(phase = "ALPHA", url = url)
+  def apply(url: String)(implicit messages: Messages): PhaseBanner = apply(phase = "Alpha", url = url)
 }
