@@ -17,9 +17,7 @@
 package uk.gov.hmrc.hmrcfrontend.views
 package components
 
-import play.api.i18n.Messages
-import play.api.mvc.MessagesRequest
-import play.api.test.FakeRequest
+import play.api.i18n.{Lang, Messages}
 import play.twirl.api.HtmlFormat
 import uk.gov.hmrc.helpers.MessagesSupport
 import uk.gov.hmrc.hmrcfrontend.views.html.components._
@@ -31,10 +29,7 @@ class HmrcFooterSpec extends TemplateUnitBaseSpec[Footer]("hmrcFooter") with Mes
   private val component = app.injector.instanceOf[HmrcFooter]
 
   def render(templateParams: Footer): Try[HtmlFormat.Appendable] = {
-    val request = FakeRequest("GET", "/foo")
-      .withTransientLang(templateParams.language.code)
-
-    implicit val messages: Messages = new MessagesRequest(request, messagesApi).messages
+    implicit val messages: Messages = messagesApi.preferred(Seq(Lang(templateParams.language.code)))
 
     Try(component(templateParams))
   }
