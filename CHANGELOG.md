@@ -12,8 +12,10 @@ For compatibility information see `govukFrontendVersion` and `hmrcFrontendVersio
 
 ### Changed
 
-- Uplifted to use v5.2.0 of govuk-frontend. Please read the [v5.0.0 release notes](https://github.com/alphagov/govuk-frontend/releases/tag/v5.0.0)
-  when uplifting your service, and check that components still display as expected.
+- Uplifted v5.2.0 of `govuk-frontend` and v6.3.0 of `hmrc-frontend`. Added GovukTaskList, reduced Internet Explorer 
+  support. Major breaking release. 
+- Please read the [v9.0.0 release notes](https://github.com/hmrc/play-frontend-hmrc/releases/tag/v9.0.0)
+  when uplifting your frontend service, and check that it still works as expected, particularly if using custom Javascript / CSS.
 
 ### Compatible with
 
