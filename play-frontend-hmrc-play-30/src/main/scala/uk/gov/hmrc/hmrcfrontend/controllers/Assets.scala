@@ -28,5 +28,4 @@ import play.api.http.HttpErrorHandler
  * when using Assets.
  */
 @Singleton
-class Assets @Inject() (errorHandler: HttpErrorHandler, meta: AssetsMetadata, env: Environment)
-    extends AssetsBuilder(errorHandler, meta, env)
+class Assets @Inject() (errorHandler: HttpErrorHandler, meta: AssetsMetadata) extends AssetsBuilder(errorHandler, meta)
