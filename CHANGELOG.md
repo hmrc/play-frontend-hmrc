@@ -8,18 +8,18 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 For compatibility information see `govukFrontendVersion` and `hmrcFrontendVersion` in
 [LibDependencies](project/LibDependencies.scala)
 
-## [9.0.0] - 2024-03-??
+## [9.0.0] - 2024-03-11
 
 ### Changed
 
-- Uplifted v5.2.0 of `govuk-frontend` and v6.3.0 of `hmrc-frontend`. Added GovukTaskList, reduced Internet Explorer 
+- Uplifted v5.2.0 of `govuk-frontend` and v6.4.0 of `hmrc-frontend`. Added GovukTaskList, reduced Internet Explorer 
   support. Major breaking release. 
 - Please read the [v9.0.0 release notes](https://github.com/hmrc/play-frontend-hmrc/releases/tag/v9.0.0)
   when uplifting your frontend service, and check that it still works as expected, particularly if using custom Javascript / CSS.
 
 ### Compatible with
 
-- [hmrc/hmrc-frontend v6.3.0](https://github.com/hmrc/hmrc-frontend/releases/tag/v6.3.0)
+- [hmrc/hmrc-frontend v6.4.0](https://github.com/hmrc/hmrc-frontend/releases/tag/v6.4.0)
 - [alphagov/govuk-frontend v5.2.0](https://github.com/alphagov/govuk-frontend/releases/tag/v5.2.0)
 
 ## [8.5.0] - 2024-02-12

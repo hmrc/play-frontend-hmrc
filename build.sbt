@@ -11,6 +11,7 @@ ThisBuild / scalacOptions += "-Wconf:src=src_managed/.*:s" // silence all warnin
 lazy val sharedSettings: Seq[sbt.Def.SettingsDefinition] = Seq(
   scalacOptions += "-Wconf:src=views/.*:s",
   scalacOptions += "-Wconf:src=routes/.*:s",
+  resolvers += Resolver.mavenLocal,
   TwirlKeys.templateImports := templateImports,
   TwirlKeys.constructorAnnotations += "@javax.inject.Inject()",
   Test / generateGovukFixtures := {
