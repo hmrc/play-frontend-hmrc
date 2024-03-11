@@ -14,19 +14,21 @@
  * limitations under the License.
  *@
 
+@import uk.gov.hmrc.hmrcfrontend.views.Utils.nonEmptyStringOrDefault
+
 @this()
 
 @(params: Footer = Footer())
 @import params._
-<footer class="govuk-footer @classes" role="contentinfo"@toAttributes(attributes)>
-  <div class="govuk-width-container @containerClasses">
+<footer class="@toClasses("govuk-footer", classes)" role="contentinfo"@toAttributes(attributes)>
+  <div class="@toClasses("govuk-width-container", containerClasses)">
       @if(navigation.nonEmpty){
         <div class="govuk-footer__navigation">
           @for(nav <- navigation) {
             <div class="govuk-footer__section govuk-grid-column-@{nav.width.getOrElse("full")}">
               <h2 class="govuk-footer__heading govuk-heading-m">@nav.title</h2>
                 @if(nav.items.nonEmpty) {
-                  <ul class="govuk-footer__list @if(nav.columns.exists(_ > 0)) { govuk-footer__list--columns-@nav.columns}">
+                  <ul class="govuk-footer__list@if(nav.columns.exists(_ > 0)) { govuk-footer__list--columns-@nav.columns}">
                   @for(item <- nav.items) {
                     @(item.href, item.text) match {
                       case (Some(NonEmptyString(itemHref)), Some(NonEmptyString(itemText))) => {
@@ -49,7 +51,7 @@
     <div class="govuk-footer__meta">
       <div class="govuk-footer__meta-item govuk-footer__meta-item--grow">
         @meta.map { meta =>
-          <h2 class="govuk-visually-hidden">@HtmlFormat.escape(meta.visuallyHiddenTitle.getOrElse("Support links"))</h2>
+          <h2 class="govuk-visually-hidden">@HtmlFormat.escape(nonEmptyStringOrDefault(meta.visuallyHiddenTitle, "Support links"))</h2>
           @meta.items.map { metaItems =>
           @if(metaItems.nonEmpty) {
             <ul class="govuk-footer__inline-list">
@@ -101,7 +103,9 @@
         <a
           class="govuk-footer__link govuk-footer__copyright-logo"
           href="https://www.nationalarchives.gov.uk/information-management/re-using-public-sector-information/uk-government-licensing-framework/crown-copyright/"
-        >@copyright.map(_.content.asHtml).getOrElse {© Crown copyright}</a>
+        >
+          @copyright.map(_.content.asHtml).getOrElse {© Crown copyright}
+        </a>
       </div>
     </div>
   </div>

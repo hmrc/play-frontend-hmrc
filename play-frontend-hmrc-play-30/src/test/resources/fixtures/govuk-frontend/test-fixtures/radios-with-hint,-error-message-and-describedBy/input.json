@@ -4,7 +4,7 @@
     "text" : "Please select an option"
   },
   "fieldset" : {
-    "describedBy" : "some-id",
+    "describedBy" : "test-target-element",
     "legend" : {
       "text" : "Have you changed your name?"
     }

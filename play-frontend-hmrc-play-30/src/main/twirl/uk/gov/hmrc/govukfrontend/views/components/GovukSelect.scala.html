@@ -75,7 +75,12 @@
       <select class="@toClasses("govuk-select", classes, errorMessage.fold("")(_ => "govuk-select--error"))" @attrs>
         @for(item <- items) {
           @defining((value.nonEmpty && item.value == value) || item.selected) { isSelected =>
-            <option value="@item.value"@if(isSelected) { selected}@if(item.disabled) { disabled}@toAttributes(item.attributes)>@HtmlFormat.escape(item.text)</option>
+            @* Allow selecting by text content (the value for an option when no value attribute is specified) *@
+            @defining(item.value.getOrElse(item.text)) { effectiveValue =>
+              <option @if(item.value.nonEmpty) {value="@item.value"}
+                @if(isSelected || (value.filterNot(_.isEmpty) == Option(effectiveValue))) {selected}
+                @if(item.disabled) { disabled} @toAttributes(item.attributes)>@HtmlFormat.escape(item.text)</option>
+            }
           }
         }
       </select>

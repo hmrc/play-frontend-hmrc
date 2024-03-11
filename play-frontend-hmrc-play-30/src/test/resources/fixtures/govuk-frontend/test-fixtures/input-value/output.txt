@@ -2,5 +2,5 @@
   <label class="govuk-label" for="with-value">
     With value
   </label>
-<input class="govuk-input" id="with-value" name="with-value" type="text" value="QQ 12 34 56 C">
+  <input class="govuk-input" id="with-value" name="with-value" type="text" value="QQ 12 34 56 C">
 </div>

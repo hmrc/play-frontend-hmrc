@@ -5,5 +5,5 @@
   <div id="with-hint-describedby-hint" class="govuk-hint">
     It’s on your National Insurance card, benefit letter, payslip or P60. For example, ‘QQ 12 34 56 C’.
   </div>
-<input class="govuk-input" id="with-hint-describedby" name="with-hint-describedby" type="text" aria-describedby="some-id with-hint-describedby-hint">
+  <input class="govuk-input" id="with-hint-describedby" name="with-hint-describedby" type="text" aria-describedby="test-target-element with-hint-describedby-hint">
 </div>

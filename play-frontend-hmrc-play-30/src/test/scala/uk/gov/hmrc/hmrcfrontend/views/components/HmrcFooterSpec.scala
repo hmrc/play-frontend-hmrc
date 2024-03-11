@@ -17,6 +17,20 @@
 package uk.gov.hmrc.hmrcfrontend.views
 package components
 
+import play.api.i18n.{Lang, Messages}
+import play.twirl.api.HtmlFormat
+import uk.gov.hmrc.helpers.MessagesSupport
 import uk.gov.hmrc.hmrcfrontend.views.html.components._
 
-class HmrcFooterSpec extends TemplateUnitSpec[Footer, HmrcFooter]("hmrcFooter")
+import scala.util.Try
+
+class HmrcFooterSpec extends TemplateUnitBaseSpec[Footer]("hmrcFooter") with MessagesSupport {
+
+  private val component = app.injector.instanceOf[HmrcFooter]
+
+  def render(templateParams: Footer): Try[HtmlFormat.Appendable] = {
+    implicit val messages: Messages = messagesApi.preferred(Seq(Lang(templateParams.language.code)))
+
+    Try(component(templateParams))
+  }
+}

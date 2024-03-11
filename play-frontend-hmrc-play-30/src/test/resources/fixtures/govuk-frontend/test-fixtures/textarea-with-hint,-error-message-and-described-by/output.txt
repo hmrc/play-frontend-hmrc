@@ -6,7 +6,7 @@
     Hint
   </div>
   <p id="with-hint-error-describedby-error" class="govuk-error-message">
-  <span class="govuk-visually-hidden">Error:</span> Error message
+    <span class="govuk-visually-hidden">Error:</span> Error message
   </p>
-  <textarea class="govuk-textarea govuk-textarea--error" id="with-hint-error-describedby" name="with-hint-error-describedby" rows="5" aria-describedby="some-id with-hint-error-describedby-hint with-hint-error-describedby-error"></textarea>
+  <textarea class="govuk-textarea govuk-textarea--error" id="with-hint-error-describedby" name="with-hint-error-describedby" rows="5" aria-describedby="test-target-element with-hint-error-describedby-hint with-hint-error-describedby-error"></textarea>
 </div>

@@ -1,5 +1,3 @@
-
-
 <div class="govuk-form-group">
   <div class="govuk-date-input" id="with-empty-items">
     <div class="govuk-date-input__item">
@@ -7,7 +5,7 @@
         <label class="govuk-label govuk-date-input__label" for="with-empty-items-day">
           Day
         </label>
-      <input class="govuk-input govuk-date-input__input govuk-input--width-2" id="with-empty-items-day" name="day" type="text" inputmode="numeric">
+        <input class="govuk-input govuk-date-input__input govuk-input--width-2" id="with-empty-items-day" name="day" type="text" inputmode="numeric">
       </div>
     </div>
     <div class="govuk-date-input__item">
@@ -15,7 +13,7 @@
         <label class="govuk-label govuk-date-input__label" for="with-empty-items-month">
           Month
         </label>
-      <input class="govuk-input govuk-date-input__input govuk-input--width-2" id="with-empty-items-month" name="month" type="text" inputmode="numeric">
+        <input class="govuk-input govuk-date-input__input govuk-input--width-2" id="with-empty-items-month" name="month" type="text" inputmode="numeric">
       </div>
     </div>
     <div class="govuk-date-input__item">
@@ -23,7 +21,7 @@
         <label class="govuk-label govuk-date-input__label" for="with-empty-items-year">
           Year
         </label>
-      <input class="govuk-input govuk-date-input__input govuk-input--width-4" id="with-empty-items-year" name="year" type="text" inputmode="numeric">
+        <input class="govuk-input govuk-date-input__input govuk-input--width-4" id="with-empty-items-year" name="year" type="text" inputmode="numeric">
       </div>
     </div>
   </div>

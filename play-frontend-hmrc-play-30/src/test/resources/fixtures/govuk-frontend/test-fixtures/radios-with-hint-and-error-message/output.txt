@@ -1,28 +1,27 @@
 <div class="govuk-form-group govuk-form-group--error">
-<fieldset class="govuk-fieldset" aria-describedby="example-error-message-hint-hint example-error-message-hint-error">
-  <legend class="govuk-fieldset__legend">
-    Have you changed your name?
-  </legend>
-  <div id="example-error-message-hint-hint" class="govuk-hint">
-    This includes changing your last name or spelling your name differently.
-  </div>
-  <p id="example-error-message-hint-error" class="govuk-error-message">
-  <span class="govuk-visually-hidden">Error:</span> Please select an option
-  </p>
-  <div class="govuk-radios"    data-module="govuk-radios">
-        <div class="govuk-radios__item">
-          <input class="govuk-radios__input" id="example-error-message-hint" name="example-error-message-hint" type="radio" value="yes">
-          <label class="govuk-label govuk-radios__label" for="example-error-message-hint">
-        Yes
-      </label>
-        </div>
-        <div class="govuk-radios__item">
-          <input class="govuk-radios__input" id="example-error-message-hint-2" name="example-error-message-hint" type="radio" value="no">
-          <label class="govuk-label govuk-radios__label" for="example-error-message-hint-2">
-        No
-      </label>
-        </div>
-  </div>
-
-</fieldset>
+  <fieldset class="govuk-fieldset" aria-describedby="example-error-message-hint-hint example-error-message-hint-error">
+    <legend class="govuk-fieldset__legend">
+      Have you changed your name?
+    </legend>
+    <div id="example-error-message-hint-hint" class="govuk-hint">
+      This includes changing your last name or spelling your name differently.
+    </div>
+    <p id="example-error-message-hint-error" class="govuk-error-message">
+      <span class="govuk-visually-hidden">Error:</span> Please select an option
+    </p>
+    <div class="govuk-radios" data-module="govuk-radios">
+      <div class="govuk-radios__item">
+        <input class="govuk-radios__input" id="example-error-message-hint" name="example-error-message-hint" type="radio" value="yes">
+        <label class="govuk-label govuk-radios__label" for="example-error-message-hint">
+          Yes
+        </label>
+      </div>
+      <div class="govuk-radios__item">
+        <input class="govuk-radios__input" id="example-error-message-hint-2" name="example-error-message-hint" type="radio" value="no">
+        <label class="govuk-label govuk-radios__label" for="example-error-message-hint-2">
+          No
+        </label>
+      </div>
+    </div>
+  </fieldset>
 </div>

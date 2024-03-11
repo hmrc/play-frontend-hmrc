@@ -1,36 +1,33 @@
-
-
 <div class="govuk-form-group">
-<fieldset class="govuk-fieldset" role="group">
-  <legend class="govuk-fieldset__legend">
-    What is your <b>date of birth</b>?
-  </legend>
-  <div class="govuk-date-input" id="with-fieldset-html">
-    <div class="govuk-date-input__item">
-      <div class="govuk-form-group">
-        <label class="govuk-label govuk-date-input__label" for="with-fieldset-html-day">
-          Day
-        </label>
-      <input class="govuk-input govuk-date-input__input govuk-input--width-2" id="with-fieldset-html-day" name="day" type="text" inputmode="numeric">
+  <fieldset class="govuk-fieldset" role="group">
+    <legend class="govuk-fieldset__legend">
+      What is your <b>date of birth</b>?
+    </legend>
+    <div class="govuk-date-input" id="with-fieldset-html">
+      <div class="govuk-date-input__item">
+        <div class="govuk-form-group">
+          <label class="govuk-label govuk-date-input__label" for="with-fieldset-html-day">
+            Day
+          </label>
+          <input class="govuk-input govuk-date-input__input govuk-input--width-2" id="with-fieldset-html-day" name="day" type="text" inputmode="numeric">
+        </div>
+      </div>
+      <div class="govuk-date-input__item">
+        <div class="govuk-form-group">
+          <label class="govuk-label govuk-date-input__label" for="with-fieldset-html-month">
+            Month
+          </label>
+          <input class="govuk-input govuk-date-input__input govuk-input--width-2" id="with-fieldset-html-month" name="month" type="text" inputmode="numeric">
+        </div>
+      </div>
+      <div class="govuk-date-input__item">
+        <div class="govuk-form-group">
+          <label class="govuk-label govuk-date-input__label" for="with-fieldset-html-year">
+            Year
+          </label>
+          <input class="govuk-input govuk-date-input__input govuk-input--width-4" id="with-fieldset-html-year" name="year" type="text" inputmode="numeric">
+        </div>
       </div>
     </div>
-    <div class="govuk-date-input__item">
-      <div class="govuk-form-group">
-        <label class="govuk-label govuk-date-input__label" for="with-fieldset-html-month">
-          Month
-        </label>
-      <input class="govuk-input govuk-date-input__input govuk-input--width-2" id="with-fieldset-html-month" name="month" type="text" inputmode="numeric">
-      </div>
-    </div>
-    <div class="govuk-date-input__item">
-      <div class="govuk-form-group">
-        <label class="govuk-label govuk-date-input__label" for="with-fieldset-html-year">
-          Year
-        </label>
-      <input class="govuk-input govuk-date-input__input govuk-input--width-4" id="with-fieldset-html-year" name="year" type="text" inputmode="numeric">
-      </div>
-    </div>
-  </div>
-
-</fieldset>
+  </fieldset>
 </div>

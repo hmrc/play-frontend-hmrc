@@ -1,5 +1,3 @@
-
-
 <div class="govuk-character-count" data-module="govuk-character-count" data-maxlength="10">
   <div class="govuk-form-group">
   <label class="govuk-label" for="maxlength-should-be-removed">
@@ -7,9 +5,8 @@
   </label>
   <textarea class="govuk-textarea govuk-js-character-count" id="maxlength-should-be-removed" name="address" rows="5" aria-describedby="maxlength-should-be-removed-info" maxlength="10"></textarea>
 </div>
-  
-  <div id="maxlength-should-be-removed-info" class="govuk-hint govuk-character-count__message">
-  You can enter up to 10 characters
-</div>
 
+  <div id="maxlength-should-be-removed-info" class="govuk-hint govuk-character-count__message">
+    You can enter up to 10 characters
+  </div>
 </div>

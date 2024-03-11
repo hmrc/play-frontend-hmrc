@@ -1,5 +1,3 @@
-
-
 <div class="govuk-form-group">
   <div class="govuk-date-input" id="with-custom-inputmode">
     <div class="govuk-date-input__item">
@@ -7,7 +5,7 @@
         <label class="govuk-label govuk-date-input__label" for="with-custom-inputmode-day">
           Day
         </label>
-      <input class="govuk-input govuk-date-input__input " id="with-custom-inputmode-day" name="day" type="text" pattern="[0-9X]*" inputmode="text">
+        <input class="govuk-input govuk-date-input__input " id="with-custom-inputmode-day" name="day" type="text" pattern="[0-9X]*" inputmode="text">
       </div>
     </div>
   </div>

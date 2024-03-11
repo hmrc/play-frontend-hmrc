@@ -1,5 +1,5 @@
 {
-  "describedBy" : "some-id",
+  "describedBy" : "test-target-element",
   "legend" : {
     "text" : "Which option?"
   }

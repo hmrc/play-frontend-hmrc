@@ -2,7 +2,7 @@
   "element" : "button",
   "text" : "Submit",
   "attributes" : {
-    "aria-controls" : "example-id",
+    "aria-controls" : "test-target-element",
     "data-tracking-dimension" : 123
   }
 }

@@ -1,19 +1,19 @@
 <div class="govuk-form-group govuk-form-group--error">
   <p id="example-error-message-error" class="govuk-error-message">
-  <span class="govuk-visually-hidden">Error:</span> Please select an option
+    <span class="govuk-visually-hidden">Error:</span> Please select an option
   </p>
-  <div class="govuk-radios"    data-module="govuk-radios">
-        <div class="govuk-radios__item">
-          <input class="govuk-radios__input" id="example-error-message" name="example-error-message" type="radio" value="yes">
-          <label class="govuk-label govuk-radios__label" for="example-error-message">
+  <div class="govuk-radios" data-module="govuk-radios">
+    <div class="govuk-radios__item">
+      <input class="govuk-radios__input" id="example-error-message" name="example-error-message" type="radio" value="yes">
+      <label class="govuk-label govuk-radios__label" for="example-error-message">
         Yes
       </label>
-        </div>
-        <div class="govuk-radios__item">
-          <input class="govuk-radios__input" id="example-error-message-2" name="example-error-message" type="radio" value="no">
-          <label class="govuk-label govuk-radios__label" for="example-error-message-2">
+    </div>
+    <div class="govuk-radios__item">
+      <input class="govuk-radios__input" id="example-error-message-2" name="example-error-message" type="radio" value="no">
+      <label class="govuk-label govuk-radios__label" for="example-error-message-2">
         No
       </label>
-        </div>
+    </div>
   </div>
 </div>

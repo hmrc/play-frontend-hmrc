@@ -1,0 +1,19 @@
+{
+  "attributes" : {
+    "data-custom-attribute" : "custom-value"
+  },
+  "items" : [ {
+    "title" : {
+      "text" : "A Link"
+    },
+    "href" : "#",
+    "status" : {
+      "tag" : {
+        "text" : "Status",
+        "attributes" : {
+          "data-tag-attribute" : "tag-value"
+        }
+      }
+    }
+  } ]
+}

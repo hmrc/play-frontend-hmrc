@@ -1,12 +1,10 @@
 {
   "previous" : {
     "text" : "précédente",
-    "href" : "/previous",
-    "visuallyHiddenText" : "Page précédente"
+    "href" : "/previous"
   },
   "next" : {
     "text" : "suivante",
-    "href" : "/next",
-    "visuallyHiddenText" : "Page suivante"
+    "href" : "/next"
   }
 }

@@ -1,4 +1,4 @@
-<details id="my-details-element" class="govuk-details" data-module="govuk-details">
+<details id="my-details-element" class="govuk-details">
   <summary class="govuk-details__summary">
     <span class="govuk-details__summary-text">
       Expand this section

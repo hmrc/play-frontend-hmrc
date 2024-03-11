@@ -1,0 +1,69 @@
+{
+  "items" : [ {
+    "title" : {
+      "text" : "Company Directors"
+    },
+    "href" : "#",
+    "status" : {
+      "text" : "Completed"
+    }
+  }, {
+    "title" : {
+      "text" : "Registered company details"
+    },
+    "href" : "#",
+    "status" : {
+      "tag" : {
+        "text" : "Not started",
+        "classes" : "govuk-tag--light-blue"
+      }
+    }
+  }, {
+    "title" : {
+      "text" : "Business plan"
+    },
+    "href" : "#",
+    "hint" : {
+      "text" : "Ensure the plan covers objectives, strategies, sales, marketing and financial forecasts."
+    },
+    "status" : {
+      "tag" : {
+        "text" : "Review",
+        "classes" : "govuk-tag--pink"
+      }
+    }
+  }, {
+    "title" : {
+      "text" : "Documentation"
+    },
+    "href" : "#",
+    "status" : {
+      "tag" : {
+        "text" : "In progress",
+        "classes" : "govuk-tag--blue"
+      }
+    }
+  }, {
+    "title" : {
+      "text" : "Charitable status"
+    },
+    "href" : "#",
+    "status" : {
+      "tag" : {
+        "text" : "Error",
+        "classes" : "govuk-tag--red"
+      }
+    }
+  }, {
+    "title" : {
+      "text" : "Payment"
+    },
+    "hint" : {
+      "text" : "It will cost between £15 and £75"
+    },
+    "status" : {
+      "text" : "Cannot start yet",
+      "classes" : "govuk-task-list__status--cannot-start-yet"
+    }
+  } ]
+}

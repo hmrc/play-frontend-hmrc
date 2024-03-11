@@ -1,16 +1,19 @@
-<footer class="govuk-footer " role="contentinfo">
-  <div class="govuk-width-container ">
+
+
+
+
+<footer class="govuk-footer" role="contentinfo">
+  <div class="govuk-width-container">
     <div class="govuk-footer__meta">
       <div class="govuk-footer__meta-item govuk-footer__meta-item--grow">
-          <h2 class="govuk-visually-hidden">Support links</h2>
-            <ul class="govuk-footer__inline-list">
-                <li class="govuk-footer__inline-list-item">
-                  <a class="govuk-footer__link" href="#1" data-attribute="my-attribute" data-attribute-2="my-attribute-2">
-                    meta item 1
-                  </a>
-                </li>
-            </ul>
-
+        <h2 class="govuk-visually-hidden">Support links</h2>
+        <ul class="govuk-footer__inline-list">
+          <li class="govuk-footer__inline-list-item">
+            <a class="govuk-footer__link" href="#1" data-attribute="my-attribute" data-attribute-2="my-attribute-2">
+              meta item 1
+            </a>
+          </li>
+        </ul>
         <svg
           aria-hidden="true"
           focusable="false"
@@ -26,19 +29,22 @@
           />
         </svg>
         <span class="govuk-footer__licence-description">
-All content is available under the           <a
-            class="govuk-footer__link"
-            href="https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/"
-            rel="license"
-          >          Open Government Licence  v3.0</a>, except where otherwise stated
+          All content is available under the   <a
+              class="govuk-footer__link"
+              href="https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/"
+              rel="license"
+            >Open Government Licence v3.0</a>, except where otherwise stated
         </span>
       </div>
       <div class="govuk-footer__meta-item">
         <a
           class="govuk-footer__link govuk-footer__copyright-logo"
           href="https://www.nationalarchives.gov.uk/information-management/re-using-public-sector-information/uk-government-licensing-framework/crown-copyright/"
-        >© Crown copyright</a>
+        >
+          © Crown copyright
+        </a>
       </div>
     </div>
   </div>
 </footer>
+

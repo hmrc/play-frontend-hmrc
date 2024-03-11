@@ -15,12 +15,14 @@
  *@
 
 @this(govukButton: GovukButton)
-
 @(params: CookieBanner)
 @import params._
 
-<div class="@toClasses("govuk-cookie-banner ", classes)" data-nosnippet role="region" aria-label="@ariaLabel.getOrElse("Cookie banner")"@if(hidden){ hidden}@toAttributes(attributes)>@for(message <- messages) {
-    <div class="@toClasses("govuk-cookie-banner__message govuk-width-container", message.classes)"@message.role.mapNonEmpty {role => role="@role"} @toAttributes(message.attributes) @if(message.hidden){ hidden}>
+<div class="@toClasses("govuk-cookie-banner", classes)" data-nosnippet role="region" aria-label="@{ariaLabel match {
+    case Some(NonEmptyString(str)) => str
+    case _ => "Cookie banner"
+   }}"@if(hidden){ hidden}@toAttributes(attributes)>@for(message <- messages) {
+    <div class="@toClasses("govuk-cookie-banner__message", message.classes, "govuk-width-container")"@message.role.mapNonEmpty {role => role="@role"} @toAttributes(message.attributes) @if(message.hidden){ hidden}>
       <div class="govuk-grid-row">
         <div class="govuk-grid-column-two-thirds">
           @if(message.heading.nonEmpty) {
@@ -31,36 +33,28 @@
           <div class="govuk-cookie-banner__content">@message.content match {
               case NonEmptyHtml(html) => {@html}
               case NonEmptyText(text) => {<p class="govuk-body">@text</p>}
-              case _ => {}}</div>
+              case _ => { }}</div>
         </div>
       </div>
       @message.actions.map { actions =>
         <div class="govuk-button-group">
           @for(action <- actions) {
-            @if(action.href.exists(_.nonEmpty)) {
-               @if(action.inputType.exists(_ == "button")) {
-                   @govukButton(Button(
-                       content = Text(action.text),
-                       inputType = Some("button"),
-                       classes = action.classes,
-                       attributes = action.attributes,
-                       href = action.href
-                   ))
-               } else {
-                   <a class="@toClasses("govuk-link", action.classes)" href="@{action.href}"@toAttributes(action.attributes)>@action.text</a>
-               }
+            @if(action.href.getOrElse("").isEmpty || action.inputType.exists(_ == "button"))  {
+              @govukButton(Button(
+                content = Text(action.text),
+                inputType = action.inputType.filter(_.nonEmpty).orElse(Some("button")),
+                classes = action.classes,
+                attributes = action.attributes,
+                href = action.href,
+                value = action.value,
+                name = action.name
+              ))
             } else {
-                @govukButton(Button(
-                    content = Text(action.text),
-                    value = action.value,
-                    name = action.name,
-                    inputType = action.inputType,
-                    classes = action.classes,
-                    attributes = action.attributes
-                ))
+              <a class="@toClasses("govuk-link", action.classes)" href="@{action.href}"@toAttributes(action.attributes)>@action.text</a>
             }
           }
         </div>
        }
     </div>
-  }</div>
+  }
+</div>

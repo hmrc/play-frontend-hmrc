@@ -1,0 +1,65 @@
+@*
+ * Copyright 2024 HM Revenue & Customs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *@
+
+@import uk.gov.hmrc.govukfrontend.views.Aliases.{Tag, TaskList}
+@import uk.gov.hmrc.govukfrontend.views.html.components.GovukTag
+@import uk.gov.hmrc.hmrcfrontend.views.Utils._
+
+@this(govukTag: GovukTag)
+
+@(params: TaskList)
+@import params._
+<ul class="@toClasses("govuk-task-list", classes)" @toAttributes(attributes)>
+    @for((item, index) <- params.items.zipWithIndex) {
+        @defining(nonEmptyStringOrDefault(Some(idPrefix), "task-list")) { prefix =>
+            @defining(s"$prefix-${index + 1}-hint", s"$prefix-${index + 1}-status") { case (hintId, statusId) =>
+                <li class="@toClasses("govuk-task-list__item", if(item.href.isDefined){ "govuk-task-list__item--with-link" } else { "" }, item.classes)">
+                    <div class="govuk-task-list__name-and-hint">
+                        @if(item.href.isDefined) {
+                            <a class="@toClasses("govuk-link govuk-task-list__link", item.title.classes)" href="@item.href" aria-describedby="@if(item.hint.isDefined){@hintId @statusId}else{@statusId}">
+                              @item.title.content.asHtml
+                            </a>
+                        } else {
+                            <div @if(item.title.classes.nonEmpty){class="@item.title.classes"}>
+                              @item.title.content.asHtml
+                            </div>
+                        }
+                        @item.hint.map { h =>
+                            <div id="@hintId" class="govuk-task-list__hint">
+                                @h.content.asHtml
+                            </div>
+                        }
+                    </div>
+                    <div class="@toClasses("govuk-task-list__status", item.status.classes)" id="@statusId">
+                        @if(item.status.tag.isDefined) {
+                            @tagSnippet(item.status.tag)
+                        } else {
+                            @item.status.content.asHtml
+                        }
+                    </div>
+                }
+            }
+        </li>
+    }
+</ul>
+
+@tagSnippet(tag: Option[Tag]) = {
+    @tag.orElse(Some(Tag())).map { tag =>
+      @govukTag(Tag(
+        attributes = tag.attributes,
+        classes = toClasses(tag.classes),
+        content = tag.content))}
+  }

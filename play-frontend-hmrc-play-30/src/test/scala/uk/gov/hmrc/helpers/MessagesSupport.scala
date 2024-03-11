@@ -18,8 +18,6 @@ package uk.gov.hmrc.helpers
 
 import play.api.http.HttpConfiguration
 import play.api.i18n._
-import play.api.mvc.MessagesRequest
-import play.api.test.FakeRequest
 import play.api.{Configuration, Environment}
 
 trait MessagesSupport {
@@ -40,5 +38,5 @@ trait MessagesSupport {
     ).get
   }
 
-  implicit val messages: Messages = new MessagesRequest(FakeRequest(), messagesApi).messages
+  implicit val messages: Messages = messagesApi.preferred(defaultLangs.availables)
 }

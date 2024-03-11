@@ -1,13 +1,13 @@
 <div class="govuk-form-group govuk-form-group--error">
   <p id="id-prefix-error" class="govuk-error-message">
-  <span class="govuk-visually-hidden">Error:</span> Please select an option
+    <span class="govuk-visually-hidden">Error:</span> Please select an option
   </p>
-  <div class="govuk-checkboxes"    data-module="govuk-checkboxes">
-          <div class="govuk-checkboxes__item">
-            <input class="govuk-checkboxes__input" id="id-prefix" name="name-of-checkboxes" type="checkbox" value="animal" aria-describedby="id-prefix-error">
-            <label class="govuk-label govuk-checkboxes__label" for="id-prefix">
+  <div class="govuk-checkboxes" data-module="govuk-checkboxes">
+    <div class="govuk-checkboxes__item">
+      <input class="govuk-checkboxes__input" id="id-prefix" name="name-of-checkboxes" type="checkbox" value="animal" aria-describedby="id-prefix-error">
+      <label class="govuk-label govuk-checkboxes__label" for="id-prefix">
         Waste from animal carcasses
       </label>
-          </div>
+    </div>
   </div>
 </div>

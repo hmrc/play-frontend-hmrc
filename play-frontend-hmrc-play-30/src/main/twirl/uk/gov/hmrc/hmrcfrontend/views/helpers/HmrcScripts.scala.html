@@ -20,5 +20,5 @@
 @this(AssetsConfig: AssetsConfig)
 
 @(scriptsBlock: Option[Html] = None)(implicit request: RequestHeader)
-<script src="@AssetsConfig.hmrcFrontendJsUrl" @CSPNonce.attr></script>
+<script type="module" src="@AssetsConfig.hmrcFrontendJsUrl" @CSPNonce.attr></script>
 @scriptsBlock

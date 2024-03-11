@@ -25,14 +25,6 @@ import scala.util.Try
 
 class GovukHeaderSpec extends TemplateUnitSpec[Header, GovukHeader]("govukHeader") {
 
-  override def fakeApplication(): Application = new GuiceApplicationBuilder()
-    .configure(
-      Map(
-        "play-frontend-hmrc.useTudorCrown" -> "false"
-      )
-    )
-    .build()
-
   def buildAnotherApp(properties: Map[String, String] = Map.empty): Application =
     new GuiceApplicationBuilder()
       .configure(properties)
@@ -59,7 +51,21 @@ class GovukHeaderSpec extends TemplateUnitSpec[Header, GovukHeader]("govukHeader
       val componentTry = Try(govukHeader(Header()))
 
       componentTry          should be a 'success
-      componentTry.get.body should include("govuk-logotype-tudor-crown.png")
+      componentTry.get.body should include("M22.6 10.4c-1")
+    }
+
+    """display St Edwards crown logo set by config""" in {
+      val anotherApp  = buildAnotherApp(
+        Map(
+          "play-frontend-hmrc.useTudorCrown" -> "false"
+        )
+      )
+      val govukHeader = anotherApp.injector.instanceOf[GovukHeader]
+
+      val componentTry = Try(govukHeader(Header()))
+
+      componentTry          should be a 'success
+      componentTry.get.body should include("M6.7 12.2c1")
     }
 
     """display Tudor crown when no config is found""" in {
@@ -69,7 +75,7 @@ class GovukHeaderSpec extends TemplateUnitSpec[Header, GovukHeader]("govukHeader
       val componentTry = Try(govukHeader(Header()))
 
       componentTry          should be a 'success
-      componentTry.get.body should include("govuk-logotype-tudor-crown.png")
+      componentTry.get.body should include("M22.6 10.4c-1")
     }
   }
 
@@ -123,11 +129,5 @@ class GovukHeaderSpec extends TemplateUnitSpec[Header, GovukHeader]("govukHeader
     val output = component(params).select(".govuk-header__navigation-item .govuk-header__link")
 
     output.html should include("<strong>Some text</strong>")
-  }
-
-  "use the provided assetsPath for the fallback SVG image" in {
-    val output = component(Header(assetsPath = Some("/foo/bar")))
-
-    output.body should include("""<img src="/foo/bar""")
   }
 }

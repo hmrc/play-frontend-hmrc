@@ -3,7 +3,7 @@
   "label" : {
     "text" : "Textarea with error"
   },
-  "describedBy" : "some-id",
+  "describedBy" : "test-target-element",
   "id" : "textarea-with-error",
   "errorMessage" : {
     "text" : "Error message"

@@ -1,9 +1,12 @@
-<footer class="govuk-footer " role="contentinfo">
-  <div class="govuk-width-container ">
+
+
+
+
+<footer class="govuk-footer" role="contentinfo">
+  <div class="govuk-width-container">
     <div class="govuk-footer__meta">
       <div class="govuk-footer__meta-item govuk-footer__meta-item--grow">
-          <h2 class="govuk-visually-hidden">Cysylltiadau cymorth</h2>
-
+        <h2 class="govuk-visually-hidden">Cysylltiadau cymorth</h2>
         <svg
           aria-hidden="true"
           focusable="false"
@@ -19,19 +22,22 @@
           />
         </svg>
         <span class="govuk-footer__licence-description">
-Mae‘r holl gynnwys ar gael o dan           <a
-            class="govuk-footer__link"
-            href="https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/"
-            rel="license"
-          >          y Drwydded Llywodraeth Agored  v3.0</a>, oni nodir yn wahanol
+          Mae‘r holl gynnwys ar gael o dan   <a
+              class="govuk-footer__link"
+              href="https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/"
+              rel="license"
+            >y Drwydded Llywodraeth Agored v3.0</a>, oni nodir yn wahanol
         </span>
       </div>
       <div class="govuk-footer__meta-item">
         <a
           class="govuk-footer__link govuk-footer__copyright-logo"
           href="https://www.nationalarchives.gov.uk/information-management/re-using-public-sector-information/uk-government-licensing-framework/crown-copyright/"
-        >© Hawlfraint y Goron</a>
+        >
+          © Hawlfraint y Goron
+        </a>
       </div>
     </div>
   </div>
 </footer>
+

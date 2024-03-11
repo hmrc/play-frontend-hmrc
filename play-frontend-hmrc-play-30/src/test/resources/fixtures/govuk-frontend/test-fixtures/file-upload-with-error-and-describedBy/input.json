@@ -4,7 +4,7 @@
   "label" : {
     "text" : "Upload a file"
   },
-  "describedBy" : "some-id",
+  "describedBy" : "test-target-element",
   "errorMessage" : {
     "text" : "Error message"
   }

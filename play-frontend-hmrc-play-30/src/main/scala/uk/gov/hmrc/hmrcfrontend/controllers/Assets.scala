@@ -17,6 +17,8 @@
 package uk.gov.hmrc.hmrcfrontend.controllers
 
 import controllers.{AssetsBuilder, AssetsMetadata}
+import play.api.Environment
+
 import javax.inject.{Inject, Singleton}
 import play.api.http.HttpErrorHandler
 

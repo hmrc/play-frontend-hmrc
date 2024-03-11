@@ -18,7 +18,7 @@
 
 @(params: Details)
 @import params._
-<details @id.mapNonEmpty {id => id="@id"} class="@toClasses("govuk-details", classes)" data-module="govuk-details"@toAttributes(attributes) @if(open) {open}>
+<details @id.mapNonEmpty {id => id="@id"} class="@toClasses("govuk-details", classes)"@toAttributes(attributes) @if(open) {open}>
   <summary class="govuk-details__summary">
     <span class="govuk-details__summary-text">
       @summary.asHtml

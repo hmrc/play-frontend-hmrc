@@ -25,7 +25,7 @@ case class Footer(
   containerClasses: String = "",
   classes: String = "",
   attributes: Map[String, String] = Map.empty,
-  language: Language = En
+  @deprecated language: Language = En // only used for tests - component uses implicit Play messages for i18n
 )
 
 object Footer {

@@ -45,7 +45,13 @@ trait TemplateServiceClient extends AnyWordSpecLike with WSScalaTestClient with 
     componentName: String,
     templateParams: T,
     libraryVersion: String = libraryVersion
-  ): Future[WSResponse] =
-    wsUrl(s"component/$libraryName/$libraryVersion/$componentName")
+  ): Future[WSResponse] = {
+    val componentOrTemplateUrl = if (componentName == "govukTemplate") {
+      s"template/$libraryName/$libraryVersion/default"
+    } else {
+      s"component/$libraryName/$libraryVersion/$componentName"
+    }
+    wsUrl(componentOrTemplateUrl)
       .post(Json.toJson(templateParams))
+  }
 }

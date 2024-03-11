@@ -5,5 +5,5 @@
   <div id="file-upload-hint-describedby-hint" class="govuk-hint">
     Your photo may be in your Pictures, Photos, Downloads or Desktop folder. Or in an app like iPhoto.
   </div>
-  <input class="govuk-file-upload" id="file-upload-hint-describedby" name="file-upload-hint-describedby" type="file" aria-describedby="some-id file-upload-hint-describedby-hint">
+  <input class="govuk-file-upload" id="file-upload-hint-describedby" name="file-upload-hint-describedby" type="file" aria-describedby="test-target-element file-upload-hint-describedby-hint">
 </div>

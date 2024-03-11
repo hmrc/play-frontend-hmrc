@@ -1,3 +1,0 @@
-<button name="Inverse" disabled="disabled" aria-disabled="true" class="govuk-button govuk-button--inverse govuk-button--disabled" data-module="govuk-button">
-  Inverse button disabled
-</button>

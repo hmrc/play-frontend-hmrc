@@ -3,7 +3,7 @@
     Textarea with error
   </label>
   <p id="textarea-with-error-error" class="govuk-error-message">
-  <span class="govuk-visually-hidden">Error:</span> Error message
+    <span class="govuk-visually-hidden">Error:</span> Error message
   </p>
-  <textarea class="govuk-textarea govuk-textarea--error" id="textarea-with-error" name="textarea-with-error" rows="5" aria-describedby="some-id textarea-with-error-error"></textarea>
+  <textarea class="govuk-textarea govuk-textarea--error" id="textarea-with-error" name="textarea-with-error" rows="5" aria-describedby="test-target-element textarea-with-error-error"></textarea>
 </div>

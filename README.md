@@ -1134,11 +1134,7 @@ III. This new logo has been added into both the [govuk-frontend](https://github.
 [hmrc-frontend](https://github.com/hmrc/hmrc-frontend) libraries. Additionally, the `hmrc-frontend` library has an updated 
 HMRC Crest roundel incorporating the Tudor Crown.
 
-The Tudor Crown will be available in `v8.5.0` and higher of `play-frontend-hmrc`. 
-
-If you are testing locally, you should see the Tudor Crown displayed by default in your service. If you are running in 
-Production, you will see the old St Edwards Crown until this is globally changed via config by PlatUI. Your Production service
-will need to be redeployed in Production for the config change to take effect.
+The Tudor Crown is available, and shown by default, in `v8.5.0` and higher of `play-frontend-hmrc`. 
 
 ## Getting help
 
@@ -1147,10 +1143,10 @@ Please report any issues with this library in Slack at `#team-plat-ui`.
 ### Troubleshooting
 
 If you are adding HTML elements to your page such as `<h1>` or `<p>`, you will need to add the CSS classes for the [GDS
-Transport fonts](https://design-system.service.gov.uk/styles/typography/) from the GOV.UK Design System. A full list of
-the CSS classes can be found at https://design-system.service.gov.uk/styles/typography/.
+Transport fonts](https://design-system.service.gov.uk/styles/typeface/) from the GOV.UK Design System. A full list of
+the CSS classes can be found at https://design-system.service.gov.uk/styles/type-scale/.
 
-These styles have been applied to the component supplied in `play-frontend-hmrc`, but you will need to manually add the
+These styles have already been applied to the components supplied in `play-frontend-hmrc`, but you will need to manually add the
 styles to your service's own HTML elements.
 
 ### Useful Links
