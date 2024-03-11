@@ -55,7 +55,7 @@ class hmrcScriptsSpec
       val scripts     = contentAsString(hmrcScripts()(requestWithNonce)).trim
 
       scripts should fullyMatch regex
-        """<script src="/foo-service/hmrc-frontend/assets/hmrc-frontend-\d+.\d+.\d+.min.js" nonce="a-nonce"></script>""".r
+        """<script type="module" src="/foo-service/hmrc-frontend/assets/hmrc-frontend-\d+.\d+.\d+.min.js" nonce="a-nonce"></script>""".r
     }
 
     "include the supplied scriptsBlock after the hmrc-frontend script tag" in {
