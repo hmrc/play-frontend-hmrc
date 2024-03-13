@@ -38,6 +38,7 @@ of implementing frontend microservices straightforward and idiomatic for Scala d
   - [Warning users before timing them out](#warning-users-before-timing-them-out)
   - [Opening links in a new tab](#opening-links-in-a-new-tab)
   - [Adding an Exit This Page button](#adding-an-exit-this-page-button)
+  - [Validating DateInput using DateValidationSupport](#Validating-DateInput-using-the-DateValidationSupport)
 - [Advanced configuration](#advanced-configuration)
   - [Adding your own SASS compilation pipeline](#adding-your-own-sass-compilation-pipeline)
   - [Configuring non-HMRC projects to resolve play-frontend-hmrc artefacts](#configuring-non-hmrc-projects-to-resolve-play-frontend-hmrc-artefacts)
@@ -1112,6 +1113,40 @@ If you are not using the GOV.uk standard [two-thirds width layout](https://desig
 please note that the sticky button may overlay your main content when scrolled. For example, it will overlay a sidebar or
 full-width layout. Services with wider main content may wish to carry out additional testing before deciding whether to
 implement this component.
+
+### Validating DateInput using DateValidationSupport
+
+Date input validation is commonly required, but different teams have separately created their own unique solutions for validating date inputs.
+As [GOVUK guidelines for date validation](https://design-system.service.gov.uk/components/date-input/) evolve,
+particularly to support the entry of month names as well as numbers, we've opted to offer date validation support.
+This ensures that a date provided by the DateInput is indeed valid, and supports full and abbreviated month names in both English and Welsh.
+
+The current implementation applies the following validation rules, with GOVUK-standard error messages by default:
+* If nothing is entered
+* If the date is incomplete
+* If the date entered cannot be correct
+
+Date inputs validated using `govUkDate` return a `GovUkDate` type, which can be used with `LocalDate` to apply further domain validation.
+In addition, date inputs bound to `GovUkDate` in this way will have the entered date bound back to the form eg. if the user returns to amend their answers.
+
+### Using the govUkDate validation mapping
+
+The example below illustrates the application of a custom constraint in conjunction with the govUkDate mapping.
+
+```scala
+def form()(implicit messagesApi: MessagesApi) = Form[SomeForm](
+  mapping(
+    "userAction" -> optional(text),
+    "contact-date" -> govUkDate.verifying(
+      "date.after",
+      (govUkDate: GovUKDate) => {
+        val afterDate = LocalDate.parse("2023-01-30")
+        govUkDate.isAfter(afterDate)
+      }
+    )
+  )(SomeForm.apply)(SomeForm.unapply)
+)
+```
 
 ## Advanced configuration
 ### Adding your own SASS compilation pipeline
