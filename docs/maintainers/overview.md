@@ -43,6 +43,11 @@ Manually maintained coverage for any scenarios where we have chosen to
 diverge from the GOV.UK or HMRC components. The inputs and outputs for these fixtures
 are generated manually.
 
+#### (govuk|hmrc)-frontend/excluded-fixtures/
+
+In certain exceptional situations, testing a specific fixture may not be feasible due to technical differences between Nunjucks and Twirl templates. Such fixtures ought to be placed in the 'excluded-fixtures' folder, accompanied by a README file that outlines the rationale behind their exclusion.
+
+
 ### Generative Testing
 
 To ensure (as much as possible) that the implemented templates conform to the `(govuk|hmrc)-frontend` templates, we use generative
