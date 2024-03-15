@@ -26,7 +26,7 @@ This library manages SASS compilation for you. However, should you wish to add y
    > GOV.UK styles from trying to load the fonts automatically. If you don't, then every time someone loads your
    > stylesheet they will attempt to download the fonts from `/assets/` which will cause several 404s.
 
-1. Add [sbt-sassify](https://github.com/irundaia/sbt-sassify) is to your `/project/plugins.sbt` file.
+1. Add [sbt-sassify](https://github.com/irundaia/sbt-sassify) to your `/project/plugins.sbt` file.
 
 1. Ensure you have the correct routing for all other static assets including the compiled Javascript and images provided
    by the hmrc-frontend webjar:

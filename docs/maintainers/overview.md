@@ -28,7 +28,7 @@ not need to be running when running the unit tests themselves.
 #### (govuk|hmrc)-frontend/test-fixtures/
 
 Fixtures derived from the [hmrc-frontend](https://github.com/hmrc/hmrc-frontend) or
-[govuk-frontend](https://github.com/hmrc/govuk-frontend) YAML documentation.
+[govuk-frontend](https://github.com/alphagov/govuk-frontend) YAML documentation.
 These examples are used in `hmrc-frontend` and `govuk-frontend`'s own unit tests.
 They are populated automatically by the sbt `generate(Govuk|Hmrc)Fixtures` task.
 
