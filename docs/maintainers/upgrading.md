@@ -1,15 +1,14 @@
 # Upgrading play-frontend-hmrc
 
-> **Warning**
-> When you bump govuk-frontend version, you need to manually check release changes for new components and new parameters that need to be added to our Twirl implementations. They won't currently be automatically detected as missing by our automated tests. Read [comparing differences](#comparing-differences) below for ways you can do this.
+## Review govuk-frontend release notes
+
+When you bump the govuk-frontend version, you must manually review the release [notes](https://github.com/alphagov/govuk-frontend/releases) for new components and new parameters that need to be added to our Twirl implementations. They won't be automatically detected as missing by our automated tests. Read [comparing differences](https://github.com/hmrc/play-frontend-hmrc/blob/main/docs/maintainers/upgrading.md#comparing-differences) below for ways you can do this.
 
 ## Check for updated Govuk components
 
-To ensure that our play-frontend-hmrc library stays up to date with govuk-frontend, 
-it is important to regularly review the release [notes](https://github.com/alphagov/govuk-frontend/releases) for govuk-frontend to identify any component updates or new additions. 
-If there are changes to components, we should create tickets to discuss as a team whether we want to incorporate those changes into our forked components in the play-frontend-hmrc library.
+Once you have [reviewed the govuk-frontend release notes](https://github.com/hmrc/play-frontend-hmrc/blob/main/docs/maintainers/upgrading.md#review-govuk-frontend-release-notes), if there are changes to components, we should create tickets to discuss as a team whether we want to incorporate those changes into our forked components in the play-frontend-hmrc library.
 
-As an example, there was previously an update to the header Nunjucks macro that added the ability to localize the 
+As an example, there was previously an update to the header Nunjucks macro that added the ability to localise the 
 text of the mobile navigation menu toggle button using the menuButtonText parameter.
 
 ### Release note from Govuk with the updated component change
@@ -23,7 +22,7 @@ You should avoid lengthy values for the menuButtonText parameter. If the text is
 This was added in pull request #2720: Add parameter to localise mobile menu toggle button.
 ```
 
-A ticket was created to track the work that would be required to incorporate an update to the header component that added the ability to localize the text of the mobile navigation menu toggle button using the menuButtonText parameter into our forked component. However, this ticket still needs to be discussed with relevant parties to determine if we want to introduce this change into our forked component.
+A ticket was created to track the work that would be required to incorporate an update to the header component that added the ability to localise the text of the mobile navigation menu toggle button using the menuButtonText parameter into our forked component. However, this ticket still needs to be discussed with relevant parties to determine if we want to introduce this change into our forked component.
 
 ### Ticket created to capture change 
 
@@ -47,7 +46,7 @@ Teams can change the menu button label using the menuButtonText property in our 
 Implementation detail: we need to confirm with DR(Design Resources) that we should add this parameter to hmrc fork of header, or whether instead we should just add a translation for this bit of copy, since most hmrc components don't let people provide translation themselves, they just take a lang param and have fixed translations for english and welsh
 ```
 
-In some cases, the decision to incorporate updates to components may not be solely up to our team and may require input from design resources. Therefore, we may need to reach out to them for their input on these decisions.
+In some cases, the decision to incorporate updates to components may not be solely up to our team and may require input from design resources, especially where there is a change to the content or accessibility considerations of a component. Therefore, we may need to reach out to them for their input on these decisions.
 
 ## Basic Steps
 
@@ -66,13 +65,13 @@ In some cases, the decision to incorporate updates to components may not be sole
 1. Navigate to https://www.webjars.org/
 1. Click the blue "Add a WebJar" button
 1. Select type as "NPM"
-1. Enter govuk-frontend as the package name, and select 4.1.1 as the version
+1. Enter govuk-frontend as the package name, and select the latest version
 1. Click the "Deploy!" button
 
 ### Comparing Differences
 Since some of the components have dependencies, it is easier to start upgrading by starting from components with no dependencies, or, alternatively, from the components on the bottom of a dependency graph, and work our way up.
 
-We should first look at the components for which tests failed. It is also important to verify that there are no changes in the other components which were not flagged up by failing tests. Again, this situation might be mitigated by increasing test coverage with generative testing.
+We should first look at the components for which tests failed. It is also important to verify that there are no changes in the other components which were not flagged up by failing tests.
 
 #### Examining Components for Failed Tests
  
