@@ -102,6 +102,12 @@ trait Aliases {
   type AddToAList = viewmodels.addtoalist.AddToAList
   val AddToAList = viewmodels.addtoalist.AddToAList
 
+  type ListItem = viewmodels.addtoalist.ListItem
+  val ListItem = viewmodels.addtoalist.ListItem
+
+  type ItemType = viewmodels.addtoalist.ItemType
+  val ItemType = viewmodels.addtoalist.ItemType
+
   type Timeline = viewmodels.timeline.Timeline
   val Timeline = viewmodels.timeline.Timeline
 
