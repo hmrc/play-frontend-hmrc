@@ -4,6 +4,7 @@
 
 - [Testing](#testing)
 - [Upgrading](#upgrading)
+- [Patch releases](#patch-releases)
 - [Translation Decisions](#translation-decisions)
 - [Documentation](#documentation)
 - [Architectural decision records](#architectural-decision-records)
@@ -126,6 +127,11 @@ PLAY_VERSION=2.8 sbt clean +test +it/test
 
 [This guide](/docs/maintainers/upgrading.md) describes the process of updating the library when a new 
 version of `govuk-frontend` or `hmrc-frontend` is released. 
+
+## Patch releases
+
+Very occasionally it may be necessary to create a patch release from an older version of `play-frontend-hmrc`. 
+[This guide](/docs/maintainers/patch-release.md) describes the process for this.
 
 ## Translation Decisions
 
