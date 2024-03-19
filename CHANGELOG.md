@@ -8,11 +8,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 For compatibility information see `govukFrontendVersion` and `hmrcFrontendVersion` in
 [LibDependencies](project/LibDependencies.scala)
 
-## [9.1.0] - 2024-03-14
+## [9.1.0] - 2024-03-19
 
 ### Changed
 
-- Updated README with guidance on adding fixtures to the excluded-fixtures folder.
+- Updated `TaskList` viewmodel, updated missing Aliases
 
 ### Compatible with
 
