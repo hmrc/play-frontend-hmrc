@@ -26,14 +26,14 @@ the branch without merging the changes to main.
    ```
 3. Create a feature branch off the release branch, for the required changes, e.g. 
       ```bash
-   git checkout -b PLATUI-XXXX_some-hotfix-release
+   git checkout -b feature/PLATUI-XXXX_some-hotfix-release
    ```
-4. On your local branch (in this example, `PLATUI-XXXX_some-hotfix-release`) make any necessary changes. For example, for
+4. On your local branch (in this example, `feature/PLATUI-XXXX_some-hotfix-release`) make any necessary changes. For example, for
    the Tudor Crown changes, the version of `hmrc-frontend` was bumped from `v5.62.0` to `v5.67.0`.
 5. Commit your changes to your local branch.   
 6. Once you are happy with your local changes, push the branch to remote, e.g. 
       ```bash
-   git push --set-upstream origin PLATUI-XXXX_some-hotfix-release
+   git push --set-upstream origin feature/PLATUI-XXXX_some-hotfix-release
    ```  
 7. Raise a PR from the feature branch into the release branch (to get the changes approved before building the new version), 
    eg. using the Github CLI `gh pr create -B release/v8.5.1`
@@ -51,4 +51,23 @@ the branch without merging the changes to main.
 ## Release branch
 **The release branch should not be merged to `main` at any point.**. Once the hotfix has been released, a decision can be 
 made within PlatUI on whether to keep the release branch, or to delete.
+
+```mermaid
+    gitGraph LR:
+        commit tag:"8.5.0" id:"older release"
+        branch "release/8.5.1"
+        commit id:"branch off old tag"
+        branch feature/PLATUI-XXXX_some-hotfix-release
+        commit id:"branch off release branch"
+        commit id:"make some changes"
+        commit id:"make more changes"
+        checkout "release/8.5.1"
+        merge "feature/PLATUI-XXXX_some-hotfix-release" id:"PR to release branch"
+        commit tag:"8.5.1" id:"tagged by jenkins"
+        commit type:HIGHLIGHT id:"never merged back"
+        checkout main
+        commit tag:"9.0.0" id:"major release"
+        commit tag:"9.1.0" id:"minor release"
+        commit tag:"10.0.0" id:"latest"
+```
 
