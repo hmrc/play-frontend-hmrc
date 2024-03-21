@@ -20,6 +20,7 @@ import play.api.libs.functional.syntax._
 import play.api.libs.json._
 import uk.gov.hmrc.govukfrontend.views.html.components._
 import uk.gov.hmrc.govukfrontend.views.viewmodels.CommonJsonFormats._
+import uk.gov.hmrc.govukfrontend.views.viewmodels.FormGroup
 import uk.gov.hmrc.govukfrontend.views.viewmodels.JsonImplicits.RichJsPath
 
 /** Parameters to `GovukSelect` Twirl template
@@ -31,7 +32,7 @@ import uk.gov.hmrc.govukfrontend.views.viewmodels.JsonImplicits.RichJsPath
   * @param label optional `Label` for the control
   * @param hint optional `Hint` for the control
   * @param errorMessage optional `ErrorMessage` to display
-  * @param formGroupClasses optional additional CSS classes to apply to the form group
+  * @param formGroup additional CSS classes/attributes/etc. to apply to the form group
   * @param classes optional additional CSS classes to apply to the `govuk-radios` `div`
   * @param attributes optional additional HTML attributes to apply to the `govuk-select` `div`
   * @param value optional value of the item that should be `selected`
@@ -45,7 +46,7 @@ case class Select(
   label: Label = Label(),
   hint: Option[Hint] = None,
   errorMessage: Option[ErrorMessage] = None,
-  formGroupClasses: String = "",
+  formGroup: FormGroup = FormGroup(),
   classes: String = "",
   attributes: Map[String, String] = Map.empty,
   value: Option[String] = None,
@@ -65,7 +66,7 @@ object Select {
         (__ \ "label").readWithDefault[Label](defaultObject.label) and
         (__ \ "hint").readNullable[Hint] and
         (__ \ "errorMessage").readNullable[ErrorMessage] and
-        readsFormGroupClasses and
+        (__ \ "formGroup").readWithDefault[FormGroup](defaultObject.formGroup) and
         (__ \ "classes").readWithDefault[String](defaultObject.classes) and
         (__ \ "attributes").readWithDefault[Map[String, String]](defaultObject.attributes)(attributesReads) and
         (__ \ "value").readsJsValueToString.map(Option[String]).orElse(Reads.pure(None)) and
@@ -81,7 +82,7 @@ object Select {
         (__ \ "label").write[Label] and
         (__ \ "hint").writeNullable[Hint] and
         (__ \ "errorMessage").writeNullable[ErrorMessage] and
-        writesFormGroupClasses and
+        (__ \ "formGroup").write[FormGroup] and
         (__ \ "classes").write[String] and
         (__ \ "attributes").write[Map[String, String]] and
         (__ \ "value").writeNullable[String] and
