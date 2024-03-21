@@ -14,14 +14,14 @@
  * limitations under the License.
  *@
 
-@import scala.util.matching.Regex
+@import uk.gov.hmrc.govukfrontend.views.html.components._
 
 @this(govukErrorMessage: GovukErrorMessage, govukHint: GovukHint, govukLabel: GovukLabel)
 
 @(params: Input)
 @import params._
 @require(name.nonEmpty && id.nonEmpty, s"failed requirements for govukInput: name and id should not be empty. name=[$name], id=[$id]")
-<div class="@toClasses("govuk-form-group", errorMessage.fold("")(_ => "govuk-form-group--error"), formGroupClasses)">
+<div class="@toClasses("govuk-form-group", errorMessage.fold("")(_ => "govuk-form-group--error"), formGroup.classes.getOrElse(""))"@toAttributes(formGroup.attributes)>
   @govukLabel(Label(
     forAttr = Some(id),
     isPageHeading = label.isPageHeading,

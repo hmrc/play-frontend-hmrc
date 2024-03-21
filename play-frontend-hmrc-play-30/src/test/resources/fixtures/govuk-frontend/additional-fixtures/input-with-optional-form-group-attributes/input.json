@@ -1,0 +1,13 @@
+{
+  "label" : {
+    "text" : "National Insurance number"
+  },
+  "id" : "input-example",
+  "name" : "test-name",
+  "formGroup" : {
+    "attributes" : {
+      "some-data-attribute": "true",
+      "some-other-data-attribute": "eleven"
+    }
+  }
+}
