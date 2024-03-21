@@ -33,7 +33,7 @@ object Generators {
       label            <- arbLabel.arbitrary
       hint             <- Gen.option(arbHint.arbitrary)
       errorMessage     <- Gen.option(arbErrorMessage.arbitrary)
-      formGroupClasses <- genClasses()
+      formGroup <-        arbFormGroup.arbitrary
       classes          <- genClasses()
       attributes       <- genAttributes()
     } yield FileUpload(
@@ -44,7 +44,7 @@ object Generators {
       label = label,
       hint = hint,
       errorMessage = errorMessage,
-      formGroupClasses = formGroupClasses,
+      formGroup = formGroup,
       classes = classes,
       attributes = attributes
     )
