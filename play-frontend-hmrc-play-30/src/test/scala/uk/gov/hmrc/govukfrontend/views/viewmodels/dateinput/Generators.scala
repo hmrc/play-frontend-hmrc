@@ -48,23 +48,23 @@ object Generators {
 
   implicit val arbDateInput: Arbitrary[DateInput] = Arbitrary {
     for {
-      id               <- genNonEmptyAlphaStr
-      namePrefix       <- genNonEmptyAlphaStr.map(Some(_))
-      n                <- Gen.chooseNum(0, 5)
-      items            <- Gen.listOfN(n, arbInputItem.arbitrary)
-      hint             <- Gen.option(arbHint.arbitrary)
-      errorMessage     <- Gen.option(arbErrorMessage.arbitrary)
-      formGroupClasses <- genClasses()
-      fieldset         <- Gen.option(arbFieldset.arbitrary)
-      classes          <- genClasses()
-      attributes       <- genAttributes()
+      id           <- genNonEmptyAlphaStr
+      namePrefix   <- genNonEmptyAlphaStr.map(Some(_))
+      n            <- Gen.chooseNum(0, 5)
+      items        <- Gen.listOfN(n, arbInputItem.arbitrary)
+      hint         <- Gen.option(arbHint.arbitrary)
+      errorMessage <- Gen.option(arbErrorMessage.arbitrary)
+      formGroup    <- arbFormGroup.arbitrary
+      fieldset     <- Gen.option(arbFieldset.arbitrary)
+      classes      <- genClasses()
+      attributes   <- genAttributes()
     } yield DateInput(
       id = id,
       namePrefix = namePrefix,
       items = items,
       hint = hint,
       errorMessage = errorMessage,
-      formGroupClasses = formGroupClasses,
+      formGroup = formGroup,
       fieldset = fieldset,
       classes = classes,
       attributes = attributes

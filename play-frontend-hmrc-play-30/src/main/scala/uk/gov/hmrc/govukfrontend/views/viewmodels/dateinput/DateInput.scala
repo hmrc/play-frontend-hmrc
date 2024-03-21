@@ -19,7 +19,7 @@ package uk.gov.hmrc.govukfrontend.views.viewmodels.dateinput
 import play.api.libs.functional.syntax._
 import play.api.libs.json._
 import uk.gov.hmrc.govukfrontend.views.html.components._
-import uk.gov.hmrc.govukfrontend.views.viewmodels.CommonJsonFormats._
+import uk.gov.hmrc.govukfrontend.views.viewmodels.FormGroup
 
 case class DateInput(
   id: String = "",
@@ -27,7 +27,7 @@ case class DateInput(
   items: Seq[InputItem] = Seq.empty,
   hint: Option[Hint] = None,
   errorMessage: Option[ErrorMessage] = None,
-  formGroupClasses: String = "",
+  formGroup: FormGroup = FormGroup(),
   fieldset: Option[Fieldset] = None,
   classes: String = "",
   attributes: Map[String, String] = Map.empty
@@ -44,7 +44,7 @@ object DateInput {
         (__ \ "items").readWithDefault[Seq[InputItem]](defaultObject.items) and
         (__ \ "hint").readNullable[Hint] and
         (__ \ "errorMessage").readNullable[ErrorMessage] and
-        readsFormGroupClasses and
+        (__ \ "formGroup").readWithDefault[FormGroup](defaultObject.formGroup) and
         (__ \ "fieldset").readNullable[Fieldset] and
         (__ \ "classes").readWithDefault[String](defaultObject.classes) and
         (__ \ "attributes").readWithDefault[Map[String, String]](defaultObject.attributes)
@@ -57,7 +57,7 @@ object DateInput {
         (__ \ "items").write[Seq[InputItem]] and
         (__ \ "hint").writeNullable[Hint] and
         (__ \ "errorMessage").writeNullable[ErrorMessage] and
-        writesFormGroupClasses and
+        (__ \ "formGroup").write[FormGroup] and
         (__ \ "fieldset").writeNullable[Fieldset] and
         (__ \ "classes").write[String] and
         (__ \ "attributes").write[Map[String, String]]

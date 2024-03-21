@@ -14,6 +14,8 @@
  * limitations under the License.
  *@
 
+@import uk.gov.hmrc.govukfrontend.views.html.components._
+
 @this(govukErrorMessage: GovukErrorMessage, govukHint: GovukHint, govukFieldset: GovukFieldset, govukInput: GovukInput)
 
 @(params: DateInput)
@@ -21,7 +23,7 @@
 @require(id.nonEmpty, "id should not be empty")
 @require(if (items.nonEmpty) items.forall(_.name.nonEmpty) else true, "all item.names should be defined")
 @defining(innerHtmlSnippet) { case (describedBy, innerHtml) =>
-  <div class="@toClasses("govuk-form-group", errorMessage.fold("")(_ => "govuk-form-group--error"), formGroupClasses)">
+  <div class="@toClasses("govuk-form-group", errorMessage.fold("")(_ => "govuk-form-group--error"), formGroup.classes.getOrElse(""))"@toAttributes(formGroup.attributes)>
     @fieldset.fold(innerHtml) { fieldset =>
       @govukFieldset(Fieldset(
         describedBy = describedBy.toOption,
