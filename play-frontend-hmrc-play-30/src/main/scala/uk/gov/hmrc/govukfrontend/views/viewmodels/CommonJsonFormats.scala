@@ -22,9 +22,11 @@ import play.twirl.api.Html
 import scala.util.Try
 
 object CommonJsonFormats {
+  // TODO remove
   val readsFormGroupClasses: Reads[String] =
     (__ \ "formGroup" \ "classes").read[String].orElse(Reads.pure(""))
 
+  // TODO remove
   val writesFormGroupClasses: OWrites[String] = new OWrites[String] {
     override def writes(classes: String): JsObject =
       Json.obj("formGroup" -> Json.obj("classes" -> classes))

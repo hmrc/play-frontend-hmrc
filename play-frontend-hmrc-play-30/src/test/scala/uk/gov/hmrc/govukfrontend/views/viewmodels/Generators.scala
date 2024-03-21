@@ -22,6 +22,16 @@ import play.twirl.api.{Html, HtmlFormat}
 
 object Generators {
 
+  val arbFormGroup: Arbitrary[FormGroup] = Arbitrary {
+    for {
+      classes    <- Gen.option(genClasses())
+      attributes <- genAttributes()
+    } yield FormGroup(
+      classes = classes,
+      attributes = attributes
+    )
+  }
+
   val genNonEmptyAlphaStr: Gen[String] = Gen.alphaStr.suchThat(_.nonEmpty)
 
   /**
@@ -37,7 +47,7 @@ object Generators {
     value <- genNonEmptyAlphaStr
   } yield (attr, value)
 
-  def genAttributes(nAttributes: Int = 5) =
+  def genAttributes(nAttributes: Int = 5): Gen[Map[String, String]] =
     for {
       sz         <- Gen.chooseNum(0, nAttributes)
       attributes <- Gen.mapOfN[String, String](sz, genAttrVal)

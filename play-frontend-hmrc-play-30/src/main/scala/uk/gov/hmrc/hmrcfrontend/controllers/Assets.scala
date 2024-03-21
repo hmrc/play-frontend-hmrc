@@ -26,5 +26,5 @@ import play.api.http.HttpErrorHandler
  * [RuntimeException: java.lang.NoSuchMethodError: controllers.ReverseAssets.versioned(Ljava/lang/String;)Lplay/api/mvc/Call;]
  * when using Assets.
  */
-@Singleton
+@Singleton // TODO migrate off deprecated AssetsBuilder once we drop Play 2.8 support
 class Assets @Inject() (errorHandler: HttpErrorHandler, meta: AssetsMetadata) extends AssetsBuilder(errorHandler, meta)

@@ -25,7 +25,7 @@
 @require(name.nonEmpty, "parameter 'name' should not be empty")
 @require(values.isEmpty || !items.exists(_.checked) || values == items.filter(_.checked).map(_.value).toSet, "checked item(s) conflict with passed value(s)")
 @defining(innerHtmlSnippet(describedBy.getNonEmptyOrElse(""))) { case (describedBy1, innerHtml) =>
-<div class="@toClasses("govuk-form-group", errorMessage.fold("")(_ => "govuk-form-group--error"), formGroupClasses)">
+<div class="@toClasses("govuk-form-group", errorMessage.fold("")(_ => "govuk-form-group--error"), formGroup.classes.getOrElse(""))"@toAttributes(formGroup.attributes)>
   @fieldset.fold(innerHtml) { fieldset =>
     @govukFieldset(Fieldset(
       describedBy = describedBy1.toOption,
