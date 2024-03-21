@@ -23,6 +23,20 @@ import uk.gov.hmrc.govukfrontend.views.viewmodels.errormessage.ErrorMessage
 import uk.gov.hmrc.govukfrontend.views.viewmodels.hint.Hint
 import uk.gov.hmrc.govukfrontend.views.viewmodels.label.Label
 
+/** Parameters to `GovukFileUpload` Twirl template
+  *
+  * @param name `name` attribute for the `input`
+  * @param id `id` attribute for the `input`
+  * @param value optional `value` attribute for the `input`
+  * @param describedBy optional `aria-describedby` attribute for the `input`
+  * @param label optional `Label` for the control
+  * @param hint optional `Hint` for the control
+  * @param errorMessage optional `ErrorMessage` to display
+  * @param formGroup additional CSS classes/attributes/etc. to apply to the form group
+  * @param classes optional additional CSS classes to apply to the `input`
+  * @param attributes optional additional HTML attributes to apply to the `input`
+  * @param disabled optional `disabled` attribute for the `input`
+  */
 case class FileUpload(
   name: String = "",
   id: String = "",

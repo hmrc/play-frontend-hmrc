@@ -21,6 +21,18 @@ import play.api.libs.json._
 import uk.gov.hmrc.govukfrontend.views.html.components._
 import uk.gov.hmrc.govukfrontend.views.viewmodels.FormGroup
 
+/** Parameters to `GovukDateInput` Twirl template
+  *
+  * @param id `id` attribute for the wrapper `div`
+  * @param namePrefix optional name prefix for each of the inputs in the date control
+  * @param items sequence of `InputItem`s
+  * @param hint optional `Hint` for the control
+  * @param errorMessage optional `ErrorMessage` to display
+  * @param formGroup additional CSS classes/attributes/etc. to apply to the form group
+  * @param fieldset optional `Fieldset` used to wrap the date input control
+  * @param classes optional additional CSS classes to apply to the wrapper `div`
+  * @param attributes optional additional HTML attributes to apply to the wrapper `div`
+  */
 case class DateInput(
   id: String = "",
   namePrefix: Option[String] = None,

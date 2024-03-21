@@ -26,7 +26,7 @@
 @require(value.isEmpty || !items.exists(_.checked) || Seq(value) == items.filter(_.checked).map(_.value), "value conflicts with checked item")
 
 @defining(innerHtmlSnippet) { case (describedBy, innerHtml) =>
-  <div class="@toClasses("govuk-form-group", errorMessage.fold("")(_ => "govuk-form-group--error"), formGroupClasses)">
+  <div class="@toClasses("govuk-form-group", errorMessage.fold("")(_ => "govuk-form-group--error"), formGroup.classes.getOrElse(""))"@toAttributes(formGroup.attributes)>
     @fieldset.fold(innerHtml) { fieldset =>
       @govukFieldset(Fieldset(
         describedBy = describedBy.toOption,

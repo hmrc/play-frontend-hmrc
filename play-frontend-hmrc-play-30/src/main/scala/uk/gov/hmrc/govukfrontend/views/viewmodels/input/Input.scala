@@ -23,6 +23,27 @@ import uk.gov.hmrc.govukfrontend.views.viewmodels.errormessage.ErrorMessage
 import uk.gov.hmrc.govukfrontend.views.viewmodels.hint.Hint
 import uk.gov.hmrc.govukfrontend.views.viewmodels.label.Label
 
+/** Parameters to `GovukInput` Twirl template
+  *
+  * @param id `id` attribute for the `input`
+  * @param name `name` attribute for the `input`
+  * @param inputType `type` attribute for the `input`
+  * @param inputmode optional `inputmode` attribute for the `input`
+  * @param describedBy optional `aria-describedby` attribute for the `input`
+  * @param value optional `value` attribute for the `input`
+  * @param label optional `Label` for the control
+  * @param hint optional `Hint` for the control
+  * @param errorMessage optional `ErrorMessage` to display
+  * @param formGroup additional CSS classes/attributes/etc. to apply to the form group
+  * @param classes optional additional CSS classes to apply to the `input`
+  * @param autocomplete optional `autocomplete` attribute for the `input`
+  * @param pattern optional `pattern` attribute for the `input`
+  * @param attributes optional additional HTML attributes to apply to the `input`
+  * @param spellcheck optional `spellcheck` attribute for the `input`
+  * @param prefix optional content to display immediately before the `input`
+  * @param suffix optional content to display immediately after the `input`
+  * @param disabled optional `disabled` attribute for the `input`
+  */
 case class Input(
   id: String = "",
   name: String = "",
