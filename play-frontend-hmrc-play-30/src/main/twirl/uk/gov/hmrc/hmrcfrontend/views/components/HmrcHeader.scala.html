@@ -89,7 +89,7 @@
         <div class="govuk-header__content">
           @serviceNameLinkOrSpan(serviceName, serviceUrl)
           @if(navigation.getOrElse(Seq.empty).nonEmpty) {
-          <nav aria-label="@if(language == Cy){Dewislen}else{Menu}" class="@toClasses("govuk-header__navigation", navigationClasses)">
+          <nav aria-label="@params.navigationLabel.getOrElse(menuButtonText)" class="@toClasses("govuk-header__navigation", navigationClasses)">
             <button type="button" class="govuk-header__menu-button govuk-js-header-toggle" aria-controls="navigation" @menuButtonAriaLabel hidden> @menuButtonText </button>
             <ul id="navigation" class="govuk-header__navigation-list">
             @for(item <- navigation.getOrElse(Seq.empty).filter(item => item.content.nonEmpty)) {
@@ -119,7 +119,10 @@
           </nav>
           }
           case (_, Some(linkMap)) if linkMap.nonEmpty => {
-          <nav class="hmrc-language-select" aria-label="Choose a language">
+          <nav class="hmrc-language-select" aria-label="@{language match {
+            case Cy => "Dewiswch iaith"
+            case _ => "Choose a language"
+          }}">
             <ul class="govuk-list hmrc-language-select__items">
               @for((lang, link) <- linkMap) {
               <li class="govuk-header__navigation-item">
@@ -157,11 +160,11 @@
     case Some(NonEmptyString(s)) => {
       @serviceUrl match {
         case NonEmptyString(_) => {
-          <a href="@serviceUrl" class="govuk-header__link govuk-header__service-name hmrc-header__service-name hmrc-header__service-name--linked">
+          <a href="@serviceUrl" class="govuk-header__link govuk-header__service-name">
             @s
           </a>}
         case _ => {
-          <span class="govuk-header__service-name hmrc-header__service-name">
+          <span class="govuk-header__service-name">
             @s
           </span>}
       }
@@ -170,10 +173,10 @@
   }
 }
 
-@menuButtonText = {
-  @if(language == Cy){Dewislen}else{Menu}
+@menuButtonText = @{
+  params.menuButtonText.getOrElse(if(language == Cy)"Dewislen" else "Menu")
 }
 
 @menuButtonAriaLabel = {
-  @params.menuButtonLabel.filterNot(menuButtonText.toString == _).map { label => aria-label="@label"}
+  @params.menuButtonLabel.filterNot(menuButtonText == _).map { label => aria-label="@label"}
 }

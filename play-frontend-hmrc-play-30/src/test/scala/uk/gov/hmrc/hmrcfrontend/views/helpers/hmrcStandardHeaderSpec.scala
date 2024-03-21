@@ -75,7 +75,7 @@ class HmrcStandardHeaderSpec extends AnyWordSpecLike with Matchers with JsoupHel
       val messages = getMessages(Map("en" -> Map("service.name" -> "Foo Service")))
       val content  = contentAsString(hmrcStandardHeader(serviceUrl = Some("/foo"))(messages, fakeRequest))
       val document = Jsoup.parse(content)
-      val links    = document.select(".hmrc-header__service-name")
+      val links    = document.select(".govuk-header__service-name")
 
       links                    should have size 1
       links.first.attr("href") should be("/foo")
@@ -90,7 +90,7 @@ class HmrcStandardHeaderSpec extends AnyWordSpecLike with Matchers with JsoupHel
         hmrcStandardHeader(serviceUrl = Some("/foo"), serviceName = Some("Bam Service"))(messages, fakeRequest)
       )
       val document = Jsoup.parse(content)
-      val links    = document.select(".hmrc-header__service-name")
+      val links    = document.select(".govuk-header__service-name")
 
       links            should have size 1
       links.first.text should be("Bam Service")
@@ -104,7 +104,7 @@ class HmrcStandardHeaderSpec extends AnyWordSpecLike with Matchers with JsoupHel
         hmrcStandardHeader(serviceUrl = Some("/foo"), serviceName = Some("Bar Service"))(messages, fakeRequest)
       )
       val document = Jsoup.parse(content)
-      val links    = document.select(".hmrc-header__service-name")
+      val links    = document.select(".govuk-header__service-name")
 
       links            should have size 1
       links.first.text should be("Bar Service")
@@ -116,7 +116,7 @@ class HmrcStandardHeaderSpec extends AnyWordSpecLike with Matchers with JsoupHel
       val messages = getMessages(Map("cy" -> Map("service.name" -> "Welsh Service")), Lang("cy"))
       val content  = contentAsString(hmrcStandardHeader()(messages, fakeRequest))
       val document = Jsoup.parse(content)
-      val links    = document.select(".hmrc-header__service-name")
+      val links    = document.select(".govuk-header__service-name")
 
       links            should have size 1
       links.first.text should be("Welsh Service")

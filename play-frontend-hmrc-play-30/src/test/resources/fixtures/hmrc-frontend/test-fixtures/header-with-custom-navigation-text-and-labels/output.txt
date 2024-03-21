@@ -20,9 +20,34 @@
       </a>
     </div>
     <div class="govuk-header__content">
-      <a href="/components/header" class="govuk-header__link govuk-header__service-name">
-        Service Name
-      </a>
+      <nav aria-label="Custom navigation label" class="govuk-header__navigation">
+        <button type="button" class="govuk-header__menu-button govuk-js-header-toggle" aria-controls="navigation" aria-label="Custom button label" hidden>
+          Custom button text
+        </button>
+
+        <ul id="navigation" class="govuk-header__navigation-list">
+          <li class="govuk-header__navigation-item govuk-header__navigation-item--active">
+            <a class="govuk-header__link" href="#1">
+              Navigation item 1
+            </a>
+          </li>
+          <li class="govuk-header__navigation-item">
+            <a class="govuk-header__link" href="#2">
+              Navigation item 2
+            </a>
+          </li>
+          <li class="govuk-header__navigation-item">
+            <a class="govuk-header__link" href="#3">
+              Navigation item 3
+            </a>
+          </li>
+          <li class="govuk-header__navigation-item">
+            <a class="govuk-header__link" href="#4">
+              Navigation item 4
+            </a>
+          </li>
+        </ul>
+      </nav>
     </div>
   </div>
 </div>

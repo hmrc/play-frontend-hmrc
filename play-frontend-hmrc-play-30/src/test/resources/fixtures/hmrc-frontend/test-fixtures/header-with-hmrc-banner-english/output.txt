@@ -20,11 +20,11 @@
       </a>
     </div>
     <div class="govuk-header__content">
-      <span class="govuk-header__service-name hmrc-header__service-name">
+      <span class="govuk-header__service-name">
         Service with HMRC Banner
       </span>
 
-      <nav class="hmrc-language-select" aria-label="Choose a language">
+      <nav class="hmrc-language-select"  aria-label="Choose a language" >
         <ul class="govuk-list hmrc-language-select__items">
           <li class="govuk-header__navigation-item">
             <a aria-current="page"              lang="en" hreflang="en" href="/components/header/with-hmrc-banner-english/preview">English</a>

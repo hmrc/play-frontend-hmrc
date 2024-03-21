@@ -36,7 +36,7 @@ class HmrcHeaderSpec extends TemplateUnitSpec[Header, HmrcHeader]("hmrcHeader") 
         Header(serviceName = Some(""), containerClasses = "govuk-width-container", signOutHref = Some("/sign-out"))
       val componentTry = Try(component(params))
 
-      componentTry should be a 'success
+      componentTry.isSuccess shouldBe true
     }
 
     """display Tudor crown logo set by config""" in {
@@ -49,8 +49,8 @@ class HmrcHeaderSpec extends TemplateUnitSpec[Header, HmrcHeader]("hmrcHeader") 
 
       val componentTry = Try(hmrcHeader(Header()))
 
-      componentTry          should be a 'success
-      componentTry.get.body should include("M22.6 10.4c-1")
+      componentTry.isSuccess shouldBe true
+      componentTry.get.body    should include("M22.6 10.4c-1")
     }
 
     """display St Edwards crown logo when set by config""" in {
@@ -63,8 +63,8 @@ class HmrcHeaderSpec extends TemplateUnitSpec[Header, HmrcHeader]("hmrcHeader") 
 
       val componentTry = Try(hmrcHeader(Header()))
 
-      componentTry          should be a 'success
-      componentTry.get.body should include("M6.7 12.2c1")
+      componentTry.isSuccess shouldBe true
+      componentTry.get.body    should include("M6.7 12.2c1")
     }
 
     """display Tudor crown when no config is found""" in {
@@ -73,8 +73,8 @@ class HmrcHeaderSpec extends TemplateUnitSpec[Header, HmrcHeader]("hmrcHeader") 
 
       val componentTry = Try(hmrcHeader(Header()))
 
-      componentTry          should be a 'success
-      componentTry.get.body should include("M22.6 10.4c-1")
+      componentTry.isSuccess shouldBe true
+      componentTry.get.body    should include("M22.6 10.4c-1")
     }
   }
 }
