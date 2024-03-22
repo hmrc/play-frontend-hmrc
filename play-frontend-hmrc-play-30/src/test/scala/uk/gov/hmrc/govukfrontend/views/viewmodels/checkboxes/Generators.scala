@@ -32,7 +32,7 @@ object Generators {
       content         <- arbContent.arbitrary
       id              <- Gen.option(genAlphaStr())
       name            <- Gen.option(genAlphaStr())
-      value           <- genAlphaStr()
+      value           <- genNonEmptyAlphaStr
       label           <- Gen.option(arbLabel.arbitrary)
       hint            <- Gen.option(arbHint.arbitrary)
       checked         <- arbBool.arbitrary
