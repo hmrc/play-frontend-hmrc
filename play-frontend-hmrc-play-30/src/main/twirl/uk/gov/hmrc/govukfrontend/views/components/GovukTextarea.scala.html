@@ -14,6 +14,8 @@
  * limitations under the License.
  *@
 
+@import uk.gov.hmrc.govukfrontend.views.html.components._
+
 @this(govukErrorMessage: GovukErrorMessage, govukHint: GovukHint, govukLabel: GovukLabel)
 
 @(params: Textarea)
@@ -64,7 +66,7 @@
 }
 
 @divSnippet(labelHtml: Html, hintHtml: Html, errorMessageHtml: Html, textareaHtml: Html) = {
-  <div class="@toClasses("govuk-form-group", errorMessage.fold("")(_ => "govuk-form-group--error"), formGroupClasses)">
+  <div class="@toClasses("govuk-form-group", errorMessage.fold("")(_ => "govuk-form-group--error"), formGroup.classes.getOrElse(""))"@toAttributes(formGroup.attributes)>
     @labelHtml
     @hintHtml
     @errorMessageHtml
