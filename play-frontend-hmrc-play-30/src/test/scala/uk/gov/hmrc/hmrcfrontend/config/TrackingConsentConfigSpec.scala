@@ -50,9 +50,21 @@ class TrackingConsentConfigSpec extends AnyWordSpec with Matchers {
       config.optimizelyUrl should equal(None)
     }
 
+    "return None if optimizely.projectId is null" in {
+      implicit val application: Application = buildApp(
+        Map(
+          "optimizely.url"       -> "http://optimizely.com/",
+          "optimizely.projectId" -> null
+        )
+      )
+      val config                            = application.injector.instanceOf[TrackingConsentConfig]
+      config.optimizelyUrl should equal(None)
+    }
+
     "return None if optimizely.url is not defined" in {
       implicit val application: Application = buildApp(
         Map(
+          "optimizely.url"       -> null,
           "optimizely.projectId" -> "1234567"
         )
       )
