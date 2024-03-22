@@ -33,8 +33,8 @@ import uk.gov.hmrc.govukfrontend.views.viewmodels.JsonImplicits.RichJsPath
   * @param hint optional `Hint` for the control
   * @param errorMessage optional `ErrorMessage` to display
   * @param formGroup additional CSS classes/attributes/etc. to apply to the form group
-  * @param classes optional additional CSS classes to apply to the `govuk-radios` `div`
-  * @param attributes optional additional HTML attributes to apply to the `govuk-select` `div`
+  * @param classes optional additional CSS classes to apply to the `select`
+  * @param attributes optional additional HTML attributes to apply to the `select`
   * @param value optional value of the item that should be `selected`
   * @note `value` overrides any `selected` `SelectItem`
   */

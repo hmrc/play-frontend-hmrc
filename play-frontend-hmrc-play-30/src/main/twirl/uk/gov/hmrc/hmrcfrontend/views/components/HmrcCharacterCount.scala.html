@@ -14,8 +14,10 @@
  * limitations under the License.
  *@
 
+@import uk.gov.hmrc.govukfrontend.views.viewmodels.FormGroup
 @import uk.gov.hmrc.govukfrontend.views.html.components.GovukCharacterCount
 @import uk.gov.hmrc.govukfrontend.views.Aliases.{CharacterCount => GovukFrontendCharacterCount}
+@import uk.gov.hmrc.hmrcfrontend.views.Aliases.{CharacterCount, Cy, En}
 
 @this(govukCharacterCount: GovukCharacterCount)
 @(params: CharacterCount)(implicit messages: Messages)
@@ -37,7 +39,7 @@
    label = params.label,
    hint = params.hint,
    errorMessage = params.errorMessage,
-   formGroupClasses = params.formGroupClasses,
+   formGroup = FormGroup(classes = Some(params.formGroupClasses)),
    classes = params.classes,
    attributes = params.attributes,
    countMessageClasses = params.countMessageClasses,
@@ -76,7 +78,7 @@
   label = params.label,
   hint = params.hint,
   errorMessage = params.errorMessage,
-  formGroupClasses = params.formGroupClasses,
+  formGroup = FormGroup(classes = Some(params.formGroupClasses)),
   classes = params.classes,
   attributes = params.attributes,
   countMessageClasses = params.countMessageClasses

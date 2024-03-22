@@ -22,6 +22,23 @@ import uk.gov.hmrc.govukfrontend.views.html.components._
 import uk.gov.hmrc.supportfrontend.views.IntString
 import uk.gov.hmrc.govukfrontend.views.viewmodels.FormGroup
 
+/** Parameters to `GovukTextarea` Twirl template
+  *
+  * @param id the id of the `textarea` element
+  * @param name the name of the `textarea` element
+  * @param rows height of the `textarea` in rows
+  * @param value optional initial value of the `textarea`
+  * @param describedBy optional `aria-describedby` attribute for the `textarea` element
+  * @param label optional `Label` for the control
+  * @param hint optional `Hint` for the control
+  * @param errorMessage optional `ErrorMessage` to display
+  * @param formGroup additional CSS classes/attributes/etc. to apply to the form group
+  * @param classes optional additional CSS classes to apply to the `textarea`
+  * @param autocomplete optional `autocomplete` attribute
+  * @param attributes optional additional HTML attributes to apply to the `textarea`
+  * @param spellcheck optional `spellcheck` attribute
+  * @param disabled optional `disabled` attribute
+  */
 case class Textarea(
   id: String = "",
   name: String = "",

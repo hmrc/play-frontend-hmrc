@@ -15,7 +15,6 @@
  *@
 
 @import uk.gov.hmrc.govukfrontend.views.html.components._
-@import uk.gov.hmrc.govukfrontend.views.viewmodels.FormGroup
 
 @this(govukTextarea: GovukTextarea,
       govukHint: GovukHint)
@@ -72,7 +71,7 @@
     label = label.copy(forAttr = Some(id)),
     hint = hint,
     errorMessage = errorMessage,
-    formGroup = FormGroup(classes = Some(formGroupClasses)),
+    formGroup = formGroup,
     classes = toClasses("govuk-js-character-count", if (classes.isEmpty) "" else s" ${classes}"),
     attributes = attributes
   ))
