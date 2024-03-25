@@ -17,25 +17,26 @@
 @import scala.collection.compat.immutable.LazyList
 
 @import uk.gov.hmrc.govukfrontend.views.html.components._
+@import uk.gov.hmrc.govukfrontend.views.html.snippets.GovukFormGroupSnippet
 
-@this(govukErrorMessage: GovukErrorMessage, govukFieldset: GovukFieldset, govukHint: GovukHint, govukLabel: GovukLabel)
+@this(govukErrorMessage: GovukErrorMessage, govukFieldset: GovukFieldset, govukHint: GovukHint, govukLabel: GovukLabel, govukFormGroupSnippet: GovukFormGroupSnippet)
 
 @(params: Checkboxes)
 @import params._
 @require(name.nonEmpty, "parameter 'name' should not be empty")
 @require(values.isEmpty || !items.exists(_.checked) || values == items.filter(_.checked).map(_.value).toSet, "checked item(s) conflict with passed value(s)")
 @defining(innerHtmlSnippet(describedBy.getNonEmptyOrElse(""))) { case (describedBy1, innerHtml) =>
-<div class="@toClasses("govuk-form-group", errorMessage.fold("")(_ => "govuk-form-group--error"), formGroup.classes.getOrElse(""))"@toAttributes(formGroup.attributes)>
-  @fieldset.fold(innerHtml) { fieldset =>
-    @govukFieldset(Fieldset(
-      describedBy = describedBy1.toOption,
-      legend = fieldset.legend,
-      classes = fieldset.classes,
-      attributes = fieldset.attributes,
-      html = innerHtml
-    ))
+  @govukFormGroupSnippet(formGroup, errorMessage) {
+    @fieldset.fold(innerHtml) { fieldset =>
+      @govukFieldset(Fieldset(
+        describedBy = describedBy1.toOption,
+        legend = fieldset.legend,
+        classes = fieldset.classes,
+        attributes = fieldset.attributes,
+        html = innerHtml
+      ))
+    }
   }
-</div>
 }
 
 @* if name is not provided defaults to javascript undefined: https://github.com/alphagov/govuk-frontend/blob/main/src/govuk/components/checkboxes/template.njk#L8 *@

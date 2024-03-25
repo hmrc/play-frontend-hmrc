@@ -15,8 +15,9 @@
  *@
 
 @import uk.gov.hmrc.govukfrontend.views.html.components._
+@import uk.gov.hmrc.govukfrontend.views.html.snippets.GovukFormGroupSnippet
 
-@this(govukErrorMessage: GovukErrorMessage, govukHint: GovukHint, govukLabel: GovukLabel)
+@this(govukErrorMessage: GovukErrorMessage, govukHint: GovukHint, govukLabel: GovukLabel, govukFormGroupSnippet: GovukFormGroupSnippet)
 
 @(params: Textarea)
 @import params._
@@ -66,12 +67,12 @@
 }
 
 @divSnippet(labelHtml: Html, hintHtml: Html, errorMessageHtml: Html, textareaHtml: Html) = {
-  <div class="@toClasses("govuk-form-group", errorMessage.fold("")(_ => "govuk-form-group--error"), formGroup.classes.getOrElse(""))"@toAttributes(formGroup.attributes)>
+  @govukFormGroupSnippet(formGroup, errorMessage) {
     @labelHtml
     @hintHtml
     @errorMessageHtml
     @textareaHtml
-  </div>
+  }
 }
 
 @mainSnippet = @{

@@ -15,15 +15,16 @@
  *@
 
 @import uk.gov.hmrc.govukfrontend.views.html.components._
+@import uk.gov.hmrc.govukfrontend.views.html.snippets.GovukFormGroupSnippet
 
-@this(govukErrorMessage: GovukErrorMessage, govukHint: GovukHint, govukFieldset: GovukFieldset, govukInput: GovukInput)
+@this(govukErrorMessage: GovukErrorMessage, govukHint: GovukHint, govukFieldset: GovukFieldset, govukInput: GovukInput, govukFormGroupSnippet: GovukFormGroupSnippet)
 
 @(params: DateInput)
 @import params._
 @require(id.nonEmpty, "id should not be empty")
 @require(if (items.nonEmpty) items.forall(_.name.nonEmpty) else true, "all item.names should be defined")
 @defining(innerHtmlSnippet) { case (describedBy, innerHtml) =>
-  <div class="@toClasses("govuk-form-group", errorMessage.fold("")(_ => "govuk-form-group--error"), formGroup.classes.getOrElse(""))"@toAttributes(formGroup.attributes)>
+  @govukFormGroupSnippet(formGroup, errorMessage) {
     @fieldset.fold(innerHtml) { fieldset =>
       @govukFieldset(Fieldset(
         describedBy = describedBy.toOption,
@@ -34,7 +35,7 @@
         html = innerHtml
       ))
     }
-  </div>
+  }
 }
 
 @dateInputItems = @{

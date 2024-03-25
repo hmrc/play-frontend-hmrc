@@ -17,8 +17,9 @@
 @import uk.gov.hmrc.govukfrontend.views.html.components._
 
 @import scala.collection.compat.immutable.LazyList
+@import uk.gov.hmrc.govukfrontend.views.html.snippets.GovukFormGroupSnippet
 
-@this(govukErrorMessage: GovukErrorMessage, govukFieldset: GovukFieldset, govukHint: GovukHint, govukLabel: GovukLabel)
+@this(govukErrorMessage: GovukErrorMessage, govukFieldset: GovukFieldset, govukHint: GovukHint, govukLabel: GovukLabel, govukFormGroupSnippet: GovukFormGroupSnippet)
 
 @(params: Radios)
 @import params._
@@ -26,7 +27,7 @@
 @require(value.isEmpty || !items.exists(_.checked) || Seq(value) == items.filter(_.checked).map(_.value), "value conflicts with checked item")
 
 @defining(innerHtmlSnippet) { case (describedBy, innerHtml) =>
-  <div class="@toClasses("govuk-form-group", errorMessage.fold("")(_ => "govuk-form-group--error"), formGroup.classes.getOrElse(""))"@toAttributes(formGroup.attributes)>
+  @govukFormGroupSnippet(formGroup, errorMessage) {
     @fieldset.fold(innerHtml) { fieldset =>
       @govukFieldset(Fieldset(
         describedBy = describedBy.toOption,
@@ -36,7 +37,7 @@
         html = innerHtml
       ))
     }
-  </div>
+  }
 }
 
 @idPrefixStr = @{idPrefix.getNonEmptyOrElse(name)}

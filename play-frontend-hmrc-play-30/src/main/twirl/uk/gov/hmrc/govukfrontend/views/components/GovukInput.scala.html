@@ -15,13 +15,14 @@
  *@
 
 @import uk.gov.hmrc.govukfrontend.views.html.components._
+@import uk.gov.hmrc.govukfrontend.views.html.snippets.GovukFormGroupSnippet
 
-@this(govukErrorMessage: GovukErrorMessage, govukHint: GovukHint, govukLabel: GovukLabel)
+@this(govukErrorMessage: GovukErrorMessage, govukHint: GovukHint, govukLabel: GovukLabel, govukFormGroupSnippet: GovukFormGroupSnippet)
 
 @(params: Input)
 @import params._
 @require(name.nonEmpty && id.nonEmpty, s"failed requirements for govukInput: name and id should not be empty. name=[$name], id=[$id]")
-<div class="@toClasses("govuk-form-group", errorMessage.fold("")(_ => "govuk-form-group--error"), formGroup.classes.getOrElse(""))"@toAttributes(formGroup.attributes)>
+@govukFormGroupSnippet(formGroup, errorMessage) {
   @govukLabel(Label(
     forAttr = Some(id),
     isPageHeading = label.isPageHeading,
@@ -30,7 +31,7 @@
     content = label.content
   ))
   @divSnippet
-</div>
+}
 
 @hintSnippet(describedBy: String) = @{
  hint.fold((describedBy, HtmlFormat.empty)) { hint =>
