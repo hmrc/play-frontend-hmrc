@@ -88,7 +88,7 @@ class hmrcLayoutSpec
     "not bind a service title by default" in {
       val document = Jsoup.parse(contentAsString(defaultHmrcLayout))
 
-      val serviceNameLink = document.select(".hmrc-header__service-name")
+      val serviceNameLink = document.select(".govuk-header__service-name")
       serviceNameLink should have size 0
     }
 
@@ -99,7 +99,7 @@ class hmrcLayoutSpec
         contentAsString(hmrcLayout(serviceName = Some("My Service Name"))(Html(""))(fakeRequest, messages))
       val document = Jsoup.parse(content)
 
-      val serviceNameLink = document.select(".hmrc-header__service-name")
+      val serviceNameLink = document.select(".govuk-header__service-name")
       serviceNameLink          should have size 1
       serviceNameLink.text() shouldBe "My Service Name"
     }
@@ -187,7 +187,7 @@ class hmrcLayoutSpec
     "not include a service url by default" in {
       val document = Jsoup.parse(contentAsString(defaultHmrcLayout))
 
-      val homepageLink = document.select(".hmrc-header__service-name")
+      val homepageLink = document.select(".govuk-header__service-name")
       homepageLink should have size 0
     }
 
@@ -197,7 +197,7 @@ class hmrcLayoutSpec
       val layout   = hmrcLayout(serviceName = Some("My Service"))(Html(""))(fakeRequest, messages)
       val document = Jsoup.parse(contentAsString(layout))
 
-      val homepageLink = document.select(".hmrc-header__service-name")
+      val homepageLink = document.select(".govuk-header__service-name")
       homepageLink                should have size 1
       homepageLink.attr("href") shouldBe ""
     }
@@ -211,7 +211,7 @@ class hmrcLayoutSpec
       )(Html(""))(fakeRequest, messages)
       val document = Jsoup.parse(contentAsString(layout))
 
-      val homepageLink = document.select(".hmrc-header__service-name")
+      val homepageLink = document.select(".govuk-header__service-name")
       homepageLink                should have size 1
       homepageLink.attr("href") shouldBe "my-homepage-route"
       homepageLink.text()       shouldBe "My Service"

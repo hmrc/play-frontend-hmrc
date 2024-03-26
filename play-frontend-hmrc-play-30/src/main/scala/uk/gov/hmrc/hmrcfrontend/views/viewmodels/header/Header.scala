@@ -45,7 +45,9 @@ case class Header(
   userResearchBanner: Option[UserResearchBanner] = None,
   phaseBanner: Option[PhaseBanner] = None,
   additionalBannersBlock: Option[Html] = None,
-  menuButtonLabel: Option[String] = None
+  menuButtonLabel: Option[String] = None,
+  menuButtonText: Option[String] = None,
+  navigationLabel: Option[String] = None
 ) {
 
   // We use this method instead of using the input language toggle directly
@@ -85,7 +87,9 @@ object Header {
         (__ \ "userResearchBanner").readNullable[UserResearchBanner] and
         (__ \ "phaseBanner").readNullable[PhaseBanner] and
         (__ \ "additionalBannersBlock").readNullable[Html] and
-        (__ \ "menuButtonLabel").readNullable[String]
+        (__ \ "menuButtonLabel").readNullable[String] and
+        (__ \ "menuButtonText").readNullable[String] and
+        (__ \ "navigationLabel").readNullable[String]
     )(Header.apply _)
 
   implicit def jsonWrites: OWrites[Header] =
@@ -108,6 +112,8 @@ object Header {
         (__ \ "userResearchBanner").writeNullable[UserResearchBanner] and
         (__ \ "phaseBanner").writeNullable[PhaseBanner] and
         (__ \ "additionalBannersBlock").writeNullable[Html] and
-        (__ \ "menuButtonLabel").writeNullable[String]
+        (__ \ "menuButtonLabel").writeNullable[String] and
+        (__ \ "menuButtonText").writeNullable[String] and
+        (__ \ "navigationLabel").writeNullable[String]
     )(header => unlift(Header.unapply)(header.copy(inputLanguageToggle = header.languageToggle)))
 }

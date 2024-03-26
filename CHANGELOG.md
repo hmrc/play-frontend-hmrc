@@ -8,6 +8,21 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 For compatibility information see `govukFrontendVersion` and `hmrcFrontendVersion` in
 [LibDependencies](project/LibDependencies.scala)
 
+
+## [9.3.0] - 2024-03-25
+
+### Changed
+
+- Updated `HmrcHeader` template to align with `GovukHeader`, and to take in optional `menuButtonText`, `menuButtonLabel`
+  and `navigationLabel` parameters
+- Removed `hmrc-header__service-name` and `hmrc-header__service-name--linked` classes from `HmrcHeader`
+- Added Welsh translation for `Choose a language`
+
+### Compatible with
+
+- [hmrc/hmrc-frontend v6.11.0](https://github.com/hmrc/hmrc-frontend/releases/tag/v6.11.0)
+- [alphagov/govuk-frontend v5.2.0](https://github.com/alphagov/govuk-frontend/releases/tag/v5.2.0)
+
 ## [9.2.0] - 2024-03-22
 
 ### Changed

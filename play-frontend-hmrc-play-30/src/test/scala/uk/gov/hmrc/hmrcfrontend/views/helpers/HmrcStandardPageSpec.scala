@@ -89,7 +89,7 @@ class HmrcStandardPageSpec
     "not bind a service title by default" in {
       val document = Jsoup.parse(contentAsString(defaultHmrcStandardPage))
 
-      val serviceNameLink = document.select(".hmrc-header__service-name")
+      val serviceNameLink = document.select(".govuk-header__service-name")
       serviceNameLink should have size 0
     }
 
@@ -101,7 +101,7 @@ class HmrcStandardPageSpec
       )
       val document = Jsoup.parse(content)
 
-      val serviceNameLink = document.select(".hmrc-header__service-name")
+      val serviceNameLink = document.select(".govuk-header__service-name")
       serviceNameLink          should have size 1
       serviceNameLink.text() shouldBe "My Service Name"
     }
@@ -181,7 +181,7 @@ class HmrcStandardPageSpec
     "not include a service url by default" in {
       val document = Jsoup.parse(contentAsString(defaultHmrcStandardPage))
 
-      val homepageLink = document.select(".hmrc-header__service-name")
+      val homepageLink = document.select(".govuk-header__service-name")
       homepageLink should have size 0
     }
 
@@ -189,7 +189,7 @@ class HmrcStandardPageSpec
       val page     = hmrcStandardPage(HmrcStandardPageParams(serviceName = Some("My Service")))(Html(""))
       val document = Jsoup.parse(contentAsString(page))
 
-      val homepageLink = document.select(".hmrc-header__service-name")
+      val homepageLink = document.select(".govuk-header__service-name")
       homepageLink                should have size 1
       homepageLink.attr("href") shouldBe ""
     }
@@ -205,7 +205,7 @@ class HmrcStandardPageSpec
       )(Html(""))
       val document = Jsoup.parse(contentAsString(page))
 
-      val homepageLink = document.select(".hmrc-header__service-name")
+      val homepageLink = document.select(".govuk-header__service-name")
       homepageLink                should have size 1
       homepageLink.attr("href") shouldBe "my-homepage-route"
       homepageLink.text()       shouldBe "My Service"
