@@ -15,27 +15,36 @@
  *@
 
 @import uk.gov.hmrc.govukfrontend.views.html.components._
-@import uk.gov.hmrc.govukfrontend.views.html.snippets.GovukFormGroupSnippet
+@import uk.gov.hmrc.govukfrontend.views.html.snippets._
 
-@this(govukErrorMessage: GovukErrorMessage, govukHint: GovukHint, govukFieldset: GovukFieldset, govukInput: GovukInput, govukFormGroupSnippet: GovukFormGroupSnippet)
+@this(govukFieldset: GovukFieldset, govukInput: GovukInput, govukFormGroupSnippet: GovukFormGroupSnippet, govukHintAndErrorMessageSnippet: GovukHintAndErrorMessageSnippet)
 
 @(params: DateInput)
 @import params._
 @require(id.nonEmpty, "id should not be empty")
 @require(if (items.nonEmpty) items.forall(_.name.nonEmpty) else true, "all item.names should be defined")
-@defining(innerHtmlSnippet) { case (describedBy, innerHtml) =>
-  @govukFormGroupSnippet(formGroup, errorMessage) {
-    @fieldset.fold(innerHtml) { fieldset =>
-      @govukFieldset(Fieldset(
-        describedBy = describedBy.toOption,
-        legend = fieldset.legend,
-        classes = fieldset.classes,
-        role = Some("group"),
-        attributes = fieldset.attributes,
-        html = innerHtml
-      ))
+
+@defining(fieldset.fold("")(fieldset => fieldset.describedBy.getOrElse(""))) { describedBy =>
+  @defining(govukHintAndErrorMessageSnippet(id, describedBy.toOption, hint, errorMessage)(divSnippet)) { innerHtml =>
+    @govukFormGroupSnippet(formGroup, errorMessage) {
+      @fieldset.fold(innerHtml) { fieldset =>
+        @govukFieldset(Fieldset(
+          describedBy = fieldSetDescribedBy(describedBy),
+          legend = fieldset.legend,
+          classes = fieldset.classes,
+          role = Some("group"),
+          attributes = fieldset.attributes,
+          html = innerHtml
+        ))
+      }
     }
   }
+}
+
+@fieldSetDescribedBy(describedBy: String) = @{
+    val describedByWithHintId  = hint.fold(describedBy)(_ => s"$describedBy $id-hint".ltrim)
+    val describedByWithErrorId = errorMessage.fold(describedByWithHintId)(_ => s"$describedByWithHintId $id-error".ltrim)
+    describedByWithErrorId.toOption
 }
 
 @dateInputItems = @{
@@ -49,38 +58,7 @@
   )}
 }
 
-@hintSnippet(describedBy: String) = @{
-  hint.fold((describedBy, HtmlFormat.empty)) { hint =>
-    val hintId = s"${id}-hint"
-    val describedBy1 = s"$describedBy $hintId".ltrim
-    val hintHtml =
-      govukHint(Hint(
-        id = Some(hintId),
-        classes = hint.classes,
-        attributes = hint.attributes,
-        content = hint.content
-      ))
-    (describedBy1, hintHtml)
-  }
-}
-
-@errorMessageSnippet(describedBy: String) = @{
-  errorMessage.fold((describedBy, HtmlFormat.empty)) { errorMessage =>
-    val errorId = s"${id}-error"
-    val describedBy1 = s"$describedBy $errorId".ltrim
-    val errorMessageHtml =
-      govukErrorMessage(ErrorMessage(
-        id = Some(errorId),
-        classes = errorMessage.classes,
-        attributes = errorMessage.attributes,
-        visuallyHiddenText = errorMessage.visuallyHiddenText,
-        content = errorMessage.content
-      ))
-    (describedBy1, errorMessageHtml)
-  }
-}
-
-@divSnippet = {
+@divSnippet(unusedDescribedBy: String) = {
   <div class="@toClasses("govuk-date-input", classes)"@toAttributes(attributes) id="@id">
     @for(item <- dateInputItems) {
       <div class="govuk-date-input__item">
@@ -103,12 +81,5 @@
       </div>
     }
   </div>
-}
-
-@innerHtmlSnippet = @{
-  val describedBy = fieldset.fold("")(fieldset => fieldset.describedBy.getOrElse(""))
-  val (describedBy1, hintHtml) = hintSnippet(describedBy)
-  val (describedBy2, errorMessageHtml) = errorMessageSnippet(describedBy1)
-  (describedBy2, HtmlFormat.fill(collection.immutable.Seq(hintHtml, errorMessageHtml, divSnippet)))
 }
 

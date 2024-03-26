@@ -15,9 +15,9 @@
  *@
 
 @import uk.gov.hmrc.govukfrontend.views.html.components._
-@import uk.gov.hmrc.govukfrontend.views.html.snippets.GovukFormGroupSnippet
+@import uk.gov.hmrc.govukfrontend.views.html.snippets._
 
-@this(govukErrorMessage: GovukErrorMessage, govukHint: GovukHint, govukLabel: GovukLabel, govukFormGroupSnippet: GovukFormGroupSnippet)
+@this(govukLabel: GovukLabel, govukFormGroupSnippet: GovukFormGroupSnippet, govukHintAndErrorMessageSnippet: GovukHintAndErrorMessageSnippet)
 
 @(params: FileUpload)
 @import params._
@@ -30,40 +30,7 @@
     attributes = label.attributes,
     content = label.content
   ))
-  @divSnippet
-}
-
-@* FIXME extract to common snippets package *@
-@hintSnippet(describedBy: String) = @{
- hint.fold((describedBy, HtmlFormat.empty)) { hint =>
-   val hintId = s"$id-hint"
-   val describedBy1 = s"$describedBy $hintId".ltrim
-   val hintHtml =
-   govukHint(Hint(
-     id = Some(hintId),
-     classes = hint.classes,
-     attributes = hint.attributes,
-     content = hint.content
-   ))
-  (describedBy1, hintHtml)
- }
-}
-
-@* FIXME extract to common snippets package *@
-@errorMessageSnippet(describedBy: String) = @{
-  errorMessage.fold((describedBy, HtmlFormat.empty)) { errorMessage =>
-    val errorId = s"$id-error"
-    val describedBy1 = s"$describedBy $errorId".ltrim
-    val errorMessageHtml =
-     govukErrorMessage(ErrorMessage(
-       id = Some(errorId),
-       classes = errorMessage.classes,
-       attributes = errorMessage.attributes,
-       visuallyHiddenText = errorMessage.visuallyHiddenText,
-       content = errorMessage.content
-     ))
-    (describedBy1, errorMessageHtml)
-  }
+  @govukHintAndErrorMessageSnippet(id, describedBy, hint, errorMessage)(inputSnippet)
 }
 
 @inputSnippet(describedBy: String) = {
@@ -73,11 +40,3 @@
       <input class="@toClasses("govuk-file-upload", classes, errorMessage.fold("")(_ => "govuk-file-upload--error"))" @attrs>
   }
 }
-
-@divSnippet = @{
-  val (describedBy1, hintHtml) = hintSnippet(describedBy.getOrElse(""))
-  val (describedBy2, errorMessageHtml) = errorMessageSnippet(describedBy1)
-  val inputHtml = inputSnippet(describedBy2)
-  HtmlFormat.fill(collection.immutable.Seq(hintHtml, errorMessageHtml, inputHtml))
-}
-

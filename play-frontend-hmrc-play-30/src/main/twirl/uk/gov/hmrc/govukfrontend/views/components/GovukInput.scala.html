@@ -15,9 +15,9 @@
  *@
 
 @import uk.gov.hmrc.govukfrontend.views.html.components._
-@import uk.gov.hmrc.govukfrontend.views.html.snippets.GovukFormGroupSnippet
+@import uk.gov.hmrc.govukfrontend.views.html.snippets._
 
-@this(govukErrorMessage: GovukErrorMessage, govukHint: GovukHint, govukLabel: GovukLabel, govukFormGroupSnippet: GovukFormGroupSnippet)
+@this(govukLabel: GovukLabel, govukFormGroupSnippet: GovukFormGroupSnippet, govukHintAndErrorMessageSnippet: GovukHintAndErrorMessageSnippet)
 
 @(params: Input)
 @import params._
@@ -30,38 +30,7 @@
     attributes = label.attributes,
     content = label.content
   ))
-  @divSnippet
-}
-
-@hintSnippet(describedBy: String) = @{
- hint.fold((describedBy, HtmlFormat.empty)) { hint =>
-   val hintId = s"$id-hint"
-   val describedBy1 = s"$describedBy $hintId".ltrim
-   val hintHtml =
-   govukHint(Hint(
-     id = Some(hintId),
-     classes = hint.classes,
-     attributes = hint.attributes,
-     content = hint.content
-   ))
-  (describedBy1, hintHtml)
- }
-}
-
-@errorMessageSnippet(describedBy: String) = @{
-  errorMessage.fold((describedBy, HtmlFormat.empty)) { errorMessage =>
-    val errorId = s"$id-error"
-    val describedBy1 = s"$describedBy $errorId".ltrim
-    val errorMessageHtml =
-      govukErrorMessage(ErrorMessage(
-        id = Some(errorId),
-        classes = errorMessage.classes,
-        attributes = errorMessage.attributes,
-        visuallyHiddenText = errorMessage.visuallyHiddenText,
-        content = errorMessage.content
-     ))
-    (describedBy1, errorMessageHtml)
-  }
+  @govukHintAndErrorMessageSnippet(id, describedBy, hint, errorMessage)(inputSnippet)
 }
 
 @inputPrefix(prefix: Option[PrefixOrSuffix], hasPrefix: Boolean, hasSuffix: Boolean) = {@maybeWrapperStart(hasPrefix, hasSuffix)@maybePrefix(prefix, hasPrefix)}
@@ -81,7 +50,7 @@
 
 @maybeWrapperEnd(hasPrefix: Boolean, hasSuffix: Boolean) = {@if(hasPrefix || hasSuffix) {</div>}}
 
-@inputSnippet(describedBy: String, prefix: Option[PrefixOrSuffix], suffix: Option[PrefixOrSuffix]) = {
+@inputSnippet(describedBy: String) = {
   @defining {
     id="@id" name="@name" type="@inputType" @if(spellcheck.nonEmpty) { spellcheck="@spellcheck"
     } @value.mapNonEmpty {value => value="@value" }@if(disabled.getOrElse(false)) { disabled}@if(describedBy.nonEmpty) { aria-describedby="@describedBy"}
@@ -89,16 +58,6 @@
   @defining {
     @autocomplete.mapNonEmpty { autocomplete => autocomplete="@autocomplete"}@pattern.mapNonEmpty { pattern => pattern="@pattern"}@inputmode.mapNonEmpty { inputmode => inputmode="@inputmode"}@toAttributes(attributes)
   } { otherAttrs =>
-      @(inputPrefix(prefix, prefix.nonEmpty, suffix.nonEmpty))<input class="@toClasses("govuk-input", classes, errorMessage.fold("")(_ => "govuk-input--error"))" @attrs@otherAttrs>@(inputSuffix(suffix, prefix.nonEmpty, suffix.nonEmpty))
+      @(inputPrefix(params.prefix, params.prefix.nonEmpty, params.suffix.nonEmpty))<input class="@toClasses("govuk-input", classes, errorMessage.fold("")(_ => "govuk-input--error"))" @attrs@otherAttrs>@(inputSuffix(params.suffix, params.prefix.nonEmpty, params.suffix.nonEmpty))
   }}
 }
-
-@divSnippet = @{
-  val (describedBy1, hintHtml) = hintSnippet(describedBy.getOrElse(""))
-  val (describedBy2, errorMessageHtml) = errorMessageSnippet(describedBy1)
-  val inputHtml = inputSnippet(describedBy2, params.prefix, params.suffix)
-  HtmlFormat.fill(collection.immutable.Seq(hintHtml, errorMessageHtml, inputHtml))
-}
-
-
-

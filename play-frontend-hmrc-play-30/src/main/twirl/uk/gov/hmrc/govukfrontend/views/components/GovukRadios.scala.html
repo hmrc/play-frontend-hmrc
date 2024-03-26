@@ -17,63 +17,40 @@
 @import uk.gov.hmrc.govukfrontend.views.html.components._
 
 @import scala.collection.compat.immutable.LazyList
-@import uk.gov.hmrc.govukfrontend.views.html.snippets.GovukFormGroupSnippet
+@import uk.gov.hmrc.govukfrontend.views.html.snippets._
 
-@this(govukErrorMessage: GovukErrorMessage, govukFieldset: GovukFieldset, govukHint: GovukHint, govukLabel: GovukLabel, govukFormGroupSnippet: GovukFormGroupSnippet)
+@this(govukFieldset: GovukFieldset, govukHint: GovukHint, govukLabel: GovukLabel, govukFormGroupSnippet: GovukFormGroupSnippet, govukHintAndErrorMessageSnippet: GovukHintAndErrorMessageSnippet)
 
 @(params: Radios)
 @import params._
 @require(items.count(_.checked) <= 1, "only one checked item allowed in a radio button")
 @require(value.isEmpty || !items.exists(_.checked) || Seq(value) == items.filter(_.checked).map(_.value), "value conflicts with checked item")
 
-@defining(innerHtmlSnippet) { case (describedBy, innerHtml) =>
-  @govukFormGroupSnippet(formGroup, errorMessage) {
-    @fieldset.fold(innerHtml) { fieldset =>
-      @govukFieldset(Fieldset(
-        describedBy = describedBy.toOption,
-        legend = fieldset.legend,
-        classes = fieldset.classes,
-        attributes = fieldset.attributes,
-        html = innerHtml
-      ))
+@defining(fieldset.fold("")(fieldset => fieldset.describedBy.getOrElse(""))) { describedBy =>
+  @defining(govukHintAndErrorMessageSnippet(idPrefixStr, describedBy.toOption, hint, errorMessage)(divSnippet)) { innerHtml =>
+    @govukFormGroupSnippet(formGroup, errorMessage) {
+      @fieldset.fold(innerHtml) { fieldset =>
+        @govukFieldset(Fieldset(
+          describedBy = fieldSetDescribedBy(describedBy),
+          legend = fieldset.legend,
+          classes = fieldset.classes,
+          attributes = fieldset.attributes,
+          html = innerHtml
+        ))
+      }
     }
   }
 }
 
+@fieldSetDescribedBy(describedBy: String) = @{
+    val describedByWithHintId  = hint.fold(describedBy)(_ => s"$describedBy $idPrefixStr-hint".ltrim)
+    val describedByWithErrorId = errorMessage.fold(describedByWithHintId)(_ => s"$describedByWithHintId $idPrefixStr-error".ltrim)
+    describedByWithErrorId.toOption
+}
+
 @idPrefixStr = @{idPrefix.getNonEmptyOrElse(name)}
 
-@hintSnippet(describedBy: String) = @{
-  hint.fold((describedBy, HtmlFormat.empty)) { hint =>
-    val hintId = idPrefixStr + "-hint"
-    val describedBy1 = s"$describedBy $hintId".ltrim
-    val hintHtml =
-      govukHint(Hint(
-        id = Some(hintId),
-        classes = hint.classes,
-        attributes = hint.attributes,
-        content = hint.content
-      ))
-    (describedBy1, hintHtml)
-  }
-}
-
-@errorMessageSnippet(describedBy: String) = @{
-  errorMessage.fold((describedBy, HtmlFormat.empty)) { errorMessage =>
-    val errorId = idPrefixStr + "-error"
-    val describedBy1 = s"$describedBy $errorId".ltrim
-    val errorMessageHtml =
-      govukErrorMessage(ErrorMessage(
-        id = Some(errorId),
-        classes = errorMessage.classes,
-        attributes = errorMessage.attributes,
-        visuallyHiddenText = errorMessage.visuallyHiddenText,
-        content = errorMessage.content
-      ))
-    (describedBy1, errorMessageHtml)
-  }
-}
-
-@divSnippet = {
+@divSnippet(unusedDescribedBy: String) = {
   <div class="@toClasses("govuk-radios", classes)"@toAttributes(attributes) data-module="govuk-radios">
   @for((item, index) <- items.zip(LazyList from 1)) {
     @defining(itemId(item, index)) { id =>
@@ -118,13 +95,6 @@
     }}
   }
   </div>
-}
-
-@innerHtmlSnippet = @{
-  val describedBy = fieldset.fold("")(fieldset => fieldset.describedBy.getOrElse(""))
-  val (describedBy1, hintHtml) = hintSnippet(describedBy)
-  val (describedBy2, errorMessageHtml) = errorMessageSnippet(describedBy1)
-  (describedBy2, HtmlFormat.fill(collection.immutable.Seq(hintHtml, errorMessageHtml, divSnippet)))
 }
 
 @itemId(item: RadioItem, index: Int) = @{

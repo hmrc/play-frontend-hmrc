@@ -17,26 +17,35 @@
 @import scala.collection.compat.immutable.LazyList
 
 @import uk.gov.hmrc.govukfrontend.views.html.components._
-@import uk.gov.hmrc.govukfrontend.views.html.snippets.GovukFormGroupSnippet
+@import uk.gov.hmrc.govukfrontend.views.html.snippets._
 
-@this(govukErrorMessage: GovukErrorMessage, govukFieldset: GovukFieldset, govukHint: GovukHint, govukLabel: GovukLabel, govukFormGroupSnippet: GovukFormGroupSnippet)
+@this(govukFieldset: GovukFieldset, govukHint: GovukHint, govukLabel: GovukLabel, govukFormGroupSnippet: GovukFormGroupSnippet, govukHintAndErrorMessageSnippet: GovukHintAndErrorMessageSnippet)
 
 @(params: Checkboxes)
 @import params._
 @require(name.nonEmpty, "parameter 'name' should not be empty")
 @require(values.isEmpty || !items.exists(_.checked) || values == items.filter(_.checked).map(_.value).toSet, "checked item(s) conflict with passed value(s)")
-@defining(innerHtmlSnippet(describedBy.getNonEmptyOrElse(""))) { case (describedBy1, innerHtml) =>
-  @govukFormGroupSnippet(formGroup, errorMessage) {
-    @fieldset.fold(innerHtml) { fieldset =>
-      @govukFieldset(Fieldset(
-        describedBy = describedBy1.toOption,
-        legend = fieldset.legend,
-        classes = fieldset.classes,
-        attributes = fieldset.attributes,
-        html = innerHtml
-      ))
+
+@defining(fieldset.fold(describedBy)(fieldset => fieldset.describedBy.filter(_.nonEmpty).orElse(describedBy))) { describedBy =>
+  @defining(govukHintAndErrorMessageSnippet(idPrefixStr, describedBy, hint, errorMessage)(divSnippet)) { innerHtml =>
+    @govukFormGroupSnippet(formGroup, errorMessage) {
+      @fieldset.fold(innerHtml) { fieldset =>
+        @govukFieldset(Fieldset(
+          describedBy = fieldSetDescribedBy(describedBy.getOrElse("")),
+          legend = fieldset.legend,
+          classes = fieldset.classes,
+          attributes = fieldset.attributes,
+          html = innerHtml
+        ))
+      }
     }
   }
+}
+
+@fieldSetDescribedBy(describedBy: String) = @{
+  val describedByWithHintId  = hint.fold(describedBy)(_ => s"$describedBy $idPrefixStr-hint".ltrim)
+  val describedByWithErrorId = errorMessage.fold(describedByWithHintId)(_ => s"$describedByWithHintId $idPrefixStr-error".ltrim)
+  describedByWithErrorId.toOption
 }
 
 @* if name is not provided defaults to javascript undefined: https://github.com/alphagov/govuk-frontend/blob/main/src/govuk/components/checkboxes/template.njk#L8 *@
@@ -45,37 +54,6 @@
 @isConditional = @{items.exists(_.conditionalHtml.exists(_.body.nonEmpty))}
 
 @hasFieldset = @{fieldset.isDefined}
-
-@hintSnippet(describedBy: String) = @{
-  hint.fold((describedBy, HtmlFormat.empty)) { hint =>
-    val hintId = idPrefixStr + "-hint"
-    val describedBy1 = s"$describedBy $hintId".ltrim
-    val hintHtml =
-      govukHint(Hint(
-        id = Some(hintId),
-        classes = hint.classes,
-        attributes = hint.attributes,
-        content = hint.content
-      ))
-    (describedBy1, hintHtml)
-  }
-}
-
-@errorMessageSnippet(describedBy: String) = @{
-  errorMessage.fold((describedBy, HtmlFormat.empty)) { errorMessage =>
-    val errorId = idPrefixStr + "-error"
-    val describedBy1 = s"$describedBy $errorId".ltrim
-    val errorMessageHtml =
-      govukErrorMessage(ErrorMessage(
-        id = Some(errorId),
-        classes = errorMessage.classes,
-        attributes = errorMessage.attributes,
-        visuallyHiddenText = errorMessage.visuallyHiddenText,
-        content = errorMessage.content
-      ))
-    (describedBy1, errorMessageHtml)
-  }
-}
 
 @divSnippet(describedBy: String) = {
   <div class="@toClasses("govuk-checkboxes", classes)"@toAttributes(attributes) data-module="govuk-checkboxes">
@@ -112,14 +90,6 @@
       }
     }
   </div>
-}
-
-@innerHtmlSnippet(describedBy: String) = @{
-  val describedBy1 = fieldset.fold(describedBy)(fieldset => fieldset.describedBy.getNonEmptyOrElse(describedBy))
-  val (describedBy2, hintHtml) = hintSnippet(describedBy1)
-  val (describedBy3, errorMessageHtml) = errorMessageSnippet(describedBy2)
-  val divHtml = divSnippet(describedBy3)
-  (describedBy3, HtmlFormat.fill(collection.immutable.Seq(hintHtml, errorMessageHtml, divHtml)))
 }
 
 @* The following reusable snippets compile to `def`s so less efficient than using @defining but a lot more readable *@
