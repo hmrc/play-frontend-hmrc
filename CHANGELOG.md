@@ -8,6 +8,16 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 For compatibility information see `govukFrontendVersion` and `hmrcFrontendVersion` in
 [LibDependencies](project/LibDependencies.scala)
 
+## [9.4.0] - 2024-03-27
+
+### Changed
+
+- Added support for custom attributes on `govuk-form-group` wrappers in various input components
+
+### Compatible with
+
+- [hmrc/hmrc-frontend v6.11.0](https://github.com/hmrc/hmrc-frontend/releases/tag/v6.11.0)
+- [alphagov/govuk-frontend v5.2.0](https://github.com/alphagov/govuk-frontend/releases/tag/v5.2.0)
 
 ## [9.3.0] - 2024-03-25
 
