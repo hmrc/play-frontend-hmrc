@@ -13,6 +13,28 @@ For compatibility information see `govukFrontendVersion` and `hmrcFrontendVersio
 ### Changed
 
 - Added support for custom attributes on `govuk-form-group` wrappers in various input components
+- Updated form group customisation model to mirror govuk-frontend
+
+> [!WARNING]  
+> If you are passing custom classes via `formGroupClasses` you must update these to use the new `FormGroup` model
+
+eg. from
+
+```scala
+  val foo = Checkboxes(
+    ...
+    formGroupClasses = "my-custom classes",
+    ...
+  )
+```
+to
+```scala
+  val foo = Checkboxes(
+    ...
+    formGroup = FormGroup(classes = Some("my-custom classes")),
+    ...
+  )
+```
 
 ### Compatible with
 

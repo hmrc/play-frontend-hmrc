@@ -530,7 +530,7 @@ The parameters that can be passed into the `hmrcStandardPage` are as follows:
 
 ### Creating consistent page headings
 
-> **Warning**
+> [!WARNING]  
 > The [hmrc guidance for creating headings with a section (caption)](https://design.tax.service.gov.uk/hmrc-design-patterns/page-heading/) has recently changed. The following helpers are still available but this is no longer the recommended approach. Consult the linked documentation for examples of the new recommendation.
 
 The `HmrcPageHeadingLabel` and `HmrcPageHeadingLegend` helpers let you use a label or legend as a page heading with a section (caption) displayed above it.
@@ -637,8 +637,7 @@ For example, you can add a template `WithSidebarOnLeft.scala.html` as below:
 
 You can then inject this into your `Layout.scala.html` and partially apply the function as above.
 
-> **Warning**
->
+> [!WARNING]
 > `FullWidthPageLayout` should only be used by internal services.
 > The default fixed width layout should be used for all public services.
 
