@@ -39,7 +39,7 @@ case class DateInput(
   items: Seq[InputItem] = Seq.empty,
   hint: Option[Hint] = None,
   errorMessage: Option[ErrorMessage] = None,
-  formGroup: FormGroup = FormGroup(),
+  formGroup: FormGroup = FormGroup.empty,
   fieldset: Option[Fieldset] = None,
   classes: String = "",
   attributes: Map[String, String] = Map.empty

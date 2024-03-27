@@ -17,9 +17,9 @@
 @import uk.gov.hmrc.govukfrontend.views.html.components._
 
 @import scala.collection.compat.immutable.LazyList
-@import uk.gov.hmrc.govukfrontend.views.html.snippets._
+@import uk.gov.hmrc.govukfrontend.views.html.helpers._
 
-@this(govukFieldset: GovukFieldset, govukHint: GovukHint, govukLabel: GovukLabel, govukFormGroupSnippet: GovukFormGroupSnippet, govukHintAndErrorMessageSnippet: GovukHintAndErrorMessageSnippet)
+@this(govukFieldset: GovukFieldset, govukHint: GovukHint, govukLabel: GovukLabel, govukFormGroup: GovukFormGroup, govukHintAndErrorMessage: GovukHintAndErrorMessage)
 
 @(params: Radios)
 @import params._
@@ -27,8 +27,8 @@
 @require(value.isEmpty || !items.exists(_.checked) || Seq(value) == items.filter(_.checked).map(_.value), "value conflicts with checked item")
 
 @defining(fieldset.fold("")(fieldset => fieldset.describedBy.getOrElse(""))) { describedBy =>
-  @defining(govukHintAndErrorMessageSnippet(idPrefixStr, describedBy.toOption, hint, errorMessage)(divSnippet)) { innerHtml =>
-    @govukFormGroupSnippet(formGroup, errorMessage) {
+  @defining(govukHintAndErrorMessage(idPrefixStr, describedBy.toOption, hint, errorMessage)(divSnippet)) { innerHtml =>
+    @govukFormGroup(formGroup, errorMessage) {
       @fieldset.fold(innerHtml) { fieldset =>
         @govukFieldset(Fieldset(
           describedBy = fieldSetDescribedBy(describedBy),

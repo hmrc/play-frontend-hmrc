@@ -15,14 +15,14 @@
  *@
 
 @import uk.gov.hmrc.govukfrontend.views.html.components._
-@import uk.gov.hmrc.govukfrontend.views.html.snippets._
+@import uk.gov.hmrc.govukfrontend.views.html.helpers._
 
-@this(govukLabel: GovukLabel, govukFormGroupSnippet: GovukFormGroupSnippet, govukHintAndErrorMessageSnippet: GovukHintAndErrorMessageSnippet)
+@this(govukLabel: GovukLabel, govukFormGroup: GovukFormGroup, govukHintAndErrorMessage: GovukHintAndErrorMessage)
 
 @(params: Textarea)
 @import params._
 @require(name.nonEmpty && id.nonEmpty)
-@govukFormGroupSnippet(formGroup, errorMessage) {
+@govukFormGroup(formGroup, errorMessage) {
   @govukLabel(Label(
     forAttr = Some(id),
     isPageHeading = label.isPageHeading,
@@ -30,7 +30,7 @@
     attributes = label.attributes,
     content = label.content
   ))
-  @govukHintAndErrorMessageSnippet(id, describedBy, hint, errorMessage)(textareaSnippet)
+  @govukHintAndErrorMessage(id, describedBy, hint, errorMessage)(textareaSnippet)
 }
 
 @textareaSnippet(describedBy: String) = {

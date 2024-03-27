@@ -26,6 +26,8 @@ case class FormGroup(
 
 object FormGroup {
 
+  val empty: FormGroup = FormGroup()
+
   implicit def jsonReads: Reads[FormGroup] =
     (
       (__ \ "classes").readNullable[String] and

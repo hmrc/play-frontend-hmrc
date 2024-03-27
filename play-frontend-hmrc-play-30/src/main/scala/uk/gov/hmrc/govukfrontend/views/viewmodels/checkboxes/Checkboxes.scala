@@ -42,7 +42,7 @@ case class Checkboxes(
   fieldset: Option[Fieldset] = None,
   hint: Option[Hint] = None,
   errorMessage: Option[ErrorMessage] = None,
-  formGroup: FormGroup = FormGroup(),
+  formGroup: FormGroup = FormGroup.empty,
   idPrefix: Option[String] = None,
   name: String = "",
   items: Seq[CheckboxItem] = Nil,

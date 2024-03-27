@@ -19,7 +19,7 @@
 
 @this()
 
-@(formGroup: FormGroup = FormGroup(), errorMessage: Option[ErrorMessage] = None)(content: => Html)
-<div class="@toClasses("govuk-form-group", errorMessage.fold("")(_ => "govuk-form-group--error"), formGroup.classes.getOrElse(""))"@toAttributes(formGroup.attributes)>
+@(formGroup: FormGroup = FormGroup.empty, hasErrorMessage: Boolean = false)(content: => Html)
+<div class="@toClasses("govuk-form-group", if(hasErrorMessage) "govuk-form-group--error" else "", formGroup.classes.getOrElse(""))"@toAttributes(formGroup.attributes)>
   @content
 </div>

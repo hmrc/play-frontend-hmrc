@@ -48,7 +48,7 @@ case class Textarea(
   label: Label = Label(),
   hint: Option[Hint] = None,
   errorMessage: Option[ErrorMessage] = None,
-  formGroup: FormGroup = FormGroup(),
+  formGroup: FormGroup = FormGroup.empty,
   classes: String = "",
   autocomplete: Option[String] = None,
   attributes: Map[String, String] = Map.empty,

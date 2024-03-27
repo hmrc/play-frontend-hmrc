@@ -54,7 +54,7 @@ case class Input(
   label: Label = Label(),
   hint: Option[Hint] = None,
   errorMessage: Option[ErrorMessage] = None,
-  formGroup: FormGroup = FormGroup(),
+  formGroup: FormGroup = FormGroup.empty,
   classes: String = "",
   autocomplete: Option[String] = None,
   pattern: Option[String] = None,

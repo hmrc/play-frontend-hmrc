@@ -46,7 +46,7 @@ case class Select(
   label: Label = Label(),
   hint: Option[Hint] = None,
   errorMessage: Option[ErrorMessage] = None,
-  formGroup: FormGroup = FormGroup(),
+  formGroup: FormGroup = FormGroup.empty,
   classes: String = "",
   attributes: Map[String, String] = Map.empty,
   value: Option[String] = None,

@@ -17,21 +17,21 @@
 @import scala.collection.compat.immutable.LazyList
 
 @import uk.gov.hmrc.govukfrontend.views.html.components._
-@import uk.gov.hmrc.govukfrontend.views.html.snippets._
+@import uk.gov.hmrc.govukfrontend.views.html.helpers._
 
-@this(govukFieldset: GovukFieldset, govukHint: GovukHint, govukLabel: GovukLabel, govukFormGroupSnippet: GovukFormGroupSnippet, govukHintAndErrorMessageSnippet: GovukHintAndErrorMessageSnippet)
+@this(govukFieldset: GovukFieldset, govukHint: GovukHint, govukLabel: GovukLabel, govukFormGroup: GovukFormGroup, govukHintAndErrorMessage: GovukHintAndErrorMessage)
 
 @(params: Checkboxes)
 @import params._
 @require(name.nonEmpty, "parameter 'name' should not be empty")
 @require(values.isEmpty || !items.exists(_.checked) || values == items.filter(_.checked).map(_.value).toSet, "checked item(s) conflict with passed value(s)")
 
-@defining(fieldset.fold(describedBy)(fieldset => fieldset.describedBy.filter(_.nonEmpty).orElse(describedBy))) { describedBy =>
-  @defining(govukHintAndErrorMessageSnippet(idPrefixStr, describedBy, hint, errorMessage)(divSnippet)) { innerHtml =>
-    @govukFormGroupSnippet(formGroup, errorMessage) {
+@defining(fieldset.fold(params.describedBy)(fieldset => fieldset.describedBy.filter(_.nonEmpty).orElse(params.describedBy))) { maybeDescribedBy =>
+  @defining(govukHintAndErrorMessage(idPrefixStr, describedBy, hint, errorMessage)(divSnippet)) { innerHtml =>
+    @govukFormGroup(formGroup, errorMessage) {
       @fieldset.fold(innerHtml) { fieldset =>
         @govukFieldset(Fieldset(
-          describedBy = fieldSetDescribedBy(describedBy.getOrElse("")),
+          describedBy = fieldSetDescribedBy(maybeDescribedBy.getOrElse("")),
           legend = fieldset.legend,
           classes = fieldset.classes,
           attributes = fieldset.attributes,
