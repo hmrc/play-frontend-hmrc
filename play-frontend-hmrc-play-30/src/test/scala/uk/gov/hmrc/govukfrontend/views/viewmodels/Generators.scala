@@ -54,7 +54,7 @@ object Generators {
     } yield attributes
 
   val genHtmlString: Gen[String] =
-    Gen.oneOf(Gen.const("""<p>some paragraph</p>"""), Gen.const(""""<b>Back</b>""""))
+    Gen.oneOf(Gen.const("""<p>some paragraph</p>"""), Gen.const("""<b>Back</b>"""))
 
   implicit val arbHtml: Arbitrary[Html] = Arbitrary {
     for {
