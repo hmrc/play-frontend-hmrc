@@ -15,8 +15,9 @@
  *@
 
 @import uk.gov.hmrc.govukfrontend.views.html.components._
+@import uk.gov.hmrc.govukfrontend.views.html.helpers._
 
-@this(govukErrorMessage: GovukErrorMessage, govukHint: GovukHint, govukLabel: GovukLabel)
+@this(govukLabel: GovukLabel, govukFormGroup: GovukFormGroup, govukHintAndErrorMessage: GovukHintAndErrorMessage)
 
 @(params: Select)
 @import params._
@@ -24,7 +25,7 @@
 @require(id.nonEmpty, "parameter 'id' should not be empty")
 @require(value.isEmpty || !items.exists(_.selected) || Seq(value) == items.filter(_.selected).map(_.value), "selected item(s) conflict with passed value")
 
-<div class="@toClasses("govuk-form-group", errorMessage.fold("")(_ => "govuk-form-group--error"), formGroupClasses)">
+@govukFormGroup(formGroup, errorMessage) {
   @govukLabel(Label(
     forAttr = Some(id),
     isPageHeading = label.isPageHeading,
@@ -32,40 +33,7 @@
     attributes = label.attributes,
     content = label.content
   ))
-  @divSnippet
-</div>
-
-@* FIXME extract to common snippets package *@
-@hintSnippet(describedBy: String) = @{
- hint.fold((describedBy, HtmlFormat.empty)) { hint =>
-   val hintId = s"$id-hint"
-   val describedBy1 = s"$describedBy $hintId".ltrim
-   val hintHtml =
-   govukHint(Hint(
-     id = Some(hintId),
-     classes = hint.classes,
-     attributes = hint.attributes,
-     content = hint.content
-   ))
-  (describedBy1, hintHtml)
- }
-}
-
-@* FIXME extract to common snippets package *@
-@errorMessageSnippet(describedBy: String) = @{
-  errorMessage.fold((describedBy, HtmlFormat.empty)) { errorMessage =>
-    val errorId = s"$id-error"
-    val describedBy1 = s"$describedBy $errorId".ltrim
-    val errorMessageHtml =
-     govukErrorMessage(ErrorMessage(
-       id = Some(errorId),
-       classes = errorMessage.classes,
-       attributes = errorMessage.attributes,
-       visuallyHiddenText = errorMessage.visuallyHiddenText,
-       content = errorMessage.content
-     ))
-    (describedBy1, errorMessageHtml)
-  }
+  @govukHintAndErrorMessage(id, describedBy, hint, errorMessage)(selectSnippet)
 }
 
 @selectSnippet(describedBy: String) = {
@@ -86,11 +54,3 @@
       </select>
   }
 }
-
-@divSnippet = @{
-  val (describedBy1, hintHtml) = hintSnippet(describedBy.getOrElse(""))
-  val (describedBy2, errorMessageHtml) = errorMessageSnippet(describedBy1)
-  val selectHtml = selectSnippet(describedBy2)
-  HtmlFormat.fill(collection.immutable.Seq(hintHtml, errorMessageHtml, selectHtml))
-}
-

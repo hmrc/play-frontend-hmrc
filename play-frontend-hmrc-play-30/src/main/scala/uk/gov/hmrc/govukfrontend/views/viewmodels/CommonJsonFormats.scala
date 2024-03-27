@@ -22,14 +22,6 @@ import play.twirl.api.Html
 import scala.util.Try
 
 object CommonJsonFormats {
-  val readsFormGroupClasses: Reads[String] =
-    (__ \ "formGroup" \ "classes").read[String].orElse(Reads.pure(""))
-
-  val writesFormGroupClasses: OWrites[String] = new OWrites[String] {
-    override def writes(classes: String): JsObject =
-      Json.obj("formGroup" -> Json.obj("classes" -> classes))
-  }
-
   val readsCountMessageClasses: Reads[String] =
     (__ \ "countMessage" \ "classes").read[String].orElse(Reads.pure(""))
 

@@ -36,17 +36,17 @@ object Generators {
 
   implicit val arbSelect: Arbitrary[Select] = Arbitrary {
     for {
-      id               <- genNonEmptyAlphaStr
-      name             <- genNonEmptyAlphaStr
-      n                <- Gen.chooseNum(0, 5)
-      items            <- Gen.listOfN(n, arbSelectItem.arbitrary)
-      describedBy      <- Gen.option(genAlphaStr())
-      label            <- arbLabel.arbitrary
-      hint             <- Gen.option(arbHint.arbitrary)
-      errorMessage     <- Gen.option(arbErrorMessage.arbitrary)
-      formGroupClasses <- genClasses()
-      classes          <- genClasses()
-      attributes       <- genAttributes()
+      id           <- genNonEmptyAlphaStr
+      name         <- genNonEmptyAlphaStr
+      n            <- Gen.chooseNum(0, 5)
+      items        <- Gen.listOfN(n, arbSelectItem.arbitrary)
+      describedBy  <- Gen.option(genAlphaStr())
+      label        <- arbLabel.arbitrary
+      hint         <- Gen.option(arbHint.arbitrary)
+      errorMessage <- Gen.option(arbErrorMessage.arbitrary)
+      formGroup    <- arbFormGroup.arbitrary
+      classes      <- genClasses()
+      attributes   <- genAttributes()
     } yield Select(
       id = id,
       name = name,
@@ -55,7 +55,7 @@ object Generators {
       label = label,
       hint = hint,
       errorMessage = errorMessage,
-      formGroupClasses = formGroupClasses,
+      formGroup = formGroup,
       classes = classes,
       attributes = attributes
     )

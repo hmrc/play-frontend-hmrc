@@ -1,0 +1,13 @@
+{
+  "id" : "file-upload-1",
+  "name" : "file-upload-1",
+  "label" : {
+    "text" : "Upload a file"
+  },
+  "formGroup" : {
+    "attributes" : {
+      "some-data-attribute": "true",
+      "some-other-data-attribute": "eleven"
+    }
+  }
+}

@@ -20,8 +20,25 @@ import play.api.libs.functional.syntax._
 import play.api.libs.json._
 import uk.gov.hmrc.govukfrontend.views.html.components._
 import uk.gov.hmrc.supportfrontend.views.IntString
-import uk.gov.hmrc.govukfrontend.views.viewmodels.CommonJsonFormats._
+import uk.gov.hmrc.govukfrontend.views.viewmodels.FormGroup
 
+/** Parameters to `GovukTextarea` Twirl template
+  *
+  * @param id the id of the `textarea` element
+  * @param name the name of the `textarea` element
+  * @param rows height of the `textarea` in rows
+  * @param value optional initial value of the `textarea`
+  * @param describedBy optional `aria-describedby` attribute for the `textarea` element
+  * @param label optional `Label` for the control
+  * @param hint optional `Hint` for the control
+  * @param errorMessage optional `ErrorMessage` to display
+  * @param formGroup additional CSS classes/attributes/etc. to apply to the form group
+  * @param classes optional additional CSS classes to apply to the `textarea`
+  * @param autocomplete optional `autocomplete` attribute
+  * @param attributes optional additional HTML attributes to apply to the `textarea`
+  * @param spellcheck optional `spellcheck` attribute
+  * @param disabled optional `disabled` attribute
+  */
 case class Textarea(
   id: String = "",
   name: String = "",
@@ -31,7 +48,7 @@ case class Textarea(
   label: Label = Label(),
   hint: Option[Hint] = None,
   errorMessage: Option[ErrorMessage] = None,
-  formGroupClasses: String = "",
+  formGroup: FormGroup = FormGroup.empty,
   classes: String = "",
   autocomplete: Option[String] = None,
   attributes: Map[String, String] = Map.empty,
@@ -53,7 +70,7 @@ object Textarea {
         (__ \ "label").readWithDefault[Label](defaultObject.label) and
         (__ \ "hint").readNullable[Hint] and
         (__ \ "errorMessage").readNullable[ErrorMessage] and
-        readsFormGroupClasses and
+        (__ \ "formGroup").readWithDefault[FormGroup](defaultObject.formGroup) and
         (__ \ "classes").readWithDefault[String](defaultObject.classes) and
         (__ \ "autocomplete").readNullable[String] and
         (__ \ "attributes").readWithDefault[Map[String, String]](defaultObject.attributes) and
@@ -71,7 +88,7 @@ object Textarea {
         (__ \ "label").write[Label] and
         (__ \ "hint").writeNullable[Hint] and
         (__ \ "errorMessage").writeNullable[ErrorMessage] and
-        writesFormGroupClasses and
+        (__ \ "formGroup").write[FormGroup] and
         (__ \ "classes").write[String] and
         (__ \ "autocomplete").writeNullable[String] and
         (__ \ "attributes").write[Map[String, String]] and

@@ -1,4 +1,3 @@
-This fixture is excluded because the ordering of attributes is very slightly different.
-
-In the Twirl version, the `spellcheck="true|false"` is the last attribute of `textarea`,
-whereas in the Nunjucks version it appears inbetween other attributes.
+This fixture is excluded because our
+GOVUK [`CharacterCount` viewmodel](src/main/scala/uk/gov/hmrc/govukfrontend/views/viewmodels/charactercount/CharacterCount.scala)
+doesn't currently support the `spellcheck` attribute, so there's no way to wire it through to the underlying `textarea`.

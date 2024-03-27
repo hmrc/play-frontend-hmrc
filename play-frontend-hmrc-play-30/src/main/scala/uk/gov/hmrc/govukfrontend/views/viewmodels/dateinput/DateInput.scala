@@ -19,15 +19,27 @@ package uk.gov.hmrc.govukfrontend.views.viewmodels.dateinput
 import play.api.libs.functional.syntax._
 import play.api.libs.json._
 import uk.gov.hmrc.govukfrontend.views.html.components._
-import uk.gov.hmrc.govukfrontend.views.viewmodels.CommonJsonFormats._
+import uk.gov.hmrc.govukfrontend.views.viewmodels.FormGroup
 
+/** Parameters to `GovukDateInput` Twirl template
+  *
+  * @param id `id` attribute for the wrapper `div`
+  * @param namePrefix optional name prefix for each of the inputs in the date control
+  * @param items sequence of `InputItem`s
+  * @param hint optional `Hint` for the control
+  * @param errorMessage optional `ErrorMessage` to display
+  * @param formGroup additional CSS classes/attributes/etc. to apply to the form group
+  * @param fieldset optional `Fieldset` used to wrap the date input control
+  * @param classes optional additional CSS classes to apply to the wrapper `div`
+  * @param attributes optional additional HTML attributes to apply to the wrapper `div`
+  */
 case class DateInput(
   id: String = "",
   namePrefix: Option[String] = None,
   items: Seq[InputItem] = Seq.empty,
   hint: Option[Hint] = None,
   errorMessage: Option[ErrorMessage] = None,
-  formGroupClasses: String = "",
+  formGroup: FormGroup = FormGroup.empty,
   fieldset: Option[Fieldset] = None,
   classes: String = "",
   attributes: Map[String, String] = Map.empty
@@ -44,7 +56,7 @@ object DateInput {
         (__ \ "items").readWithDefault[Seq[InputItem]](defaultObject.items) and
         (__ \ "hint").readNullable[Hint] and
         (__ \ "errorMessage").readNullable[ErrorMessage] and
-        readsFormGroupClasses and
+        (__ \ "formGroup").readWithDefault[FormGroup](defaultObject.formGroup) and
         (__ \ "fieldset").readNullable[Fieldset] and
         (__ \ "classes").readWithDefault[String](defaultObject.classes) and
         (__ \ "attributes").readWithDefault[Map[String, String]](defaultObject.attributes)
@@ -57,7 +69,7 @@ object DateInput {
         (__ \ "items").write[Seq[InputItem]] and
         (__ \ "hint").writeNullable[Hint] and
         (__ \ "errorMessage").writeNullable[ErrorMessage] and
-        writesFormGroupClasses and
+        (__ \ "formGroup").write[FormGroup] and
         (__ \ "fieldset").writeNullable[Fieldset] and
         (__ \ "classes").write[String] and
         (__ \ "attributes").write[Map[String, String]]

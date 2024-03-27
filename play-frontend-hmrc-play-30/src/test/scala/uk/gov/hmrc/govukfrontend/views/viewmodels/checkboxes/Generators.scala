@@ -32,7 +32,7 @@ object Generators {
       content         <- arbContent.arbitrary
       id              <- Gen.option(genAlphaStr())
       name            <- Gen.option(genAlphaStr())
-      value           <- genAlphaStr()
+      value           <- genNonEmptyAlphaStr
       label           <- Gen.option(arbLabel.arbitrary)
       hint            <- Gen.option(arbHint.arbitrary)
       checked         <- arbBool.arbitrary
@@ -63,24 +63,26 @@ object Generators {
       fieldsetParams     <- Gen.option(arbFieldset.arbitrary)
       hintParams         <- Gen.option(arbHint.arbitrary)
       errorMessageParams <- Gen.option(arbErrorMessage.arbitrary)
-      formGroupClasses   <- genClasses()
+      formGroup          <- arbFormGroup.arbitrary
       idPrefix           <- Gen.option(genAlphaStr())
       name               <- genNonEmptyAlphaStr
       nItems             <- Gen.chooseNum(0, 5)
       items              <- Gen.listOfN(nItems, arbCheckboxItem.arbitrary)
       classes            <- genClasses()
       attributes         <- genAttributes()
-    } yield Checkboxes(
+      values             <- Gen.listOfN(nItems, genAlphaStr())
+    } yield Checkboxes.apply(
       describedBy = describedBy,
       fieldset = fieldsetParams,
       hint = hintParams,
       errorMessage = errorMessageParams,
-      formGroupClasses = formGroupClasses,
+      formGroup = formGroup,
       idPrefix = idPrefix,
       name = name,
       items = items,
       classes = classes,
-      attributes = attributes
+      attributes = attributes,
+      values = values.toSet
     )
   }
 

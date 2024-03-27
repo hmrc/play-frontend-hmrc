@@ -26,16 +26,16 @@ object Generators {
 
   implicit val arbFileUpload: Arbitrary[FileUpload] = Arbitrary {
     for {
-      name             <- genNonEmptyAlphaStr
-      id               <- genNonEmptyAlphaStr
-      value            <- Gen.option(genAlphaStr())
-      describedBy      <- Gen.option(genAlphaStr())
-      label            <- arbLabel.arbitrary
-      hint             <- Gen.option(arbHint.arbitrary)
-      errorMessage     <- Gen.option(arbErrorMessage.arbitrary)
-      formGroupClasses <- genClasses()
-      classes          <- genClasses()
-      attributes       <- genAttributes()
+      name         <- genNonEmptyAlphaStr
+      id           <- genNonEmptyAlphaStr
+      value        <- Gen.option(genAlphaStr())
+      describedBy  <- Gen.option(genAlphaStr())
+      label        <- arbLabel.arbitrary
+      hint         <- Gen.option(arbHint.arbitrary)
+      errorMessage <- Gen.option(arbErrorMessage.arbitrary)
+      formGroup    <- arbFormGroup.arbitrary
+      classes      <- genClasses()
+      attributes   <- genAttributes()
     } yield FileUpload(
       name = name,
       id = id,
@@ -44,7 +44,7 @@ object Generators {
       label = label,
       hint = hint,
       errorMessage = errorMessage,
-      formGroupClasses = formGroupClasses,
+      formGroup = formGroup,
       classes = classes,
       attributes = attributes
     )
