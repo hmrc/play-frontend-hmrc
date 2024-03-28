@@ -20,13 +20,14 @@ import play.api.libs.functional.syntax._
 import play.api.libs.json._
 import uk.gov.hmrc.govukfrontend.views.html.components._
 import uk.gov.hmrc.govukfrontend.views.viewmodels.CommonJsonFormats._
+import uk.gov.hmrc.govukfrontend.views.viewmodels.FormGroup
 
 /** Parameters to `GovukRadios` Twirl template
   *
   * @param fieldset optional `Fieldset` used to wrap the radio button control
   * @param hint optional `Hint` for the control
   * @param errorMessage optional `ErrorMessage` to display
-  * @param formGroupClasses optional additional CSS classes to apply to the form group
+  * @param formGroup additional CSS classes/attributes/etc. to apply to the form group
   * @param idPrefix optional id prefix to use for hint & error elements (defaults to `name`)
   * @param name the name of the `input` element
   * @param items sequence of `RadioItem`s
@@ -39,7 +40,7 @@ case class Radios(
   fieldset: Option[Fieldset] = None,
   hint: Option[Hint] = None,
   errorMessage: Option[ErrorMessage] = None,
-  formGroupClasses: String = "",
+  formGroup: FormGroup = FormGroup.empty,
   idPrefix: Option[String] = None,
   name: String = "",
   items: Seq[RadioItem] = Nil,
@@ -57,7 +58,7 @@ object Radios {
       (__ \ "fieldset").readNullable[Fieldset] and
         (__ \ "hint").readNullable[Hint] and
         (__ \ "errorMessage").readNullable[ErrorMessage] and
-        readsFormGroupClasses and
+        (__ \ "formGroup").readWithDefault[FormGroup](defaultObject.formGroup) and
         (__ \ "idPrefix").readNullable[String] and
         (__ \ "name").readWithDefault[String](defaultObject.name) and
         (__ \ "items").readWithDefault[Seq[RadioItem]](defaultObject.items)(forgivingSeqReads[RadioItem]) and
@@ -71,7 +72,7 @@ object Radios {
       (__ \ "fieldset").writeNullable[Fieldset] and
         (__ \ "hint").writeNullable[Hint] and
         (__ \ "errorMessage").writeNullable[ErrorMessage] and
-        writesFormGroupClasses and
+        (__ \ "formGroup").write[FormGroup] and
         (__ \ "idPrefix").writeNullable[String] and
         (__ \ "name").write[String] and
         (__ \ "items").write[Seq[RadioItem]] and

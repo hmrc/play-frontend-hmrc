@@ -14,6 +14,8 @@
  * limitations under the License.
  *@
 
+@import uk.gov.hmrc.govukfrontend.views.html.components._
+
 @this(govukTextarea: GovukTextarea,
       govukHint: GovukHint)
 
@@ -69,7 +71,7 @@
     label = label.copy(forAttr = Some(id)),
     hint = hint,
     errorMessage = errorMessage,
-    formGroupClasses = formGroupClasses,
+    formGroup = formGroup,
     classes = toClasses("govuk-js-character-count", if (classes.isEmpty) "" else s" ${classes}"),
     attributes = attributes
   ))

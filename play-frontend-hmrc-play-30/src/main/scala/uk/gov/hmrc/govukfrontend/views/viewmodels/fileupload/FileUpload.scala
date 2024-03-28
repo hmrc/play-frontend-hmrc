@@ -18,11 +18,25 @@ package uk.gov.hmrc.govukfrontend.views.viewmodels.fileupload
 
 import play.api.libs.functional.syntax._
 import play.api.libs.json._
-import uk.gov.hmrc.govukfrontend.views.viewmodels.CommonJsonFormats._
+import uk.gov.hmrc.govukfrontend.views.viewmodels.FormGroup
 import uk.gov.hmrc.govukfrontend.views.viewmodels.errormessage.ErrorMessage
 import uk.gov.hmrc.govukfrontend.views.viewmodels.hint.Hint
 import uk.gov.hmrc.govukfrontend.views.viewmodels.label.Label
 
+/** Parameters to `GovukFileUpload` Twirl template
+  *
+  * @param name `name` attribute for the `input`
+  * @param id `id` attribute for the `input`
+  * @param value optional `value` attribute for the `input`
+  * @param describedBy optional `aria-describedby` attribute for the `input`
+  * @param label optional `Label` for the control
+  * @param hint optional `Hint` for the control
+  * @param errorMessage optional `ErrorMessage` to display
+  * @param formGroup additional CSS classes/attributes/etc. to apply to the form group
+  * @param classes optional additional CSS classes to apply to the `input`
+  * @param attributes optional additional HTML attributes to apply to the `input`
+  * @param disabled optional `disabled` attribute for the `input`
+  */
 case class FileUpload(
   name: String = "",
   id: String = "",
@@ -31,7 +45,7 @@ case class FileUpload(
   label: Label = Label(),
   hint: Option[Hint] = None,
   errorMessage: Option[ErrorMessage] = None,
-  formGroupClasses: String = "",
+  formGroup: FormGroup = FormGroup.empty,
   classes: String = "",
   attributes: Map[String, String] = Map.empty,
   disabled: Option[Boolean] = None
@@ -50,7 +64,7 @@ object FileUpload {
         (__ \ "label").readWithDefault[Label](defaultObject.label) and
         (__ \ "hint").readNullable[Hint] and
         (__ \ "errorMessage").readNullable[ErrorMessage] and
-        readsFormGroupClasses and
+        (__ \ "formGroup").readWithDefault[FormGroup](defaultObject.formGroup) and
         (__ \ "classes").readWithDefault[String](defaultObject.classes) and
         (__ \ "attributes").readWithDefault[Map[String, String]](defaultObject.attributes) and
         (__ \ "disabled").readNullable[Boolean]
@@ -65,7 +79,7 @@ object FileUpload {
         (__ \ "label").write[Label] and
         (__ \ "hint").writeNullable[Hint] and
         (__ \ "errorMessage").writeNullable[ErrorMessage] and
-        writesFormGroupClasses and
+        (__ \ "formGroup").write[FormGroup] and
         (__ \ "classes").write[String] and
         (__ \ "attributes").write[Map[String, String]] and
         (__ \ "disabled").writeNullable[Boolean]

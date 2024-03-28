@@ -1,0 +1,13 @@
+{
+  "id" : "textarea-with-page-heading",
+  "name" : "address",
+  "label" : {
+    "text" : "Full address"
+  },
+  "formGroup" : {
+    "attributes" : {
+      "some-data-attribute": "true",
+      "some-other-data-attribute": "eleven"
+    }
+  }
+}

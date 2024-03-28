@@ -14,42 +14,23 @@
  * limitations under the License.
  *@
 
-@this(govukErrorMessage: GovukErrorMessage, govukHint: GovukHint, govukLabel: GovukLabel)
+@import uk.gov.hmrc.govukfrontend.views.html.components._
+@import uk.gov.hmrc.govukfrontend.views.html.helpers._
+
+@this(govukLabel: GovukLabel, govukFormGroup: GovukFormGroup, govukHintAndErrorMessage: GovukHintAndErrorMessage)
 
 @(params: Textarea)
 @import params._
 @require(name.nonEmpty && id.nonEmpty)
-@mainSnippet
-
-@hintSnippet(describedBy: String) = @{
- hint.fold((describedBy, HtmlFormat.empty)) { hint =>
-   val hintId = s"$id-hint"
-   val describedBy1 = s"$describedBy $hintId".ltrim
-   val hintHtml =
-   govukHint(Hint(
-     id = Some(hintId),
-     classes = hint.classes,
-     attributes = hint.attributes,
-     content = hint.content
-   ))
-  (describedBy1, hintHtml)
- }
-}
-
-@errorMessageSnippet(describedBy: String) = @{
-  errorMessage.fold((describedBy, HtmlFormat.empty)) { errorMessage =>
-    val errorId = s"$id-error"
-    val describedBy1 = s"$describedBy $errorId".trim
-    val errorMessageHtml =
-     govukErrorMessage(ErrorMessage(
-       id = Some(errorId),
-       classes = errorMessage.classes,
-       attributes = errorMessage.attributes,
-       visuallyHiddenText = errorMessage.visuallyHiddenText,
-       content = errorMessage.content
-     ))
-    (describedBy1, errorMessageHtml)
-  }
+@govukFormGroup(formGroup, errorMessage) {
+  @govukLabel(Label(
+    forAttr = Some(id),
+    isPageHeading = label.isPageHeading,
+    classes = label.classes,
+    attributes = label.attributes,
+    content = label.content
+  ))
+  @govukHintAndErrorMessage(id, describedBy, hint, errorMessage)(textareaSnippet)
 }
 
 @textareaSnippet(describedBy: String) = {
@@ -62,29 +43,3 @@
     <textarea class="@toClasses("govuk-textarea", errorMessage.fold("")(_ => "govuk-textarea--error"), classes)" @attrs>@value.mapNonEmpty { value =>@HtmlFormat.escape(value)}</textarea>
   }}
 }
-
-@divSnippet(labelHtml: Html, hintHtml: Html, errorMessageHtml: Html, textareaHtml: Html) = {
-  <div class="@toClasses("govuk-form-group", errorMessage.fold("")(_ => "govuk-form-group--error"), formGroupClasses)">
-    @labelHtml
-    @hintHtml
-    @errorMessageHtml
-    @textareaHtml
-  </div>
-}
-
-@mainSnippet = @{
-  val (describedBy1, hintHtml) = hintSnippet(describedBy.getOrElse(""))
-  val (describedBy2, errorMessageHtml) = errorMessageSnippet(describedBy1)
-  val labelHtml =
-    govukLabel(Label(
-      forAttr = Some(id),
-      isPageHeading = label.isPageHeading,
-      classes = label.classes,
-      attributes = label.attributes,
-      content = label.content
-    ))
-  val textareaHtml = textareaSnippet(describedBy2)
-  divSnippet(labelHtml, hintHtml, errorMessageHtml, textareaHtml)
-}
-
-
