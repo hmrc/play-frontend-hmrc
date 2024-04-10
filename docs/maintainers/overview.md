@@ -26,6 +26,9 @@ To regenerate the test fixtures, you will need the template renderer running loc
 Then run ```sbt generateGovukFixtures``` and ```sbt generateHmrcFixtures```. The template renderer does
 not need to be running when running the unit tests themselves.
 
+Sequence diagrams for the generation of test fixtures can be found in [Parsing and code generation within 
+play-frontend-hmrc and x-govuk-component-renderer](parsing-and-generation.md).
+
 #### (govuk|hmrc)-frontend/test-fixtures/
 
 Fixtures derived from the [hmrc-frontend](https://github.com/hmrc/hmrc-frontend) or
@@ -53,6 +56,9 @@ In certain exceptional situations, testing a specific fixture may not be feasibl
 
 To ensure (as much as possible) that the implemented templates conform to the `(govuk|hmrc)-frontend` templates, we use generative
 testing, via `scalacheck`, to compare the `Twirl` templates output against the `Nunjucks` `(govuk|hmrc)-frontend` templates.
+
+Sequence diagrams for the dynamic generation and parsing of intergration tests can be found in [Parsing and code 
+generation within play-frontend-hmrc and x-govuk-component-renderer](parsing-and-generation.md).
  
 The tests run against a `node.js` service used to render the templates,
 so you'll need to install it first.
