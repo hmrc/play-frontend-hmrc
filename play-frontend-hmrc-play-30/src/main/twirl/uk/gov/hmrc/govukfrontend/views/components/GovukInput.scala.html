@@ -33,12 +33,14 @@
   @govukHintAndErrorMessage(id, describedBy, hint, errorMessage)(inputSnippet)
 }
 
-@inputPrefix(prefix: Option[PrefixOrSuffix], hasPrefix: Boolean, hasSuffix: Boolean) = {@maybeWrapperStart(hasPrefix, hasSuffix)@maybePrefix(prefix, hasPrefix)}
+@inputPrefix(prefix: Option[PrefixOrSuffix], hasPrefix: Boolean, hasSuffix: Boolean, hasAfterInput: Boolean) = {@maybeWrapperStart(hasPrefix, hasSuffix, hasAfterInput)@maybePrefix(prefix, hasPrefix)}
 
 @maybePrefix(prefix: Option[PrefixOrSuffix], hasPrefix: Boolean) ={@if(hasPrefix) {<div class="@toClasses("govuk-input__prefix", prefix.get.classes)" aria-hidden="true"@toAttributes(prefix.get.attributes)>@prefix.get.content.asHtml</div>
 }}
 
-@maybeWrapperStart(hasPrefix: Boolean, hasSuffix: Boolean) = {@if(hasPrefix || hasSuffix) {<div class="govuk-input__wrapper"> }}
+@maybeWrapperStart(hasPrefix: Boolean, hasSuffix: Boolean, hasAfterInput: Boolean) = {@if(hasPrefix || hasSuffix || hasAfterInput) {
+    <div class="@toClasses("govuk-input__wrapper",inputWrapper.classes.getOrElse(""))"@toAttributes(inputWrapper.attributes)>
+}}
 
 @inputSuffix(suffix: Option[PrefixOrSuffix], hasPrefix: Boolean, hasSuffix: Boolean) = {
     @maybeSuffix(suffix, hasSuffix)@maybeWrapperEnd(hasPrefix: Boolean, hasSuffix: Boolean)
@@ -56,8 +58,8 @@
     } @value.mapNonEmpty {value => value="@value" }@if(disabled.getOrElse(false)) { disabled}@if(describedBy.nonEmpty) { aria-describedby="@describedBy"}
   } { attrs =>
   @defining {
-    @autocomplete.mapNonEmpty { autocomplete => autocomplete="@autocomplete"}@pattern.mapNonEmpty { pattern => pattern="@pattern"}@inputmode.mapNonEmpty { inputmode => inputmode="@inputmode"}@toAttributes(attributes)
+    @autocomplete.mapNonEmpty { autocomplete => autocomplete="@autocomplete"}@pattern.mapNonEmpty { pattern => pattern="@pattern"}@inputmode.mapNonEmpty { inputmode => inputmode="@inputmode"}@autocapitalize.map {v => autocapitalize="@v"}@toAttributes(attributes)
   } { otherAttrs =>
-      @(inputPrefix(params.prefix, params.prefix.nonEmpty, params.suffix.nonEmpty))<input class="@toClasses("govuk-input", classes, errorMessage.fold("")(_ => "govuk-input--error"))" @attrs@otherAttrs>@(inputSuffix(params.suffix, params.prefix.nonEmpty, params.suffix.nonEmpty))
+      @(inputPrefix(params.prefix, params.prefix.nonEmpty, params.suffix.nonEmpty, formGroup.afterInput.nonEmpty))<input class="@toClasses("govuk-input", classes, errorMessage.fold("")(_ => "govuk-input--error"))" @attrs@otherAttrs>@(inputSuffix(params.suffix, params.prefix.nonEmpty, params.suffix.nonEmpty))@formGroup.afterInput.map(_.asHtml)
   }}
 }

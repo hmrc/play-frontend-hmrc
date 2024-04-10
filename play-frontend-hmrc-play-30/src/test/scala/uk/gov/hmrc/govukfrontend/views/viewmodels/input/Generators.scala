@@ -43,6 +43,8 @@ object Generators {
       attributes   <- genAttributes()
       spellcheck   <- Gen.option(arbBool.arbitrary)
       disabled     <- Gen.option(arbBool.arbitrary)
+      autocapitalize  <- Gen.option(genAlphaStr())
+      inputWrapper    <- arbInputWrapper.arbitrary
     } yield Input(
       id = id,
       name = name,
@@ -59,7 +61,9 @@ object Generators {
       pattern = pattern,
       attributes = attributes,
       spellcheck = spellcheck,
-      disabled = disabled
+      disabled = disabled,
+      autocapitalize = autocapitalize,
+      inputWrapper = inputWrapper
     )
   }
 }

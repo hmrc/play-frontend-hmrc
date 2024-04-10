@@ -15,38 +15,36 @@
  *@
 
 @import uk.gov.hmrc.govukfrontend.views.html.components._
+@import scala.collection.immutable.ListMap
 
 @this(govukTextarea: GovukTextarea,
       govukHint: GovukHint)
+
 
 @(params: CharacterCount)
 @import params._
 @require(name.nonEmpty && id.nonEmpty, "name and id should be non-empty")
 
-@attrs = {
-  @maxLength.filter(_ > 0).map {value => data-maxlength="@value"}
-  @threshold.filter(_ > 0).map {value => data-threshold="@value"}
-  @maxWords.filter(_ > 0).map {value => data-maxwords="@value"}
+@govukPluralisedI18nAttributes(translationKey: String, pluralForms: Option[Map[String, String]]) = @{
+    pluralForms.getOrElse(Map.empty).map { case (key, value) =>
+        s"data-i18n.$translationKey.$key" -> value
+    }
+}
 
-  @govukPluralisedI18nAttributes("characters-under-limit", charactersUnderLimitText)
-  @charactersAtLimitText match {
-      case Some(v) => { data-i18n.characters-at-limit="@{v}" }
-      case None => {}
-  }
-  @govukPluralisedI18nAttributes("characters-over-limit", charactersOverLimitText)
-  @govukPluralisedI18nAttributes("words-under-limit", wordsUnderLimitText)
-  @wordsAtLimitText match {
-      case Some(v) => { data-i18n.words-at-limit="@{v}" }
-      case None => {}
-  }
-  @govukPluralisedI18nAttributes("words-over-limit", wordsOverLimitText)
-
-  @if(maxLength.isEmpty && maxWords.isEmpty) {
-      @textareaDescriptionText match {
-          case Some(v) => { data-i18n.textarea-description.other="@{v}" }
-          case None => {}
-      }
-  }
+@dataAttributes = @{
+    val maybeDataAttributes = ListMap(
+        "data-module" -> "govuk-character-count",
+        "data-maxlength" -> maxLength.filter(_ > 0).map(_.toString).getOrElse(""),
+        "data-threshold" -> threshold.filter(_ > 0).map(_.toString).getOrElse(""),
+        "data-maxwords" -> maxWords.filter(_ > 0).map(_.toString).getOrElse(""),
+    ) ++ govukPluralisedI18nAttributes("characters-under-limit", charactersUnderLimitText) ++ Map(
+        "data-i18n.characters-at-limit" -> charactersAtLimitText.getOrElse("")
+    ) ++ govukPluralisedI18nAttributes("characters-over-limit", charactersOverLimitText) ++ govukPluralisedI18nAttributes("words-under-limit", wordsUnderLimitText) ++ Map(
+        "data-i18n.words-at-limit" -> wordsAtLimitText.getOrElse("")
+    ) ++ govukPluralisedI18nAttributes("words-over-limit", wordsOverLimitText) ++ Map(
+        "data-i18n.textarea-description.other" -> textareaDescriptionText.filter(_ => maxLength.isEmpty && maxWords.isEmpty).getOrElse("")
+    )
+    maybeDataAttributes.filter { case (_, value) => value.nonEmpty }
 }
 
 @customTextArea = @{
@@ -61,8 +59,14 @@
     }
 }
 
-<div class="govuk-character-count" data-module="govuk-character-count"@attrs>
-  @govukTextarea(Textarea(
+@characterCountMessage = {
+    @govukHint(Hint(id=Some(id+"-info"),
+        classes = toClasses("govuk-character-count__message", if (countMessageClasses.isEmpty) "" else s" $countMessageClasses"),
+        content = customTextArea
+    ))
+}
+
+@govukTextarea(Textarea(
     id = id,
     name = name,
     describedBy = Some(s"${id}-info"),
@@ -71,12 +75,11 @@
     label = label.copy(forAttr = Some(id)),
     hint = hint,
     errorMessage = errorMessage,
-    formGroup = formGroup,
-    classes = toClasses("govuk-js-character-count", if (classes.isEmpty) "" else s" ${classes}"),
+    formGroup = formGroup.copy(
+        classes = Some(toClasses("govuk-character-count", formGroup.classes.getOrElse(""))),
+        attributes = dataAttributes ++ formGroup.attributes,
+        afterInput = Some(HtmlContent(characterCountMessage))
+    ),
+    classes = toClasses("govuk-js-character-count", if (classes.isEmpty) "" else s" $classes"),
     attributes = attributes
-  ))
-  @govukHint(Hint(id=Some(id+"-info"),
-    classes = toClasses("govuk-character-count__message", if (countMessageClasses.isEmpty) "" else s" $countMessageClasses"),
-    content = customTextArea
-  ))
-</div>
+))

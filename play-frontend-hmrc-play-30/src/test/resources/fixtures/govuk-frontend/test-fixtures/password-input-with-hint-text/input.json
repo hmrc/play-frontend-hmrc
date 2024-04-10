@@ -1,0 +1,10 @@
+{
+  "label" : {
+    "text" : "Password"
+  },
+  "hint" : {
+    "text" : "It probably has some letters, numbers and maybe even some symbols in it."
+  },
+  "id" : "password-input-with-hint-text",
+  "name" : "test-name-2"
+}

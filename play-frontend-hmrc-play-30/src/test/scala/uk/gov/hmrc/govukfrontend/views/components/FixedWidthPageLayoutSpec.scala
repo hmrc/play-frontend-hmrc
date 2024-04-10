@@ -41,7 +41,7 @@ class FixedWidthPageLayoutSpec extends AnyWordSpec with Matchers with GuiceOneAp
            |
            |<div class="govuk-width-container">
            |    beforeContentBlock
-           |    <main class="govuk-main-wrapper custom-class" id="main-content" role="main" lang="en">
+           |    <main class="govuk-main-wrapper custom-class" id="main-content"  lang="en">
            |        contentBlock
            |    </main>
            |</div>""".stripMargin

@@ -42,12 +42,16 @@ class GenerateHmrcFixturesSpec extends AnyWordSpec with Matchers {
     }
 
     fixturesDir.get.children.filter(_.isDirectory).foreach { example =>
-      s"create an output.txt in ${example.name}" in {
-        (example / "output.txt").exists shouldBe true
+      s"create a non-empty output.txt in ${example.name}" in {
+        withClue(s"create a non-empty output.txt for example [${example.name}]") {
+          (example / "output.txt").exists shouldBe true
+        }
       }
 
       s"create a valid component.json in ${example.name}" in {
-        (example / "component.json").exists shouldBe true
+        withClue(s"create a valid component.json for example [${example.name}]") {
+          (example / "component.json").exists shouldBe true
+        }
 
         val contentTry = Try(Json.parse((example / "component.json").contentAsString))
         contentTry.isSuccess shouldBe true
@@ -62,7 +66,9 @@ class GenerateHmrcFixturesSpec extends AnyWordSpec with Matchers {
       }
 
       s"create a valid input.json in ${example.name}" in {
-        (example / "input.json").exists shouldBe true
+        withClue(s"create a valid input.json for example [${example.name}]") {
+          (example / "input.json").exists shouldBe true
+        }
 
         val jsonTry = Try(Json.parse((example / "input.json").contentAsString))
 

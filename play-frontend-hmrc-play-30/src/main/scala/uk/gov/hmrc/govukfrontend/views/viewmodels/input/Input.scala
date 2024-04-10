@@ -43,6 +43,7 @@ import uk.gov.hmrc.govukfrontend.views.viewmodels.label.Label
   * @param prefix optional content to display immediately before the `input`
   * @param suffix optional content to display immediately after the `input`
   * @param disabled optional `disabled` attribute for the `input`
+  * @param autocapitalize optional `autocapitalize` attribute for the `input`
   */
 case class Input(
   id: String = "",
@@ -62,7 +63,9 @@ case class Input(
   spellcheck: Option[Boolean] = None,
   prefix: Option[PrefixOrSuffix] = None,
   suffix: Option[PrefixOrSuffix] = None,
-  disabled: Option[Boolean] = None
+  disabled: Option[Boolean] = None,
+  autocapitalize: Option[String] = None,
+  inputWrapper: InputWrapper = InputWrapper.empty
 )
 
 object Input {
@@ -88,7 +91,9 @@ object Input {
         (__ \ "spellcheck").readNullable[Boolean] and
         (__ \ "prefix").readNullable[PrefixOrSuffix] and
         (__ \ "suffix").readNullable[PrefixOrSuffix] and
-        (__ \ "disabled").readNullable[Boolean]
+        (__ \ "disabled").readNullable[Boolean] and
+        (__ \ "autocapitalize").readNullable[String] and
+        (__ \ "inputWrapper").readWithDefault[InputWrapper](defaultObject.inputWrapper)
     )(Input.apply _)
 
   implicit def jsonWrites: OWrites[Input] =
@@ -110,7 +115,9 @@ object Input {
         (__ \ "spellcheck").writeNullable[Boolean] and
         (__ \ "prefix").writeNullable[PrefixOrSuffix] and
         (__ \ "suffix").writeNullable[PrefixOrSuffix] and
-        (__ \ "disabled").writeNullable[Boolean]
+        (__ \ "disabled").writeNullable[Boolean] and
+        (__ \ "autocapitalize").writeNullable[String] and
+        (__ \ "inputWrapper").write[InputWrapper]
     )(unlift(Input.unapply))
 
 }

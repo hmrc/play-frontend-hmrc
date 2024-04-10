@@ -1,4 +1,4 @@
-<nav class="govuk-pagination" role="navigation" aria-label="search">
+<nav class="govuk-pagination" aria-label="search">
   <div class="govuk-pagination__prev">
     <a class="govuk-link govuk-pagination__link" href="/previous" rel="prev">
       <svg class="govuk-pagination__icon govuk-pagination__icon--prev" xmlns="http://www.w3.org/2000/svg" height="13" width="15" aria-hidden="true" focusable="false" viewBox="0 0 15 13">

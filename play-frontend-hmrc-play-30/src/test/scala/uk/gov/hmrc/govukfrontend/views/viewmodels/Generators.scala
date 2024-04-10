@@ -19,6 +19,8 @@ package viewmodels
 
 import org.scalacheck.{Arbitrary, Gen}
 import play.twirl.api.{Html, HtmlFormat}
+import uk.gov.hmrc.govukfrontend.views.viewmodels.content.Generators.arbContent
+import uk.gov.hmrc.govukfrontend.views.viewmodels.input.InputWrapper
 
 object Generators {
 
@@ -26,9 +28,21 @@ object Generators {
     for {
       classes    <- Gen.option(genClasses())
       attributes <- genAttributes()
+      afterInput <- Gen.option(arbContent.arbitrary)
     } yield FormGroup(
       classes = classes,
-      attributes = attributes
+      attributes = attributes,
+      afterInput = afterInput
+    )
+  }
+
+  val arbInputWrapper: Arbitrary[InputWrapper] = Arbitrary {
+    for {
+      classes <- Gen.option(genClasses())
+      attributes <- genAttributes()
+    } yield InputWrapper(
+      classes = classes,
+      attributes = attributes,
     )
   }
 

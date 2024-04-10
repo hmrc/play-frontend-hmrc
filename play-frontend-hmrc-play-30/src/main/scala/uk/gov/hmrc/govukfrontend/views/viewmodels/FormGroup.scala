@@ -18,10 +18,12 @@ package uk.gov.hmrc.govukfrontend.views.viewmodels
 
 import play.api.libs.functional.syntax._
 import play.api.libs.json._
+import uk.gov.hmrc.govukfrontend.views.viewmodels.content.Content
 
 case class FormGroup(
   classes: Option[String] = None,
-  attributes: Map[String, String] = Map.empty
+  attributes: Map[String, String] = Map.empty,
+  afterInput: Option[Content] = None
 )
 
 object FormGroup {
@@ -31,13 +33,15 @@ object FormGroup {
   implicit def jsonReads: Reads[FormGroup] =
     (
       (__ \ "classes").readNullable[String] and
-        (__ \ "attributes").readWithDefault[Map[String, String]](Map.empty)
+        (__ \ "attributes").readWithDefault[Map[String, String]](Map.empty) and
+        (__ \ "afterInput").readNullable[Content]
     )(FormGroup.apply _)
 
   implicit def jsonWrites: OWrites[FormGroup] =
     (
       (__ \ "classes").writeNullable[String] and
-        (__ \ "attributes").write[Map[String, String]]
-    )(unlift(FormGroup.unapply))
+        (__ \ "attributes").write[Map[String, String]] and
+        (__ \ "afterInput").writeNullable[Content]
+      )(unlift(FormGroup.unapply))
 
 }

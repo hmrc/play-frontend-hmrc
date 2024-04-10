@@ -31,7 +31,7 @@
   Seq("govuk-header__container", nonEmptyStringOrDefault(Option(containerClasses), "govuk-width-container")).mkString(" ")
 }
 
-<header role="banner">
+<header>
     <div class="govuk-header @toClasses("hmrc-header", classes)@if(signOutHref.exists(_.nonEmpty) || languageToggle.exists(_.linkMap.nonEmpty)){ hmrc-header--with-additional-navigation}" data-module="govuk-header"
             @toAttributes(attributes)>
       <div class="@toClasses(containerClassList)">

@@ -1,0 +1,22 @@
+{
+  "label" : {
+    "text" : "Cost per item, in pounds"
+  },
+  "id" : "input-with-afterInput-and-customised-input-wrapper",
+  "name" : "cost",
+  "inputWrapper" : {
+    "classes" : "app-input-wrapper--custom-modifier",
+    "attributes" : {
+      "data-attribute" : "value"
+    }
+  },
+  "afterInput" : {
+    "text" : "some-text"
+  },
+  "prefix" : {
+    "text" : "£"
+  },
+  "suffix" : {
+    "text" : "per item"
+  }
+}

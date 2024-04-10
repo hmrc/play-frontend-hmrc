@@ -22,7 +22,7 @@
 <a href="#main-content" class="govuk-skip-link">Custom skip link</a>
 <header role="banner">Custom header</header>
       <div class="govuk-width-container">
-<p>Customised before content, <a class="govuk-link" href="#">this is a link</a>.        <main class="govuk-main-wrapper app-main-class" id="main-content" role="main">
+<p>Customised before content, <a class="govuk-link" href="#">this is a link</a>.        <main class="govuk-main-wrapper app-main-class" id="main-content">
 <h1 class="govuk-heading-xl">Customised page template</h1>        </main>
       </div>
 
