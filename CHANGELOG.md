@@ -12,7 +12,7 @@ For compatibility information see `govukFrontendVersion` and `hmrcFrontendVersio
 
 ### Changed
 
-- Release new version of play-frontend-hmrc that has govuk-frontend 5.3.0
+- Release new version of play-frontend-hmrc that includes govuk-frontend 5.3.0
 - Added ADR for [deferring the inclusion of the password field]((0021-defer-inclusion-of-password-field.md)) from govuk-frontend v5.3.0
 
 ### Compatible with
