@@ -38,6 +38,6 @@ object InputWrapper {
     (
       (__ \ "classes").writeNullable[String] and
         (__ \ "attributes").write[Map[String, String]]
-      )(unlift(InputWrapper.unapply))
+    )(unlift(InputWrapper.unapply))
 
 }

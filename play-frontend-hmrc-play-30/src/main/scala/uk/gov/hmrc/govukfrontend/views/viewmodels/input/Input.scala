@@ -44,6 +44,7 @@ import uk.gov.hmrc.govukfrontend.views.viewmodels.label.Label
   * @param suffix optional content to display immediately after the `input`
   * @param disabled optional `disabled` attribute for the `input`
   * @param autocapitalize optional `autocapitalize` attribute for the `input`
+  * @param inputWrapper additional CSS classes/attributes to apply to the input wrapper
   */
 case class Input(
   id: String = "",

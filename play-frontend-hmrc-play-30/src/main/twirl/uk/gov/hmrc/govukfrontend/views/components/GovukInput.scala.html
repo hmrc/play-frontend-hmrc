@@ -39,7 +39,7 @@
 }}
 
 @maybeWrapperStart(hasPrefix: Boolean, hasSuffix: Boolean, hasAfterInput: Boolean) = {@if(hasPrefix || hasSuffix || hasAfterInput) {
-    <div class="@toClasses("govuk-input__wrapper",inputWrapper.classes.getOrElse(""))"@toAttributes(inputWrapper.attributes)>
+    <div class="@toClasses("govuk-input__wrapper", inputWrapper.classes.getOrElse(""))"@toAttributes(inputWrapper.attributes)>
 }}
 
 @inputSuffix(suffix: Option[PrefixOrSuffix], hasPrefix: Boolean, hasSuffix: Boolean) = {

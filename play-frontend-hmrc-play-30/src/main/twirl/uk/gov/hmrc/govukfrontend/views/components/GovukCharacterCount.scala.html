@@ -66,6 +66,11 @@
     ))
 }
 
+@characterCountMessagePlusOptionalAfterInput = {
+  @characterCountMessage
+  @formGroup.afterInput.map(_.asHtml)
+}
+
 @govukTextarea(Textarea(
     id = id,
     name = name,
@@ -78,7 +83,7 @@
     formGroup = formGroup.copy(
         classes = Some(toClasses("govuk-character-count", formGroup.classes.getOrElse(""))),
         attributes = dataAttributes ++ formGroup.attributes,
-        afterInput = Some(HtmlContent(characterCountMessage))
+        afterInput = Some(HtmlContent(characterCountMessagePlusOptionalAfterInput))
     ),
     classes = toClasses("govuk-js-character-count", if (classes.isEmpty) "" else s" $classes"),
     attributes = attributes

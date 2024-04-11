@@ -42,6 +42,6 @@ object FormGroup {
       (__ \ "classes").writeNullable[String] and
         (__ \ "attributes").write[Map[String, String]] and
         (__ \ "afterInput").writeNullable[Content]
-      )(unlift(FormGroup.unapply))
+    )(unlift(FormGroup.unapply))
 
 }
