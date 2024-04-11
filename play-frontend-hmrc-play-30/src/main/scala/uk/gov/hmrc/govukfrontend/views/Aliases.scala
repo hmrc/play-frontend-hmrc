@@ -214,6 +214,12 @@ trait Aliases {
   type CookieBanner = viewmodels.cookiebanner.CookieBanner
   val CookieBanner = viewmodels.cookiebanner.CookieBanner
 
+  type Message = viewmodels.cookiebanner.Message
+  val Message = viewmodels.cookiebanner.Message
+
+  type Action = viewmodels.cookiebanner.Action
+  val Action = viewmodels.cookiebanner.Action
+
   type PageLayout = viewmodels.pagelayout.PageLayout
   val PageLayout = viewmodels.pagelayout.PageLayout
 
