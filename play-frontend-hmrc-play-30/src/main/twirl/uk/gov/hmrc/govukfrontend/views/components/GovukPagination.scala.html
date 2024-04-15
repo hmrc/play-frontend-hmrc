@@ -25,8 +25,7 @@
 
 @blockLevel = @{items.isEmpty && {next.isDefined || previous.isDefined}}
 
-<nav class="@toClasses("govuk-pagination", {if(blockLevel) "govuk-pagination--block" else ""}, classes)"
-role="navigation" aria-label="@{landmarkLabel.getOrElse(messages("govuk.pagination.ariaLabel"))}"@toAttributes(attributes)>
+<nav class="@toClasses("govuk-pagination", {if(blockLevel) "govuk-pagination--block" else ""}, classes)" aria-label="@{landmarkLabel.getOrElse(messages("govuk.pagination.ariaLabel"))}"@toAttributes(attributes)>
   @previous.map { prev =>
     @if(prev.href.nonEmpty) {
       <div class="govuk-pagination__prev">

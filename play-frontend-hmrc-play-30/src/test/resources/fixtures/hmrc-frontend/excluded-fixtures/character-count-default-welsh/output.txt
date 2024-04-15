@@ -1,0 +1,11 @@
+
+  <div class="govuk-form-group govuk-character-count" data-module="govuk-character-count" data-maxlength="10" data-i18n.characters-under-limit.other="Mae gennych %{count} o gymeriadau yn weddill" data-i18n.characters-under-limit.one="Mae gennych 1 cymeriad yn weddill" data-i18n.characters-at-limit="Mae gennych 0 o gymeriadau yn weddill" data-i18n.characters-over-limit.other="Mae gennych %{count} o gymeriadau yn ormod" data-i18n.characters-over-limit.one="Mae gennych 1 cymeriad yn ormod" data-i18n.words-under-limit.other="Mae gennych %{count} o eiriau yn weddill" data-i18n.words-under-limit.one="Mae gennych 1 gair yn weddill" data-i18n.words-at-limit="Mae gennych 0 o eiriau yn weddill" data-i18n.words-over-limit.other="Mae gennych %{count} o eiriau yn ormod" data-i18n.words-over-limit.one="Mae gennych 1 gair yn ormod">
+  <label class="govuk-label" for="more-detail-welsh">
+    Can you provide more detail?
+  </label>
+  <textarea class="govuk-textarea govuk-js-character-count" id="more-detail-welsh" name="more-detail-welsh" rows="5" aria-describedby="more-detail-welsh-info"></textarea>
+  <div id="more-detail-welsh-info" class="govuk-hint govuk-character-count__message">
+    Gallwch nodi hyd at 10 o gymeriadau
+  </div>
+</div>
+

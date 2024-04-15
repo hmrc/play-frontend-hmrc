@@ -1,5 +1,4 @@
-<div class="govuk-character-count" data-module="govuk-character-count" data-maxlength="10">
-  <div class="govuk-form-group govuk-form-group--error">
+<div class="govuk-form-group govuk-form-group--error govuk-character-count" data-module="govuk-character-count" data-maxlength="10">
   <label class="govuk-label" for="exceeding-characters">
     Full address
   </label>
@@ -10,8 +9,6 @@
 London
 NW1 6XE
 </textarea>
-</div>
-
   <div id="exceeding-characters-info" class="govuk-hint govuk-character-count__message">
     You can enter up to 10 characters
   </div>

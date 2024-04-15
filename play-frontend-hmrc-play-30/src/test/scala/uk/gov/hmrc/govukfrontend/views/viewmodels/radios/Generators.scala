@@ -57,7 +57,7 @@ object Generators {
       fieldset     <- Gen.option(arbFieldset.arbitrary)
       hint         <- Gen.option(arbHint.arbitrary)
       errorMessage <- Gen.option(arbErrorMessage.arbitrary)
-      formGroup    <- arbFormGroup.arbitrary
+      formGroup    <- arbFormGroupWithoutBeforeOrAfterInput.arbitrary
       idPrefix     <- Gen.option(genAlphaStr())
       name         <- genAlphaStr()
       n            <- Gen.chooseNum(0, 5)

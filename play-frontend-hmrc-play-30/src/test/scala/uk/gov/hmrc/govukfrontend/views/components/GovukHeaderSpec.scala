@@ -35,11 +35,6 @@ class GovukHeaderSpec extends TemplateUnitSpec[Header, GovukHeader]("govukHeader
   hmrcfrontend.RoutesPrefix.setPrefix("")
 
   "header" should {
-    "have a role of banner" in {
-      val output = component(Header()).select(".govuk-header")
-      output.attr("role") shouldBe "banner"
-    }
-
     """display Tudor crown logo set by config""" in {
       val anotherApp  = buildAnotherApp(
         Map(

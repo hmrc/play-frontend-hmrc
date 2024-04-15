@@ -20,7 +20,7 @@
 
 @(params: Footer = Footer())
 @import params._
-<footer class="@toClasses("govuk-footer", classes)" role="contentinfo"@toAttributes(attributes)>
+<footer class="@toClasses("govuk-footer", classes)" @toAttributes(attributes)>
   <div class="@toClasses("govuk-width-container", containerClasses)">
       @if(navigation.nonEmpty){
         <div class="govuk-footer__navigation">

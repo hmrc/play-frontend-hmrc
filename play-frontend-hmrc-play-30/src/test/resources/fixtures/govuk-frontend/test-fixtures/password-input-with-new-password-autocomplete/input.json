@@ -1,0 +1,8 @@
+{
+  "label" : {
+    "text" : "Password"
+  },
+  "autocomplete" : "new-password",
+  "id" : "password-input-new-password",
+  "name" : "password"
+}

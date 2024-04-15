@@ -1,0 +1,7 @@
+{
+  "label" : {
+    "text" : "Password"
+  },
+  "id" : "password-input",
+  "name" : "password"
+}

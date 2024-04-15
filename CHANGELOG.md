@@ -8,6 +8,18 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 For compatibility information see `govukFrontendVersion` and `hmrcFrontendVersion` in
 [LibDependencies](project/LibDependencies.scala)
 
+## [9.6.0] - 2024-04-10
+
+### Changed
+
+- Release new version of play-frontend-hmrc that includes govuk-frontend 5.3.0
+- Added ADR for [deferring the inclusion of the password field](./docs/maintainers/adr/0021-defer-inclusion-of-password-field.md) from govuk-frontend v5.3.0
+
+### Compatible with
+
+- [hmrc/hmrc-frontend v6.15.0](https://github.com/hmrc/hmrc-frontend/releases/tag/v6.15.0)
+- [alphagov/govuk-frontend v5.3.0](https://github.com/alphagov/govuk-frontend/releases/tag/v5.3.0)
+
 ## [9.5.0] - 2024-04-3
 
 ### Changed
