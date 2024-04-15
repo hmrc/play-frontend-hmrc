@@ -24,7 +24,7 @@
 
 @(params: Header = Header())
 @import params._
-<header class="@toClasses("govuk-header", classes)" role="banner" data-module="govuk-header"@toAttributes(attributes)>
+<header class="@toClasses("govuk-header", classes)" data-module="govuk-header"@toAttributes(attributes)>
   <div class="govuk-header__container @containerClasses.getOrElse("govuk-width-container")">
     <div class="govuk-header__logo">
       <a href="@homepageUrl.getOrElse{/}" class="govuk-header__link govuk-header__link--homepage">

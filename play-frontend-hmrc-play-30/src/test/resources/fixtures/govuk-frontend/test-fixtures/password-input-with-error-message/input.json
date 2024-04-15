@@ -1,0 +1,13 @@
+{
+  "label" : {
+    "text" : "Password"
+  },
+  "hint" : {
+    "text" : "It probably has some letters, numbers and maybe even some symbols in it."
+  },
+  "id" : "password-input-with-error-message",
+  "name" : "test-name-3",
+  "errorMessage" : {
+    "text" : "Error message goes here"
+  }
+}

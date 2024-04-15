@@ -27,22 +27,24 @@ object Generators {
 
   implicit val arbInput: Arbitrary[Input] = Arbitrary {
     for {
-      id           <- genNonEmptyAlphaStr
-      name         <- genNonEmptyAlphaStr
-      inputType    <- genNonEmptyAlphaStr
-      inputMode    <- Gen.option(genNonEmptyAlphaStr)
-      describedBy  <- Gen.option(genAlphaStr())
-      value        <- Gen.option(genAlphaStr())
-      label        <- arbLabel.arbitrary
-      hint         <- Gen.option(arbHint.arbitrary)
-      errorMessage <- Gen.option(arbErrorMessage.arbitrary)
-      formGroup    <- arbFormGroup.arbitrary
-      classes      <- genClasses()
-      autocomplete <- Gen.option(genAlphaStr())
-      pattern      <- Gen.option(genAlphaStr())
-      attributes   <- genAttributes()
-      spellcheck   <- Gen.option(arbBool.arbitrary)
-      disabled     <- Gen.option(arbBool.arbitrary)
+      id             <- genNonEmptyAlphaStr
+      name           <- genNonEmptyAlphaStr
+      inputType      <- genNonEmptyAlphaStr
+      inputMode      <- Gen.option(genNonEmptyAlphaStr)
+      describedBy    <- Gen.option(genAlphaStr())
+      value          <- Gen.option(genAlphaStr())
+      label          <- arbLabel.arbitrary
+      hint           <- Gen.option(arbHint.arbitrary)
+      errorMessage   <- Gen.option(arbErrorMessage.arbitrary)
+      formGroup      <- arbFormGroupWithoutBeforeOrAfterInput.arbitrary
+      classes        <- genClasses()
+      autocomplete   <- Gen.option(genAlphaStr())
+      pattern        <- Gen.option(genAlphaStr())
+      attributes     <- genAttributes()
+      spellcheck     <- Gen.option(arbBool.arbitrary)
+      disabled       <- Gen.option(arbBool.arbitrary)
+      autocapitalize <- Gen.option(genNonEmptyAlphaStr)
+      inputWrapper   <- arbInputWrapper.arbitrary
     } yield Input(
       id = id,
       name = name,
@@ -59,7 +61,9 @@ object Generators {
       pattern = pattern,
       attributes = attributes,
       spellcheck = spellcheck,
-      disabled = disabled
+      disabled = disabled,
+      autocapitalize = autocapitalize,
+      inputWrapper = inputWrapper
     )
   }
 }

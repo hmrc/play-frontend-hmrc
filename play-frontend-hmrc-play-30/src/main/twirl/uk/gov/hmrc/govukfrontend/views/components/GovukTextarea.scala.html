@@ -31,6 +31,7 @@
     content = label.content
   ))
   @govukHintAndErrorMessage(id, describedBy, hint, errorMessage)(textareaSnippet)
+  @formGroup.afterInput.map(_.asHtml)
 }
 
 @textareaSnippet(describedBy: String) = {

@@ -22,6 +22,7 @@
 * [ADR-0018](0018-help-teams-implement-new-date-guidance.md) - Help teams implement new date guidance
 * [ADR-0019](0019-add-welsh-language-support-to-govuk-accessible-autocomplete.md) - Add Welsh language support to the GOVUK accessible autocomplete wrapper
 * [ADR-0020](0020-reduce-support-for-internet-explorer.md) - Reduce support for Internet Explorer
+* [ADR-0021](0021-defer-inclusion-of-password-field.md) - Defer Inclusion of Password Field from govuk-frontend v5.3.0
 
 <!-- adrlogstop -->
 

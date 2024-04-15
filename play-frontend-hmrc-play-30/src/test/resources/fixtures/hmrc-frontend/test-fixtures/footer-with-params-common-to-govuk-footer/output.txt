@@ -2,7 +2,7 @@
 
 
 
-<footer class="govuk-footer app-footer--custom-modifier" role="contentinfo" data-test-attribute="value" data-test-attribute-2="value-2">
+<footer class="govuk-footer app-footer--custom-modifier" data-test-attribute="value" data-test-attribute-2="value-2">
   <div class="govuk-width-container app-width-container">
       <div class="govuk-footer__navigation">
           <div class="govuk-footer__section govuk-grid-column-full">

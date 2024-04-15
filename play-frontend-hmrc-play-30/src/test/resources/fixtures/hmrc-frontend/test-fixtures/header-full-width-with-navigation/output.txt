@@ -1,5 +1,5 @@
 
-<header role="banner">
+<header>
 <div class="govuk-header hmrc-header" data-module="govuk-header">
   <div class="govuk-header__container govuk-header__container--full-width">
     <div class="govuk-header__logo">

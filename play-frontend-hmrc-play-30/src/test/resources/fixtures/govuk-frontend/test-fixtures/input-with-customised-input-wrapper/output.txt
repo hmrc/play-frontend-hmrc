@@ -1,0 +1,10 @@
+<div class="govuk-form-group">
+  <label class="govuk-label" for="input-with-customised-input-wrapper">
+    Cost per item, in pounds
+  </label>
+  <div class="govuk-input__wrapper app-input-wrapper--custom-modifier" data-attribute="value">
+    <div class="govuk-input__prefix" aria-hidden="true">£</div>
+    <input class="govuk-input" id="input-with-customised-input-wrapper" name="cost" type="text">
+    <div class="govuk-input__suffix" aria-hidden="true">per item</div>
+  </div>
+</div>

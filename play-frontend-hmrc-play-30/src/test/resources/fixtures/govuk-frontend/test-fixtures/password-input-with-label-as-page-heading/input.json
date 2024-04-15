@@ -1,0 +1,9 @@
+{
+  "label" : {
+    "text" : "Password",
+    "classes" : "govuk-label--l",
+    "isPageHeading" : true
+  },
+  "id" : "password-input-with-page-heading",
+  "name" : "test-name"
+}
