@@ -26,6 +26,12 @@ For compatibility information see `govukFrontendVersion` and `hmrcFrontendVersio
 - [hmrc/hmrc-frontend v6.15.0](https://github.com/hmrc/hmrc-frontend/releases/tag/v6.15.0)
 - [alphagov/govuk-frontend v5.3.0](https://github.com/alphagov/govuk-frontend/releases/tag/v5.3.0)
 
+## [9.5.1] - 2024-04-15
+
+### Changed
+
+- Added in caching with a max-age of 60 minutes for hmrc-frontend resources
+
 ## [9.5.0] - 2024-04-3
 
 ### Changed
