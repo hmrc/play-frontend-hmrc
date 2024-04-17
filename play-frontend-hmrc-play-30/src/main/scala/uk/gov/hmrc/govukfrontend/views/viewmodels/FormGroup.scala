@@ -18,12 +18,11 @@ package uk.gov.hmrc.govukfrontend.views.viewmodels
 
 import play.api.libs.functional.syntax._
 import play.api.libs.json._
-import uk.gov.hmrc.govukfrontend.views.viewmodels.content.Content
 
 case class FormGroup(
   classes: Option[String] = None,
   attributes: Map[String, String] = Map.empty,
-  afterInput: Option[Content] = None
+  afterInput: Option[AfterInput] = None
 )
 
 object FormGroup {
@@ -34,14 +33,39 @@ object FormGroup {
     (
       (__ \ "classes").readNullable[String] and
         (__ \ "attributes").readWithDefault[Map[String, String]](Map.empty) and
-        (__ \ "afterInput").readNullable[Content]
+        Reads.nullable[AfterInput](__)
     )(FormGroup.apply _)
 
   implicit def jsonWrites: OWrites[FormGroup] =
     (
       (__ \ "classes").writeNullable[String] and
         (__ \ "attributes").write[Map[String, String]] and
-        (__ \ "afterInput").writeNullable[Content]
+        Writes.nullable[AfterInput]
     )(unlift(FormGroup.unapply))
 
+}
+
+case class AfterInput(value: String)
+
+object AfterInput {
+
+  implicit def jsonReads: Reads[AfterInput] = new Reads[AfterInput] {
+    override def reads(json: JsValue): JsResult[AfterInput] = {
+      (json \ "afterInput").validate[String] match {
+        case JsSuccess(before, _) => JsSuccess(AfterInput(before))
+        case errorOne: JsError =>
+          (json \ "afterInputs").validate[String] match {
+            case JsSuccess(before, _) => JsSuccess(AfterInput(before))
+            case _: JsError => errorOne
+          }
+      }
+    }
+  }
+
+  implicit def writes: OWrites[AfterInput] = new OWrites[AfterInput] {
+    override def writes(after: AfterInput): JsObject = Json.obj(
+      "afterInput" ->  after.value,
+      "afterInputs" -> after.value
+    )
+  }
 }
