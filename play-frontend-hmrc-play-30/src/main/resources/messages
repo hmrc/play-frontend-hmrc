@@ -40,3 +40,13 @@ govuk.exitThisPage.contentFallbackText=Exit this page
 govuk.exitThisPage.redirectUrlFallback=https://www.bbc.co.uk/weather
 govuk.exitThisPage.visuallyHiddenFallbackText=Emergency
 govuk.tabs.titleFallbackText=Contents
+
+hmrc.addtoalist.zeroitems=You have not added any items
+hmrc.addtoalist.oneitem=You have added 1 item
+hmrc.addtoalist.multipleitems=You have added {0} items
+hmrc.addtoalist.change=Change
+hmrc.addtoalist.change.visuallyhidden=Change {0}
+hmrc.addtoalist.remove=Remove
+hmrc.addtoalist.remove.=Remove {0} from the list
+hmrc.addtoalist.addanother=Do you need to add another item?
+hmrc.addtoalist.continue=Continue

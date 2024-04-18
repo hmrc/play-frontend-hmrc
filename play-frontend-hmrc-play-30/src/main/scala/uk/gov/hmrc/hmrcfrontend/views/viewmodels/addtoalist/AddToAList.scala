@@ -17,15 +17,16 @@
 package uk.gov.hmrc.hmrcfrontend.views.viewmodels.addtoalist
 
 import play.api.libs.json.{Json, OFormat}
-import uk.gov.hmrc.hmrcfrontend.views.viewmodels.language.{En, Language}
+//import uk.gov.hmrc.hmrcfrontend.views.viewmodels.language.{En, Language}
 
 case class AddToAList(
   itemList: Seq[ListItem] = Seq.empty,
   itemType: Option[ItemType] = None,
   itemSize: ItemSize = Short,
   formAction: Option[String] = None,
-  hintText: Option[String] = None,
-  language: Language = En
+  hintText: Option[String] = None
+//  ,
+//  language: Language = En
 )
 
 object AddToAList {

@@ -40,3 +40,12 @@ govuk.exitThisPage.contentFallbackText=Gadael y dudalen hon
 govuk.exitThisPage.redirectUrlFallback=https://www.bbc.co.uk/weather
 govuk.exitThisPage.visuallyHiddenFallbackText=Argyfwng
 govuk.tabs.titleFallbackText=Cynnwys
+
+hmrc.addtoalist.zeroitems=Nid ydych wedi ychwanegu unrhyw eitemau
+hmrc.addtoalist.oneitem=Rydych wedi ychwanegu 1 eitem
+hmrc.addtoalist.multipleitems=Rydych wedi ychwanegu {0} o eitemau
+hmrc.addtoalist.change=Newid
+hmrc.addtoalist.remove=Remove
+hmrc.addtoalist.remove.visuallyhidden=Remove {0} from the list
+hmrc.addtoalist.addanother=Do you need to add another item?
+hmrc.addtoalist.continue=Continue
