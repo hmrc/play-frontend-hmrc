@@ -53,6 +53,8 @@ case class Checkboxes(
 
 object Checkboxes {
 
+  import FormGroup._
+
   def defaultObject: Checkboxes = Checkboxes()
 
   implicit def jsonReads: Reads[Checkboxes] =
@@ -61,7 +63,7 @@ object Checkboxes {
         (__ \ "fieldset").readNullable[Fieldset] and
         (__ \ "hint").readNullable[Hint] and
         (__ \ "errorMessage").readNullable[ErrorMessage] and
-        (__ \ "formGroup").readWithDefault[FormGroup](defaultObject.formGroup) and
+        (__ \ "formGroup").readWithDefault[FormGroup](defaultObject.formGroup)(jsonReadsCheckboxes) and
         (__ \ "idPrefix").readNullable[String] and
         (__ \ "name").readWithDefault[String](defaultObject.name) and
         (__ \ "items").readWithDefault[Seq[CheckboxItem]](defaultObject.items)(forgivingSeqReads[CheckboxItem]) and
@@ -76,7 +78,7 @@ object Checkboxes {
         (__ \ "fieldset").writeNullable[Fieldset] and
         (__ \ "hint").writeNullable[Hint] and
         (__ \ "errorMessage").writeNullable[ErrorMessage] and
-        (__ \ "formGroup").write[FormGroup] and
+        (__ \ "formGroup").write[FormGroup](jsonWritesCheckboxes) and
         (__ \ "idPrefix").writeNullable[String] and
         (__ \ "name").write[String] and
         (__ \ "items").write[Seq[CheckboxItem]] and

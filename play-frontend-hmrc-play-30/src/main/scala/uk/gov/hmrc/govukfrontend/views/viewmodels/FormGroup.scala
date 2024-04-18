@@ -37,11 +37,24 @@ object FormGroup {
         (__ \ "afterInput").readNullable[Content]
     )(FormGroup.apply _)
 
+  def jsonReadsCheckboxes: Reads[FormGroup] =     (
+    (__ \ "classes").readNullable[String] and
+      (__ \ "attributes").readWithDefault[Map[String, String]](Map.empty) and
+      (__ \ "afterInputs").readNullable[Content]
+    )(FormGroup.apply _)
+
   implicit def jsonWrites: OWrites[FormGroup] =
     (
       (__ \ "classes").writeNullable[String] and
         (__ \ "attributes").write[Map[String, String]] and
         (__ \ "afterInput").writeNullable[Content]
     )(unlift(FormGroup.unapply))
+
+  def jsonWritesCheckboxes: OWrites[FormGroup] =
+    (
+      (__ \ "classes").writeNullable[String] and
+        (__ \ "attributes").write[Map[String, String]] and
+        (__ \ "afterInputs").writeNullable[Content]
+      )(unlift(FormGroup.unapply))
 
 }
