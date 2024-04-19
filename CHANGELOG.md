@@ -8,6 +8,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 For compatibility information see `govukFrontendVersion` and `hmrcFrontendVersion` in
 [LibDependencies](project/LibDependencies.scala)
 
+## [9.6.1] - 2024-04-15
+
+### Changed
+
+- Added in caching with a max-age of 60 minutes for hmrc-frontend resources
+
 ## [9.6.0] - 2024-04-10
 
 ### Changed

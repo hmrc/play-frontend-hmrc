@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 HM Revenue & Customs
+ * Copyright 2024 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,6 +18,7 @@ package uk.gov.hmrc.hmrcfrontend.controllers
 
 import org.scalatest.TestData
 import org.scalatest.matchers.must.Matchers
+import org.scalatest.matchers._
 import org.scalatest.wordspec.AnyWordSpec
 import org.scalatestplus.play.guice.GuiceOneAppPerTest
 import play.api.Application
@@ -36,6 +37,17 @@ class AssetsSpec extends AnyWordSpec with Matchers with Results with GuiceOneApp
   "Asset controller " must {
     "serve an asset in the public assets folder" in {
       status(route(app, FakeRequest("GET", "/assets/all.js")).get) must be(200)
+    }
+  }
+  "Asset controller " must {
+    "serve assets with correct cache-control headers" in {
+    val cacheControlHeader = header("Cache-Control", route(app, FakeRequest("GET", "/assets/all.js")).get)
+    cacheControlHeader match {
+      case Some(headerValue) =>
+        headerValue must include("max-age=3600")
+      case None =>
+        fail("Cache-Control header not found")
+      }
     }
   }
 
