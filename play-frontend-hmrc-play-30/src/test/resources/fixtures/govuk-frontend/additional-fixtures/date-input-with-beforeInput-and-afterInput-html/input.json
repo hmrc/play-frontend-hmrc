@@ -1,0 +1,20 @@
+{
+  "id" : "dob",
+  "namePrefix" : "dob",
+  "fieldset" : {
+    "legend" : {
+      "text" : "What is your date of birth?"
+    }
+  },
+  "hint" : {
+    "text" : "For example, 31 3 1980"
+  },
+  "formGroup" : {
+    "beforeInputs": { "html": "<p>test before</p>"},
+    "afterInputs": { "html": "<p>test after</p>"},
+    "attributes" : {
+      "some-data-attribute": "true",
+      "some-other-data-attribute": "eleven"
+    }
+  }
+}

@@ -24,25 +24,16 @@ import uk.gov.hmrc.govukfrontend.views.viewmodels.input.InputWrapper
 
 object Generators {
 
-  // TODO remove once all inputs implement formGroup.beforeInput / formGroup.afterInput
-  val arbFormGroupWithoutBeforeOrAfterInput: Arbitrary[FormGroup] = Arbitrary {
-    for {
-      classes    <- Gen.option(genClasses())
-      attributes <- genAttributes()
-    } yield FormGroup(
-      classes = classes,
-      attributes = attributes
-    )
-  }
-
   val arbFormGroup: Arbitrary[FormGroup] = Arbitrary {
     for {
-      classes    <- Gen.option(genClasses())
-      attributes <- genAttributes()
-      afterInput <- Gen.option(arbContent.arbitrary)
+      classes     <- Gen.option(genClasses())
+      attributes  <- genAttributes()
+      beforeInput <- Gen.option(arbContent.arbitrary)
+      afterInput  <- Gen.option(arbContent.arbitrary)
     } yield FormGroup(
       classes = classes,
       attributes = attributes,
+      beforeInput = beforeInput,
       afterInput = afterInput
     )
   }

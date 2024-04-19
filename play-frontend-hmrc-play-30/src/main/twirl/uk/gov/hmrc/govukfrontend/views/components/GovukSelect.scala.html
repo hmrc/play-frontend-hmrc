@@ -40,6 +40,7 @@
   @defining {
     id="@id" name="@name"@if(disabled.getOrElse(false)) { disabled} @describedBy.toOption.map { describedBy => aria-describedby="@describedBy"}@toAttributes(attributes)
   } { attrs =>
+      @{formGroup.beforeInput.map(_.asHtml)}
       <select class="@toClasses("govuk-select", classes, errorMessage.fold("")(_ => "govuk-select--error"))" @attrs>
         @for(item <- items) {
           @defining((value.nonEmpty && item.value == value) || item.selected) { isSelected =>
@@ -52,5 +53,6 @@
           }
         }
       </select>
+      @{formGroup.afterInput.map(_.asHtml)}
   }
 }

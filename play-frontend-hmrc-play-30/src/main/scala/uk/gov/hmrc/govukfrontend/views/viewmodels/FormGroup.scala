@@ -19,10 +19,12 @@ package uk.gov.hmrc.govukfrontend.views.viewmodels
 import play.api.libs.functional.syntax._
 import play.api.libs.json._
 import uk.gov.hmrc.govukfrontend.views.viewmodels.content.Content
+import uk.gov.hmrc.govukfrontend.views.viewmodels.content.Content._
 
 case class FormGroup(
   classes: Option[String] = None,
   attributes: Map[String, String] = Map.empty,
+  beforeInput: Option[Content] = None,
   afterInput: Option[Content] = None
 )
 
@@ -34,6 +36,7 @@ object FormGroup {
     (
       (__ \ "classes").readNullable[String] and
         (__ \ "attributes").readWithDefault[Map[String, String]](Map.empty) and
+        (__ \ "beforeInput").readNullable[Content] and
         (__ \ "afterInput").readNullable[Content]
     )(FormGroup.apply _)
 
@@ -41,7 +44,22 @@ object FormGroup {
     (
       (__ \ "classes").writeNullable[String] and
         (__ \ "attributes").write[Map[String, String]] and
+        (__ \ "beforeInput").writeNullable[Content] and
         (__ \ "afterInput").writeNullable[Content]
     )(unlift(FormGroup.unapply))
 
+  def jsonReadsForMultipleInputs: Reads[FormGroup] = (
+    (__ \ "classes").readNullable[String] and
+      (__ \ "attributes").readWithDefault[Map[String, String]](Map.empty) and
+      (__ \ "beforeInputs").readNullable[Content] and
+      (__ \ "afterInputs").readNullable[Content]
+  )(FormGroup.apply _)
+
+  def jsonWritesForMultipleInputs: OWrites[FormGroup] =
+    (
+      (__ \ "classes").writeNullable[String] and
+        (__ \ "attributes").write[Map[String, String]] and
+        (__ \ "beforeInputs").writeNullable[Content] and
+        (__ \ "afterInputs").writeNullable[Content]
+    )(unlift(FormGroup.unapply))
 }

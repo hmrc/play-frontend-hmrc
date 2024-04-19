@@ -1,0 +1,16 @@
+{
+  "id" : "with-formgroup",
+  "name" : "with-formgroup",
+  "maxlength" : 10,
+  "label" : {
+    "text" : "With formgroup"
+  },
+  "formGroup" : {
+    "beforeInput": { "text": "test before"},
+    "afterInput": { "text": "test after"},
+    "attributes" : {
+      "some-data-attribute": "true",
+      "some-other-data-attribute": "eleven"
+    }
+  }
+}

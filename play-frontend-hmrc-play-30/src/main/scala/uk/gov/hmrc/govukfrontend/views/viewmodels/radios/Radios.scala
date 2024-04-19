@@ -21,6 +21,7 @@ import play.api.libs.json._
 import uk.gov.hmrc.govukfrontend.views.html.components._
 import uk.gov.hmrc.govukfrontend.views.viewmodels.CommonJsonFormats._
 import uk.gov.hmrc.govukfrontend.views.viewmodels.FormGroup
+import uk.gov.hmrc.govukfrontend.views.viewmodels.FormGroup.{jsonReadsForMultipleInputs, jsonWritesForMultipleInputs}
 
 /** Parameters to `GovukRadios` Twirl template
   *
@@ -58,7 +59,7 @@ object Radios {
       (__ \ "fieldset").readNullable[Fieldset] and
         (__ \ "hint").readNullable[Hint] and
         (__ \ "errorMessage").readNullable[ErrorMessage] and
-        (__ \ "formGroup").readWithDefault[FormGroup](defaultObject.formGroup) and
+        (__ \ "formGroup").readWithDefault[FormGroup](defaultObject.formGroup)(jsonReadsForMultipleInputs) and
         (__ \ "idPrefix").readNullable[String] and
         (__ \ "name").readWithDefault[String](defaultObject.name) and
         (__ \ "items").readWithDefault[Seq[RadioItem]](defaultObject.items)(forgivingSeqReads[RadioItem]) and
@@ -72,7 +73,7 @@ object Radios {
       (__ \ "fieldset").writeNullable[Fieldset] and
         (__ \ "hint").writeNullable[Hint] and
         (__ \ "errorMessage").writeNullable[ErrorMessage] and
-        (__ \ "formGroup").write[FormGroup] and
+        (__ \ "formGroup").write[FormGroup](jsonWritesForMultipleInputs) and
         (__ \ "idPrefix").writeNullable[String] and
         (__ \ "name").write[String] and
         (__ \ "items").write[Seq[RadioItem]] and

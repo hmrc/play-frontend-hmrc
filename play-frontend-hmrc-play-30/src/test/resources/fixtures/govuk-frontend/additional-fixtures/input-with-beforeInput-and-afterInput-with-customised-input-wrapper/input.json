@@ -10,8 +10,9 @@
       "data-attribute" : "value"
     }
   },
-  "afterInput" : {
-    "text" : "some-text"
+  "formGroup" : {
+    "beforeInput": { "text": "test before"},
+    "afterInput": { "html": "<p>test after</p>"}
   },
   "prefix" : {
     "text" : "£"
