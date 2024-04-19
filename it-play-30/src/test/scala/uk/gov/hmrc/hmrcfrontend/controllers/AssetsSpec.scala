@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 HM Revenue & Customs
+ * Copyright 2024 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -47,7 +47,7 @@ class AssetsSpec extends AnyWordSpec with Matchers with Results with GuiceOneApp
         headerValue must include("max-age=3600")
       case None =>
         fail("Cache-Control header not found")
-    }      
+      }
     }
   }
 
