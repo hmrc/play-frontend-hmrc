@@ -23,6 +23,7 @@
 * [ADR-0019](0019-add-welsh-language-support-to-govuk-accessible-autocomplete.md) - Add Welsh language support to the GOVUK accessible autocomplete wrapper
 * [ADR-0020](0020-reduce-support-for-internet-explorer.md) - Reduce support for Internet Explorer
 * [ADR-0021](0021-defer-inclusion-of-password-field.md) - Defer Inclusion of Password Field from govuk-frontend v5.3.0
+* [ADR-0022](0022-can-we-replace-language-params-in-components-with-play-messages-api.md) - Can we replace the string `language` params in `hmrc-frontend` components with Play Messages API?
 
 <!-- adrlogstop -->
 
