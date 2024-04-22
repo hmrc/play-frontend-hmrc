@@ -37,6 +37,8 @@
   @defining {
     id="@id" name="@name" type="file"@value.mapNonEmpty { value => value="@value" }@if(disabled.getOrElse(false)) { disabled}@if(describedBy.nonEmpty) { aria-describedby="@describedBy"}@toAttributes(attributes)
   } { attrs =>
+      @formGroup.beforeInput.map(_.asHtml)
       <input class="@toClasses("govuk-file-upload", classes, errorMessage.fold("")(_ => "govuk-file-upload--error"))" @attrs>
+      @formGroup.afterInput.map(_.asHtml)
   }
 }

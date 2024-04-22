@@ -52,6 +52,7 @@
 
 @divSnippet(unusedDescribedBy: String) = {
   <div class="@toClasses("govuk-radios", classes)"@toAttributes(attributes) data-module="govuk-radios">
+  @{formGroup.beforeInput.map(_.asHtml)}
   @for((item, index) <- items.zip(LazyList from 1)) {
     @defining(itemId(item, index)) { id =>
     @defining(s"conditional-$id") { conditionalId =>
@@ -94,6 +95,7 @@
       }
     }}
   }
+  @{formGroup.afterInput.map(_.asHtml)}
   </div>
 }
 

@@ -57,6 +57,7 @@
 
 @divSnippet(describedBy: String) = {
   <div class="@toClasses("govuk-checkboxes", classes)"@toAttributes(attributes) data-module="govuk-checkboxes">
+    @{formGroup.beforeInput.map(_.asHtml)}
     @for((item, index) <- items.zip(LazyList from 1)) {
       @if(item.divider.exists(_.nonEmpty)) {
         <div class="govuk-checkboxes__divider">@item.divider</div>
@@ -89,6 +90,7 @@
         }
       }
     }
+    @{formGroup.afterInput.map(_.asHtml)}
   </div>
 }
 

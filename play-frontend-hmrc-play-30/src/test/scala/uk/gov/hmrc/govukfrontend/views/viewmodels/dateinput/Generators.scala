@@ -54,7 +54,7 @@ object Generators {
       items        <- Gen.listOfN(n, arbInputItem.arbitrary)
       hint         <- Gen.option(arbHint.arbitrary)
       errorMessage <- Gen.option(arbErrorMessage.arbitrary)
-      formGroup    <- arbFormGroupWithoutBeforeOrAfterInput.arbitrary
+      formGroup    <- arbFormGroup.arbitrary
       fieldset     <- Gen.option(arbFieldset.arbitrary)
       classes      <- genClasses()
       attributes   <- genAttributes()

@@ -1,0 +1,10 @@
+<div class="govuk-form-group" some-data-attribute="true" some-other-data-attribute="eleven">
+  <label class="govuk-label" for="input-example">
+    National Insurance number
+  </label>
+  <div class="govuk-input__wrapper">
+test before
+    <input class="govuk-input" id="input-example" name="test-name" type="text">
+test after
+  </div>
+</div>

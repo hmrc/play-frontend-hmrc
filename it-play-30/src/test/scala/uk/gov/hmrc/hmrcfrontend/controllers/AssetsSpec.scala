@@ -18,7 +18,6 @@ package uk.gov.hmrc.hmrcfrontend.controllers
 
 import org.scalatest.TestData
 import org.scalatest.matchers.must.Matchers
-import org.scalatest.matchers._
 import org.scalatest.wordspec.AnyWordSpec
 import org.scalatestplus.play.guice.GuiceOneAppPerTest
 import play.api.Application

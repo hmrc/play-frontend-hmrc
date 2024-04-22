@@ -60,6 +60,7 @@
 
 @divSnippet(unusedDescribedBy: String) = {
   <div class="@toClasses("govuk-date-input", classes)"@toAttributes(attributes) id="@id">
+    @{formGroup.beforeInput.map(_.asHtml)}
     @for(item <- dateInputItems) {
       <div class="govuk-date-input__item">
         @govukInput(Input(
@@ -80,6 +81,7 @@
         ))
       </div>
     }
+    @{formGroup.afterInput.map(_.asHtml)}
   </div>
 }
 
