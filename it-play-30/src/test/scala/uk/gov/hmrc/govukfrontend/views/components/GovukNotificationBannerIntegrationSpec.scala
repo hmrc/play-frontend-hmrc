@@ -23,6 +23,5 @@ import uk.gov.hmrc.govukfrontend.views.viewmodels.notificationbanner.Generators.
 object GovukNotificationBannerIntegrationSpec
     extends MessagesAwareTemplateIntegrationSpec[NotificationBanner, GovukNotificationBanner](
       govukComponentName = "govukNotificationBanner",
-      seed = None,
-      maximumCompression = true
+      seed = None
     )
