@@ -14,6 +14,8 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.govukfrontend.views
+package uk.gov.hmrc.hmrcfrontend.views
 
-class TemplateUnitMetaSpec extends TemplateMetaSpec("govuk-frontend", "play-frontend-hmrc-play-30")
+import uk.gov.hmrc.govukfrontend.views.TemplateMetaSpec
+
+class TemplateUnitMetaSpec extends TemplateMetaSpec("hmrc-frontend", "play-frontend-hmrc-play-30")
