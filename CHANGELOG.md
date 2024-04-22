@@ -8,7 +8,18 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 For compatibility information see `govukFrontendVersion` and `hmrcFrontendVersion` in
 [LibDependencies](project/LibDependencies.scala)
 
-## [9.7.0] - 2024-04-19
+## [9.9.0] - 2024-04-22
+
+### Changed
+
+- Compress whitespace in integration tests (test change only)
+
+### Compatible with
+
+- [hmrc/hmrc-frontend v6.15.0](https://github.com/hmrc/hmrc-frontend/releases/tag/v6.15.0)
+- [alphagov/govuk-frontend v5.3.0](https://github.com/alphagov/govuk-frontend/releases/tag/v5.3.0)
+
+## [9.8.0] - 2024-04-19
 
 ### Changed
 
@@ -19,7 +30,7 @@ For compatibility information see `govukFrontendVersion` and `hmrcFrontendVersio
 - [hmrc/hmrc-frontend v6.15.0](https://github.com/hmrc/hmrc-frontend/releases/tag/v6.15.0)
 - [alphagov/govuk-frontend v5.3.0](https://github.com/alphagov/govuk-frontend/releases/tag/v5.3.0)
 
-## [9.6.1] - 2024-04-15
+## [9.7.0] - 2024-04-15
 
 ### Changed
 

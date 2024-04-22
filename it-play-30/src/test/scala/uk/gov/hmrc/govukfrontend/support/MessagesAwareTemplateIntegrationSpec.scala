@@ -39,9 +39,8 @@ abstract class MessagesAwareTemplateIntegrationSpec[T: OWrites: Arbitrary, C <: 
   HtmlFormat.Appendable
 ]: ClassTag](
   govukComponentName: String,
-  seed: Option[String] = None,
-  maximumCompression: Boolean = false
-) extends TemplateIntegrationBaseSpec[T](govukComponentName, seed, maximumCompression)
+  seed: Option[String] = None
+) extends TemplateIntegrationBaseSpec[T](govukComponentName, seed)
     with MessagesSupport {
 
   protected val libraryName: String = "govuk"

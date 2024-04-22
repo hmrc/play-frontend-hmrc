@@ -23,6 +23,5 @@ import uk.gov.hmrc.govukfrontend.views.viewmodels.exitthispage.Generators._
 object GovukExitThisPageIntegrationSpec
     extends MessagesAwareTemplateIntegrationSpec[ExitThisPage, GovukExitThisPage](
       govukComponentName = "govukExitThisPage",
-      seed = None,
-      maximumCompression = true
+      seed = None
     )

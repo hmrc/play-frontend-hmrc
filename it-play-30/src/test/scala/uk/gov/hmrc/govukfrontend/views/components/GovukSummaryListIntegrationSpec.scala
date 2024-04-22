@@ -24,6 +24,5 @@ import uk.gov.hmrc.govukfrontend.views.viewmodels.summarylist.SummaryList
 object GovukSummaryListIntegrationSpec
     extends TemplateIntegrationSpec[SummaryList, GovukSummaryList](
       govukComponentName = "govukSummaryList",
-      seed = None,
-      maximumCompression = true
+      seed = None
     )

@@ -23,6 +23,5 @@ import uk.gov.hmrc.govukfrontend.views.viewmodels.pagination.Generators._
 object GovukPaginationIntegrationSpec
     extends MessagesAwareTemplateIntegrationSpec[Pagination, GovukPagination](
       govukComponentName = "govukPagination",
-      seed = None,
-      maximumCompression = true
+      seed = None
     )
