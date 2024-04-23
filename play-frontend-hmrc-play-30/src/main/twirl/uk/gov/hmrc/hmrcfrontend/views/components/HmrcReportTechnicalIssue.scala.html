@@ -14,7 +14,10 @@
  * limitations under the License.
  *@
 
+@import uk.gov.hmrc.hmrcfrontend.views.html.components._
+
 @this()
+
 
 @(params: ReportTechnicalIssue)
 @import params._
@@ -22,8 +25,8 @@
   <a lang="@params.language.code"
     hreflang="@params.language.code"
     class="@toClasses("govuk-link hmrc-report-technical-issue ", classes.getOrElse(""))"
-    @if(params.referrerUrl.nonEmpty) { rel="noreferrer noopener" }
+    @if(params.referrerUrl.exists(_.nonEmpty)) { rel="noreferrer noopener" }
     target="_blank"
-    href="@params.baseUrl.getOrElse("")/contact/report-technical-problem?newTab=true&amp;service=@urlEncode(service)@if(params.referrerUrl.nonEmpty) {&amp;referrerUrl=@urlEncode(params.referrerUrl.get)}"
+    href="@params.baseUrl.getOrElse("")/contact/report-technical-problem?newTab=true&amp;service=@urlEncode(service)@params.referrerUrl.filter(_.nonEmpty).map{ url =>&amp;referrerUrl=@urlEncode(url)}"
   >@if(params.language.code == "cy") {A yw’r dudalen hon yn gweithio’n iawn? (yn agor tab newydd)} else {Is this page not working properly? (opens in new tab)}</a>
 }
