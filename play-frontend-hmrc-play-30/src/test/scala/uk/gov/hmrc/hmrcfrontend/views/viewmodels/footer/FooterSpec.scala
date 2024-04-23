@@ -16,19 +16,7 @@
 
 package uk.gov.hmrc.hmrcfrontend.views.viewmodels.footer
 
-import play.api.libs.json._
-import uk.gov.hmrc.hmrcfrontend.views.viewmodels.language.{En, Language}
+import uk.gov.hmrc.hmrcfrontend.views.viewmodels.JsonRoundtripSpec
+import uk.gov.hmrc.hmrcfrontend.views.viewmodels.footer.Generators._
 
-case class Footer(
-  meta: Option[Meta] = None,
-  navigation: Seq[FooterNavigation] = Seq.empty,
-  containerClasses: String = "",
-  classes: String = "",
-  attributes: Map[String, String] = Map.empty,
-  @deprecated language: Language = En // only used for tests - component uses implicit Play messages for i18n
-)
-
-object Footer {
-
-  implicit def jsonFormats: OFormat[Footer] = Json.using[Json.WithDefaultValues].format[Footer]
-}
+class FooterSpec extends JsonRoundtripSpec[Footer]
