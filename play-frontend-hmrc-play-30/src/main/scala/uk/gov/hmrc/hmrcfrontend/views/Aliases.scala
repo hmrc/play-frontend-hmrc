@@ -91,6 +91,14 @@ trait Aliases {
   val ReportTechnicalIssue = viewmodels.reporttechnicalissue.ReportTechnicalIssue
 
   type CurrencyInput = viewmodels.currencyinput.CurrencyInput
+
+  @deprecated(
+    "Use GovukInput template with `£` prefix instead. For examples, please see:\n" +
+      "- HMRC Design Patterns: https://design.tax.service.gov.uk/hmrc-design-patterns/currency-input/, and \n" +
+      "- GOV.UK Design System: https://design-system.service.gov.uk/components/text-input/#prefixes-and-suffixes. \n" +
+      "CurrencyInput component will be removed in a future library version.",
+    "9.9.0"
+  )
   val CurrencyInput = viewmodels.currencyinput.CurrencyInput
 
   type UserResearchBanner = viewmodels.userresearchbanner.UserResearchBanner
