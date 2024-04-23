@@ -23,10 +23,10 @@ import uk.gov.hmrc.hmrcfrontend.views.HmrcFrontendDependency
 class AssetsConfig @Inject() () {
   private val hmrcFrontendVersion = HmrcFrontendDependency.hmrcFrontendVersion
 
-  lazy val hmrcFrontendCssUrl: String    = hmrcFrontendAssetUrl(s"hmrc-frontend-$hmrcFrontendVersion.min.css")
-  lazy val hmrcFrontendJsUrl: String     = hmrcFrontendAssetUrl(s"hmrc-frontend-$hmrcFrontendVersion.min.js")
-  lazy val autocompleteJsUrl: String     = hmrcFrontendAssetUrl(s"accessible-autocomplete-$hmrcFrontendVersion.js")
-  lazy val autocompleteCssUrl: String    = hmrcFrontendAssetUrl(s"accessible-autocomplete-$hmrcFrontendVersion.css")
+  lazy val hmrcFrontendCssUrl: String = hmrcFrontendAssetUrl(s"hmrc-frontend-$hmrcFrontendVersion.min.css")
+  lazy val hmrcFrontendJsUrl: String  = hmrcFrontendAssetUrl(s"hmrc-frontend-$hmrcFrontendVersion.min.js")
+  lazy val autocompleteJsUrl: String  = hmrcFrontendAssetUrl(s"accessible-autocomplete-$hmrcFrontendVersion.js")
+  lazy val autocompleteCssUrl: String = hmrcFrontendAssetUrl(s"accessible-autocomplete-$hmrcFrontendVersion.css")
 
   private def hmrcFrontendAssetUrl(filename: String) = Assets.at(filename).url
 }
