@@ -16,6 +16,6 @@
 
 package uk.gov.hmrc.hmrcfrontend.views
 
-import uk.gov.hmrc.govukfrontend.views.TemplateMetaSpec
+import uk.gov.hmrc.helpers.views.TemplateUnitBaseMetaSpec
 
-class TemplateUnitMetaSpec extends TemplateMetaSpec("hmrc-frontend", "play-frontend-hmrc-play-30")
+class TemplateUnitMetaSpec extends TemplateUnitBaseMetaSpec("hmrc-frontend")

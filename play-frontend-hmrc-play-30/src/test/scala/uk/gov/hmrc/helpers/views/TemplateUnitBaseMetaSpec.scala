@@ -14,25 +14,25 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.govukfrontend.views
+package uk.gov.hmrc.helpers.views
 
 import better.files.{File, Resource}
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpec
 import play.api.libs.json.Json
 
-abstract class TemplateMetaSpec(val libraryName: String, val projectPath: String) extends AnyWordSpec with Matchers {
+abstract class TemplateUnitBaseMetaSpec(val libraryName: String) extends AnyWordSpec with Matchers {
 
-  val libraryDir = libraryName.replace("-", "")
+  private val libraryDir       = libraryName.replace("-", "")
+  private val projectPath      = "play-frontend-hmrc-play-30"
+  private val projectRoot      = File(projectPath)
+  private val testRoot         = projectRoot / "src" / "test" / "scala"
+  private val componentTestDir = testRoot / "uk" / "gov" / "hmrc" / libraryDir / "views" / "components"
 
-  val projectRoot: File      = File(projectPath)
-  val testRoot: File         = projectRoot / "src" / "test" / "scala"
-  val componentTestDir: File = testRoot / "uk" / "gov" / "hmrc" / libraryDir / "views" / "components"
+  private val fixturesResourcePath = s"/fixtures/$libraryName"
+  private val fixturesDir          = File(Resource.my.getUrl(fixturesResourcePath))
 
-  val fixturesRootPath: String = s"/fixtures/$libraryName"
-  val fixturesDir: File        = File(Resource.my.getUrl(fixturesRootPath))
-
-  "TemplateUnitSpec" when {
+  this.getClass.getCanonicalName when {
 
     val fixtureTypes = fixturesDir.children.filter(_.isDirectory).filterNot(_.name == "excluded-fixtures")
     fixtureTypes.foreach { fixtureType =>
