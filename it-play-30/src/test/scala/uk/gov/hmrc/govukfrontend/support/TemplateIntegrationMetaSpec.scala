@@ -16,6 +16,10 @@
 
 package uk.gov.hmrc.govukfrontend.support
 
-import uk.gov.hmrc.govukfrontend.views.TemplateMetaSpec
+import uk.gov.hmrc.support.TemplateIntegrationBaseMetaSpec
 
-class TemplateIntegrationMetaSpec extends TemplateMetaSpec("govuk-frontend", "it-play-30")
+class TemplateIntegrationMetaSpec
+    extends TemplateIntegrationBaseMetaSpec(
+      libraryName = "govuk-frontend",
+      ignoredHelpers = Seq("govukTemplate", "govukLayout")
+    )
