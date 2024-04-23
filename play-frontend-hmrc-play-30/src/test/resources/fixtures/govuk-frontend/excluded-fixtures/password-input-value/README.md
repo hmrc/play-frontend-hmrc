@@ -1,0 +1,1 @@
+This fixture is excluded because we decided to not yet implement the Password Input component - see [ADR-0021](docs/maintainers/adr/0021-defer-inclusion-of-password-field.md)
