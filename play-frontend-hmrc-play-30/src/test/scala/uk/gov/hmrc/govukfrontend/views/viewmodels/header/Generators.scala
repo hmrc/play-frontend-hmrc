@@ -33,14 +33,14 @@ object Generators {
 
   implicit val arbHeader: Arbitrary[Header] = Arbitrary {
     for {
-      homepageUrl       <- Gen.option(genAlphaStr())
+      homepageUrl       <- Gen.option(genNonEmptyAlphaStr)
       productName       <- Gen.option(genAlphaStr())
       serviceName       <- Gen.option(genAlphaStr())
       serviceUrl        <- Gen.option(genAlphaStr())
       n                 <- Gen.chooseNum(0, 5)
       navigation        <- Gen.option(Gen.listOfN(n, arbHeaderNavigation.arbitrary))
       navigationClasses <- genClasses()
-      containerClasses  <- Gen.option(genClasses())
+      containerClasses  <- Gen.option(genNonEmptyAlphaStr)
       classes           <- genClasses()
       attributes        <- genAttributes()
     } yield Header(
