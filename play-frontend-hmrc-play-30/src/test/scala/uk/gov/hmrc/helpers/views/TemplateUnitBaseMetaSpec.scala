@@ -39,21 +39,29 @@ abstract class TemplateUnitBaseMetaSpec(val libraryName: String) extends AnyWord
       s"fixture type is ${fixtureType.name}" when {
 
         val fixtures = fixtureType.children.filter(_.isDirectory).toList.sortBy(_.name)
-        fixtures.foreach { fixture =>
-          s"fixture is ${fixture.name}" should {
+        fixtures
+          .map { fixture =>
+            val componentName = (Json.parse((fixture / "component.json").contentAsString) \ "name")
+              .as[String]
+            (componentName, fixture.name)
+          }
+          .groupBy { case (componentName, _) => componentName }
+          .foreach { case (componentName, fixtures) =>
+            s"component is $componentName" should {
 
-            "be covered by a test" in {
-              val componentName = (Json.parse((fixture / "component.json").contentAsString) \ "name")
-                .as[String]
+              "be covered by a unit test" in {
 
-              withClue(s"""no test found for component "$componentName" under $componentTestDir""") {
-                componentTestDir.children
-                  .filter(_.isRegularFile)
-                  .exists(_.contentAsString.contains(s""""$componentName"""")) should be(true)
+                withClue(
+                  s"""no test found under $componentTestDir for component "$componentName"""" +
+                    s""" (fixtures ${fixtures.map { case (_, name) => name }.mkString(", ")})"""
+                ) {
+                  componentTestDir.children
+                    .filter(_.isRegularFile)
+                    .exists(_.contentAsString.contains(s""""$componentName"""")) should be(true)
+                }
               }
             }
           }
-        }
       }
     }
   }
