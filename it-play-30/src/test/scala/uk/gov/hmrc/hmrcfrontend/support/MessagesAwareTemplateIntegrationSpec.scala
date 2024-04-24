@@ -39,9 +39,8 @@ abstract class MessagesAwareTemplateIntegrationSpec[T: OWrites: Arbitrary, C <: 
   HtmlFormat.Appendable
 ]: ClassTag](
   hmrcComponentName: String,
-  seed: Option[String] = None,
-  maximumCompression: Boolean = false
-) extends TemplateIntegrationBaseSpec[T](hmrcComponentName, seed, maximumCompression)
+  seed: Option[String] = None
+) extends TemplateIntegrationBaseSpec[T](hmrcComponentName, seed)
     with MessagesSupport {
 
   protected val libraryName: String = "hmrc"
