@@ -39,20 +39,32 @@ object Generators {
 
   implicit val arbAccordion: Arbitrary[Accordion] = Arbitrary {
     for {
-      id               <- genAlphaStr()
-      headingLevel     <- Gen.chooseNum(1, 6)
-      classes          <- genClasses()
-      attributes       <- genAttributes()
-      n                <- Gen.chooseNum(0, 5)
-      items            <- Gen.listOfN(n, arbSection.arbitrary)
-      rememberExpanded <- Gen.option(arbBool.arbitrary)
+      id                   <- genAlphaStr()
+      headingLevel         <- Gen.chooseNum(1, 6)
+      classes              <- genClasses()
+      attributes           <- genAttributes()
+      n                    <- Gen.chooseNum(0, 5)
+      items                <- Gen.listOfN(n, arbSection.arbitrary)
+      rememberExpanded     <- Gen.option(arbBool.arbitrary)
+      hideSection          <- Gen.option(genNonEmptyAlphaStr)
+      hideAllSections      <- Gen.option(genNonEmptyAlphaStr)
+      showSection          <- Gen.option(genNonEmptyAlphaStr)
+      showAllSections      <- Gen.option(genNonEmptyAlphaStr)
+      showSectionAriaLabel <- Gen.option(genNonEmptyAlphaStr)
+      hideSectionAriaLabel <- Gen.option(genNonEmptyAlphaStr)
     } yield Accordion(
       id = id,
       headingLevel = headingLevel,
       classes = classes,
       attributes = attributes,
       items = items,
-      rememberExpanded = rememberExpanded
+      rememberExpanded = rememberExpanded,
+      hideSection = hideSection,
+      showSection = showSection,
+      hideAllSections = hideAllSections,
+      showAllSections = showAllSections,
+      showSectionAriaLabel = showSectionAriaLabel,
+      hideSectionAriaLabel = hideSectionAriaLabel
     )
   }
 }

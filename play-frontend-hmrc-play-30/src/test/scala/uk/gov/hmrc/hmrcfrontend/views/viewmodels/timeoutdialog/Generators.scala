@@ -16,6 +16,7 @@
 
 package uk.gov.hmrc.hmrcfrontend.views.viewmodels.timeoutdialog
 
+import org.scalacheck.Arbitrary.arbBool
 import org.scalacheck.{Arbitrary, Gen}
 import uk.gov.hmrc.hmrcfrontend.views.viewmodels.Generators._
 
@@ -32,6 +33,10 @@ object Generators {
       messageSuffix       <- Gen.option(genAlphaStr())
       keepAliveButtonText <- Gen.option(genAlphaStr())
       signOutButtonText   <- Gen.option(genAlphaStr())
+      hideSignOutButton   <- Gen.option(arbBool.arbitrary)
+      synchroniseTabs     <- Gen.option(arbBool.arbitrary)
+      timeoutUrl          <- Gen.option(genAlphaStr())
+      language            <- Gen.option(genAlphaStr())
     } yield TimeoutDialog(
       timeout = timeout,
       countdown = countdown,
@@ -41,7 +46,11 @@ object Generators {
       message = message,
       messageSuffix = messageSuffix,
       keepAliveButtonText = keepAliveButtonText,
-      signOutButtonText = signOutButtonText
+      signOutButtonText = signOutButtonText,
+      hideSignOutButton = hideSignOutButton,
+      synchroniseTabs = synchroniseTabs,
+      timeoutUrl = timeoutUrl,
+      language = language
     )
   }
 }

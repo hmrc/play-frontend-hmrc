@@ -17,6 +17,7 @@
 package uk.gov.hmrc.govukfrontend.views.viewmodels.radios
 
 import org.scalacheck.{Arbitrary, Gen}
+import org.scalacheck.Arbitrary.arbBool
 import uk.gov.hmrc.govukfrontend.views.viewmodels.Generators._
 import uk.gov.hmrc.govukfrontend.views.viewmodels.content.Generators._
 import uk.gov.hmrc.govukfrontend.views.viewmodels.errormessage.Generators._
@@ -34,9 +35,9 @@ object Generators {
       label           <- Gen.option(arbLabel.arbitrary)
       hint            <- Gen.option(arbHint.arbitrary)
       divider         <- Gen.option(genAlphaStr())
-      checked         <- Arbitrary.arbBool.arbitrary
+      checked         <- arbBool.arbitrary
       conditionalHtml <- Gen.option(arbHtml.arbitrary)
-      disabled        <- Arbitrary.arbBool.arbitrary
+      disabled        <- arbBool.arbitrary
       attributes      <- genAttributes()
     } yield RadioItem(
       content = content,
@@ -64,6 +65,7 @@ object Generators {
       items        <- Gen.listOfN(n, arbRadioItem.arbitrary)
       classes      <- genClasses()
       attributes   <- genAttributes()
+      value        <- Gen.option(genAlphaStr())
     } yield Radios(
       fieldset = fieldset,
       hint = hint,
@@ -73,7 +75,8 @@ object Generators {
       name = name,
       items = items,
       classes = classes,
-      attributes = attributes
+      attributes = attributes,
+      value = value
     )
   }
 

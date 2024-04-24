@@ -17,6 +17,7 @@
 package uk.gov.hmrc.govukfrontend.views.viewmodels.header
 
 import org.scalacheck.{Arbitrary, Gen}
+import org.scalacheck.Arbitrary.arbBool
 import uk.gov.hmrc.govukfrontend.views.viewmodels.Generators._
 import uk.gov.hmrc.govukfrontend.views.viewmodels.content.Generators.arbContent
 
@@ -43,6 +44,10 @@ object Generators {
       containerClasses  <- Gen.option(genNonEmptyAlphaStr)
       classes           <- genClasses()
       attributes        <- genAttributes()
+      menuButtonLabel   <- Gen.option(genNonEmptyAlphaStr)
+      navigationLabel   <- Gen.option(genNonEmptyAlphaStr)
+      menuButtonText    <- Gen.option(genNonEmptyAlphaStr)
+      useTudorCrown     <- Gen.option(arbBool.arbitrary)
     } yield Header(
       homepageUrl = homepageUrl,
       productName = productName,
@@ -52,7 +57,11 @@ object Generators {
       navigationClasses = navigationClasses,
       containerClasses = containerClasses,
       classes = classes,
-      attributes = attributes
+      attributes = attributes,
+      menuButtonLabel = menuButtonLabel,
+      menuButtonText = menuButtonText,
+      navigationLabel = navigationLabel,
+      useTudorCrown = useTudorCrown
     )
   }
 

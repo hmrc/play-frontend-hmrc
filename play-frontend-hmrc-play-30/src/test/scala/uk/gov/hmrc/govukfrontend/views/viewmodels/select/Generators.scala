@@ -17,6 +17,7 @@
 package uk.gov.hmrc.govukfrontend.views.viewmodels.select
 
 import org.scalacheck.{Arbitrary, Gen}
+import org.scalacheck.Arbitrary.arbBool
 import uk.gov.hmrc.govukfrontend.views.viewmodels.Generators._
 import uk.gov.hmrc.govukfrontend.views.viewmodels.errormessage.Generators._
 import uk.gov.hmrc.govukfrontend.views.viewmodels.hint.Generators._
@@ -28,8 +29,8 @@ object Generators {
     for {
       value      <- Gen.option(genAlphaStr())
       text       <- genAlphaStr()
-      selected   <- Arbitrary.arbBool.arbitrary
-      disabled   <- Arbitrary.arbBool.arbitrary
+      selected   <- arbBool.arbitrary
+      disabled   <- arbBool.arbitrary
       attributes <- genAttributes()
     } yield SelectItem(value = value, text = text, selected = selected, disabled = disabled, attributes = attributes)
   }
@@ -47,6 +48,8 @@ object Generators {
       formGroup    <- arbFormGroup.arbitrary
       classes      <- genClasses()
       attributes   <- genAttributes()
+      value        <- Gen.option(genAlphaStr())
+      disabled     <- Gen.option(arbBool.arbitrary)
     } yield Select(
       id = id,
       name = name,
@@ -57,7 +60,9 @@ object Generators {
       errorMessage = errorMessage,
       formGroup = formGroup,
       classes = classes,
-      attributes = attributes
+      attributes = attributes,
+      value = value,
+      disabled = disabled
     )
   }
 }

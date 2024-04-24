@@ -24,11 +24,13 @@ import uk.gov.hmrc.hmrcfrontend.views.viewmodels.content.Generators._
 object Generators {
   implicit val arbErrorMessage: Arbitrary[ErrorMessage] = Arbitrary {
     for {
+      id                 <- Gen.option(genAlphaStr())
       classes            <- genClasses()
       attributes         <- genAttributes()
       visuallyHiddenText <- Gen.option(genAlphaStr())
       content            <- arbContent.arbitrary
     } yield ErrorMessage(
+      id = id,
       classes = classes,
       attributes = attributes,
       visuallyHiddenText = visuallyHiddenText,

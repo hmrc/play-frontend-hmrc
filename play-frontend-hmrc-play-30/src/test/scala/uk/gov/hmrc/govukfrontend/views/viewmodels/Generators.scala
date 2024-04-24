@@ -63,11 +63,13 @@ object Generators {
     value <- genNonEmptyAlphaStr
   } yield (attr, value)
 
-  def genAttributes(nAttributes: Int = 5): Gen[Map[String, String]] =
+  def genAttributes(nAttributes: Int = 5): Gen[Map[String, String]] = genMapValues(nAttributes)
+
+  def genMapValues(nLength: Int = 5): Gen[Map[String, String]] =
     for {
-      sz         <- Gen.chooseNum(0, nAttributes)
-      attributes <- Gen.mapOfN[String, String](sz, genAttrVal)
-    } yield attributes
+      sz  <- Gen.chooseNum(0, nLength)
+      map <- Gen.mapOfN[String, String](sz, genAttrVal)
+    } yield map
 
   val genHtmlString: Gen[String] =
     Gen.oneOf(Gen.const("""<p>some paragraph</p>"""), Gen.const("""<b>Back</b>"""))

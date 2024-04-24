@@ -14,7 +14,6 @@
  * limitations under the License.
  *@
 
-@import uk.gov.hmrc.govukfrontend.views.viewmodels.FormGroup
 @import uk.gov.hmrc.govukfrontend.views.html.components.GovukCharacterCount
 @import uk.gov.hmrc.govukfrontend.views.Aliases.{CharacterCount => GovukFrontendCharacterCount}
 @import uk.gov.hmrc.hmrcfrontend.views.Aliases.{CharacterCount, Cy, En}
@@ -32,6 +31,7 @@
    id = params.id,
    name = params.name,
    rows = params.rows,
+   spellcheck = params.spellcheck,
    value = params.value,
    maxLength = params.maxLength,
    maxWords = params.maxWords,
@@ -71,6 +71,7 @@
   id = params.id,
   name = params.name,
   rows = params.rows,
+  spellcheck = params.spellcheck,
   value = params.value,
   maxLength = params.maxLength,
   maxWords = params.maxWords,

@@ -17,6 +17,6 @@
 package uk.gov.hmrc.govukfrontend.views.viewmodels.content
 
 import uk.gov.hmrc.govukfrontend.views.viewmodels.JsonRoundtripSpec
-import uk.gov.hmrc.govukfrontend.views.viewmodels.content.Generators._
+import uk.gov.hmrc.govukfrontend.views.viewmodels.content.Generators.arbContent
 
 class ContentSpec extends JsonRoundtripSpec[Content]

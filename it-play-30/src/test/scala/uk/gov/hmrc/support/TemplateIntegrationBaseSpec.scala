@@ -27,6 +27,7 @@ import uk.gov.hmrc.helpers.views.{JsoupHelpers, PreProcessor, TemplateValidation
 import uk.gov.hmrc.support.Implicits._
 import uk.gov.hmrc.support.ScalaCheckUtils.{ClassifyParams, classify}
 
+
 import scala.collection.compat.immutable.LazyList
 import scala.util.{Failure, Success}
 
@@ -79,8 +80,8 @@ abstract class TemplateIntegrationBaseSpec[T: OWrites: Arbitrary](
         tryRenderTwirl match {
 
           case Success(twirlOutputHtml)                      =>
-            val preProcessedTwirlHtml    = compressHtml(twirlOutputHtml, maximumCompression = true)
-            val preProcessedNunjucksHtml = compressHtml(nunJucksOutputHtml, maximumCompression = true)
+            val preProcessedTwirlHtml    = compressHtml(normaliseHtml(twirlOutputHtml), maximumCompression = true)
+            val preProcessedNunjucksHtml = compressHtml(normaliseHtml(nunJucksOutputHtml), maximumCompression = true)
             val prop                     = preProcessedTwirlHtml == preProcessedNunjucksHtml
 
             if (!prop) {

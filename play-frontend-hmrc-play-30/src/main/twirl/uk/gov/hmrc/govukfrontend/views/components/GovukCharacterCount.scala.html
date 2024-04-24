@@ -15,7 +15,6 @@
  *@
 
 @import uk.gov.hmrc.govukfrontend.views.html.components._
-@import scala.collection.immutable.ListMap
 
 @this(govukTextarea: GovukTextarea,
       govukHint: GovukHint)
@@ -32,7 +31,7 @@
 }
 
 @dataAttributes = @{
-    val maybeDataAttributes = ListMap(
+    val maybeDataAttributes = Map(
         "data-module" -> "govuk-character-count",
         "data-maxlength" -> maxLength.filter(_ > 0).map(_.toString).getOrElse(""),
         "data-threshold" -> threshold.filter(_ > 0).map(_.toString).getOrElse(""),
@@ -76,6 +75,7 @@
     name = name,
     describedBy = Some(s"${id}-info"),
     rows = rows,
+    spellcheck = spellcheck,
     value = value,
     label = label.copy(forAttr = Some(id)),
     hint = hint,

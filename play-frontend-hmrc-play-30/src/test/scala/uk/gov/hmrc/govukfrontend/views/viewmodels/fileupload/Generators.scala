@@ -21,6 +21,7 @@ import uk.gov.hmrc.govukfrontend.views.viewmodels.Generators._
 import uk.gov.hmrc.govukfrontend.views.viewmodels.errormessage.Generators._
 import uk.gov.hmrc.govukfrontend.views.viewmodels.hint.Generators._
 import uk.gov.hmrc.govukfrontend.views.viewmodels.label.Generators._
+import org.scalacheck.Arbitrary.arbBool
 
 object Generators {
 
@@ -36,6 +37,7 @@ object Generators {
       formGroup    <- arbFormGroup.arbitrary
       classes      <- genClasses()
       attributes   <- genAttributes()
+      disabled     <- Gen.option(arbBool.arbitrary)
     } yield FileUpload(
       name = name,
       id = id,
@@ -46,7 +48,8 @@ object Generators {
       errorMessage = errorMessage,
       formGroup = formGroup,
       classes = classes,
-      attributes = attributes
+      attributes = attributes,
+      disabled = disabled
     )
   }
 

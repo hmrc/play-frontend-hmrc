@@ -22,8 +22,21 @@ import uk.gov.hmrc.govukfrontend.views.viewmodels.errormessage.Generators._
 import uk.gov.hmrc.govukfrontend.views.viewmodels.hint.Generators._
 import uk.gov.hmrc.govukfrontend.views.viewmodels.label.Generators._
 import org.scalacheck.Arbitrary._
+import uk.gov.hmrc.govukfrontend.views.viewmodels.content.Generators.{arbContent, arbHtmlContent}
 
 object Generators {
+
+  val arbPrefixOrSuffix: Arbitrary[PrefixOrSuffix] = Arbitrary {
+    for {
+      classes    <- genAlphaStr()
+      attributes <- genAttributes()
+      content    <- arbHtmlContent.arbitrary.suchThat(_.nonEmpty)
+    } yield PrefixOrSuffix(
+      classes = classes,
+      attributes = attributes,
+      content = content
+    )
+  }
 
   implicit val arbInput: Arbitrary[Input] = Arbitrary {
     for {
@@ -45,6 +58,8 @@ object Generators {
       disabled       <- Gen.option(arbBool.arbitrary)
       autocapitalize <- Gen.option(genNonEmptyAlphaStr)
       inputWrapper   <- arbInputWrapper.arbitrary
+      prefix         <- Gen.option(arbPrefixOrSuffix.arbitrary)
+      suffix         <- Gen.option(arbPrefixOrSuffix.arbitrary)
     } yield Input(
       id = id,
       name = name,
@@ -63,7 +78,9 @@ object Generators {
       spellcheck = spellcheck,
       disabled = disabled,
       autocapitalize = autocapitalize,
-      inputWrapper = inputWrapper
+      inputWrapper = inputWrapper,
+      prefix = prefix,
+      suffix = suffix
     )
   }
 }

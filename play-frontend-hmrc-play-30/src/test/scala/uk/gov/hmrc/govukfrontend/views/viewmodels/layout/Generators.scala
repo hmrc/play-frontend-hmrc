@@ -18,8 +18,22 @@ package uk.gov.hmrc.govukfrontend.views.viewmodels.layout
 
 import org.scalacheck.{Arbitrary, Gen}
 import uk.gov.hmrc.govukfrontend.views.viewmodels.Generators._
+import uk.gov.hmrc.govukfrontend.views.viewmodels.footer.FooterItem
 
 object Generators {
+
+  val arbFooterItem: Arbitrary[FooterItem] = Arbitrary {
+    for {
+      text       <- Gen.option(genAlphaStr())
+      href       <- Gen.option(genAlphaStr())
+      attributes <- genAttributes()
+    } yield FooterItem(
+      text = text,
+      href = href,
+      attributes = attributes
+    )
+  }
+
   implicit val arbitraryTemplate: Arbitrary[Layout] = Arbitrary {
     for {
       pageTitle     <- Gen.option(genAlphaStr())
@@ -29,6 +43,8 @@ object Generators {
       bodyEnd       <- Gen.option(arbHtml.arbitrary)
       beforeContent <- Gen.option(arbHtml.arbitrary)
       content       <- Gen.option(arbHtml.arbitrary)
+      scripts       <- Gen.option(arbHtml.arbitrary)
+      footerItems   <- Gen.option(Gen.listOfN(1, arbFooterItem.arbitrary))
     } yield Layout(
       pageTitle = pageTitle,
       head = head,
@@ -36,7 +52,9 @@ object Generators {
       footer = footer,
       bodyEnd = bodyEnd,
       beforeContent = beforeContent,
-      content = content
+      content = content,
+      scripts = scripts,
+      footerItems = footerItems
     )
   }
 }

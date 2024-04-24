@@ -16,6 +16,7 @@
 
 package uk.gov.hmrc.govukfrontend.views.viewmodels.charactercount
 
+import org.scalacheck.Arbitrary.arbBool
 import org.scalacheck.{Arbitrary, Gen}
 import uk.gov.hmrc.govukfrontend.views.viewmodels.Generators._
 import uk.gov.hmrc.govukfrontend.views.viewmodels.errormessage.Generators._
@@ -26,25 +27,35 @@ object Generators {
 
   implicit val arbCharacterCount: Arbitrary[CharacterCount] = Arbitrary {
     for {
-      id           <- genNonEmptyAlphaStr
-      name         <- genNonEmptyAlphaStr
-      rows         <- Gen.chooseNum(0, 5)
-      value        <- Gen.option(genAlphaStr())
-      maxLength    <- Gen.option(Gen.chooseNum(1, 10))
-      maxWords     <- Gen
-                        .option(Gen.chooseNum(1, 10))
-                        .retryUntil(optMaxWords => maxLength.nonEmpty || optMaxWords.nonEmpty)
-      threshold    <- Gen.option(Gen.chooseNum(1, 5))
-      label        <- arbLabel.arbitrary
-      hint         <- Gen.option(arbHint.arbitrary)
-      errorMessage <- Gen.option(arbErrorMessage.arbitrary)
-      formGroup    <- arbFormGroup.arbitrary
-      classes      <- genClasses()
-      attributes   <- genAttributes()
+      id                       <- genNonEmptyAlphaStr
+      name                     <- genNonEmptyAlphaStr
+      rows                     <- Gen.chooseNum(0, 5)
+      spellcheck               <- Gen.option(arbBool.arbitrary)
+      value                    <- Gen.option(genAlphaStr())
+      maxLength                <- Gen.option(Gen.chooseNum(1, 10))
+      maxWords                 <- Gen
+                                    .option(Gen.chooseNum(1, 10))
+                                    .retryUntil(optMaxWords => maxLength.nonEmpty || optMaxWords.nonEmpty)
+      threshold                <- Gen.option(Gen.chooseNum(1, 5))
+      label                    <- arbLabel.arbitrary
+      hint                     <- Gen.option(arbHint.arbitrary)
+      errorMessage             <- Gen.option(arbErrorMessage.arbitrary)
+      formGroup                <- arbFormGroup.arbitrary
+      classes                  <- genClasses()
+      attributes               <- genAttributes()
+      countMessageClasses      <- genNonEmptyAlphaStr
+      charactersUnderLimitText <- Gen.option(genMapValues(2))
+      charactersAtLimitText    <- Gen.option(genAlphaStr())
+      charactersOverLimitText  <- Gen.option(genMapValues(2))
+      wordsUnderLimitText      <- Gen.option(genMapValues())
+      wordsAtLimitText         <- Gen.option(genAlphaStr())
+      wordsOverLimitText       <- Gen.option(genMapValues(5))
+      textareaDescriptionText  <- Gen.option(genNonEmptyAlphaStr)
     } yield CharacterCount(
       id = id,
       name = name,
       rows = rows,
+      spellcheck = spellcheck,
       value = value,
       maxLength = maxLength,
       maxWords = maxWords,
@@ -54,7 +65,15 @@ object Generators {
       errorMessage = errorMessage,
       formGroup = formGroup,
       classes = classes,
-      attributes = attributes
+      attributes = attributes,
+      countMessageClasses = countMessageClasses,
+      charactersUnderLimitText = charactersUnderLimitText,
+      charactersAtLimitText = charactersAtLimitText,
+      charactersOverLimitText = charactersOverLimitText,
+      wordsUnderLimitText = wordsUnderLimitText,
+      wordsAtLimitText = wordsAtLimitText,
+      wordsOverLimitText = wordsOverLimitText,
+      textareaDescriptionText = textareaDescriptionText
     )
 
   }

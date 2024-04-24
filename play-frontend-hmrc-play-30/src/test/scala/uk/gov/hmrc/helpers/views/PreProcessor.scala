@@ -18,6 +18,13 @@ package uk.gov.hmrc.helpers.views
 
 import com.googlecode.htmlcompressor.compressor.HtmlCompressor
 import com.googlecode.htmlcompressor.compressor.HtmlCompressor.{ALL_TAGS, BLOCK_TAGS_MAX}
+import org.jsoup.Jsoup
+import org.jsoup.helper.W3CDom
+
+import java.io.StringWriter
+import javax.xml.transform.TransformerFactory._
+import javax.xml.transform.dom.DOMSource
+import javax.xml.transform.stream.StreamResult
 
 trait PreProcessor {
 
@@ -32,6 +39,14 @@ trait PreProcessor {
   def compressHtml(html: String, maximumCompression: Boolean = false): String = {
     compressor.setRemoveSurroundingSpaces(if (maximumCompression) ALL_TAGS else BLOCK_TAGS_MAX)
     compressor.compress(asDecimalSpecialCharacters(html: String))
+  }
+
+  def normaliseHtml(html: String): String = {
+    val w3cDom      = new W3CDom().fromJsoup(Jsoup.parse(html))
+    val writer      = new StringWriter()
+    val transformer = newInstance().newTransformer()
+    transformer.transform(new DOMSource(w3cDom), new StreamResult(writer))
+    writer.toString
   }
 
   private def asDecimalSpecialCharacters(html: String) = {

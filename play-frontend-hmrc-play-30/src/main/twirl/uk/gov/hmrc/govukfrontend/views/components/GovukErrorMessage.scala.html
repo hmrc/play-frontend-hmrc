@@ -14,6 +14,9 @@
  * limitations under the License.
  *@
 
+@import uk.gov.hmrc.hmrcfrontend.views.Utils._
+@import uk.gov.hmrc.govukfrontend.views.viewmodels.errormessage.ErrorMessage
+
 @this()
 
 @**
@@ -25,9 +28,20 @@
 * Here it uses the type [[VisuallyHiddenText]] to encode the text or intention to hide it.
 * If no value is passed defaults to show "Error" as the visually hidden text.
 *@
+
 @(params: ErrorMessage)
 @import params._
-<p @id.map {id => id="@id"} class="@toClasses("govuk-error-message", classes)"@toAttributes(attributes)>
+
+@maybeId(id: Option[String]) = @{
+  id.map { idValue =>
+      if(idValue.isEmpty)
+        {}
+      else
+        Html(s"""id="$idValue"""")
+  }.getOrElse({})
+}
+
+<p @maybeId(id) class="@toClasses("govuk-error-message", classes)" @toAttributes(attributes)>
  @visuallyHiddenText match {
    case Some(NonEmptyString(text)) => {<span class="govuk-visually-hidden">@text:</span>}
    case Some(_) | None => {}

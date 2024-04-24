@@ -54,5 +54,18 @@ object Accordion {
       (__ \ "rememberExpanded").readNullable[Boolean]
   )(Accordion.apply _)
 
-  implicit def jsonWrites: OWrites[Accordion] = Json.writes[Accordion]
+  implicit def jsonWrites: OWrites[Accordion] = (
+    (__ \ "id").write[String] and
+      (__ \ "headingLevel").write[Int] and
+      (__ \ "classes").write[String] and
+      (__ \ "attributes").write[Map[String, String]] and
+      (__ \ "items").write[Seq[Section]] and
+      (__ \ "hideSectionText").writeNullable[String] and
+      (__ \ "hideAllSectionsText").writeNullable[String] and
+      (__ \ "hideSectionAriaLabelText").writeNullable[String] and
+      (__ \ "showSectionText").writeNullable[String] and
+      (__ \ "showAllSectionsText").writeNullable[String] and
+      (__ \ "showSectionAriaLabelText").writeNullable[String] and
+      (__ \ "rememberExpanded").writeNullable[Boolean]
+  )(unlift(Accordion.unapply))
 }

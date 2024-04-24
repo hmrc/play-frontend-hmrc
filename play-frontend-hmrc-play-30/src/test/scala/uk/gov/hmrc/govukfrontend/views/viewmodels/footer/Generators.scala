@@ -48,6 +48,22 @@ object Generators {
     } yield Meta(visuallyHiddenTitle = visuallyHiddenText, content = content, items = items)
   }
 
+  val arbContentLicence: Arbitrary[ContentLicence] = Arbitrary {
+    for {
+      content <- Gen.oneOf(arbHtmlContent.arbitrary.suchThat(_.nonEmpty), arbText.arbitrary.suchThat(_.nonEmpty))
+    } yield ContentLicence(
+      content = content
+    )
+  }
+
+  val arbCopyright: Arbitrary[Copyright] = Arbitrary {
+    for {
+      content <- Gen.oneOf(arbHtmlContent.arbitrary.suchThat(_.nonEmpty), arbText.arbitrary.suchThat(_.nonEmpty))
+    } yield Copyright(
+      content = content
+    )
+  }
+
   implicit val arbFooter: Arbitrary[Footer] = Arbitrary {
     for {
       meta             <- Gen.option(arbMeta.arbitrary)
@@ -56,12 +72,16 @@ object Generators {
       containerClasses <- genClasses()
       classes          <- genClasses()
       attributes       <- genAttributes()
+      contentLicence   <- Gen.option(arbContentLicence.arbitrary)
+      copyright        <- Gen.option(arbCopyright.arbitrary)
     } yield Footer(
       meta = meta,
       navigation = navigation,
       containerClasses = containerClasses,
       classes = classes,
-      attributes = attributes
+      attributes = attributes,
+      contentLicence = contentLicence,
+      copyright = copyright
     )
   }
 }

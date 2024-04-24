@@ -35,6 +35,10 @@ object CardTitle {
       (__ \ "classes").readWithDefault[String](defaultObject.classes)
   )(CardTitle.apply _)
 
-  implicit def jsonWrites: OWrites[CardTitle] = Json.writes[CardTitle]
+  implicit def jsonWrites: OWrites[CardTitle] = (
+    Content.writesContent() and
+      (__ \ "headingLevel").writeNullable[Int] and
+      (__ \ "classes").write[String]
+  )(unlift(CardTitle.unapply))
 
 }
