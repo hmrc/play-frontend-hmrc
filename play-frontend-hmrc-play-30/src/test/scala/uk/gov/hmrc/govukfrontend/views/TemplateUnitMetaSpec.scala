@@ -14,21 +14,8 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.hmrcfrontend.views.viewmodels.footer
+package uk.gov.hmrc.govukfrontend.views
 
-import play.api.libs.json._
-import uk.gov.hmrc.hmrcfrontend.views.viewmodels.language.{En, Language}
+import uk.gov.hmrc.helpers.views.TemplateUnitBaseMetaSpec
 
-case class Footer(
-  meta: Option[Meta] = None,
-  navigation: Seq[FooterNavigation] = Seq.empty,
-  containerClasses: String = "",
-  classes: String = "",
-  attributes: Map[String, String] = Map.empty,
-  @deprecated language: Language = En // only used for tests - component uses implicit Play messages for i18n
-)
-
-object Footer {
-
-  implicit def jsonFormats: OFormat[Footer] = Json.using[Json.WithDefaultValues].format[Footer]
-}
+class TemplateUnitMetaSpec extends TemplateUnitBaseMetaSpec("govuk-frontend")

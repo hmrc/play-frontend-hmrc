@@ -24,13 +24,15 @@ object Generators {
 
   implicit val arbReportTechnicalIssue: Arbitrary[ReportTechnicalIssue] = Arbitrary {
     for {
-      text        <- genAlphaStr()
+      serviceId   <- genAlphaStr()
+      serviceCode <- genNonEmptyAlphaStr
       language    <- arbLanguage.arbitrary
       classes     <- Gen.option(genClasses())
       baseUrl     <- Gen.option(genAlphaStr())
       referrerUrl <- Gen.option(genAlphaStr())
     } yield ReportTechnicalIssue(
-      serviceCode = text,
+      serviceId = serviceId,
+      serviceCode = serviceCode,
       language = language,
       classes = classes,
       baseUrl = baseUrl,

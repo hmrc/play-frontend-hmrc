@@ -14,21 +14,13 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.hmrcfrontend.views.viewmodels.footer
+package uk.gov.hmrc.hmrcfrontend.views.components
 
-import play.api.libs.json._
-import uk.gov.hmrc.hmrcfrontend.views.viewmodels.language.{En, Language}
+import uk.gov.hmrc.hmrcfrontend.support.TemplateIntegrationSpec
+import uk.gov.hmrc.hmrcfrontend.views.html.components._
+import uk.gov.hmrc.hmrcfrontend.views.viewmodels.reporttechnicalissue.Generators._
 
-case class Footer(
-  meta: Option[Meta] = None,
-  navigation: Seq[FooterNavigation] = Seq.empty,
-  containerClasses: String = "",
-  classes: String = "",
-  attributes: Map[String, String] = Map.empty,
-  @deprecated language: Language = En // only used for tests - component uses implicit Play messages for i18n
-)
-
-object Footer {
-
-  implicit def jsonFormats: OFormat[Footer] = Json.using[Json.WithDefaultValues].format[Footer]
-}
+object HmrcReportTechnicalIssueIntegrationSpec
+    extends TemplateIntegrationSpec[ReportTechnicalIssue, HmrcReportTechnicalIssue](
+      hmrcComponentName = "hmrcReportTechnicalIssue"
+    )

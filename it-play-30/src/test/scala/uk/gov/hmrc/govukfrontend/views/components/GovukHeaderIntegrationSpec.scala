@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 HM Revenue & Customs
+ * Copyright 2019 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,13 +14,12 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.hmrcfrontend.views.components
+package uk.gov.hmrc.govukfrontend.views.components
 
-import uk.gov.hmrc.hmrcfrontend.support.MessagesAwareTemplateIntegrationSpec
-import uk.gov.hmrc.hmrcfrontend.views.html.components._
-import uk.gov.hmrc.hmrcfrontend.views.viewmodels.charactercount.Generators._
+import uk.gov.hmrc.govukfrontend.support.TemplateIntegrationSpec
+import uk.gov.hmrc.govukfrontend.views.html.components._
+import uk.gov.hmrc.govukfrontend.views.viewmodels.header.Header
+import uk.gov.hmrc.govukfrontend.views.viewmodels.header.Generators._
 
-object HmrcCharacterCountIntegrationSpec
-    extends MessagesAwareTemplateIntegrationSpec[CharacterCount, HmrcCharacterCount](
-      hmrcComponentName = "hmrcCharacterCount"
-    )
+object GovukHeaderIntegrationSpec
+    extends TemplateIntegrationSpec[Header, GovukHeader](govukComponentName = "govukHeader")
