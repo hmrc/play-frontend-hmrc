@@ -8,15 +8,19 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 For compatibility information see `govukFrontendVersion` and `hmrcFrontendVersion` in
 [LibDependencies](project/LibDependencies.scala)
 
-## [9.9.0] - 2024-04-22
+## [9.9.0] - 2024-04-24
 
 ### Changed
 
-- Compress whitespace in integration tests (test change only)
+- Deprecated the `CurrencyInput` / `HmrcCurrencyInput` component. This component is now replaced by using `Input` / `GovukInput`
+  with prefix of `£`. Examples of the  new pattern can be seen at: 
+  - HMRC Design Patterns: https://design.tax.service.gov.uk/hmrc-design-patterns/currency-input/
+  - GOV.UK Design System: https://design-system.service.gov.uk/components/text-input/#prefixes-and-suffixes
+  The `CurrencyInput` / `HmrcCurrencyInput` component will be removed in a future library version.
 
 ### Compatible with
 
-- [hmrc/hmrc-frontend v6.15.0](https://github.com/hmrc/hmrc-frontend/releases/tag/v6.15.0)
+- [hmrc/hmrc-frontend v6.17.0](https://github.com/hmrc/hmrc-frontend/releases/tag/v6.17.0)
 - [alphagov/govuk-frontend v5.3.0](https://github.com/alphagov/govuk-frontend/releases/tag/v5.3.0)
 
 ## [9.8.0] - 2024-04-19
@@ -24,6 +28,7 @@ For compatibility information see `govukFrontendVersion` and `hmrcFrontendVersio
 ### Changed
 
 - Added beforeInput(s) and afterInput(s) options to form groups
+- Compress whitespace in integration tests (test change only)
 
 ### Compatible with
 
