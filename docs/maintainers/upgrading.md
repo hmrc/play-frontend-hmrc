@@ -131,8 +131,8 @@ For example, if there are changes to the `GovukCookieBanner` template or styles,
 #### Adding New Components
 When running the above steps, there will be test failures if existing components have changed.
 Any new components which have been added to `hmrc-frontend` or `govuk-frontend` but which have not yet been implemented in 
-`play-frontend-hmrc` should also get flagged by the [TemplateUnitBaseMetaSpec](play-frontend-hmrc-play-30/src/test/scala/uk/gov/hmrc/helpers/views/TemplateUnitBaseMetaSpec.scala)-
-and [TemplateIntegrationBaseMetaSpec](it-play-30/src/test/scala/uk/gov/hmrc/support/TemplateIntegrationBaseMetaSpec.scala)-derived meta-tests for each underlying library.
+`play-frontend-hmrc` should also get flagged by the [TemplateUnitBaseMetaSpec](/play-frontend-hmrc-play-30/src/test/scala/uk/gov/hmrc/helpers/views/TemplateUnitBaseMetaSpec.scala)-
+and [TemplateIntegrationBaseMetaSpec](/it-play-30/src/test/scala/uk/gov/hmrc/support/TemplateIntegrationBaseMetaSpec.scala)-derived meta-tests for each underlying library.
 
 That said, it is still important to look at the diffs between versions of `govuk-frontend`, and read the CHANGELOG.
 
