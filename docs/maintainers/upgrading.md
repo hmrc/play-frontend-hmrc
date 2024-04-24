@@ -126,14 +126,15 @@ index 51d2d346..713db75d 100644
 ### Comparing forked components in other repos
 As noted above, some of our `play-frontend-hmrc` components are not direct ports, but are manually created and need to be kept manually aligned with `govuk-frontend` in particular. 
 
-For example, if there are changs to the `GovukCookieBanner` template or styles, these should be compared against the cookie banner in `tracking-consent-frontend` (see [banner.ts](https://github.com/hmrc/tracking-consent-frontend/blob/main/js/src/ui/banner.ts)).
+For example, if there are changes to the `GovukCookieBanner` template or styles, these should be compared against the cookie banner in `tracking-consent-frontend` (see [banner.ts](https://github.com/hmrc/tracking-consent-frontend/blob/main/js/src/ui/banner.ts)).
 
 #### Adding New Components
-When running the above steps, there will be test failures if existing components have changed. However, there will be no
-failures for new components which have been added to `hmrc-frontend` or `govuk-frontend` but which have not yet been implemented in 
-`play-frontend-hmrc`.
+When running the above steps, there will be test failures if existing components have changed.
+Any new components which have been added to `hmrc-frontend` or `govuk-frontend` but which have not yet been implemented in 
+`play-frontend-hmrc` should also get flagged by the [TemplateUnitBaseMetaSpec](play-frontend-hmrc-play-30/src/test/scala/uk/gov/hmrc/helpers/views/TemplateUnitBaseMetaSpec.scala)-
+and [TemplateIntegrationBaseMetaSpec](it-play-30/src/test/scala/uk/gov/hmrc/support/TemplateIntegrationBaseMetaSpec.scala)-derived meta-tests for each underlying library.
 
-Therefore, it is important to look at the diffs between versions of `govuk-frontend`, and read the CHANGELOG.
+That said, it is still important to look at the diffs between versions of `govuk-frontend`, and read the CHANGELOG.
 
 To add a new component:
 - Add the view model as a Scala case class in the folder: `src/main/scala/uk/gov/hmrc/(hmrc|govuk)frontend/views/viewmodels`
