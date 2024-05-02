@@ -181,6 +181,7 @@ class RichSelectSpec extends AnyWordSpec with Matchers with MessagesHelpers with
           "data-show-all-values" -> "true",
           "data-auto-select"     -> "true",
           "data-min-length"      -> "",
+          "data-placeholder"     -> "",
           "data-module"          -> "hmrc-accessible-autocomplete"
         )
       )
@@ -200,6 +201,7 @@ class RichSelectSpec extends AnyWordSpec with Matchers with MessagesHelpers with
           "data-show-all-values" -> "true",
           "data-auto-select"     -> "true",
           "data-min-length"      -> "",
+          "data-placeholder"     -> "",
           "data-module"          -> "hmrc-accessible-autocomplete",
           "data-language"        -> "cy"
         )
@@ -227,6 +229,7 @@ class RichSelectSpec extends AnyWordSpec with Matchers with MessagesHelpers with
           "data-show-all-values" -> "true",
           "data-auto-select"     -> "true",
           "data-min-length"      -> "2",
+          "data-placeholder"     -> "",
           "data-module"          -> "hmrc-accessible-autocomplete",
           "data-language"        -> "cy"
         )
@@ -243,6 +246,7 @@ class RichSelectSpec extends AnyWordSpec with Matchers with MessagesHelpers with
           "data-show-all-values" -> "false",
           "data-auto-select"     -> "false",
           "data-min-length"      -> "",
+          "data-placeholder"     -> "",
           "data-module"          -> "hmrc-accessible-autocomplete"
         )
       )
@@ -258,9 +262,59 @@ class RichSelectSpec extends AnyWordSpec with Matchers with MessagesHelpers with
           "data-show-all-values" -> "false",
           "data-auto-select"     -> "false",
           "data-min-length"      -> "",
+          "data-placeholder"     -> "",
           "data-module"          -> "hmrc-accessible-autocomplete",
           "some-attr1"           -> "1",
           "some-attr2"           -> "2"
+        )
+      )
+    }
+
+    "prepend a placeholder item to Select components when using the placeholder attribute" in {
+      val select        = Select(attributes = Map("data-placeholder" -> "placeholder text"))
+      val updatedSelect = select.asAccessibleAutocomplete(
+        Some(
+          AccessibleAutocomplete(
+            Some("Test"),
+            showAllValues = true,
+            autoSelect = true,
+            placeholder = Some("placeholder text")
+          )
+        )
+      )
+      updatedSelect shouldBe Select(
+        items = Seq(SelectItem(Some(""), "placeholder text")),
+        attributes = Map(
+          "data-default-value"   -> "Test",
+          "data-show-all-values" -> "true",
+          "data-auto-select"     -> "true",
+          "data-min-length"      -> "",
+          "data-placeholder"     -> "placeholder text",
+          "data-module"          -> "hmrc-accessible-autocomplete"
+        )
+      )
+    }
+  }
+
+  "Given a Select object, calling withPlaceholderItem" should {
+    "add a placeholder item to the list of items with defined text" in {
+      val selectWithPlaceholder = Select().withPlaceholderItem("Select a colour")
+      selectWithPlaceholder shouldBe Select(items =
+        Seq(
+          SelectItem(Some(""), "Select a colour")
+        )
+      )
+    }
+    "add a placeholder item with defined text to the front of a list of items" in {
+      val itemSeq               =
+        Seq(SelectItem(Some("red"), "Red"), SelectItem(Some("green"), "Green"), SelectItem(Some("blue"), "Blue"))
+      val selectWithPlaceholder = Select(items = itemSeq).withPlaceholderItem("Select a colour")
+      selectWithPlaceholder shouldBe Select(items =
+        Seq(
+          SelectItem(Some(""), "Select a colour"),
+          SelectItem(Some("red"), "Red"),
+          SelectItem(Some("green"), "Green"),
+          SelectItem(Some("blue"), "Blue")
         )
       )
     }

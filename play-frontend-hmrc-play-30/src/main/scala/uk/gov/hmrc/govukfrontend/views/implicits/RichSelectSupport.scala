@@ -63,6 +63,13 @@ trait RichSelectSupport {
     def withHeadingAndSectionCaption(heading: Content, sectionCaption: Content): Select =
       withHeadingLabel(select, heading, Some(sectionCaption))((sl, ul) => sl.copy(label = ul))
 
+    def withPlaceholderItem(placeholderText: String): Select = {
+      val placeholderItem: SelectItem = SelectItem.placeholderObject(placeholderText)
+      select.copy(
+        items = placeholderItem +: select.items
+      )
+    }
+
     def asAccessibleAutocomplete(
       accessibleAutocomplete: Option[AccessibleAutocomplete] = None
     )(implicit messages: Messages): Select = {
@@ -72,15 +79,26 @@ trait RichSelectSupport {
           "data-show-all-values" -> accessibleAutocomplete.showAllValues.toString,
           "data-default-value"   -> accessibleAutocomplete.defaultValue.getOrElse(""),
           "data-min-length"      -> accessibleAutocomplete.minLength.map(_.toString).getOrElse(""),
+          "data-placeholder"     -> accessibleAutocomplete.placeholder.map(_.toString).getOrElse(""),
           "data-module"          -> accessibleAutocomplete.dataModule
         )
 
       val dataAttributes =
         toMapOfDataAttributes(accessibleAutocomplete.getOrElse(AccessibleAutocomplete(None)))
 
-      val maybeDataLanguage = Map("data-language" -> messages.lang.code).filterNot(_._2 == En.code)
+      val maybeDataLanguage    = Map("data-language" -> messages.lang.code).filterNot(_._2 == En.code)
+      val maybePlaceholderText = accessibleAutocomplete.map(_.placeholder).getOrElse(None)
 
-      select.copy(attributes = select.attributes ++ dataAttributes ++ maybeDataLanguage)
+      maybePlaceholderText match {
+        case None       =>
+          select.copy(attributes = select.attributes ++ dataAttributes ++ maybeDataLanguage)
+        case Some(text) =>
+          val placeholderItem: SelectItem = SelectItem.placeholderObject(text)
+          select.copy(
+            attributes = select.attributes ++ dataAttributes ++ maybeDataLanguage,
+            items = placeholderItem +: select.items
+          )
+      }
     }
 
     private[views] def withName(field: Field): Select =
