@@ -4,8 +4,8 @@
   </label>
   <select class="govuk-select" id="colors" name="colors">
     <option value="">Select a colour</option>
-    <option>Red</option>
-    <option>Green</option>
-    <option>Blue</option>
+    <option value="">Red</option>
+    <option value="">Green</option>
+    <option value="">Blue</option>
   </select>
 </div>
