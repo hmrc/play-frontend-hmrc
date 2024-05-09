@@ -32,7 +32,7 @@ final case class SelectItem(
 object SelectItem {
 
   def defaultObject: SelectItem                              = SelectItem()
-  def placeholderObject(placeholderText: String): SelectItem = SelectItem(value = Some(""), text = placeholderText)
+  def emptyItemObject(emptyItemText: String): SelectItem     = SelectItem(value = Some(""), text = emptyItemText)
 
   implicit def jsonReads: Reads[SelectItem] = (
     (__ \ "value").readsJsValueToString.map(Option[String]).orElse(Reads.pure(None)) and

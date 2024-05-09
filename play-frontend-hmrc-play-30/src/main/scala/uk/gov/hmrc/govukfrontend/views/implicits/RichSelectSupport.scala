@@ -63,10 +63,10 @@ trait RichSelectSupport {
     def withHeadingAndSectionCaption(heading: Content, sectionCaption: Content): Select =
       withHeadingLabel(select, heading, Some(sectionCaption))((sl, ul) => sl.copy(label = ul))
 
-    def withPlaceholderItem(placeholderText: String): Select = {
-      val placeholderItem: SelectItem = SelectItem.placeholderObject(placeholderText)
+    def withEmptyItem(emptyItemText: String): Select = {
+      val emptyItem: SelectItem = SelectItem.emptyItemObject(emptyItemText)
       select.copy(
-        items = placeholderItem +: select.items
+        items = emptyItem +: select.items
       )
     }
 
@@ -79,7 +79,7 @@ trait RichSelectSupport {
           "data-show-all-values" -> accessibleAutocomplete.showAllValues.toString,
           "data-default-value"   -> accessibleAutocomplete.defaultValue.getOrElse(""),
           "data-min-length"      -> accessibleAutocomplete.minLength.map(_.toString).getOrElse(""),
-          "data-placeholder"     -> accessibleAutocomplete.placeholder.map(_.toString).getOrElse(""),
+          "data-empty-item"      -> accessibleAutocomplete.emptyItem.map(_.toString).getOrElse(""),
           "data-module"          -> accessibleAutocomplete.dataModule
         )
 
@@ -87,16 +87,16 @@ trait RichSelectSupport {
         toMapOfDataAttributes(accessibleAutocomplete.getOrElse(AccessibleAutocomplete(None)))
 
       val maybeDataLanguage    = Map("data-language" -> messages.lang.code).filterNot(_._2 == En.code)
-      val maybePlaceholderText = accessibleAutocomplete.map(_.placeholder).getOrElse(None)
+      val maybeEmptyItem       = accessibleAutocomplete.map(_.emptyItem).getOrElse(None)
 
-      maybePlaceholderText match {
+      maybeEmptyItem match {
         case None       =>
           select.copy(attributes = select.attributes ++ dataAttributes ++ maybeDataLanguage)
         case Some(text) =>
-          val placeholderItem: SelectItem = SelectItem.placeholderObject(text)
+          val emptyItem: SelectItem = SelectItem.emptyItemObject(text)
           select.copy(
             attributes = select.attributes ++ dataAttributes ++ maybeDataLanguage,
-            items = placeholderItem +: select.items
+            items = emptyItem +: select.items
           )
       }
     }
