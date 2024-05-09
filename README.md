@@ -915,17 +915,13 @@ If you wish to change these values you can do so by providing an `AccessibleAuto
 ```
 
 There is a caveat currently with the `defaultValue` property, to use this option you will need to ensure
-that you have a placeholder item in your select element that has an empty value. You will also need to make sure none of
-your select items have the selected property set on them. See example below.
+that you have an empty item in your select element that has an empty value. You can do this with the `emptyItem` property. See example below.
 
 ```scala
 @govukSelect(Select(
         id = "sort",
         name = "sort",
         items = Seq(
-            SelectItem(
-                text = "Placeholder text"
-            ),
             SelectItem(
                 value = Some("published"),
                 text = "Recently published"
@@ -940,15 +936,16 @@ your select items have the selected property set on them. See example below.
         )
     ).asAccessibleAutocomplete(Some(
         AccessibleAutocomplete(
+            emptyItem = Some(""),
             defaultValue = Some("Recently updated"),
             showAllValues = true,
             autoSelect = false)
     )))
 ```
 
-More information on `defaultValue` property can be found [here](https://www.npmjs.com/package/accessible-autocomplete) under the `Null options` heading
+More information on `defaultValue` property can be found [here](https://www.npmjs.com/package/accessible-autocomplete) under the `Null options` heading.
 
-A preferred way would be to select a default value using the `selected` attribute on an select item instead of using the `defaultValue` property, as seen below.
+Another way would be to use the `emptyItem` parameter on `AccessibleAutocomplete` with `Some("String")`. This will act as an item with no value, the text will only show up when JavaScript is disabled. If the first or selected item has text in it, the text would show up in the input, preventing the rest of the list from showing with `AccessibleAutocomplete` without deleting the text first.
 
 ```scala
 @govukSelect(Select(
@@ -962,7 +959,6 @@ A preferred way would be to select a default value using the `selected` attribut
             SelectItem(
                 value = Some("updated"),
                 text = "Recently updated"
-                selected = true
             )
         ),
         label = Label(
@@ -971,10 +967,11 @@ A preferred way would be to select a default value using the `selected` attribut
     ).asAccessibleAutocomplete(Some(
         AccessibleAutocomplete(
             showAllValues = true,
-            autoSelect = false)
+            autoSelect = false,
+            emptyItem = Some("Select an item")
+        )
     )))
 ```
-
 
 ### Warning users before timing them out
 
