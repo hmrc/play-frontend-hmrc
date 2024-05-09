@@ -19,10 +19,10 @@ package uk.gov.hmrc.hmrcfrontend.views.viewmodels.accessibleautocomplete
 case class AccessibleAutocomplete(
   defaultValue: Option[String] =
     None, // Please read on the usage of the defaultValue property at https://www.npmjs.com/package/accessible-autocomplete under the `Null options` heading
-  showAllValues : Boolean         = false,
-  autoSelect    : Boolean         = false,
-  minLength     : Option[Int]     = None,
-  emptyItem     : Option[String]  = None
+  showAllValues: Boolean = false,
+  autoSelect: Boolean = false,
+  minLength: Option[Int] = None,
+  emptyItem: Option[String] = None
 ) {
   val dataModule: String = "hmrc-accessible-autocomplete"
 }

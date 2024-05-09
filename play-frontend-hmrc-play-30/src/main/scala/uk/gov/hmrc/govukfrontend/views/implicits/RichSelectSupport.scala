@@ -86,8 +86,8 @@ trait RichSelectSupport {
       val dataAttributes =
         toMapOfDataAttributes(accessibleAutocomplete.getOrElse(AccessibleAutocomplete(None)))
 
-      val maybeDataLanguage    = Map("data-language" -> messages.lang.code).filterNot(_._2 == En.code)
-      val maybeEmptyItem       = accessibleAutocomplete.map(_.emptyItem).getOrElse(None)
+      val maybeDataLanguage = Map("data-language" -> messages.lang.code).filterNot(_._2 == En.code)
+      val maybeEmptyItem    = accessibleAutocomplete.map(_.emptyItem).getOrElse(None)
 
       maybeEmptyItem match {
         case None       =>
