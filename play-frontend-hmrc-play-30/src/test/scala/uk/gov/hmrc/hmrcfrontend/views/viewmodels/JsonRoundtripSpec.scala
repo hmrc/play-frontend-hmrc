@@ -33,7 +33,7 @@ class JsonRoundtripSpec[T: Reads: Writes: Arbitrary: ClassTag]
 
   "Json reads/writes" should {
     s"do a roundtrip json serialisation of ${implicitly[ClassTag[T]]}" in {
-      forAll { v: T =>
+      forAll { (v: T) =>
         Json.toJson[T](v).asOpt[T].value shouldBe v
       }
     }

@@ -43,6 +43,6 @@ object Tag {
       Content.writes and
         (__ \ "classes").write[String] and
         (__ \ "attributes").write[Map[String, String]]
-    )(unlift(Tag.unapply))
+    )(t => (t.content, t.classes, t.attributes))
 
 }

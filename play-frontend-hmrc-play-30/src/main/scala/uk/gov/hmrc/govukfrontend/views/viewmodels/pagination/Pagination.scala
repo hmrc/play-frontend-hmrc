@@ -52,5 +52,5 @@ object Pagination {
         (__ \ "landmarkLabel").writeNullable[String] and
         (__ \ "classes").write[String] and
         (__ \ "attributes").write[Map[String, String]]
-    )(unlift(Pagination.unapply))
+    )(p => (p.items, p.previous, p.next, p.landmarkLabel, p.classes, p.attributes))
 }

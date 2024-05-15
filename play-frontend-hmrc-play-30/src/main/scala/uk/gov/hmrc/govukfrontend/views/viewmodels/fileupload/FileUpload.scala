@@ -83,6 +83,6 @@ object FileUpload {
         (__ \ "classes").write[String] and
         (__ \ "attributes").write[Map[String, String]] and
         (__ \ "disabled").writeNullable[Boolean]
-    )(unlift(FileUpload.unapply))
+    )(fu => (fu.name, fu.id, fu.value, fu.describedBy, fu.label, fu.hint, fu.errorMessage, fu.formGroup, fu.classes, fu.attributes, fu.disabled))
 
 }

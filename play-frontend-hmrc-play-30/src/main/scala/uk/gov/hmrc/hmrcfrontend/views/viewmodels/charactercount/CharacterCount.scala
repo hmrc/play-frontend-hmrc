@@ -105,7 +105,7 @@ object CharacterCount {
         (__ \ "spellcheck").writeNullable[Boolean] and
         writesCountMessageClasses and
         (__ \ "language").write[Language]
-    )(unlift(CharacterCount.unapply))
+    )(cc => (cc.id, cc.name, cc.rows, cc.value, cc.maxLength, cc.maxWords, cc.threshold, cc.label, cc.hint, cc.errorMessage, cc.formGroup, cc.classes, cc.attributes, cc.spellcheck, cc.countMessageClasses, cc.language))
 
   private implicit def readsStringOrNumber: Reads[String] = {
     case JsString(s) => JsSuccess(s)

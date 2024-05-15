@@ -70,6 +70,6 @@ object Button {
         (__ \ "isStartButton").write[Boolean] and
         Content.writes and
         (__ \ "id").writeNullable[String]
-    )(unlift(Button.unapply))
+    )(b => (b.element, b.name, b.inputType, b.value, b.disabled, b.href, b.classes, b.attributes, b.preventDoubleClick, b.isStartButton, b.content, b.id))
 
 }

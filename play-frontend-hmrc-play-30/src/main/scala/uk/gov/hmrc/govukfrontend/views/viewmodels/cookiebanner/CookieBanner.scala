@@ -49,5 +49,5 @@ object CookieBanner {
       (__ \ "hidden").write[Boolean] and
       (__ \ "ariaLabel").writeNullable[String] and
       (__ \ "messages").write[Seq[Message]]
-  )(unlift(CookieBanner.unapply))
+  )(cb => (cb.id, cb.classes, cb.attributes, cb.hidden, cb.ariaLabel, cb.messages))
 }

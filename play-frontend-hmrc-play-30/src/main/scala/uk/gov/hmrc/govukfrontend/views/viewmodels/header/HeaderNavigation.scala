@@ -44,7 +44,7 @@ object HeaderNavigation {
 
   implicit def jsonWrites: OWrites[HeaderNavigation] = OWrites { hn =>
     val content = hn.content match {
-      case Empty => hn.text.map(Text).getOrElse(Empty)
+      case Empty => hn.text.map(Text.apply).getOrElse(Empty)
       case _     => hn.content
     }
     Json.obj(

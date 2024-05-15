@@ -42,5 +42,5 @@ object TaskListItemStatus {
       (__ \ "tag").writeNullable[Tag] and
         Content.writes and
         (__ \ "classes").write[String]
-    )(unlift(TaskListItemStatus.unapply))
+    )(tlis => (tlis.tag, tlis.content, tlis.classes))
 }

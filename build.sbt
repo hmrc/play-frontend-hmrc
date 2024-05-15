@@ -1,7 +1,7 @@
 import uk.gov.hmrc.DefaultBuildSettings
 
-val scala2_12 = "2.12.18"
 val scala2_13 = "2.13.12"
+val scala3    = "3.3.3"
 
 ThisBuild / majorVersion := 9
 ThisBuild / isPublicArtefact := true
@@ -71,7 +71,6 @@ lazy val playFrontendHmrcPlay28 = Project("play-frontend-hmrc-play-28", file("pl
   .settings(copyPlayResources(playFrontendHmrcPlay30))
   .settings(sharedSettings: _*)
   .settings(
-    crossScalaVersions := Seq(scala2_12, scala2_13),
     libraryDependencies ++= LibDependencies.shared ++ LibDependencies.play28,
     libraryDependencySchemes += "org.scala-lang.modules" %% "scala-xml" % VersionScheme.Always, // required since we're cross building for Play 2.8 which isn't compatible with sbt 1.9
     // what is this used for? (note, it's the version the library was compiled with, not the service)
@@ -85,7 +84,6 @@ lazy val playFrontendHmrcPlay29 = Project("play-frontend-hmrc-play-29", file("pl
   .settings(copyPlayResources(playFrontendHmrcPlay30))
   .settings(sharedSettings: _*)
   .settings(
-    crossScalaVersions := Seq(scala2_13),
     libraryDependencies ++= LibDependencies.shared ++ LibDependencies.play29,
     buildInfoKeys ++= Seq[BuildInfoKey]("playVersion" -> LibDependencies.play29Version)
   )
@@ -103,7 +101,7 @@ lazy val playFrontendHmrcPlay30 = Project("play-frontend-hmrc-play-30", file("pl
   )
   .settings(sharedSettings: _*)
   .settings(
-    crossScalaVersions := Seq(scala2_13),
+    crossScalaVersions := Seq(scala2_13, scala3),
     libraryDependencies ++= LibDependencies.shared ++ LibDependencies.play30,
     buildInfoKeys ++= Seq[BuildInfoKey]("playVersion" -> LibDependencies.play30Version)
   )

@@ -46,6 +46,6 @@ object PaginationLink {
         (__ \ "text").writeNullable[String] and
         (__ \ "labelText").writeNullable[String] and
         (__ \ "attributes").write[Map[String, String]]
-    )(unlift(PaginationLink.unapply))
+    )(pl => (pl.href, pl.text, pl.labelText, pl.attributes))
 
 }

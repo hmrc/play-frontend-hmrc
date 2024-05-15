@@ -47,6 +47,6 @@ object SelectItem {
       (__ \ "selected").write[Boolean] and
       (__ \ "disabled").write[Boolean] and
       (__ \ "attributes").write[Map[String, String]]
-  )(unlift(SelectItem.unapply))
+  )(si => (si.value, si.text, si.selected, si.disabled, si.attributes))
 
 }

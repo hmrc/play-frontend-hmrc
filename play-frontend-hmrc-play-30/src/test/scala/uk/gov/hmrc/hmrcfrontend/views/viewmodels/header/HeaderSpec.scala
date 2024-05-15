@@ -45,7 +45,7 @@ class HeaderSpec
 
   "Json reads/writes" should {
     s"do a roundtrip json serialisation of ${implicitly[ClassTag[Header]]}" in {
-      forAll { v: Header =>
+      forAll { (v: Header) =>
         val linkMapWithDefaults: Option[LanguageToggle] = v.languageToggle.map { x =>
           val links = Map(En -> "", Cy -> "") ++ x.linkMap
           LanguageToggle(links.toArray: _*)

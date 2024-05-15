@@ -45,5 +45,5 @@ object TaskList {
         (__ \ "classes").write[String] and
         (__ \ "attributes").write[Map[String, String]] and
         (__ \ "idPrefix").write[String]
-    )(unlift(TaskList.unapply))
+    )(tl => (tl.items, tl.classes, tl.attributes, tl.idPrefix))
 }

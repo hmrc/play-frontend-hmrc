@@ -43,6 +43,6 @@ object Legend {
       Content.writes and
         (__ \ "classes").write[String] and
         (__ \ "isPageHeading").write[Boolean]
-    )(unlift(Legend.unapply))
+    )(l => (l.content, l.classes, l.isPageHeading))
 
 }

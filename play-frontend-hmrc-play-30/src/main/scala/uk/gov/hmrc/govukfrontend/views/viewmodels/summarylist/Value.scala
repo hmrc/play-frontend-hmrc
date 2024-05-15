@@ -37,6 +37,6 @@ object Value {
     (
       Content.writes and
         (__ \ "classes").write[String]
-    )(unlift(Value.unapply))
+    )(v => (v.content, v.classes))
 
 }

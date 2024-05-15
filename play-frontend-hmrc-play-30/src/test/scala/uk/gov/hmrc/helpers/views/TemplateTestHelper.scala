@@ -80,7 +80,7 @@ abstract class TemplateTestHelper[T: Reads](
                 println(s"Failed to validate the parameters for the $componentName twirl template")
                 println(s"Exception: $message")
 
-                fail
+                fail()
               case (Failure(twirlException), _)                       =>
                 println(s"Failed to render for the $componentName twirl template")
                 println(s"Exception: ${twirlException.getMessage}")

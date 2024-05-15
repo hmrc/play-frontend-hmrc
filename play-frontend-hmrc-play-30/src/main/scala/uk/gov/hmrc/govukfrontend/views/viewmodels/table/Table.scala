@@ -58,6 +58,6 @@ object Table {
         (__ \ "firstCellIsHeader").write[Boolean] and
         (__ \ "classes").write[String] and
         (__ \ "attributes").write[Map[String, String]]
-    )(unlift(Table.unapply))
+    )(t => (t.rows, t.head, t.caption, t.captionClasses, t.firstCellIsHeader, t.classes, t.attributes))
 
 }

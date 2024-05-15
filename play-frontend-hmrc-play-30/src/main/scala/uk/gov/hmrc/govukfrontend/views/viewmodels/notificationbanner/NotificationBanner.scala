@@ -61,5 +61,5 @@ object NotificationBanner {
         (__ \ "classes").write[String] and
         (__ \ "titleHeadingLevel").writeNullable[Int] and
         (__ \ "attributes").write[Map[String, String]]
-    )(unlift(NotificationBanner.unapply))
+    )(nb => (nb.content, nb.bannerType, nb.role, nb.title, nb.titleId, nb.disableAutoFocus, nb.classes, nb.titleHeadingLevel, nb.attributes))
 }

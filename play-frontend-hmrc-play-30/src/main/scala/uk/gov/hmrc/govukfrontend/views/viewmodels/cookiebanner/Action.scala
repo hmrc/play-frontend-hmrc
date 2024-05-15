@@ -52,5 +52,5 @@ object Action {
         (__ \ "value").writeNullable[String] and
         (__ \ "classes").write[String] and
         (__ \ "attributes").write[Map[String, String]]
-    )(unlift(Action.unapply))
+    )(a => (a.text, a.inputType, a.href, a.name, a.value, a.classes, a.attributes))
 }

@@ -94,6 +94,7 @@ object Textarea {
         (__ \ "attributes").write[Map[String, String]] and
         (__ \ "spellcheck").writeNullable[Boolean] and
         (__ \ "disabled").writeNullable[Boolean]
-    )(unlift(Textarea.unapply))
+    )(t => (t.id, t.name, t.rows, t.value, t.describedBy, t.label, t.hint, t.errorMessage, t.formGroup, t.classes, t.autocomplete
+    , t.attributes, t.spellcheck, t.disabled))
 
 }

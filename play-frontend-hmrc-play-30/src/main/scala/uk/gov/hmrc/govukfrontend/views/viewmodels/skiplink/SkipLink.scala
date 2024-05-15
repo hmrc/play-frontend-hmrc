@@ -45,6 +45,6 @@ object SkipLink {
         (__ \ "classes").write[String] and
         (__ \ "attributes").write[Map[String, String]] and
         Content.writes
-    )(unlift(SkipLink.unapply))
+    )(sl => (sl.href, sl.classes, sl.attributes, sl.content))
 
 }

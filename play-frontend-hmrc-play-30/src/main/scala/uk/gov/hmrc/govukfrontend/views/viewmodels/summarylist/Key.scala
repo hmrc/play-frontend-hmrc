@@ -37,6 +37,6 @@ object Key {
     (
       Content.writes and
         (__ \ "classes").write[String]
-    )(unlift(Key.unapply))
+    )(k => (k.content, k.classes))
 
 }

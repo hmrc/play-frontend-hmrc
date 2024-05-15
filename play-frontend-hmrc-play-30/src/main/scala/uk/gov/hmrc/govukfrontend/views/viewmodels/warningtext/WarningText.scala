@@ -45,6 +45,6 @@ object WarningText {
         (__ \ "classes").write[String] and
         (__ \ "attributes").write[Map[String, String]] and
         Content.writes
-    )(unlift(WarningText.unapply))
+    )(wt => (wt.iconFallbackText, wt.classes, wt.attributes, wt.content))
 
 }

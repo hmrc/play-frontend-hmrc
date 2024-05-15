@@ -48,5 +48,5 @@ object TaskListItem {
         (__ \ "status").write[TaskListItemStatus] and
         (__ \ "href").writeNullable[String] and
         (__ \ "classes").write[String]
-    )(unlift(TaskListItem.unapply))
+    )(tli => (tli.title, tli.hint, tli.status, tli.href, tli.classes))
 }

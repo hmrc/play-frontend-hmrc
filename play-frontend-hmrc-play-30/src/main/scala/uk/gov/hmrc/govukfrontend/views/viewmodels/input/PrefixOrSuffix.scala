@@ -42,5 +42,5 @@ object PrefixOrSuffix {
       (__ \ "classes").write[String] and
         (__ \ "attributes").write[Map[String, String]] and
         Content.writes
-    )(unlift(PrefixOrSuffix.unapply))
+    )(pos => (pos.classes, pos.attributes, pos.content))
 }

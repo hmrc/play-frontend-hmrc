@@ -84,6 +84,6 @@ object Checkboxes {
         (__ \ "classes").write[String] and
         (__ \ "attributes").write[Map[String, String]] and
         (__ \ "values").write[Set[String]]
-    )(unlift(Checkboxes.unapply))
+    )(cb => (cb.describedBy, cb.fieldset, cb.hint, cb.errorMessage, cb.formGroup, cb.idPrefix, cb.name, cb.items, cb.classes, cb.attributes, cb.values))
 
 }

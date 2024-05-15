@@ -48,6 +48,6 @@ object ListWithActionsAction {
         (__ \ "visuallyHiddenText").writeNullable[String] and
         (__ \ "classes").write[String] and
         (__ \ "attributes").write[Map[String, String]]
-    )(unlift(ListWithActionsAction.unapply))
+    )(lwaa => (lwaa.href, lwaa.content, lwaa.visuallyHiddenText, lwaa.classes, lwaa.attributes))
 
 }

@@ -59,7 +59,7 @@ object Content {
     jsPath.readsJsValueToString.map(HtmlContent(_))
 
   def readsText(jsPath: JsPath = (__ \ "text")): Reads[Text] =
-    jsPath.readsJsValueToString.map(Text)
+    jsPath.readsJsValueToString.map(Text.apply)
 }
 
 case object Empty extends Content {

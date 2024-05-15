@@ -72,7 +72,7 @@
           label =
             Label(
               classes = "govuk-date-input__label",
-              content = item.label.mapNonEmpty(Text).getOrElse(Text(item.name.nunjucksCapitalize))
+              content = item.label.mapNonEmpty(Text.apply).getOrElse(Text(item.name.nunjucksCapitalize))
             ),
           classes = s"govuk-date-input__input ${item.classes}",
           autocomplete = item.autocomplete,
@@ -84,4 +84,3 @@
     @{formGroup.afterInput.map(_.asHtml)}
   </div>
 }
-

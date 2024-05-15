@@ -52,5 +52,5 @@ object PaginationItem {
         (__ \ "current").writeNullable[Boolean] and
         (__ \ "ellipsis").writeNullable[Boolean] and
         (__ \ "attributes").write[Map[String, String]]
-    )(unlift(PaginationItem.unapply))
+    )(pi => (pi.href, pi.number, pi.visuallyHiddenText, pi.current, pi.ellipsis, pi.attributes))
 }

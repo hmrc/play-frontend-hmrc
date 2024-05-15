@@ -61,5 +61,5 @@ object ExitThisPage {
         (__ \ "timedOutText").writeNullable[String] and
         (__ \ "pressTwoMoreTimesText").writeNullable[String] and
         (__ \ "pressOneMoreTimeText").writeNullable[String]
-    )(unlift(ExitThisPage.unapply))
+    )(etp => (etp.content, etp.redirectUrl, etp.id, etp.classes, etp.attributes, etp.activatedText, etp.timedOutText, etp.pressTwoMoreTimesText, etp.pressOneMoreTimeText))
 }

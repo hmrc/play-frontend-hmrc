@@ -119,6 +119,7 @@ object Input {
         (__ \ "disabled").writeNullable[Boolean] and
         (__ \ "autocapitalize").writeNullable[String] and
         (__ \ "inputWrapper").write[InputWrapper]
-    )(unlift(Input.unapply))
+    )(i => (i.id, i.name, i.inputType, i.inputmode, i.describedBy, i.value, i.label, i.hint, i.errorMessage, i.formGroup, i.classes, i.autocomplete, i.pattern,
+    i.attributes, i.spellcheck, i.prefix, i.suffix, i.disabled, i.autocapitalize, i.inputWrapper))
 
 }

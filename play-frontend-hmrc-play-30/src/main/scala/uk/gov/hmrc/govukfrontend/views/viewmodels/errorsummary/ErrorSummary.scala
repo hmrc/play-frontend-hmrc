@@ -51,6 +51,6 @@ object ErrorSummary {
         Content.writesContent("titleHtml", "titleText") and
         Content.writesContent("descriptionHtml", "descriptionText") and
         (__ \ "disableAutoFocus").writeNullable[Boolean]
-    )(unlift(ErrorSummary.unapply))
+    )(el => (el.errorList, el.classes, el.attributes, el.title, el.description, el.disableAutoFocus))
 
 }

@@ -28,14 +28,14 @@ class IntStringSpec extends AnyWordSpec with Matchers with ScalaCheckDrivenPrope
 
   "fields for IntString" should {
     "return int for int field" in {
-      forAll { int: Int =>
+      forAll { (int: Int) =>
         val intString = IntString(int)
         intString.int shouldBe int
       }
     }
 
     "return string form of int for str field" in {
-      forAll { int: Int =>
+      forAll { (int: Int) =>
         val intString = IntString(int)
         intString.str shouldBe int.toString
       }
@@ -44,20 +44,20 @@ class IntStringSpec extends AnyWordSpec with Matchers with ScalaCheckDrivenPrope
 
   "apply" should {
     "apply directly on int parameter" in {
-      forAll { int: Int =>
+      forAll { (int: Int) =>
         IntString.apply(int)
       }
     }
 
     "apply with success on int-like string" in {
-      forAll { int: Int =>
+      forAll { (int: Int) =>
         val validIntString: String = int.toString
         IntString(validIntString).isSuccess
       }
     }
 
     "apply with failure on non int-like string" in {
-      forAll { invalidIntString: String =>
+      forAll { (invalidIntString: String) =>
         whenever(Try(invalidIntString.toInt).isFailure) {
           val attempt = IntString(invalidIntString)
           assert(attempt.isFailure)
@@ -70,7 +70,7 @@ class IntStringSpec extends AnyWordSpec with Matchers with ScalaCheckDrivenPrope
   "implicit reads" should {
 
     "parse JsNumber with integer numbers as IntString" in {
-      forAll { int: Int =>
+      forAll { (int: Int) =>
         val jsNumber  = JsNumber(int)
         val intString = jsNumber.as[IntString]
         intString.int shouldBe int
@@ -78,7 +78,7 @@ class IntStringSpec extends AnyWordSpec with Matchers with ScalaCheckDrivenPrope
     }
 
     "fail to parse JsNumber with non-integer numbers as IntString" in {
-      forAll { bigDecimal: BigDecimal =>
+      forAll { (bigDecimal: BigDecimal) =>
         whenever(!bigDecimal.isValidInt) {
           val jsNumber = JsNumber(bigDecimal)
           val attempt  = Try(jsNumber.as[IntString])
@@ -89,7 +89,7 @@ class IntStringSpec extends AnyWordSpec with Matchers with ScalaCheckDrivenPrope
     }
 
     "parse integer-like JsString as IntString" in {
-      forAll { int: Int =>
+      forAll { (int: Int) =>
         val validIntString: String = int.toString
         val jsString               = JsString(validIntString)
         val intString              = jsString.as[IntString]
@@ -99,7 +99,7 @@ class IntStringSpec extends AnyWordSpec with Matchers with ScalaCheckDrivenPrope
     }
 
     "fail to parse JsString with non integer-like numbers as IntString" in {
-      forAll { invalidIntString: String =>
+      forAll { (invalidIntString: String) =>
         whenever(Try(invalidIntString.toInt).isFailure) {
           val jsString = JsString(invalidIntString)
           val attempt  = Try(jsString.as[IntString])
@@ -131,7 +131,7 @@ class IntStringSpec extends AnyWordSpec with Matchers with ScalaCheckDrivenPrope
     "give means to map JsValues that can successfully be parsed as IntString to Int" in {
       val reads: Reads[IntString]       = implicitly[Reads[IntString]]
       val intermediateReads: Reads[Int] = reads.int
-      forAll { int: Int =>
+      forAll { (int: Int) =>
         val jsInt     = JsNumber(int)
         val parsedInt = jsInt.as[Int](intermediateReads)
         int shouldBe parsedInt
@@ -146,7 +146,7 @@ class IntStringSpec extends AnyWordSpec with Matchers with ScalaCheckDrivenPrope
     "give means to map JsValues that can successfully be parsed as IntString to String" in {
       val reads: Reads[IntString]          = implicitly[Reads[IntString]]
       val intermediateReads: Reads[String] = reads.str
-      forAll { int: Int =>
+      forAll { (int: Int) =>
         val jsInt            = JsNumber(int)
         val strParsedFromInt = jsInt.as[String](intermediateReads)
         int.toString shouldBe strParsedFromInt
@@ -159,7 +159,7 @@ class IntStringSpec extends AnyWordSpec with Matchers with ScalaCheckDrivenPrope
     }
 
     "give means to map JsValues that can successfully be parsed as Some[IntString] to Some[Int]" in {
-      forAll { int: Int =>
+      forAll { (int: Int) =>
         val expectedIntOption = Some(int)
 
         val optReadsStub = new Reads[Option[IntString]] {
@@ -181,7 +181,7 @@ class IntStringSpec extends AnyWordSpec with Matchers with ScalaCheckDrivenPrope
     }
 
     "give means to map JsValues that can successfully be parsed as Some[IntString] to Some[String]" in {
-      forAll { int: Int =>
+      forAll { (int: Int) =>
         val expectedStrOption = Some(int.toString)
 
         val optReadsStub = new Reads[Option[IntString]] {
@@ -205,7 +205,7 @@ class IntStringSpec extends AnyWordSpec with Matchers with ScalaCheckDrivenPrope
 
   "writes" should {
     "output IntString as JsString" in {
-      forAll { int: Int =>
+      forAll { (int: Int) =>
         val intString = IntString(int)
         Json.toJson(intString) shouldBe JsString(int.toString)
       }

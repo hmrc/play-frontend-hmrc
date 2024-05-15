@@ -43,7 +43,7 @@ class LanguageSelectSpec
 
   "Json reads/writes" should {
     s"do a roundtrip json serialisation of ${implicitly[ClassTag[LanguageSelect]]}" in {
-      forAll { v: LanguageSelect =>
+      forAll { (v: LanguageSelect) =>
         val linkMapWithDefaults = Map[Language, String](En -> "", Cy -> "") ++ v.languageToggle.linkMap
         Json.toJson(v).asOpt[LanguageSelect].value shouldBe LanguageSelect(v.language, linkMapWithDefaults.toArray: _*)
       }

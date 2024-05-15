@@ -74,6 +74,6 @@ object DateInput {
         (__ \ "fieldset").writeNullable[Fieldset] and
         (__ \ "classes").write[String] and
         (__ \ "attributes").write[Map[String, String]]
-    )(unlift(DateInput.unapply))
+    )(d => (d.id, d.namePrefix, d.items, d.hint, d.errorMessage, d.formGroup, d.fieldset, d.classes, d.attributes))
 
 }

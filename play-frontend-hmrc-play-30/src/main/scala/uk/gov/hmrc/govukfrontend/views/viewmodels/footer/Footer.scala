@@ -53,6 +53,6 @@ object Footer {
         (__ \ "attributes").write[Map[String, String]] and
         (__ \ "contentLicence").writeNullable[ContentLicence] and
         (__ \ "copyright").writeNullable[Copyright]
-    )(unlift(Footer.unapply))
+    )(f => (f.meta, f.navigation, f.containerClasses, f.classes, f.attributes, f.contentLicence, f.copyright))
 
 }

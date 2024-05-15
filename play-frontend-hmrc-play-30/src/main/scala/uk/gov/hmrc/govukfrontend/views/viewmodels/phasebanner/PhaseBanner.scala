@@ -46,6 +46,6 @@ object PhaseBanner {
         (__ \ "classes").write[String] and
         (__ \ "attributes").write[Map[String, String]] and
         Content.writes
-    )(unlift(PhaseBanner.unapply))
+    )(pb => (pb.tag, pb.classes, pb.attributes, pb.content))
 
 }

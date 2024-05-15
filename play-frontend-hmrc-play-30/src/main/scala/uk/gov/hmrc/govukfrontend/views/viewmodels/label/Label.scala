@@ -49,6 +49,6 @@ object Label {
         (__ \ "classes").write[String] and
         (__ \ "attributes").write[Map[String, String]] and
         Content.writes
-    )(unlift(Label.unapply))
+    )(l => (l.forAttr, l.isPageHeading, l.classes, l.attributes, l.content))
 
 }

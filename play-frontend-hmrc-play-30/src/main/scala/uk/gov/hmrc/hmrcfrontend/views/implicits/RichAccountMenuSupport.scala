@@ -22,7 +22,7 @@ import uk.gov.hmrc.hmrcfrontend.config.AccountMenuConfig
 import uk.gov.hmrc.hmrcfrontend.views.viewmodels.accountmenu.{AccountMenu, BusinessTaxAccount}
 import uk.gov.hmrc.hmrcfrontend.views.viewmodels.language.{Cy, En}
 
-trait RichAccountMenuSupport extends {
+trait RichAccountMenuSupport {
 
   implicit class RichAccountMenu(accountMenu: AccountMenu)(implicit accountMenuConfig: AccountMenuConfig) {
 

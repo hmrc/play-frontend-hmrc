@@ -34,7 +34,7 @@ object Generators {
   }
 
   implicit val arbText: Arbitrary[Text] = Arbitrary {
-    Gen.frequency((80, arbEncodedAsciiStr.arbitrary), (20, genHtmlString)).map(Text)
+    Gen.frequency((80, arbEncodedAsciiStr.arbitrary), (20, genHtmlString)).map(Text.apply)
   }
 
   implicit val arbContent: Arbitrary[Content] = Arbitrary {

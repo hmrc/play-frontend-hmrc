@@ -130,7 +130,9 @@ object CharacterCount {
         (__ \ "wordsAtLimitText").writeNullable[String] and
         (__ \ "wordsOverLimitText").writeNullable[Map[String, String]] and
         ((__ \ "textareaDescriptionText").writeNullable[String])
-    )(unlift(CharacterCount.unapply))
+    )(cc => (cc.id, cc.name, cc.rows, cc.value, cc.maxLength, cc.maxWords, cc.threshold, cc.label, cc.hint, cc.errorMessage,
+    cc.formGroup, cc.classes, cc.attributes, cc.countMessageClasses, cc.charactersUnderLimitText, cc.charactersAtLimitText, cc.charactersOverLimitText,
+    cc.wordsUnderLimitText, cc.wordsAtLimitText, cc.wordsOverLimitText, cc.textareaDescriptionText))
 
   private implicit def readsStringOrNumber: Reads[String] = {
     case JsString(s) => JsSuccess(s)

@@ -51,6 +51,6 @@ object Fieldset {
         (__ \ "role").writeNullable[String] and
         (__ \ "attributes").write[Map[String, String]] and
         (__ \ "html").write[String].contramap((html: Html) => html.body)
-    )(unlift(Fieldset.unapply))
+    )(f => (f.describedBy, f.legend, f.classes, f.role, f.attributes, f.html))
 
 }

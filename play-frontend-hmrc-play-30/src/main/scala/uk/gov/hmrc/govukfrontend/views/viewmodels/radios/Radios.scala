@@ -80,6 +80,6 @@ object Radios {
         (__ \ "classes").write[String] and
         (__ \ "attributes").write[Map[String, String]] and
         (__ \ "value").writeNullable[String]
-    )(unlift(Radios.unapply))
+    )(r => (r.fieldset, r.hint, r.errorMessage, r.formGroup, r.idPrefix, r.name, r.items, r.classes, r.attributes, r.value))
 
 }

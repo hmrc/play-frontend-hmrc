@@ -50,6 +50,6 @@ object Panel {
         (__ \ "attributes").write[Map[String, String]] and
         Content.writesContent("titleHtml", "titleText") and
         Content.writes
-    )(unlift(Panel.unapply))
+    )(p => (p.headingLevel, p.classes, p.attributes, p.title, p.content))
 
 }

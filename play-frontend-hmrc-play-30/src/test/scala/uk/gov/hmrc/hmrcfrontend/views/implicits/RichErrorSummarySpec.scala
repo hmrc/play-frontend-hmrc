@@ -43,8 +43,8 @@ class RichErrorSummarySpec extends AnyWordSpec with Matchers with MessagesSuppor
         "day"   -> text,
         "month" -> text,
         "year"  -> text
-      )(DateData.apply)(DateData.unapply)
-    )(PageData.apply)(PageData.unapply),
+      )(DateData.apply)(dd => Some((dd.day, dd.month, dd.year)))
+    )(PageData.apply)(pd => Some((pd.date))),
     data = Map(
       "date.day"   -> "1",
       "date.month" -> "2",

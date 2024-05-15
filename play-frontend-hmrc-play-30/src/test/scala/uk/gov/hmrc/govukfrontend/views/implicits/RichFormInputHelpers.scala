@@ -59,7 +59,7 @@ trait RichFormInputHelpers {
         "user-name"                      -> text,
         "user-email"                     -> text,
         "user-communication-preferences" -> set(text)
-      )(TestForm.apply)(TestForm.unapply)
+      )(TestForm.apply)(tf => Some((tf.name, tf.email, tf.userMarketingPreferences)))
     )
   }
 

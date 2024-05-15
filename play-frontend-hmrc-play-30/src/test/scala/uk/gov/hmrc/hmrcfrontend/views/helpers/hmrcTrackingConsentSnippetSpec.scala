@@ -23,6 +23,7 @@ import play.api.Application
 import play.api.i18n.{Lang, Messages}
 import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.libs.typedmap.TypedMap
+import play.api.mvc.Request
 import play.api.mvc.request.RequestAttrKey
 import play.api.test.FakeRequest
 import uk.gov.hmrc.helpers.MessagesSupport
@@ -47,7 +48,7 @@ class TrackingConsentSnippetSpec
       )
       .build()
 
-  implicit val request = FakeRequest("GET", "/foo")
+  implicit val request: Request[Any] = FakeRequest("GET", "/foo")
 
   "TrackingConsentSnippet" should {
 

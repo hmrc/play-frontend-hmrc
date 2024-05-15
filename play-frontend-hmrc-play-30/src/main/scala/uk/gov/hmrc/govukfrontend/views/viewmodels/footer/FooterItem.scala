@@ -41,6 +41,6 @@ object FooterItem {
       (__ \ "text").writeNullable[String] and
         (__ \ "href").writeNullable[String] and
         (__ \ "attributes").write[Map[String, String]]
-    )(unlift(FooterItem.unapply))
+    )(fi => (fi.text, fi.href, fi.attributes))
 
 }

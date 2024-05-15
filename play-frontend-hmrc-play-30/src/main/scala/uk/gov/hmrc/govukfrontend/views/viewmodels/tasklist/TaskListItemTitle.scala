@@ -38,5 +38,5 @@ object TaskListItemTitle {
     (
       Content.writes and
         (__ \ "classes").write[String]
-    )(unlift(TaskListItemTitle.unapply))
+    )(tlit => (tlit.content, tlit.classes))
 }

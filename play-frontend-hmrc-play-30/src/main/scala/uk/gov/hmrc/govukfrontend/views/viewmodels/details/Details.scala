@@ -52,6 +52,6 @@ object Details {
         (__ \ "attributes").write[Map[String, String]] and
         Content.writesContent("summaryHtml", "summaryText") and
         Content.writes
-    )(unlift(Details.unapply))
+    )(d => (d.id, d.open, d.classes, d.attributes, d.summary, d.content))
 
 }

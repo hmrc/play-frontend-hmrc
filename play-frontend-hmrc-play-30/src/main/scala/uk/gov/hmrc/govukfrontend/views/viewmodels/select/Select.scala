@@ -87,6 +87,6 @@ object Select {
         (__ \ "attributes").write[Map[String, String]] and
         (__ \ "value").writeNullable[String] and
         (__ \ "disabled").writeNullable[Boolean]
-    )(unlift(Select.unapply))
+    )(s => (s.id, s.name, s.items, s.describedBy, s.label, s.hint, s.errorMessage, s.formGroup, s.classes, s.attributes, s.value, s.disabled))
 
 }

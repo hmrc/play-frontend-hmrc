@@ -55,5 +55,5 @@ object Message {
       (__ \ "role").writeNullable[String] and
       (__ \ "classes").write[String] and
       (__ \ "attributes").write[Map[String, String]]
-  )(unlift(Message.unapply))
+  )(m => (m.heading, m.content, m.actions, m.hidden, m.role, m.classes, m.attributes))
 }
