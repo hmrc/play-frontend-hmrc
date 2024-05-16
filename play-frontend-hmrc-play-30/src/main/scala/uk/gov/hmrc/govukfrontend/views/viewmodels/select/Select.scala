@@ -14,7 +14,8 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.govukfrontend.views.viewmodels.select
+package uk.gov.hmrc.govukfrontend.views.viewmodels
+package select
 
 import play.api.libs.functional.syntax._
 import play.api.libs.json._
@@ -87,6 +88,6 @@ object Select {
         (__ \ "attributes").write[Map[String, String]] and
         (__ \ "value").writeNullable[String] and
         (__ \ "disabled").writeNullable[Boolean]
-    )(s => (s.id, s.name, s.items, s.describedBy, s.label, s.hint, s.errorMessage, s.formGroup, s.classes, s.attributes, s.value, s.disabled))
+    )(o => WritesUtils.unapplyCompat(unapply)(o))
 
 }

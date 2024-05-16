@@ -14,7 +14,8 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.govukfrontend.views.viewmodels.errorsummary
+package uk.gov.hmrc.govukfrontend.views.viewmodels
+package errorsummary
 
 import play.api.libs.functional.syntax._
 import play.api.libs.json._
@@ -51,6 +52,6 @@ object ErrorSummary {
         Content.writesContent("titleHtml", "titleText") and
         Content.writesContent("descriptionHtml", "descriptionText") and
         (__ \ "disableAutoFocus").writeNullable[Boolean]
-    )(el => (el.errorList, el.classes, el.attributes, el.title, el.description, el.disableAutoFocus))
+    )(o => WritesUtils.unapplyCompat(unapply)(o))
 
 }

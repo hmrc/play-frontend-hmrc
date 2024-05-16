@@ -14,7 +14,8 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.govukfrontend.views.viewmodels.table
+package uk.gov.hmrc.govukfrontend.views.viewmodels
+package table
 
 import play.api.libs.functional.syntax._
 import play.api.libs.json._
@@ -58,6 +59,6 @@ object Table {
         (__ \ "firstCellIsHeader").write[Boolean] and
         (__ \ "classes").write[String] and
         (__ \ "attributes").write[Map[String, String]]
-    )(t => (t.rows, t.head, t.caption, t.captionClasses, t.firstCellIsHeader, t.classes, t.attributes))
+    )(o => WritesUtils.unapplyCompat(unapply)(o))
 
 }

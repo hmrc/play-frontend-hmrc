@@ -14,7 +14,8 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.govukfrontend.views.viewmodels.pagination
+package uk.gov.hmrc.govukfrontend.views.viewmodels
+package pagination
 
 import play.api.libs.functional.syntax.unlift
 import play.api.libs.json.{OWrites, Reads, __}
@@ -46,6 +47,6 @@ object PaginationLink {
         (__ \ "text").writeNullable[String] and
         (__ \ "labelText").writeNullable[String] and
         (__ \ "attributes").write[Map[String, String]]
-    )(pl => (pl.href, pl.text, pl.labelText, pl.attributes))
+    )(o => WritesUtils.unapplyCompat(unapply)(o))
 
 }

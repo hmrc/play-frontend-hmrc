@@ -14,7 +14,8 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.govukfrontend.views.viewmodels.cookiebanner
+package uk.gov.hmrc.govukfrontend.views.viewmodels
+package cookiebanner
 
 import play.api.libs.functional.syntax._
 import play.api.libs.json._
@@ -52,5 +53,5 @@ object Action {
         (__ \ "value").writeNullable[String] and
         (__ \ "classes").write[String] and
         (__ \ "attributes").write[Map[String, String]]
-    )(a => (a.text, a.inputType, a.href, a.name, a.value, a.classes, a.attributes))
+    )(o => WritesUtils.unapplyCompat(unapply)(o))
 }

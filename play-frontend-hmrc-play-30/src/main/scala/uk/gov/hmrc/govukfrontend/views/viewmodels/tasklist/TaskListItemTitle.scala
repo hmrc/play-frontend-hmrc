@@ -14,7 +14,8 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.govukfrontend.views.viewmodels.tasklist
+package uk.gov.hmrc.govukfrontend.views.viewmodels
+package tasklist
 
 import uk.gov.hmrc.govukfrontend.views.viewmodels.content.{Content, Empty}
 import play.api.libs.functional.syntax._
@@ -38,5 +39,5 @@ object TaskListItemTitle {
     (
       Content.writes and
         (__ \ "classes").write[String]
-    )(tlit => (tlit.content, tlit.classes))
+    )(o => WritesUtils.unapplyCompat(unapply)(o))
 }

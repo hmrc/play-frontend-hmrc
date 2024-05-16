@@ -53,6 +53,6 @@ object TableRow {
         (__ \ "colspan").writeNullable[Int] and
         (__ \ "rowspan").writeNullable[Int] and
         (__ \ "attributes").write[Map[String, String]]
-    )(tr => (tr.content, tr.format, tr.classes, tr.colspan, tr.rowspan, tr.attributes))
+    )(o => WritesUtils.unapplyCompat(unapply)(o))
 
 }

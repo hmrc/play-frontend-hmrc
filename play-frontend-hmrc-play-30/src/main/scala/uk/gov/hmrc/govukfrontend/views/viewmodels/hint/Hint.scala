@@ -46,6 +46,6 @@ object Hint {
         (__ \ "classes").write[String] and
         (__ \ "attributes").write[Map[String, String]] and
         Content.writes
-    )(h => (h.id, h.classes, h.attributes, h.content))
+    )(o => WritesUtils.unapplyCompat(unapply)(o))
 
 }

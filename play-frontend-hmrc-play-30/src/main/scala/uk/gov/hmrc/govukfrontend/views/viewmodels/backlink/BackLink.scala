@@ -61,5 +61,5 @@ object BackLink {
         (__ \ "classes").write[String] and
         (__ \ "attributes").write[Map[String, String]] and
         Content.writes
-    )(bl => (bl.href, bl.classes, bl.attributes, bl.content))
+    )(o => WritesUtils.unapplyCompat(unapply)(o))
 }

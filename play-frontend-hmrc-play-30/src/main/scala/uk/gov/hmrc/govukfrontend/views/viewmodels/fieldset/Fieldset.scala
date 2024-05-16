@@ -14,7 +14,8 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.govukfrontend.views.viewmodels.fieldset
+package uk.gov.hmrc.govukfrontend.views.viewmodels
+package fieldset
 
 import play.api.libs.functional.syntax._
 import play.api.libs.json._
@@ -51,6 +52,6 @@ object Fieldset {
         (__ \ "role").writeNullable[String] and
         (__ \ "attributes").write[Map[String, String]] and
         (__ \ "html").write[String].contramap((html: Html) => html.body)
-    )(f => (f.describedBy, f.legend, f.classes, f.role, f.attributes, f.html))
+    )(o => WritesUtils.unapplyCompat(unapply)(o))
 
 }

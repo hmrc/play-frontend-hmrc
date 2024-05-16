@@ -61,6 +61,6 @@ object InputItem {
         (__ \ "classes").write[String] and
         (__ \ "attributes").write[Map[String, String]] and
         (__ \ "inputmode").writeNullable[String]
-    )(ii => (ii.id, ii.name, ii.label, ii.value, ii.autocomplete, ii.pattern, ii.classes, ii.attributes, ii.inputmode))
+    )(o => WritesUtils.unapplyCompat(unapply)(o))
 
 }

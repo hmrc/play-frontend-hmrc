@@ -76,5 +76,5 @@ object CheckboxItem {
         (__ \ "attributes").write[Map[String, String]] and
         (__ \ "behaviour").writeNullable[CheckboxBehaviour] and
         (__ \ "divider").writeNullable[String]
-    )(ci => (ci.content, ci.id, ci.name, ci.value, ci.label, ci.hint, ci.checked, ci.conditionalHtml, ci.disabled, ci.attributes, ci.behaviour, ci.divider))
+    )(o => WritesUtils.unapplyCompat(unapply)(o))
 }

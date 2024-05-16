@@ -37,6 +37,6 @@ object Key {
     (
       Content.writes and
         (__ \ "classes").write[String]
-    )(k => (k.content, k.classes))
+    )(o => WritesUtils.unapplyCompat(unapply)(o))
 
 }

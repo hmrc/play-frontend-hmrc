@@ -14,7 +14,8 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.govukfrontend.views.viewmodels.dateinput
+package uk.gov.hmrc.govukfrontend.views.viewmodels
+package dateinput
 
 import play.api.libs.functional.syntax._
 import play.api.libs.json._
@@ -74,6 +75,6 @@ object DateInput {
         (__ \ "fieldset").writeNullable[Fieldset] and
         (__ \ "classes").write[String] and
         (__ \ "attributes").write[Map[String, String]]
-    )(d => (d.id, d.namePrefix, d.items, d.hint, d.errorMessage, d.formGroup, d.fieldset, d.classes, d.attributes))
+    )(o => WritesUtils.unapplyCompat(unapply)(o))
 
 }

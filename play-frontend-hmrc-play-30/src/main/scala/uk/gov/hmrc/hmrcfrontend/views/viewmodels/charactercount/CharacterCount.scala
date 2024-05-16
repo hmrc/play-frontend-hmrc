@@ -14,7 +14,8 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.hmrcfrontend.views.viewmodels.charactercount
+package uk.gov.hmrc.hmrcfrontend.views.viewmodels
+package charactercount
 
 import play.api.libs.functional.syntax._
 import play.api.libs.json._
@@ -105,7 +106,7 @@ object CharacterCount {
         (__ \ "spellcheck").writeNullable[Boolean] and
         writesCountMessageClasses and
         (__ \ "language").write[Language]
-    )(cc => (cc.id, cc.name, cc.rows, cc.value, cc.maxLength, cc.maxWords, cc.threshold, cc.label, cc.hint, cc.errorMessage, cc.formGroup, cc.classes, cc.attributes, cc.spellcheck, cc.countMessageClasses, cc.language))
+    )(o => WritesUtils.unapplyCompat(unapply)(o))
 
   private implicit def readsStringOrNumber: Reads[String] = {
     case JsString(s) => JsSuccess(s)

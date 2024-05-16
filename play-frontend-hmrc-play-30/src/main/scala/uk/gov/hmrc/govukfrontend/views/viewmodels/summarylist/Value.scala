@@ -37,6 +37,6 @@ object Value {
     (
       Content.writes and
         (__ \ "classes").write[String]
-    )(v => (v.content, v.classes))
+    )(o => WritesUtils.unapplyCompat(unapply)(o))
 
 }

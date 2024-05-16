@@ -14,7 +14,8 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.govukfrontend.views.viewmodels.warningtext
+package uk.gov.hmrc.govukfrontend.views.viewmodels
+package warningtext
 
 import play.api.libs.functional.syntax._
 import play.api.libs.json._
@@ -45,6 +46,6 @@ object WarningText {
         (__ \ "classes").write[String] and
         (__ \ "attributes").write[Map[String, String]] and
         Content.writes
-    )(wt => (wt.iconFallbackText, wt.classes, wt.attributes, wt.content))
+    )(o => WritesUtils.unapplyCompat(unapply)(o))
 
 }

@@ -41,5 +41,5 @@ object Meta {
     (__ \ "visuallyHiddenTitle").writeNullable[String] and
       Content.writes and
       (__ \ "items").writeNullable[Seq[FooterItem]]
-  )(m => (m.visuallyHiddenTitle, m.content, m.items))
+  )(o => WritesUtils.unapplyCompat(unapply)(o))
 }

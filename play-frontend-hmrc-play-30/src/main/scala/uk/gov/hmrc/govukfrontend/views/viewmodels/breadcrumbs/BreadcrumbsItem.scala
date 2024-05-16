@@ -41,5 +41,5 @@ object BreadcrumbsItem {
     Content.writes and
       (__ \ "href").writeNullable[String] and
       (__ \ "attributes").write[Map[String, String]]
-  )(bi => (bi.content, bi.href, bi.attributes))
+  )(o => WritesUtils.unapplyCompat(unapply)(o))
 }

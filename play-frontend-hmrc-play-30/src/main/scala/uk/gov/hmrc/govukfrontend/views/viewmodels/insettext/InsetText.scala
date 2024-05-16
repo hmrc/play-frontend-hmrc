@@ -14,7 +14,8 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.govukfrontend.views.viewmodels.insettext
+package uk.gov.hmrc.govukfrontend.views.viewmodels
+package insettext
 
 import play.api.libs.functional.syntax._
 import play.api.libs.json._
@@ -45,6 +46,6 @@ object InsetText {
         (__ \ "classes").write[String] and
         (__ \ "attributes").write[Map[String, String]] and
         Content.writes
-    )(it => (it.id, it.classes, it.attributes, it.content))
+    )(o => WritesUtils.unapplyCompat(unapply)(o))
 
 }

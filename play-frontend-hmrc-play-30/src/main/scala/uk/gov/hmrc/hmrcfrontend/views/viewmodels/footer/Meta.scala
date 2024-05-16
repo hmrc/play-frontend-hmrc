@@ -14,7 +14,8 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.hmrcfrontend.views.viewmodels.footer
+package uk.gov.hmrc.hmrcfrontend.views.viewmodels
+package footer
 
 import play.api.libs.functional.syntax._
 import play.api.libs.json._
@@ -38,5 +39,5 @@ object Meta {
     (__ \ "visuallyHiddenTitle").writeNullable[String] and
       Content.writes and
       (__ \ "items").writeNullable[Seq[FooterItem]]
-  )(m => (m.visuallyHiddenTitle, m.content, m.items))
+  )(o => WritesUtils.unapplyCompat(unapply)(o))
 }

@@ -14,7 +14,8 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.govukfrontend.views.viewmodels.tasklist
+package uk.gov.hmrc.govukfrontend.views.viewmodels
+package tasklist
 
 import uk.gov.hmrc.govukfrontend.views.viewmodels.content.{Content, Empty}
 import uk.gov.hmrc.govukfrontend.views.viewmodels.hint.Hint
@@ -48,5 +49,5 @@ object TaskListItem {
         (__ \ "status").write[TaskListItemStatus] and
         (__ \ "href").writeNullable[String] and
         (__ \ "classes").write[String]
-    )(tli => (tli.title, tli.hint, tli.status, tli.href, tli.classes))
+    )(o => WritesUtils.unapplyCompat(unapply)(o))
 }

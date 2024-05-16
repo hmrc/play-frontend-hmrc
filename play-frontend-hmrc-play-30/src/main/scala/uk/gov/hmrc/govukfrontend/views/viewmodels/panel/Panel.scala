@@ -14,7 +14,8 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.govukfrontend.views.viewmodels.panel
+package uk.gov.hmrc.govukfrontend.views.viewmodels
+package panel
 
 import play.api.libs.functional.syntax._
 import play.api.libs.json._
@@ -50,6 +51,6 @@ object Panel {
         (__ \ "attributes").write[Map[String, String]] and
         Content.writesContent("titleHtml", "titleText") and
         Content.writes
-    )(p => (p.headingLevel, p.classes, p.attributes, p.title, p.content))
+    )(o => WritesUtils.unapplyCompat(unapply)(o))
 
 }

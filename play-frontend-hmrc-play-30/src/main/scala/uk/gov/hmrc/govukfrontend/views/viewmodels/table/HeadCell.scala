@@ -53,6 +53,6 @@ object HeadCell {
         (__ \ "colspan").writeNullable[Int] and
         (__ \ "rowspan").writeNullable[Int] and
         (__ \ "attributes").write[Map[String, String]]
-    )(hc => (hc.content, hc.format, hc.classes, hc.colspan, hc.rowspan, hc.attributes))
+    )(o => WritesUtils.unapplyCompat(unapply)(o))
 
 }

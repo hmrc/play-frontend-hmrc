@@ -14,7 +14,8 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.govukfrontend.views.viewmodels.details
+package uk.gov.hmrc.govukfrontend.views.viewmodels
+package details
 
 import play.api.libs.functional.syntax._
 import play.api.libs.json._
@@ -52,6 +53,6 @@ object Details {
         (__ \ "attributes").write[Map[String, String]] and
         Content.writesContent("summaryHtml", "summaryText") and
         Content.writes
-    )(d => (d.id, d.open, d.classes, d.attributes, d.summary, d.content))
+    )(o => WritesUtils.unapplyCompat(unapply)(o))
 
 }
