@@ -160,8 +160,8 @@ to
   support. Major breaking release. 
 - Please read the [v9.0.0 release notes](https://github.com/hmrc/play-frontend-hmrc/releases/tag/v9.0.0)
   when uplifting your frontend service, and check that it still works as expected, particularly if using custom Javascript / CSS.
-- If you were previously passing `None` to the `value` property of `SelectItem`, e.g for a placeholder item in a list,
-  you will now need to pass `Some("")` instead.
+- If you were previously passing `None` to the `value` property of `SelectItem` because you need an empty value attribute 
+  (`value=""`, e.g for a placeholder item in a list), you will now need to pass `Some("")` instead, because the default, None, will now not render any value attribute at all - rather than an empty one.
 
 ### Compatible with
 
