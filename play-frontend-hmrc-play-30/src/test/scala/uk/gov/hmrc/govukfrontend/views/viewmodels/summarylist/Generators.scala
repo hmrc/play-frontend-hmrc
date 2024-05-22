@@ -19,6 +19,7 @@ package uk.gov.hmrc.govukfrontend.views.viewmodels.summarylist
 import org.scalacheck.{Arbitrary, Gen}
 import uk.gov.hmrc.govukfrontend.views.viewmodels.Generators._
 import uk.gov.hmrc.govukfrontend.views.viewmodels.content.Generators._
+import uk.gov.hmrc.hmrcfrontend.views.viewmodels.Generators.genPositiveNumber
 
 object Generators {
 
@@ -26,7 +27,7 @@ object Generators {
     for {
       href               <- genNonEmptyAlphaStr
       content            <- arbContent.arbitrary
-      visuallyHiddenText <- Gen.option(genAlphaStr())
+      visuallyHiddenText <- Gen.option(genNonEmptyAlphaStr)
       classes            <- genClasses()
     } yield ActionItem(href = href, content = content, visuallyHiddenText = visuallyHiddenText, classes = classes)
   }
@@ -62,13 +63,40 @@ object Generators {
     } yield SummaryListRow(key = key, value = value, classes = classes, actions = actions)
   }
 
+  implicit val arbCardTitle: Arbitrary[CardTitle] = Arbitrary {
+    for {
+      content      <- arbEmpty.arbitrary // TODO integration test expects arbNonEmptyContent.arbitrary
+      headingLevel <- Gen.option(Gen.choose(1, 2))
+      classes      <- genAlphaStr()
+    } yield CardTitle(
+      content = content,
+      headingLevel = headingLevel,
+      classes = classes
+    )
+  }
+
+  implicit val arbCard: Arbitrary[Card] = Arbitrary {
+    for {
+      title      <- Gen.option(arbCardTitle.arbitrary)
+      actions    <- Gen.option(arbActions.arbitrary)
+      classes    <- genAlphaStr()
+      attributes <- genAttributes()
+    } yield Card(
+      title = title,
+      actions = actions,
+      classes = classes,
+      attributes = attributes
+    )
+  }
+
   implicit val arbSummaryList: Arbitrary[SummaryList] = Arbitrary {
     for {
       n          <- Gen.chooseNum(0, 5)
       rows       <- Gen.listOfN(n, arbSummaryListRow.arbitrary)
       classes    <- genClasses()
-      attributes <- genAttributes()
-    } yield SummaryList(rows = rows, classes = classes, attributes = attributes)
+      attributes <- genAttributes(2)
+      card       <- Gen.option(arbCard.arbitrary)
+    } yield SummaryList(rows = rows, classes = classes, attributes = attributes, card = card)
   }
 
 }

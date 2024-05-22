@@ -61,7 +61,7 @@
         case None => {
           @defining(item.hint.exists(_.content.nonEmpty)) { hasHint =>
           @defining(s"$id-item-hint") { itemHintId =>
-          @defining((item.value.nonEmpty && item.value == value) || item.checked) { isChecked =>
+          @defining((item.value.exists(_.nonEmpty) && item.value == value) || item.checked) { isChecked =>
           @defining {
             @if(isChecked) { checked}
             @if(item.disabled) { disabled}

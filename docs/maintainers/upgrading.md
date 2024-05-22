@@ -145,6 +145,10 @@ To add a new component:
 - Add the template integration test: `src/it/scala/uk/gov/hmrc/(hmrc|govuk)frontend/views/components`. This should extend
 `TemplateIntegrationSpec[YourViewModel, YourComponent]("yourComponent")`. You will also need to create new Generator
 classes in `src/test/scala/uk/gov/hmrc/(hmrc|govuk)frontend/views/viewmodels`
+- Add a `GeneratorSpec` to your component folder, `src/main/twirl/uk/gov/hmrc/(hmrc|govuk)frontend/views/components/("yourComponent")` with contents: 
+    ```scala
+    class GeneratorSpec extends GeneratorBaseSpec[("yourComponent")]`
+    ```
 
 ## Useful Links
 - [x-govuk-component-renderer](https://github.com/hmrc/x-govuk-component-renderer) - service that returns HTML for `govuk-frontend` and `hmrc-frontend` component input parameters in the form of JSON objects - useful for confirming Twirl HTML outputs in integration tests

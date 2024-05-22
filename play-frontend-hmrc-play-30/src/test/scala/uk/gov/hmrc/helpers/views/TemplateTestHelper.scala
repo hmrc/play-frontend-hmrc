@@ -59,11 +59,14 @@ abstract class TemplateTestHelper[T: Reads](
               case (_, _) if isExplicitlyExcluded(fixtureDir)         =>
                 pending
               case (Success(twirlHtml), Success(nunjucksHtml))        =>
-                val preProcess: String => String =
-                  if (fullyCompressedExamples.contains(exampleName)) compressHtml(_, maximumCompression = true)
-                  else compressHtml(_)
-                val preProcessedTwirlHtml        = preProcess(twirlHtml)
-                val preProcessedNunjucksHtml     = preProcess(nunjucksHtml)
+                val preProcess: String => String = { rawHtml =>
+                  compressHtml(
+                    normaliseHtml(rawHtml),
+                    maximumCompression = fullyCompressedExamples.contains(exampleName)
+                  )
+                }
+                val preProcessedTwirlHtml    = preProcess(twirlHtml)
+                val preProcessedNunjucksHtml = preProcess(nunjucksHtml)
 
                 withClue(s"""
                        | Twirl output:

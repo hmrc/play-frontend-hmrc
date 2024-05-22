@@ -16,6 +16,7 @@
 
 package uk.gov.hmrc.govukfrontend.views.viewmodels.fieldset
 
+import play.twirl.api.{Html, HtmlFormat}
 import org.scalacheck.Arbitrary.arbBool
 import org.scalacheck.{Arbitrary, Gen}
 import uk.gov.hmrc.govukfrontend.views.viewmodels.Generators._
@@ -38,12 +39,14 @@ object Generators {
       classes     <- genClasses()
       role        <- Gen.option(genAlphaStr())
       attributes  <- genAttributes()
+      html        <- arbHtml.arbitrary
     } yield Fieldset(
       describedBy = describedBy,
       legend = legend,
       classes = classes,
       role = role,
-      attributes = attributes
+      attributes = attributes,
+      html = html
     )
   }
 }

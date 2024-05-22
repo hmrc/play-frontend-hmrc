@@ -17,6 +17,7 @@
 package uk.gov.hmrc.hmrcfrontend.views.viewmodels.charactercount
 
 import org.scalacheck.{Arbitrary, Gen}
+import org.scalacheck.Arbitrary.arbBool
 import uk.gov.hmrc.govukfrontend.views.viewmodels.Generators.arbFormGroup
 import uk.gov.hmrc.hmrcfrontend.views.viewmodels.Generators._
 import uk.gov.hmrc.hmrcfrontend.views.viewmodels.errormessage.Generators._
@@ -28,22 +29,24 @@ object Generators {
 
   implicit val arbCharacterCount: Arbitrary[CharacterCount] = Arbitrary {
     for {
-      id           <- genNonEmptyAlphaStr
-      name         <- genNonEmptyAlphaStr
-      rows         <- Gen.chooseNum(1, 5)
-      value        <- Gen.option(genAlphaStr())
-      maxLength    <- Gen.option(Gen.chooseNum(1, 10))
-      maxWords     <- Gen
-                        .option(Gen.chooseNum(1, 10))
-                        .retryUntil(optMaxWords => maxLength.nonEmpty || optMaxWords.nonEmpty)
-      threshold    <- Gen.option(Gen.chooseNum(1, 5))
-      label        <- arbLabel.arbitrary
-      hint         <- Gen.option(arbHint.arbitrary)
-      errorMessage <- Gen.option(arbErrorMessage.arbitrary)
-      formGroup    <- arbFormGroup.arbitrary
-      classes      <- genClasses()
-      attributes   <- genAttributes()
-      language     <- arbLanguage.arbitrary
+      id                  <- genNonEmptyAlphaStr
+      name                <- genNonEmptyAlphaStr
+      rows                <- Gen.chooseNum(1, 5)
+      value               <- Gen.option(genAlphaStr())
+      maxLength           <- Gen.option(Gen.chooseNum(1, 10))
+      maxWords            <- Gen
+                               .option(Gen.chooseNum(1, 10))
+                               .retryUntil(optMaxWords => maxLength.nonEmpty || optMaxWords.nonEmpty)
+      threshold           <- Gen.option(Gen.chooseNum(1, 5))
+      label               <- arbLabel.arbitrary
+      hint                <- Gen.option(arbHint.arbitrary)
+      errorMessage        <- Gen.option(arbErrorMessage.arbitrary)
+      formGroup           <- arbFormGroup.arbitrary
+      classes             <- genClasses()
+      attributes          <- genAttributes()
+      language            <- arbLanguage.arbitrary
+      spellcheck          <- Gen.option(arbBool.arbitrary)
+      countMessageClasses <- genAlphaStr()
     } yield CharacterCount(
       id = id,
       name = name,
@@ -58,7 +61,9 @@ object Generators {
       formGroup = formGroup,
       classes = classes,
       attributes = attributes,
-      language = language
+      language = language,
+      spellcheck = spellcheck,
+      countMessageClasses = countMessageClasses
     )
 
   }

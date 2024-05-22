@@ -98,6 +98,12 @@ library to ensure parity.
 images to be `/assets/images`, which does not match the structure of assets hosting within the `play-frontend-hmrc` 
 library.  
 
+#### ViewModel Tests
+
+To guarantee comprehensive test coverage for our view models, we have implemented `GeneratorSpec` for each model under:
+`src/test/scala/uk/gov/hmrc/govukfrontend/views/viewmodels/` and `src/test/scala/uk/gov/hmrc/hmrcfrontend/views/viewmodels/` an example GeneratorSpec can be seen here `src/test/scala/uk/gov/hmrc/govukfrontend/views/viewmodels/accordion/GeneratorSpec.scala`
+These tests confirm that all fields in the view models have associated generators. It is essential to create a corresponding `GeneratorSpec` for any new view models introduced in the future. 
+
 #### Reproducing Failures (Deterministic Testing)
 In case of a test failure, the test reporter outputs a `org.scalacheck.rng.Seed` encoded in Base-64 that can be passed back to the failing test to reproduce it.
 More information about this feature [here](https://gist.github.com/non/aeef5824b3f681b9cfc141437b16b014).

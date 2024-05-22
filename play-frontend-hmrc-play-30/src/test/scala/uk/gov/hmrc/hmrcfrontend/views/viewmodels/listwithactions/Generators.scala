@@ -19,6 +19,7 @@ package uk.gov.hmrc.hmrcfrontend.views.viewmodels.listwithactions
 import org.scalacheck.{Arbitrary, Gen}
 import uk.gov.hmrc.govukfrontend.views.viewmodels.Generators._
 import uk.gov.hmrc.govukfrontend.views.viewmodels.content.Generators._
+import uk.gov.hmrc.hmrcfrontend.views.viewmodels.Generators.genAttributes
 
 object Generators {
 
@@ -28,11 +29,13 @@ object Generators {
       content            <- arbContent.arbitrary
       visuallyHiddenText <- Gen.option(genAlphaStr())
       classes            <- genClasses()
+      attributes         <- genAttributes()
     } yield ListWithActionsAction(
       href = href,
       content = content,
       visuallyHiddenText = visuallyHiddenText,
-      classes = classes
+      classes = classes,
+      attributes = attributes
     )
   }
 

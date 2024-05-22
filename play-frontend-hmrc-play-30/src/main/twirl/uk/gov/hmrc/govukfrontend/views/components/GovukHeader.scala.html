@@ -114,5 +114,5 @@
 </header>
 
 @menuButtonAriaLabel = {
-  @params.menuButtonLabel.filterNot(params.menuButtonText.contains(_)).map { label => aria-label="@label"}
+  @params.menuButtonLabel.filterNot(s => params.menuButtonText.contains(s) || s.isEmpty).map { label => aria-label="@label"}
 }

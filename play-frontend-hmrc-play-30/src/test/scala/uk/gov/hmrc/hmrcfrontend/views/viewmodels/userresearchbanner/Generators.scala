@@ -17,15 +17,17 @@
 package uk.gov.hmrc.hmrcfrontend.views.viewmodels.userresearchbanner
 
 import org.scalacheck.Arbitrary
-import uk.gov.hmrc.hmrcfrontend.views.viewmodels.Generators.{genAlphaStr, genNonEmptyAlphaStr}
+import org.scalacheck.Arbitrary.arbBool
+import uk.gov.hmrc.hmrcfrontend.views.viewmodels.Generators.{genNonEmptyAlphaStr}
 import uk.gov.hmrc.hmrcfrontend.views.viewmodels.language.Generators.arbLanguage
 
 object Generators {
 
   implicit val arbUserResearchBanner: Arbitrary[UserResearchBanner] = Arbitrary {
     for {
-      language <- arbLanguage.arbitrary
-      url      <- genNonEmptyAlphaStr
-    } yield UserResearchBanner(language = language, url = url)
+      language        <- arbLanguage.arbitrary
+      url             <- genNonEmptyAlphaStr
+      hideCloseButton <- arbBool.arbitrary
+    } yield UserResearchBanner(language = language, url = url, hideCloseButton = hideCloseButton)
   }
 }

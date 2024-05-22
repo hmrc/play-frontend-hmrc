@@ -55,6 +55,7 @@ case class CharacterCount(
   id: String = "",
   name: String = "",
   rows: Int = 5,
+  spellcheck: Option[Boolean] = None,
   value: Option[String] = None,
   maxLength: Option[Int] = None,
   maxWords: Option[Int] = None,
@@ -84,6 +85,7 @@ object CharacterCount {
       (__ \ "id").readWithDefault[String](defaultObject.id) and
         (__ \ "name").readWithDefault[String](defaultObject.name) and
         (__ \ "rows").readWithDefault[IntString](IntString(defaultObject.rows)).int and
+        (__ \ "spellcheck").readNullable[Boolean] and
         (__ \ "value").readNullable[String] and
         (__ \ "maxlength").readNullable[IntString].int and
         (__ \ "maxwords").readNullable[IntString].int and
@@ -109,6 +111,7 @@ object CharacterCount {
       (__ \ "id").write[String] and
         (__ \ "name").write[String] and
         (__ \ "rows").write[Int] and
+        (__ \ "spellcheck").writeNullable[Boolean] and
         (__ \ "value").writeNullable[String] and
         (__ \ "maxlength").writeNullable[Int] and
         (__ \ "maxwords").writeNullable[Int] and

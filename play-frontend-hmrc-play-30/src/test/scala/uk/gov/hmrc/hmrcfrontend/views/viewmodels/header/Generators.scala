@@ -78,6 +78,9 @@ object Generators {
       phaseBanner            <- Gen.option(arbPhaseBanner.arbitrary)
       userResearchBanner     <- Gen.option(arbUserResearchBanner.arbitrary)
       additionalBannersBlock <- Gen.option(arbHtml.arbitrary)
+      menuButtonLabel        <- Gen.option(genNonEmptyAlphaStr)
+      navigationLabel        <- Gen.option(genNonEmptyAlphaStr)
+      menuButtonText         <- Gen.option(genNonEmptyAlphaStr)
     } yield Header(
       homepageUrl = homepageUrl,
       assetsPath = assetsPath,
@@ -96,7 +99,10 @@ object Generators {
       inputLanguageToggle = languageToggle,
       phaseBanner = phaseBanner,
       userResearchBanner = userResearchBanner,
-      additionalBannersBlock = additionalBannersBlock
+      additionalBannersBlock = additionalBannersBlock,
+      navigationLabel = navigationLabel,
+      menuButtonText = menuButtonText,
+      menuButtonLabel = menuButtonLabel
     )
   }
 }

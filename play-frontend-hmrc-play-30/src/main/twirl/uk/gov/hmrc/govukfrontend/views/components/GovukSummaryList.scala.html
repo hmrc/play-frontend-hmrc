@@ -16,6 +16,7 @@
 
 @import uk.gov.hmrc.govukfrontend.views.viewmodels.summarylist._
 @import uk.gov.hmrc.govukfrontend.views.viewmodels.content.Content
+@import uk.gov.hmrc.hmrcfrontend.views.Utils._
 
 @this()
 
@@ -67,7 +68,7 @@
       <dd class="@toClasses("govuk-summary-list__value", row.value.classes)">
         @row.value.content.asHtml
       </dd>
-      @if(row.actions.exists(_.items.length > 0)) {
+      @if(row.actions.exists(_.items.nonEmpty)) {
         <dd class="@toClasses("govuk-summary-list__actions", row.actions.map(_.classes).getOrElse(""))">
           @if(row.actions.exists(_.items.length == 1)) {
             @row.actions.map {actions => @actionLink(actions.items.head, card.flatMap(_.title).map(_.content))}
@@ -90,7 +91,6 @@
 @actionLink(action: ActionItem, cardTitle: Option[Content]) = {
     <a class="@toClasses("govuk-link", action.classes)" href="@action.href"@toAttributes(action.attributes)>@action.content.asHtml@visuallyHiddenText(action, cardTitle)</a>}
 
-@visuallyHiddenText(action: ActionItem, cardTitle: Option[Content]) = {@if(action.visuallyHiddenText.exists(_.nonEmpty) || cardTitle.exists(_.nonEmpty)) {<span class="govuk-visually-hidden">
-    @{action.visuallyHiddenText}@{cardTitle.filter(_.nonEmpty).map(ct => s" (${ct.asHtml})")}</span>}}
+@visuallyHiddenText(action: ActionItem, cardTitle: Option[Content]) = {@if(action.visuallyHiddenText.exists(_.nonEmpty) || cardTitle.isDefined) {<span class="govuk-visually-hidden"> @{action.visuallyHiddenText.map(_.rtrim)}@if(cardTitle.isDefined){@cardTitle.map {content => (@content.asHtml)}}</span>}}
 
 @anyRowHasActions = @{rows.exists(_.actions.fold(false)(_.items.nonEmpty))}

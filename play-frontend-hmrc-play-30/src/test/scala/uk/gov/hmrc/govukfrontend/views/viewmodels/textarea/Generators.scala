@@ -17,6 +17,7 @@
 package uk.gov.hmrc.govukfrontend.views.viewmodels.textarea
 
 import org.scalacheck.{Arbitrary, Gen}
+import org.scalacheck.Arbitrary.arbBool
 import uk.gov.hmrc.govukfrontend.views.viewmodels.Generators._
 import uk.gov.hmrc.govukfrontend.views.viewmodels.errormessage.Generators._
 import uk.gov.hmrc.govukfrontend.views.viewmodels.hint.Generators._
@@ -38,10 +39,13 @@ object Generators {
       classes      <- genClasses()
       autocomplete <- Gen.option(genAlphaStr())
       attributes   <- genAttributes()
+      spellcheck   <- Gen.option(arbBool.arbitrary)
+      disabled     <- Gen.option(arbBool.arbitrary)
     } yield Textarea(
       id = id,
       name = name,
       rows = rows,
+      spellcheck = spellcheck,
       value = value,
       describedBy = describedBy,
       label = label,
@@ -50,7 +54,8 @@ object Generators {
       formGroup = formGroup,
       classes = classes,
       autocomplete = autocomplete,
-      attributes = attributes
+      attributes = attributes,
+      disabled = disabled
     )
   }
 }

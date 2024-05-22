@@ -16,6 +16,7 @@
 
 package uk.gov.hmrc.hmrcfrontend.views.viewmodels.internalheader
 
+import org.scalacheck.Arbitrary.arbBool
 import org.scalacheck.{Arbitrary, Gen}
 
 import uk.gov.hmrc.hmrcfrontend.views.viewmodels.Generators._
@@ -24,9 +25,15 @@ object Generators {
 
   implicit val arbInternalHeader: Arbitrary[InternalHeader] = Arbitrary {
     for {
-      homepageUrl <- genAlphaStr()
-      serviceName <- Gen.option(genAlphaStr())
-      serviceUrl  <- genAlphaStr()
-    } yield InternalHeader(homepageUrl = homepageUrl, serviceName = serviceName, serviceUrl = serviceUrl)
+      homepageUrl   <- genAlphaStr()
+      serviceName   <- Gen.option(genAlphaStr())
+      serviceUrl    <- genAlphaStr()
+      useTudorCrown <- Gen.option(arbBool.arbitrary)
+    } yield InternalHeader(
+      homepageUrl = homepageUrl,
+      serviceName = serviceName,
+      serviceUrl = serviceUrl,
+      useTudorCrown = useTudorCrown
+    )
   }
 }

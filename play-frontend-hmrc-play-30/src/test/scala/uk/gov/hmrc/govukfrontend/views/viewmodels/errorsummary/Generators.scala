@@ -17,6 +17,7 @@
 package uk.gov.hmrc.govukfrontend.views.viewmodels.errorsummary
 
 import org.scalacheck.{Arbitrary, Gen}
+import org.scalacheck.Arbitrary.arbBool
 import uk.gov.hmrc.govukfrontend.views.viewmodels.Generators._
 import uk.gov.hmrc.govukfrontend.views.viewmodels.content.Generators._
 
@@ -32,18 +33,20 @@ object Generators {
 
   implicit val arbErrorSummary: Arbitrary[ErrorSummary] = Arbitrary {
     for {
-      n           <- Gen.chooseNum(0, 5)
-      errorList   <- Gen.listOfN(n, arbErrorLink.arbitrary)
-      classes     <- genClasses()
-      attributes  <- genAttributes()
-      title       <- arbContent.arbitrary
-      description <- arbContent.arbitrary
+      n                <- Gen.chooseNum(0, 5)
+      errorList        <- Gen.listOfN(n, arbErrorLink.arbitrary)
+      classes          <- genClasses()
+      attributes       <- genAttributes()
+      title            <- arbContent.arbitrary
+      description      <- arbContent.arbitrary
+      disableAutoFocus <- Gen.option(arbBool.arbitrary)
     } yield ErrorSummary(
       errorList = errorList,
       classes = classes,
       attributes = attributes,
       title = title,
-      description = description
+      description = description,
+      disableAutoFocus = disableAutoFocus
     )
   }
 }

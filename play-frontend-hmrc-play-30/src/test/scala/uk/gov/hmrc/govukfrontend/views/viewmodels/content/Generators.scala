@@ -40,4 +40,8 @@ object Generators {
     Gen.oneOf(arbEmpty.arbitrary, arbHtmlContent.arbitrary, arbText.arbitrary)
   }
 
+  val arbNonEmptyContent: Arbitrary[Content] = Arbitrary {
+    Gen.oneOf(arbHtmlContent.arbitrary, arbText.arbitrary)
+  }
+
 }

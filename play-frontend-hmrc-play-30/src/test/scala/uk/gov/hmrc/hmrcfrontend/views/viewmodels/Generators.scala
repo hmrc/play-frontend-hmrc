@@ -38,7 +38,7 @@ object Generators {
     value <- Gen.alphaStr
   } yield (attr, value)
 
-  def genAttributes(nAttributes: Int = 15) =
+  def genAttributes(nAttributes: Int = 3) =
     for {
       sz         <- Gen.chooseNum(0, nAttributes)
       attributes <- Gen.mapOfN[String, String](sz, genAttrVal)
