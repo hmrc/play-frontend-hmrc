@@ -69,6 +69,11 @@ abstract class TemplateIntegrationBaseSpec[T: OWrites: Arbitrary](
     templateParams: T =>
       classify(classifiers(templateParams))(secure {
 
+        println("Adding some logging in here")
+        val anInt = 20 * 3
+        println(s"anInt is: $anInt")
+
+
         val response = render(componentName, templateParams)
 
         val nunJucksOutputHtml = response.futureValue.bodyAsString
