@@ -35,7 +35,7 @@ class HmrcSectionCaptionSpec extends AnyWordSpec with Matchers {
     )
 
   implicit val englishMessages: Messages = messagesApi.preferred(Seq(Lang("en")))
-  val welshMessages            = messagesApi.preferred(Seq(Lang("cy")))
+  val welshMessages                      = messagesApi.preferred(Seq(Lang("cy")))
 
   "HmrcSectionCaption" must {
     "construct caption with a visually hidden prefix" in {

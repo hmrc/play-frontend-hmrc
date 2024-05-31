@@ -98,7 +98,9 @@ class FormWithCSRFSpec
     "render multiple attributes" in {
       val form =
         formWithCSRF
-          .apply(action = postAction, Symbol("attribute1") -> "value1", Symbol("attribute2") -> "value2")(HtmlFormat.empty)
+          .apply(action = postAction, Symbol("attribute1") -> "value1", Symbol("attribute2") -> "value2")(
+            HtmlFormat.empty
+          )
           .select("form")
 
       form.attr("attribute1") shouldBe "value1"

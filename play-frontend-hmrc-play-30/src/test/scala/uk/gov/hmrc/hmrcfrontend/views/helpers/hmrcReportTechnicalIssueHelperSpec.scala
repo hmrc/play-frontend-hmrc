@@ -46,7 +46,7 @@ class hmrcReportTechnicalIssueHelperSpec
       implicit val app                       = buildApp(
         Map(
           ("contact-frontend.serviceId", "online-payments"),
-          ("platform.frontend.host"    , "https://www.tax.service.gov.uk")
+          ("platform.frontend.host", "https://www.tax.service.gov.uk")
         )
       )
 
