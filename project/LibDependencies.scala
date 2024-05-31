@@ -3,22 +3,21 @@ import sbt._
 object LibDependencies {
   val govukFrontendVersion: String = "5.3.0"
   val hmrcFrontendVersion: String  = "6.17.0"
-  val playLanguageVersion: String  = "7.0.0-SNAPSHOT"
+  val playLanguageVersion: String  = "8.0.0"
 
   val play28Version = "2.8.21"
   val play29Version = "2.9.3"
   val play30Version = "3.0.3"
 
   val shared = Seq(
-    "org.scala-lang.modules"       %% "scala-collection-compat"  % "2.10.0",
-    "uk.gov.hmrc.webjars"           % "hmrc-frontend"            % hmrcFrontendVersion,
-    "org.jsoup"                     % "jsoup"                    % "1.13.1"      % Test,
-    "org.scalatestplus"            %% "mockito-3-4"              % "3.2.10.0"    % Test,
-    "org.scalatestplus"            %% "scalacheck-1-16"          % "3.2.14.0"    % Test,
-    "com.googlecode.htmlcompressor" % "htmlcompressor"           % "1.5.2"       % Test,
-    "com.github.pathikrit"         %% "better-files"             % "3.9.2"       % Test,
-    "com.lihaoyi"                  %% "pprint"                   % "0.6.6"       % Test,
-    "org.bitbucket.cowwoc"          % "diff-match-patch"         % "1.2"         % Test
+    "uk.gov.hmrc.webjars"           % "hmrc-frontend"    % hmrcFrontendVersion,
+    "org.jsoup"                     % "jsoup"            % "1.13.1"   % Test,
+    "org.scalatestplus"            %% "mockito-3-4"      % "3.2.10.0" % Test,
+    "org.scalatestplus"            %% "scalacheck-1-16"  % "3.2.14.0" % Test,
+    "com.googlecode.htmlcompressor" % "htmlcompressor"   % "1.5.2"    % Test,
+    "com.github.pathikrit"         %% "better-files"     % "3.9.2"    % Test,
+    "com.lihaoyi"                  %% "pprint"           % "0.6.6"    % Test,
+    "org.bitbucket.cowwoc"          % "diff-match-patch" % "1.2"      % Test
   )
 
   val play28 = Seq(

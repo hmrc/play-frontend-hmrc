@@ -27,8 +27,6 @@ import uk.gov.hmrc.helpers.views.{JsoupHelpers, PreProcessor, TemplateValidation
 import uk.gov.hmrc.support.Implicits._
 import uk.gov.hmrc.support.ScalaCheckUtils.{ClassifyParams, classify}
 
-
-import scala.collection.compat.immutable.LazyList
 import scala.util.{Failure, Success}
 
 /**

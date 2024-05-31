@@ -19,9 +19,6 @@ package uk.gov.hmrc.support
 import org.scalacheck.Prop
 import org.scalacheck.Prop.collect
 
-import scala.collection.compat.immutable.LazyList
-import scala.collection.compat.immutable.LazyList.#::
-
 object ScalaCheckUtils {
 
   type ClassifyParams = (Boolean, Any, Any)

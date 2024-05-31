@@ -20,7 +20,6 @@ import uk.gov.hmrc.support.ScalaCheckUtils.ClassifyParams
 import uk.gov.hmrc.hmrcfrontend.support.TemplateIntegrationSpec
 import uk.gov.hmrc.hmrcfrontend.views.html.components._
 
-import scala.collection.compat.immutable.LazyList
 // We use the below instead of a true arbitrary as the `hmrc-frontend` Nunjucks
 // model of Header is less flexible and specifically requests the href for `cy`
 // and `en` to be defined.
