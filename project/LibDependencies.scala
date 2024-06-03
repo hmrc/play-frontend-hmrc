@@ -27,7 +27,7 @@ object LibDependencies {
     "com.typesafe.play"      %% "play-test"             % play28Version % Test,
     "com.typesafe.play"      %% "play-ahc-ws"           % play28Version % Test,
     "org.scalatestplus.play" %% "scalatestplus-play"    % "5.1.0"       % Test,
-    "com.vladsch.flexmark"    % "flexmark-all"          % "0.35.10"     % Test
+    "com.vladsch.flexmark"    % "flexmark-all"          % "0.64.8"      % Test
   )
 
   val play29 = Seq(
