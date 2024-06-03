@@ -68,5 +68,5 @@ object Accordion {
       (__ \ "showAllSectionsText").writeNullable[String] and
       (__ \ "showSectionAriaLabelText").writeNullable[String] and
       (__ \ "rememberExpanded").writeNullable[Boolean]
-    )(o => WritesUtils.unapplyCompat(unapply)(o))
+  )(o => WritesUtils.unapplyCompat(unapply)(o))
 }
