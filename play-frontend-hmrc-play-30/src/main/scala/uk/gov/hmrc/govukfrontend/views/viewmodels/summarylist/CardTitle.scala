@@ -17,7 +17,8 @@
 package uk.gov.hmrc.govukfrontend.views.viewmodels.summarylist
 
 import play.api.libs.functional.syntax._
-import play.api.libs.json.{Json, OWrites, Reads, __}
+import play.api.libs.json.{OWrites, Reads, __}
+import uk.gov.hmrc.govukfrontend.views.viewmodels.WritesUtils
 import uk.gov.hmrc.govukfrontend.views.viewmodels.content.{Content, Empty}
 
 case class CardTitle(
@@ -39,6 +40,6 @@ object CardTitle {
     Content.writesContent() and
       (__ \ "headingLevel").writeNullable[Int] and
       (__ \ "classes").write[String]
-  )(unlift(CardTitle.unapply))
+  )(o => WritesUtils.unapplyCompat(unapply)(o))
 
 }

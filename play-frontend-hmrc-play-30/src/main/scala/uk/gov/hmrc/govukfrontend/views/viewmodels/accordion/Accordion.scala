@@ -19,6 +19,7 @@ package uk.gov.hmrc.govukfrontend.views.viewmodels.accordion
 import play.api.libs.json._
 import uk.gov.hmrc.govukfrontend.views.viewmodels.CommonJsonFormats._
 import play.api.libs.functional.syntax._
+import uk.gov.hmrc.govukfrontend.views.viewmodels.WritesUtils
 
 case class Accordion(
   id: String = "",
@@ -67,5 +68,5 @@ object Accordion {
       (__ \ "showAllSectionsText").writeNullable[String] and
       (__ \ "showSectionAriaLabelText").writeNullable[String] and
       (__ \ "rememberExpanded").writeNullable[Boolean]
-  )(unlift(Accordion.unapply))
+    )(o => WritesUtils.unapplyCompat(unapply)(o))
 }
