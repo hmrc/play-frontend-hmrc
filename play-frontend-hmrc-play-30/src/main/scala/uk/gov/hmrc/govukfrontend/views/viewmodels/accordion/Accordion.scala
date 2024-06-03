@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.govukfrontend.views.viewmodels.accordion
+package uk.gov.hmrc.govukfrontend.views.viewmodels
+package accordion
 
 import play.api.libs.json._
 import uk.gov.hmrc.govukfrontend.views.viewmodels.CommonJsonFormats._
 import play.api.libs.functional.syntax._
-import uk.gov.hmrc.govukfrontend.views.viewmodels.WritesUtils
 
 case class Accordion(
   id: String = "",

@@ -15,7 +15,6 @@
  */
 
 package uk.gov.hmrc.hmrcfrontend.views.viewmodels
-
 package header
 
 import play.api.libs.functional.syntax._

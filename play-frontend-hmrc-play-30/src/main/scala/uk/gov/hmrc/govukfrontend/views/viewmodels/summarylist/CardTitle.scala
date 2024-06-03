@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.govukfrontend.views.viewmodels.summarylist
+package uk.gov.hmrc.govukfrontend.views.viewmodels
+package summarylist
 
 import play.api.libs.functional.syntax._
 import play.api.libs.json.{OWrites, Reads, __}
-import uk.gov.hmrc.govukfrontend.views.viewmodels.WritesUtils
 import uk.gov.hmrc.govukfrontend.views.viewmodels.content.{Content, Empty}
 
 case class CardTitle(
