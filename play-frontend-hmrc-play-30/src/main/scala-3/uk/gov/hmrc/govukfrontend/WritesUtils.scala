@@ -19,6 +19,8 @@ package uk.gov.hmrc.govukfrontend.views.viewmodels
 private[viewmodels] object WritesUtils {
   // Duplicate of `Tuple.fromProductTyped`
   // provided here to provide Scala 2.13 equivalent
-  @inline def unapplyCompat[P <: Product](ignored: Any)(p: P)(using m: scala.deriving.Mirror.ProductOf[P]): m.MirroredElemTypes =
+  @inline def unapplyCompat[P <: Product](ignored: Any)(p: P)(using
+    m: scala.deriving.Mirror.ProductOf[P]
+  ): m.MirroredElemTypes =
     runtime.Tuples.fromProduct(p).asInstanceOf[m.MirroredElemTypes]
 }

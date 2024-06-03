@@ -25,8 +25,7 @@ import play.api.test.FakeRequest
 import play.api.test.Helpers.contentAsString
 import play.api.test.Helpers._
 
-import scala.collection.immutable.List
-import scala.collection.JavaConverters._
+import scala.jdk.CollectionConverters._
 import java.util.{List => JavaList}
 import org.scalatestplus.play.guice.GuiceOneAppPerSuite
 import play.api.Application

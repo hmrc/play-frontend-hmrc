@@ -55,10 +55,10 @@ object Content {
       .orElse(readsText(textJsPath).widen[Content])
       .orElse(Reads.pure[Content](defaultContent))
 
-  def readsHtmlContent(jsPath: JsPath = (__ \ "html")): Reads[HtmlContent] =
+  def readsHtmlContent(jsPath: JsPath = __ \ "html"): Reads[HtmlContent] =
     jsPath.readsJsValueToString.map(HtmlContent(_))
 
-  def readsText(jsPath: JsPath = (__ \ "text")): Reads[Text] =
+  def readsText(jsPath: JsPath = __ \ "text"): Reads[Text] =
     jsPath.readsJsValueToString.map(Text.apply)
 }
 

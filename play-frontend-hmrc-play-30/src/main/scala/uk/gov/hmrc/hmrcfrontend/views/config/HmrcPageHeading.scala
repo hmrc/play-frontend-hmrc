@@ -45,9 +45,9 @@ trait HmrcPageHeading {
     headingClasses
       .split("\\s+")
       .reverse
-      .collectFirst({
+      .collectFirst {
         case regexToExtractSizeFromHeadingClasses(size) if validHeadingSizes.contains(size) => s"govuk-caption-$size"
-      })
+      }
       .getOrElse("govuk-caption-xl")
 }
 

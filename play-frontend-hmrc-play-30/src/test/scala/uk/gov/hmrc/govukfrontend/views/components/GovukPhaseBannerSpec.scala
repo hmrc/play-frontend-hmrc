@@ -18,7 +18,7 @@ package uk.gov.hmrc.govukfrontend.views
 package components
 
 import uk.gov.hmrc.govukfrontend.views.html.components._
-import scala.collection.JavaConverters._
+import scala.jdk.CollectionConverters._
 
 class GovukPhaseBannerSpec extends TemplateUnitSpec[PhaseBanner, GovukPhaseBanner]("govukPhaseBanner") {
 
