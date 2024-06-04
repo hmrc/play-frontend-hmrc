@@ -184,9 +184,9 @@ This might be via a form submission, or as path/query parameters in a URL.
 Such data should be validated against the most restrictive constraints possible.
 
 Within the Play framework, this can be achieved using custom
-[form mappings](https://www.playframework.com/documentation/2.8.x/ScalaForms)
+[form mappings](https://www.playframework.com/documentation/3.0.x/ScalaForms)
 or
-[request binders](https://www.playframework.com/documentation/2.8.x/ScalaRequestBinders).
+[request binders](https://www.playframework.com/documentation/3.0.x/ScalaRequestBinders).
 eg. for Forms:
 ```scala
     val myForm = Form[MyData](

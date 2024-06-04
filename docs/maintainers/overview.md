@@ -100,9 +100,16 @@ library.
 
 #### ViewModel Tests
 
-To guarantee comprehensive test coverage for our view models, we have implemented `GeneratorSpec` for each model under:
-`src/test/scala/uk/gov/hmrc/govukfrontend/views/viewmodels/` and `src/test/scala/uk/gov/hmrc/hmrcfrontend/views/viewmodels/` an example GeneratorSpec can be seen here `src/test/scala/uk/gov/hmrc/govukfrontend/views/viewmodels/accordion/GeneratorSpec.scala`
-These tests confirm that all fields in the view models have associated generators. It is essential to create a corresponding `GeneratorSpec` for any new view models introduced in the future. 
+To guarantee comprehensive test coverage for our components, we have implemented a `GeneratorSpec` for every view model in both
+[govukfrontend](/play-frontend-hmrc-play-30/src/test/scala/uk/gov/hmrc/govukfrontend/views/viewmodels) and [hmrc-frontend](/play-frontend-hmrc-play-30/src/test/scala/uk/gov/hmrc/hmrcfrontend/views/viewmodels).
+
+These tests verify that all fields in the view model case classes are covered by their associated Scalacheck generators,
+and aren't just using default values provided in the case classes.
+It is essential to create a corresponding `GeneratorSpec` for any new view models introduced in the future.
+
+An example GeneratorSpec can be seen 
+[here](/play-frontend-hmrc-play-30/src/test/scala-2.13/uk/gov/hmrc/govukfrontend/views/viewmodels/accordion/GeneratorSpec.scala)
+(note that these tests currently use the Scala 2 reflection API, so they reside in a separate scala-2.13 namespace).
 
 #### Reproducing Failures (Deterministic Testing)
 In case of a test failure, the test reporter outputs a `org.scalacheck.rng.Seed` encoded in Base-64 that can be passed back to the failing test to reproduce it.
@@ -119,7 +126,7 @@ Upon a test failure, the test reporter prints out a link to a diff file in `HTML
 markup for the failing test case against the expected markup. The diff is presented as if the `original` file was
 the Twirl template output and the `new` file was the Nunjucks template output (expected result). 
 
-```scala
+```
 Diff between Twirl and Nunjucks outputs (please open diff HTML file in a browser): file:///Users/foo/dev/hmrc/play-frontend-hmrc/target/hmrcPageHeading-diff-2b99bb2a-98d4-48dc-8088-06bfe3008021.html
 ```
 
@@ -127,9 +134,9 @@ Diff between Twirl and Nunjucks outputs (please open diff HTML file in a browser
 
 Prior to merging to trunk, it is a good idea to run all the tests against all supported versions of Scala and Play.
 These checks will also be performed automatically as part of the build pipeline before publishing.
-At time of writing, only Play 2.8 is supported, but this may change as newer versions of Play are made available.
 
-To test against all supported Scala/Play versions, run the following for each supported version of Play (supported Scala versions are tested implicitly via [PlayCrossCompilation](project/PlayCrossCompilation.scala)):
+To test against all supported Scala/Play versions, run the following for each supported version of Play
+(supported Scala versions are tested implicitly via `crossScalaVersions` settings in `build.sbt`, when using the `+` modifier for `sbt` tasks):
 
 ```bash
 PLAY_VERSION=2.8 sbt clean +test +it/test
