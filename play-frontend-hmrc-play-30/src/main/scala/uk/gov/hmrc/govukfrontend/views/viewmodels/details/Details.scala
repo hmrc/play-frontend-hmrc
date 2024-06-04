@@ -41,7 +41,7 @@ object Details {
         (__ \ "open").readWithDefault[Boolean](defaultObject.open) and
         (__ \ "classes").readWithDefault[String](defaultObject.classes) and
         (__ \ "attributes").readWithDefault[Map[String, String]](defaultObject.attributes)(attributesReads) and
-        Content.readsHtmlOrText((__ \ "summaryHtml"), (__ \ "summaryText")) and
+        Content.readsHtmlOrText(__ \ "summaryHtml", __ \ "summaryText") and
         Content.reads
     )(Details.apply _)
 

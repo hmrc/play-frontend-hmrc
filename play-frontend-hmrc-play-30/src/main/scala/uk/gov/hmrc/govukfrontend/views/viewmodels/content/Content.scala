@@ -33,10 +33,10 @@ sealed trait Content {
 object Content {
 
   implicit val reads: Reads[Content] =
-    readsHtmlOrText((__ \ "html"), (__ \ "text"))
+    readsHtmlOrText(__ \ "html", __ \ "text")
 
   def readsWithDefault(defaultContent: Content): Reads[Content] =
-    readsHtmlOrText((__ \ "html"), (__ \ "text"), defaultContent)
+    readsHtmlOrText(__ \ "html", __ \ "text", defaultContent)
 
   def writesContent(htmlField: String = "html", textField: String = "text"): OWrites[Content] =
     new OWrites[Content] {

@@ -40,7 +40,7 @@ object Panel {
       (__ \ "headingLevel").readWithDefault[IntString](IntString(defaultObject.headingLevel)).int and
         (__ \ "classes").readWithDefault[String](defaultObject.classes) and
         (__ \ "attributes").readWithDefault[Map[String, String]](defaultObject.attributes)(attributesReads) and
-        Content.readsHtmlOrText((__ \ "titleHtml"), (__ \ "titleText")) and
+        Content.readsHtmlOrText(__ \ "titleHtml", __ \ "titleText") and
         Content.reads
     )(Panel.apply _)
 

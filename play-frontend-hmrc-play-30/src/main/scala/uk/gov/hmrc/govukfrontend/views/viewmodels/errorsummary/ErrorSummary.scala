@@ -39,8 +39,8 @@ object ErrorSummary {
       (__ \ "errorList").readWithDefault[Seq[ErrorLink]](defaultObject.errorList) and
         (__ \ "classes").readWithDefault[String](defaultObject.classes) and
         (__ \ "attributes").readWithDefault[Map[String, String]](defaultObject.attributes) and
-        Content.readsHtmlOrText((__ \ "titleHtml"), (__ \ "titleText")) and
-        Content.readsHtmlOrText((__ \ "descriptionHtml"), (__ \ "descriptionText")) and
+        Content.readsHtmlOrText(__ \ "titleHtml", __ \ "titleText") and
+        Content.readsHtmlOrText(__ \ "descriptionHtml", __ \ "descriptionText") and
         (__ \ "disableAutoFocus").readNullable[Boolean]
     )(ErrorSummary.apply _)
 

@@ -58,7 +58,7 @@ def copySources(module: Project) = Seq(
 def copyPlayResources(module: Project) = Seq(
   Compile / TwirlKeys.compileTemplates / sourceDirectories += (module / baseDirectory).value / s"src/main/twirl",
   Compile / routes / sources ++= {
-    //baseDirectory.value / s"../src-common/main/resources/hmrcfrontend.routes"
+    // baseDirectory.value / s"../src-common/main/resources/hmrcfrontend.routes"
     // compile any routes files in the root named "routes" or "*.routes"
     val dirs = (module / Compile / unmanagedResourceDirectories).value
     (dirs * "routes").get ++ (dirs * "*.routes").get
@@ -93,7 +93,7 @@ lazy val playFrontendHmrcPlay30 = Project("play-frontend-hmrc-play-30", file("pl
   .settings(
     Compile / TwirlKeys.compileTemplates / sourceDirectories += baseDirectory.value / s"src/main/twirl",
     Compile / routes / sources ++= {
-      //baseDirectory.value / s"../src-common/main/resources/hmrcfrontend.routes"
+      // baseDirectory.value / s"../src-common/main/resources/hmrcfrontend.routes"
       // compile any routes files in the root named "routes" or "*.routes"
       val dirs = (Compile / unmanagedResourceDirectories).value
       (dirs * "routes").get ++ (dirs * "*.routes").get
@@ -131,7 +131,7 @@ lazy val it = project
     }
   )
 
-lazy val itPlay28              = (project in file("it-play-28"))
+lazy val itPlay28 = (project in file("it-play-28"))
   .enablePlugins(PlayScala) // AssetsSpec requires that this library is a fully fledged Play service
   .disablePlugins(PlayLayoutPlugin)
   .settings(copySources(itPlay30))
@@ -141,7 +141,7 @@ lazy val itPlay28              = (project in file("it-play-28"))
   )
   .dependsOn(playFrontendHmrcPlay28 % "test->test")
 
-lazy val itPlay29              = (project in file("it-play-29"))
+lazy val itPlay29 = (project in file("it-play-29"))
   .enablePlugins(PlayScala) // AssetsSpec requires that this library is a fully fledged Play service
   .disablePlugins(PlayLayoutPlugin)
   .settings(copySources(itPlay30))
@@ -151,7 +151,7 @@ lazy val itPlay29              = (project in file("it-play-29"))
   )
   .dependsOn(playFrontendHmrcPlay29 % "test->test")
 
-lazy val itPlay30              = (project in file("it-play-30"))
+lazy val itPlay30 = (project in file("it-play-30"))
   .enablePlugins(PlayScala) // AssetsSpec requires that this library is a fully fledged Play service
   .disablePlugins(PlayLayoutPlugin)
   .settings(DefaultBuildSettings.itSettings())

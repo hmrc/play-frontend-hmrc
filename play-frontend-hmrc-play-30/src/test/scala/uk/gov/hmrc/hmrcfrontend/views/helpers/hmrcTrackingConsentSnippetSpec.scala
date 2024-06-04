@@ -111,9 +111,9 @@ class TrackingConsentSnippetSpec
       val requestWithNonce: FakeRequest[_] =
         FakeRequest("GET", "/foo").withAttrs(TypedMap(RequestAttrKey.CSPNonce -> "abcdefghij"))
 
-      val component                        = app.injector.instanceOf[HmrcTrackingConsentSnippet]
-      val content                          = component()(requestWithNonce, messages)
-      val scripts                          = content.select("script")
+      val component = app.injector.instanceOf[HmrcTrackingConsentSnippet]
+      val content   = component()(requestWithNonce, messages)
+      val scripts   = content.select("script")
 
       scripts.get(0).attr("nonce") should be("abcdefghij")
       scripts.get(1).attr("nonce") should be("abcdefghij")

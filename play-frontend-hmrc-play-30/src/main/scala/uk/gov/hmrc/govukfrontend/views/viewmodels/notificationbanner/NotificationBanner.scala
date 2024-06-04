@@ -43,7 +43,7 @@ object NotificationBanner {
       Content.reads and
         (__ \ "type").readNullable[String] and
         (__ \ "role").readNullable[String] and
-        Content.readsHtmlOrText((__ \ "titleHtml"), (__ \ "titleText")) and
+        Content.readsHtmlOrText(__ \ "titleHtml", __ \ "titleText") and
         (__ \ "titleId").readNullable[String] and
         (__ \ "disableAutoFocus").readNullable[Boolean] and
         (__ \ "classes").readWithDefault[String](defaultObject.classes) and

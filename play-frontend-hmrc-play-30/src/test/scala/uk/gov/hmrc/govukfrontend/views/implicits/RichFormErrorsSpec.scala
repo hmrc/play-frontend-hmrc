@@ -79,7 +79,7 @@ class RichFormErrorsSpec
           forAll(genFormErrorsAndMessages) { case (formErrors, contentConstructor, messagesStub) =>
             import messagesStub.messages
             val i             = Random.nextInt(formErrors.length)
-            val randomMessage = formErrors(i).message //select random message
+            val randomMessage = formErrors(i).message // select random message
             formErrors
               .asErrorMessage(contentConstructor, randomMessage)
               .value shouldBe errorMessageWithDefaultStringsTranslated(
@@ -106,7 +106,7 @@ class RichFormErrorsSpec
           forAll(genFormErrorsAndMessages) { case (formErrors, contentConstructor, messagesStub) =>
             import messagesStub.messages
             val i        = Random.nextInt(formErrors.length)
-            val fieldKey = formErrors(i).key //select random message
+            val fieldKey = formErrors(i).key // select random message
             formErrors
               .asErrorMessageForField(contentConstructor, fieldKey)
               .value shouldBe errorMessageWithDefaultStringsTranslated(
@@ -121,7 +121,7 @@ class RichFormErrorsSpec
           forAll(genFormErrorsAndMessagesForSameFormField) { case (formErrors, contentConstructor, messagesStub) =>
             import messagesStub.messages
             val i                  = Random.nextInt(formErrors.length)
-            val fieldKey           = formErrors(i).key //select random message
+            val fieldKey           = formErrors(i).key // select random message
             val firstErrorForField = formErrors.filter(_.key == fieldKey)(0)
             formErrors
               .asErrorMessageForField(contentConstructor, fieldKey)
@@ -138,7 +138,7 @@ class RichFormErrorsSpec
           forAll(genFormErrorsAndMessagesForSameFormField) { case (formErrors, contentConstructor, messagesStub) =>
             import messagesStub.messages
             val i        = Random.nextInt(formErrors.length)
-            val fieldKey = "" //select random message
+            val fieldKey = "" // select random message
             formErrors.asErrorMessageForField(contentConstructor, fieldKey) shouldBe None
           }
         }

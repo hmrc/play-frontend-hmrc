@@ -65,8 +65,8 @@ abstract class TemplateTestHelper[T: Reads](
                     maximumCompression = fullyCompressedExamples.contains(exampleName)
                   )
                 }
-                val preProcessedTwirlHtml    = preProcess(twirlHtml)
-                val preProcessedNunjucksHtml = preProcess(nunjucksHtml)
+                val preProcessedTwirlHtml        = preProcess(twirlHtml)
+                val preProcessedNunjucksHtml     = preProcess(nunjucksHtml)
 
                 withClue(s"""
                        | Twirl output:

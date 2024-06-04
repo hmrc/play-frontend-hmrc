@@ -31,5 +31,5 @@ class ContactFrontendConfig @Inject() (config: Configuration) {
 
   def referrerUrl(implicit request: RequestHeader): Option[String] =
     Some(s"${platformHost
-      .getOrElse("")}${pathWithQuerystring(request)}")
+        .getOrElse("")}${pathWithQuerystring(request)}")
 }

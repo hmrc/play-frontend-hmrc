@@ -27,7 +27,7 @@ class HeaderNavigationSpec extends JsonRoundtripSpec[HeaderNavigation] {
       val testData =
         HeaderNavigation(None, Some("link"), active = true, Map("abc" -> "def"), HtmlContent("<strong>Html</strong>"))
 
-      val json     = Json.toJson[HeaderNavigation](testData)
+      val json = Json.toJson[HeaderNavigation](testData)
 
       json.as[HeaderNavigation] should be(
         HeaderNavigation(None, Some("link"), active = true, Map("abc" -> "def"), HtmlContent("<strong>Html</strong>"))
@@ -38,7 +38,7 @@ class HeaderNavigationSpec extends JsonRoundtripSpec[HeaderNavigation] {
       val testData =
         HeaderNavigation(None, Some("link"), active = true, Map("abc" -> "def"), Empty)
 
-      val json     = Json.toJson[HeaderNavigation](testData)
+      val json = Json.toJson[HeaderNavigation](testData)
 
       json.as[HeaderNavigation] should be(
         HeaderNavigation(None, Some("link"), active = true, Map("abc" -> "def"), Empty)
@@ -49,7 +49,7 @@ class HeaderNavigationSpec extends JsonRoundtripSpec[HeaderNavigation] {
       val testData =
         HeaderNavigation(None, Some("link"), active = true, Map("abc" -> "def"), HtmlContent(""))
 
-      val json     = Json.toJson[HeaderNavigation](testData)
+      val json = Json.toJson[HeaderNavigation](testData)
 
       json.as[HeaderNavigation] should be(
         HeaderNavigation(None, Some("link"), active = true, Map("abc" -> "def"), HtmlContent(""))
@@ -60,7 +60,7 @@ class HeaderNavigationSpec extends JsonRoundtripSpec[HeaderNavigation] {
       val testData =
         HeaderNavigation(Some("text"), Some("link"), active = true, Map("abc" -> "def"), Empty)
 
-      val json     = Json.toJson[HeaderNavigation](testData)
+      val json = Json.toJson[HeaderNavigation](testData)
 
       json.as[HeaderNavigation] should be(
         HeaderNavigation(None, Some("link"), active = true, Map("abc" -> "def"), Text("text"))
