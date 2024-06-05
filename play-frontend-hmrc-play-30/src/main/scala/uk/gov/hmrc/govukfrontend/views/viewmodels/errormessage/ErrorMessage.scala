@@ -87,6 +87,6 @@ object ErrorMessage {
         (__ \ "attributes").write[Map[String, String]] and
         writesVisuallyHiddenText and
         Content.writes
-    )(unlift(ErrorMessage.unapply))
+    )(o => WritesUtils.unapplyCompat(unapply)(o))
 
 }

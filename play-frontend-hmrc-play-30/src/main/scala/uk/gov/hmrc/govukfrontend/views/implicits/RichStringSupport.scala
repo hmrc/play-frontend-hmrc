@@ -81,7 +81,7 @@ trait RichStringSupport {
       val linesToIndent = if (indentFirstLine) lines else if (lines.length > 1) lines.tail else Nil
       val indentedLines = recurse(n, linesToIndent)
 
-      (if (indentFirstLine) indentedLines else (lines.head +: indentedLines)).mkString("\n")
+      (if (indentFirstLine) indentedLines else lines.head +: indentedLines).mkString("\n")
     }
 
     private def indent1(signal: Int, lines: Seq[String]) = {

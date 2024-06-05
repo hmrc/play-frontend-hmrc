@@ -46,7 +46,7 @@ object FormGroup {
         (__ \ "attributes").write[Map[String, String]] and
         (__ \ "beforeInput").writeNullable[Content] and
         (__ \ "afterInput").writeNullable[Content]
-    )(unlift(FormGroup.unapply))
+    )(o => WritesUtils.unapplyCompat(unapply)(o))
 
   def jsonReadsForMultipleInputs: Reads[FormGroup] = (
     (__ \ "classes").readNullable[String] and
@@ -61,5 +61,5 @@ object FormGroup {
         (__ \ "attributes").write[Map[String, String]] and
         (__ \ "beforeInputs").writeNullable[Content] and
         (__ \ "afterInputs").writeNullable[Content]
-    )(unlift(FormGroup.unapply))
+    )(o => WritesUtils.unapplyCompat(unapply)(o))
 }

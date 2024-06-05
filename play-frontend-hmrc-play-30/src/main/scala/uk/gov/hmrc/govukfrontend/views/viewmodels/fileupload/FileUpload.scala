@@ -14,7 +14,8 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.govukfrontend.views.viewmodels.fileupload
+package uk.gov.hmrc.govukfrontend.views.viewmodels
+package fileupload
 
 import play.api.libs.functional.syntax._
 import play.api.libs.json._
@@ -83,6 +84,6 @@ object FileUpload {
         (__ \ "classes").write[String] and
         (__ \ "attributes").write[Map[String, String]] and
         (__ \ "disabled").writeNullable[Boolean]
-    )(unlift(FileUpload.unapply))
+    )(o => WritesUtils.unapplyCompat(unapply)(o))
 
 }

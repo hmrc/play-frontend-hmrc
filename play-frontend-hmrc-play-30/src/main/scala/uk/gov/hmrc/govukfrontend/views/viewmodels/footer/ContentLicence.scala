@@ -24,5 +24,5 @@ final case class ContentLicence(content: Content)
 
 object ContentLicence {
   implicit val reads: Reads[ContentLicence]    = Content.reads.map(c => ContentLicence(c))
-  implicit val writes: OWrites[ContentLicence] = Content.writes.contramap(unlift(ContentLicence.unapply))
+  implicit val writes: OWrites[ContentLicence] = Content.writes.contramap(_.content)
 }

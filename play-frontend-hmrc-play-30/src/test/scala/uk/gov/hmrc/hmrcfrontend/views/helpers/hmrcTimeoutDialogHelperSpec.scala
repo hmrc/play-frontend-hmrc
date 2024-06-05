@@ -22,7 +22,7 @@ import org.scalatest.wordspec.AnyWordSpecLike
 import play.api.Application
 import play.api.i18n.{DefaultLangs, Lang}
 import play.api.inject.guice.GuiceApplicationBuilder
-import play.api.mvc.MessagesRequest
+import play.api.mvc.{MessagesRequest, Request}
 import play.api.test.FakeRequest
 import play.api.test.Helpers.{contentAsString, _}
 import uk.gov.hmrc.helpers.views.JsoupHelpers
@@ -32,7 +32,7 @@ import scala.collection.immutable.List
 
 class hmrcTimeoutDialogHelperSpec extends AnyWordSpecLike with Matchers with JsoupHelpers {
 
-  implicit val fakeRequest = FakeRequest("GET", "/foo")
+  implicit val fakeRequest: Request[Any] = FakeRequest("GET", "/foo")
 
   def buildApp(properties: Map[String, String] = Map.empty): Application =
     new GuiceApplicationBuilder()

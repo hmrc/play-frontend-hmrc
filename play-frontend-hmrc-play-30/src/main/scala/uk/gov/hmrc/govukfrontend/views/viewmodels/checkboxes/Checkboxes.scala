@@ -14,7 +14,8 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.govukfrontend.views.viewmodels.checkboxes
+package uk.gov.hmrc.govukfrontend.views.viewmodels
+package checkboxes
 
 import play.api.libs.functional.syntax._
 import play.api.libs.json._
@@ -84,6 +85,6 @@ object Checkboxes {
         (__ \ "classes").write[String] and
         (__ \ "attributes").write[Map[String, String]] and
         (__ \ "values").write[Set[String]]
-    )(unlift(Checkboxes.unapply))
+    )(o => WritesUtils.unapplyCompat(unapply)(o))
 
 }

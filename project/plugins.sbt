@@ -9,11 +9,14 @@ sys.env.get("PLAY_VERSION") match {
   case _           => libraryDependencySchemes := libraryDependencySchemes.value // or any empty DslEntry
 }
 
-addSbtPlugin("uk.gov.hmrc"   % "sbt-auto-build" % "3.21.0")
-addSbtPlugin("org.scalameta" % "sbt-scalafmt"   % "2.4.0")
+addSbtPlugin("uk.gov.hmrc"   % "sbt-auto-build" % "3.22.0")
+addSbtPlugin("org.scalameta" % "sbt-scalafmt"   % "2.5.2")
 
 sys.env.get("PLAY_VERSION") match {
-  case Some("2.8") => addSbtPlugin("com.typesafe.play" % "sbt-plugin" % "2.8.20")
-  case Some("2.9") => addSbtPlugin("com.typesafe.play" % "sbt-plugin" % "2.9.0")
-  case _           => addSbtPlugin("org.playframework" % "sbt-plugin" % "3.0.0")
+  case Some("2.8") => addSbtPlugin("com.typesafe.play" % "sbt-plugin" % "2.8.21")
+  case Some("2.9") => addSbtPlugin("com.typesafe.play" % "sbt-plugin" % "2.9.3")
+  case _           =>
+    addSbtPlugin(
+      "org.playframework" % "sbt-plugin" % "3.0.2"
+    ) // moving to 3.0.3 will break since Templates no longer implement Template trait: https://github.com/playframework/twirl/commit/75eec7cf46e23f0d10fa0a7f24d2f9b44c6c9738
 }

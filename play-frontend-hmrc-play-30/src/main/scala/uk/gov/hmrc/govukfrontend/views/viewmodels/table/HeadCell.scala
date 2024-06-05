@@ -31,7 +31,7 @@ final case class HeadCell(
   attributes: Map[String, String] = Map.empty
 )
 
-object HeadCell extends {
+object HeadCell {
 
   def defaultObject: HeadCell = HeadCell()
 
@@ -53,6 +53,6 @@ object HeadCell extends {
         (__ \ "colspan").writeNullable[Int] and
         (__ \ "rowspan").writeNullable[Int] and
         (__ \ "attributes").write[Map[String, String]]
-    )(unlift(HeadCell.unapply))
+    )(o => WritesUtils.unapplyCompat(unapply)(o))
 
 }

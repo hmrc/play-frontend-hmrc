@@ -14,7 +14,8 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.govukfrontend.views.viewmodels.skiplink
+package uk.gov.hmrc.govukfrontend.views.viewmodels
+package skiplink
 
 import play.api.libs.functional.syntax._
 import play.api.libs.json._
@@ -45,6 +46,6 @@ object SkipLink {
         (__ \ "classes").write[String] and
         (__ \ "attributes").write[Map[String, String]] and
         Content.writes
-    )(unlift(SkipLink.unapply))
+    )(o => WritesUtils.unapplyCompat(unapply)(o))
 
 }

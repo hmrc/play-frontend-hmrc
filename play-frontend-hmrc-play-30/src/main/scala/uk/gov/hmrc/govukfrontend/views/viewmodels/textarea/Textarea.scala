@@ -14,7 +14,8 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.govukfrontend.views.viewmodels.textarea
+package uk.gov.hmrc.govukfrontend.views.viewmodels
+package textarea
 
 import play.api.libs.functional.syntax._
 import play.api.libs.json._
@@ -94,6 +95,6 @@ object Textarea {
         (__ \ "attributes").write[Map[String, String]] and
         (__ \ "spellcheck").writeNullable[Boolean] and
         (__ \ "disabled").writeNullable[Boolean]
-    )(unlift(Textarea.unapply))
+    )(o => WritesUtils.unapplyCompat(unapply)(o))
 
 }

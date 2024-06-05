@@ -45,7 +45,7 @@ class GovukHeaderSpec extends TemplateUnitSpec[Header, GovukHeader]("govukHeader
 
       val componentTry = Try(govukHeader(Header()))
 
-      componentTry          should be a 'success
+      componentTry          should be a Symbol("success")
       componentTry.get.body should include("M22.6 10.4c-1")
     }
 
@@ -59,7 +59,7 @@ class GovukHeaderSpec extends TemplateUnitSpec[Header, GovukHeader]("govukHeader
 
       val componentTry = Try(govukHeader(Header()))
 
-      componentTry          should be a 'success
+      componentTry          should be a Symbol("success")
       componentTry.get.body should include("M6.7 12.2c1")
     }
 
@@ -69,7 +69,7 @@ class GovukHeaderSpec extends TemplateUnitSpec[Header, GovukHeader]("govukHeader
 
       val componentTry = Try(govukHeader(Header()))
 
-      componentTry          should be a 'success
+      componentTry          should be a Symbol("success")
       componentTry.get.body should include("M22.6 10.4c-1")
     }
   }

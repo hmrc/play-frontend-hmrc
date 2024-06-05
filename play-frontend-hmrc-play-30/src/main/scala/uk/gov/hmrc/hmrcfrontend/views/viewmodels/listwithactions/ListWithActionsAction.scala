@@ -14,7 +14,8 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.hmrcfrontend.views.viewmodels.listwithactions
+package uk.gov.hmrc.hmrcfrontend.views.viewmodels
+package listwithactions
 
 import play.api.libs.functional.syntax._
 import play.api.libs.json._
@@ -48,6 +49,6 @@ object ListWithActionsAction {
         (__ \ "visuallyHiddenText").writeNullable[String] and
         (__ \ "classes").write[String] and
         (__ \ "attributes").write[Map[String, String]]
-    )(unlift(ListWithActionsAction.unapply))
+    )(o => WritesUtils.unapplyCompat(unapply)(o))
 
 }

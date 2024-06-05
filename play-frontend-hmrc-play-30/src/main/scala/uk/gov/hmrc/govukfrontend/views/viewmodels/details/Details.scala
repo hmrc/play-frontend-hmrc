@@ -14,7 +14,8 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.govukfrontend.views.viewmodels.details
+package uk.gov.hmrc.govukfrontend.views.viewmodels
+package details
 
 import play.api.libs.functional.syntax._
 import play.api.libs.json._
@@ -40,7 +41,7 @@ object Details {
         (__ \ "open").readWithDefault[Boolean](defaultObject.open) and
         (__ \ "classes").readWithDefault[String](defaultObject.classes) and
         (__ \ "attributes").readWithDefault[Map[String, String]](defaultObject.attributes)(attributesReads) and
-        Content.readsHtmlOrText((__ \ "summaryHtml"), (__ \ "summaryText")) and
+        Content.readsHtmlOrText(__ \ "summaryHtml", __ \ "summaryText") and
         Content.reads
     )(Details.apply _)
 
@@ -52,6 +53,6 @@ object Details {
         (__ \ "attributes").write[Map[String, String]] and
         Content.writesContent("summaryHtml", "summaryText") and
         Content.writes
-    )(unlift(Details.unapply))
+    )(o => WritesUtils.unapplyCompat(unapply)(o))
 
 }

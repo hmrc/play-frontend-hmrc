@@ -14,7 +14,8 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.govukfrontend.views.viewmodels.tasklist
+package uk.gov.hmrc.govukfrontend.views.viewmodels
+package tasklist
 
 import uk.gov.hmrc.govukfrontend.views.viewmodels.tag.Tag
 import uk.gov.hmrc.govukfrontend.views.viewmodels.content.{Content, Empty}
@@ -42,5 +43,5 @@ object TaskListItemStatus {
       (__ \ "tag").writeNullable[Tag] and
         Content.writes and
         (__ \ "classes").write[String]
-    )(unlift(TaskListItemStatus.unapply))
+    )(o => WritesUtils.unapplyCompat(unapply)(o))
 }

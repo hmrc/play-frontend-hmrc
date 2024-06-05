@@ -14,7 +14,8 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.govukfrontend.views.viewmodels.radios
+package uk.gov.hmrc.govukfrontend.views.viewmodels
+package radios
 
 import play.api.libs.functional.syntax._
 import play.api.libs.json._
@@ -80,6 +81,6 @@ object Radios {
         (__ \ "classes").write[String] and
         (__ \ "attributes").write[Map[String, String]] and
         (__ \ "value").writeNullable[String]
-    )(unlift(Radios.unapply))
+    )(o => WritesUtils.unapplyCompat(unapply)(o))
 
 }

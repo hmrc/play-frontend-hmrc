@@ -49,6 +49,6 @@ object Label {
         (__ \ "classes").write[String] and
         (__ \ "attributes").write[Map[String, String]] and
         Content.writes
-    )(unlift(Label.unapply))
+    )(o => WritesUtils.unapplyCompat(unapply)(o))
 
 }

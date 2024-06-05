@@ -35,9 +35,9 @@ object Section {
 
   implicit def jsonReads: Reads[Section] =
     (
-      readsHtmlOrText((__ \ "heading" \ "html"), (__ \ "heading" \ "text")) and
-        readsHtmlOrText((__ \ "summary" \ "html"), (__ \ "summary" \ "text")) and
-        readsHtmlOrText((__ \ "content" \ "html"), (__ \ "content" \ "text")) and
+      readsHtmlOrText(__ \ "heading" \ "html", __ \ "heading" \ "text") and
+        readsHtmlOrText(__ \ "summary" \ "html", __ \ "summary" \ "text") and
+        readsHtmlOrText(__ \ "content" \ "html", __ \ "content" \ "text") and
         (__ \ "expanded").readWithDefault[Boolean](defaultObject.expanded)
     )(Section.apply _)
 

@@ -23,6 +23,7 @@ import org.scalatestplus.play.guice.GuiceOneAppPerSuite
 import play.api.Application
 import play.api.i18n.Lang
 import play.api.inject.guice.GuiceApplicationBuilder
+import play.api.mvc.Request
 import play.api.test.FakeRequest
 import play.api.test.Helpers._
 import uk.gov.hmrc.helpers.MessagesSupport
@@ -41,11 +42,11 @@ class hmrcReportTechnicalIssueHelperSpec
 
   "HmrcReportTechnicalIssueHelper" should {
     "render link with the configured serviceId" in {
-      implicit val fakeRequest = FakeRequest("GET", "/foo")
-      implicit val app         = buildApp(
+      implicit val fakeRequest: Request[Any] = FakeRequest("GET", "/foo")
+      implicit val app                       = buildApp(
         Map(
-          "contact-frontend.serviceId" -> "online-payments",
-          "platform.frontend.host"     -> "https://www.tax.service.gov.uk"
+          ("contact-frontend.serviceId", "online-payments"),
+          ("platform.frontend.host", "https://www.tax.service.gov.uk")
         )
       )
 
@@ -60,8 +61,8 @@ class hmrcReportTechnicalIssueHelperSpec
     }
 
     "use the platform host when both platform and contact-frontend hosts are set" in {
-      implicit val fakeRequest = FakeRequest("GET", "/foo")
-      implicit val app         = buildApp(
+      implicit val fakeRequest: Request[Any] = FakeRequest("GET", "/foo")
+      implicit val app: Application          = buildApp(
         Map(
           "contact-frontend.serviceId" -> "online-payments",
           "platform.frontend.host"     -> "https://www.tax.service.gov.uk",
@@ -80,8 +81,8 @@ class hmrcReportTechnicalIssueHelperSpec
     }
 
     "use contact-frontend host if platform host is not set" in {
-      implicit val fakeRequest = FakeRequest("GET", "/foo")
-      implicit val app         = buildApp(
+      implicit val fakeRequest: Request[Any] = FakeRequest("GET", "/foo")
+      implicit val app: Application          = buildApp(
         Map(
           "contact-frontend.serviceId" -> "online-payments",
           "contact-frontend.host"      -> "http://localhost:9999"
@@ -99,8 +100,8 @@ class hmrcReportTechnicalIssueHelperSpec
     }
 
     "display link in English by default" in {
-      implicit val fakeRequest = FakeRequest("GET", "/foo")
-      implicit val app         = buildApp(
+      implicit val fakeRequest: Request[Any] = FakeRequest("GET", "/foo")
+      implicit val app: Application          = buildApp(
         Map(
           "contact-frontend.serviceId" -> "online-payments",
           "contact-frontend.host"      -> "http://localhost:9999"
@@ -117,8 +118,8 @@ class hmrcReportTechnicalIssueHelperSpec
     }
 
     "display link in Welsh" in {
-      implicit val fakeRequest = FakeRequest("GET", "/foo")
-      implicit val app         = buildApp(
+      implicit val fakeRequest: Request[Any] = FakeRequest("GET", "/foo")
+      implicit val app: Application          = buildApp(
         Map(
           "contact-frontend.serviceId" -> "online-payments",
           "contact-frontend.host"      -> "http://localhost:9999"
@@ -135,8 +136,8 @@ class hmrcReportTechnicalIssueHelperSpec
     }
 
     "render no link when serviceId is not set" in {
-      implicit val fakeRequest = FakeRequest("GET", "/foo")
-      implicit val app         = buildApp()
+      implicit val fakeRequest: Request[Any] = FakeRequest("GET", "/foo")
+      implicit val app: Application          = buildApp()
 
       val hmrcReportTechnicalIssueHelper = app.injector.instanceOf[HmrcReportTechnicalIssueHelper]
       val content                        = contentAsString(hmrcReportTechnicalIssueHelper()(messages, fakeRequest))

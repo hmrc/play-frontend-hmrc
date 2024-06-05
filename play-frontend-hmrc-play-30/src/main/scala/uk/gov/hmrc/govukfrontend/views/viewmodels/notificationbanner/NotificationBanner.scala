@@ -14,7 +14,8 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.govukfrontend.views.viewmodels.notificationbanner
+package uk.gov.hmrc.govukfrontend.views.viewmodels
+package notificationbanner
 
 import play.api.libs.functional.syntax._
 import play.api.libs.json.{OWrites, Reads, __}
@@ -42,7 +43,7 @@ object NotificationBanner {
       Content.reads and
         (__ \ "type").readNullable[String] and
         (__ \ "role").readNullable[String] and
-        Content.readsHtmlOrText((__ \ "titleHtml"), (__ \ "titleText")) and
+        Content.readsHtmlOrText(__ \ "titleHtml", __ \ "titleText") and
         (__ \ "titleId").readNullable[String] and
         (__ \ "disableAutoFocus").readNullable[Boolean] and
         (__ \ "classes").readWithDefault[String](defaultObject.classes) and
@@ -61,5 +62,5 @@ object NotificationBanner {
         (__ \ "classes").write[String] and
         (__ \ "titleHeadingLevel").writeNullable[Int] and
         (__ \ "attributes").write[Map[String, String]]
-    )(unlift(NotificationBanner.unapply))
+    )(o => WritesUtils.unapplyCompat(unapply)(o))
 }

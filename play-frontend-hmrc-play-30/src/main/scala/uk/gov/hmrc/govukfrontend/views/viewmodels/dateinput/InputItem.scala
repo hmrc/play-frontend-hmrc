@@ -61,6 +61,6 @@ object InputItem {
         (__ \ "classes").write[String] and
         (__ \ "attributes").write[Map[String, String]] and
         (__ \ "inputmode").writeNullable[String]
-    )(unlift(InputItem.unapply))
+    )(o => WritesUtils.unapplyCompat(unapply)(o))
 
 }

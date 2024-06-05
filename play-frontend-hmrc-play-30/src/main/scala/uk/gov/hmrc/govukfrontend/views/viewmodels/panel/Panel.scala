@@ -14,7 +14,8 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.govukfrontend.views.viewmodels.panel
+package uk.gov.hmrc.govukfrontend.views.viewmodels
+package panel
 
 import play.api.libs.functional.syntax._
 import play.api.libs.json._
@@ -39,7 +40,7 @@ object Panel {
       (__ \ "headingLevel").readWithDefault[IntString](IntString(defaultObject.headingLevel)).int and
         (__ \ "classes").readWithDefault[String](defaultObject.classes) and
         (__ \ "attributes").readWithDefault[Map[String, String]](defaultObject.attributes)(attributesReads) and
-        Content.readsHtmlOrText((__ \ "titleHtml"), (__ \ "titleText")) and
+        Content.readsHtmlOrText(__ \ "titleHtml", __ \ "titleText") and
         Content.reads
     )(Panel.apply _)
 
@@ -50,6 +51,6 @@ object Panel {
         (__ \ "attributes").write[Map[String, String]] and
         Content.writesContent("titleHtml", "titleText") and
         Content.writes
-    )(unlift(Panel.unapply))
+    )(o => WritesUtils.unapplyCompat(unapply)(o))
 
 }

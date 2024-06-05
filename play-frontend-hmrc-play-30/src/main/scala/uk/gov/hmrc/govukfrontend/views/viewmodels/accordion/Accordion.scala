@@ -14,7 +14,8 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.govukfrontend.views.viewmodels.accordion
+package uk.gov.hmrc.govukfrontend.views.viewmodels
+package accordion
 
 import play.api.libs.json._
 import uk.gov.hmrc.govukfrontend.views.viewmodels.CommonJsonFormats._
@@ -67,5 +68,5 @@ object Accordion {
       (__ \ "showAllSectionsText").writeNullable[String] and
       (__ \ "showSectionAriaLabelText").writeNullable[String] and
       (__ \ "rememberExpanded").writeNullable[Boolean]
-  )(unlift(Accordion.unapply))
+  )(o => WritesUtils.unapplyCompat(unapply)(o))
 }

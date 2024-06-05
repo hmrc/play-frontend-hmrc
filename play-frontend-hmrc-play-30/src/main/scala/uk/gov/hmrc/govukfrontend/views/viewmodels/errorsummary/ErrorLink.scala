@@ -43,6 +43,6 @@ object ErrorLink {
       (__ \ "href").writeNullable[String] and
         Content.writes and
         (__ \ "attributes").write[Map[String, String]]
-    )(unlift(ErrorLink.unapply))
+    )(o => WritesUtils.unapplyCompat(unapply)(o))
 
 }

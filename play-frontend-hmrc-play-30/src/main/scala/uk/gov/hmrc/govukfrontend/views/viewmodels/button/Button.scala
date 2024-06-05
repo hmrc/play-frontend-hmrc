@@ -14,7 +14,8 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.govukfrontend.views.viewmodels.button
+package uk.gov.hmrc.govukfrontend.views.viewmodels
+package button
 
 import play.api.libs.functional.syntax._
 import play.api.libs.json._
@@ -70,6 +71,6 @@ object Button {
         (__ \ "isStartButton").write[Boolean] and
         Content.writes and
         (__ \ "id").writeNullable[String]
-    )(unlift(Button.unapply))
+    )(o => WritesUtils.unapplyCompat(unapply)(o))
 
 }

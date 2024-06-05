@@ -66,6 +66,6 @@ object RadioItem {
         writesConditionalHtml and
         (__ \ "disabled").write[Boolean] and
         (__ \ "attributes").write[Map[String, String]]
-    )(unlift(RadioItem.unapply))
+    )(o => WritesUtils.unapplyCompat(unapply)(o))
 
 }

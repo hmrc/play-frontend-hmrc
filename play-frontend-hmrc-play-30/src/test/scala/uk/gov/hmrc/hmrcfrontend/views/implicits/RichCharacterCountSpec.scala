@@ -65,7 +65,7 @@ class RichCharacterCountSpec extends AnyWordSpec with Matchers {
       mapping(
         "user-name"  -> text,
         "user-email" -> text
-      )(TestForm.apply)(TestForm.unapply)
+      )(TestForm.apply)(tf => Some((tf.name, tf.email)))
     )
   }
 

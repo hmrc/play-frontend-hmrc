@@ -18,7 +18,7 @@ package uk.gov.hmrc.hmrcfrontend.views.config
 
 import org.scalatest.matchers.must.Matchers
 import org.scalatest.wordspec.AnyWordSpec
-import play.api.i18n.{DefaultLangs, Lang, MessagesApi}
+import play.api.i18n.{DefaultLangs, Lang, Messages, MessagesApi}
 import play.api.test.Helpers.stubMessagesApi
 import uk.gov.hmrc.govukfrontend.views.Aliases.Text
 import uk.gov.hmrc.govukfrontend.views.viewmodels.content.HtmlContent
@@ -34,8 +34,8 @@ class HmrcSectionCaptionSpec extends AnyWordSpec with Matchers {
       new DefaultLangs(Seq(Lang("en"), Lang("cy")))
     )
 
-  implicit val englishMessages = messagesApi.preferred(Seq(Lang("en")))
-  val welshMessages            = messagesApi.preferred(Seq(Lang("cy")))
+  implicit val englishMessages: Messages = messagesApi.preferred(Seq(Lang("en")))
+  val welshMessages                      = messagesApi.preferred(Seq(Lang("cy")))
 
   "HmrcSectionCaption" must {
     "construct caption with a visually hidden prefix" in {

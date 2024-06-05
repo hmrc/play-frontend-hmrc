@@ -23,7 +23,7 @@ import java.util.UUID
 import better.files._
 import org.bitbucket.cowwoc.diffmatchpatch.DiffMatchPatch
 
-import scala.collection.JavaConverters._
+import scala.jdk.CollectionConverters._
 import scala.collection.mutable
 
 case class DiffWrapper(differ: DiffMatchPatch) {

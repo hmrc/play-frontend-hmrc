@@ -33,10 +33,10 @@ sealed trait Content {
 object Content {
 
   implicit val reads: Reads[Content] =
-    readsHtmlOrText((__ \ "html"), (__ \ "text"))
+    readsHtmlOrText(__ \ "html", __ \ "text")
 
   def readsWithDefault(defaultContent: Content): Reads[Content] =
-    readsHtmlOrText((__ \ "html"), (__ \ "text"), defaultContent)
+    readsHtmlOrText(__ \ "html", __ \ "text", defaultContent)
 
   def writesContent(htmlField: String = "html", textField: String = "text"): OWrites[Content] =
     new OWrites[Content] {
@@ -55,11 +55,11 @@ object Content {
       .orElse(readsText(textJsPath).widen[Content])
       .orElse(Reads.pure[Content](defaultContent))
 
-  def readsHtmlContent(jsPath: JsPath = (__ \ "html")): Reads[HtmlContent] =
+  def readsHtmlContent(jsPath: JsPath = __ \ "html"): Reads[HtmlContent] =
     jsPath.readsJsValueToString.map(HtmlContent(_))
 
-  def readsText(jsPath: JsPath = (__ \ "text")): Reads[Text] =
-    jsPath.readsJsValueToString.map(Text)
+  def readsText(jsPath: JsPath = __ \ "text"): Reads[Text] =
+    jsPath.readsJsValueToString.map(Text.apply)
 }
 
 case object Empty extends Content {

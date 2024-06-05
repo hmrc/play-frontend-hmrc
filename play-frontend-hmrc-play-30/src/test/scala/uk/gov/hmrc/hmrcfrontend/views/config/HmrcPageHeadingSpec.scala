@@ -140,7 +140,7 @@ class HmrcPageHeadingSpec extends AnyWordSpec with Matchers {
           ),
           classes =
             s"hmrc-page-heading govuk-!-margin-top-0 govuk-!-margin-bottom-2${if (labelCss.nonEmpty) s" $labelCss"
-            else ""}"
+              else ""}"
         )
       }
     }

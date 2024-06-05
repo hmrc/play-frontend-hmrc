@@ -14,7 +14,8 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.govukfrontend.views.viewmodels.errorsummary
+package uk.gov.hmrc.govukfrontend.views.viewmodels
+package errorsummary
 
 import play.api.libs.functional.syntax._
 import play.api.libs.json._
@@ -38,8 +39,8 @@ object ErrorSummary {
       (__ \ "errorList").readWithDefault[Seq[ErrorLink]](defaultObject.errorList) and
         (__ \ "classes").readWithDefault[String](defaultObject.classes) and
         (__ \ "attributes").readWithDefault[Map[String, String]](defaultObject.attributes) and
-        Content.readsHtmlOrText((__ \ "titleHtml"), (__ \ "titleText")) and
-        Content.readsHtmlOrText((__ \ "descriptionHtml"), (__ \ "descriptionText")) and
+        Content.readsHtmlOrText(__ \ "titleHtml", __ \ "titleText") and
+        Content.readsHtmlOrText(__ \ "descriptionHtml", __ \ "descriptionText") and
         (__ \ "disableAutoFocus").readNullable[Boolean]
     )(ErrorSummary.apply _)
 
@@ -51,6 +52,6 @@ object ErrorSummary {
         Content.writesContent("titleHtml", "titleText") and
         Content.writesContent("descriptionHtml", "descriptionText") and
         (__ \ "disableAutoFocus").writeNullable[Boolean]
-    )(unlift(ErrorSummary.unapply))
+    )(o => WritesUtils.unapplyCompat(unapply)(o))
 
 }

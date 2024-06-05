@@ -76,5 +76,5 @@ object CheckboxItem {
         (__ \ "attributes").write[Map[String, String]] and
         (__ \ "behaviour").writeNullable[CheckboxBehaviour] and
         (__ \ "divider").writeNullable[String]
-    )(unlift(CheckboxItem.unapply))
+    )(o => WritesUtils.unapplyCompat(unapply)(o))
 }

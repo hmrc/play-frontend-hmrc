@@ -24,5 +24,5 @@ final case class Copyright(content: Content)
 
 object Copyright {
   implicit val reads: Reads[Copyright]    = Content.reads.map(c => Copyright(c))
-  implicit val writes: OWrites[Copyright] = Content.writes.contramap(unlift(Copyright.unapply))
+  implicit val writes: OWrites[Copyright] = Content.writes.contramap(_.content)
 }

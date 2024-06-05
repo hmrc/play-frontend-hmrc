@@ -29,7 +29,7 @@ class HmrcUserResearchBannerSpec
       val params       = UserResearchBanner()
       val componentTry = Try(component(params))
 
-      componentTry                   should be a 'failure
+      componentTry                   should be a Symbol("failure")
       componentTry.failure.exception should have message "requirement failed: failed requirements for hmrcUserResearchBanner: url should not be empty. url=[]"
     }
   }

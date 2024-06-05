@@ -40,6 +40,6 @@ object TabPanel {
     (
       Content.writes and
         (__ \ "attributes").write[Map[String, String]]
-    )(unlift(TabPanel.unapply))
+    )(o => WritesUtils.unapplyCompat(unapply)(o))
 
 }

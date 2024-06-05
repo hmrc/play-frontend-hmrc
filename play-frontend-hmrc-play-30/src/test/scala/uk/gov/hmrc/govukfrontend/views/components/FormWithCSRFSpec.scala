@@ -82,14 +82,14 @@ class FormWithCSRFSpec
 
     "not render duplicate novalidate attributes" in {
       val form =
-        formWithCSRF.apply(action = postAction, 'novalidate -> "novalidate")(HtmlFormat.empty)
+        formWithCSRF.apply(action = postAction, Symbol("novalidate") -> "novalidate")(HtmlFormat.empty)
 
       form.toString should include("<form method=\"POST\" novalidate action=\"/the-post-url\">")
     }
     "render the passed attributes" in {
       val form =
         formWithCSRF
-          .apply(action = postAction, 'attribute1 -> "value1")(HtmlFormat.empty)
+          .apply(action = postAction, Symbol("attribute1") -> "value1")(HtmlFormat.empty)
           .select("form")
 
       form.attr("attribute1") shouldBe "value1"
@@ -98,7 +98,9 @@ class FormWithCSRFSpec
     "render multiple attributes" in {
       val form =
         formWithCSRF
-          .apply(action = postAction, 'attribute1 -> "value1", 'attribute2 -> "value2")(HtmlFormat.empty)
+          .apply(action = postAction, Symbol("attribute1") -> "value1", Symbol("attribute2") -> "value2")(
+            HtmlFormat.empty
+          )
           .select("form")
 
       form.attr("attribute1") shouldBe "value1"

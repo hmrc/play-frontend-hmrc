@@ -14,7 +14,8 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.govukfrontend.views.viewmodels.exitthispage
+package uk.gov.hmrc.govukfrontend.views.viewmodels
+package exitthispage
 
 import play.api.libs.functional.syntax._
 import play.api.libs.json.{OWrites, Reads, __}
@@ -61,5 +62,5 @@ object ExitThisPage {
         (__ \ "timedOutText").writeNullable[String] and
         (__ \ "pressTwoMoreTimesText").writeNullable[String] and
         (__ \ "pressOneMoreTimeText").writeNullable[String]
-    )(unlift(ExitThisPage.unapply))
+    )(o => WritesUtils.unapplyCompat(unapply)(o))
 }

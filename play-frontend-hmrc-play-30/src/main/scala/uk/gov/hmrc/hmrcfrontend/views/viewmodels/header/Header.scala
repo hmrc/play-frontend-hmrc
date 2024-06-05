@@ -14,7 +14,8 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.hmrcfrontend.views.viewmodels.header
+package uk.gov.hmrc.hmrcfrontend.views.viewmodels
+package header
 
 import play.api.libs.functional.syntax._
 import play.api.libs.json._
@@ -115,5 +116,5 @@ object Header {
         (__ \ "menuButtonLabel").writeNullable[String] and
         (__ \ "menuButtonText").writeNullable[String] and
         (__ \ "navigationLabel").writeNullable[String]
-    )(header => unlift(Header.unapply)(header.copy(inputLanguageToggle = header.languageToggle)))
+    )(header => WritesUtils.unapplyCompat(Header.unapply)(header.copy(inputLanguageToggle = header.languageToggle)))
 }

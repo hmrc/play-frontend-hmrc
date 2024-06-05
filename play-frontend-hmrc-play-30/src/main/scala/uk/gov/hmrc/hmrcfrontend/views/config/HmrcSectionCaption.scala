@@ -27,8 +27,8 @@ object HmrcSectionCaption {
     require(section.nonEmpty, "HmrcSectionCaption section must not be empty")
     HtmlContent(
       s"""<span class="govuk-visually-hidden">${HtmlFormat.escape(
-        messages("this.section.is")
-      )} </span>${section.asHtml}"""
+          messages("this.section.is")
+        )} </span>${section.asHtml}"""
     )
   }
 }

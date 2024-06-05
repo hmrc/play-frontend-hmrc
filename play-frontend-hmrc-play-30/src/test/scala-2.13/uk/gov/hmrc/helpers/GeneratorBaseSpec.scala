@@ -40,9 +40,8 @@ abstract class GeneratorBaseSpec[T: ClassTag: TypeTag](
     }
   }
 
-  // TODO can't use LazyList because we need to support Scala 2.12 but Scala 2.12 support will be dropped at the end of May 2024
   private def generateInstances(implicit arb: Arbitrary[T]): Seq[T] =
-    Stream.continually(arb.arbitrary.sample).flatten.take(instanceCount).toList
+    LazyList.continually(arb.arbitrary.sample).flatten.take(instanceCount).toList
 
   private val mirror          = runtimeMirror(getClass.getClassLoader)
   private val caseClassFields = typeOf[T].members

@@ -55,9 +55,9 @@ of implementing frontend microservices straightforward and idiomatic for Scala d
 ### Compatible Scala and Play Framework versions
 
 This library is currently compatible with:
-* Play 3.0 - Scala 2.13
+* Play 3.0 - Scala 2.13 / 3
 * Play 2.9 - Scala 2.13
-* Play 2.8 - Scala 2.12 / 2.13
+* Play 2.8 - Scala 2.13
 
 ### Understanding library changes between versions
 
@@ -70,7 +70,7 @@ We summarise what's changed between versions, and importantly any actions that m
     libraryDependencies += "uk.gov.hmrc" %% "play-frontend-hmrc-play-xx" % "x.y.z"
     ```
 
-    Where play-xx is your version of Play (e.g. play-29).
+    Where play-xx is your version of Play (e.g. play-30).
 
     Note, this has changed since 7.x.x, previously the play version was included in the artefact version, it is now included in the artefact name.
 
@@ -184,9 +184,9 @@ This might be via a form submission, or as path/query parameters in a URL.
 Such data should be validated against the most restrictive constraints possible.
 
 Within the Play framework, this can be achieved using custom
-[form mappings](https://www.playframework.com/documentation/2.8.x/ScalaForms)
+[form mappings](https://www.playframework.com/documentation/3.0.x/ScalaForms)
 or
-[request binders](https://www.playframework.com/documentation/2.8.x/ScalaRequestBinders).
+[request binders](https://www.playframework.com/documentation/3.0.x/ScalaRequestBinders).
 eg. for Forms:
 ```scala
     val myForm = Form[MyData](
@@ -530,7 +530,7 @@ The parameters that can be passed into the `hmrcStandardPage` are as follows:
 
 ### Creating consistent page headings
 
-> [!WARNING]  
+> [!WARNING]
 > The [hmrc guidance for creating headings with a section (caption)](https://design.tax.service.gov.uk/hmrc-design-patterns/page-heading/) has recently changed. The following helpers are still available but this is no longer the recommended approach. Consult the linked documentation for examples of the new recommendation.
 
 The `HmrcPageHeadingLabel` and `HmrcPageHeadingLegend` helpers let you use a label or legend as a page heading with a section (caption) displayed above it.
@@ -1128,12 +1128,12 @@ resolvers += MavenRepository("HMRC-open-artefacts-maven2", "https://open.artefac
 
 ### Using the Tudor Crown on GOV.UK and HMRC components
 
-As of February 2024, there is a requirement for Government departments to use the Tudor Crown logo for HRH King Charles 
-III. This new logo has been added into both the [govuk-frontend](https://github.com/alphagov/govuk-frontend) and 
-[hmrc-frontend](https://github.com/hmrc/hmrc-frontend) libraries. Additionally, the `hmrc-frontend` library has an updated 
+As of February 2024, there is a requirement for Government departments to use the Tudor Crown logo for HRH King Charles
+III. This new logo has been added into both the [govuk-frontend](https://github.com/alphagov/govuk-frontend) and
+[hmrc-frontend](https://github.com/hmrc/hmrc-frontend) libraries. Additionally, the `hmrc-frontend` library has an updated
 HMRC Crest roundel incorporating the Tudor Crown.
 
-The Tudor Crown is available, and shown by default, in `v8.5.0` and higher of `play-frontend-hmrc`. 
+The Tudor Crown is available, and shown by default, in `v8.5.0` and higher of `play-frontend-hmrc`.
 
 ## Getting help
 

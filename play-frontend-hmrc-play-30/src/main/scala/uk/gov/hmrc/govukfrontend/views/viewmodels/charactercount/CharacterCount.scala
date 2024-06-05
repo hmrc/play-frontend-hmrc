@@ -14,7 +14,8 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.govukfrontend.views.viewmodels.charactercount
+package uk.gov.hmrc.govukfrontend.views.viewmodels
+package charactercount
 
 import play.api.libs.functional.syntax._
 import play.api.libs.json._
@@ -130,7 +131,7 @@ object CharacterCount {
         (__ \ "wordsAtLimitText").writeNullable[String] and
         (__ \ "wordsOverLimitText").writeNullable[Map[String, String]] and
         ((__ \ "textareaDescriptionText").writeNullable[String])
-    )(unlift(CharacterCount.unapply))
+    )(o => WritesUtils.unapplyCompat(unapply)(o))
 
   private implicit def readsStringOrNumber: Reads[String] = {
     case JsString(s) => JsSuccess(s)

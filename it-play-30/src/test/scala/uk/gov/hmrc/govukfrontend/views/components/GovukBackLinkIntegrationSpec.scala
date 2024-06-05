@@ -23,8 +23,6 @@ import uk.gov.hmrc.govukfrontend.views.html.components._
 import uk.gov.hmrc.govukfrontend.views.viewmodels.backlink.BackLink
 import uk.gov.hmrc.govukfrontend.views.viewmodels.backlink.Generators._
 
-import scala.collection.compat.immutable.LazyList
-
 object GovukBackLinkIntegrationSpec
     extends MessagesAwareTemplateIntegrationSpec[BackLink, GovukBackLink](
       govukComponentName = "govukBackLink",

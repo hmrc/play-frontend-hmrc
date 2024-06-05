@@ -18,7 +18,7 @@ package uk.gov.hmrc.hmrcfrontend.views.viewmodels.userresearchbanner
 
 import org.scalacheck.Arbitrary
 import org.scalacheck.Arbitrary.arbBool
-import uk.gov.hmrc.hmrcfrontend.views.viewmodels.Generators.{genNonEmptyAlphaStr}
+import uk.gov.hmrc.hmrcfrontend.views.viewmodels.Generators.genNonEmptyAlphaStr
 import uk.gov.hmrc.hmrcfrontend.views.viewmodels.language.Generators.arbLanguage
 
 object Generators {
