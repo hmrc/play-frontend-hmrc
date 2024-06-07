@@ -31,7 +31,7 @@ trait RichDateInputSupport {
       extends ImplicitsSupport[DateInput] {
 
     /**
-      * Extension method to allow a Play form Field to be used to populate parameters in a DateInput,
+      * Deprecated method to allow a Play form Field to be used to populate parameters in a DateInput,
       * if they have not already been set to a non-default value. This method assumes that `dateInput.items`
       * will either equal `Seq.empty` or will have exactly three InputItems corresponding to the day, month and year.
       * Form errors will be bound as Text objects.
@@ -61,10 +61,40 @@ trait RichDateInputSupport {
         .deprecatedWithInputItems(field)
         .withHtmlErrorMessage(field)
 
-    def withDayMonthYear(field: Field): DateInput =
+    /**
+     * Method to allow a Play form Field to be used to populate parameters in a DateInput. This method will populate
+     * with three InputItems corresponding to the day, month and year. Form errors will be bound as Text objects.
+     *
+     * @param field
+     */
+    def withDayMonthYearFormField(field: Field): DateInput =
       dateInput
         .withId(field)
         .withDayMonthYearInputItems(field)
+        .withTextErrorMessage(field)
+
+    /**
+     * Method to allow a Play form Field to be used to populate parameters in a DateInput. This method will populate
+     * with two InputItems corresponding to the day and month only. Form errors will be bound as Text objects.
+     *
+     * @param field
+     */
+    def withDayMonthFormField(field: Field): DateInput =
+      dateInput
+        .withId(field)
+        .withDayMonthInputItems(field)
+        .withTextErrorMessage(field)
+
+    /**
+     * Method to allow a Play form Field to be used to populate parameters in a DateInput. This method will populate
+     * with two InputItems corresponding to the month and year only. Form errors will be bound as Text objects.
+     *
+     * @param field
+     */
+    def withMonthYearFormField(field: Field): DateInput =
+      dateInput
+        .withId(field)
+        .withMonthYearInputItems(field)
         .withTextErrorMessage(field)
 
     def withDayMonthYearWithErrorAsHtml(field: Field): DateInput =
@@ -73,17 +103,17 @@ trait RichDateInputSupport {
         .withDayMonthYearInputItems(field)
         .withHtmlErrorMessage(field)
 
-    def withDayMonth(field: Field): DateInput =
+    def withDayMonthWithErrorAsHtml(field: Field): DateInput =
       dateInput
         .withId(field)
-        .withDayMonthInputItems(field)
-        .withTextErrorMessage(field)
+        .withDayMonthYearInputItems(field)
+        .withHtmlErrorMessage(field)
 
-    def withMonthYear(field: Field): DateInput =
+    def withMonthYearWithErrorAsHtml(field: Field): DateInput =
       dateInput
         .withId(field)
-        .withMonthYearInputItems(field)
-        .withTextErrorMessage(field)
+        .withDayMonthYearInputItems(field)
+        .withHtmlErrorMessage(field)
 
     def withHeading(heading: Content): DateInput =
       withHeadingLegend(dateInput, heading, None)((di, ul) => di.copy(fieldset = Some(ul.toFieldset)))
@@ -124,21 +154,21 @@ trait RichDateInputSupport {
     }
 
     private[views] def withDayMonthYearInputItems(field: Field): DateInput = {
-      val items = configureDateInputItems(field, Seq("day", "month", "year"))
+      val items = defaultDateItems(field, Seq("day", "month", "year"))
       dateInput.copy(items = items)
     }
 
     private[views] def withDayMonthInputItems(field: Field): DateInput = {
-      val items = configureDateInputItems(field, Seq("day", "month"))
+      val items = defaultDateItems(field, Seq("day", "month"))
       dateInput.copy(items = items)
     }
 
     private[views] def withMonthYearInputItems(field: Field): DateInput = {
-      val items = configureDateInputItems(field, Seq("month", "year"))
+      val items = defaultDateItems(field, Seq("month", "year"))
       dateInput.copy(items = items)
     }
 
-    private def configureDateInputItems(field: Field, keyset: Seq[String]): Seq[InputItem] = {
+    private def defaultDateItems(field: Field, keyset: Seq[String]): Seq[InputItem] = {
       val defaultItems             = Seq.fill(3)(InputItem.defaultObject)
       val allItems: Seq[InputItem] = Seq(
         inputItem(field, defaultItems(0), "day", className = "govuk-input--width-2"),

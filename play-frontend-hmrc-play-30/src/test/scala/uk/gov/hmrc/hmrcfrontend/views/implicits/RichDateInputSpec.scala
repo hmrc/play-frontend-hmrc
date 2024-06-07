@@ -265,19 +265,19 @@ class RichDateInputSpec extends AnyWordSpec with Matchers with MessagesSupport w
     }
   }
 
-  "Given a DateInput object, calling the withDayMonthYear method" should {
+  "Given a DateInput object, calling the withDayMonthYearFormField method" should {
     "use the Field name as the id if no DateInput id is provided" in {
-      val dateInput = DateInput().withDayMonthYear(dateField)
+      val dateInput = DateInput().withDayMonthYearFormField(dateField)
       dateInput.id shouldBe "date"
     }
 
     "use the DateInput id over the Field name if both exist" in {
-      val dateInput = DateInput(id = "date-input-id").withDayMonthYear(dateField)
+      val dateInput = DateInput(id = "date-input-id").withDayMonthYearFormField(dateField)
       dateInput.id shouldBe "date-input-id"
     }
 
     "create three default InputItems (day, month, year)" in {
-      val dateInput = DateInput().withDayMonthYear(dateField)
+      val dateInput = DateInput().withDayMonthYearFormField(dateField)
 
       dateInput.items shouldBe Seq(
         InputItem(
@@ -311,7 +311,7 @@ class RichDateInputSpec extends AnyWordSpec with Matchers with MessagesSupport w
         InputItem(id = "year-different", name = "year-different", value = Some("2021"), classes = "year-class")
       )
 
-      val dateInput = DateInput(items = prePopulatedItems).withDayMonthYear(dateField)
+      val dateInput = DateInput(items = prePopulatedItems).withDayMonthYearFormField(dateField)
 
       dateInput.items shouldBe Seq(
         InputItem(
@@ -340,12 +340,12 @@ class RichDateInputSpec extends AnyWordSpec with Matchers with MessagesSupport w
 
     "populate the labels for the InputItems in Welsh" in {
       implicit val messages: Messages = messagesApi.preferred(Seq(Lang("cy")))
-      val dateInput                   = DateInput().withDayMonthYear(dateField)
+      val dateInput                   = DateInput().withDayMonthYearFormField(dateField)
       dateInput.items.flatMap(_.label) shouldBe Seq("Diwrnod", "Mis", "Blwyddyn")
     }
 
     "populate an error class for an InputItem" in {
-      val dateInput = DateInput().withDayMonthYear(dateMonthErrorField)
+      val dateInput = DateInput().withDayMonthYearFormField(dateMonthErrorField)
 
       dateInput.items(0).classes should not endWith "govuk-input--error"
       dateInput.items(1).classes should endWith("govuk-input--error")
@@ -353,7 +353,7 @@ class RichDateInputSpec extends AnyWordSpec with Matchers with MessagesSupport w
     }
 
     "populate the error message from a nested field first" in {
-      val dateInput = DateInput().withDayMonthYear(dateMonthErrorField)
+      val dateInput = DateInput().withDayMonthYearFormField(dateMonthErrorField)
 
       dateInput.errorMessage shouldBe Some(
         errorMessageWithDefaultStringsTranslated(content = Text("The date must include a month"))
@@ -361,12 +361,12 @@ class RichDateInputSpec extends AnyWordSpec with Matchers with MessagesSupport w
     }
 
     "convert the first Field form error to a DateInput error message if provided" in {
-      val dateInput = DateInput().withDayMonthYear(dateErrorField)
+      val dateInput = DateInput().withDayMonthYearFormField(dateErrorField)
       dateInput.errorMessage shouldBe Some(errorMessageWithDefaultStringsTranslated(content = Text("Not valid date")))
     }
 
     "populate error css classes for all inputs in the case of a global date error" in {
-      val dateInput = DateInput().withDayMonthYear(dateErrorField)
+      val dateInput = DateInput().withDayMonthYearFormField(dateErrorField)
       dateInput.errorMessage shouldBe Some(errorMessageWithDefaultStringsTranslated(content = Text("Not valid date")))
 
       dateInput.items(0).classes should endWith("govuk-input--error")
@@ -377,25 +377,25 @@ class RichDateInputSpec extends AnyWordSpec with Matchers with MessagesSupport w
     "use the DateInput error message over the Field error if both provided" in {
       val dateInput = DateInput(
         errorMessage = Some(ErrorMessage(content = Text("DateInput Error")))
-      ).withDayMonthYear(dateErrorField)
+      ).withDayMonthYearFormField(dateErrorField)
 
       dateInput.errorMessage shouldBe Some(ErrorMessage(content = Text("DateInput Error")))
     }
   }
 
-  "Given a DateInput object, calling the withDayMonth method" should {
+  "Given a DateInput object, calling the withDayMonthFormField method" should {
     "use the Field name as the id if no DateInput id is provided" in {
-      val dateInput = DateInput().withDayMonth(dateField)
+      val dateInput = DateInput().withDayMonthFormField(dateField)
       dateInput.id shouldBe "date"
     }
 
     "use the DateInput id over the Field name if both exist" in {
-      val dateInput = DateInput(id = "date-input-id").withDayMonth(dateField)
+      val dateInput = DateInput(id = "date-input-id").withDayMonthFormField(dateField)
       dateInput.id shouldBe "date-input-id"
     }
 
     "create two default InputItems (day, monh)" in {
-      val dateInput = DateInput().withDayMonth(dateField)
+      val dateInput = DateInput().withDayMonthFormField(dateField)
 
       dateInput.items shouldBe Seq(
         InputItem(
@@ -422,7 +422,7 @@ class RichDateInputSpec extends AnyWordSpec with Matchers with MessagesSupport w
         InputItem(id = "year-different", name = "year-different", value = Some("2021"), classes = "year-class")
       )
 
-      val dateInput = DateInput(items = prePopulatedItems).withDayMonth(dateField)
+      val dateInput = DateInput(items = prePopulatedItems).withDayMonthFormField(dateField)
 
       dateInput.items shouldBe Seq(
         InputItem(
@@ -444,30 +444,30 @@ class RichDateInputSpec extends AnyWordSpec with Matchers with MessagesSupport w
 
     "populate the labels for the three InputItems in Welsh" in {
       implicit val messages: Messages = messagesApi.preferred(Seq(Lang("cy")))
-      val dateInput                   = DateInput().withDayMonth(dateField)
+      val dateInput                   = DateInput().withDayMonthFormField(dateField)
       dateInput.items.flatMap(_.label) shouldBe Seq("Diwrnod", "Mis")
     }
 
     "populate an error class for an InputItem" in {
-      val dateInput = DateInput().withDayMonth(dateMonthErrorField)
+      val dateInput = DateInput().withDayMonthFormField(dateMonthErrorField)
       dateInput.items(0).classes should not endWith "govuk-input--error"
       dateInput.items(1).classes should endWith("govuk-input--error")
     }
 
     "populate the error message from a nested field first" in {
-      val dateInput = DateInput().withDayMonth(dateMonthErrorField)
+      val dateInput = DateInput().withDayMonthFormField(dateMonthErrorField)
       dateInput.errorMessage shouldBe Some(
         errorMessageWithDefaultStringsTranslated(content = Text("The date must include a month"))
       )
     }
 
     "convert the first Field form error to a DateInput error message if provided" in {
-      val dateInput = DateInput().withDayMonth(dateErrorField)
+      val dateInput = DateInput().withDayMonthFormField(dateErrorField)
       dateInput.errorMessage shouldBe Some(errorMessageWithDefaultStringsTranslated(content = Text("Not valid date")))
     }
 
     "populate error css classes for all inputs in the case of a global date error" in {
-      val dateInput = DateInput().withDayMonth(dateErrorField)
+      val dateInput = DateInput().withDayMonthFormField(dateErrorField)
       dateInput.errorMessage shouldBe Some(errorMessageWithDefaultStringsTranslated(content = Text("Not valid date")))
 
       dateInput.items(0).classes should endWith("govuk-input--error")
@@ -477,25 +477,25 @@ class RichDateInputSpec extends AnyWordSpec with Matchers with MessagesSupport w
     "use the DateInput error message over the Field error if both provided" in {
       val dateInput = DateInput(
         errorMessage = Some(ErrorMessage(content = Text("DateInput Error")))
-      ).withDayMonth(dateErrorField)
+      ).withDayMonthFormField(dateErrorField)
 
       dateInput.errorMessage shouldBe Some(ErrorMessage(content = Text("DateInput Error")))
     }
   }
 
-  "Given a DateInput object, calling the withMonthYear method" should {
+  "Given a DateInput object, calling the withMonthYearFormField method" should {
     "use the Field name as the id if no DateInput id is provided" in {
-      val dateInput = DateInput().withMonthYear(dateField)
+      val dateInput = DateInput().withMonthYearFormField(dateField)
       dateInput.id shouldBe "date"
     }
 
     "use the DateInput id over the Field name if both exist" in {
-      val dateInput = DateInput(id = "date-input-id").withMonthYear(dateField)
+      val dateInput = DateInput(id = "date-input-id").withMonthYearFormField(dateField)
       dateInput.id shouldBe "date-input-id"
     }
 
     "create two default InputItems (month, year)" in {
-      val dateInput = DateInput().withMonthYear(dateField)
+      val dateInput = DateInput().withMonthYearFormField(dateField)
 
       dateInput.items shouldBe Seq(
         InputItem(
@@ -522,7 +522,7 @@ class RichDateInputSpec extends AnyWordSpec with Matchers with MessagesSupport w
         InputItem(id = "year-different", name = "year-different", value = Some("2021"), classes = "year-class")
       )
 
-      val dateInput = DateInput(items = prePopulatedItems).withMonthYear(dateField)
+      val dateInput = DateInput(items = prePopulatedItems).withMonthYearFormField(dateField)
 
       dateInput.items shouldBe Seq(
         InputItem(
@@ -544,30 +544,30 @@ class RichDateInputSpec extends AnyWordSpec with Matchers with MessagesSupport w
 
     "populate the labels for the InputItems in Welsh" in {
       implicit val messages: Messages = messagesApi.preferred(Seq(Lang("cy")))
-      val dateInput                   = DateInput().withMonthYear(dateField)
+      val dateInput                   = DateInput().withMonthYearFormField(dateField)
       dateInput.items.flatMap(_.label) shouldBe Seq("Mis", "Blwyddyn")
     }
 
     "populate an error class for an InputItem" in {
-      val dateInput = DateInput().withMonthYear(dateMonthErrorField)
+      val dateInput = DateInput().withMonthYearFormField(dateMonthErrorField)
       dateInput.items(0).classes should endWith("govuk-input--error")
       dateInput.items(1).classes should not endWith "govuk-input--error"
     }
 
     "populate the error message from a nested field first" in {
-      val dateInput = DateInput().withMonthYear(dateMonthErrorField)
+      val dateInput = DateInput().withMonthYearFormField(dateMonthErrorField)
       dateInput.errorMessage shouldBe Some(
         errorMessageWithDefaultStringsTranslated(content = Text("The date must include a month"))
       )
     }
 
     "convert the first Field form error to a DateInput error message if provided" in {
-      val dateInput = DateInput().withMonthYear(dateErrorField)
+      val dateInput = DateInput().withMonthYearFormField(dateErrorField)
       dateInput.errorMessage shouldBe Some(errorMessageWithDefaultStringsTranslated(content = Text("Not valid date")))
     }
 
     "populate error css classes for all inputs in the case of a global date error" in {
-      val dateInput = DateInput().withMonthYear(dateErrorField)
+      val dateInput = DateInput().withMonthYearFormField(dateErrorField)
       dateInput.errorMessage shouldBe Some(errorMessageWithDefaultStringsTranslated(content = Text("Not valid date")))
 
       dateInput.items(0).classes should endWith("govuk-input--error")
@@ -577,7 +577,7 @@ class RichDateInputSpec extends AnyWordSpec with Matchers with MessagesSupport w
     "use the DateInput error message over the Field error if both provided" in {
       val dateInput = DateInput(
         errorMessage = Some(ErrorMessage(content = Text("DateInput Error")))
-      ).withMonthYear(dateErrorField)
+      ).withMonthYearFormField(dateErrorField)
 
       dateInput.errorMessage shouldBe Some(ErrorMessage(content = Text("DateInput Error")))
     }
@@ -595,6 +595,54 @@ class RichDateInputSpec extends AnyWordSpec with Matchers with MessagesSupport w
       val dateInput = DateInput(
         errorMessage = Some(ErrorMessage(content = Text("DateInput Error")))
       ).withFormFieldWithErrorAsHtml(dateErrorField)
+      dateInput.errorMessage shouldBe Some(ErrorMessage(content = Text("DateInput Error")))
+    }
+  }
+
+  "Given a DateInput object, calling the withDayMonthYearWithErrorAsHtml method" should {
+    "convert the first Field form error to a DateInput HTML error message if provided" in {
+      val dateInput = DateInput().withDayMonthYearWithErrorAsHtml(dateErrorField)
+      dateInput.errorMessage shouldBe Some(
+        errorMessageWithDefaultStringsTranslated(content = HtmlContent("Not valid date"))
+      )
+    }
+
+    "use the DateInput error message over the Field error if both provided" in {
+      val dateInput = DateInput(
+        errorMessage = Some(ErrorMessage(content = Text("DateInput Error")))
+      ).withDayMonthYearWithErrorAsHtml(dateErrorField)
+      dateInput.errorMessage shouldBe Some(ErrorMessage(content = Text("DateInput Error")))
+    }
+  }
+
+  "Given a DateInput object, calling the withMonthYearWithErrorAsHtml method" should {
+    "convert the first Field form error to a DateInput HTML error message if provided" in {
+      val dateInput = DateInput().withMonthYearWithErrorAsHtml(dateErrorField)
+      dateInput.errorMessage shouldBe Some(
+        errorMessageWithDefaultStringsTranslated(content = HtmlContent("Not valid date"))
+      )
+    }
+
+    "use the DateInput error message over the Field error if both provided" in {
+      val dateInput = DateInput(
+        errorMessage = Some(ErrorMessage(content = Text("DateInput Error")))
+      ).withMonthYearWithErrorAsHtml(dateErrorField)
+      dateInput.errorMessage shouldBe Some(ErrorMessage(content = Text("DateInput Error")))
+    }
+  }
+
+  "Given a DateInput object, calling the withDayMonthWithErrorAsHtml method" should {
+    "convert the first Field form error to a DateInput HTML error message if provided" in {
+      val dateInput = DateInput().withDayMonthWithErrorAsHtml(dateErrorField)
+      dateInput.errorMessage shouldBe Some(
+        errorMessageWithDefaultStringsTranslated(content = HtmlContent("Not valid date"))
+      )
+    }
+
+    "use the DateInput error message over the Field error if both provided" in {
+      val dateInput = DateInput(
+        errorMessage = Some(ErrorMessage(content = Text("DateInput Error")))
+      ).withDayMonthWithErrorAsHtml(dateErrorField)
       dateInput.errorMessage shouldBe Some(ErrorMessage(content = Text("DateInput Error")))
     }
   }
