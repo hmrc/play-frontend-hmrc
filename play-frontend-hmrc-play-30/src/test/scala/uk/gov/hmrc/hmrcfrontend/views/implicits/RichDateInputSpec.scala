@@ -95,34 +95,23 @@ class RichDateInputSpec extends AnyWordSpec with Matchers with MessagesSupport w
 
     "create three InputItems" in {
       val dateInput = DateInput().withFormField(dateField)
-
       dateInput.items should have length 3
     }
 
     "populate the labels for the three InputItems" in {
       val dateInput = DateInput().withFormField(dateField)
-
-      dateInput.items.head.label.get shouldBe "Day"
-      dateInput.items(1).label.get   shouldBe "Month"
-      dateInput.items(2).label.get   shouldBe "Year"
+      dateInput.items.flatMap(_.label) shouldBe Seq("Day", "Month", "Year")
     }
 
     "populate the labels for the three InputItems in Welsh" in {
       implicit val messages: Messages = messagesApi.preferred(Seq(Lang("cy")))
-
-      val dateInput = DateInput().withFormField(dateField)
-
-      dateInput.items.head.label.get shouldBe "Diwrnod"
-      dateInput.items(1).label.get   shouldBe "Mis"
-      dateInput.items(2).label.get   shouldBe "Blwyddyn"
+      val dateInput                   = DateInput().withFormField(dateField)
+      dateInput.items.flatMap(_.label) shouldBe Seq("Diwrnod", "Mis", "Blwyddyn")
     }
 
     "populate the id for each of the three InputItems" in {
       val dateInput = DateInput().withFormField(dateField)
-
-      dateInput.items.head.id shouldBe "date.day"
-      dateInput.items(1).id   shouldBe "date.month"
-      dateInput.items(2).id   shouldBe "date.year"
+      dateInput.items.map(_.id) shouldBe Seq("date.day", "date.month", "date.year")
     }
 
     "not overwrite any previously populated ids for each of the three InputItems" in {
@@ -133,18 +122,12 @@ class RichDateInputSpec extends AnyWordSpec with Matchers with MessagesSupport w
           InputItem(id = "year-different")
         )
       ).withFormField(dateField)
-
-      dateInput.items.head.id shouldBe "day-different"
-      dateInput.items(1).id   shouldBe "month-different"
-      dateInput.items(2).id   shouldBe "year-different"
+      dateInput.items.map(_.id) shouldBe Seq("day-different", "month-different", "year-different")
     }
 
     "populate the name for each of the three InputItems" in {
       val dateInput = DateInput().withFormField(dateField)
-
-      dateInput.items.head.name shouldBe "date.day"
-      dateInput.items(1).name   shouldBe "date.month"
-      dateInput.items(2).name   shouldBe "date.year"
+      dateInput.items.map(_.name) shouldBe Seq("date.day", "date.month", "date.year")
     }
 
     "not overwrite any previously populated names for each of the three InputItems" in {
@@ -155,10 +138,7 @@ class RichDateInputSpec extends AnyWordSpec with Matchers with MessagesSupport w
           InputItem(name = "year-different")
         )
       ).withFormField(dateField)
-
-      dateInput.items.head.name shouldBe "day-different"
-      dateInput.items(1).name   shouldBe "month-different"
-      dateInput.items(2).name   shouldBe "year-different"
+      dateInput.items.map(_.name) shouldBe Seq("day-different", "month-different", "year-different")
     }
 
     "overwrite any previously populated InputItems where less than three are passed" in {
@@ -296,7 +276,7 @@ class RichDateInputSpec extends AnyWordSpec with Matchers with MessagesSupport w
       dateInput.id shouldBe "date-input-id"
     }
 
-    "create three default InputItems" in {
+    "create three default InputItems (day, month, year)" in {
       val dateInput = DateInput().withDayMonthYear(dateField)
 
       dateInput.items shouldBe Seq(
@@ -358,14 +338,10 @@ class RichDateInputSpec extends AnyWordSpec with Matchers with MessagesSupport w
       )
     }
 
-    "populate the labels for the three InputItems in Welsh" in {
+    "populate the labels for the InputItems in Welsh" in {
       implicit val messages: Messages = messagesApi.preferred(Seq(Lang("cy")))
-
-      val dateInput = DateInput().withDayMonthYear(dateField)
-
-      dateInput.items.head.label.get shouldBe "Diwrnod"
-      dateInput.items(1).label.get   shouldBe "Mis"
-      dateInput.items(2).label.get   shouldBe "Blwyddyn"
+      val dateInput                   = DateInput().withDayMonthYear(dateField)
+      dateInput.items.flatMap(_.label) shouldBe Seq("Diwrnod", "Mis", "Blwyddyn")
     }
 
     "populate an error class for an InputItem" in {
@@ -418,7 +394,7 @@ class RichDateInputSpec extends AnyWordSpec with Matchers with MessagesSupport w
       dateInput.id shouldBe "date-input-id"
     }
 
-    "create two default InputItems" in {
+    "create two default InputItems (day, monh)" in {
       val dateInput = DateInput().withDayMonth(dateField)
 
       dateInput.items shouldBe Seq(
@@ -469,20 +445,17 @@ class RichDateInputSpec extends AnyWordSpec with Matchers with MessagesSupport w
     "populate the labels for the three InputItems in Welsh" in {
       implicit val messages: Messages = messagesApi.preferred(Seq(Lang("cy")))
       val dateInput                   = DateInput().withDayMonth(dateField)
-
       dateInput.items.flatMap(_.label) shouldBe Seq("Diwrnod", "Mis")
     }
 
     "populate an error class for an InputItem" in {
       val dateInput = DateInput().withDayMonth(dateMonthErrorField)
-
       dateInput.items(0).classes should not endWith "govuk-input--error"
       dateInput.items(1).classes should endWith("govuk-input--error")
     }
 
     "populate the error message from a nested field first" in {
       val dateInput = DateInput().withDayMonth(dateMonthErrorField)
-
       dateInput.errorMessage shouldBe Some(
         errorMessageWithDefaultStringsTranslated(content = Text("The date must include a month"))
       )
@@ -521,7 +494,7 @@ class RichDateInputSpec extends AnyWordSpec with Matchers with MessagesSupport w
       dateInput.id shouldBe "date-input-id"
     }
 
-    "create two default InputItems" in {
+    "create two default InputItems (month, year)" in {
       val dateInput = DateInput().withMonthYear(dateField)
 
       dateInput.items shouldBe Seq(
@@ -569,23 +542,20 @@ class RichDateInputSpec extends AnyWordSpec with Matchers with MessagesSupport w
       )
     }
 
-    "populate the labels for the three InputItems in Welsh" in {
+    "populate the labels for the InputItems in Welsh" in {
       implicit val messages: Messages = messagesApi.preferred(Seq(Lang("cy")))
       val dateInput                   = DateInput().withMonthYear(dateField)
-
       dateInput.items.flatMap(_.label) shouldBe Seq("Mis", "Blwyddyn")
     }
 
     "populate an error class for an InputItem" in {
       val dateInput = DateInput().withMonthYear(dateMonthErrorField)
-
       dateInput.items(0).classes should endWith("govuk-input--error")
       dateInput.items(1).classes should not endWith "govuk-input--error"
     }
 
     "populate the error message from a nested field first" in {
       val dateInput = DateInput().withMonthYear(dateMonthErrorField)
-
       dateInput.errorMessage shouldBe Some(
         errorMessageWithDefaultStringsTranslated(content = Text("The date must include a month"))
       )
@@ -613,7 +583,7 @@ class RichDateInputSpec extends AnyWordSpec with Matchers with MessagesSupport w
     }
   }
 
-  "Given a DateInput object, calling withFormFieldWithErrorAsHtml" should {
+  "Given a DateInput object, calling the deprecated withFormFieldWithErrorAsHtml method" should {
     "convert the first Field form error to a DateInput HTML error message if provided" in {
       val dateInput = DateInput().withFormFieldWithErrorAsHtml(dateErrorField)
       dateInput.errorMessage shouldBe Some(

@@ -107,14 +107,6 @@ trait RichDateInputSupport {
       dateInput.copy(items = items)
     }
 
-//    private def configureDateInputItems(field: Field, dateInputItems: Seq[InputItem], keyset: Seq[String]): Seq[InputItem] = {
-//      val allItems = Seq(
-//        inputItem(field, dateInputItems(0), "day", className = "govuk-input--width-2"),
-//        inputItem(field, dateInputItems(1), "month", className = "govuk-input--width-2"),
-//        inputItem(field, dateInputItems(2), "year", className = "govuk-input--width-4")
-//      )
-//    }
-
     private def inputItem(field: Field, inputItem: InputItem, key: String, className: String): InputItem = {
       def errorClass(itemField: Field) =
         if (field.errors.nonEmpty || itemField.errors.nonEmpty) "govuk-input--error" else ""
@@ -132,37 +124,28 @@ trait RichDateInputSupport {
     }
 
     private[views] def withDayMonthYearInputItems(field: Field): DateInput = {
-      val dateInputItems = Seq.fill(3)(InputItem.defaultObject)
-
-      val items = Seq(
-        inputItem(field, dateInputItems(0), "day", className = "govuk-input--width-2"),
-        inputItem(field, dateInputItems(1), "month", className = "govuk-input--width-2"),
-        inputItem(field, dateInputItems(2), "year", className = "govuk-input--width-4")
-      )
-
+      val items = configureDateInputItems(field, Seq("day", "month", "year"))
       dateInput.copy(items = items)
     }
 
     private[views] def withDayMonthInputItems(field: Field): DateInput = {
-      val dateInputItems = Seq.fill(2)(InputItem.defaultObject)
-
-      val items = Seq(
-        inputItem(field, dateInputItems(0), "day", className = "govuk-input--width-2"),
-        inputItem(field, dateInputItems(1), "month", className = "govuk-input--width-2")
-      )
-
+      val items = configureDateInputItems(field, Seq("day", "month"))
       dateInput.copy(items = items)
     }
 
     private[views] def withMonthYearInputItems(field: Field): DateInput = {
-      val dateInputItems = Seq.fill(2)(InputItem.defaultObject)
-
-      val items = Seq(
-        inputItem(field, dateInputItems(0), "month", className = "govuk-input--width-2"),
-        inputItem(field, dateInputItems(1), "year", className = "govuk-input--width-4")
-      )
-
+      val items = configureDateInputItems(field, Seq("month", "year"))
       dateInput.copy(items = items)
+    }
+
+    private def configureDateInputItems(field: Field, keyset: Seq[String]): Seq[InputItem] = {
+      val defaultItems             = Seq.fill(3)(InputItem.defaultObject)
+      val allItems: Seq[InputItem] = Seq(
+        inputItem(field, defaultItems(0), "day", className = "govuk-input--width-2"),
+        inputItem(field, defaultItems(1), "month", className = "govuk-input--width-2"),
+        inputItem(field, defaultItems(2), "year", className = "govuk-input--width-4")
+      )
+      keyset.flatMap(key => allItems.find(_.name.endsWith(key)))
     }
 
     private[views] def withTextErrorMessage(field: Field): DateInput = {
