@@ -112,11 +112,13 @@ trait RichDateInputSupport {
      *
      * @param field
      */
-    def withDayMonthYearWithErrorAsHtml(field: Field): DateInput =
+    def withDayMonthYearWithErrorAsHtml(field: Field): DateInput = {
+      require(dateInput.items.isEmpty, "The DateInput `items` must be empty for withDayMonthYearWithErrorAsHtml")
       dateInput
         .withId(field)
         .withDayMonthYearInputItems(field)
         .withHtmlErrorMessage(field)
+    }
 
     /**
      * Method to allow a Play form Field to be used to populate parameters in a DateInput, with form errors bound as
@@ -124,11 +126,13 @@ trait RichDateInputSupport {
      *
      * @param field
      */
-    def withDayMonthWithErrorAsHtml(field: Field): DateInput =
+    def withDayMonthWithErrorAsHtml(field: Field): DateInput = {
+      require(dateInput.items.isEmpty, "The DateInput `items` must be empty for withDayMonthWithErrorAsHtml")
       dateInput
         .withId(field)
         .withDayMonthYearInputItems(field)
         .withHtmlErrorMessage(field)
+    }
 
     /**
      * Method to allow a Play form Field to be used to populate parameters in a DateInput, with form errors bound as
@@ -136,11 +140,13 @@ trait RichDateInputSupport {
      *
      * @param field
      */
-    def withMonthYearWithErrorAsHtml(field: Field): DateInput =
+    def withMonthYearWithErrorAsHtml(field: Field): DateInput = {
+      require(dateInput.items.isEmpty, "The DateInput `items` must be empty for withMonthYearWithErrorAsHtml")
       dateInput
         .withId(field)
         .withDayMonthYearInputItems(field)
         .withHtmlErrorMessage(field)
+    }
 
     def withHeading(heading: Content): DateInput =
       withHeadingLegend(dateInput, heading, None)((di, ul) => di.copy(fieldset = Some(ul.toFieldset)))
