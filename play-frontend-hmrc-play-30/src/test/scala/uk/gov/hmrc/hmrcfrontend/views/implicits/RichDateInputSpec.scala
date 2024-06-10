@@ -310,38 +310,17 @@ class RichDateInputSpec extends AnyWordSpec with Matchers with MessagesSupport w
       dateInput.items.map(_.name) shouldBe Seq("custom-name.day", "custom-name.month", "custom-name.year")
     }
 
-    "overwrite any previously populated items" in {
+    "throw an exception if passed previously populated items" in {
       val prePopulatedItems = Seq(
         InputItem(id = "day-different", name = "day-different", value = Some("2"), classes = "day-class"),
         InputItem(id = "month-different", name = "month-different", value = Some("3"), classes = "month-class"),
         InputItem(id = "year-different", name = "year-different", value = Some("2021"), classes = "year-class")
       )
 
-      val dateInput = DateInput(items = prePopulatedItems).withDayMonthYearFormField(dateField)
-
-      dateInput.items shouldBe Seq(
-        InputItem(
-          id = "date.day",
-          name = "date.day",
-          value = Some("1"),
-          label = Some("Day"),
-          classes = "govuk-input--width-2"
-        ),
-        InputItem(
-          id = "date.month",
-          name = "date.month",
-          value = Some("2"),
-          label = Some("Month"),
-          classes = "govuk-input--width-2"
-        ),
-        InputItem(
-          id = "date.year",
-          name = "date.year",
-          value = Some("2020"),
-          label = Some("Year"),
-          classes = "govuk-input--width-4"
-        )
-      )
+      val exception =
+        intercept[RuntimeException](DateInput(items = prePopulatedItems).withDayMonthYearFormField(dateField))
+      exception            shouldBe a[IllegalArgumentException]
+      exception.getMessage shouldBe "requirement failed: The DateInput `items` must be empty for withDayMonthYearFormField"
     }
 
     "populate the labels for the InputItems in Welsh" in {
@@ -427,31 +406,16 @@ class RichDateInputSpec extends AnyWordSpec with Matchers with MessagesSupport w
       dateInput.items.map(_.name) shouldBe Seq("custom-name.day", "custom-name.month")
     }
 
-    "overwrite any previously populated items" in {
+    "throw an exception if passed previously populated items" in {
       val prePopulatedItems = Seq(
         InputItem(id = "day-different", name = "day-different", value = Some("2"), classes = "day-class"),
         InputItem(id = "month-different", name = "month-different", value = Some("3"), classes = "month-class"),
         InputItem(id = "year-different", name = "year-different", value = Some("2021"), classes = "year-class")
       )
 
-      val dateInput = DateInput(items = prePopulatedItems).withDayMonthFormField(dateField)
-
-      dateInput.items shouldBe Seq(
-        InputItem(
-          id = "date.day",
-          name = "date.day",
-          value = Some("1"),
-          label = Some("Day"),
-          classes = "govuk-input--width-2"
-        ),
-        InputItem(
-          id = "date.month",
-          name = "date.month",
-          value = Some("2"),
-          label = Some("Month"),
-          classes = "govuk-input--width-2"
-        )
-      )
+      val exception = intercept[RuntimeException](DateInput(items = prePopulatedItems).withDayMonthFormField(dateField))
+      exception            shouldBe a[IllegalArgumentException]
+      exception.getMessage shouldBe "requirement failed: The DateInput `items` must be empty for withDayMonthFormField"
     }
 
     "populate the labels for the InputItems in Welsh" in {
@@ -533,31 +497,17 @@ class RichDateInputSpec extends AnyWordSpec with Matchers with MessagesSupport w
       dateInput.items.map(_.name) shouldBe Seq("custom-name.month", "custom-name.year")
     }
 
-    "overwrite any previously populated items" in {
+    "throw an exception if passed previously populated items" in {
       val prePopulatedItems = Seq(
         InputItem(id = "day-different", name = "day-different", value = Some("2"), classes = "day-class"),
         InputItem(id = "month-different", name = "month-different", value = Some("3"), classes = "month-class"),
         InputItem(id = "year-different", name = "year-different", value = Some("2021"), classes = "year-class")
       )
 
-      val dateInput = DateInput(items = prePopulatedItems).withMonthYearFormField(dateField)
-
-      dateInput.items shouldBe Seq(
-        InputItem(
-          id = "date.month",
-          name = "date.month",
-          value = Some("2"),
-          label = Some("Month"),
-          classes = "govuk-input--width-2"
-        ),
-        InputItem(
-          id = "date.year",
-          name = "date.year",
-          value = Some("2020"),
-          label = Some("Year"),
-          classes = "govuk-input--width-4"
-        )
-      )
+      val exception =
+        intercept[RuntimeException](DateInput(items = prePopulatedItems).withMonthYearFormField(dateField))
+      exception            shouldBe a[IllegalArgumentException]
+      exception.getMessage shouldBe "requirement failed: The DateInput `items` must be empty for withMonthYearFormField"
     }
 
     "populate the labels for the InputItems in Welsh" in {

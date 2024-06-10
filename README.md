@@ -335,6 +335,9 @@ These methods takes a Play `play.api.data.Field` and enrich the `DateInput` with
 * `field.error`
 * the correct CSS error classes applied to any invalid nested day, month or year field or  to all fields in the case of a global date error.
 
+**These methods will throw an `IllegalArgument` exception if passed a pre-populated set of DateInput `items`. These methods should only be used to create
+standard empty items. If your use case is more complex, you may need to construct your own `DateInput`.**
+
 For example, if using the one question per page pattern, the method could be used as follows:
 
 ```scala  
@@ -345,7 +348,7 @@ For example, if using the one question per page pattern, the method could be use
       content = Text(messages("date.heading")), 
       classes = "govuk-fieldset__legend--l", isPageHeading = true)))
   )).withDayMonthYearFormField(dateInputForm("date")))  
-```  
+```
 
 Setting up form validation for this field might look like:
 

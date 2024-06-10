@@ -70,11 +70,13 @@ trait RichDateInputSupport {
      *
      * @param field
      */
-    def withDayMonthYearFormField(field: Field): DateInput =
+    def withDayMonthYearFormField(field: Field): DateInput = {
+      require(dateInput.items.isEmpty, "The DateInput `items` must be empty for withDayMonthYearFormField")
       dateInput
         .withId(field)
         .withDayMonthYearInputItems(field)
         .withTextErrorMessage(field)
+    }
 
     /**
      * Method to allow a Play form Field to be used to populate parameters in a DateInput. This method will populate
@@ -82,11 +84,13 @@ trait RichDateInputSupport {
      *
      * @param field
      */
-    def withDayMonthFormField(field: Field): DateInput =
+    def withDayMonthFormField(field: Field): DateInput = {
+      require(dateInput.items.isEmpty, "The DateInput `items` must be empty for withDayMonthFormField")
       dateInput
         .withId(field)
         .withDayMonthInputItems(field)
         .withTextErrorMessage(field)
+    }
 
     /**
      * Method to allow a Play form Field to be used to populate parameters in a DateInput. This method will populate
@@ -94,11 +98,13 @@ trait RichDateInputSupport {
      *
      * @param field
      */
-    def withMonthYearFormField(field: Field): DateInput =
+    def withMonthYearFormField(field: Field): DateInput = {
+      require(dateInput.items.isEmpty, "The DateInput `items` must be empty for withMonthYearFormField")
       dateInput
         .withId(field)
         .withMonthYearInputItems(field)
         .withTextErrorMessage(field)
+    }
 
     /**
      * Method to allow a Play form Field to be used to populate parameters in a DateInput, with form errors bound as
@@ -174,19 +180,6 @@ trait RichDateInputSupport {
       )
     }
 
-    private def defaultInputItem(field: Field, key: String, className: String): InputItem = {
-      def errorClass(itemField: Field) =
-        if (field.errors.nonEmpty || itemField.errors.nonEmpty) "govuk-input--error" else ""
-
-      InputItem(
-        id = s"${field.name}.$key",
-        name = s"${field.name}.$key",
-        value = field(key).value,
-        label = Some(messages(s"date.input.$key")),
-        classes = s"$className ${errorClass(field(key))}".trim
-      )
-    }
-
     private[views] def withDayMonthYearInputItems(field: Field): DateInput = {
       val items = defaultDateItems(field, Seq("day", "month", "year"))
       dateInput.copy(items = items)
@@ -209,6 +202,19 @@ trait RichDateInputSupport {
         defaultInputItem(field, "year", className = "govuk-input--width-4")
       )
       keyset.flatMap(key => allItems.find(_.name.endsWith(key)))
+    }
+
+    private def defaultInputItem(field: Field, key: String, className: String): InputItem = {
+      def errorClass(itemField: Field) =
+        if (field.errors.nonEmpty || itemField.errors.nonEmpty) "govuk-input--error" else ""
+
+      InputItem(
+        id = s"${field.name}.$key",
+        name = s"${field.name}.$key",
+        value = field(key).value,
+        label = Some(messages(s"date.input.$key")),
+        classes = s"$className ${errorClass(field(key))}".trim
+      )
     }
 
     private[views] def withTextErrorMessage(field: Field): DateInput = {
