@@ -324,7 +324,7 @@ The implicit class `RichDateInput` provides three extension methods to populate 
 
 These methods takes a Play `play.api.data.Field` and enrich the `DateInput` with:
 * InputItems corresponding to a combination of the day, month and year fields with
-    * ids and names of the form `<name>.day`, `<name>.month` and `<name>.year`  (`<name>` being populated from the `Field` name if present, else `date`).
+    * ids and names of the form `<name>.day`, `<name>.month` and `<name>.year`  (`<name>` being populated from the `Field` name).
 * standard English and Welsh labels
 * an id, set to the `Field` name
 * values for the nested day, month and year fields
