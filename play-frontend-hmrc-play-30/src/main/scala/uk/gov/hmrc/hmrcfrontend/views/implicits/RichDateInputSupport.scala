@@ -100,18 +100,36 @@ trait RichDateInputSupport {
         .withMonthYearInputItems(field)
         .withTextErrorMessage(field)
 
+    /**
+     * Method to allow a Play form Field to be used to populate parameters in a DateInput, with form errors bound as
+     * HtmlContent objects.
+     *
+     * @param field
+     */
     def withDayMonthYearWithErrorAsHtml(field: Field): DateInput =
       dateInput
         .withId(field)
         .withDayMonthYearInputItems(field)
         .withHtmlErrorMessage(field)
 
+    /**
+     * Method to allow a Play form Field to be used to populate parameters in a DateInput, with form errors bound as
+     * HtmlContent objects.
+     *
+     * @param field
+     */
     def withDayMonthWithErrorAsHtml(field: Field): DateInput =
       dateInput
         .withId(field)
         .withDayMonthYearInputItems(field)
         .withHtmlErrorMessage(field)
 
+    /**
+     * Method to allow a Play form Field to be used to populate parameters in a DateInput, with form errors bound as
+     * HtmlContent objects.
+     *
+     * @param field
+     */
     def withMonthYearWithErrorAsHtml(field: Field): DateInput =
       dateInput
         .withId(field)
