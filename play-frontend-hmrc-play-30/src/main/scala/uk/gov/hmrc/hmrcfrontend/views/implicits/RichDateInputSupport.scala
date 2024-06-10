@@ -150,15 +150,15 @@ trait RichDateInputSupport {
         if (dateInput.items.size == 3) dateInput.items else Seq.fill(3)(InputItem.defaultObject)
 
       val items = Seq(
-        inputItem(field, dateInputItems(0), "day", className = "govuk-input--width-2"),
-        inputItem(field, dateInputItems(1), "month", className = "govuk-input--width-2"),
-        inputItem(field, dateInputItems(2), "year", className = "govuk-input--width-4")
+        deprecatedInputItem(field, dateInputItems(0), "day", className = "govuk-input--width-2"),
+        deprecatedInputItem(field, dateInputItems(1), "month", className = "govuk-input--width-2"),
+        deprecatedInputItem(field, dateInputItems(2), "year", className = "govuk-input--width-4")
       )
 
       dateInput.copy(items = items)
     }
 
-    private def inputItem(field: Field, inputItem: InputItem, key: String, className: String): InputItem = {
+    private def deprecatedInputItem(field: Field, inputItem: InputItem, key: String, className: String): InputItem = {
       def errorClass(itemField: Field) =
         if (field.errors.nonEmpty || itemField.errors.nonEmpty) "govuk-input--error" else ""
 
@@ -171,6 +171,19 @@ trait RichDateInputSupport {
         value = if (inputItem.value == defaultInputItem.value) field(key).value else inputItem.value,
         label = if (inputItem.label == defaultInputItem.label) Some(messages(s"date.input.$key")) else inputItem.label,
         classes = s"$classes ${errorClass(field(key))}".trim
+      )
+    }
+
+    private def defaultInputItem(field: Field, key: String, className: String): InputItem = {
+      def errorClass(itemField: Field) =
+        if (field.errors.nonEmpty || itemField.errors.nonEmpty) "govuk-input--error" else ""
+
+      InputItem(
+        id = s"${field.name}.$key",
+        name = s"${field.name}.$key",
+        value = field(key).value,
+        label = Some(messages(s"date.input.$key")),
+        classes = s"$className ${errorClass(field(key))}".trim
       )
     }
 
@@ -190,11 +203,10 @@ trait RichDateInputSupport {
     }
 
     private def defaultDateItems(field: Field, keyset: Seq[String]): Seq[InputItem] = {
-      val defaultItems             = Seq.fill(3)(InputItem.defaultObject)
       val allItems: Seq[InputItem] = Seq(
-        inputItem(field, defaultItems(0), "day", className = "govuk-input--width-2"),
-        inputItem(field, defaultItems(1), "month", className = "govuk-input--width-2"),
-        inputItem(field, defaultItems(2), "year", className = "govuk-input--width-4")
+        defaultInputItem(field, "day", className = "govuk-input--width-2"),
+        defaultInputItem(field, "month", className = "govuk-input--width-2"),
+        defaultInputItem(field, "year", className = "govuk-input--width-4")
       )
       keyset.flatMap(key => allItems.find(_.name.endsWith(key)))
     }
