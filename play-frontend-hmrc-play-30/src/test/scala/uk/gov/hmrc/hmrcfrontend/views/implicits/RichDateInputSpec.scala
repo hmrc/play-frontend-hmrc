@@ -304,6 +304,12 @@ class RichDateInputSpec extends AnyWordSpec with Matchers with MessagesSupport w
       )
     }
 
+    "pass the Field `name` through to individual fields if set" in {
+      val dateInput = DateInput().withDayMonthYearFormField(dateField.copy(name = "custom-name"))
+      dateInput.items.map(_.id)   shouldBe Seq("custom-name.day", "custom-name.month", "custom-name.year")
+      dateInput.items.map(_.name) shouldBe Seq("custom-name.day", "custom-name.month", "custom-name.year")
+    }
+
     "overwrite any previously populated items" in {
       val prePopulatedItems = Seq(
         InputItem(id = "day-different", name = "day-different", value = Some("2"), classes = "day-class"),
