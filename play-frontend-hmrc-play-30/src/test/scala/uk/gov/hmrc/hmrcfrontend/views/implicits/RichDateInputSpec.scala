@@ -421,6 +421,12 @@ class RichDateInputSpec extends AnyWordSpec with Matchers with MessagesSupport w
       )
     }
 
+    "pass the Field `name` through to individual fields if set" in {
+      val dateInput = DateInput().withDayMonthFormField(dateField.copy(name = "custom-name"))
+      dateInput.items.map(_.id)   shouldBe Seq("custom-name.day", "custom-name.month")
+      dateInput.items.map(_.name) shouldBe Seq("custom-name.day", "custom-name.month")
+    }
+
     "overwrite any previously populated items" in {
       val prePopulatedItems = Seq(
         InputItem(id = "day-different", name = "day-different", value = Some("2"), classes = "day-class"),
@@ -448,7 +454,7 @@ class RichDateInputSpec extends AnyWordSpec with Matchers with MessagesSupport w
       )
     }
 
-    "populate the labels for the three InputItems in Welsh" in {
+    "populate the labels for the InputItems in Welsh" in {
       implicit val messages: Messages = messagesApi.preferred(Seq(Lang("cy")))
       val dateInput                   = DateInput().withDayMonthFormField(dateField)
       dateInput.items.flatMap(_.label) shouldBe Seq("Diwrnod", "Mis")
@@ -519,6 +525,12 @@ class RichDateInputSpec extends AnyWordSpec with Matchers with MessagesSupport w
           classes = "govuk-input--width-4"
         )
       )
+    }
+
+    "pass the Field `name` through to individual fields if set" in {
+      val dateInput = DateInput().withMonthYearFormField(dateField.copy(name = "custom-name"))
+      dateInput.items.map(_.id)   shouldBe Seq("custom-name.month", "custom-name.year")
+      dateInput.items.map(_.name) shouldBe Seq("custom-name.month", "custom-name.year")
     }
 
     "overwrite any previously populated items" in {
