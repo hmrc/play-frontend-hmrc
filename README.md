@@ -338,8 +338,13 @@ These methods takes a Play `play.api.data.Field` and enrich the `DateInput` with
 For example, if using the one question per page pattern, the method could be used as follows:
 
 ```scala  
-@govukDateInput(DateInput(  
- hint = Some(Hint(content = Text("date.hint"))), fieldset = Some(Fieldset( legend = Some(Legend( content = Text(messages("date.heading")), classes = "govuk-fieldset__legend--l", isPageHeading = true))) )).withDayMonthYearFormField(dateInputForm("date")))  
+@govukDateInput(DateInput(
+  hint = Some(Hint(content = Text("date.hint"))), 
+  fieldset = Some(Fieldset(
+    legend = Some(Legend(
+      content = Text(messages("date.heading")), 
+      classes = "govuk-fieldset__legend--l", isPageHeading = true)))
+  )).withDayMonthYearFormField(dateInputForm("date")))  
 ```  
 
 Setting up form validation for this field might look like:
@@ -349,7 +354,13 @@ case class DateData(day: String, month: String, year: String)
 case class PageData(date: DateData)  
   
 object DateFormBinder {  
- def form: Form[PageData] = Form[PageData]( mapping( "date" -> mapping( "day"   -> text.verifying(dayConstraint), "month" -> text.verifying(monthConstraint), "year"  -> text.verifying(yearConstraint) )(DateData.apply)(DateData.unapply).verifying(dateConstraint) )(PageData.apply)(PageData.unapply) )}  
+ def form: Form[PageData] = Form[PageData](mapping(
+   "date" -> mapping(
+     "day" -> text.verifying(dayConstraint),
+     "month" -> text.verifying(monthConstraint),
+     "year"  -> text.verifying(yearConstraint)
+   )(DateData.apply)(DateData.unapply)
+     .verifying(dateConstraint) )(PageData.apply)(PageData.unapply) )}  
 ```  
 
 In the code above, `dayConstraint`, `monthConstraint`, `yearConstraint` and `dateConstraint` would be defined  
@@ -360,7 +371,11 @@ The controller submit method for this form might look like:
 
 ```scala  
 def submit() = Action { implicit request =>  
- DateFormBinder.form .bindFromRequest() .fold( formWithError => BadRequest(dateInputPage(formWithError, routes.DateInputController.submit())), _ => Redirect(routes.DateInputController.thanks()) )}  
+ DateFormBinder.form .bindFromRequest() 
+   .fold( 
+     formWithError => BadRequest(dateInputPage(formWithError, routes.DateInputController.submit())),
+     _ => Redirect(routes.DateInputController.thanks()) 
+   )}  
 ```  
 Additionally, there are methods `withDayMonthYearFormFieldWithErrorAsHtml(field: Field)`, `withDayMonthFormFieldWithErrorAsHtml(field: Field)`  and `withMonthYearFormFieldWithErrorAsHtml(field: Field)` which behave as the  above methods with the difference that form errors are bound as instances of `HtmlContent`.
 
