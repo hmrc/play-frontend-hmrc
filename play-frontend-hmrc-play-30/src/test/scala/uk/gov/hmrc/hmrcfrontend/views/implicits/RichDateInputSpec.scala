@@ -89,8 +89,8 @@ class RichDateInputSpec extends AnyWordSpec with Matchers with MessagesSupport w
     }
 
     "use the DateInput id over the Field name if both exist" in {
-      val dateInput = DateInput(id = "date-input-id").withFormField(dateField)
-      dateInput.id shouldBe "date-input-id"
+      val dateInput = DateInput(id = "custom-id").withFormField(dateField)
+      dateInput.id shouldBe "custom-id"
     }
 
     "create three InputItems" in {
@@ -272,8 +272,8 @@ class RichDateInputSpec extends AnyWordSpec with Matchers with MessagesSupport w
     }
 
     "use the DateInput id over the Field name if both exist" in {
-      val dateInput = DateInput(id = "date-input-id").withDayMonthYearFormField(dateField)
-      dateInput.id shouldBe "date-input-id"
+      val dateInput = DateInput(id = "custom-id").withDayMonthYearFormField(dateField)
+      dateInput.id shouldBe "custom-id"
     }
 
     "create three default InputItems (day, month, year)" in {
@@ -390,11 +390,11 @@ class RichDateInputSpec extends AnyWordSpec with Matchers with MessagesSupport w
     }
 
     "use the DateInput id over the Field name if both exist" in {
-      val dateInput = DateInput(id = "date-input-id").withDayMonthFormField(dateField)
-      dateInput.id shouldBe "date-input-id"
+      val dateInput = DateInput(id = "custom-id").withDayMonthFormField(dateField)
+      dateInput.id shouldBe "custom-id"
     }
 
-    "create two default InputItems (day, monh)" in {
+    "create two default InputItems (day, month)" in {
       val dateInput = DateInput().withDayMonthFormField(dateField)
 
       dateInput.items shouldBe Seq(
@@ -490,8 +490,8 @@ class RichDateInputSpec extends AnyWordSpec with Matchers with MessagesSupport w
     }
 
     "use the DateInput id over the Field name if both exist" in {
-      val dateInput = DateInput(id = "date-input-id").withMonthYearFormField(dateField)
-      dateInput.id shouldBe "date-input-id"
+      val dateInput = DateInput(id = "custom-id").withMonthYearFormField(dateField)
+      dateInput.id shouldBe "custom-id"
     }
 
     "create two default InputItems (month, year)" in {

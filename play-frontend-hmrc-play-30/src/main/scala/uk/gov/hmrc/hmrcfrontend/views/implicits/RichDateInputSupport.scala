@@ -38,7 +38,7 @@ trait RichDateInputSupport {
       *
       * @param field
       */
-    @deprecated("Use `withDayMonthYear`, `withDayMonth`, or `withMonthYear` instead", "10.1.0")
+    @deprecated("Use `withDayMonthYearFormField`, `withDayMonthFormField`, or `withMonthYearFormField` instead", "10.1.0")
     override def withFormField(field: Field): DateInput =
       dateInput
         .withId(field)
