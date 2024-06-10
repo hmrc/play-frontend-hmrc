@@ -31,17 +31,21 @@ trait RichDateInputSupport {
       extends ImplicitsSupport[DateInput] {
 
     /**
-      * Extension method to allow a Play form Field to be used to populate parameters in a DateInput,
+      * Deprecated method to allow a Play form Field to be used to populate parameters in a DateInput,
       * if they have not already been set to a non-default value. This method assumes that `dateInput.items`
       * will either equal `Seq.empty` or will have exactly three InputItems corresponding to the day, month and year.
       * Form errors will be bound as Text objects.
       *
       * @param field
       */
+    @deprecated(
+      "Use `withDayMonthYearFormField`, `withDayMonthFormField`, or `withMonthYearFormField` instead",
+      "10.1.0"
+    )
     override def withFormField(field: Field): DateInput =
       dateInput
         .withId(field)
-        .withInputItems(field)
+        .deprecatedWithInputItems(field)
         .withTextErrorMessage(field)
 
     /**
@@ -50,11 +54,99 @@ trait RichDateInputSupport {
       *
       * @param field
       */
+    @deprecated(
+      "Use `withDayMonthYearWithErrorAsHtml`, `withDayMonthWithErrorAsHtml`, or `withMonthYearWithErrorAsHtml` instead",
+      "10.1.0"
+    )
     override def withFormFieldWithErrorAsHtml(field: Field): DateInput =
       dateInput
         .withId(field)
-        .withInputItems(field)
+        .deprecatedWithInputItems(field)
         .withHtmlErrorMessage(field)
+
+    /**
+     * Method to allow a Play form Field to be used to populate parameters in a DateInput. This method will populate
+     * with three InputItems corresponding to the day, month and year. Form errors will be bound as Text objects.
+     *
+     * @param field
+     */
+    def withDayMonthYearFormField(field: Field): DateInput = {
+      require(dateInput.items.isEmpty, "The DateInput `items` must be empty for withDayMonthYearFormField")
+      dateInput
+        .withId(field)
+        .withDayMonthYearInputItems(field)
+        .withTextErrorMessage(field)
+    }
+
+    /**
+     * Method to allow a Play form Field to be used to populate parameters in a DateInput. This method will populate
+     * with two InputItems corresponding to the day and month only. Form errors will be bound as Text objects.
+     *
+     * @param field
+     */
+    def withDayMonthFormField(field: Field): DateInput = {
+      require(dateInput.items.isEmpty, "The DateInput `items` must be empty for withDayMonthFormField")
+      dateInput
+        .withId(field)
+        .withDayMonthInputItems(field)
+        .withTextErrorMessage(field)
+    }
+
+    /**
+     * Method to allow a Play form Field to be used to populate parameters in a DateInput. This method will populate
+     * with two InputItems corresponding to the month and year only. Form errors will be bound as Text objects.
+     *
+     * @param field
+     */
+    def withMonthYearFormField(field: Field): DateInput = {
+      require(dateInput.items.isEmpty, "The DateInput `items` must be empty for withMonthYearFormField")
+      dateInput
+        .withId(field)
+        .withMonthYearInputItems(field)
+        .withTextErrorMessage(field)
+    }
+
+    /**
+     * Method to allow a Play form Field to be used to populate parameters in a DateInput, with form errors bound as
+     * HtmlContent objects.
+     *
+     * @param field
+     */
+    def withDayMonthYearWithErrorAsHtml(field: Field): DateInput = {
+      require(dateInput.items.isEmpty, "The DateInput `items` must be empty for withDayMonthYearWithErrorAsHtml")
+      dateInput
+        .withId(field)
+        .withDayMonthYearInputItems(field)
+        .withHtmlErrorMessage(field)
+    }
+
+    /**
+     * Method to allow a Play form Field to be used to populate parameters in a DateInput, with form errors bound as
+     * HtmlContent objects.
+     *
+     * @param field
+     */
+    def withDayMonthWithErrorAsHtml(field: Field): DateInput = {
+      require(dateInput.items.isEmpty, "The DateInput `items` must be empty for withDayMonthWithErrorAsHtml")
+      dateInput
+        .withId(field)
+        .withDayMonthYearInputItems(field)
+        .withHtmlErrorMessage(field)
+    }
+
+    /**
+     * Method to allow a Play form Field to be used to populate parameters in a DateInput, with form errors bound as
+     * HtmlContent objects.
+     *
+     * @param field
+     */
+    def withMonthYearWithErrorAsHtml(field: Field): DateInput = {
+      require(dateInput.items.isEmpty, "The DateInput `items` must be empty for withMonthYearWithErrorAsHtml")
+      dateInput
+        .withId(field)
+        .withDayMonthYearInputItems(field)
+        .withHtmlErrorMessage(field)
+    }
 
     def withHeading(heading: Content): DateInput =
       withHeadingLegend(dateInput, heading, None)((di, ul) => di.copy(fieldset = Some(ul.toFieldset)))
@@ -65,33 +157,70 @@ trait RichDateInputSupport {
     private[views] def withId(field: Field): DateInput =
       withStringProperty(field.name, dateInput.id, dateInput)((dateInput, id) => dateInput.copy(id = id))
 
-    private[views] def withInputItems(field: Field): DateInput = {
-      def errorClass(itemField: Field) =
-        if (field.errors.nonEmpty || itemField.errors.nonEmpty) "govuk-input--error" else ""
-
-      def inputItem(inputItem: InputItem, key: String, className: String): InputItem = {
-        val defaultInputItem = InputItem.defaultObject
-        val classes          = if (inputItem.classes == defaultInputItem.classes) className else inputItem.classes
-
-        inputItem.copy(
-          id = if (inputItem.id == defaultInputItem.id) s"${field.name}.$key" else inputItem.id,
-          name = if (inputItem.name == defaultInputItem.name) s"${field.name}.$key" else inputItem.name,
-          value = if (inputItem.value == defaultInputItem.value) field(key).value else inputItem.value,
-          label =
-            if (inputItem.label == defaultInputItem.label) Some(messages(s"date.input.$key")) else inputItem.label,
-          classes = s"$classes ${errorClass(field(key))}".trim
-        )
-      }
-
-      val dateInputItems = if (dateInput.items.size == 3) dateInput.items else Seq.fill(3)(InputItem.defaultObject)
+    private[views] def deprecatedWithInputItems(field: Field): DateInput = {
+      val dateInputItems: Seq[InputItem] =
+        if (dateInput.items.size == 3) dateInput.items else Seq.fill(3)(InputItem.defaultObject)
 
       val items = Seq(
-        inputItem(dateInputItems(0), "day", className = "govuk-input--width-2"),
-        inputItem(dateInputItems(1), "month", className = "govuk-input--width-2"),
-        inputItem(dateInputItems(2), "year", className = "govuk-input--width-4")
+        deprecatedInputItem(field, dateInputItems(0), "day", className = "govuk-input--width-2"),
+        deprecatedInputItem(field, dateInputItems(1), "month", className = "govuk-input--width-2"),
+        deprecatedInputItem(field, dateInputItems(2), "year", className = "govuk-input--width-4")
       )
 
       dateInput.copy(items = items)
+    }
+
+    private def deprecatedInputItem(field: Field, inputItem: InputItem, key: String, className: String): InputItem = {
+      def errorClass(itemField: Field) =
+        if (field.errors.nonEmpty || itemField.errors.nonEmpty) "govuk-input--error" else ""
+
+      val defaultInputItem = InputItem.defaultObject
+      val classes          = if (inputItem.classes == defaultInputItem.classes) className else inputItem.classes
+
+      inputItem.copy(
+        id = if (inputItem.id == defaultInputItem.id) s"${field.name}.$key" else inputItem.id,
+        name = if (inputItem.name == defaultInputItem.name) s"${field.name}.$key" else inputItem.name,
+        value = if (inputItem.value == defaultInputItem.value) field(key).value else inputItem.value,
+        label = if (inputItem.label == defaultInputItem.label) Some(messages(s"date.input.$key")) else inputItem.label,
+        classes = s"$classes ${errorClass(field(key))}".trim
+      )
+    }
+
+    private[views] def withDayMonthYearInputItems(field: Field): DateInput = {
+      val items = defaultDateItems(field, Seq("day", "month", "year"))
+      dateInput.copy(items = items)
+    }
+
+    private[views] def withDayMonthInputItems(field: Field): DateInput = {
+      val items = defaultDateItems(field, Seq("day", "month"))
+      dateInput.copy(items = items)
+    }
+
+    private[views] def withMonthYearInputItems(field: Field): DateInput = {
+      val items = defaultDateItems(field, Seq("month", "year"))
+      dateInput.copy(items = items)
+    }
+
+    private def defaultDateItems(field: Field, keyset: Seq[String]): Seq[InputItem] = {
+      val allItems: Seq[InputItem] = Seq(
+        defaultInputItem(field, "day", className = "govuk-input--width-2"),
+        defaultInputItem(field, "month", className = "govuk-input--width-2"),
+        defaultInputItem(field, "year", className = "govuk-input--width-4")
+      )
+      keyset.flatMap(key => allItems.find(_.name.endsWith(key)))
+    }
+
+    private def defaultInputItem(field: Field, key: String, className: String): InputItem = {
+      def errorClass(itemField: Field) =
+        if (field.errors.nonEmpty || itemField.errors.nonEmpty) "govuk-input--error" else ""
+
+      InputItem(
+        id = s"${field.name}.$key",
+        name = s"${field.name}.$key",
+        value = field(key).value,
+        label = Some(messages(s"date.input.$key")),
+        classes = s"$className ${errorClass(field(key))}".trim
+      )
     }
 
     private[views] def withTextErrorMessage(field: Field): DateInput = {
