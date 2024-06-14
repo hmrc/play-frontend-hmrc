@@ -6,7 +6,7 @@ This library manages SASS compilation for you. However, should you wish to add y
 1. Import the required styles in your `app/assets/stylesheets/application.scss` file:
    ```scss
    $govuk-include-default-font-face: false;
-   @import "lib/govuk-frontend/govuk/base";
+   @import "lib/govuk-frontend/dist/govuk/base";
    
    // Add your custom styles here
    ```
