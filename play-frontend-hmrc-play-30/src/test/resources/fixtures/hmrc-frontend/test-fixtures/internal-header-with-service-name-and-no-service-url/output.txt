@@ -17,5 +17,7 @@
         <span class="hmrc-internal-header__logo-text">          HM Revenue &amp; Customs
 </span>
       </a>
+    </div><div class="hmrc-internal-header__service-name">
+        Service Name
     </div></div>
 </header>
