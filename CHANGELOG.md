@@ -8,7 +8,20 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 For compatibility information see `govukFrontendVersion` and `hmrcFrontendVersion` in
 [LibDependencies](project/LibDependencies.scala)
 
-## [10.1.0] - 2024-07-10
+## [10.2.0] - 2024-06-24
+
+### Changed
+
+- Bumped hmrc-frontend version to 6.21.0
+- A service url is now an optional parameter for internal headers, if you pass an empty string (previous default) then 
+  it will no longer be rendered as a link.
+
+### Compatible with
+
+- [hmrc/hmrc-frontend v6.21.0](https://github.com/hmrc/hmrc-frontend/releases/tag/v6.17.0)
+- [alphagov/govuk-frontend v5.3.0](https://github.com/alphagov/govuk-frontend/releases/tag/v5.3.0)
+
+## [10.1.0] - 2024-06-10
 
 ### Changed
 
