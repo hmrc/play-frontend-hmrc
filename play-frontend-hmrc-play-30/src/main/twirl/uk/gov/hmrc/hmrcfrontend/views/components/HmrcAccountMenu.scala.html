@@ -20,7 +20,7 @@
 @import params._
 
 <!-- ACCOUNT MENU -->
-<nav id="secondary-nav" class="hmrc-account-menu" aria-label="Account" data-module="hmrc-account-menu">
+<nav id="secondary-nav" class="hmrc-account-menu" aria-label="@if(language == Cy){Cyfrif}else{Account}" data-module="hmrc-account-menu">
   <a href="@accountHome.href" class="hmrc-account-menu__link hmrc-account-menu__link--home@if(accountHome.active){ hmrc-account-menu__link--active}">
     <span class="hmrc-account-icon hmrc-account-icon--home">
       @language match {
