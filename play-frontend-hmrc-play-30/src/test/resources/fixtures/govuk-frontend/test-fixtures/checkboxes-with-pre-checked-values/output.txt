@@ -20,11 +20,11 @@
     </div>
     <div class="govuk-checkboxes__conditional" id="conditional-nationality-3">
       <div class="govuk-form-group">
-        <label class="govuk-label" for="other-country">
-          Country
-        </label>
-        <input class="govuk-input" id="other-country" name="other-country" type="text" value="Ravka">
-      </div>
+  <label class="govuk-label" for="other-country">
+    Country
+  </label>
+  <input class="govuk-input" id="other-country" name="other-country" type="text" value="Ravka">
+</div>
     </div>
   </div>
 </div>

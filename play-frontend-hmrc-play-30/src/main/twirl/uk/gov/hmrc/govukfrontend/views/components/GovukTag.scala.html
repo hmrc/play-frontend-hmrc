@@ -14,10 +14,14 @@
  * limitations under the License.
  *@
 
+@import uk.gov.hmrc.govukfrontend.views.html.components._
+@import uk.gov.hmrc.govukfrontend.views.viewmodels.attributes._
+
 @this()
 
 @(params: Tag)
 @import params._
-<strong class="@toClasses("govuk-tag", classes)"@toAttributes(attributes)>
+
+<strong @Attributes(Seq(StringAttribute("class", Some(s"govuk-tag $classes".trim))), attributes).asHtml()>
   @content.asHtml
 </strong>

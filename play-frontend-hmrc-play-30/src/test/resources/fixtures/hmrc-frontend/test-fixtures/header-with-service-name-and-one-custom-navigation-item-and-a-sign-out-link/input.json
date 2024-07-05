@@ -1,0 +1,9 @@
+{
+  "serviceName" : "Service name",
+  "navigation" : [ {
+    "href" : "#1",
+    "text" : "Navigation item 1",
+    "active" : true
+  } ],
+  "signOutHref" : "/sign-out"
+}
