@@ -22,6 +22,6 @@
 @(params: Tag)
 @import params._
 
-<strong @govukAttributes(Attributes(Seq(StringAttribute("class", Some(s"govuk-tag $classes".trim))), attributes))>
+<strong @govukAttributes(Attributes(Seq(Attribute("class", Some(Left(s"govuk-tag $classes".trim)))), attributes))>
   @content.asHtml
 </strong>

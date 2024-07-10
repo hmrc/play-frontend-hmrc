@@ -61,18 +61,18 @@
 @inputSnippet(describedBy: String) = {
   @defining {
     @govukAttributes(Attributes(Seq(
-      StringAttribute("aria-describedby", inputAriaDescribedBy, optional = true),
-      StringAttribute("class", Some(toClasses(s"govuk-input", classes, errorMessage.fold("")(_ => "govuk-input--error")))),
-      StringAttribute("id", Some(id)),
-      StringAttribute("name", Some(name)),
-      StringAttribute("type", Some(inputType)),
-      StringAttribute("spellcheck", spellcheck.map(_.toString), optional = true),
-      StringAttribute("value", value, optional = true),
-      BooleanAttribute("disabled", disabled, optional = true),
-      StringAttribute("pattern", pattern, optional = true),
-      StringAttribute("autocomplete", autocomplete, optional = true),
-      StringAttribute("inputmode", inputmode, optional = true),
-      StringAttribute("autocapitalize", autocapitalize, optional = true)
+      Attribute("aria-describedby", inputAriaDescribedBy.map(Left(_)), optional = true),
+      Attribute("class", Some(Left(toClasses(s"govuk-input", classes, errorMessage.fold("")(_ => "govuk-input--error"))))),
+      Attribute("id", Some(Left(id))),
+      Attribute("name", Some(Left(name))),
+      Attribute("type", Some(Left(inputType))),
+      Attribute("spellcheck", spellcheck.map(sc => Left(sc.toString)), optional = true),
+      Attribute("value", value.map(Left(_)), optional = true),
+      Attribute("disabled", disabled.map(Right(_)), optional = true),
+      Attribute("pattern", pattern.map(Left(_)), optional = true),
+      Attribute("autocomplete", autocomplete.map(Left(_)), optional = true),
+      Attribute("inputmode", inputmode.map(Left(_)), optional = true),
+      Attribute("autocapitalize", autocapitalize.map(Left(_)), optional = true)
     ), attributes)) } { attrs =>
       @(inputPrefix(params.prefix, params.prefix.nonEmpty, params.suffix.nonEmpty, formGroup.beforeInput.filter(_.nonEmpty), formGroup.afterInput.filter(_.nonEmpty))) <input @attrs> @(inputSuffix(params.suffix, params.prefix.nonEmpty, params.suffix.nonEmpty, formGroup.beforeInput.filter(_.nonEmpty), formGroup.afterInput.filter(_.nonEmpty)))
   }

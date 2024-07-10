@@ -18,7 +18,7 @@ package uk.gov.hmrc.govukfrontend.views
 
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpecLike
-import play.twirl.api.{Html, HtmlFormat}
+import play.twirl.api.Html
 import uk.gov.hmrc.govukfrontend.views.html.components.GovukAttributes
 import uk.gov.hmrc.govukfrontend.views.viewmodels.attributes._
 
@@ -33,15 +33,8 @@ class AttributesSpec extends AnyWordSpecLike with Matchers {
       //  govukAttributes({
       //    "aria-hidden": true
       //  })
-      val stringAttribute = StringAttribute(
-        name = "aria-hidden",
-        value = Some("true")
-      )
-
-      val booleanAttribute = BooleanAttribute(
-        name = "aria-hidden",
-        value = Some(true)
-      )
+      val stringAttribute  = Attribute("aria-hidden", Some(Left("true")))
+      val booleanAttribute = Attribute("aria-hidden", Some(Right(true)))
 
       stringAttribute.toString  shouldBe "aria-hidden=\"true\""
       booleanAttribute.toString shouldBe "aria-hidden=\"true\""
@@ -52,15 +45,8 @@ class AttributesSpec extends AnyWordSpecLike with Matchers {
       //  govukAttributes({
       //    "aria-hidden": false
       //  })
-      val stringAttribute = StringAttribute(
-        name = "aria-hidden",
-        value = Some("false")
-      )
-
-      val booleanAttribute = BooleanAttribute(
-        name = "aria-hidden",
-        value = Some(false)
-      )
+      val stringAttribute  = Attribute("aria-hidden", Some(Left("false")))
+      val booleanAttribute = Attribute("aria-hidden", Some(Right(false)))
 
       stringAttribute.toString  shouldBe "aria-hidden=\"false\""
       booleanAttribute.toString shouldBe "aria-hidden=\"false\""
@@ -71,11 +57,8 @@ class AttributesSpec extends AnyWordSpecLike with Matchers {
       //  govukAttributes({
       //    "hidden": undefined
       //  })
-      val attribute = StringAttribute(
-        name = "hidden",
-        value = Some("")
-      )
 
+      val attribute = Attribute("hidden", Some(Left("")))
       attribute.toString shouldBe "hidden=\"\""
     }
 
@@ -84,11 +67,7 @@ class AttributesSpec extends AnyWordSpecLike with Matchers {
       //  govukAttributes({
       //    "hidden": undefined
       //  })
-      val attribute = StringAttribute(
-        name = "hidden",
-        value = None
-      )
-
+      val attribute = Attribute("hidden", None)
       attribute.toString shouldBe "hidden=\"\""
     }
 
@@ -100,16 +79,8 @@ class AttributesSpec extends AnyWordSpecLike with Matchers {
       //      optional: true
       //    },
       //  })
-      val stringAttribute  = StringAttribute(
-        name = "hidden",
-        value = Some("true"),
-        optional = true
-      )
-      val booleanAttribute = BooleanAttribute(
-        name = "hidden",
-        value = Some(true),
-        optional = true
-      )
+      val stringAttribute  = Attribute("hidden", Some(Left("true")), optional = true)
+      val booleanAttribute = Attribute("hidden", Some(Right(true)), optional = true)
 
       stringAttribute.toString  shouldBe "hidden=\"true\""
       booleanAttribute.toString shouldBe "hidden"
@@ -123,17 +94,8 @@ class AttributesSpec extends AnyWordSpecLike with Matchers {
       //      optional: true
       //    },
       //  })
-      val stringAttribute = StringAttribute(
-        name = "hidden",
-        value = None,
-        optional = true
-      )
-
-      val booleanAttribute = BooleanAttribute(
-        name = "hidden",
-        value = None,
-        optional = true
-      )
+      val stringAttribute  = Attribute("hidden", None, optional = true)
+      val booleanAttribute = Attribute("hidden", None, optional = true)
 
       stringAttribute.toString  shouldBe ""
       booleanAttribute.toString shouldBe ""
@@ -147,17 +109,8 @@ class AttributesSpec extends AnyWordSpecLike with Matchers {
       //      optional: true
       //    },
       //  })
-      val stringAttribute = StringAttribute(
-        name = "hidden",
-        value = Some("false"),
-        optional = true
-      )
-
-      val booleanAttribute = BooleanAttribute(
-        name = "hidden",
-        value = Some(false),
-        optional = true
-      )
+      val stringAttribute  = Attribute("hidden", Some(Left("false")), optional = true)
+      val booleanAttribute = Attribute("hidden", Some(Right(false)), optional = true)
 
       stringAttribute.toString  shouldBe "hidden=\"false\""
       booleanAttribute.toString shouldBe ""
@@ -168,11 +121,11 @@ class AttributesSpec extends AnyWordSpecLike with Matchers {
     "return HTML of a space delineated list of attributes" in {
       val attributes = Attributes(
         Seq(
-          StringAttribute("attr-one", Some("true")),
-          StringAttribute("attr-two", Some("")),
-          BooleanAttribute("attr-three", Some(false), optional = true),
-          StringAttribute("attr-four", Some("false"), optional = true),
-          StringAttribute("attr-five", None, optional = true)
+          Attribute("attr-one", Some(Left("true"))),
+          Attribute("attr-two", Some(Left(""))),
+          Attribute("attr-three", Some(Right(false)), optional = true),
+          Attribute("attr-four", Some(Left("false")), optional = true),
+          Attribute("attr-five", None, optional = true)
         )
       )
 

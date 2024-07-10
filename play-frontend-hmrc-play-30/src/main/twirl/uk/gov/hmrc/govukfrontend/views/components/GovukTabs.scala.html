@@ -23,9 +23,9 @@
 @import params._
 <div @govukAttributes(
     Attributes(Seq(
-        {if (id.exists(_.nonEmpty)) Some(StringAttribute("id", id)) else None},
-        Some(StringAttribute("data-module", Some("govuk-tabs"))),
-        Some(StringAttribute("class", Some(s"govuk-tabs $classes".trim)))
+        {if (id.exists(_.nonEmpty)) Some(Attribute("id", id.map(Left(_)))) else None},
+        Some(Attribute("data-module", Some(Left("govuk-tabs")))),
+        Some(Attribute("class", Some(Left(s"govuk-tabs $classes".trim))))
     ).flatten, attributes))>
   <h2 class="govuk-tabs__title">
     @{title.getOrElse(messages("govuk.tabs.titleFallbackText"))}

@@ -38,14 +38,14 @@
 @textareaSnippet(describedBy: String) = {
   @defining {
     @govukAttributes(Attributes(Seq(
-      Some(StringAttribute("class", Some(s"govuk-textarea ${errorMessage.map(_ => "govuk-textarea--error").getOrElse("")} $classes".trim))),
-      {if(autocomplete.exists(_.nonEmpty)) Some(StringAttribute("autocomplete", autocomplete)) else None},
-      Some(StringAttribute("id", Some(id))),
-      Some(StringAttribute("name", Some(name))),
-      Some(StringAttribute("rows", Some(if (rows == 0) "5" else rows.toString))),
-      {if(describedBy.nonEmpty) Some(StringAttribute("aria-describedby", Some(describedBy))) else None},
-      Some(StringAttribute("spellcheck", spellcheck.map(_.toString), optional = true)),
-      Some(BooleanAttribute("disabled", disabled, optional = true))
+      Some(Attribute("class", Some(Left(s"govuk-textarea ${errorMessage.map(_ => "govuk-textarea--error").getOrElse("")} $classes".trim)))),
+      {if(autocomplete.exists(_.nonEmpty)) Some(Attribute("autocomplete", autocomplete.map(Left(_)))) else None},
+      Some(Attribute("id", Some(Left(id)))),
+      Some(Attribute("name", Some(Left(name)))),
+      Some(Attribute("rows", Some(Left(if (rows == 0) "5" else rows.toString)))),
+      {if(describedBy.nonEmpty) Some(Attribute("aria-describedby", Some(Left(describedBy)))) else None},
+      Some(Attribute("spellcheck", spellcheck.map(sc => Left(sc.toString)), optional = true)),
+      Some(Attribute("disabled", disabled.map(Right(_)), optional = true))
     ).flatten, attributes))
   } { attrs =>
       @formGroup.beforeInput.map(_.asHtml) <textarea @attrs>@value.mapNonEmpty { value =>@HtmlFormat.escape(value)}</textarea>

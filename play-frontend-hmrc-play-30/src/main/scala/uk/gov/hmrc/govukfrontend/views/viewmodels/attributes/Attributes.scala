@@ -16,6 +16,7 @@
 
 package uk.gov.hmrc.govukfrontend.views.viewmodels.attributes
 
+import cats.data.EitherT
 import play.twirl.api.Html
 
 // As described in https://github.com/alphagov/govuk-frontend/blob/main/packages/govuk-frontend/src/govuk/macros/attributes.njk
@@ -24,37 +25,30 @@ import play.twirl.api.Html
 //  Using `optional: true`, attributes with empty (`null`, `undefined` or `false`) values are omitted
 //  Using `optional: true`, attributes with `true` (boolean) values render `name` only without value
 
-case class Attributes(attributes: Seq[Attribute[_]], additionalAttributes: Map[String, String] = Map.empty) {
+case class Attributes(attributes: Seq[Attribute], additionalAttributes: Map[String, String] = Map.empty) {
   override def toString(): String = {
-    val combinedAttributes = attributes ++ additionalAttributes.toSeq.map { case (k, v) => StringAttribute(k, Some(v)) }
+    val combinedAttributes = attributes ++ additionalAttributes.toSeq.map { case (k, v) => Attribute(k, Some(Left(v))) }
     combinedAttributes.foldLeft("")((currentAttr, newAttr) => s"$currentAttr ${newAttr.toString}".trim)
   }
 }
 
-trait Attribute[A] {
-  val name: String
-  val value: Option[A]
-  val optional: Boolean
-}
+case class Attribute(name: String, value: Option[Either[String, Boolean]], optional: Boolean = false) {
 
-case class BooleanAttribute(name: String, value: Option[Boolean], optional: Boolean = false)
-    extends Attribute[Boolean] {
   override def toString: String =
-    (optional, value) match {
-      case (true, Some(false))     => ""
-      case (true, Some(true))      => name
-      case (true, None)            => ""
-      case (false, None)           => s"$name=\"\""
-      case (_, Some(definedValue)) => s"$name=\"$definedValue\""
+    if (optional) {
+      value match {
+        case Some(Right(true))        => name
+        case Some(Right(false))       => ""
+        case Some(Left(definedValue)) => s"$name=\"$definedValue\""
+        case None                     => ""
+      }
+    } else {
+      value match {
+        case Some(Right(definedValue)) => s"$name=\"$definedValue\""
+        case Some(Left(definedValue))  => s"$name=\"$definedValue\""
+        case None                      => s"$name=\"\""
+      }
     }
 }
 
-case class StringAttribute(name: String, value: Option[String], optional: Boolean = false) extends Attribute[String] {
-
-  override def toString: String =
-    (optional, value) match {
-      case (_, Some(definedValue)) => s"$name=\"$definedValue\""
-      case (true, None)            => ""
-      case (false, None)           => s"$name=\"\""
-    }
-}
+case class EitherTAttribute(name: String, value: EitherT[Option, String, Boolean])

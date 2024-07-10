@@ -56,8 +56,8 @@
 
 @divSnippet(describedBy: String) = {
   <div @govukAttributes(Attributes(Seq(
-    StringAttribute("class", Some(s"govuk-checkboxes $classes".trim)),
-    StringAttribute("data-module", Some("govuk-checkboxes"))
+    Attribute("class", Some(Left(s"govuk-checkboxes $classes".trim))),
+    Attribute("data-module", Some(Left("govuk-checkboxes")))
   ), attributes)) >
     @{formGroup.beforeInput.map(_.asHtml)}
     @for((item, index) <- items.zip(LazyList from 1)) {
@@ -67,11 +67,11 @@
         @defining((values.nonEmpty && values.contains(item.value)) || item.checked) { isChecked =>
           <div class="govuk-checkboxes__item">
             <input @govukAttributes(Attributes(Seq(
-              StringAttribute("class", Some("govuk-checkboxes__input")),
-              StringAttribute("id", Some(itemId(item, index).toString)),
-              StringAttribute("name", Some(itemName(item).toString)),
-              StringAttribute("type", Some("checkbox")),
-              StringAttribute("value", Some(item.value))
+              Attribute("class", Some(Left("govuk-checkboxes__input"))),
+              Attribute("id", Some(Left(itemId(item, index).toString))),
+              Attribute("name", Some(Left(itemName(item).toString))),
+              Attribute("type", Some(Left("checkbox"))),
+              Attribute("value", Some(Left(item.value)))
             ), item.attributes)) @inputAttrs(item, index, describedBy, isChecked)>
               @govukLabel(Label(
                 forAttr = Some(itemId(item, index)),

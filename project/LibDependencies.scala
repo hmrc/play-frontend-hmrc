@@ -17,7 +17,8 @@ object LibDependencies {
     "com.googlecode.htmlcompressor" % "htmlcompressor"   % "1.5.2"    % Test,
     "com.github.pathikrit"         %% "better-files"     % "3.9.2"    % Test,
     "com.lihaoyi"                  %% "pprint"           % "0.6.6"    % Test,
-    "org.bitbucket.cowwoc"          % "diff-match-patch" % "1.2"      % Test
+    "org.bitbucket.cowwoc"          % "diff-match-patch" % "1.2"      % Test,
+    "org.typelevel" %% "cats-core" % "2.12.0"
   )
 
   val play28 = Seq(
