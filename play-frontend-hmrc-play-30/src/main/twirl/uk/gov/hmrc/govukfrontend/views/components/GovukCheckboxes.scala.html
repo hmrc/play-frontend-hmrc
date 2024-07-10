@@ -16,8 +16,9 @@
 
 @import uk.gov.hmrc.govukfrontend.views.html.components._
 @import uk.gov.hmrc.govukfrontend.views.html.helpers._
+@import uk.gov.hmrc.govukfrontend.views.viewmodels.attributes._
 
-@this(govukFieldset: GovukFieldset, govukHint: GovukHint, govukLabel: GovukLabel, govukFormGroup: GovukFormGroup, govukHintAndErrorMessage: GovukHintAndErrorMessage)
+@this(govukFieldset: GovukFieldset, govukHint: GovukHint, govukLabel: GovukLabel, govukFormGroup: GovukFormGroup, govukHintAndErrorMessage: GovukHintAndErrorMessage, govukAttributes: GovukAttributes)
 
 @(params: Checkboxes)
 @import params._
@@ -54,7 +55,10 @@
 @hasFieldset = @{fieldset.isDefined}
 
 @divSnippet(describedBy: String) = {
-  <div class="@toClasses("govuk-checkboxes", classes)"@toAttributes(attributes) data-module="govuk-checkboxes">
+  <div @govukAttributes(Attributes(Seq(
+    StringAttribute("class", Some(s"govuk-checkboxes $classes".trim)),
+    StringAttribute("data-module", Some("govuk-checkboxes"))
+  ), attributes)) >
     @{formGroup.beforeInput.map(_.asHtml)}
     @for((item, index) <- items.zip(LazyList from 1)) {
       @if(item.divider.exists(_.nonEmpty)) {
