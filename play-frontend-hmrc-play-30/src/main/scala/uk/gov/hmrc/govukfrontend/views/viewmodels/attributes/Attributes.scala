@@ -51,4 +51,21 @@ case class Attribute(name: String, value: Option[Either[String, Boolean]], optio
     }
 }
 
-case class EitherTAttribute(name: String, value: EitherT[Option, String, Boolean])
+case class EitherTAttribute(name: String, value: EitherT[Option, String, Boolean], isOptional: false) {
+
+  override def toString: String =
+    if (isOptional) {
+      value.value match {
+        case Some(Right(true))        => name
+        case Some(Right(false))       => ""
+        case Some(Left(definedValue)) => s"$name=\"$definedValue\""
+        case None                     => ""
+      }
+    } else {
+      value.value match {
+        case Some(Right(definedValue)) => s"$name=\"$definedValue\""
+        case Some(Left(definedValue))  => s"$name=\"$definedValue\""
+        case None                      => s"$name=\"\""
+      }
+    }
+}
