@@ -19,6 +19,7 @@ package uk.gov.hmrc.govukfrontend.views
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpecLike
 import play.twirl.api.{Html, HtmlFormat}
+import uk.gov.hmrc.govukfrontend.views.html.components.GovukAttributes
 import uk.gov.hmrc.govukfrontend.views.viewmodels.attributes._
 
 class AttributesSpec extends AnyWordSpecLike with Matchers {
@@ -175,7 +176,8 @@ class AttributesSpec extends AnyWordSpecLike with Matchers {
         )
       )
 
-      attributes.asHtml() shouldBe Html("attr-one=\"true\" attr-two=\"\" attr-four=\"false\"")
+      val govukAttributes = new GovukAttributes().render(attributes)
+      govukAttributes.toString().trim shouldBe Html("attr-one=\"true\" attr-two=\"\" attr-four=\"false\"").toString()
     }
   }
 }

@@ -17,11 +17,11 @@
 @import uk.gov.hmrc.govukfrontend.views.html.components._
 @import uk.gov.hmrc.govukfrontend.views.viewmodels.attributes._
 
-@this()
+@this(govukAttributes: GovukAttributes)
 
 @(params: Tag)
 @import params._
 
-<strong @Attributes(Seq(StringAttribute("class", Some(s"govuk-tag $classes".trim))), attributes).asHtml()>
+<strong @govukAttributes(Attributes(Seq(StringAttribute("class", Some(s"govuk-tag $classes".trim))), attributes))>
   @content.asHtml
 </strong>

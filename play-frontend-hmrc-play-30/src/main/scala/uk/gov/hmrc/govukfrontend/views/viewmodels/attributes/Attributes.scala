@@ -29,8 +29,6 @@ case class Attributes(attributes: Seq[Attribute[_]], additionalAttributes: Map[S
     val combinedAttributes = attributes ++ additionalAttributes.toSeq.map { case (k, v) => StringAttribute(k, Some(v)) }
     combinedAttributes.foldLeft("")((currentAttr, newAttr) => s"$currentAttr ${newAttr.toString}".trim)
   }
-
-  def asHtml(): Html = Html(toString())
 }
 
 trait Attribute[A] {

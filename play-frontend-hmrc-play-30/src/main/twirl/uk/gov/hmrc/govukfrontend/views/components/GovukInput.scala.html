@@ -18,7 +18,7 @@
 @import uk.gov.hmrc.govukfrontend.views.html.helpers._
 @import uk.gov.hmrc.govukfrontend.views.viewmodels.attributes._
 
-@this(govukLabel: GovukLabel, govukFormGroup: GovukFormGroup, govukHintAndErrorMessage: GovukHintAndErrorMessage)
+@this(govukLabel: GovukLabel, govukFormGroup: GovukFormGroup, govukHintAndErrorMessage: GovukHintAndErrorMessage, govukAttributes: GovukAttributes)
 
 @(params: Input)
 @import params._
@@ -60,7 +60,7 @@
 
 @inputSnippet(describedBy: String) = {
   @defining {
-    @Attributes(Seq(
+    @govukAttributes(Attributes(Seq(
       StringAttribute("aria-describedby", inputAriaDescribedBy, optional = true),
       StringAttribute("class", Some(toClasses(s"govuk-input", classes, errorMessage.fold("")(_ => "govuk-input--error")))),
       StringAttribute("id", Some(id)),
@@ -73,7 +73,7 @@
       StringAttribute("autocomplete", autocomplete, optional = true),
       StringAttribute("inputmode", inputmode, optional = true),
       StringAttribute("autocapitalize", autocapitalize, optional = true)
-    ), attributes).asHtml() } { attrs =>
+    ), attributes)) } { attrs =>
       @(inputPrefix(params.prefix, params.prefix.nonEmpty, params.suffix.nonEmpty, formGroup.beforeInput.filter(_.nonEmpty), formGroup.afterInput.filter(_.nonEmpty))) <input @attrs> @(inputSuffix(params.suffix, params.prefix.nonEmpty, params.suffix.nonEmpty, formGroup.beforeInput.filter(_.nonEmpty), formGroup.afterInput.filter(_.nonEmpty)))
   }
 }

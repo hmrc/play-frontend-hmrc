@@ -1,5 +1,5 @@
-/*
- * Copyright 2023 HM Revenue & Customs
+@*
+ * Copyright 2024 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -12,14 +12,13 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- */
+ *@
 
-package uk.gov.hmrc.govukfrontend.support
+@import uk.gov.hmrc.govukfrontend.views.viewmodels.attributes.Attributes
 
-import uk.gov.hmrc.support.TemplateIntegrationBaseMetaSpec
+@this()
 
-class TemplateIntegrationMetaSpec
-    extends TemplateIntegrationBaseMetaSpec(
-      libraryName = "govuk-frontend",
-      ignoredHelpers = Seq("govukTemplate", "govukLayout", "govukAttributes")
-    )
+@(params: Attributes)
+@import params._
+
+@Html(params.toString())
