@@ -28,7 +28,7 @@ For compatibility information see `govukFrontendVersion` and `hmrcFrontendVersio
 
 ### Compatible with
 
-- [hmrc/hmrc-frontend v6.22.0](https://github.com/hmrc/hmrc-frontend/releases/tag/v6.4.0)
+- [hmrc/hmrc-frontend v6.22.0](https://github.com/hmrc/hmrc-frontend/releases/tag/v6.22.0)
 - [alphagov/govuk-frontend v5.3.0](https://github.com/alphagov/govuk-frontend/releases/tag/v5.3.0)
 
 ## [10.2.0] - 2024-06-24
