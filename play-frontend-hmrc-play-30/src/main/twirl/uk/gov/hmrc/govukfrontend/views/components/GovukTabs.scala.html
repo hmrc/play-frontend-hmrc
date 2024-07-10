@@ -14,11 +14,19 @@
  * limitations under the License.
  *@
 
-@this()
+@import uk.gov.hmrc.govukfrontend.views.html.components.GovukAttributes
+@import uk.gov.hmrc.govukfrontend.views.viewmodels.attributes._
+
+@this(govukAttributes: GovukAttributes)
 
 @(params: Tabs)(implicit messages: Messages)
 @import params._
-<div@id.mapNonEmpty {id => id="@id"} class="@toClasses("govuk-tabs", classes)"@toAttributes(attributes) data-module="govuk-tabs">
+<div @govukAttributes(
+    Attributes(Seq(
+        {if (id.exists(_.nonEmpty)) Some(StringAttribute("id", id)) else None},
+        Some(StringAttribute("data-module", Some("govuk-tabs"))),
+        Some(StringAttribute("class", Some(s"govuk-tabs $classes".trim)))
+    ).flatten, attributes))>
   <h2 class="govuk-tabs__title">
     @{title.getOrElse(messages("govuk.tabs.titleFallbackText"))}
   </h2>
@@ -48,4 +56,4 @@
 
 @idPrefixStr = @{ idPrefix.getNonEmptyOrElse("") }
 
-@itemId(item: TabItem, index: Int) = @{ item.id.getNonEmptyOrElse(s"$idPrefixStr-$index") }
+@itemId(item: TabItem, index: Int) = @{ item.id.getNonEmptyOrElse(s"$idPrefixStr-$index") }@import uk.gov.hmrc.govukfrontend.views.viewmodels.attributes.Attributes
