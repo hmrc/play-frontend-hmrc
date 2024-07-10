@@ -66,7 +66,13 @@
       } else {
         @defining((values.nonEmpty && values.contains(item.value)) || item.checked) { isChecked =>
           <div class="govuk-checkboxes__item">
-            <input class="govuk-checkboxes__input" id="@itemId(item, index)" name="@itemName(item)" type="checkbox" value="@item.value"@inputAttrs(item, index, describedBy, isChecked)@toAttributes(item.attributes)>
+            <input @govukAttributes(Attributes(Seq(
+              StringAttribute("class", Some("govuk-checkboxes__input")),
+              StringAttribute("id", Some(itemId(item, index).toString)),
+              StringAttribute("name", Some(itemName(item).toString)),
+              StringAttribute("type", Some("checkbox")),
+              StringAttribute("value", Some(item.value))
+            ), item.attributes)) @inputAttrs(item, index, describedBy, isChecked)>
               @govukLabel(Label(
                 forAttr = Some(itemId(item, index)),
                 classes = toClasses("govuk-checkboxes__label", item.label.map(_.classes).getOrElse("")),
