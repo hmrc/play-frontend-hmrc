@@ -1,0 +1,16 @@
+<div class="govuk-form-group">
+  <div class="govuk-checkboxes" data-module="govuk-checkboxes">
+    <div class="govuk-checkboxes__item">
+      <input class="govuk-checkboxes__input" id="conditional" name="conditional" type="checkbox" value="other" data-aria-controls="conditional-conditional">
+      <label class="govuk-label govuk-checkboxes__label" for="conditional">
+        Other
+      </label>
+    </div>
+    <div class="govuk-checkboxes__conditional govuk-checkboxes__conditional--hidden" id="conditional-conditional">
+      <label class="govuk-label" for="conditional-textarea">textarea</label>
+<textarea class="govuk-textarea govuk-!-width-one-third" name="conditional-textarea" id="conditional-textarea">
+test
+</textarea>
+    </div>
+  </div>
+</div>

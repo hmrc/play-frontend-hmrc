@@ -1,0 +1,8 @@
+{
+  "label" : {
+    "text" : "Password"
+  },
+  "id" : "password-input-width",
+  "name" : "password",
+  "classes" : "govuk-input--width-10"
+}

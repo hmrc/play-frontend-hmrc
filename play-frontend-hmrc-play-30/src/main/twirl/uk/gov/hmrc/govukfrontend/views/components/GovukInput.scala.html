@@ -55,10 +55,10 @@
 @inputSnippet(describedBy: String) = {
   @defining {
     id="@id" name="@name" type="@inputType" @if(spellcheck.nonEmpty) { spellcheck="@spellcheck"
-    } @value.mapNonEmpty {value => value="@value" }@if(disabled.getOrElse(false)) { disabled}@if(describedBy.nonEmpty) { aria-describedby="@describedBy"}
+    } @value.map {value => value="@value" }@if(disabled.getOrElse(false)) { disabled}@if(describedBy.nonEmpty) { aria-describedby="@describedBy"}
   } { attrs =>
   @defining {
-    @autocomplete.mapNonEmpty { autocomplete => autocomplete="@autocomplete"}@pattern.mapNonEmpty { pattern => pattern="@pattern"}@inputmode.mapNonEmpty { inputmode => inputmode="@inputmode"}@autocapitalize.map {v => autocapitalize="@v"}@toAttributes(attributes)
+    @autocomplete.map { autocomplete => autocomplete="@autocomplete"}@pattern.map { pattern => pattern="@pattern"}@inputmode.mapNonEmpty { inputmode => inputmode="@inputmode"}@autocapitalize.map {v => autocapitalize="@v"}@toAttributes(attributes)
   } { otherAttrs =>
       @(inputPrefix(params.prefix, params.prefix.nonEmpty, params.suffix.nonEmpty, formGroup.beforeInput.filter(_.nonEmpty), formGroup.afterInput.filter(_.nonEmpty))) <input class="@toClasses("govuk-input", classes, errorMessage.fold("")(_ => "govuk-input--error"))" @attrs@otherAttrs> @(inputSuffix(params.suffix, params.prefix.nonEmpty, params.suffix.nonEmpty, formGroup.beforeInput.filter(_.nonEmpty), formGroup.afterInput.filter(_.nonEmpty)))
   }}

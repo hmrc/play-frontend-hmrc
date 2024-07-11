@@ -1,0 +1,33 @@
+{
+  "serviceName" : "Service name",
+  "navigation" : [ {
+    "href" : "#1",
+    "text" : "Navigation item 1",
+    "active" : true
+  }, {
+    "href" : "#2",
+    "text" : "Navigation item 2"
+  }, {
+    "href" : "#3",
+    "text" : "Navigation item 3"
+  }, {
+    "href" : "#4",
+    "text" : "Navigation item 4"
+  }, {
+    "href" : "#5",
+    "text" : "Navigation item 5"
+  }, {
+    "href" : "#6",
+    "text" : "Navigation item 6"
+  }, {
+    "href" : "#7",
+    "text" : "Navigation item 7"
+  }, {
+    "href" : "#8",
+    "text" : "Navigation item 8"
+  }, {
+    "href" : "#9",
+    "text" : "Navigation item 9"
+  } ],
+  "signOutHref" : "/sign-out"
+}

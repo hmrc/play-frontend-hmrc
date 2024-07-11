@@ -12,7 +12,7 @@
       </div>
       <div class="govuk-checkboxes__conditional govuk-checkboxes__conditional--hidden" id="conditional-user.profile[contact-prefs]">
         <label class="govuk-label" for="context-email">Email address</label>
-        <input class="govuk-input govuk-!-width-one-third" name="context-email" type="text" id="context-email">
+  <input class="govuk-input govuk-!-width-one-third" name="context-email" type="text" id="context-email">
       </div>
       <div class="govuk-checkboxes__item">
         <input class="govuk-checkboxes__input" id="user.profile[contact-prefs]-2" name="contact-prefs" type="checkbox" value="phone" data-aria-controls="conditional-user.profile[contact-prefs]-2">
@@ -22,7 +22,7 @@
       </div>
       <div class="govuk-checkboxes__conditional govuk-checkboxes__conditional--hidden" id="conditional-user.profile[contact-prefs]-2">
         <label class="govuk-label" for="contact-phone">Phone number</label>
-        <input class="govuk-input govuk-!-width-one-third" name="contact-phone" type="text" id="contact-phone">
+  <input class="govuk-input govuk-!-width-one-third" name="contact-phone" type="text" id="contact-phone">
       </div>
       <div class="govuk-checkboxes__item">
         <input class="govuk-checkboxes__input" id="user.profile[contact-prefs]-3" name="contact-prefs" type="checkbox" value="text" data-aria-controls="conditional-user.profile[contact-prefs]-3">
@@ -32,7 +32,7 @@
       </div>
       <div class="govuk-checkboxes__conditional govuk-checkboxes__conditional--hidden" id="conditional-user.profile[contact-prefs]-3">
         <label class="govuk-label" for="contact-text-message">Mobile phone number</label>
-        <input class="govuk-input govuk-!-width-one-third" name="contact-text-message" type="text" id="contact-text-message">
+  <input class="govuk-input govuk-!-width-one-third" name="contact-text-message" type="text" id="contact-text-message">
       </div>
     </div>
   </fieldset>
