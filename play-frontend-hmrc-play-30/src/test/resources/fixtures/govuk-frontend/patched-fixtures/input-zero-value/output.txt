@@ -1,0 +1,6 @@
+<div class="govuk-form-group">
+  <label class="govuk-label" for="with-zero-value">
+    With zero value
+  </label>
+  <input class="govuk-input" id="with-zero-value" name="with-zero-value" type="text" value="0">
+</div>

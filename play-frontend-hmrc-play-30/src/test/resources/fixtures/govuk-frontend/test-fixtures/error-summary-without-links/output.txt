@@ -4,11 +4,11 @@
       There is a problem
     </h2>
     <div class="govuk-error-summary__body">
-      <ul class="govuk-list govuk-error-summary__list">
-        <li>
-          Invalid username or password
-        </li>
-      </ul>
+        <ul class="govuk-list govuk-error-summary__list">
+          <li>
+            Invalid username or password
+          </li>
+        </ul>
     </div>
   </div>
 </div>
