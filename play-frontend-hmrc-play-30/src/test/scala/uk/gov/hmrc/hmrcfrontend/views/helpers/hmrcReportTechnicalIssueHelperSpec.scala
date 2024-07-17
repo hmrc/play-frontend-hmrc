@@ -57,7 +57,7 @@ class hmrcReportTechnicalIssueHelperSpec
       links should have size 1
       links.first.attr(
         "href"
-      )   shouldBe "https://www.tax.service.gov.uk/contact/report-technical-problem?newTab=true&service=online-payments&referrerUrl=https%3A%2F%2Fwww.tax.service.gov.uk%2Ffoo"
+      )   shouldBe "https://www.tax.service.gov.uk/contact/report-technical-problem?service=online-payments&referrerUrl=https%3A%2F%2Fwww.tax.service.gov.uk%2Ffoo"
     }
 
     "use the platform host when both platform and contact-frontend hosts are set" in {
@@ -77,7 +77,7 @@ class hmrcReportTechnicalIssueHelperSpec
       links should have size 1
       links.first.attr(
         "href"
-      )   shouldBe "https://www.tax.service.gov.uk/contact/report-technical-problem?newTab=true&service=online-payments&referrerUrl=https%3A%2F%2Fwww.tax.service.gov.uk%2Ffoo"
+      )   shouldBe "https://www.tax.service.gov.uk/contact/report-technical-problem?service=online-payments&referrerUrl=https%3A%2F%2Fwww.tax.service.gov.uk%2Ffoo"
     }
 
     "use contact-frontend host if platform host is not set" in {
@@ -96,7 +96,7 @@ class hmrcReportTechnicalIssueHelperSpec
       links should have size 1
       links.first.attr(
         "href"
-      )   shouldBe "http://localhost:9999/contact/report-technical-problem?newTab=true&service=online-payments&referrerUrl=%2Ffoo"
+      )   shouldBe "http://localhost:9999/contact/report-technical-problem?service=online-payments&referrerUrl=%2Ffoo"
     }
 
     "display link in English by default" in {
