@@ -2,12 +2,12 @@
   "id" : "with-error-hint",
   "name" : "with-error-hint",
   "label" : {
-    "text" : "With error and hint"
+    "text" : "National insurance number"
   },
   "errorMessage" : {
-    "text" : "Error message"
+    "text" : "Enter a National Insurance number in the correct format"
   },
   "hint" : {
-    "text" : "Hint"
+    "text" : "It’s on your National Insurance card, benefit letter, payslip or P60. For example, ‘QQ 12 34 56 C’."
   }
 }

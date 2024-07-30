@@ -1,0 +1,10 @@
+{
+  "labelText" : "Briwsion bara",
+  "items" : [ {
+    "text" : "Hafan",
+    "href" : "/"
+  }, {
+    "text" : "Sefydliadau",
+    "href" : "/organisations"
+  } ]
+}

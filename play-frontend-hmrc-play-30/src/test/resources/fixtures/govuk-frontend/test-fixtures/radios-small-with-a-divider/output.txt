@@ -5,7 +5,7 @@
     </legend>
     <div class="govuk-radios govuk-radios--small" data-module="govuk-radios">
       <div class="govuk-radios__item">
-        <input class="govuk-radios__input" id="example-small-divider" name="example" type="radio" value="governement-gateway">
+        <input class="govuk-radios__input" id="example-small-divider" name="example" type="radio" value="government-gateway">
         <label class="govuk-label govuk-radios__label" for="example-small-divider">
           Use Government Gateway
         </label>

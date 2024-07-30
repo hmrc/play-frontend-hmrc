@@ -1,0 +1,17 @@
+{
+  "name" : "falsy-values",
+  "id" : "falsy-values",
+  "label" : {
+    "text" : "Label text goes here"
+  },
+  "items" : [ {
+    "text" : "Empty string",
+    "value" : ""
+  }, {
+    "text" : "Boolean false",
+    "value" : false
+  }, {
+    "text" : "Number zero",
+    "value" : 0
+  } ]
+}

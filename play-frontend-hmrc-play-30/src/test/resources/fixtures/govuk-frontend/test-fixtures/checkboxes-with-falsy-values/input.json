@@ -1,0 +1,10 @@
+{
+  "name" : "example-name",
+  "items" : [ {
+    "value" : 1,
+    "text" : "Option 1"
+  }, false, null, "", {
+    "value" : 2,
+    "text" : "Option 2"
+  } ]
+}

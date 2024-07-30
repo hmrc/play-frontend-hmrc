@@ -1,0 +1,10 @@
+<nav class="govuk-breadcrumbs" aria-label="Briwsion bara">
+  <ol class="govuk-breadcrumbs__list">
+    <li class="govuk-breadcrumbs__list-item">
+      <a class="govuk-breadcrumbs__link" href="/">Hafan</a>
+    </li>
+    <li class="govuk-breadcrumbs__list-item">
+      <a class="govuk-breadcrumbs__link" href="/organisations">Sefydliadau</a>
+    </li>
+  </ol>
+</nav>

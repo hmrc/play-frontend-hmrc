@@ -1,4 +1,4 @@
-<div class="govuk-breadcrumbs govuk-breadcrumbs--collapse-on-mobile">
+<nav class="govuk-breadcrumbs govuk-breadcrumbs--collapse-on-mobile" aria-label="Breadcrumb">
   <ol class="govuk-breadcrumbs__list">
     <li class="govuk-breadcrumbs__list-item">
       <a class="govuk-breadcrumbs__link" href="/">Home</a>
@@ -10,4 +10,4 @@
       <a class="govuk-breadcrumbs__link" href="/education/special-educational-needs-and-disability-send-and-high-needs">Special educational needs and disability (SEND) and high needs</a>
     </li>
   </ol>
-</div>
+</nav>

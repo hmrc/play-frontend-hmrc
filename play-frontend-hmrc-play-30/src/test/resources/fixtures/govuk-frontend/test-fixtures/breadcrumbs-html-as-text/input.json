@@ -1,5 +1,8 @@
 {
   "items" : [ {
-    "text" : "<span>Section 1</span>"
+    "text" : "<span>Section 1</span>",
+    "href" : "/section-1"
+  }, {
+    "text" : "<span>Section 2</span>"
   } ]
 }
