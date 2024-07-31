@@ -52,7 +52,7 @@
 
 <div class="@toClasses("govuk-accordion", classes)" data-module="govuk-accordion" id="@id"@rememberExpanded.map {re => data-remember-expanded="@re"}@toAttributes(attributes)@attrs>
   @for((item, index) <- items.zip(LazyList from 1)) {
-    <div class="govuk-accordion__section@if(item.expanded){ govuk-accordion__section--expanded}">
+    @if(item.headingContent.nonEmpty){<div class="govuk-accordion__section@if(item.expanded){ govuk-accordion__section--expanded}">
       <div class="govuk-accordion__section-header">
         <h@headingLevel class="govuk-accordion__section-heading">
           <span class="govuk-accordion__section-button" id="@id-heading-@index">
@@ -72,5 +72,6 @@
         }
       </div>
     </div>
+  }
   }
 </div>

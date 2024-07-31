@@ -13,6 +13,9 @@ For compatibility information see `govukFrontendVersion` and `hmrcFrontendVersio
 ### Changed
 
 - Uplifted version of `hmrc-frontend` to `v6.27.0` and `govuk-frontend` to `v5.4.1`
+- Changed the containing element for Breadcrumbs to `nav` from `div`
+- Added `aria-label` to Breadcrumbs
+- 
 
 ### Compatible with
 
