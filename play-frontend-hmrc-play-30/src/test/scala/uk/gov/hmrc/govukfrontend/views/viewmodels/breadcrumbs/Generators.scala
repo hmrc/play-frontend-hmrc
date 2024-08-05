@@ -39,6 +39,12 @@ object Generators {
       attributes       <- genAttributes()
       labelText        <- Gen.option(genAlphaStr())
       collapseOnMobile <- arbBool.arbitrary
-    } yield Breadcrumbs(items = items, classes = classes, attributes = attributes, labelText = labelText, collapseOnMobile = collapseOnMobile)
+    } yield Breadcrumbs(
+      items = items,
+      classes = classes,
+      attributes = attributes,
+      labelText = labelText,
+      collapseOnMobile = collapseOnMobile
+    )
   }
 }

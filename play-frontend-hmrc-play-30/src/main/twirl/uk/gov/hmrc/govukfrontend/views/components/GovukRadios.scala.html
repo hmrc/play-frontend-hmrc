@@ -66,7 +66,7 @@
             @item.conditionalHtml.filter(_.nonEmpty).map {_ => data-aria-controls="@conditionalId"}
             @if(hasHint) {aria-describedby="@itemHintId"}
           } { inputAttrs =>
-            @if(item.value.nonEmpty){
+            <!--@if(item.value.nonEmpty || item.content.nonEmpty){-->
               <div class="govuk-radios__item">
                 <input class="govuk-radios__input" id="@id" name="@name" type="radio" value="@item.value"@inputAttrs@toAttributes(item.attributes)>
                 @govukLabel(Label(
@@ -84,7 +84,7 @@
                       ))
                     }
                   </div>
-                }
+                <!--}-->
               @item.conditionalHtml.filter(_.nonEmpty).map { conditionalHtml =>
                 <div class="@toClasses("govuk-radios__conditional", "govuk-radios__conditional--hidden".when(!isChecked))" id="@conditionalId">
                   @conditionalHtml

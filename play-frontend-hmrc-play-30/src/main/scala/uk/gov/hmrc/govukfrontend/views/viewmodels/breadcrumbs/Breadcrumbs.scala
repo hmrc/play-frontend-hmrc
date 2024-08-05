@@ -27,7 +27,7 @@ case class Breadcrumbs(
   classes: String = "",
   attributes: Map[String, String] = Map.empty,
   labelText: Option[String] = None,
-  collapseOnMobile: Boolean = false,
+  collapseOnMobile: Boolean = false
 )
 
 object Breadcrumbs {
