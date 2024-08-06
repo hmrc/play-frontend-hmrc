@@ -18,7 +18,7 @@
 
 @(params: BackLink)(implicit messages: Messages)
 @import params._
-<a href="@{"".?:(href)}" class="@toClasses("govuk-back-link", classes)"@toAttributes(attributes)>@content match {
+<a href="@{"#".?:(href)}" class="@toClasses("govuk-back-link", classes)"@toAttributes(attributes)>@content match {
   case NonEmptyHtml(html) => {@html}
   case NonEmptyText(text) => {@text}
   case _ => {@messages("back.text")}

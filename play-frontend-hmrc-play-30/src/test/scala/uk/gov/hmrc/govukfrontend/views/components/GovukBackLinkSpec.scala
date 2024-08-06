@@ -88,5 +88,15 @@ class GovukBackLinkSpec extends TemplateUnitBaseSpec[BackLink]("govukBackLink") 
       output.attr("data-test")  shouldBe "attribute"
       output.attr("aria-label") shouldBe "Back to home"
     }
+
+    // This test is a temporary measure as in govuk-frontend 5.4.1, the way default values are handled
+    // have changed. A change to revert this has been discussed, so this test is only here until this
+    // has taken place.
+    "ensure an empty href value returns #" in {
+      val params = BackLink()
+      val output = component(params).select(".govuk-back-link")
+
+      output.attr("href") shouldBe "#"
+    }
   }
 }
