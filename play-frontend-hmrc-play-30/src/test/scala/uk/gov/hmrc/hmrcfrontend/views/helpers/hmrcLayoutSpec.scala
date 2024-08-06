@@ -470,7 +470,7 @@ class hmrcLayoutSpec
 
       val actualBackLink = document.select(".govuk-back-link")
       actualBackLink                       should have size 1
-      actualBackLink.attr("href")        shouldBe ""
+      actualBackLink.attr("href")        shouldBe "#"
       actualBackLink.attr("data-module") shouldBe "hmrc-back-link"
       actualBackLink.html()              shouldBe "Back"
     }

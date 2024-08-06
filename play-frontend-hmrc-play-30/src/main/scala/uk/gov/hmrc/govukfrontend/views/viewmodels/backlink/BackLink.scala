@@ -34,7 +34,7 @@ object BackLink {
   def defaultObject: BackLink = BackLink()
 
   def mimicsBrowserBackButtonViaJavaScript(implicit messages: Messages): BackLink = BackLink.withDefaultText(
-    href = "",
+    href = "#",
     attributes = Map("data-module" -> "hmrc-back-link")
   )
 

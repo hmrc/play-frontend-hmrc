@@ -46,9 +46,9 @@
           @defining((value.exists(_.nonEmpty) && item.value == value) || item.selected) { isSelected =>
             @* Allow selecting by text content (the value for an option when no value attribute is specified) *@
             @defining(item.value.getOrElse(item.text)) { effectiveValue =>
-              @if(item.value.nonEmpty || isSelected || item.disabled || !item.attributes.isEmpty || item.text != ""){<option @if(item.value.nonEmpty) {value="@item.value"}
+              <option @if(item.value.nonEmpty) {value="@item.value"}
                 @if(isSelected || (value.filterNot(_.isEmpty) == Option(effectiveValue))) {selected}
-                @if(item.disabled) { disabled} @toAttributes(item.attributes)>@HtmlFormat.escape(item.text)</option>}
+                @if(item.disabled) { disabled} @toAttributes(item.attributes)>@HtmlFormat.escape(item.text)</option>
             }
           }
         }
