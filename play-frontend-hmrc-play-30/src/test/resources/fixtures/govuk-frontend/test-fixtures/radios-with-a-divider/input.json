@@ -7,7 +7,7 @@
     }
   },
   "items" : [ {
-    "value" : "governement-gateway",
+    "value" : "government-gateway",
     "text" : "Use Government Gateway"
   }, {
     "value" : "govuk-verify",

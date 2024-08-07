@@ -37,7 +37,14 @@ object Generators {
       items            <- Gen.listOfN(n, arbBreadcrumbsItem.arbitrary)
       classes          <- genAlphaStr()
       attributes       <- genAttributes()
+      labelText        <- Gen.option(genAlphaStr())
       collapseOnMobile <- arbBool.arbitrary
-    } yield Breadcrumbs(items = items, classes = classes, attributes = attributes, collapseOnMobile = collapseOnMobile)
+    } yield Breadcrumbs(
+      items = items,
+      classes = classes,
+      attributes = attributes,
+      labelText = labelText,
+      collapseOnMobile = collapseOnMobile
+    )
   }
 }

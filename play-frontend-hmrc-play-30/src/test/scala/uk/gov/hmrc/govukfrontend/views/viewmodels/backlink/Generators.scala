@@ -17,14 +17,14 @@
 package uk.gov.hmrc.govukfrontend.views.viewmodels.backlink
 
 import org.scalacheck.Arbitrary
-import uk.gov.hmrc.govukfrontend.views.viewmodels.Generators.{genAlphaStr, genAttributes, genClasses}
+import uk.gov.hmrc.govukfrontend.views.viewmodels.Generators.{genAlphaStr, genAttributes, genClasses, genNonEmptyAlphaStr}
 import uk.gov.hmrc.govukfrontend.views.viewmodels.content.Generators._
 
 object Generators {
 
   implicit val arbBackLink: Arbitrary[BackLink] = Arbitrary {
     for {
-      href       <- genAlphaStr()
+      href       <- genNonEmptyAlphaStr
       classes    <- genClasses()
       attributes <- genAttributes()
       content    <- arbContent.arbitrary

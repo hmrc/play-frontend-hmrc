@@ -8,6 +8,21 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 For compatibility information see `govukFrontendVersion` and `hmrcFrontendVersion` in
 [LibDependencies](project/LibDependencies.scala)
 
+## [10.6.0] - 2024-07-24
+
+### Changed
+
+- Uplifted version of `hmrc-frontend` to `v6.27.0` and `govuk-frontend` to `v5.4.1`
+- Changed the containing element for Breadcrumbs to `nav` from `div`
+- Added `aria-label` to Breadcrumbs
+- Updated excluded-fixture names from `-falsey` to `-falsy`
+- Moved back-links to excluded-fixtures due to change in the way these default, a future update will come in to bring back-link fixtures in place.
+
+### Compatible with
+
+- [hmrc/hmrc-frontend v6.27.0](https://github.com/hmrc/hmrc-frontend/releases/tag/v6.27.0)
+- [alphagov/govuk-frontend v5.4.1](https://github.com/alphagov/govuk-frontend/releases/tag/v5.4.1)
+
 ## [10.5.0] - 2024-07-19
 
 ### Changed

@@ -1,0 +1,7 @@
+{
+  "label" : {
+    "text" : "Disabled input"
+  },
+  "id" : "disabled-input",
+  "disabled" : true
+}

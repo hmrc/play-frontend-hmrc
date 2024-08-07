@@ -1,7 +1,7 @@
 {
   "attributes" : {
     "id" : "my-navigation",
-    "role" : "navigation"
+    "data-foo" : "bar"
   },
   "items" : [ {
     "text" : "Home"
