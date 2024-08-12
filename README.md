@@ -1001,12 +1001,12 @@ The instructions below assume you have set up play-frontend-hmrc as indicated ab
 
 #### Synchronising session between tabs
 
-Additionally, services can choose to opt-in to behaviour to synchronise session extension between different HMRC tabs
-(using the `BroadcastChannel` API in browsers). In practical terms, this means that if a user sees a timeout dialog in
-an active tab, and clicks to extend their session, then the timeout dialogs that have also opted into this behaviour in any background tabs will also restart the countdowns until they display their timeout warning.
+By default, `play-frontend-hmrc` synchronises session extension between different HMRC tabs (using the `BroadcastChannel` 
+API in browsers). In practical terms, this means that if a user sees a timeout dialog in an active tab, and clicks to 
+extend their session, then the timeout dialogs that have also opted into this behaviour in any background tabs will also restart the countdowns until they display their timeout warning.
 
-This behaviour is currently flagged **off** (`false`) by default. To enable, you can either explicitly pass `Some(true)`
-to the `HmrcTimeoutDialogHelper`, or you can add a boolean `true` or `false` to your `application.conf` with the key
+This behaviour is currently flagged **on** (`true`) by default. To disable, you can either explicitly pass `Some(false)`
+to the `HmrcTimeoutDialogHelper`, or you can add a boolean `false` to your `application.conf` with the key
 `hmrc-timeout-dialog.enableSynchroniseTabs`.
 
 #### Customising the timeout dialog
@@ -1024,14 +1024,14 @@ have a dedicated controller and route defined for this so its use for this purpo
 will be supplied in the `keepAliveUrl` parameter to `hmrcTimeoutDialog`. Do not use `#` in case the current URL
 does not implement HTTP GET.
 
-| Parameter         | Description                                                   | Example |
-| ----------------- | ------------------------------------------------------------- | ------- |
-| `signOutUrl`      | The url that will be used when users click 'Sign Out'         | Some(routes.SignOutController.signOut().url) |
-| `timeoutUrl`      | The url that the timeout dialog will redirect to following timeout. Defaults to the `signOutUrl`. | Some(routes.TimeoutController.timeOut().url) |
-| `keepAliveUrl`    | A endpoint used to keep the user’s session alive | Some(routes.KeepAliveController.keepAlive().url)
-| `timeout`         | The timeout duration where this differs from `session.timeout` | 1800 |
-| `countdown`       | The number of seconds before timeout the dialog is displayed. The default is 120.| 240 |
-| `synchroniseTabs` | Allow the timeout dialog to use the `BroadcastChannel` to communicate session activity to other background tabs. Defaults to `None`, i.e. not enabled.| Some(true) |
+| Parameter         | Description                                                                                                                                                 | Example |
+| ----------------- |-------------------------------------------------------------------------------------------------------------------------------------------------------------| ------- |
+| `signOutUrl`      | The url that will be used when users click 'Sign Out'                                                                                                       | Some(routes.SignOutController.signOut().url) |
+| `timeoutUrl`      | The url that the timeout dialog will redirect to following timeout. Defaults to the `signOutUrl`.                                                           | Some(routes.TimeoutController.timeOut().url) |
+| `keepAliveUrl`    | A endpoint used to keep the user’s session alive                                                                                                            | Some(routes.KeepAliveController.keepAlive().url)
+| `timeout`         | The timeout duration where this differs from `session.timeout`                                                                                              | 1800 |
+| `countdown`       | The number of seconds before timeout the dialog is displayed. The default is 120.                                                                           | 240 |
+| `synchroniseTabs` | Allow the timeout dialog to use the `BroadcastChannel` to communicate session activity to other background tabs. Defaults to `Some(true)`, i.e. enabled. di | Some(true) |
 
 The timeout dialog’s content can be customised using the following parameters:
 
