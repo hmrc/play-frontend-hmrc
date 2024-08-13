@@ -8,6 +8,17 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 For compatibility information see `govukFrontendVersion` and `hmrcFrontendVersion` in
 [LibDependencies](project/LibDependencies.scala)
 
+## [10.7.0] - 2024-08-12
+
+### Changed
+
+- Enabled on by default for synchronisation of session data between tabs in `HmrcTimeoutDialog` 
+
+### Compatible with
+
+- [hmrc/hmrc-frontend v6.27.0](https://github.com/hmrc/hmrc-frontend/releases/tag/v6.27.0)
+- [alphagov/govuk-frontend v5.4.1](https://github.com/alphagov/govuk-frontend/releases/tag/v5.4.1)
+
 ## [10.6.0] - 2024-07-24
 
 ### Changed

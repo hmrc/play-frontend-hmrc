@@ -326,7 +326,7 @@ class hmrcTimeoutDialogHelperSpec extends AnyWordSpecLike with Matchers with Jso
       metas.first.attr("data-synchronise-tabs") should be("true")
     }
 
-    "render the synchronise tabs data attribute using default if none passed in" in {
+    "render the synchronise tabs data attribute using default from config if none passed in" in {
       val hmrcTimeoutDialogHelper = buildApp().injector.instanceOf[HmrcTimeoutDialogHelper]
 
       val messages = getMessages()
@@ -335,7 +335,7 @@ class hmrcTimeoutDialogHelperSpec extends AnyWordSpecLike with Matchers with Jso
       val metas    = document.select("meta")
 
       metas                                     should have size 1
-      metas.first.attr("data-synchronise-tabs") should be("false")
+      metas.first.attr("data-synchronise-tabs") should be("true")
     }
 
   }

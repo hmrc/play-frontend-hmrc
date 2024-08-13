@@ -29,5 +29,5 @@ class TimeoutDialogConfig @Inject() (configuration: Configuration) {
   def countdownInSeconds: Int = configuration.get[Int]("hmrc-timeout-dialog.defaultCountdownInSeconds")
 
   def enableSynchroniseTabs: Boolean =
-    configuration.getOptional[Boolean]("hmrc-timeout-dialog.enableSynchroniseTabs").getOrElse(false)
+    configuration.get[Boolean]("hmrc-timeout-dialog.enableSynchroniseTabs")
 }
