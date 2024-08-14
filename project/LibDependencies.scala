@@ -3,11 +3,11 @@ import sbt._
 object LibDependencies {
   val govukFrontendVersion: String = "5.4.1"
   val hmrcFrontendVersion: String  = "6.27.0"
-  val playLanguageVersion: String  = "8.0.0"
+  val playLanguageVersion: String  = "8.1.0"
 
-  val play28Version = "2.8.21"
-  val play29Version = "2.9.3"
-  val play30Version = "3.0.3"
+  val play28Version = "2.8.22"
+  val play29Version = "2.9.4"
+  val play30Version = "3.0.5"
 
   val shared = Seq(
     "uk.gov.hmrc.webjars"           % "hmrc-frontend"    % hmrcFrontendVersion,
