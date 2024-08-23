@@ -17,6 +17,7 @@
 @import uk.gov.hmrc.govukfrontend.views.Aliases.{Tag, TaskList}
 @import uk.gov.hmrc.govukfrontend.views.html.components.GovukTag
 @import uk.gov.hmrc.hmrcfrontend.views.Utils._
+@import uk.gov.hmrc.govukfrontend.views.viewmodels.tasklist.TaskListItem
 
 @this(govukTag: GovukTag)
 
@@ -26,33 +27,35 @@
     @for((item, index) <- params.items.zipWithIndex) {
         @defining(nonEmptyStringOrDefault(Some(idPrefix), "task-list")) { prefix =>
             @defining(s"$prefix-${index + 1}-hint", s"$prefix-${index + 1}-status") { case (hintId, statusId) =>
-                <li class="@toClasses("govuk-task-list__item", if(item.href.isDefined){ "govuk-task-list__item--with-link" } else { "" }, item.classes)">
-                    <div class="govuk-task-list__name-and-hint">
-                        @if(item.href.isDefined) {
-                            <a class="@toClasses("govuk-link govuk-task-list__link", item.title.classes)" href="@item.href" aria-describedby="@if(item.hint.isDefined){@hintId @statusId}else{@statusId}">
-                              @item.title.content.asHtml
-                            </a>
-                        } else {
-                            <div @if(item.title.classes.nonEmpty){class="@item.title.classes"}>
-                              @item.title.content.asHtml
-                            </div>
-                        }
-                        @item.hint.map { h =>
-                            <div id="@hintId" class="govuk-task-list__hint">
-                                @h.content.asHtml
-                            </div>
-                        }
-                    </div>
-                    <div class="@toClasses("govuk-task-list__status", item.status.classes)" id="@statusId">
-                        @if(item.status.tag.isDefined) {
-                            @tagSnippet(item.status.tag)
-                        } else {
-                            @item.status.content.asHtml
-                        }
-                    </div>
+                @if(item.nonEmpty()) {
+                    <li class="@toClasses("govuk-task-list__item", if(item.href.isDefined){ "govuk-task-list__item--with-link" } else { "" }, item.classes)">
+                        <div class="govuk-task-list__name-and-hint">
+                            @if(item.href.isDefined) {
+                                <a class="@toClasses("govuk-link govuk-task-list__link", item.title.classes)" href="@item.href" aria-describedby="@if(item.hint.isDefined){@hintId @statusId}else{@statusId}">
+                                  @item.title.content.asHtml
+                                </a>
+                            } else {
+                                <div @if(item.title.classes.nonEmpty){class="@item.title.classes"}>
+                                  @item.title.content.asHtml
+                                </div>
+                            }
+                            @item.hint.map { h =>
+                                <div id="@hintId" class="govuk-task-list__hint">
+                                    @h.content.asHtml
+                                </div>
+                            }
+                        </div>
+                        <div class="@toClasses("govuk-task-list__status", item.status.classes)" id="@statusId">
+                            @if(item.status.tag.isDefined) {
+                                @tagSnippet(item.status.tag)
+                            } else {
+                                @item.status.content.asHtml
+                            }
+                        </div>
+                    }
                 }
-            }
-        </li>
+            </li>
+        }
     }
 </ul>
 
