@@ -17,7 +17,6 @@
 package uk.gov.hmrc.govukfrontend.views.viewmodels
 package tasklist
 
-import uk.gov.hmrc.govukfrontend.views.viewmodels.content.{Content, Empty}
 import uk.gov.hmrc.govukfrontend.views.viewmodels.hint.Hint
 import play.api.libs.functional.syntax._
 import play.api.libs.json._
@@ -28,7 +27,10 @@ case class TaskListItem(
   status: TaskListItemStatus = TaskListItemStatus(),
   href: Option[String] = None,
   classes: String = ""
-)
+) {
+
+  def nonEmpty(): Boolean = this != TaskListItem.defaultObject
+}
 
 object TaskListItem {
   def defaultObject: TaskListItem = TaskListItem()

@@ -8,6 +8,18 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 For compatibility information see `govukFrontendVersion` and `hmrcFrontendVersion` in
 [LibDependencies](project/LibDependencies.scala)
 
+## [10.10.0] - 2024-08-27
+
+### Changed
+
+- Uplifted version of `hmrc-frontend` to `v6.28.0` and `govuk-frontend` to `v5.5.0`
+- Excluded empty `TaskListItem` items from `GovukTaskList` template
+
+### Compatible with
+
+- [hmrc/hmrc-frontend v6.28.0](https://github.com/hmrc/hmrc-frontend/releases/tag/v6.28.0)
+- [alphagov/govuk-frontend v5.5.0](https://github.com/alphagov/govuk-frontend/releases/tag/v5.5.0)
+
 ## [10.9.0] - 2024-08-13
 
 ### Changed
