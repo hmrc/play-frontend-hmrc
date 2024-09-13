@@ -25,7 +25,15 @@ import play.api.libs.json._
 case class ServiceNavigation(
     serviceName: Option[String] = None,
     serviceUrl: Option[String] = None,
-    navigation: Seq[ServiceNavigationItem] = Seq()
+    navigation: Seq[ServiceNavigationItem] = Seq(),
+    navigationClasses: String = "",
+    navigationId: Option[String] = None,
+    navigationLabel: Option[String] = None,
+    classes: String = "",
+    attributes: Map[String, String] = Map.empty,
+    ariaLabel: String = "Service information",
+    menuButtonText: Option[String] = None,
+    menuButtonLabel: Option[String] = None
 )
 
 object ServiceNavigation {
@@ -34,13 +42,29 @@ object ServiceNavigation {
     (
         (__ \ "serviceName").readsJsValueToString.map(Option[String]).orElse(Reads.pure(None)) and
             (__ \ "serviceUrl").readsJsValueToString.map(Option[String]).orElse(Reads.pure(None)) and
-            (__ \ "navigation").readWithDefault[Seq[ServiceNavigationItem]](defaultObject.navigation)(forgivingSeqReads[ServiceNavigationItem])
+            (__ \ "navigation").readWithDefault[Seq[ServiceNavigationItem]](defaultObject.navigation)(forgivingSeqReads[ServiceNavigationItem]) and
+            (__ \ "navigationClasses").readWithDefault[String](defaultObject.navigationClasses) and
+            (__ \ "navigationId").readsJsValueToString.map(Option[String]).orElse(Reads.pure(None)) and
+            (__ \ "navigationLabel").readsJsValueToString.map(Option[String]).orElse(Reads.pure(None)) and
+            (__ \ "classes").readWithDefault[String](defaultObject.classes) and
+            (__ \ "attributes").readWithDefault[Map[String, String]](defaultObject.attributes) and
+            (__ \ "ariaLabel").readWithDefault[String](defaultObject.ariaLabel) and
+            (__ \ "menuButtonText").readsJsValueToString.map(Option[String]).orElse(Reads.pure(None)) and
+            (__ \ "menuButtonLabel").readsJsValueToString.map(Option[String]).orElse(Reads.pure(None))
     )(ServiceNavigation.apply _)
 
     implicit def jsonWrites: OWrites[ServiceNavigation] = 
     (
-        (__ \ "href").writeNullable[String] and
-            (__ \ "text").writeNullable[String] and
-            (__ \ "active").write[Seq[ServiceNavigationItem]]
-    )(o => WritesUtils.unapplyCompat(unapply)(o))    
+        (__ \ "serviceName").writeNullable[String] and
+            (__ \ "serviceUrl").writeNullable[String] and
+            (__ \ "navigation").write[Seq[ServiceNavigationItem]] and
+            (__ \ "navigationClasses").write[String] and
+            (__ \ "navigationId").writeNullable[String] and
+            (__ \ "navigationLabel").writeNullable[String] and
+            (__ \ "classes").write[String] and
+            (__ \ "attributes").write[Map[String, String]] and
+            (__ \ "ariaLabel").write[String] and
+            (__ \ "menuButtonText").writeNullable[String] and 
+            (__ \ "menuButtonLabel").writeNullable[String]
+    )(o => WritesUtils.unapplyCompat(unapply)(o))
 }

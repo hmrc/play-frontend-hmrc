@@ -1,0 +1,9 @@
+{
+  "navigation" : [ {
+    "text" : "Navigation item 1"
+  }, {
+    "html" : "<em>Navigation item 2</em>"
+  }, {
+    "text" : "Navigation item 3"
+  } ]
+}

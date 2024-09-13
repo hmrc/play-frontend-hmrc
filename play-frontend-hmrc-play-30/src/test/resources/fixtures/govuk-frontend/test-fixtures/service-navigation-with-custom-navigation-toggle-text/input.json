@@ -1,0 +1,7 @@
+{
+  "menuButtonText" : "Enter the NavZone",
+  "navigation" : [ {
+    "href" : "#/1",
+    "text" : "Navigation item 1"
+  } ]
+}

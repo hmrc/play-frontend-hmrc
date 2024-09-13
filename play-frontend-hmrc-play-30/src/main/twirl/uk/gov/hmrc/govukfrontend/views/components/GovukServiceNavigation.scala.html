@@ -22,33 +22,47 @@
 @(params: ServiceNavigation)
 @import params._
 
-<section aria-label="Service information" class="govuk-service-navigation"
-  data-module="govuk-service-navigation">
+@params.serviceName match {
+  case Some(text) => {<section aria-label="@ariaLabel" class="@toClasses("govuk-service-navigation", classes)" data-module="govuk-service-navigation">}
+  case None => {<div class="govuk-service-navigation" data-module="govuk-service-navigation">}
+}
   <div class="govuk-width-container">
     <div class="govuk-service-navigation__container">
-      <span class="govuk-service-navigation__service-name">
-        <a href="@params.serviceUrl" class="govuk-service-navigation__link">
-          @params.serviceName
-        </a>
-      </span>
-      <nav aria-label="Menu" class="govuk-service-navigation__wrapper">
-        <button type="button" class="govuk-service-navigation__toggle govuk-js-service-navigation-toggle" aria-controls="navigation" hidden>
-          Menu
-        </button>
-        <ul class="govuk-service-navigation__list" id="navigation">
-          @for(item <- params.navigation) {
-            <li class="govuk-service-navigation__item @if(item.active){govuk-service-navigation__item--active}">
-              <a class="govuk-service-navigation__link" href="@item.href">
-                @item.active match {
-                  case Some(true) => {<strong class="govuk-service-navigation__active-fallback">@item.text</strong>}
-                  case _ => {@item.text}
-                }
-              </a>
-            </li>
+      @if(serviceName.nonEmpty) {
+        <span class="govuk-service-navigation__service-name">
+          @serviceUrl match {
+            case Some(text) => {
+              <a href="@serviceUrl" class="govuk-service-navigation__link">@serviceName</a>
+              }
+            case None => {
+              <span class="govuk-service-navigation__text">@serviceName</span>
+            }
           }
-        </ul>
+        </span>
+      }
+      @if(navigation) {
+      <nav aria-label="@if(navigationLabel.nonEmpty){@navigationLabel}else{@menuButtonText}" class="govuk-service-navigation__wrapper@if(navigationClasses.nonEmpty){ @navigationClasses}">
+        <button type="button" class="govuk-service-navigation__toggle govuk-js-service-navigation-toggle" aria-controls="navigation" hidden>
+          @menuButtonText
+        </button>
+          <ul class="govuk-service-navigation__list" id="@if(navigationId.nonEmpty){@navigationId}else{navigation}">
+            @for(item <- navigation) {
+              <li class="govuk-service-navigation__item@if(item.active){govuk-service-navigation__item--active}">
+                <a class="govuk-service-navigation__link" href="@item.href">
+                  @item.active match {
+                    case Some(true) => {<strong class="govuk-service-navigation__active-fallback">@item.text</strong>}
+                    case _ => {@item.text}
+                  }
+                </a>
+              </li>
+            }
+          </ul>
+        }
       </nav>
     </div>
   </div>
-</section>
+  @serviceName match {
+    case Some(text) => {</section>}
+    case None => {</div>}
+  }
 

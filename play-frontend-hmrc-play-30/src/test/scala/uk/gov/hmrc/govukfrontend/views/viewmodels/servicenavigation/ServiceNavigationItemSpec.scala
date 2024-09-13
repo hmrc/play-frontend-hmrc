@@ -14,11 +14,9 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.govukfrontend.views
-package components
+package uk.gov.hmrc.govukfrontend.views.viewmodels.servicenavigation
 
-import uk.gov.hmrc.govukfrontend.views.html.components._
+import uk.gov.hmrc.govukfrontend.views.viewmodels.JsonRoundtripSpec
+import uk.gov.hmrc.govukfrontend.views.viewmodels.servicenavigation.Generators._
 
-class GovukServiceNavigationSpec extends TemplateUnitSpec[ServiceNavigation, GovukServiceNavigation]("govukServiceNavigation") {
-
-}
+class ServiceNavigationItemSpec extends JsonRoundtripSpec[ServiceNavigationItem]

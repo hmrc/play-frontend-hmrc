@@ -1,0 +1,7 @@
+{
+  "navigationLabel" : "Main navigation",
+  "navigation" : [ {
+    "href" : "#/1",
+    "text" : "Navigation item 1"
+  } ]
+}

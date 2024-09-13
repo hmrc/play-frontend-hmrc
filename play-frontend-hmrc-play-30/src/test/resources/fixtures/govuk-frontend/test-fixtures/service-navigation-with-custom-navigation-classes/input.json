@@ -1,0 +1,7 @@
+{
+  "navigationClasses" : "app-my-neat-navigation-class",
+  "navigation" : [ {
+    "href" : "#/1",
+    "text" : "Navigation item 1"
+  } ]
+}

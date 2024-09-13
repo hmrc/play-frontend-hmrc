@@ -23,7 +23,10 @@ import play.api.libs.json._
 case class ServiceNavigationItem(
     href: String = "#",
     text: String = "",
-    active: Option[Boolean] = None
+    active: Option[Boolean] = None,
+    current: Option[Boolean] = None,
+    classes: String = "",
+    attributes: Map[String, String] = Map.empty
 )
 
 object ServiceNavigationItem {
@@ -33,13 +36,19 @@ object ServiceNavigationItem {
     (
         (__ \ "href").readWithDefault[String](defaultObject.href) and
             (__ \ "text").readWithDefault[String](defaultObject.text) and
-            (__ \ "active").readNullable[Boolean]
+            (__ \ "active").readNullable[Boolean] and
+            (__ \ "current").readNullable[Boolean] and
+            (__ \ "classes").readWithDefault[String](defaultObject.classes) and
+            (__ \ "attributes").readWithDefault[Map[String, String]](defaultObject.attributes)
     )(ServiceNavigationItem.apply _)
 
     implicit def jsonWrites: OWrites[ServiceNavigationItem] = 
     (
         (__ \ "href").write[String] and
             (__ \ "text").write[String] and
-            (__ \ "active").writeNullable[Boolean]
+            (__ \ "active").writeNullable[Boolean] and
+            (__ \ "current").writeNullable[Boolean] and
+            (__ \ "classes").write[String] and
+            (__ \ "attributes").write[Map[String, String]]
     )(o => WritesUtils.unapplyCompat(unapply)(o))
 }
