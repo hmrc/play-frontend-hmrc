@@ -30,8 +30,9 @@ object Generators {
     for {
         href            <- genNonEmptyAlphaStr
         text            <- genNonEmptyAlphaStr 
-        active          <- Gen.option(arbBool.arbitrary)
-        current         <- Gen.option(arbBool.arbitrary)
+        html            <- Gen.option(genNonEmptyAlphaStr)
+        active          <- arbBool.arbitrary
+        current         <- arbBool.arbitrary
         classes         <- genClasses()
         attributes      <- genAttributes()
     } yield ServiceNavigationItem.apply(
@@ -56,7 +57,7 @@ object Generators {
       classes           <- genClasses()
       attributes        <- genAttributes()
       ariaLabel         <- genNonEmptyAlphaStr
-      menuButtonText    <- Gen.option(genNonEmptyAlphaStr)
+      menuButtonText    <- genNonEmptyAlphaStr
       menuButtonLabel   <- Gen.option(genNonEmptyAlphaStr)
     } yield ServiceNavigation(
       serviceName       = serviceName,

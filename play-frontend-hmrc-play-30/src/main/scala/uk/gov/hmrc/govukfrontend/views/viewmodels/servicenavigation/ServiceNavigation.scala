@@ -32,7 +32,7 @@ case class ServiceNavigation(
     classes: String = "",
     attributes: Map[String, String] = Map.empty,
     ariaLabel: String = "Service information",
-    menuButtonText: Option[String] = None,
+    menuButtonText: String = "Menu",
     menuButtonLabel: Option[String] = None
 )
 
@@ -49,7 +49,7 @@ object ServiceNavigation {
             (__ \ "classes").readWithDefault[String](defaultObject.classes) and
             (__ \ "attributes").readWithDefault[Map[String, String]](defaultObject.attributes) and
             (__ \ "ariaLabel").readWithDefault[String](defaultObject.ariaLabel) and
-            (__ \ "menuButtonText").readsJsValueToString.map(Option[String]).orElse(Reads.pure(None)) and
+            (__ \ "menuButtonText").readWithDefault[String](defaultObject.menuButtonText) and
             (__ \ "menuButtonLabel").readsJsValueToString.map(Option[String]).orElse(Reads.pure(None))
     )(ServiceNavigation.apply _)
 
@@ -64,7 +64,7 @@ object ServiceNavigation {
             (__ \ "classes").write[String] and
             (__ \ "attributes").write[Map[String, String]] and
             (__ \ "ariaLabel").write[String] and
-            (__ \ "menuButtonText").writeNullable[String] and 
+            (__ \ "menuButtonText").write[String] and 
             (__ \ "menuButtonLabel").writeNullable[String]
     )(o => WritesUtils.unapplyCompat(unapply)(o))
 }

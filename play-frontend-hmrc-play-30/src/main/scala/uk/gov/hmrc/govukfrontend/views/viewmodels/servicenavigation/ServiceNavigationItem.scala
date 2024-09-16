@@ -21,10 +21,11 @@ import play.api.libs.functional.syntax._
 import play.api.libs.json._
 
 case class ServiceNavigationItem(
-    href: String = "#",
+    href: String = "",
     text: String = "",
-    active: Option[Boolean] = None,
-    current: Option[Boolean] = None,
+    html: Option[String] = None,
+    active: Boolean = false,
+    current: Boolean = false,
     classes: String = "",
     attributes: Map[String, String] = Map.empty
 )
@@ -36,8 +37,9 @@ object ServiceNavigationItem {
     (
         (__ \ "href").readWithDefault[String](defaultObject.href) and
             (__ \ "text").readWithDefault[String](defaultObject.text) and
-            (__ \ "active").readNullable[Boolean] and
-            (__ \ "current").readNullable[Boolean] and
+            (__ \ "html").readNullable[String] and
+            (__ \ "active").readWithDefault[Boolean](defaultObject.active) and
+            (__ \ "current").readWithDefault[Boolean](defaultObject.current) and
             (__ \ "classes").readWithDefault[String](defaultObject.classes) and
             (__ \ "attributes").readWithDefault[Map[String, String]](defaultObject.attributes)
     )(ServiceNavigationItem.apply _)
@@ -46,8 +48,9 @@ object ServiceNavigationItem {
     (
         (__ \ "href").write[String] and
             (__ \ "text").write[String] and
-            (__ \ "active").writeNullable[Boolean] and
-            (__ \ "current").writeNullable[Boolean] and
+            (__ \ "html").writeNullable[String] and
+            (__ \ "active").write[Boolean] and
+            (__ \ "current").write[Boolean] and
             (__ \ "classes").write[String] and
             (__ \ "attributes").write[Map[String, String]]
     )(o => WritesUtils.unapplyCompat(unapply)(o))
