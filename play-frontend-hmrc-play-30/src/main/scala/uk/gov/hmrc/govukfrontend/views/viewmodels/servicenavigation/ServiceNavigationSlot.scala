@@ -24,28 +24,28 @@ import play.api.libs.functional.syntax._
 import play.api.libs.json._
 
 case class ServiceNavigationSlot(
-    start           : String = "",
-    end             : String = "",
-    navigationStart : String = "",
-    navigationEnd   : String = ""
+  start: String = "",
+  end: String = "",
+  navigationStart: String = "",
+  navigationEnd: String = ""
 )
 
 object ServiceNavigationSlot {
-    def defaultObject: ServiceNavigationSlot = ServiceNavigationSlot()
-    implicit def jsonReads: Reads[ServiceNavigationSlot] = 
+  def defaultObject: ServiceNavigationSlot             = ServiceNavigationSlot()
+  implicit def jsonReads: Reads[ServiceNavigationSlot] =
     (
-        (__ \ "start").readWithDefault[String](defaultObject.start) and
-            (__ \ "end").readWithDefault[String](defaultObject.end) and
-            (__ \ "navigationStart").readWithDefault[String](defaultObject.navigationStart) and
-            (__ \ "navigationEnd").readWithDefault[String](defaultObject.navigationEnd)
+      (__ \ "start").readWithDefault[String](defaultObject.start) and
+        (__ \ "end").readWithDefault[String](defaultObject.end) and
+        (__ \ "navigationStart").readWithDefault[String](defaultObject.navigationStart) and
+        (__ \ "navigationEnd").readWithDefault[String](defaultObject.navigationEnd)
     )(ServiceNavigationSlot.apply _)
 
-    implicit def jsonWrites: Writes[ServiceNavigationSlot] =
+  implicit def jsonWrites: Writes[ServiceNavigationSlot] =
     (
-        (__ \ "start" ).write[String] and
-            (__ \ "end" ).write[String] and
-            (__ \ "navigationStart" ).write[String] and
-            (__ \ "navigationEnd" ).write[String]
+      (__ \ "start").write[String] and
+        (__ \ "end").write[String] and
+        (__ \ "navigationStart").write[String] and
+        (__ \ "navigationEnd").write[String]
     )(o => WritesUtils.unapplyCompat(unapply)(o))
 
 }
