@@ -27,7 +27,7 @@
   case None => {
     @slots match {
       case Some(slot) => {<section aria-label="@ariaLabel" class="@toClasses("govuk-service-navigation", classes)" data-module="govuk-service-navigation" @toAttributes(attributes)>}
-      case None => {<div class="govuk-service-navigation" data-module="govuk-service-navigation">}
+      case None => {<div class="govuk-service-navigation" data-module="govuk-service-navigation" @toAttributes(attributes)>}
     }
   }
 }
