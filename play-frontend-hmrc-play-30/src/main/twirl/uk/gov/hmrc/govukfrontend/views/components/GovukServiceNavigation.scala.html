@@ -24,9 +24,18 @@
 
 @params.serviceName match {
   case Some(text) => {<section aria-label="@ariaLabel" class="@toClasses("govuk-service-navigation", classes)" data-module="govuk-service-navigation" @toAttributes(attributes)>}
-  case None => {<div class="govuk-service-navigation" data-module="govuk-service-navigation">}
+  case None => {
+    @slots match {
+      case Some(slot) => {<section aria-label="@ariaLabel" class="@toClasses("govuk-service-navigation", classes)" data-module="govuk-service-navigation" @toAttributes(attributes)>}
+      case None => {<div class="govuk-service-navigation" data-module="govuk-service-navigation">}
+    }
+  }
 }
   <div class="govuk-width-container">
+    @slots match {
+      case Some(slot) => {@Html(slot.start)}
+      case None => {}
+    }
     <div class="govuk-service-navigation__container">
       @if(serviceName.nonEmpty) {
         <span class="govuk-service-navigation__service-name">
@@ -40,16 +49,20 @@
           }
         </span>
       }
-      @if(navigation) {
-      <nav aria-label="@if(navigationLabel.nonEmpty){@navigationLabel}else{@menuButtonText}" class="govuk-service-navigation__wrapper@if(navigationClasses.nonEmpty){ @navigationClasses}">
-        <button type="button" class="govuk-service-navigation__toggle govuk-js-service-navigation-toggle" aria-controls="@if(navigationId.nonEmpty){@navigationId}else{navigation}"@if(menuButtonLabel.nonEmpty){ aria-label="@menuButtonLabel"} hidden>
-          @menuButtonText
-        </button>
-          <ul class="govuk-service-navigation__list" id="@if(navigationId.nonEmpty){@navigationId}else{navigation}">
+      @if(navigation || slots.nonEmpty) {
+        <nav aria-label="@if(navigationLabel.nonEmpty){@navigationLabel}else{@menuButtonText}" class="govuk-service-navigation__wrapper@if(navigationClasses.nonEmpty){ @navigationClasses}">
+          <button type="button" class="govuk-service-navigation__toggle govuk-js-service-navigation-toggle" aria-controls="@navigationId"@if(menuButtonLabel.nonEmpty && menuButtonLabel.get != menuButtonText){ aria-label="@menuButtonLabel"} hidden>
+            @menuButtonText
+          </button>
+          <ul class="govuk-service-navigation__list" id="@navigationId">
+            @slots match {
+              case Some(slot) => {@Html(slot.navigationStart)}
+              case None => {}
+            }
             @for(item <- navigation) {
               <li class="govuk-service-navigation__item@if(item.active || item.current){ govuk-service-navigation__item--active}">
                 @if(item.href.nonEmpty) {
-                  <a @if(item.active || item.current){aria-current="@if(item.active){true}else{page}"} class="govuk-service-navigation__link" href="@item.href">
+                  <a @if(item.active || item.current){aria-current="@if(item.current){page}else{true}"} class="govuk-service-navigation__link" href="@item.href" @toAttributes(item.attributes)>
                 }else{
                   <span class="govuk-service-navigation__text">
                 }
@@ -65,13 +78,19 @@
                 </a>
               </li>
             }
+            @slots match {
+              case Some(slot) => {@Html(slot.navigationEnd)}
+              case None => {}
+            }
           </ul>
         }
       </nav>
     </div>
-  </div>
+  @slots match {
+    case Some(slot) => {@Html(slot.end)}
+    case None => {}
+  }
   @serviceName match {
     case Some(text) => {</section>}
     case None => {</div>}
   }
-

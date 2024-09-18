@@ -176,7 +176,7 @@ trait Aliases {
   val ServiceNavigation = viewmodels.servicenavigation.ServiceNavigation
 
   type ServiceNavigationItem = viewmodels.servicenavigation.ServiceNavigationItem
-  val ServiceNavigationItem = viewmodels.servicenavigation.ServiceNavigationItem 
+  val ServiceNavigationItem = viewmodels.servicenavigation.ServiceNavigationItem
 
   type Table = viewmodels.table.Table
   val Table = viewmodels.table.Table

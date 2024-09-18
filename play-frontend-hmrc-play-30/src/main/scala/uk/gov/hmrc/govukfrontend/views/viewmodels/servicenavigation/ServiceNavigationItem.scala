@@ -21,37 +21,37 @@ import play.api.libs.functional.syntax._
 import play.api.libs.json._
 
 case class ServiceNavigationItem(
-    href: String = "",
-    text: String = "",
-    html: Option[String] = None,
-    active: Boolean = false,
-    current: Boolean = false,
-    classes: String = "",
-    attributes: Map[String, String] = Map.empty
+  href: String = "",
+  text: String = "",
+  html: Option[String] = None,
+  active: Boolean = false,
+  current: Boolean = false,
+  classes: String = "",
+  attributes: Map[String, String] = Map.empty
 )
 
 object ServiceNavigationItem {
-    def defaultObject: ServiceNavigationItem = ServiceNavigationItem() // maybe don't need this
+  def defaultObject: ServiceNavigationItem = ServiceNavigationItem() // maybe don't need this
 
-    implicit def jsonReads: Reads[ServiceNavigationItem] = 
+  implicit def jsonReads: Reads[ServiceNavigationItem] =
     (
-        (__ \ "href").readWithDefault[String](defaultObject.href) and
-            (__ \ "text").readWithDefault[String](defaultObject.text) and
-            (__ \ "html").readNullable[String] and
-            (__ \ "active").readWithDefault[Boolean](defaultObject.active) and
-            (__ \ "current").readWithDefault[Boolean](defaultObject.current) and
-            (__ \ "classes").readWithDefault[String](defaultObject.classes) and
-            (__ \ "attributes").readWithDefault[Map[String, String]](defaultObject.attributes)
+      (__ \ "href").readWithDefault[String](defaultObject.href) and
+        (__ \ "text").readWithDefault[String](defaultObject.text) and
+        (__ \ "html").readNullable[String] and
+        (__ \ "active").readWithDefault[Boolean](defaultObject.active) and
+        (__ \ "current").readWithDefault[Boolean](defaultObject.current) and
+        (__ \ "classes").readWithDefault[String](defaultObject.classes) and
+        (__ \ "attributes").readWithDefault[Map[String, String]](defaultObject.attributes)
     )(ServiceNavigationItem.apply _)
 
-    implicit def jsonWrites: OWrites[ServiceNavigationItem] = 
+  implicit def jsonWrites: OWrites[ServiceNavigationItem] =
     (
-        (__ \ "href").write[String] and
-            (__ \ "text").write[String] and
-            (__ \ "html").writeNullable[String] and
-            (__ \ "active").write[Boolean] and
-            (__ \ "current").write[Boolean] and
-            (__ \ "classes").write[String] and
-            (__ \ "attributes").write[Map[String, String]]
+      (__ \ "href").write[String] and
+        (__ \ "text").write[String] and
+        (__ \ "html").writeNullable[String] and
+        (__ \ "active").write[Boolean] and
+        (__ \ "current").write[Boolean] and
+        (__ \ "classes").write[String] and
+        (__ \ "attributes").write[Map[String, String]]
     )(o => WritesUtils.unapplyCompat(unapply)(o))
 }

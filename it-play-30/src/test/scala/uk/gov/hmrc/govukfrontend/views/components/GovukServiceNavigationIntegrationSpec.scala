@@ -14,10 +14,12 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.govukfrontend.views
-package components
+package uk.gov.hmrc.govukfrontend.views.components
 
+import uk.gov.hmrc.govukfrontend.support.TemplateIntegrationSpec
 import uk.gov.hmrc.govukfrontend.views.html.components._
+import uk.gov.hmrc.govukfrontend.views.viewmodels.servicenavigation.Generators._
+import uk.gov.hmrc.govukfrontend.views.viewmodels.servicenavigation.ServiceNavigation
 
-class GovukServiceNavigationSpec
-    extends TemplateUnitSpec[ServiceNavigation, GovukServiceNavigation]("govukServiceNavigation") {}
+object GovukServiceNavigationIntegrationSpec
+    extends TemplateIntegrationSpec[ServiceNavigation, GovukServiceNavigation](govukComponentName = "govukServiceNavigation", seed = None)
