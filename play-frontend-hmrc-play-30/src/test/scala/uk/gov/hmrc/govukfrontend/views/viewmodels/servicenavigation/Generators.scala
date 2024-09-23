@@ -28,10 +28,10 @@ import uk.gov.hmrc.govukfrontend.views.viewmodels.content.Generators._
 object Generators {
   implicit val arbServiceNavigationSlot: Arbitrary[ServiceNavigationSlot] = Arbitrary {
     for {
-      start           <- genNonEmptyAlphaStr
-      end             <- genNonEmptyAlphaStr
-      navigationStart <- genNonEmptyAlphaStr
-      navigationEnd   <- genNonEmptyAlphaStr
+      start           <- Gen.option(genNonEmptyAlphaStr)
+      end             <- Gen.option(genNonEmptyAlphaStr)
+      navigationStart <- Gen.option(genNonEmptyAlphaStr)
+      navigationEnd   <- Gen.option(genNonEmptyAlphaStr)
     } yield ServiceNavigationSlot.apply(
       start = start,
       end = end,
@@ -43,15 +43,14 @@ object Generators {
   implicit val arbServiceNavigationItem: Arbitrary[ServiceNavigationItem] = Arbitrary {
     for {
       href       <- genNonEmptyAlphaStr
-      text       <- genNonEmptyAlphaStr
-      html       <- Gen.option(genNonEmptyAlphaStr)
+      content    <- arbContent.arbitrary
       active     <- arbBool.arbitrary
       current    <- arbBool.arbitrary
       classes    <- genClasses()
       attributes <- genAttributes()
     } yield ServiceNavigationItem.apply(
       href = href,
-      text = text,
+      content = content,
       active = active,
       current = current,
       classes = classes,

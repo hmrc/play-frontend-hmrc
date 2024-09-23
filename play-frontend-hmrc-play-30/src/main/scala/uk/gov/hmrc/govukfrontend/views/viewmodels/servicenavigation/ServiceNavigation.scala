@@ -41,19 +41,19 @@ object ServiceNavigation {
   def defaultObject: ServiceNavigation             = ServiceNavigation()
   implicit def jsonReads: Reads[ServiceNavigation] =
     (
-      (__ \ "serviceName").readsJsValueToString.map(Option[String]).orElse(Reads.pure(None)) and
-        (__ \ "serviceUrl").readsJsValueToString.map(Option[String]).orElse(Reads.pure(None)) and
+      (__ \ "serviceName").readNullable[String] and
+        (__ \ "serviceUrl").readNullable[String] and
         (__ \ "navigation").readWithDefault[Seq[ServiceNavigationItem]](defaultObject.navigation)(
           forgivingSeqReads[ServiceNavigationItem]
         ) and
         (__ \ "navigationClasses").readWithDefault[String](defaultObject.navigationClasses) and
         (__ \ "navigationId").readWithDefault[String](defaultObject.navigationId) and
-        (__ \ "navigationLabel").readsJsValueToString.map(Option[String]).orElse(Reads.pure(None)) and
+        (__ \ "navigationLabel").readNullable[String] and
         (__ \ "classes").readWithDefault[String](defaultObject.classes) and
         (__ \ "attributes").readWithDefault[Map[String, String]](defaultObject.attributes) and
         (__ \ "ariaLabel").readWithDefault[String](defaultObject.ariaLabel) and
         (__ \ "menuButtonText").readWithDefault[String](defaultObject.menuButtonText) and
-        (__ \ "menuButtonLabel").readsJsValueToString.map(Option[String]).orElse(Reads.pure(None)) and
+        (__ \ "menuButtonLabel").readNullable[String] and
         (__ \ "slots").readNullable[ServiceNavigationSlot]
     )(ServiceNavigation.apply _)
 

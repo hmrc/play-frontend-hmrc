@@ -22,41 +22,38 @@
 @(params: ServiceNavigation)
 @import params._
 
-@params.serviceName match {
-  case Some(text) => {<section aria-label="@ariaLabel" class="@toClasses("govuk-service-navigation", classes)" data-module="govuk-service-navigation" @toAttributes(attributes)>}
-  case None => {
-    @slots match {
-      case Some(slot) => {<section aria-label="@ariaLabel" class="@toClasses("govuk-service-navigation", classes)" data-module="govuk-service-navigation" @toAttributes(attributes)>}
-      case None => {<div class="govuk-service-navigation" data-module="govuk-service-navigation" @toAttributes(attributes)>}
-    }
-  }
+@if(params.serviceName.isDefined || params.slots.flatMap(_.start).isDefined || params.slots.flatMap(_.end).isDefined) {
+  <section aria-label="@ariaLabel" class="@toClasses("govuk-service-navigation", classes)" data-module="govuk-service-navigation" @toAttributes(attributes)>
+} else {
+  <div class="@toClasses("govuk-service-navigation", classes)" data-module="govuk-service-navigation" @toAttributes(attributes)>
 }
+
   <div class="govuk-width-container">
-    @slots match {
-      case Some(slot) => {@Html(slot.start)}
+    @slots.map(_.start) match {
+      case Some(slotStart) => {@Html(slotStart)}
       case None => {}
     }
     <div class="govuk-service-navigation__container">
       @if(serviceName.nonEmpty) {
         <span class="govuk-service-navigation__service-name">
           @serviceUrl match {
-            case Some(text) => {
-              <a href="@serviceUrl" class="govuk-service-navigation__link"> @serviceName </a>
+            case Some(url) => {
+              <a href="@url" class="govuk-service-navigation__link"> @serviceName </a>
               }
             case None => {
-              <span class="govuk-service-navigation__text">@serviceName</span>
+              <span class="govuk-service-navigation__text">@{serviceName.get}</span>
             }
           }
         </span>
       }
-      @if(navigation || slots.nonEmpty) {
-        <nav aria-label="@if(navigationLabel.nonEmpty){@navigationLabel}else{@menuButtonText}" class="govuk-service-navigation__wrapper@if(navigationClasses.nonEmpty){ @navigationClasses}">
+      @if(navigation.nonEmpty || slots.nonEmpty) {
+        <nav aria-label="@if(navigationLabel.nonEmpty){@navigationLabel}else{@menuButtonText}" class="@{toClasses("govuk-service-navigation__wrapper", navigationClasses)}">
           <button type="button" class="govuk-service-navigation__toggle govuk-js-service-navigation-toggle" aria-controls="@navigationId"@if(menuButtonLabel.nonEmpty && menuButtonLabel.get != menuButtonText){ aria-label="@menuButtonLabel"} hidden>
             @menuButtonText
           </button>
           <ul class="govuk-service-navigation__list" id="@navigationId">
-            @slots match {
-              case Some(slot) => {@Html(slot.navigationStart)}
+            @slots.map(_.navigationStart) match {
+              case Some(slotNavigation) => {@Html(slotNavigation)}
               case None => {}
             }
             @for(item <- navigation) {
@@ -67,27 +64,27 @@
                   <span class="govuk-service-navigation__text">
                 }
                   @item.current match {
-                    case true => {<strong class="govuk-service-navigation__active-fallback">@if(item.html.nonEmpty){@Html(item.html)}else{@item.text}</strong>}
+                    case true => {<strong class="govuk-service-navigation__active-fallback">@item.content.asHtml</strong>}
                     case _ => {
                       @item.active match {
-                        case true => {<strong class="govuk-service-navigation__active-fallback">@if(item.html.nonEmpty){@Html(item.html)}else{@item.text}</strong>}
-                        case _ => {@if(item.html.nonEmpty){@Html(item.html)}else{@item.text}}
+                        case true => {<strong class="govuk-service-navigation__active-fallback">@item.content.asHtml</strong>}
+                        case _ => {@item.content.asHtml}
                       }    
                     }
                   }
                 </a>
               </li>
             }
-            @slots match {
-              case Some(slot) => {@Html(slot.navigationEnd)}
+            @slots.map(_.navigationEnd) match {
+              case Some(navigationEndSlot) => {@Html(navigationEndSlot)}
               case None => {}
             }
           </ul>
         }
       </nav>
     </div>
-  @slots match {
-    case Some(slot) => {@Html(slot.end)}
+  @slots.map(_.end) match {
+    case Some(endSlot) => {@Html(endSlot)}
     case None => {}
   }
   @serviceName match {

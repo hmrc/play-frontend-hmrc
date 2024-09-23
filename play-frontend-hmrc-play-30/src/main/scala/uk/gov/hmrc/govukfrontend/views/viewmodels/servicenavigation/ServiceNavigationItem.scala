@@ -19,11 +19,11 @@ package servicenavigation
 
 import play.api.libs.functional.syntax._
 import play.api.libs.json._
+import uk.gov.hmrc.govukfrontend.views.viewmodels.content.{Content, Empty}
 
 case class ServiceNavigationItem(
+  content: Content = Empty,
   href: String = "",
-  text: String = "",
-  html: Option[String] = None,
   active: Boolean = false,
   current: Boolean = false,
   classes: String = "",
@@ -31,13 +31,12 @@ case class ServiceNavigationItem(
 )
 
 object ServiceNavigationItem {
-  def defaultObject: ServiceNavigationItem = ServiceNavigationItem() // maybe don't need this
+  def defaultObject: ServiceNavigationItem = ServiceNavigationItem()
 
   implicit def jsonReads: Reads[ServiceNavigationItem] =
     (
-      (__ \ "href").readWithDefault[String](defaultObject.href) and
-        (__ \ "text").readWithDefault[String](defaultObject.text) and
-        (__ \ "html").readNullable[String] and
+      Content.reads and
+        (__ \ "href").readWithDefault[String](defaultObject.href) and
         (__ \ "active").readWithDefault[Boolean](defaultObject.active) and
         (__ \ "current").readWithDefault[Boolean](defaultObject.current) and
         (__ \ "classes").readWithDefault[String](defaultObject.classes) and
@@ -46,9 +45,8 @@ object ServiceNavigationItem {
 
   implicit def jsonWrites: OWrites[ServiceNavigationItem] =
     (
-      (__ \ "href").write[String] and
-        (__ \ "text").write[String] and
-        (__ \ "html").writeNullable[String] and
+      Content.writes and
+        (__ \ "href").write[String] and
         (__ \ "active").write[Boolean] and
         (__ \ "current").write[Boolean] and
         (__ \ "classes").write[String] and
