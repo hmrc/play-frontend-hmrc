@@ -65,12 +65,12 @@ object Generators {
       n                 <- Gen.chooseNum(0, 5)
       navigation        <- Gen.listOfN(n, arbServiceNavigationItem.arbitrary)
       navigationClasses <- genClasses()
-      navigationId      <- genNonEmptyAlphaStr
+      navigationId      <- Gen.option(genNonEmptyAlphaStr)
       navigationLabel   <- Gen.option(genNonEmptyAlphaStr)
       classes           <- genClasses()
       attributes        <- genAttributes()
-      ariaLabel         <- genNonEmptyAlphaStr
-      menuButtonText    <- genNonEmptyAlphaStr
+      ariaLabel         <- Gen.option(genNonEmptyAlphaStr)
+      menuButtonText    <- Gen.option(genNonEmptyAlphaStr)
       menuButtonLabel   <- Gen.option(genNonEmptyAlphaStr)
       slots             <- Gen.option(arbServiceNavigationSlot.arbitrary)
     } yield ServiceNavigation(

@@ -19,11 +19,11 @@
 
 @this()
 
-@(params: ServiceNavigation)
+@(params: ServiceNavigation)(implicit messages: Messages)
 @import params._
 
 @if(params.serviceName.isDefined || params.slots.flatMap(_.start).isDefined || params.slots.flatMap(_.end).isDefined) {
-  <section aria-label="@ariaLabel" class="@toClasses("govuk-service-navigation", classes)" data-module="govuk-service-navigation" @toAttributes(attributes)>
+  <section aria-label="@{ariaLabel.getOrElse(messages("govuk.serviceNavigation.ariaLabel"))}" class="@toClasses("govuk-service-navigation", classes)" data-module="govuk-service-navigation" @toAttributes(attributes)>
 } else {
   <div class="@toClasses("govuk-service-navigation", classes)" data-module="govuk-service-navigation" @toAttributes(attributes)>
 }
@@ -47,11 +47,11 @@
         </span>
       }
       @if(navigation.nonEmpty || slots.nonEmpty) {
-        <nav aria-label="@if(navigationLabel.nonEmpty){@navigationLabel}else{@menuButtonText}" class="@{toClasses("govuk-service-navigation__wrapper", navigationClasses)}">
-          <button type="button" class="govuk-service-navigation__toggle govuk-js-service-navigation-toggle" aria-controls="@navigationId"@if(menuButtonLabel.nonEmpty && menuButtonLabel.get != menuButtonText){ aria-label="@menuButtonLabel"} hidden>
-            @menuButtonText
+        <nav aria-label="@if(navigationLabel.nonEmpty){@navigationLabel}else{@menuButtonText.getOrElse(messages("govuk.serviceNavigation.menuButtonText"))}" class="@{toClasses("govuk-service-navigation__wrapper", navigationClasses)}">
+          <button type="button" class="govuk-service-navigation__toggle govuk-js-service-navigation-toggle" aria-controls="@navigationId.getOrElse(messages("govuk.serviceNavigation.navigationId"))"@if(menuButtonLabel.nonEmpty && menuButtonLabel.get != menuButtonText.getOrElse(messages("govuk.serviceNavigation.menuButtonText"))){ aria-label="@menuButtonLabel"} hidden>
+            @menuButtonText.getOrElse(messages("govuk.serviceNavigation.menuButtonText"))
           </button>
-          <ul class="govuk-service-navigation__list" id="@navigationId">
+          <ul class="govuk-service-navigation__list" id="@navigationId.getOrElse(messages("govuk.serviceNavigation.navigationId"))">
             @slots.map(_.navigationStart) match {
               case Some(slotNavigation) => {@Html(slotNavigation)}
               case None => {}
@@ -72,7 +72,7 @@
                       }    
                     }
                   }
-                </a>
+                @if(item.href.nonEmpty) {</a>}else{</span>}
               </li>
             }
             @slots.map(_.navigationEnd) match {

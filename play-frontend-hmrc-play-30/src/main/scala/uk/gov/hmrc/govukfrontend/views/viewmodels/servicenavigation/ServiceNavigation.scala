@@ -27,12 +27,12 @@ case class ServiceNavigation(
   serviceUrl: Option[String] = None,
   navigation: Seq[ServiceNavigationItem] = Seq(),
   navigationClasses: String = "",
-  navigationId: String = "navigation",
+  navigationId: Option[String] = None,
   navigationLabel: Option[String] = None,
   classes: String = "",
   attributes: Map[String, String] = Map.empty,
-  ariaLabel: String = "Service information",
-  menuButtonText: String = "Menu",
+  ariaLabel: Option[String] = None,
+  menuButtonText: Option[String] = None,
   menuButtonLabel: Option[String] = None,
   slots: Option[ServiceNavigationSlot] = None
 )
@@ -47,12 +47,12 @@ object ServiceNavigation {
           forgivingSeqReads[ServiceNavigationItem]
         ) and
         (__ \ "navigationClasses").readWithDefault[String](defaultObject.navigationClasses) and
-        (__ \ "navigationId").readWithDefault[String](defaultObject.navigationId) and
+        (__ \ "navigationId").readNullable[String] and
         (__ \ "navigationLabel").readNullable[String] and
         (__ \ "classes").readWithDefault[String](defaultObject.classes) and
         (__ \ "attributes").readWithDefault[Map[String, String]](defaultObject.attributes) and
-        (__ \ "ariaLabel").readWithDefault[String](defaultObject.ariaLabel) and
-        (__ \ "menuButtonText").readWithDefault[String](defaultObject.menuButtonText) and
+        (__ \ "ariaLabel").readNullable[String] and
+        (__ \ "menuButtonText").readNullable[String] and
         (__ \ "menuButtonLabel").readNullable[String] and
         (__ \ "slots").readNullable[ServiceNavigationSlot]
     )(ServiceNavigation.apply _)
@@ -63,12 +63,12 @@ object ServiceNavigation {
         (__ \ "serviceUrl").writeNullable[String] and
         (__ \ "navigation").write[Seq[ServiceNavigationItem]] and
         (__ \ "navigationClasses").write[String] and
-        (__ \ "navigationId").write[String] and
+        (__ \ "navigationId").writeNullable[String] and
         (__ \ "navigationLabel").writeNullable[String] and
         (__ \ "classes").write[String] and
         (__ \ "attributes").write[Map[String, String]] and
-        (__ \ "ariaLabel").write[String] and
-        (__ \ "menuButtonText").write[String] and
+        (__ \ "ariaLabel").writeNullable[String] and
+        (__ \ "menuButtonText").writeNullable[String] and
         (__ \ "menuButtonLabel").writeNullable[String] and
         (__ \ "slots").writeNullable[ServiceNavigationSlot]
     )(o => WritesUtils.unapplyCompat(unapply)(o))
