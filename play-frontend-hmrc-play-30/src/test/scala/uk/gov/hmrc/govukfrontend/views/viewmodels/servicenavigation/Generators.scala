@@ -65,7 +65,7 @@ object Generators {
       n                 <- Gen.chooseNum(0, 5)
       navigation        <- Gen.listOfN(n, arbServiceNavigationItem.arbitrary)
       navigationClasses <- genClasses()
-      navigationId      <- Gen.option(genNonEmptyAlphaStr)
+      navigationId      <- genNonEmptyAlphaStr
       navigationLabel   <- Gen.option(genNonEmptyAlphaStr)
       classes           <- genClasses()
       attributes        <- genAttributes()

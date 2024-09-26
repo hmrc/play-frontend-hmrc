@@ -27,7 +27,7 @@ case class ServiceNavigation(
   serviceUrl: Option[String] = None,
   navigation: Seq[ServiceNavigationItem] = Seq(),
   navigationClasses: String = "",
-  navigationId: Option[String] = None,
+  navigationId: String = "navigation",
   navigationLabel: Option[String] = None,
   classes: String = "",
   attributes: Map[String, String] = Map.empty,
@@ -47,7 +47,7 @@ object ServiceNavigation {
           forgivingSeqReads[ServiceNavigationItem]
         ) and
         (__ \ "navigationClasses").readWithDefault[String](defaultObject.navigationClasses) and
-        (__ \ "navigationId").readNullable[String] and
+        (__ \ "navigationId").readWithDefault[String](defaultObject.navigationId) and
         (__ \ "navigationLabel").readNullable[String] and
         (__ \ "classes").readWithDefault[String](defaultObject.classes) and
         (__ \ "attributes").readWithDefault[Map[String, String]](defaultObject.attributes) and
@@ -63,7 +63,7 @@ object ServiceNavigation {
         (__ \ "serviceUrl").writeNullable[String] and
         (__ \ "navigation").write[Seq[ServiceNavigationItem]] and
         (__ \ "navigationClasses").write[String] and
-        (__ \ "navigationId").writeNullable[String] and
+        (__ \ "navigationId").write[String] and
         (__ \ "navigationLabel").writeNullable[String] and
         (__ \ "classes").write[String] and
         (__ \ "attributes").write[Map[String, String]] and

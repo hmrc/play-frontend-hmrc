@@ -37,7 +37,6 @@ govuk.pagination.page=Page
 govuk.pagination.ariaLabel=Pagination
 govuk.serviceNavigation.ariaLabel=Service information
 govuk.serviceNavigation.menuButtonText=Menu
-govuk.serviceNavigation.navigationId=navigation
 govuk.warningText.iconFallbackText=Warning
 govuk.exitThisPage.contentFallbackText=Exit this page
 govuk.exitThisPage.redirectUrlFallback=https://www.bbc.co.uk/weather

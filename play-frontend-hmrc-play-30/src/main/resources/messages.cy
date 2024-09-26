@@ -37,7 +37,6 @@ govuk.pagination.page=Tudalen
 govuk.pagination.ariaLabel=Tudaleniad
 govuk.serviceNavigation.ariaLabel=Gwybodaeth am y gwasanaeth
 govuk.serviceNavigation.menuButtonText=Dewislen
-govuk.serviceNavigation.navigationId=llywio
 govuk.warningText.iconFallbackText=Rhybudd
 govuk.exitThisPage.contentFallbackText=Gadael y dudalen hon
 govuk.exitThisPage.redirectUrlFallback=https://www.bbc.co.uk/weather

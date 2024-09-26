@@ -48,10 +48,10 @@
       }
       @if(navigation.nonEmpty || slots.nonEmpty) {
         <nav aria-label="@if(navigationLabel.nonEmpty){@navigationLabel}else{@menuButtonText.getOrElse(messages("govuk.serviceNavigation.menuButtonText"))}" class="@{toClasses("govuk-service-navigation__wrapper", navigationClasses)}">
-          <button type="button" class="govuk-service-navigation__toggle govuk-js-service-navigation-toggle" aria-controls="@navigationId.getOrElse(messages("govuk.serviceNavigation.navigationId"))"@if(menuButtonLabel.nonEmpty && menuButtonLabel.get != menuButtonText.getOrElse(messages("govuk.serviceNavigation.menuButtonText"))){ aria-label="@menuButtonLabel"} hidden>
+          <button type="button" class="govuk-service-navigation__toggle govuk-js-service-navigation-toggle" aria-controls="@navigationId"@if(menuButtonLabel.nonEmpty && menuButtonLabel.get != menuButtonText.getOrElse(messages("govuk.serviceNavigation.menuButtonText"))){ aria-label="@menuButtonLabel"} hidden>
             @menuButtonText.getOrElse(messages("govuk.serviceNavigation.menuButtonText"))
           </button>
-          <ul class="govuk-service-navigation__list" id="@navigationId.getOrElse(messages("govuk.serviceNavigation.navigationId"))">
+          <ul class="govuk-service-navigation__list" id="@navigationId">
             @slots.map(_.navigationStart) match {
               case Some(slotNavigation) => {@Html(slotNavigation)}
               case None => {}
