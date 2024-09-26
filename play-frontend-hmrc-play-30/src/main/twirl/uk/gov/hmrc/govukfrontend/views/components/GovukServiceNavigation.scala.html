@@ -63,14 +63,10 @@
                 }else{
                   <span class="govuk-service-navigation__text">
                 }
-                  @item.current match {
-                    case true => {<strong class="govuk-service-navigation__active-fallback">@item.content.asHtml</strong>}
-                    case _ => {
-                      @item.active match {
-                        case true => {<strong class="govuk-service-navigation__active-fallback">@item.content.asHtml</strong>}
-                        case _ => {@item.content.asHtml}
-                      }    
-                    }
+                  @if(item.current || item.active) {
+                    <strong class="govuk-service-navigation__active-fallback">@item.content.asHtml</strong>
+                  } else {
+                    @item.content.asHtml
                   }
                 @if(item.href.nonEmpty) {</a>}else{</span>}
               </li>
