@@ -172,6 +172,15 @@ trait Aliases {
   type SelectItem = viewmodels.select.SelectItem
   val SelectItem = viewmodels.select.SelectItem
 
+  type ServiceNavigation = viewmodels.servicenavigation.ServiceNavigation
+  val ServiceNavigation = viewmodels.servicenavigation.ServiceNavigation
+
+  type ServiceNavigationItem = viewmodels.servicenavigation.ServiceNavigationItem
+  val ServiceNavigationItem = viewmodels.servicenavigation.ServiceNavigationItem
+
+  type ServiceNavigationSlot = viewmodels.servicenavigation.ServiceNavigationSlot
+  val ServiceNavigationSlot = viewmodels.servicenavigation.ServiceNavigationSlot
+
   type Table = viewmodels.table.Table
   val Table = viewmodels.table.Table
 

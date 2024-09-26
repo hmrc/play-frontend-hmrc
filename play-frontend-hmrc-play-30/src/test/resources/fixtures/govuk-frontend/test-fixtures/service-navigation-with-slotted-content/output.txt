@@ -1,0 +1,25 @@
+
+  <section aria-label="Service information" class="govuk-service-navigation"
+data-module="govuk-service-navigation"
+>
+      <div class="govuk-width-container">
+
+    <div>[start]</div><div class="govuk-service-navigation__container">
+      
+
+      
+        <nav aria-label="Menu" class="govuk-service-navigation__wrapper">
+          <button type="button" class="govuk-service-navigation__toggle govuk-js-service-navigation-toggle" aria-controls="navigation" hidden>
+            Menu
+          </button>
+
+          <ul class="govuk-service-navigation__list" id="navigation" >
+
+            <li>[navigation start]</li>
+            <li>[navigation end]</li></ul>
+        </nav>
+    </div>
+
+    <div>[end]</div></div>
+
+  </section>

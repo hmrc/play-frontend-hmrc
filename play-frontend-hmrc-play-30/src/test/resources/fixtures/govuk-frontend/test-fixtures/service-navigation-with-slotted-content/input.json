@@ -1,0 +1,8 @@
+{
+  "slots" : {
+    "start" : "<div>[start]</div>",
+    "end" : "<div>[end]</div>",
+    "navigationStart" : "<li>[navigation start]</li>",
+    "navigationEnd" : "<li>[navigation end]</li>"
+  }
+}

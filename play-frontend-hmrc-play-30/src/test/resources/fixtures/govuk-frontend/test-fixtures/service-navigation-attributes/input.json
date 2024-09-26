@@ -1,0 +1,7 @@
+{
+  "serviceName" : "Service name",
+  "attributes" : {
+    "data-foo" : "bar",
+    "data-pika" : "chu"
+  }
+}
