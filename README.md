@@ -1146,6 +1146,7 @@ styles to your service's own HTML elements.
 - [GOV.UK Design System Chrome extension](https://github.com/hmrc/play-frontend-govuk-extension) - `Chrome` extension to add a Twirl tab for each example in the GOV.UK Design System
 
 ## Owning team README
+
 Rationale for code and translation decisions, dependencies, as well as instructions for team members maintaining this repository can be found [here](/docs/maintainers/overview.md).
 
 ## License
