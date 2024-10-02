@@ -8,6 +8,17 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 For compatibility information see `govukFrontendVersion` and `hmrcFrontendVersion` in
 [LibDependencies](project/LibDependencies.scala)
 
+## [10.13.0] - 2024-10-02
+
+### Changed
+
+- Tweaked the twirl template for the new `ServiceNavigation` to cover an edge case previously not captured
+
+### Compatible with
+
+- [hmrc/hmrc-frontend v6.31.0](https://github.com/hmrc/hmrc-frontend/releases/tag/v6.31.0)
+- [alphagov/govuk-frontend v5.6.0](https://github.com/alphagov/govuk-frontend/releases/tag/v5.6.0)
+
 ## [10.12.0] - 2024-09-18
 
 ### Changed
