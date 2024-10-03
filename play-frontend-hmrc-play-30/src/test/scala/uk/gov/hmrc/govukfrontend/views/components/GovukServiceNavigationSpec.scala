@@ -41,7 +41,7 @@ class GovukServiceNavigationSpec
       output.first().text() shouldBe "my-service"
     }
 
-    "render ServiceNavigationItems correctly" in {
+    "render ServiceNavigationItems correctly in a nav element" in {
       val params = ServiceNavigation(
         navigation = Seq(
           ServiceNavigationItem(
@@ -49,9 +49,10 @@ class GovukServiceNavigationSpec
           )
         )
       )
-      val output = component(params).select(".govuk-service-navigation__text")
+      val output = component(params)
 
-      output.first().text() shouldBe "Cupcakes"
+      output.select(".govuk-service-navigation__text").first().text() shouldBe "Cupcakes"
+      output.toString()                                                 should include("<nav")
     }
 
     "render ServiceNavigationItems with links correctly" in {
@@ -70,7 +71,7 @@ class GovukServiceNavigationSpec
       output.first().attr("href") shouldBe "#"
     }
 
-    "render ServiceNavigation with slotted content" in {
+    "render ServiceNavigation with slotted content with no nav element" in {
       val params = ServiceNavigation(
         serviceName = Some("cupcakes-service"),
         slots = Some(
@@ -79,9 +80,25 @@ class GovukServiceNavigationSpec
           )
         )
       )
-      val output = component(params).select(".my-custom-class")
+      val output = component(params)
 
-      output.first().text() shouldBe "Cupcakes are delicious!"
+      output.select(".my-custom-class").first().text() shouldBe "Cupcakes are delicious!"
+      output.toString() shouldNot include("<nav")
+    }
+
+    "render ServiceNavigation with slotted content with a nav element" in {
+      val params = ServiceNavigation(
+        serviceName = Some("cupcakes-service"),
+        slots = Some(
+          ServiceNavigationSlot(
+            navigationStart = Some("<div class=\"my-custom-class\">Cupcakes are still delicious!</div>")
+          )
+        )
+      )
+      val output = component(params)
+
+      output.select(".my-custom-class").first().text() shouldBe "Cupcakes are still delicious!"
+      output.toString()                                  should include("<nav")
     }
   }
 }
