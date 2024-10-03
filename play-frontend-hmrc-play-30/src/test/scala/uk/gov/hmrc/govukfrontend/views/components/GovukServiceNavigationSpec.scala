@@ -41,7 +41,7 @@ class GovukServiceNavigationSpec
       output.first().text() shouldBe "my-service"
     }
 
-    "render ServiceNavigationItems correctly" in {
+    "render ServiceNavigationItems correctly in a nav element" in {
       val params = ServiceNavigation(
         navigation = Seq(
           ServiceNavigationItem(
@@ -49,9 +49,10 @@ class GovukServiceNavigationSpec
           )
         )
       )
-      val output = component(params).select(".govuk-service-navigation__text")
+      val output = component(params)
 
-      output.first().text() shouldBe "Cupcakes"
+      output.select(".govuk-service-navigation__text").first().text() shouldBe "Cupcakes"
+      output.toString()                                                 should include("<nav")
     }
 
     "render ServiceNavigationItems with links correctly" in {
@@ -70,7 +71,7 @@ class GovukServiceNavigationSpec
       output.first().attr("href") shouldBe "#"
     }
 
-    "render ServiceNavigation with slotted content out of the nav element" in {
+    "render ServiceNavigation with slotted content with no nav element" in {
       val params = ServiceNavigation(
         serviceName = Some("cupcakes-service"),
         slots = Some(
@@ -85,7 +86,7 @@ class GovukServiceNavigationSpec
       output.toString() shouldNot include("<nav")
     }
 
-    "render ServiceNavigation with slotted content in the nav element" in {
+    "render ServiceNavigation with slotted content with a nav element" in {
       val params = ServiceNavigation(
         serviceName = Some("cupcakes-service"),
         slots = Some(
