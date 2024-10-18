@@ -57,7 +57,7 @@ In some cases, the decision to incorporate updates to components may not be sole
 1. With `x-govuk-component-renderer` running locally (see below), run `sbt generateGovukFixtures` for `govuk-frontend`
      upgrades or `sbt generateHmrcFixtures` for `hmrc-frontend` upgrades.
 1. Run the unit tests: `sbt clean test`.
-1. Run the integration tests: `sbt clean it:test`.
+1. Run the integration tests: `sbt clean it/test`.
 1. Compare the two versions of `govuk-frontend` or `hmrc-frontend` (outgoing vs incoming) using a diff tool 
    as shown [below](#examining-components-for-failed-tests).
    
