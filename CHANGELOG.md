@@ -13,6 +13,7 @@ For compatibility information see `govukFrontendVersion` and `hmrcFrontendVersio
 ### Changed
 
 - Uplifted version of `govuk-frontend` to `v5.7.1`
+- Uplifted version of `hmrcFrontendVersion` to `6.35.0`
 
 ### Compatible with
 
