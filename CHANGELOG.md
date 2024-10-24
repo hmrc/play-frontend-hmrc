@@ -8,6 +8,19 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 For compatibility information see `govukFrontendVersion` and `hmrcFrontendVersion` in
 [LibDependencies](project/LibDependencies.scala)
 
+## [11.1.0] - 2024-10-24
+
+### Changed
+
+- Updated hmrc-frontend to version `6.37.0`, the css in this release is now compiled with dart-sass rather than libsass.
+  But the libraries sass will maintain compatibility with sbt-sassify (libsass) for now for services compiling their own
+  styles.
+
+### Compatible with
+
+- [hmrc/hmrc-frontend v6.37.0](https://github.com/hmrc/hmrc-frontend/releases/tag/v6.37.0)
+- [alphagov/govuk-frontend v5.7.1](https://github.com/alphagov/govuk-frontend/releases/tag/v5.7.1)
+
 ## [11.0.0] - 2024-10-23
 
 ### Changed
