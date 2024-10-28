@@ -75,7 +75,7 @@ class GovukBreadcrumbsSpec extends TemplateUnitBaseSpec[Breadcrumbs]("govukBread
       val welshMessages: Messages = messagesApi.preferred(Seq(Lang("cy")))
       val output                  = component(Breadcrumbs())(welshMessages)
       val nav                     = output.select(".govuk-breadcrumbs").first()
-      nav.attr("aria-label") shouldBe "WELSH PLACEHOLDER"
+      nav.attr("aria-label") shouldBe "Briwsion bara"
     }
   }
 }
