@@ -16,9 +16,9 @@
 
 @this()
 
-@(params: Breadcrumbs)
+@(params: Breadcrumbs)(implicit messages: Messages)
 @import params._
-<nav aria-label="@labelText.getOrElse("Breadcrumb")" class="@toClasses("govuk-breadcrumbs", classes, if (collapseOnMobile) {"govuk-breadcrumbs--collapse-on-mobile"} else {""})"@toAttributes(attributes)>
+<nav aria-label="@labelText.getOrElse(messages("govukBreadcrumbs.ariaLabel"))" class="@toClasses("govuk-breadcrumbs", classes, if (collapseOnMobile) {"govuk-breadcrumbs--collapse-on-mobile"} else {""})"@toAttributes(attributes)>
  <ol class="govuk-breadcrumbs__list">
    @for(item <- items) {
      @item.href.foldNonEmpty {

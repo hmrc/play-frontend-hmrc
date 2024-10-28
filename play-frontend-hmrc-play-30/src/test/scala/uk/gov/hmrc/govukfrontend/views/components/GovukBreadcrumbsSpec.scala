@@ -17,11 +17,26 @@
 package uk.gov.hmrc.govukfrontend.views
 package components
 
+import play.api.i18n.{Lang, Messages}
+import play.api.mvc.RequestHeader
+import play.api.test.FakeRequest
+import play.twirl.api.HtmlFormat
 import uk.gov.hmrc.govukfrontend.views.html.components._
+import uk.gov.hmrc.helpers.MessagesSupport
 
-class GovukBreadcrumbsSpec extends TemplateUnitSpec[Breadcrumbs, GovukBreadcrumbs]("govukBreadcrumbs") {
+import scala.util.Try
 
-  "breadcrumb" should {
+class GovukBreadcrumbsSpec extends TemplateUnitBaseSpec[Breadcrumbs]("govukBreadcrumbs") with MessagesSupport {
+
+  private val component = app.injector.instanceOf[GovukBreadcrumbs]
+
+  def render(templateParams: Breadcrumbs): Try[HtmlFormat.Appendable] = {
+    implicit val request: RequestHeader = FakeRequest("GET", "/foo")
+
+    Try(component(templateParams))
+  }
+
+  "GovukBreadcrumb" should {
     "render the attributes in order" in {
       val params = Breadcrumbs(attributes =
         Map(
@@ -48,6 +63,19 @@ class GovukBreadcrumbsSpec extends TemplateUnitSpec[Breadcrumbs, GovukBreadcrumb
       output.body should include(
         "<nav aria-label=\"Breadcrumb\" class=\"govuk-breadcrumbs\" role=\"navigation\" id=\"my-navigation\">"
       )
+    }
+
+    "render expected aria label correctly when language is not specified" in {
+      val output = component(Breadcrumbs())
+      val nav    = output.select(".govuk-breadcrumbs").first()
+      nav.attr("aria-label") shouldBe "Breadcrumb"
+    }
+
+    "render expected aria label correctly when language is Welsh" in {
+      val welshMessages: Messages = messagesApi.preferred(Seq(Lang("cy")))
+      val output                  = component(Breadcrumbs())(welshMessages)
+      val nav                     = output.select(".govuk-breadcrumbs").first()
+      nav.attr("aria-label") shouldBe "WELSH PLACEHOLDER"
     }
   }
 }
