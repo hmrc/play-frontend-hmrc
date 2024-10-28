@@ -8,6 +8,18 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 For compatibility information see `govukFrontendVersion` and `hmrcFrontendVersion` in
 [LibDependencies](project/LibDependencies.scala)
 
+## [11.2.0] - 2024-10-28
+
+### Changed
+
+- Updated `GovukBreadcrumbs` to take in `messages` and correctly translate aria-label to Welsh
+
+### Compatible with
+
+- [hmrc/hmrc-frontend v6.37.0](https://github.com/hmrc/hmrc-frontend/releases/tag/v6.37.0)
+- [alphagov/govuk-frontend v5.7.1](https://github.com/alphagov/govuk-frontend/releases/tag/v5.7.1)
+
+
 ## [11.1.0] - 2024-10-24
 
 ### Changed

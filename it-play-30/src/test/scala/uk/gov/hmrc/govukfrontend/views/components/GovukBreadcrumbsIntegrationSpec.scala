@@ -16,13 +16,13 @@
 
 package uk.gov.hmrc.govukfrontend.views.components
 
-import uk.gov.hmrc.govukfrontend.support.TemplateIntegrationSpec
+import uk.gov.hmrc.govukfrontend.support.MessagesAwareTemplateIntegrationSpec
 import uk.gov.hmrc.govukfrontend.views.html.components._
 import uk.gov.hmrc.govukfrontend.views.viewmodels.breadcrumbs.Breadcrumbs
 import uk.gov.hmrc.govukfrontend.views.viewmodels.breadcrumbs.Generators._
 
 object GovukBreadcrumbsIntegrationSpec
-    extends TemplateIntegrationSpec[Breadcrumbs, GovukBreadcrumbs](
+    extends MessagesAwareTemplateIntegrationSpec[Breadcrumbs, GovukBreadcrumbs](
       govukComponentName = "govukBreadcrumbs",
       seed = None
     )
