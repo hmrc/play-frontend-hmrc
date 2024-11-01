@@ -14,32 +14,33 @@
  * limitations under the License.
  */
 
-import org.jsoup.Jsoup
-import org.jsoup.helper.W3CDom
+package uk.gov.hmrc.support
+
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers
-import javax.xml.transform.TransformerFactory
-import javax.xml.transform.dom.DOMSource
-import javax.xml.transform.stream.StreamResult
-import java.io.StringWriter
+import uk.gov.hmrc.helpers.views.PreProcessor
 
-class HtmlComparisonTest extends AnyFlatSpec with Matchers {
-
-  def normalizeHtml(html: String): String = {
-    val w3cDom = new W3CDom().fromJsoup(Jsoup.parse(html))
-    val writer = new StringWriter()
-    val transformer = TransformerFactory.newInstance().newTransformer()
-    transformer.transform(new DOMSource(w3cDom), new StreamResult(writer))
-    writer.toString
-  }
+class HtmlComparisonTest extends AnyFlatSpec with Matchers with PreProcessor {
 
   "HTML outputs" should "match after normalization" in {
     val html1 = """<div class="test" id="div1"><p>Hello World</p></div>""".replaceAll("\\s+", " ")
     val html2 = """<div id="div1" class="test"><p>Hello World</p></div>""".replaceAll("\\s+", " ")
 
-    val normalizedHtml1 = normalizeHtml(html1)
-    val normalizedHtml2 = normalizeHtml(html2)
+    val normalizedHtml1 = normaliseHtml(html1)
+    val normalizedHtml2 = normaliseHtml(html2)
 
     normalizedHtml1 shouldEqual normalizedHtml2
   }
+
+// Example showing how normaliseHtml modifies the html:
+//
+//  "HTML inputs that have unclosed tags" should "not match after normalization" in {
+//    val html1 = """<div class="test" id="div1"><p>Hello World</p></div>""".replaceAll("\\s+", " ")
+//    val html2 = """<div id="div1" class="test"><p>Hello World""".replaceAll("\\s+", " ")
+//
+//    val normalizedHtml1 = normaliseHtml(html1)
+//    val normalizedHtml2 = normaliseHtml(html2)
+//
+//    normalizedHtml1 shouldNot equal(normalizedHtml2)
+//  }
 }

@@ -22,8 +22,9 @@ import org.scalacheck.{Arbitrary, Properties, ShrinkLowPriority, Test}
 import org.scalatest.concurrent.{IntegrationPatience, ScalaFutures}
 import org.scalatestplus.play.guice.GuiceOneAppPerSuite
 import play.api.libs.json.{Json, OWrites}
+import uk.gov.hmrc.helpers.views.FindUnbalancedHtmlTags.HtmlTagsAreBalanced
 import uk.gov.hmrc.helpers.views.TemplateDiff.templateDiffPath
-import uk.gov.hmrc.helpers.views.{JsoupHelpers, PreProcessor, TemplateValidationException, TwirlRenderer}
+import uk.gov.hmrc.helpers.views.{FindUnbalancedHtmlTags, JsoupHelpers, PreProcessor, TemplateValidationException, TwirlRenderer}
 import uk.gov.hmrc.support.Implicits._
 import uk.gov.hmrc.support.ScalaCheckUtils.{ClassifyParams, classify}
 
@@ -80,9 +81,9 @@ abstract class TemplateIntegrationBaseSpec[T: OWrites: Arbitrary](
           case Success(twirlOutputHtml)                      =>
             val preProcessedTwirlHtml    = compressHtml(normaliseHtml(twirlOutputHtml), maximumCompression = true)
             val preProcessedNunjucksHtml = compressHtml(normaliseHtml(nunJucksOutputHtml), maximumCompression = true)
-            val prop                     = preProcessedTwirlHtml == preProcessedNunjucksHtml
+            val normalisedHtmlMatches    = preProcessedTwirlHtml == preProcessedNunjucksHtml
 
-            if (!prop) {
+            if (!normalisedHtmlMatches) {
               reportDiff(
                 preProcessedTwirlHtml = preProcessedTwirlHtml,
                 preProcessedNunjucksHtml = preProcessedNunjucksHtml,
@@ -91,7 +92,7 @@ abstract class TemplateIntegrationBaseSpec[T: OWrites: Arbitrary](
               )
             }
 
-            prop
+            normalisedHtmlMatches && (FindUnbalancedHtmlTags.check(twirlOutputHtml) == HtmlTagsAreBalanced)
           case Failure(TemplateValidationException(message)) =>
             println(s"Failed to validate the parameters for the $componentName template")
             println(s"Exception: $message")
