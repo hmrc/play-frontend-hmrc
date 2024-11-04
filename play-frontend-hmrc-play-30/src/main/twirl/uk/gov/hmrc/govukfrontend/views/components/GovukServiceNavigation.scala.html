@@ -22,68 +22,69 @@
 @(params: ServiceNavigation)(implicit messages: Messages)
 @import params._
 
-@if(params.serviceName.isDefined || params.slots.flatMap(_.start).isDefined || params.slots.flatMap(_.end).isDefined) {
-  <section aria-label="@{ariaLabel.getOrElse(messages("govuk.serviceNavigation.ariaLabel"))}" class="@toClasses("govuk-service-navigation", classes)" data-module="govuk-service-navigation" @toAttributes(attributes)>
-} else {
-  <div class="@toClasses("govuk-service-navigation", classes)" data-module="govuk-service-navigation" @toAttributes(attributes)>
+@govukServiceNavigationContainer = {
+  <div class="govuk-service-navigation__container">
+    @if(serviceName.nonEmpty) {
+      <span class="govuk-service-navigation__service-name">
+        @serviceUrl match {
+          case Some(url) => {
+            <a href="@url" class="govuk-service-navigation__link"> @serviceName </a>
+            }
+          case None => {
+            <span class="govuk-service-navigation__text">@{serviceName.get}</span>
+          }
+        }
+      </span>
+    }
+    @if(navigation.nonEmpty || slots.exists(slot => slot.navigationStart.nonEmpty || slot.navigationEnd.nonEmpty)) {
+      <nav aria-label="@if(navigationLabel.nonEmpty){@navigationLabel}else{@menuButtonText.getOrElse(messages("govuk.serviceNavigation.menuButtonText"))}" class="@{toClasses("govuk-service-navigation__wrapper", navigationClasses)}">
+        <button type="button" class="govuk-service-navigation__toggle govuk-js-service-navigation-toggle" aria-controls="@navigationId"@if(menuButtonLabel.nonEmpty && menuButtonLabel.get != menuButtonText.getOrElse(messages("govuk.serviceNavigation.menuButtonText"))){ aria-label="@menuButtonLabel"} hidden>
+          @menuButtonText.getOrElse(messages("govuk.serviceNavigation.menuButtonText"))
+        </button>
+        <ul class="govuk-service-navigation__list" id="@navigationId">
+          @Html(slots.flatMap(_.navigationStart))
+          @for(item <- navigation) {
+            <li class="govuk-service-navigation__item@if(item.active || item.current){ govuk-service-navigation__item--active}">
+              @if(item.href.nonEmpty) {
+                <a @if(item.active || item.current){aria-current="@if(item.current){page}else{true}"} class="govuk-service-navigation__link" href="@item.href" @toAttributes(item.attributes)>
+              }else{
+                <span class="govuk-service-navigation__text">
+              }
+              @if(item.current || item.active) {
+                <strong class="govuk-service-navigation__active-fallback">@item.content.asHtml</strong>
+              } else {
+                @item.content.asHtml
+              }
+              @if(item.href.nonEmpty) {
+                </a>
+              } else {
+                </span>
+              }
+            </li>
+          }
+          @Html(slots.flatMap(_.navigationEnd))
+        </ul>
+      </nav>
+    }
+  </div>
 }
 
+@govukWidthContainer = {
   <div class="govuk-width-container">
-    @slots.map(_.start) match {
-      case Some(slotStart) => {@Html(slotStart)}
-      case None => {}
-    }
-    <div class="govuk-service-navigation__container">
-      @if(serviceName.nonEmpty) {
-        <span class="govuk-service-navigation__service-name">
-          @serviceUrl match {
-            case Some(url) => {
-              <a href="@url" class="govuk-service-navigation__link"> @serviceName </a>
-              }
-            case None => {
-              <span class="govuk-service-navigation__text">@{serviceName.get}</span>
-            }
-          }
-        </span>
-      }
-      @if(navigation.nonEmpty || slots.exists(slot => slot.navigationStart.nonEmpty || slot.navigationEnd.nonEmpty)) {
-        <nav aria-label="@if(navigationLabel.nonEmpty){@navigationLabel}else{@menuButtonText.getOrElse(messages("govuk.serviceNavigation.menuButtonText"))}" class="@{toClasses("govuk-service-navigation__wrapper", navigationClasses)}">
-          <button type="button" class="govuk-service-navigation__toggle govuk-js-service-navigation-toggle" aria-controls="@navigationId"@if(menuButtonLabel.nonEmpty && menuButtonLabel.get != menuButtonText.getOrElse(messages("govuk.serviceNavigation.menuButtonText"))){ aria-label="@menuButtonLabel"} hidden>
-            @menuButtonText.getOrElse(messages("govuk.serviceNavigation.menuButtonText"))
-          </button>
-          <ul class="govuk-service-navigation__list" id="@navigationId">
-            @slots.map(_.navigationStart) match {
-              case Some(slotNavigation) => {@Html(slotNavigation)}
-              case None => {}
-            }
-            @for(item <- navigation) {
-              <li class="govuk-service-navigation__item@if(item.active || item.current){ govuk-service-navigation__item--active}">
-                @if(item.href.nonEmpty) {
-                  <a @if(item.active || item.current){aria-current="@if(item.current){page}else{true}"} class="govuk-service-navigation__link" href="@item.href" @toAttributes(item.attributes)>
-                }else{
-                  <span class="govuk-service-navigation__text">
-                }
-                  @if(item.current || item.active) {
-                    <strong class="govuk-service-navigation__active-fallback">@item.content.asHtml</strong>
-                  } else {
-                    @item.content.asHtml
-                  }
-                @if(item.href.nonEmpty) {</a>}else{</span>}
-              </li>
-            }
-            @slots.map(_.navigationEnd) match {
-              case Some(navigationEndSlot) => {@Html(navigationEndSlot)}
-              case None => {}
-            }
-          </ul>
-        }
-      </nav>
-    </div>
-  @slots.map(_.end) match {
-    case Some(endSlot) => {@Html(endSlot)}
-    case None => {}
-  }
-  @serviceName match {
-    case Some(text) => {</section>}
-    case None => {</div>}
-  }
+    @Html(slots.flatMap(_.start))
+
+    @govukServiceNavigationContainer
+
+    @Html(slots.flatMap(_.end))
+  </div>
+}
+
+@if(params.serviceName.isDefined || params.slots.flatMap(_.start).isDefined || params.slots.flatMap(_.end).isDefined) {
+  <section aria-label="@{ariaLabel.getOrElse(messages("govuk.serviceNavigation.ariaLabel"))}" class="@toClasses("govuk-service-navigation", classes)" data-module="govuk-service-navigation" @toAttributes(attributes)>
+    @govukWidthContainer
+  </section>
+} else {
+  <div class="@toClasses("govuk-service-navigation", classes)" data-module="govuk-service-navigation" @toAttributes(attributes)>
+    @govukWidthContainer
+  </div>
+}
