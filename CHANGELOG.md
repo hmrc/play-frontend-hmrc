@@ -8,6 +8,19 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 For compatibility information see `govukFrontendVersion` and `hmrcFrontendVersion` in
 [LibDependencies](project/LibDependencies.scala)
 
+## [11.3.0] - 2024-11-04
+
+### Changed
+
+- Fixes some unbalanced html tags in certain use cases of service navigation and govuk task list. Not introduced as a
+  breaking (major) change because the task list bug was in a scenario unlikely to occur (empty tasks) and because
+  service navigation is still new.
+
+### Compatible with
+
+- [hmrc/hmrc-frontend v6.37.0](https://github.com/hmrc/hmrc-frontend/releases/tag/v6.37.0)
+- [alphagov/govuk-frontend v5.7.1](https://github.com/alphagov/govuk-frontend/releases/tag/v5.7.1)
+
 ## [11.2.0] - 2024-10-28
 
 ### Changed
@@ -18,7 +31,6 @@ For compatibility information see `govukFrontendVersion` and `hmrcFrontendVersio
 
 - [hmrc/hmrc-frontend v6.37.0](https://github.com/hmrc/hmrc-frontend/releases/tag/v6.37.0)
 - [alphagov/govuk-frontend v5.7.1](https://github.com/alphagov/govuk-frontend/releases/tag/v5.7.1)
-
 
 ## [11.1.0] - 2024-10-24
 

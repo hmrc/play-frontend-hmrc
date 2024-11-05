@@ -22,6 +22,7 @@ import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpecLike
 import org.scalatestplus.play.guice.GuiceOneAppPerSuite
 import play.api.libs.json.{JsError, JsSuccess, Json, Reads}
+import uk.gov.hmrc.helpers.views.FindUnbalancedHtmlTags.HtmlTagsAreBalanced
 
 import scala.util.{Failure, Success, Try}
 
@@ -67,6 +68,8 @@ abstract class TemplateTestHelper[T: Reads](
                 }
                 val preProcessedTwirlHtml        = preProcess(twirlHtml)
                 val preProcessedNunjucksHtml     = preProcess(nunjucksHtml)
+
+                FindUnbalancedHtmlTags.check(twirlHtml) shouldBe HtmlTagsAreBalanced
 
                 withClue(s"""
                        | Twirl output:

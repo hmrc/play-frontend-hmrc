@@ -17,7 +17,7 @@
   "blocks": {
     "pageTitle": "GOV.UK - Customised page template",
     "head": "\n  <link href=\"custom-stylesheet.css\" rel=\"stylesheet\">\n",
-    "beforeContent": "<p>Customised before content, <a class=\"govuk-link\" href=\"#\">this is a link</a>.",
+    "beforeContent": "<p>Customised before content, <a class=\"govuk-link\" href=\"#\">this is a link</a>.</p>",
     "header": "<header role=\"banner\">Custom header</header>",
     "skipLink": "<a href=\"#main-content\" class=\"govuk-skip-link\">Custom skip link</a>",
     "content": "<h1 class=\"govuk-heading-xl\">Customised page template</h1>",
