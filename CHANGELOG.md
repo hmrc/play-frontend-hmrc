@@ -8,6 +8,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 For compatibility information see `govukFrontendVersion` and `hmrcFrontendVersion` in
 [LibDependencies](project/LibDependencies.scala)
 
+## [11.6.0] - 2024-11-19
+
+### Changed
+
+- Updated `hmrc-frontend` to `6.41.0` to pull in accessible-autocomplete `3.0.1`
+  - This `hmrc-frontend` uplift also changes govuk header line-height values to unitless values and ensuring baseline matches GOV.UK logo and service name from `hmrc-frontend` version `6.40.0`
+
 ## [11.5.0] - 2024-11-12
 
 ### Changed
