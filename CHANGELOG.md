@@ -8,12 +8,29 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 For compatibility information see `govukFrontendVersion` and `hmrcFrontendVersion` in
 [LibDependencies](project/LibDependencies.scala)
 
+## [11.7.0] - 2024-12-02
+
+### Changed
+
+- Updated `hmrc-frontend` to `6.42.0`, back links that set to mimic the browser back button by javascript will now
+  display when the referrer is from a pega domain.
+
+### Compatible with
+
+- [hmrc/hmrc-frontend v6.42.0](https://github.com/hmrc/hmrc-frontend/releases/tag/v6.42.0)
+- [alphagov/govuk-frontend v5.7.1](https://github.com/alphagov/govuk-frontend/releases/tag/v5.7.1)
+
 ## [11.6.0] - 2024-11-19
 
 ### Changed
 
 - Updated `hmrc-frontend` to `6.41.0` to pull in accessible-autocomplete `3.0.1`
   - This `hmrc-frontend` uplift also changes govuk header line-height values to unitless values and ensuring baseline matches GOV.UK logo and service name from `hmrc-frontend` version `6.40.0`
+
+### Compatible with
+
+- [hmrc/hmrc-frontend v6.41.0](https://github.com/hmrc/hmrc-frontend/releases/tag/v6.41.0)
+- [alphagov/govuk-frontend v5.7.1](https://github.com/alphagov/govuk-frontend/releases/tag/v5.7.1)
 
 ## [11.5.0] - 2024-11-12
 
