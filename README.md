@@ -61,7 +61,7 @@ This library is currently compatible with:
 
 ### Understanding library changes between versions
 
-We summarise what's changed between versions, and importantly any actions that may be required when upgrading past a specific version within our [changelog](CHANGELOG.md).
+We can summarise what's changed between versions, and importantly any actions that may be required when upgrading past a specific version within our [changelog](CHANGELOG.md).
 
 ### Integrating with play-frontend-hmrc
 
