@@ -8,6 +8,17 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 For compatibility information see `govukFrontendVersion` and `hmrcFrontendVersion` in
 [LibDependencies](project/LibDependencies.scala)
 
+## [11.8.0] - 2024-12-18
+
+### Changed
+
+- Updated `hmrc-frontend` version to `6.46.0`, removes backlink referer security checks to improve user experience
+
+### Compatible with
+
+- [hmrc/hmrc-frontend v6.46.0](https://github.com/hmrc/hmrc-frontend/releases/tag/v6.46.0)
+- [alphagov/govuk-frontend v5.7.1](https://github.com/alphagov/govuk-frontend/releases/tag/v5.7.1)
+
 ## [11.7.0] - 2024-12-02
 
 ### Changed
