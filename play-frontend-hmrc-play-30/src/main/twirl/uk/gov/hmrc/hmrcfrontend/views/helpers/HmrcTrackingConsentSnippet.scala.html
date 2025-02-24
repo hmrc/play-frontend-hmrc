@@ -32,7 +32,6 @@
   ></script>
   @trackingConsentConfig.optimizelyUrl.map { optimizelyUrl =>
     <script @nonceAttribute src='@optimizelyUrl'></script>
-    <script @nonceAttribute src="@trackingConsentConfig.optimizelyGtmUrl()"></script>
   }
   <!--<![endif]-->
 }
