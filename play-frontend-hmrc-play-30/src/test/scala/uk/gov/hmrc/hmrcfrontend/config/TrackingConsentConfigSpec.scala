@@ -101,33 +101,4 @@ class TrackingConsentConfigSpec extends AnyWordSpec with Matchers {
       config.trackingUrl() should equal(None)
     }
   }
-
-  "optimizelyGtmUrl" should {
-    "return the correct url to the optimizely gtm snippet when running locally i.e. without platform.frontend.host defined" in {
-      implicit val application: Application = buildApp(
-        Map(
-          "tracking-consent-frontend.gtm.container" -> "a"
-        )
-      )
-      val config                            = application.injector.instanceOf[TrackingConsentConfig]
-      config.optimizelyGtmUrl() should equal(Some("http://localhost:12345/tracking-consent/tracking/optimizely.js"))
-    }
-
-    "return the correct url to the optimizely gtm snippet when running in an MDTP environment i.e. with platform.frontend.host defined" in {
-      implicit val application: Application = buildApp(
-        Map(
-          "platform.frontend.host"                  -> "https://www.tax.service.gov.uk",
-          "tracking-consent-frontend.gtm.container" -> "a"
-        )
-      )
-      val config                            = application.injector.instanceOf[TrackingConsentConfig]
-      config.optimizelyGtmUrl() should equal(Some("/tracking-consent/tracking/optimizely.js"))
-    }
-
-    "return None if an tracking-consent-frontend.gtm.container does not exist in application.conf" in {
-      implicit val application: Application = buildApp(Map.empty)
-      val config                            = application.injector.instanceOf[TrackingConsentConfig]
-      config.optimizelyGtmUrl() should equal(None)
-    }
-  }
 }

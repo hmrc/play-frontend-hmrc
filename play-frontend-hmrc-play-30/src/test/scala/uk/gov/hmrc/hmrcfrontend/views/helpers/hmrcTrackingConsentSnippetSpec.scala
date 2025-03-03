@@ -99,14 +99,6 @@ class TrackingConsentSnippetSpec
       scripts.get(1).attr("src") should be("https://cdn.optimizely.com/1234567.js")
     }
 
-    "include the optimizely gtm script tag" in {
-      val component = app.injector.instanceOf[HmrcTrackingConsentSnippet]
-      val content   = component()
-      val scripts   = content.select("script")
-
-      scripts.get(2).attr("src") should be("http://localhost:12345/tracking-consent/tracking/optimizely.js")
-    }
-
     "include nonce attribute for all scripts" in {
       val requestWithNonce: FakeRequest[_] =
         FakeRequest("GET", "/foo").withAttrs(TypedMap(RequestAttrKey.CSPNonce -> "abcdefghij"))
@@ -117,7 +109,6 @@ class TrackingConsentSnippetSpec
 
       scripts.get(0).attr("nonce") should be("abcdefghij")
       scripts.get(1).attr("nonce") should be("abcdefghij")
-      scripts.get(2).attr("nonce") should be("abcdefghij")
     }
 
     "not include script tags with any nonce attributes if nonce is not defined" in {
@@ -127,7 +118,6 @@ class TrackingConsentSnippetSpec
 
       scripts.get(0).attr("nonce") should be("")
       scripts.get(1).attr("nonce") should be("")
-      scripts.get(2).attr("nonce") should be("")
     }
   }
 }
