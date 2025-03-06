@@ -1,0 +1,8 @@
+{
+  "id" : "character-count-id",
+  "name" : "test-name",
+  "maxlength" : 10,
+  "label" : {
+    "text" : "With custom id"
+  }
+}

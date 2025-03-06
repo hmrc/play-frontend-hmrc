@@ -1,0 +1,7 @@
+{
+  "id" : "file-upload-id",
+  "name" : "test-name",
+  "label" : {
+    "text" : "Upload a file"
+  }
+}

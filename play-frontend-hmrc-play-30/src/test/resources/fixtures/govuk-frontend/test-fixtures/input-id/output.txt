@@ -1,0 +1,6 @@
+<div class="govuk-form-group">
+  <label class="govuk-label" for="input-id">
+    With custom id
+  </label>
+  <input class="govuk-input" id="input-id" name="testing-name" type="text">
+</div>
