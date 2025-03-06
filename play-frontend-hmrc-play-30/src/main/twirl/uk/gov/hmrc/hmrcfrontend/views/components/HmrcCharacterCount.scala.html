@@ -22,7 +22,7 @@
 @(params: CharacterCount)(implicit messages: Messages)
 @import params._
 
-@require(name.nonEmpty && id.nonEmpty, "name and id should be non-empty")
+@require(name.nonEmpty, "parameter 'name' should not be empty")
 @require(maxLength.isDefined || maxWords.isDefined, "maxLength or maxWords should be provided")
 
 @defining(if(params.language == Cy || messages.lang.code == "cy") Cy else En) { messagesLanguage =>

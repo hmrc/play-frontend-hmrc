@@ -1,0 +1,7 @@
+{
+  "id" : "textarea-id",
+  "name" : "test-name",
+  "label" : {
+    "text" : "With custom id"
+  }
+}

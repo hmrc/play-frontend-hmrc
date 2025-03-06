@@ -24,20 +24,37 @@ import uk.gov.hmrc.govukfrontend.views.viewmodels.label.Generators._
 import org.scalacheck.Arbitrary.arbBool
 
 object Generators {
+  implicit val arbMultipleFilesChosenText: Arbitrary[FileUploadMultipleFilesMessages] = Arbitrary {
+    for {
+      one   <- genNonEmptyAlphaStr
+      other <- genNonEmptyAlphaStr
+    } yield FileUploadMultipleFilesMessages(
+      one = one,
+      other = other
+    )
+  }
 
   implicit val arbFileUpload: Arbitrary[FileUpload] = Arbitrary {
     for {
-      name         <- genNonEmptyAlphaStr
-      id           <- genNonEmptyAlphaStr
-      value        <- Gen.option(genAlphaStr())
-      describedBy  <- Gen.option(genAlphaStr())
-      label        <- arbLabel.arbitrary
-      hint         <- Gen.option(arbHint.arbitrary)
-      errorMessage <- Gen.option(arbErrorMessage.arbitrary)
-      formGroup    <- arbFormGroup.arbitrary
-      classes      <- genClasses()
-      attributes   <- genAttributes()
-      disabled     <- Gen.option(arbBool.arbitrary)
+      name                    <- genNonEmptyAlphaStr
+      id                      <- genNonEmptyAlphaStr
+      value                   <- Gen.option(genAlphaStr())
+      describedBy             <- Gen.option(genAlphaStr())
+      label                   <- arbLabel.arbitrary
+      hint                    <- Gen.option(arbHint.arbitrary)
+      errorMessage            <- Gen.option(arbErrorMessage.arbitrary)
+      formGroup               <- arbFormGroup.arbitrary
+      classes                 <- genClasses()
+      attributes              <- genAttributes()
+      disabled                <- Gen.option(arbBool.arbitrary)
+      multiple                <- Gen.option(arbBool.arbitrary)
+      javascript              <- Gen.option(arbBool.arbitrary)
+      chooseFilesButtonText   <- Gen.option(genAlphaStr())
+      dropInstructionText     <- Gen.option(genAlphaStr())
+      multipleFilesChosenText <- Gen.option(arbMultipleFilesChosenText.arbitrary)
+      noFileChosenText        <- Gen.option(genAlphaStr())
+      enteredDropZoneText     <- Gen.option(genAlphaStr())
+      leftDropZoneText        <- Gen.option(genAlphaStr())
     } yield FileUpload(
       name = name,
       id = id,
@@ -49,7 +66,15 @@ object Generators {
       formGroup = formGroup,
       classes = classes,
       attributes = attributes,
-      disabled = disabled
+      disabled = disabled,
+      multiple = multiple,
+      javascript = javascript,
+      chooseFilesButtonText = chooseFilesButtonText,
+      dropInstructionText = dropInstructionText,
+      multipleFilesChosenText = multipleFilesChosenText,
+      noFileChosenText = noFileChosenText,
+      enteredDropZoneText = enteredDropZoneText,
+      leftDropZoneText = leftDropZoneText
     )
   }
 

@@ -21,16 +21,21 @@
 
 @(params: Input)
 @import params._
-@require(name.nonEmpty && id.nonEmpty, s"failed requirements for govukInput: name and id should not be empty. name=[$name], id=[$id]")
+@require(name.nonEmpty, s"failed requirements for govukInput: name should not be empty.")
+
+@nonEmptyId = @{
+  if (id.isEmpty) name else id
+}
+
 @govukFormGroup(formGroup, errorMessage) {
   @govukLabel(Label(
-    forAttr = Some(id),
+    forAttr = Some(nonEmptyId),
     isPageHeading = label.isPageHeading,
     classes = label.classes,
     attributes = label.attributes,
     content = label.content
   ))
-  @govukHintAndErrorMessage(id, describedBy, hint, errorMessage)(inputSnippet)
+  @govukHintAndErrorMessage(nonEmptyId, describedBy, hint, errorMessage)(inputSnippet)
 }
 
 @inputPrefix(prefix: Option[PrefixOrSuffix], hasPrefix: Boolean, hasSuffix: Boolean, hasBeforeInput: Boolean, hasAfterInput: Boolean) = {@maybeWrapperStart(hasPrefix, hasSuffix, hasBeforeInput, hasAfterInput)@maybePrefix(prefix, hasPrefix)}
@@ -54,7 +59,7 @@
 
 @inputSnippet(describedBy: String) = {
   @defining {
-    id="@id" name="@name" type="@inputType" @if(spellcheck.nonEmpty) { spellcheck="@spellcheck"
+    id="@nonEmptyId" name="@name" type="@inputType" @if(spellcheck.nonEmpty) { spellcheck="@spellcheck"
     } @value.map {value => value="@value" }@if(disabled.getOrElse(false)) { disabled}@if(describedBy.nonEmpty) { aria-describedby="@describedBy"}
   } { attrs =>
   @defining {

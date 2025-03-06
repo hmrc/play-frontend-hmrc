@@ -1,0 +1,6 @@
+<div class="govuk-form-group">
+  <label class="govuk-label" for="textarea-id">
+    With custom id
+  </label>
+  <textarea class="govuk-textarea" id="textarea-id" name="test-name" rows="5"></textarea>
+</div>

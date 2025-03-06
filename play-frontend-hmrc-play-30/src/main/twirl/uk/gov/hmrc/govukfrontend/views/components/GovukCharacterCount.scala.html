@@ -22,12 +22,10 @@
 
 @(params: CharacterCount)
 @import params._
-@require(name.nonEmpty && id.nonEmpty, "name and id should be non-empty")
+@require(name.nonEmpty, "parameter 'name' should not be empty")
 
-@govukPluralisedI18nAttributes(translationKey: String, pluralForms: Option[Map[String, String]]) = @{
-    pluralForms.getOrElse(Map.empty).map { case (key, value) =>
-        s"data-i18n.$translationKey.$key" -> value
-    }
+@nonEmptyId = @{
+    if (id.isEmpty) name else id
 }
 
 @dataAttributes = @{
@@ -36,11 +34,11 @@
         "data-maxlength" -> maxLength.filter(_ > 0).map(_.toString).getOrElse(""),
         "data-threshold" -> threshold.filter(_ > 0).map(_.toString).getOrElse(""),
         "data-maxwords" -> maxWords.filter(_ > 0).map(_.toString).getOrElse(""),
-    ) ++ govukPluralisedI18nAttributes("characters-under-limit", charactersUnderLimitText) ++ Map(
+    ) ++ toGovukPluralisedI18nAttributes("characters-under-limit", charactersUnderLimitText) ++ Map(
         "data-i18n.characters-at-limit" -> charactersAtLimitText.getOrElse("")
-    ) ++ govukPluralisedI18nAttributes("characters-over-limit", charactersOverLimitText) ++ govukPluralisedI18nAttributes("words-under-limit", wordsUnderLimitText) ++ Map(
+    ) ++ toGovukPluralisedI18nAttributes("characters-over-limit", charactersOverLimitText) ++ toGovukPluralisedI18nAttributes("words-under-limit", wordsUnderLimitText) ++ Map(
         "data-i18n.words-at-limit" -> wordsAtLimitText.getOrElse("")
-    ) ++ govukPluralisedI18nAttributes("words-over-limit", wordsOverLimitText) ++ Map(
+    ) ++ toGovukPluralisedI18nAttributes("words-over-limit", wordsOverLimitText) ++ Map(
         "data-i18n.textarea-description.other" -> textareaDescriptionText.filter(_ => maxLength.isEmpty && maxWords.isEmpty).getOrElse("")
     )
     maybeDataAttributes.filter { case (_, value) => value.nonEmpty }
@@ -59,7 +57,7 @@
 }
 
 @characterCountMessage = {
-    @govukHint(Hint(id=Some(id+"-info"),
+    @govukHint(Hint(id=Some(nonEmptyId+"-info"),
         classes = toClasses("govuk-character-count__message", if (countMessageClasses.isEmpty) "" else s" $countMessageClasses"),
         content = customTextArea
     ))
@@ -71,13 +69,13 @@
 }
 
 @govukTextarea(Textarea(
-    id = id,
+    id = nonEmptyId,
     name = name,
-    describedBy = Some(s"${id}-info"),
+    describedBy = Some(s"${nonEmptyId}-info"),
     rows = rows,
     spellcheck = spellcheck,
     value = value,
-    label = label.copy(forAttr = Some(id)),
+    label = label.copy(forAttr = Some(nonEmptyId)),
     hint = hint,
     errorMessage = errorMessage,
     formGroup = formGroup.copy(
