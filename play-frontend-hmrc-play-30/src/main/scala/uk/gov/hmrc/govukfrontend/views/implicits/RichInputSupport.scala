@@ -37,7 +37,6 @@ trait RichInputSupport {
     override def withFormField(field: Field): Input =
       input
         .withName(field)
-        .withId(field)
         .withValue(field)
         .withTextErrorMessage(field)
 
@@ -52,7 +51,6 @@ trait RichInputSupport {
     override def withFormFieldWithErrorAsHtml(field: Field): Input =
       input
         .withName(field)
-        .withId(field)
         .withValue(field)
         .withHtmlErrorMessage(field)
 
@@ -64,9 +62,6 @@ trait RichInputSupport {
 
     private[views] def withName(field: Field): Input =
       withStringProperty(field.name, input.name, input)((ipt, nm) => ipt.copy(name = nm))
-
-    private[views] def withId(field: Field): Input =
-      withStringProperty(field.name, input.id, input)((ipt, id) => ipt.copy(id = id))
 
     private[views] def withValue(field: Field): Input =
       withOptStringProperty(field.value, input.value, input)((ipt, vl) => ipt.copy(value = vl))

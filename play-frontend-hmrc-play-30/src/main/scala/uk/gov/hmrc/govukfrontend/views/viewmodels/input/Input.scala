@@ -48,7 +48,7 @@ import uk.gov.hmrc.govukfrontend.views.viewmodels.label.Label
   * @param inputWrapper additional CSS classes/attributes to apply to the input wrapper
   */
 case class Input(
-  id: String = "",
+  id: Option[String] = None,
   name: String = "",
   inputType: String = "text",
   inputmode: Option[String] = None,
@@ -68,7 +68,9 @@ case class Input(
   disabled: Option[Boolean] = None,
   autocapitalize: Option[String] = None,
   inputWrapper: InputWrapper = InputWrapper.empty
-)
+) {
+  val normalisedId = id.getOrElse(name)
+}
 
 object Input {
 
@@ -76,7 +78,7 @@ object Input {
 
   implicit def jsonReads: Reads[Input] =
     (
-      (__ \ "id").readWithDefault[String](defaultObject.id) and
+      (__ \ "id").readNullable[String] and
         (__ \ "name").readWithDefault[String](defaultObject.name) and
         (__ \ "type").readWithDefault[String](defaultObject.inputType) and
         (__ \ "inputmode").readNullable[String] and
@@ -100,7 +102,7 @@ object Input {
 
   implicit def jsonWrites: OWrites[Input] =
     (
-      (__ \ "id").write[String] and
+      (__ \ "id").writeNullable[String] and
         (__ \ "name").write[String] and
         (__ \ "type").write[String] and
         (__ \ "inputmode").writeNullable[String] and

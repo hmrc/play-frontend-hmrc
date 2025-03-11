@@ -46,7 +46,7 @@ class RichInputSpec extends AnyWordSpec with Matchers with MessagesHelpers with 
     }
 
     "use the Input id over the Field name if both exist" in {
-      val input = Input(id = "Input Id").withFormField(field)
+      val input = Input(id = Some("Input Id")).withFormField(field)
       input.id shouldBe "Input Id"
     }
 
@@ -78,7 +78,6 @@ class RichInputSpec extends AnyWordSpec with Matchers with MessagesHelpers with 
       val input = Input()
       input.withFormField(field) shouldBe Input(
         name = "user-name",
-        id = "user-name",
         errorMessage =
           Some(errorMessageWithDefaultStringsTranslated(content = Text("Error on: Firstname&nbsp;Lastname"))),
         value = Some("bad")

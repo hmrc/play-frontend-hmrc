@@ -40,7 +40,7 @@ object Generators {
 
   implicit val arbInput: Arbitrary[Input] = Arbitrary {
     for {
-      id             <- genNonEmptyAlphaStr
+      id             <- Gen.option(genNonEmptyAlphaStr)
       name           <- genNonEmptyAlphaStr
       inputType      <- genNonEmptyAlphaStr
       inputMode      <- Gen.option(genNonEmptyAlphaStr)

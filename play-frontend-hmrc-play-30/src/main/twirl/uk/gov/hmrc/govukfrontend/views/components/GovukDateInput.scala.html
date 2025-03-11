@@ -64,7 +64,7 @@
     @for(item <- dateInputItems) {
       <div class="govuk-date-input__item">
         @govukInput(Input(
-          id = item.id.toOption.getNonEmptyOrElse(id + "-" + item.name),
+          id = Some(item.id.toOption.getNonEmptyOrElse(id + "-" + item.name)),
           name = namePrefix.foldNonEmpty(item.name)(_ + "-" + item.name),
           inputType = "text",
           inputmode = Some(item.inputmode.getOrElse("numeric")),
