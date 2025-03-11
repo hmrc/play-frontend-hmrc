@@ -39,7 +39,6 @@ trait RichSelectSupport {
     override def withFormField(field: Field): Select =
       select
         .withName(field)
-        .withId(field)
         .withTextErrorMessage(field)
         .withItemSelected(field)
 
@@ -53,7 +52,6 @@ trait RichSelectSupport {
     override def withFormFieldWithErrorAsHtml(field: Field): Select =
       select
         .withName(field)
-        .withId(field)
         .withHtmlErrorMessage(field)
         .withItemSelected(field)
 
@@ -85,9 +83,6 @@ trait RichSelectSupport {
 
     private[views] def withName(field: Field): Select =
       withStringProperty(field.name, select.name, select)((sct, nm) => sct.copy(name = nm))
-
-    private[views] def withId(field: Field): Select =
-      withStringProperty(field.name, select.id, select)((sct, id) => sct.copy(id = id))
 
     private[views] def withTextErrorMessage(field: Field): Select =
       withOptTextErrorMessageProperty(field.error, select.errorMessage, select)((sct, errorMsg) =>

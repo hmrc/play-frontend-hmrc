@@ -37,7 +37,7 @@ object Generators {
 
   implicit val arbSelect: Arbitrary[Select] = Arbitrary {
     for {
-      id           <- genNonEmptyAlphaStr
+      id           <- Gen.option(genAlphaStr())
       name         <- genNonEmptyAlphaStr
       n            <- Gen.chooseNum(0, 5)
       items        <- Gen.listOfN(n, arbSelectItem.arbitrary)

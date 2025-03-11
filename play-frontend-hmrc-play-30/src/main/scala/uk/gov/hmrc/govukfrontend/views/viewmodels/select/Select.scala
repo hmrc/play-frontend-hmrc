@@ -40,7 +40,7 @@ import uk.gov.hmrc.govukfrontend.views.viewmodels.JsonImplicits.RichJsPath
   * @note `value` overrides any `selected` `SelectItem`
   */
 case class Select(
-  id: String = "",
+  id: Option[String] = None,
   name: String = "",
   items: Seq[SelectItem] = Nil,
   describedBy: Option[String] = None,
@@ -52,7 +52,9 @@ case class Select(
   attributes: Map[String, String] = Map.empty,
   value: Option[String] = None,
   disabled: Option[Boolean] = None
-)
+) {
+  val normalisedId: String = id.getOrElse(name)
+}
 
 object Select {
 
@@ -60,7 +62,7 @@ object Select {
 
   implicit def jsonReads: Reads[Select] =
     (
-      (__ \ "id").readWithDefault[String](defaultObject.id) and
+      (__ \ "id").readNullable[String] and
         (__ \ "name").readWithDefault[String](defaultObject.name) and
         (__ \ "items").readWithDefault[Seq[SelectItem]](defaultObject.items)(forgivingSeqReads[SelectItem]) and
         (__ \ "describedBy").readNullable[String] and
@@ -76,7 +78,7 @@ object Select {
 
   implicit def jsonWrites: OWrites[Select] =
     (
-      (__ \ "id").write[String] and
+      (__ \ "id").writeNullable[String] and
         (__ \ "name").write[String] and
         (__ \ "items").write[Seq[SelectItem]] and
         (__ \ "describedBy").writeNullable[String] and

@@ -22,23 +22,22 @@
 @(params: Select)
 @import params._
 @require(name.nonEmpty, "parameter 'name' should not be empty")
-@require(id.nonEmpty, "parameter 'id' should not be empty")
 @require(value.isEmpty || !items.exists(_.selected) || Seq(value) == items.filter(_.selected).map(_.value), "selected item(s) conflict with passed value")
 
 @govukFormGroup(formGroup, errorMessage) {
   @govukLabel(Label(
-    forAttr = Some(id),
+    forAttr = Some(normalisedId),
     isPageHeading = label.isPageHeading,
     classes = label.classes,
     attributes = label.attributes,
     content = label.content
   ))
-  @govukHintAndErrorMessage(id, describedBy, hint, errorMessage)(selectSnippet)
+  @govukHintAndErrorMessage(normalisedId, describedBy, hint, errorMessage)(selectSnippet)
 }
 
 @selectSnippet(describedBy: String) = {
   @defining {
-    id="@id" name="@name"@if(disabled.getOrElse(false)) { disabled} @describedBy.toOption.map { describedBy => aria-describedby="@describedBy"}@toAttributes(attributes)
+    id="@normalisedId" name="@name"@if(disabled.getOrElse(false)) { disabled} @describedBy.toOption.map { describedBy => aria-describedby="@describedBy"}@toAttributes(attributes)
   } { attrs =>
       @{formGroup.beforeInput.map(_.asHtml)}
       <select class="@toClasses("govuk-select", classes, errorMessage.fold("")(_ => "govuk-select--error"))" @attrs>

@@ -23,25 +23,16 @@ class GovukSelectSpec extends TemplateUnitSpec[Select, GovukSelect]("govukSelect
 
   "anti-corruption layer" should {
     "throw if name is not provided" in {
-      val invalidSelect = Select(id = "someId")
+      val invalidSelect = Select(id = Some("someId"))
 
       the[IllegalArgumentException] thrownBy {
         component.render(invalidSelect)
       } should have message "requirement failed: parameter 'name' should not be empty"
     }
 
-    "throw if id is not provided" in {
-      val invalidSelect = Select(name = "someName")
-
-      the[IllegalArgumentException] thrownBy {
-        component.render(invalidSelect)
-      } should have message "requirement failed: parameter 'id' should not be empty"
-    }
-
     "throw if passed value conflicts with selected item" in {
       val invalidSelect = Select(
         name = "my select",
-        id = "select1",
         items = Seq(
           SelectItem(value = Some("ketchup"), selected = true),
           SelectItem(value = Some("mayo"), selected = false)
@@ -54,5 +45,4 @@ class GovukSelectSpec extends TemplateUnitSpec[Select, GovukSelect]("govukSelect
       } should have message "requirement failed: selected item(s) conflict with passed value"
     }
   }
-
 }
