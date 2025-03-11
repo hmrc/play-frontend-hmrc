@@ -42,11 +42,6 @@ class RichSelectSpec extends AnyWordSpec with Matchers with MessagesHelpers with
       select.name shouldBe "Select Name"
     }
 
-//    "use the Field name as the id if no Select id provided" in {
-//      val select = Select().withFormField(field)
-//      select.id shouldBe None
-//    }
-
     "use the Select id over the Field name if both exist" in {
       val select = Select(id = Some("Select Id")).withFormField(field)
       select.id shouldBe Some("Select Id")
