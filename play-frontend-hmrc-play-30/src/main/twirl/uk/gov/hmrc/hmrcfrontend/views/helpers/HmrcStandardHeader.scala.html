@@ -17,6 +17,7 @@
 @import uk.gov.hmrc.hmrcfrontend.views.html.components.HmrcHeader
 @import uk.gov.hmrc.hmrcfrontend.views.Aliases.{Cy, En, Header, UserResearchBanner}
 @import uk.gov.hmrc.govukfrontend.views.Aliases.PhaseBanner
+@import uk.gov.hmrc.govukfrontend.views.viewmodels.servicenavigation.ServiceNavigation
 
 @this(hmrcHeader: HmrcHeader)
 
@@ -28,11 +29,16 @@
   phaseBanner: Option[PhaseBanner] = None,
   displayHmrcBanner: Boolean = false,
   additionalBannersBlock: Option[Html] = None,
-  containerClasses: String = Header.defaultObject.containerClasses
+  containerClasses: String = Header.defaultObject.containerClasses,
+  serviceNavigation: Option[ServiceNavigation] = null // null used as sentinel to allow turning it off even if enabled in config
 )(implicit messages: Messages, request: RequestHeader)
+@**
+here we could check if serviceNavigation == null and if it does, grab the default from config, or else just use the
+supplied serviceNavigation - where using null isn't great but it's only used as an internal thing never exposed to users
+**@
 @defining("service.name") { serviceNameKey =>
   @defining(if(messages.isDefinedAt(serviceNameKey)) Some(messages(serviceNameKey)) else None) { serviceNameFromMessages =>
-    @hmrcHeader(Header(
+    @hmrcHeader(Header( // TODO change to HeaderWithServiceNavigation
       homepageUrl = messages("header.govuk.url"),
       serviceName = serviceName.orElse(serviceNameFromMessages),
       serviceUrl = serviceUrl.getOrElse(""),
