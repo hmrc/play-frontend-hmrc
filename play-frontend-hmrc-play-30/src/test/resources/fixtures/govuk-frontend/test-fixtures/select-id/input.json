@@ -1,0 +1,8 @@
+{
+  "id" : "select-id",
+  "name" : "test-name",
+  "label" : {
+    "text" : "Horse with no name"
+  },
+  "items" : [ ]
+}

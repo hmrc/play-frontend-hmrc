@@ -30,14 +30,6 @@ class GovukSelectSpec extends TemplateUnitSpec[Select, GovukSelect]("govukSelect
       } should have message "requirement failed: parameter 'name' should not be empty"
     }
 
-    "throw if id is not provided" in {
-      val invalidSelect = Select(name = "someName")
-
-      the[IllegalArgumentException] thrownBy {
-        component.render(invalidSelect)
-      } should have message "requirement failed: parameter 'id' should not be empty"
-    }
-
     "throw if passed value conflicts with selected item" in {
       val invalidSelect = Select(
         name = "my select",

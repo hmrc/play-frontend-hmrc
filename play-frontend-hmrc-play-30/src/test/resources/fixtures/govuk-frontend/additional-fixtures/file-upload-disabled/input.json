@@ -1,8 +1,0 @@
-{
-  "id" : "file-upload-1-disabled",
-  "name" : "file-upload-1-disabled",
-  "label" : {
-    "text" : "Upload a file"
-  },
-  "disabled": true
-}

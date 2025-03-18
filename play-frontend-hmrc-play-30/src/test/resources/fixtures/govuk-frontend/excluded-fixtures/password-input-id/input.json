@@ -1,0 +1,7 @@
+{
+  "id" : "password-id",
+  "name" : "testing-name",
+  "label" : {
+    "text" : "With custom id"
+  }
+}

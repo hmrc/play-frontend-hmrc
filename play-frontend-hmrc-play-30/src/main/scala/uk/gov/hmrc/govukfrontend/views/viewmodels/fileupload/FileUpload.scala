@@ -49,7 +49,15 @@ case class FileUpload(
   formGroup: FormGroup = FormGroup.empty,
   classes: String = "",
   attributes: Map[String, String] = Map.empty,
-  disabled: Option[Boolean] = None
+  disabled: Option[Boolean] = None,
+  multiple: Option[Boolean] = None,
+  javascript: Option[Boolean] = None,
+  chooseFilesButtonText: Option[String] = None,
+  dropInstructionText: Option[String] = None,
+  multipleFilesChosenText: Option[FileUploadMultipleFilesMessages] = None,
+  noFileChosenText: Option[String] = None,
+  enteredDropZoneText: Option[String] = None,
+  leftDropZoneText: Option[String] = None
 )
 
 object FileUpload {
@@ -68,7 +76,15 @@ object FileUpload {
         (__ \ "formGroup").readWithDefault[FormGroup](defaultObject.formGroup) and
         (__ \ "classes").readWithDefault[String](defaultObject.classes) and
         (__ \ "attributes").readWithDefault[Map[String, String]](defaultObject.attributes) and
-        (__ \ "disabled").readNullable[Boolean]
+        (__ \ "disabled").readNullable[Boolean] and
+        (__ \ "multiple").readNullable[Boolean] and
+        (__ \ "javascript").readNullable[Boolean] and
+        (__ \ "chooseFilesButtonText").readNullable[String] and
+        (__ \ "dropInstructionText").readNullable[String] and
+        (__ \ "multipleFilesChosenText").readNullable[FileUploadMultipleFilesMessages] and
+        (__ \ "noFileChosenText").readNullable[String] and
+        (__ \ "enteredDropZoneText").readNullable[String] and
+        (__ \ "leftDropZoneText").readNullable[String]
     )(FileUpload.apply _)
 
   implicit def jsonWrites: OWrites[FileUpload] =
@@ -83,7 +99,15 @@ object FileUpload {
         (__ \ "formGroup").write[FormGroup] and
         (__ \ "classes").write[String] and
         (__ \ "attributes").write[Map[String, String]] and
-        (__ \ "disabled").writeNullable[Boolean]
+        (__ \ "disabled").writeNullable[Boolean] and
+        (__ \ "multiple").writeNullable[Boolean] and
+        (__ \ "javascript").writeNullable[Boolean] and
+        (__ \ "chooseFilesButtonText").writeNullable[String] and
+        (__ \ "dropInstructionText").writeNullable[String] and
+        (__ \ "multipleFilesChosenText").writeNullable[FileUploadMultipleFilesMessages] and
+        (__ \ "noFileChosenText").writeNullable[String] and
+        (__ \ "enteredDropZoneText").writeNullable[String] and
+        (__ \ "leftDropZoneText").writeNullable[String]
     )(o => WritesUtils.unapplyCompat(unapply)(o))
 
 }

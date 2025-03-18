@@ -21,24 +21,53 @@
 
 @(params: FileUpload)
 @import params._
-@require(name.nonEmpty && id.nonEmpty, "name and id should not be empty")
-@govukFormGroup(formGroup, errorMessage) {
-  @govukLabel(Label(
-    forAttr = Some(id),
-    isPageHeading = label.isPageHeading,
-    classes = label.classes,
-    attributes = label.attributes,
-    content = label.content
-  ))
-  @govukHintAndErrorMessage(id, describedBy, hint, errorMessage)(inputSnippet)
+@require(name.nonEmpty, "parameter 'name' should not be empty")
+
+@nonEmptyId = @{
+    if(id.isEmpty) name else id
 }
 
-@inputSnippet(describedBy: String) = {
-  @defining {
-    id="@id" name="@name" type="file"@value.mapNonEmpty { value => value="@value" }@if(disabled.getOrElse(false)) { disabled}@if(describedBy.nonEmpty) { aria-describedby="@describedBy"}@toAttributes(attributes)
-  } { attrs =>
-      @formGroup.beforeInput.map(_.asHtml)
-      <input class="@toClasses("govuk-file-upload", classes, errorMessage.fold("")(_ => "govuk-file-upload--error"))" @attrs>
-      @formGroup.afterInput.map(_.asHtml)
-  }
+@dataAttributes = @{
+    val multipleFilesChosen: Map[String, String] = toGovukPluralisedI18nAttributes(
+        "multiple-files-chosen",
+        multipleFilesChosenText match {
+            case Some(text) => Some(Map("one" -> text.one, "other" -> text.other))
+            case _ => None
+        }
+    )
+    val maybeDataAttributes: Map[String, Option[String]] = Map(
+        "data-module" -> Some("govuk-file-upload"),
+        "data-i18n.choose-files-button" -> chooseFilesButtonText,
+        "data-i18n.no-file-chosen" -> noFileChosenText,
+        "data-i18n.drop-instruction" -> dropInstructionText,
+        "data-i18n.entered-drop-zone" -> enteredDropZoneText,
+        "data-i18n.left-drop-zone" -> leftDropZoneText
+    )
+  maybeDataAttributes
+  .flatMap { case (key, maybeValue) => maybeValue.map(value => (key, value)) }
+  .filter { case (_, value) => value.nonEmpty}  ++ multipleFilesChosen
+}
+
+
+@govukFormGroup(formGroup, errorMessage) {
+    @govukLabel(Label(
+        forAttr = Some(nonEmptyId),
+        isPageHeading = label.isPageHeading,
+        classes = label.classes,
+        attributes = label.attributes,
+        content = label.content
+    ))
+    @govukHintAndErrorMessage(nonEmptyId, describedBy, hint, errorMessage)(inputSnippet)
+}
+
+    @inputSnippet(describedBy: String) = {
+    @defining {
+        id="@nonEmptyId" name="@name" type="file"@value.mapNonEmpty { value => value="@value" }@if(disabled.getOrElse(false)) { disabled} @if(multiple.getOrElse(false)) { multiple}@if(describedBy.nonEmpty) { aria-describedby="@describedBy"}@toAttributes(attributes)
+    } { attrs =>
+        @formGroup.beforeInput.map(_.asHtml)
+        @if(javascript.getOrElse(false)) { <div class="govuk-drop-zone" @toAttributes(dataAttributes) > }
+        <input class="@toClasses("govuk-file-upload", classes, errorMessage.fold("")(_ => "govuk-file-upload--error"))" @attrs>
+        @if(javascript.getOrElse(false)) { </div> }
+        @formGroup.afterInput.map(_.asHtml)
+    }
 }

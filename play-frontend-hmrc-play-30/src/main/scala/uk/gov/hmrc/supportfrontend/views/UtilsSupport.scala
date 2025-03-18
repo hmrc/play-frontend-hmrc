@@ -62,4 +62,12 @@ trait UtilsSupport {
   def urlEncode(s: String): String =
     URLEncoder.encode(s, "UTF-8").replace("+", "%20")
 
+  def toGovukPluralisedI18nAttributes(
+    translationKey: String,
+    pluralForms: Option[Map[String, String]]
+  ): Map[String, String] =
+    pluralForms.getOrElse(Map.empty).map { case (key, value) =>
+      s"data-i18n.$translationKey.$key" -> value
+    }
+
 }

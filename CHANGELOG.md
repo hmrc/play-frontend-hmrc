@@ -8,6 +8,20 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 For compatibility information see `govukFrontendVersion` and `hmrcFrontendVersion` in
 [LibDependencies](project/LibDependencies.scala)
 
+## [11.13.0] - 2025-03-17
+
+### Changed
+
+- Updated `govuk-frontend` version to `5.9.0`
+- Updated `hmrc-frontend` version to `6.60.0`
+- `id` attributes no longer mandatory in `GovukCharacterCount`, `GovukFileUpload`, `GovukInput`, `GovukSelect`,  
+  `GovukTextarea`, `HmrcCharacterCount` - these will now use `name` as `id` if no `id` provided 
+
+### Compatible with
+
+- [hmrc/hmrc-frontend v6.60.0](https://github.com/hmrc/hmrc-frontend/releases/tag/v6.60.0)
+- [alphagov/govuk-frontend v5.9.0](https://github.com/alphagov/govuk-frontend/releases/tag/v5.9.0)
+
 ## [11.12.0] - 2025-03-03
 
 ### Changed

@@ -1,0 +1,9 @@
+<div class="govuk-form-group govuk-character-count" data-module="govuk-character-count" data-maxlength="10">
+  <label class="govuk-label" for="character-count-id">
+    With custom id
+  </label>
+  <textarea class="govuk-textarea govuk-js-character-count" id="character-count-id" name="test-name" rows="5" aria-describedby="character-count-id-info"></textarea>
+  <div id="character-count-id-info" class="govuk-hint govuk-character-count__message">
+    You can enter up to 10 characters
+  </div>
+</div>
