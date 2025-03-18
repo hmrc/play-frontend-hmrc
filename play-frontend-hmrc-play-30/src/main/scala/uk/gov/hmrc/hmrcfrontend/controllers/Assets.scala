@@ -17,6 +17,7 @@
 package uk.gov.hmrc.hmrcfrontend.controllers
 
 import controllers.{AssetsBuilder, AssetsMetadata}
+import play.api.Environment
 
 import javax.inject.{Inject, Singleton}
 import play.api.http.HttpErrorHandler
@@ -26,5 +27,6 @@ import play.api.http.HttpErrorHandler
  * [RuntimeException: java.lang.NoSuchMethodError: controllers.ReverseAssets.versioned(Ljava/lang/String;)Lplay/api/mvc/Call;]
  * when using Assets.
  */
-@Singleton // TODO migrate off deprecated AssetsBuilder once we drop Play 2.8 support
-class Assets @Inject() (errorHandler: HttpErrorHandler, meta: AssetsMetadata) extends AssetsBuilder(errorHandler, meta)
+@Singleton
+class Assets @Inject() (errorHandler: HttpErrorHandler, meta: AssetsMetadata, env: Environment)
+    extends AssetsBuilder(errorHandler, meta, env)
