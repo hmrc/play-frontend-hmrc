@@ -1,12 +1,12 @@
 
   <div class="govuk-form-group govuk-character-count" data-module="govuk-character-count" data-maxlength="10">
   <h1 class="govuk-label-wrapper">
-    <label class="govuk-label" for="textarea-with-page-heading">
+    <label class="govuk-label" for="address">
       Full address
     </label>
   </h1>
-  <textarea class="govuk-textarea govuk-js-character-count" id="textarea-with-page-heading" name="address" rows="5" aria-describedby="textarea-with-page-heading-info"></textarea>
-  <div id="textarea-with-page-heading-info" class="govuk-hint govuk-character-count__message">
+  <textarea class="govuk-textarea govuk-js-character-count" id="address" name="address" rows="5" aria-describedby="address-info"></textarea>
+  <div id="address-info" class="govuk-hint govuk-character-count__message">
     You can enter up to 10 characters
   </div>
 </div>

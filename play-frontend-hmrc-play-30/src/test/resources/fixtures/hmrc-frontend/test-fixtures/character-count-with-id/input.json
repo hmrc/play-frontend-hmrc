@@ -1,5 +1,6 @@
 {
   "name" : "more-detail",
+  "id" : "more-detail-with-id",
   "maxlength" : 10,
   "label" : {
     "text" : "Can you provide more detail?"

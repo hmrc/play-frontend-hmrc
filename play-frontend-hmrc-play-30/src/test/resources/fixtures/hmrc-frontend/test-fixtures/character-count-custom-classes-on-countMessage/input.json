@@ -1,5 +1,4 @@
 {
-  "id" : "with-custom-countmessage-class",
   "name" : "with-custom-countmessage-class",
   "maxlength" : 10,
   "label" : {
