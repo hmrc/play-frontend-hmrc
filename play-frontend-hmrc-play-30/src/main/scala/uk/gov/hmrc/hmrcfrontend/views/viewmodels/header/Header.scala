@@ -24,9 +24,11 @@ import uk.gov.hmrc.govukfrontend.views.viewmodels.CommonJsonFormats.{htmlReads, 
 import uk.gov.hmrc.govukfrontend.views.viewmodels.phasebanner.PhaseBanner
 import uk.gov.hmrc.hmrcfrontend.views.viewmodels.language.{Cy, En, Language, LanguageToggle}
 import uk.gov.hmrc.hmrcfrontend.views.viewmodels.userresearchbanner.UserResearchBanner
+import scala.language.implicitConversions
 
 import scala.collection.immutable.SortedMap
 
+// TODO? @deprecated("Use HeaderWithServiceNavigation instead of Header", "11.13.0")
 case class Header(
   homepageUrl: String = "/",
   assetsPath: String = "/assets/images",
@@ -67,6 +69,31 @@ case class Header(
 object Header {
 
   def defaultObject: Header = Header()
+
+  implicit def header2headerWithServiceNavigation(header: Header): HeaderWithServiceNavigation =
+    HeaderWithServiceNavigation(
+      header.homepageUrl,
+      header.assetsPath,
+      header.productName,
+      header.serviceName,
+      header.serviceUrl,
+      header.navigation,
+      header.navigationClasses,
+      header.containerClasses,
+      header.classes,
+      header.attributes,
+      header.language,
+      header.displayHmrcBanner,
+      header.useTudorCrown,
+      header.signOutHref,
+      header.inputLanguageToggle,
+      header.userResearchBanner,
+      header.phaseBanner,
+      header.additionalBannersBlock,
+      header.menuButtonLabel,
+      header.menuButtonText,
+      header.navigationLabel
+    )
 
   implicit def jsonReads: Reads[Header] =
     (

@@ -19,6 +19,7 @@ package uk.gov.hmrc.hmrcfrontend.views.components
 import uk.gov.hmrc.support.ScalaCheckUtils.ClassifyParams
 import uk.gov.hmrc.hmrcfrontend.support.TemplateIntegrationSpec
 import uk.gov.hmrc.hmrcfrontend.views.html.components._
+import uk.gov.hmrc.hmrcfrontend.views.viewmodels.header.HeaderWithServiceNavigation
 
 // We use the below instead of a true arbitrary as the `hmrc-frontend` Nunjucks
 // model of Header is less flexible and specifically requests the href for `cy`
@@ -28,7 +29,10 @@ import uk.gov.hmrc.hmrcfrontend.views.viewmodels.header.Header
 import uk.gov.hmrc.hmrcfrontend.views.viewmodels.language.En
 
 object HmrcHeaderIntegrationSpec
-    extends TemplateIntegrationSpec[Header, HmrcHeader](hmrcComponentName = "hmrcHeader", seed = None) {
+    extends TemplateIntegrationSpec[HeaderWithServiceNavigation, HmrcHeader](
+      hmrcComponentName = "hmrcHeader",
+      seed = None
+    ) {
 
   override def classifiers(header: Header): LazyList[ClassifyParams] =
     (header.homepageUrl.isEmpty, "empty homepageUrl", "non-empty homepageUrl") #::
