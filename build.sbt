@@ -1,6 +1,6 @@
 import uk.gov.hmrc.DefaultBuildSettings
 
-val scala2_13 = "2.13.12"
+val scala2_13 = "2.13.15"
 val scala3    = "3.3.3"
 
 ThisBuild / majorVersion := 12
