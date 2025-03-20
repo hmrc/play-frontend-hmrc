@@ -1,10 +1,10 @@
 
   <div class="govuk-form-group govuk-character-count" data-module="govuk-character-count" data-maxlength="10">
-  <label class="govuk-label" for="1_more-detail">
+  <label class="govuk-label" for="more-detail">
     Can you provide more detail?
   </label>
-  <textarea class="govuk-textarea govuk-js-character-count" id="1_more-detail" name="more-detail" rows="5" aria-describedby="1_more-detail-info"></textarea>
-  <div id="1_more-detail-info" class="govuk-hint govuk-character-count__message">
+  <textarea class="govuk-textarea govuk-js-character-count" id="more-detail" name="more-detail" rows="5" aria-describedby="more-detail-info"></textarea>
+  <div id="more-detail-info" class="govuk-hint govuk-character-count__message">
     You can enter up to 10 characters
   </div>
 </div>

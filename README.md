@@ -57,7 +57,6 @@ of implementing frontend microservices straightforward and idiomatic for Scala d
 This library is currently compatible with:
 * Play 3.0 - Scala 2.13 / 3
 * Play 2.9 - Scala 2.13
-* Play 2.8 - Scala 2.13
 
 ### Understanding library changes between versions
 
@@ -367,7 +366,7 @@ object DateFormBinder {
 ```  
 
 In the code above, `dayConstraint`, `monthConstraint`, `yearConstraint` and `dateConstraint` would be defined  
-as per the [Play documentation](https://www.playframework.com/documentation/2.8.x/ScalaCustomValidations) on custom  
+as per the [Play documentation](https://www.playframework.com/documentation/3.0.x/ScalaCustomValidations) on custom  
 validations.
 
 The controller submit method for this form might look like:
@@ -973,7 +972,7 @@ requires that users are able to turn off, adjust or extend the time limit, givin
 a simple action.
 
 On MDTP, users are, by default, automatically timed out of any authenticated service after 15 minutes
-of inactivity. This mechanism, implemented in [SessionTimeoutFilter](https://github.com/hmrc/bootstrap-play/blob/main/bootstrap-frontend-play-28/src/main/scala/uk/gov/hmrc/play/bootstrap/frontend/filters/SessionTimeoutFilter.scala),
+of inactivity. This mechanism, implemented in [SessionTimeoutFilter](https://github.com/hmrc/bootstrap-play/blob/main/bootstrap-frontend-play-30/src/main/scala/uk/gov/hmrc/play/bootstrap/frontend/filters/SessionTimeoutFilter.scala),
 clears all non-allow-listed session keys after the timeout duration has elapsed. Services can override this default by adjusting the
 `session.timeout` configuration key in `conf/application.conf`.
 

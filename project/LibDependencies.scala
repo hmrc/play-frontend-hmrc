@@ -2,12 +2,11 @@ import sbt._
 
 object LibDependencies {
   val govukFrontendVersion: String = "5.9.0"
-  val hmrcFrontendVersion: String  = "6.60.0"
-  val playLanguageVersion: String  = "8.1.0"
+  val hmrcFrontendVersion: String  = "6.62.0"
+  val playLanguageVersion: String  = "9.0.0"
 
-  val play28Version = "2.8.22"
   val play29Version = "2.9.4"
-  val play30Version = "3.0.5"
+  val play30Version = "3.0.6"
 
   val shared = Seq(
     "uk.gov.hmrc.webjars"           % "hmrc-frontend"    % hmrcFrontendVersion,
@@ -17,17 +16,8 @@ object LibDependencies {
     "com.googlecode.htmlcompressor" % "htmlcompressor"   % "1.5.2"    % Test,
     "com.github.pathikrit"         %% "better-files"     % "3.9.2"    % Test,
     "com.lihaoyi"                  %% "pprint"           % "0.6.6"    % Test,
-    "org.bitbucket.cowwoc"          % "diff-match-patch" % "1.2"      % Test
-  )
-
-  val play28 = Seq(
-    "uk.gov.hmrc"            %% "play-language-play-28" % playLanguageVersion,
-    "com.typesafe.play"      %% "play"                  % play28Version,
-    "com.typesafe.play"      %% "filters-helpers"       % play28Version,
-    "com.typesafe.play"      %% "play-test"             % play28Version % Test,
-    "com.typesafe.play"      %% "play-ahc-ws"           % play28Version % Test,
-    "org.scalatestplus.play" %% "scalatestplus-play"    % "5.1.0"       % Test,
-    "com.vladsch.flexmark"    % "flexmark-all"          % "0.64.8"      % Test
+    "org.bitbucket.cowwoc"          % "diff-match-patch" % "1.2"      % Test,
+    "com.vladsch.flexmark"          % "flexmark-all"     % "0.64.8"   % Test
   )
 
   val play29 = Seq(
@@ -36,8 +26,7 @@ object LibDependencies {
     "com.typesafe.play"      %% "play-filters-helpers"  % play29Version,
     "com.typesafe.play"      %% "play-test"             % play29Version % Test,
     "com.typesafe.play"      %% "play-ahc-ws"           % play29Version % Test,
-    "org.scalatestplus.play" %% "scalatestplus-play"    % "6.0.1"       % Test,
-    "com.vladsch.flexmark"    % "flexmark-all"          % "0.64.8"      % Test
+    "org.scalatestplus.play" %% "scalatestplus-play"    % "6.0.1"       % Test
   )
 
   val play30 = Seq(
@@ -46,7 +35,6 @@ object LibDependencies {
     "org.playframework"      %% "play-filters-helpers"  % play30Version,
     "org.playframework"      %% "play-test"             % play30Version % Test,
     "org.playframework"      %% "play-ahc-ws"           % play30Version % Test,
-    "org.scalatestplus.play" %% "scalatestplus-play"    % "7.0.1"       % Test,
-    "com.vladsch.flexmark"    % "flexmark-all"          % "0.64.8"      % Test
+    "org.scalatestplus.play" %% "scalatestplus-play"    % "7.0.1"       % Test
   )
 }

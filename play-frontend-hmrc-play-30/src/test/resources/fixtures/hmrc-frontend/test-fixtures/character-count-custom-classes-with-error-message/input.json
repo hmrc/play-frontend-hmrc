@@ -1,5 +1,4 @@
 {
-  "id" : "with-custom-error-class",
   "name" : "with-custom-error-class",
   "maxlength" : 10,
   "label" : {

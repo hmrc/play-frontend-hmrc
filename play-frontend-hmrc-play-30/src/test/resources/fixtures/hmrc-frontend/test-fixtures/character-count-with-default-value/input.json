@@ -1,5 +1,4 @@
 {
-  "id" : "with-default-value",
   "name" : "default-value",
   "maxlength" : 100,
   "label" : {

@@ -1,5 +1,4 @@
 {
-  "id" : "custom-rows",
   "name" : "custom",
   "maxlength" : 10,
   "label" : {

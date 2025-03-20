@@ -1,5 +1,4 @@
 {
-  "id" : "with-attributes",
   "name" : "with-attributes",
   "maxlength" : 10,
   "label" : {

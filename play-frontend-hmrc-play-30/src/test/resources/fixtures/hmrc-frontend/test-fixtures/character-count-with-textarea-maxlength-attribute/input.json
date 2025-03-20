@@ -1,5 +1,4 @@
 {
-  "id" : "maxlength-should-be-removed",
   "name" : "address",
   "maxlength" : 10,
   "attributes" : {

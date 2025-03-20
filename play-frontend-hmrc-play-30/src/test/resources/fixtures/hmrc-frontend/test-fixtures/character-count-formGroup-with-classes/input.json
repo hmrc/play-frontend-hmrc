@@ -1,5 +1,4 @@
 {
-  "id" : "with-formgroup",
   "name" : "with-formgroup",
   "maxlength" : 10,
   "label" : {
