@@ -21,10 +21,11 @@
 @import uk.gov.hmrc.hmrcfrontend.views.viewmodels.language.Cy
 @import uk.gov.hmrc.hmrcfrontend.config.TudorCrownConfig
 @import uk.gov.hmrc.hmrcfrontend.views.Utils.nonEmptyStringOrDefault
+@import uk.gov.hmrc.hmrcfrontend.views.viewmodels.header.HeaderWithServiceNavigation
 
 @this(hmrcBanner: HmrcBanner, hmrcUserResearchBanner: HmrcUserResearchBanner, govukPhaseBanner: GovukPhaseBanner, tudorCrownConfig: TudorCrownConfig)
 
-@(params: Header)
+@(params: HeaderWithServiceNavigation)
 @import params._
 
 @containerClassList = @{
@@ -153,6 +154,7 @@
       </div>
     }
     @additionalBannersBlock
+    @**TODO output serviceNavigation wherever it should go**@
 </header>
 
 @serviceNameLinkOrSpan(serviceName: Option[String], serviceUrl: String) = {

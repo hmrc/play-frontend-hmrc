@@ -20,10 +20,11 @@ package components
 import play.api.Application
 import play.api.inject.guice.GuiceApplicationBuilder
 import uk.gov.hmrc.hmrcfrontend.views.html.components._
+import uk.gov.hmrc.hmrcfrontend.views.viewmodels.header.HeaderWithServiceNavigation
 
 import scala.util.Try
 
-class HmrcHeaderSpec extends TemplateUnitSpec[Header, HmrcHeader]("hmrcHeader") {
+class HmrcHeaderSpec extends TemplateUnitSpec[HeaderWithServiceNavigation, HmrcHeader]("hmrcHeader") {
 
   def buildAnotherApp(properties: Map[String, String] = Map.empty): Application =
     new GuiceApplicationBuilder()
