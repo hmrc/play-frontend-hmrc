@@ -19,6 +19,7 @@ package uk.gov.hmrc.hmrcfrontend.views.viewmodels.header
 import play.api.libs.json.{OWrites, Reads}
 import play.twirl.api.Html
 import uk.gov.hmrc.govukfrontend.views.viewmodels.phasebanner.PhaseBanner
+import uk.gov.hmrc.govukfrontend.views.viewmodels.servicenavigation.ServiceNavigation
 import uk.gov.hmrc.hmrcfrontend.views.viewmodels.language.{Cy, En, Language, LanguageToggle}
 import uk.gov.hmrc.hmrcfrontend.views.viewmodels.userresearchbanner.UserResearchBanner
 
@@ -45,7 +46,8 @@ case class HeaderWithServiceNavigation(
   additionalBannersBlock: Option[Html] = None,
   menuButtonLabel: Option[String] = None,
   menuButtonText: Option[String] = None,
-  navigationLabel: Option[String] = None
+  navigationLabel: Option[String] = None,
+  serviceNavigation: Option[ServiceNavigation] = None
 ) {
   // We use this method instead of using the input language toggle directly
   // as the version in `hmrc-frontend` is less flexible, and sets a default

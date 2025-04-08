@@ -16,16 +16,18 @@
 
 @import uk.gov.hmrc.govukfrontend.views.html.components.GovukPhaseBanner
 @import uk.gov.hmrc.hmrcfrontend.views.html.components.{HmrcBanner, HmrcUserResearchBanner}
-@import uk.gov.hmrc.hmrcfrontend.views.Aliases.{Banner, Header, UserResearchBanner}
+@import uk.gov.hmrc.hmrcfrontend.views.Aliases.{Banner, UserResearchBanner}
 @import uk.gov.hmrc.hmrcfrontend.views.Utils._
 @import uk.gov.hmrc.hmrcfrontend.views.viewmodels.language.Cy
 @import uk.gov.hmrc.hmrcfrontend.config.TudorCrownConfig
 @import uk.gov.hmrc.hmrcfrontend.views.Utils.nonEmptyStringOrDefault
 @import uk.gov.hmrc.hmrcfrontend.views.viewmodels.header.HeaderWithServiceNavigation
+@import uk.gov.hmrc.govukfrontend.views.html.components.GovukServiceNavigation
 
-@this(hmrcBanner: HmrcBanner, hmrcUserResearchBanner: HmrcUserResearchBanner, govukPhaseBanner: GovukPhaseBanner, tudorCrownConfig: TudorCrownConfig)
+@this(hmrcBanner: HmrcBanner, hmrcUserResearchBanner: HmrcUserResearchBanner, govukPhaseBanner: GovukPhaseBanner, tudorCrownConfig: TudorCrownConfig, govukServiceNavigation: GovukServiceNavigation)
 
-@(params: HeaderWithServiceNavigation)
+@* annoying that we didn't already pass request or messages, probably low impact change *@
+@(params: HeaderWithServiceNavigation)(implicit messages: Messages)
 @import params._
 
 @containerClassList = @{
@@ -88,7 +90,9 @@
 
         @if(serviceName.exists(_.nonEmpty) || signOutHref.exists(_.nonEmpty) || (navigation.getOrElse(Seq.empty).nonEmpty) || languageToggle.exists(_.linkMap.nonEmpty)) {
         <div class="govuk-header__content">
-          @serviceNameLinkOrSpan(serviceName, serviceUrl)
+          @if(serviceNavigation.isEmpty) {
+            @serviceNameLinkOrSpan(serviceName, serviceUrl)
+          }
           @if(navigation.getOrElse(Seq.empty).nonEmpty) {
           <nav aria-label="@params.navigationLabel.getOrElse(menuButtonText)" class="@toClasses("govuk-header__navigation", navigationClasses)">
             <button type="button" class="govuk-header__menu-button govuk-js-header-toggle" aria-controls="navigation" @menuButtonAriaLabel hidden> @menuButtonText </button>
@@ -154,7 +158,13 @@
       </div>
     }
     @additionalBannersBlock
-    @**TODO output serviceNavigation wherever it should go**@
+    @* TODO not right spot, just to have an example of approach *@
+    @serviceNavigation.map { serviceNavigation =>
+      @govukServiceNavigation(serviceNavigation.copy(
+        serviceName = serviceName,
+        // TODO map language select param into new html within the right slot
+      ))
+    }
 </header>
 
 @serviceNameLinkOrSpan(serviceName: Option[String], serviceUrl: String) = {
