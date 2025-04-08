@@ -18,8 +18,10 @@
 @import uk.gov.hmrc.hmrcfrontend.views.Aliases.{Cy, En, Header, UserResearchBanner}
 @import uk.gov.hmrc.govukfrontend.views.Aliases.PhaseBanner
 @import uk.gov.hmrc.govukfrontend.views.viewmodels.servicenavigation.ServiceNavigation
+@import uk.gov.hmrc.hmrcfrontend.views.config.DefaultServiceNavigation
+@import uk.gov.hmrc.hmrcfrontend.views.viewmodels.header.HeaderWithServiceNavigation
 
-@this(hmrcHeader: HmrcHeader)
+@this(hmrcHeader: HmrcHeader, defaultServiceNavigation: DefaultServiceNavigation)
 
 @(
   serviceName: Option[String] = None,
@@ -36,11 +38,10 @@
 here we could check if serviceNavigation == null and if it does, grab the default from config, or else just use the
 supplied serviceNavigation - where using null isn't great but it's only used as an internal thing never exposed to users
 **@
-@defining("service.name") { serviceNameKey =>
-  @defining(if(messages.isDefinedAt(serviceNameKey)) Some(messages(serviceNameKey)) else None) { serviceNameFromMessages =>
-    @hmrcHeader(Header( // TODO change to HeaderWithServiceNavigation
+@defining(if (serviceNavigation == null) defaultServiceNavigation.get else serviceNavigation) { serviceNavigation =>
+    @hmrcHeader(HeaderWithServiceNavigation(
       homepageUrl = messages("header.govuk.url"),
-      serviceName = serviceName.orElse(serviceNameFromMessages),
+      serviceName = serviceName.orElse(messages.translate("service.name", Nil)),
       serviceUrl = serviceUrl.getOrElse(""),
       signOutHref = signOutUrl,
       language = if(messages.lang.code == "cy") Cy else En,
@@ -49,7 +50,7 @@ supplied serviceNavigation - where using null isn't great but it's only used as 
       phaseBanner = phaseBanner,
       displayHmrcBanner = displayHmrcBanner,
       additionalBannersBlock = additionalBannersBlock,
-      containerClasses = containerClasses
+      containerClasses = containerClasses,
+      serviceNavigation = serviceNavigation
     ))
-  }
 }
