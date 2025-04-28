@@ -26,15 +26,13 @@ trait DefaultServiceNavigation {
   def get(implicit rh: RequestHeader): Option[ServiceNavigation]
 }
 
-// probably not worth having this, but leave it as an example in case we
-// really don't want to have the serviceNavigation = null by default in
-// hmrcStandardHeader as a way of allowing people to override how it's
-// enabled without having to stop using our standard components, where
-// with this they could instead disable the module that wires this up
-// by default and implement their own strategy for enabling it.
+// Took this from Oscar's draft PRs
+// Have method to return ServiceNavigation if the feature flag is enabled.
+// Can be injected by Service Teams to avoid creating Service Navigation manually.
+// We cannot pass any arguments to the ServiceNavigation at this point, because it's used as default value for argument in view.
 class DefaultServiceNavigationFromConfig @Inject() (configuration: Configuration) extends DefaultServiceNavigation {
   private val enabledThroughConfig =
-    configuration.get[Boolean]("play-frontend-hmrc.move-display-of-service-name-into-service-navigation")
+    configuration.get[Boolean]("play-frontend-hmrc.enable-default-service-navigation")
 
   override def get(implicit rh: RequestHeader): Option[ServiceNavigation] = {
     // we just have it as ServiceNavigation() because at the moment the idea

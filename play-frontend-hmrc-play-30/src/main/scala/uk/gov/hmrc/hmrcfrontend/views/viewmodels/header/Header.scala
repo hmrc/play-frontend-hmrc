@@ -28,8 +28,6 @@ import uk.gov.hmrc.hmrcfrontend.views.viewmodels.userresearchbanner.UserResearch
 
 import scala.collection.immutable.SortedMap
 
-// TODO? @deprecated("Use HeaderWithServiceNavigation instead of Header", "12.1.0")
-// TODO: Will we bump a major version with header change? Update correct version in above line
 case class Header(
   homepageUrl: String = "/",
   assetsPath: String = "/assets/images",
