@@ -17,8 +17,12 @@
 @import uk.gov.hmrc.hmrcfrontend.views.html.components.HmrcHeader
 @import uk.gov.hmrc.hmrcfrontend.views.Aliases.{Cy, En, Header, UserResearchBanner}
 @import uk.gov.hmrc.govukfrontend.views.Aliases.PhaseBanner
+@import uk.gov.hmrc.govukfrontend.views.Aliases.ServiceNavigation
+@import uk.gov.hmrc.hmrcfrontend.views.Aliases.LanguageToggle
+@import uk.gov.hmrc.hmrcfrontend.views.config.DefaultServiceNavigationFromConfig
+@import uk.gov.hmrc.hmrcfrontend.views.html.helpers.HmrcLanguageServiceNavigationHelper
 
-@this(hmrcHeader: HmrcHeader)
+@this(hmrcHeader: HmrcHeader, hmrcLanguageServiceNavigationHelper: HmrcLanguageServiceNavigationHelper, defaultServiceNavigationFromConfig: DefaultServiceNavigationFromConfig)
 
 @(
   serviceName: Option[String] = None,
@@ -28,22 +32,27 @@
   phaseBanner: Option[PhaseBanner] = None,
   displayHmrcBanner: Boolean = false,
   additionalBannersBlock: Option[Html] = None,
-  containerClasses: String = Header.defaultObject.containerClasses
+  containerClasses: String = Header.defaultObject.containerClasses,
+  isWelshTranslationAvailable: Boolean = false,
+  serviceNavigation: Option[ServiceNavigation] = None
 )(implicit messages: Messages, request: RequestHeader)
+
 @defining("service.name") { serviceNameKey =>
   @defining(if(messages.isDefinedAt(serviceNameKey)) Some(messages(serviceNameKey)) else None) { serviceNameFromMessages =>
-    @hmrcHeader(Header(
-      homepageUrl = messages("header.govuk.url"),
-      serviceName = serviceName.orElse(serviceNameFromMessages),
-      serviceUrl = serviceUrl.getOrElse(""),
-      signOutHref = signOutUrl,
-      language = if(messages.lang.code == "cy") Cy else En,
-      assetsPath = uk.gov.hmrc.hmrcfrontend.controllers.routes.Assets.at("govuk/images").url,
-      userResearchBanner = userResearchBanner,
-      phaseBanner = phaseBanner,
-      displayHmrcBanner = displayHmrcBanner,
-      additionalBannersBlock = additionalBannersBlock,
-      containerClasses = containerClasses
-    ))
+      @hmrcHeader(Header(
+          homepageUrl = messages("header.govuk.url"),
+          serviceName = serviceName.orElse(serviceNameFromMessages),
+          serviceUrl = serviceUrl.getOrElse(""),
+          signOutHref = signOutUrl,
+          language = if(messages.lang.code == "cy") Cy else En,
+          assetsPath = uk.gov.hmrc.hmrcfrontend.controllers.routes.Assets.at("govuk/images").url,
+          inputLanguageToggle = if(isWelshTranslationAvailable && serviceNavigation.nonEmpty) Some(LanguageToggle()) else None,
+          userResearchBanner = userResearchBanner,
+          phaseBanner = phaseBanner,
+          displayHmrcBanner = displayHmrcBanner,
+          additionalBannersBlock = additionalBannersBlock,
+          containerClasses = containerClasses,
+          serviceNavigation = serviceNavigation
+      ))
   }
 }

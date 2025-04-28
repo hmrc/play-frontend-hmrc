@@ -21,18 +21,33 @@
 @import uk.gov.hmrc.hmrcfrontend.views.viewmodels.language.Cy
 @import uk.gov.hmrc.hmrcfrontend.config.TudorCrownConfig
 @import uk.gov.hmrc.hmrcfrontend.views.Utils.nonEmptyStringOrDefault
+@import uk.gov.hmrc.govukfrontend.views.html.components.GovukServiceNavigation
+@import uk.gov.hmrc.hmrcfrontend.views.html.helpers.HmrcLanguageServiceNavigationHelper
+@import uk.gov.hmrc.govukfrontend.views.Aliases.ServiceNavigation
 
-@this(hmrcBanner: HmrcBanner, hmrcUserResearchBanner: HmrcUserResearchBanner, govukPhaseBanner: GovukPhaseBanner, tudorCrownConfig: TudorCrownConfig)
+@this(
+        hmrcBanner: HmrcBanner,
+        hmrcUserResearchBanner: HmrcUserResearchBanner,
+        govukPhaseBanner: GovukPhaseBanner,
+        tudorCrownConfig: TudorCrownConfig,
+        govukServiceNavigation: GovukServiceNavigation,
+        hmrcLanguageServiceNavigationHelper: HmrcLanguageServiceNavigationHelper
+)
 
-@(params: Header)
+@(params: Header)(implicit messages: Messages)
 @import params._
 
 @containerClassList = @{
   Seq("govuk-header__container", nonEmptyStringOrDefault(Option(containerClasses), "govuk-width-container")).mkString(" ")
 }
 
+@serviceNavOpt = @{serviceNavigation.map { serviceNavigation =>
+  val updatedNameAndUrl = serviceNavigation.addServiceNameAndUrl(serviceName, serviceUrl)
+  updatedNameAndUrl.addLanguageToggle(languageToggleServiceNav.nonEmpty, hmrcLanguageServiceNavigationHelper().toString)
+}}
+
 <header>
-    <div class="govuk-header @toClasses("hmrc-header", classes)@if(signOutHref.exists(_.nonEmpty) || languageToggle.exists(_.linkMap.nonEmpty)){ hmrc-header--with-additional-navigation}" data-module="govuk-header"
+    <div class="govuk-header @if(serviceNavigation.nonEmpty){govuk-header--full-width-border} @toClasses("hmrc-header", classes)@if(signOutHref.exists(_.nonEmpty) || languageToggle.exists(_.linkMap.nonEmpty)){ hmrc-header--with-additional-navigation}" data-module="govuk-header"
             @toAttributes(attributes)>
       <div class="@toClasses(containerClassList)">
         <div class="govuk-header__logo">
@@ -87,7 +102,9 @@
 
         @if(serviceName.exists(_.nonEmpty) || signOutHref.exists(_.nonEmpty) || (navigation.getOrElse(Seq.empty).nonEmpty) || languageToggle.exists(_.linkMap.nonEmpty)) {
         <div class="govuk-header__content">
-          @serviceNameLinkOrSpan(serviceName, serviceUrl)
+          @if(serviceNavigation.isEmpty) {
+            @serviceNameLinkOrSpan(serviceName, serviceUrl)
+          }
           @if(navigation.getOrElse(Seq.empty).nonEmpty) {
           <nav aria-label="@params.navigationLabel.getOrElse(menuButtonText)" class="@toClasses("govuk-header__navigation", navigationClasses)">
             <button type="button" class="govuk-header__menu-button govuk-js-header-toggle" aria-controls="navigation" @menuButtonAriaLabel hidden> @menuButtonText </button>
@@ -118,7 +135,7 @@
             </a>
           </nav>
           }
-          case (_, Some(linkMap)) if linkMap.nonEmpty => {
+          case (_, Some(linkMap)) if linkMap.nonEmpty && serviceNavigation.isEmpty => {
           <nav class="hmrc-language-select" aria-label="@{language match {
             case Cy => "Dewiswch iaith"
             case _ => "Choose a language"
@@ -139,6 +156,17 @@
         } else {}
       </div>
     </div>
+    @if(displayHmrcBanner){
+      <div class="govuk-width-container">
+        @hmrcBanner(Banner(language, useTudorCrown))
+      </div>
+    }
+
+  @if(serviceNavOpt.nonEmpty) {
+    <div class="govuk-header--full-width-border">
+      @govukServiceNavigation(serviceNavOpt.get)
+    </div>
+  }
     @phaseBanner.map { pb =>
       <div class="govuk-width-container">
         @govukPhaseBanner(pb)
@@ -146,11 +174,6 @@
     }
     @userResearchBanner.map { urb =>
         @hmrcUserResearchBanner(UserResearchBanner(language, urb.url))
-    }
-    @if(displayHmrcBanner){
-      <div class="govuk-width-container">
-        @hmrcBanner(Banner(language, useTudorCrown))
-      </div>
     }
     @additionalBannersBlock
 </header>
