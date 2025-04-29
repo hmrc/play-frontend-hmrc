@@ -23,7 +23,6 @@
 @import uk.gov.hmrc.hmrcfrontend.views.Utils.nonEmptyStringOrDefault
 @import uk.gov.hmrc.govukfrontend.views.html.components.GovukServiceNavigation
 @import uk.gov.hmrc.hmrcfrontend.views.html.helpers.HmrcLanguageServiceNavigationHelper
-@import uk.gov.hmrc.govukfrontend.views.Aliases.ServiceNavigation
 
 @this(
         hmrcBanner: HmrcBanner,
@@ -41,8 +40,8 @@
   Seq("govuk-header__container", nonEmptyStringOrDefault(Option(containerClasses), "govuk-width-container")).mkString(" ")
 }
 
-@serviceNavOpt = @{serviceNavigation.map { serviceNavigation =>
-  val updatedNameAndUrl = serviceNavigation.addServiceNameAndUrl(serviceName, serviceUrl)
+@serviceNavOpt = @{serviceNavigation.map { serviceNav =>
+  val updatedNameAndUrl = serviceNav.addServiceNameAndUrl(serviceName, serviceUrl)
   updatedNameAndUrl.addLanguageToggle(languageToggleServiceNav.nonEmpty, hmrcLanguageServiceNavigationHelper().toString)
 }}
 
