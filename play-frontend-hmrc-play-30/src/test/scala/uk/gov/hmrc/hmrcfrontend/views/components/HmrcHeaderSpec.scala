@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 HM Revenue & Customs
+ * Copyright 2025 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,11 +19,12 @@ package components
 
 import play.api.Application
 import play.api.inject.guice.GuiceApplicationBuilder
+import uk.gov.hmrc.helpers.MessagesSupport
 import uk.gov.hmrc.hmrcfrontend.views.html.components._
 
 import scala.util.Try
 
-class HmrcHeaderSpec extends TemplateUnitSpec[Header, HmrcHeader]("hmrcHeader") {
+class HmrcHeaderSpec extends TemplateUnitSpec[Header, HmrcHeader]("hmrcHeader") with MessagesSupport {
 
   def buildAnotherApp(properties: Map[String, String] = Map.empty): Application =
     new GuiceApplicationBuilder()

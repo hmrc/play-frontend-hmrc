@@ -17,6 +17,7 @@
 package uk.gov.hmrc.hmrcfrontend.views.viewmodels.hmrcstandardpage
 
 import uk.gov.hmrc.govukfrontend.views.Aliases.{BackLink, ExitThisPage}
+import uk.gov.hmrc.govukfrontend.views.viewmodels.servicenavigation.ServiceNavigation
 
 case class HmrcStandardPageParams(
   serviceURLs: ServiceURLs = ServiceURLs(),
@@ -26,5 +27,6 @@ case class HmrcStandardPageParams(
   isWelshTranslationAvailable: Boolean = false,
   pageTitle: Option[String] = None,
   backLink: Option[BackLink] = None,
-  exitThisPage: Option[ExitThisPage] = None
+  exitThisPage: Option[ExitThisPage] = None,
+  serviceNavigation: Option[ServiceNavigation] = None
 )

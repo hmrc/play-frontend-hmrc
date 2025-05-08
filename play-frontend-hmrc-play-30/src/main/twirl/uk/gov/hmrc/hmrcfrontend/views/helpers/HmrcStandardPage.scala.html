@@ -51,12 +51,14 @@
         phaseBanner = banners.phaseBanner,
         displayHmrcBanner = banners.displayHmrcBanner,
         additionalBannersBlock = banners.additionalBannersBlock,
-        containerClasses = templateOverrides.headerContainerClasses
+        containerClasses = templateOverrides.headerContainerClasses,
+        isWelshTranslationAvailable = isWelshTranslationAvailable,
+        serviceNavigation = serviceNavigation
     )
 }
 
 @beforeContent = {
-    @if(isWelshTranslationAvailable) {
+    @if(isWelshTranslationAvailable && serviceNavigation.isEmpty) {
         @hmrcLanguageSelectHelper()
     }
     @backLink.map { link =>

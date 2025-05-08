@@ -35,10 +35,32 @@ case class ServiceNavigation(
   menuButtonText: Option[String] = None,
   menuButtonLabel: Option[String] = None,
   slots: Option[ServiceNavigationSlot] = None
-)
+) {
+  // serviceNavUrl is defaulted to empty string in the view, so it's not optional here
+  // Check if we would like to handle it and if empty put None
+  def addServiceNameAndUrl(serviceNavName: Option[String], serviceNavUrl: String): ServiceNavigation = {
+    (serviceName, serviceUrl) match {
+      case (Some(_), Some(_)) => this
+      case (None, Some(_)) => this.copy(serviceName = serviceNavName)
+      case (Some(_), None) => this.copy(serviceUrl = Some(serviceNavUrl))
+      case (None, None) => this.copy(serviceName = serviceNavName, serviceUrl = Some(serviceNavUrl))
+    }
+  }
+
+  def addLanguageToggle(displayLanguage: Boolean, languageToggle: String): ServiceNavigation = {
+    if(displayLanguage) {
+      val slotsWithToggle = if(slots.isEmpty)
+        Some(ServiceNavigationSlot(end = Some(languageToggle)))
+      else slots.map(slot => slot.copy(end = Some(languageToggle)))
+
+      this.copy(slots = slotsWithToggle)
+    } else this
+  }
+}
 
 object ServiceNavigation {
   def defaultObject: ServiceNavigation             = ServiceNavigation()
+
   implicit def jsonReads: Reads[ServiceNavigation] =
     (
       (__ \ "serviceName").readNullable[String] and

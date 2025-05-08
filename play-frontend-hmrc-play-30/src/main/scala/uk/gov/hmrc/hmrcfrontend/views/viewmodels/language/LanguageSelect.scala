@@ -33,6 +33,10 @@ case class LanguageSelect(language: Language, private val languageLinks: (Langua
     LanguageToggle(linkMapWithDefaults.toArray: _*)
   }
 
+  val languageToggleServiceNav: LanguageToggle = {
+    val linkMapWithDefaults = Map[Language, String](EnServiceNavigation -> "", CyServiceNavigation -> "") ++ languageLinks
+    LanguageToggle(linkMapWithDefaults.toArray: _*)
+  }
 }
 
 object LanguageSelect {

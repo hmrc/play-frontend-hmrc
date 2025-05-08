@@ -30,8 +30,10 @@ trait Aliases {
   val CheckProgress = viewmodels.accountmenu.CheckProgress
 
   val Cy = viewmodels.language.Cy
+  val CyServiceNavigation = viewmodels.language.CyServiceNavigation
 
   val En = viewmodels.language.En
+  val EnServiceNavigation = viewmodels.language.EnServiceNavigation
 
   type Header = viewmodels.header.Header
   val Header = viewmodels.header.Header
