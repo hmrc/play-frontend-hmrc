@@ -547,7 +547,7 @@ For example, how you could use `HmrcPageHeadingLegend` with `GovukRadios`:
 @import uk.gov.hmrc.govukfrontend.views.html.components.implicits._
 @import uk.gov.hmrc.hmrcfrontend.views.config.HmrcPageHeadingLegend
 
-@this(govukInput: GovukRadios)
+@this(govukRadios: GovukRadios)
 
 @(myForm: Form[_])(implicit messages: Messages)
 
