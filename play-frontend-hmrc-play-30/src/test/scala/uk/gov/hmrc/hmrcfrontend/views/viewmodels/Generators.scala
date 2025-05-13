@@ -65,4 +65,10 @@ object Generators {
       sz      <- Gen.chooseNum(0, nClasses)
       classes <- Gen.listOfN(sz, Gen.alphaStr.suchThat(_.trim.nonEmpty))
     } yield classes
+
+  def genElemSeq[A](arb: Arbitrary[A], nElems: Int = 15): Gen[Seq[A]] =
+    for {
+      sz    <- Gen.chooseNum(0, nElems)
+      elems <- Gen.listOfN(sz, arb.arbitrary)
+    } yield elems
 }

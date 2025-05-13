@@ -22,7 +22,8 @@ import play.api.libs.json._
 import play.twirl.api.Html
 import uk.gov.hmrc.govukfrontend.views.viewmodels.CommonJsonFormats.{htmlReads, htmlWrites}
 import uk.gov.hmrc.govukfrontend.views.viewmodels.phasebanner.PhaseBanner
-import uk.gov.hmrc.hmrcfrontend.views.viewmodels.language.{Cy, En, Language, LanguageToggle}
+import uk.gov.hmrc.govukfrontend.views.viewmodels.servicenavigation.ServiceNavigation
+import uk.gov.hmrc.hmrcfrontend.views.viewmodels.language.{Cy, CyServiceNavigation, En, EnServiceNavigation, Language, LanguageToggle}
 import uk.gov.hmrc.hmrcfrontend.views.viewmodels.userresearchbanner.UserResearchBanner
 
 import scala.collection.immutable.SortedMap
@@ -48,7 +49,8 @@ case class Header(
   additionalBannersBlock: Option[Html] = None,
   menuButtonLabel: Option[String] = None,
   menuButtonText: Option[String] = None,
-  navigationLabel: Option[String] = None
+  navigationLabel: Option[String] = None,
+  serviceNavigation: Option[ServiceNavigation] = None
 ) {
 
   // We use this method instead of using the input language toggle directly
@@ -59,6 +61,13 @@ case class Header(
   val languageToggle: Option[LanguageToggle] = inputLanguageToggle match {
     case Some(x) =>
       val defaults: SortedMap[Language, String] = SortedMap(En -> "", Cy -> "")
+      Some(LanguageToggle(defaults ++ x.linkMap))
+    case None    => None
+  }
+
+  val languageToggleServiceNav: Option[LanguageToggle] = inputLanguageToggle match {
+    case Some(x) =>
+      val defaults: SortedMap[Language, String] = SortedMap(EnServiceNavigation -> "", CyServiceNavigation -> "")
       Some(LanguageToggle(defaults ++ x.linkMap))
     case None    => None
   }
@@ -90,7 +99,8 @@ object Header {
         (__ \ "additionalBannersBlock").readNullable[Html] and
         (__ \ "menuButtonLabel").readNullable[String] and
         (__ \ "menuButtonText").readNullable[String] and
-        (__ \ "navigationLabel").readNullable[String]
+        (__ \ "navigationLabel").readNullable[String] and
+        (__ \ "serviceNavigation").readNullable[ServiceNavigation]
     )(Header.apply _)
 
   implicit def jsonWrites: OWrites[Header] =
@@ -115,6 +125,7 @@ object Header {
         (__ \ "additionalBannersBlock").writeNullable[Html] and
         (__ \ "menuButtonLabel").writeNullable[String] and
         (__ \ "menuButtonText").writeNullable[String] and
-        (__ \ "navigationLabel").writeNullable[String]
+        (__ \ "navigationLabel").writeNullable[String] and
+        (__ \ "serviceNavigation").writeNullable[ServiceNavigation]
     )(header => WritesUtils.unapplyCompat(Header.unapply)(header.copy(inputLanguageToggle = header.languageToggle)))
 }
