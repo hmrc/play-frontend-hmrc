@@ -1,0 +1,9 @@
+{
+  "navigation" : [ {
+    "href" : "#/1",
+    "text" : "Navigation item 1"
+  }, null, false, "", null, {
+    "href" : "#/2",
+    "text" : "Navigation item 2"
+  } ]
+}
