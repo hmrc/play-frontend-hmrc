@@ -34,7 +34,8 @@ final case class Header(
   menuButtonLabel: Option[String] = None,
   navigationLabel: Option[String] = None,
   menuButtonText: Option[String] = None,
-  useTudorCrown: Option[Boolean] = None
+  useTudorCrown: Option[Boolean] = None,
+  rebrand: Option[Boolean] = None
 )
 
 object Header {
