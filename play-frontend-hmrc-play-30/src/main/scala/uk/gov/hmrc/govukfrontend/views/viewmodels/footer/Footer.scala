@@ -27,7 +27,8 @@ case class Footer(
   classes: String = "",
   attributes: Map[String, String] = Map.empty,
   contentLicence: Option[ContentLicence] = None,
-  copyright: Option[Copyright] = None
+  copyright: Option[Copyright] = None,
+  rebrand: Option[Boolean] = None
 )
 
 object Footer {
@@ -42,7 +43,8 @@ object Footer {
         (__ \ "classes").readWithDefault[String](defaultObject.classes) and
         (__ \ "attributes").readWithDefault[Map[String, String]](defaultObject.attributes) and
         (__ \ "contentLicence").readNullable[ContentLicence] and
-        (__ \ "copyright").readNullable[Copyright]
+        (__ \ "copyright").readNullable[Copyright] and
+        (__ \ "rebrand").readNullable[Boolean]
     )(Footer.apply _)
 
   implicit def jsonWrites: OWrites[Footer] =
@@ -53,7 +55,8 @@ object Footer {
         (__ \ "classes").write[String] and
         (__ \ "attributes").write[Map[String, String]] and
         (__ \ "contentLicence").writeNullable[ContentLicence] and
-        (__ \ "copyright").writeNullable[Copyright]
+        (__ \ "copyright").writeNullable[Copyright] and
+        (__ \ "rebrand").writeNullable[Boolean]
     )(o => WritesUtils.unapplyCompat(unapply)(o))
 
 }

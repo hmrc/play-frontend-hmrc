@@ -84,7 +84,9 @@ shifting different elements unevenly relative to one another. *@
     width="@{svgWidth}"
     @{ariaLabelText.map(ariaLabel => s"""aria-label=$ariaLabel""")}
 >
-    <title>GOV.UK</title>
+    @ariaLabelText.map { ariaLabel =>
+        <title>@ariaLabel</title>
+    }
     @if(tudorCrownEnabled){
       @tudorCrown
     } else {
