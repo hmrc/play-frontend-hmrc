@@ -27,7 +27,7 @@ object Generators {
     for {
       content    <- arbContent.arbitrary
       href       <- Gen.option(genAlphaStr())
-      active     <- Arbitrary.arbBool.arbitrary
+      active     <- arbBool.arbitrary
       attributes <- genAttributes()
     } yield HeaderNavigation(content = content, href = href, active = active, attributes = attributes)
   }
@@ -48,6 +48,7 @@ object Generators {
       navigationLabel   <- Gen.option(genNonEmptyAlphaStr)
       menuButtonText    <- Gen.option(genNonEmptyAlphaStr)
       useTudorCrown     <- Gen.option(arbBool.arbitrary)
+      rebrand           <- Gen.option(arbBool.arbitrary)
     } yield Header(
       homepageUrl = homepageUrl,
       productName = productName,
@@ -61,7 +62,8 @@ object Generators {
       menuButtonLabel = menuButtonLabel,
       menuButtonText = menuButtonText,
       navigationLabel = navigationLabel,
-      useTudorCrown = useTudorCrown
+      useTudorCrown = useTudorCrown,
+      rebrand = rebrand
     )
   }
 
