@@ -28,7 +28,9 @@ case class ServiceNavigationItem(
   current: Boolean = false,
   classes: String = "",
   attributes: Map[String, String] = Map.empty
-)
+) {
+  def nonEmptyContent(): Boolean = content != Empty
+}
 
 object ServiceNavigationItem {
   def defaultObject: ServiceNavigationItem = ServiceNavigationItem()
