@@ -81,6 +81,7 @@ object Generators {
       menuButtonLabel        <- Gen.option(genNonEmptyAlphaStr)
       navigationLabel        <- Gen.option(genNonEmptyAlphaStr)
       menuButtonText         <- Gen.option(genNonEmptyAlphaStr)
+      rebrand                <- Gen.option(arbBool.arbitrary)
     } yield Header(
       homepageUrl = homepageUrl,
       assetsPath = assetsPath,
@@ -102,7 +103,8 @@ object Generators {
       additionalBannersBlock = additionalBannersBlock,
       navigationLabel = navigationLabel,
       menuButtonText = menuButtonText,
-      menuButtonLabel = menuButtonLabel
+      menuButtonLabel = menuButtonLabel,
+      rebrand = rebrand
     )
   }
 }

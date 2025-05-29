@@ -50,7 +50,7 @@ class HmrcHeaderSpec extends TemplateUnitSpec[Header, HmrcHeader]("hmrcHeader") 
       val componentTry = Try(hmrcHeader(Header()))
 
       componentTry.isSuccess shouldBe true
-      componentTry.get.body    should include("M22.6 10.4c-1")
+      componentTry.get.body    should include("M33.1,9.8c.2")
     }
 
     """display St Edwards crown logo when set by config""" in {
@@ -64,7 +64,7 @@ class HmrcHeaderSpec extends TemplateUnitSpec[Header, HmrcHeader]("hmrcHeader") 
       val componentTry = Try(hmrcHeader(Header()))
 
       componentTry.isSuccess shouldBe true
-      componentTry.get.body    should include("M6.7 12.2c1")
+      componentTry.get.body    should include("M13.4,22.3c2")
     }
 
     """display Tudor crown when no config is found""" in {
@@ -74,7 +74,7 @@ class HmrcHeaderSpec extends TemplateUnitSpec[Header, HmrcHeader]("hmrcHeader") 
       val componentTry = Try(hmrcHeader(Header()))
 
       componentTry.isSuccess shouldBe true
-      componentTry.get.body    should include("M22.6 10.4c-1")
+      componentTry.get.body    should include("M33.1,9.8c.2")
     }
   }
 }
