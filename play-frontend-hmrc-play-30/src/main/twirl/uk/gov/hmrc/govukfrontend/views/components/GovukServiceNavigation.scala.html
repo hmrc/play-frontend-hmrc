@@ -36,14 +36,14 @@
         }
       </span>
     }
-    @if(navigation.exists(_.nonEmptyContent == true) || slots.exists(slot => slot.navigationStart.map(_.nonEmpty).getOrElse(false) || slot.navigationEnd.map(_.nonEmpty).getOrElse(false))) {
+    @if(navigation.exists(_.content.nonEmpty == true) || slots.exists(slot => slot.navigationStart.map(_.nonEmpty).getOrElse(false) || slot.navigationEnd.map(_.nonEmpty).getOrElse(false))) {
       <nav aria-label="@if(navigationLabel.nonEmpty){@navigationLabel}else{@menuButtonText.getOrElse(messages("govuk.serviceNavigation.menuButtonText"))}" class="@{toClasses("govuk-service-navigation__wrapper", navigationClasses)}">
         <button type="button" class="govuk-service-navigation__toggle govuk-js-service-navigation-toggle" aria-controls="@navigationId"@if(menuButtonLabel.nonEmpty && menuButtonLabel.get != menuButtonText.getOrElse(messages("govuk.serviceNavigation.menuButtonText"))){ aria-label="@menuButtonLabel"} hidden>
           @menuButtonText.getOrElse(messages("govuk.serviceNavigation.menuButtonText"))
         </button>
         <ul class="govuk-service-navigation__list" id="@navigationId">
           @Html(slots.flatMap(_.navigationStart))
-          @for(item <- navigation.filter(_.nonEmptyContent())) {
+          @for(item <- navigation.filter(_.content.nonEmpty)) {
             <li class="govuk-service-navigation__item@if(item.active || item.current){ govuk-service-navigation__item--active}">
               @if(item.href.nonEmpty) {
                 <a @if(item.active || item.current){aria-current="@if(item.current){page}else{true}"} class="govuk-service-navigation__link" href="@item.href" @toAttributes(item.attributes)>
