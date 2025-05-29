@@ -43,7 +43,7 @@
         </button>
         <ul class="govuk-service-navigation__list" id="@navigationId">
           @Html(slots.flatMap(_.navigationStart))
-          @for(item <- navigation.filter(_.content.nonEmpty)) {
+          @for(item <- navigation) {
             <li class="govuk-service-navigation__item@if(item.active || item.current){ govuk-service-navigation__item--active}">
               @if(item.href.nonEmpty) {
                 <a @if(item.active || item.current){aria-current="@if(item.current){page}else{true}"} class="govuk-service-navigation__link" href="@item.href" @toAttributes(item.attributes)>
