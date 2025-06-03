@@ -454,7 +454,7 @@ The following implicit conversions exist for a `String`:
 
 ## GOV.UK Rebrand
 
-GOV.UK rebrand has been introduced with v12.2.0 behind the feature flag.
+GOV.UK rebrand has been introduced with v12.2.0 behind the feature flag. As default it is disabled.
 
 To enable it, just override the feature flag to `true`.
 
