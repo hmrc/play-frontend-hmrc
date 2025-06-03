@@ -77,4 +77,18 @@ class HmrcHeaderSpec extends TemplateUnitSpec[Header, HmrcHeader]("hmrcHeader") 
       componentTry.get.body    should include("M33.1,9.8c.2")
     }
   }
+
+  "output of rebrand enabled" should {
+    "match output of rebrand disabled" when {
+      "rebrand is enabled by argument" in {
+        val appWithRebrand    = buildAnotherApp(Map("play-frontend-hmrc.useRebrand" -> "true"))
+        val appWithoutRebrand = buildAnotherApp(Map("play-frontend-hmrc.useRebrand" -> "false"))
+
+        val viewWithRebrand    = appWithRebrand.injector.instanceOf[HmrcHeader]
+        val viewWithoutRebrand = appWithoutRebrand.injector.instanceOf[HmrcHeader]
+
+        viewWithRebrand.apply(Header()) shouldBe viewWithoutRebrand.apply(Header(rebrand = Some(true)))
+      }
+    }
+  }
 }
