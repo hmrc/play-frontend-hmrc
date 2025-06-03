@@ -115,7 +115,6 @@ class GovukTemplateSpec extends TemplateUnitSpec[Template, GovukTemplateWrapper]
         linkTags.get(3).attr("href") should include("govuk/rebrand/")
         linkTags.get(4).attr("href") should include("govuk/rebrand/")
 
-        println(metaTags)
         metaTags.get(3).attr("content") should include("govuk/rebrand/")
       }
     }
@@ -135,7 +134,6 @@ class GovukTemplateSpec extends TemplateUnitSpec[Template, GovukTemplateWrapper]
         linkTags.get(3).attr("href") shouldNot include("govuk/rebrand/")
         linkTags.get(4).attr("href") shouldNot include("govuk/rebrand/")
 
-        println(metaTags)
         metaTags.get(3).attr("content") shouldNot include("govuk/rebrand/")
       }
     }
