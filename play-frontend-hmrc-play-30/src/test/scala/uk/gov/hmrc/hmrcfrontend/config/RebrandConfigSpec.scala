@@ -31,7 +31,7 @@ class RebrandConfigSpec extends AnyWordSpec with Matchers {
   "useRebrand" should {
     "return true" when {
       "feature flag is true" in {
-        val app = buildApp(Map(("play-frontend-hmrc.useRebrand", "true")))
+        val app    = buildApp(Map(("play-frontend-hmrc.useRebrand", "true")))
         val config = app.injector.instanceOf[RebrandConfig]
 
         config.useRebrand shouldBe true
@@ -40,14 +40,14 @@ class RebrandConfigSpec extends AnyWordSpec with Matchers {
 
     "return false" when {
       "feature flag is not presented" in {
-        val app = buildApp(Map.empty)
+        val app    = buildApp(Map.empty)
         val config = app.injector.instanceOf[RebrandConfig]
 
         config.useRebrand shouldBe false
       }
 
       "feature flag is false" in {
-        val app = buildApp(Map(("play-frontend-hmrc.useRebrand", "false")))
+        val app    = buildApp(Map(("play-frontend-hmrc.useRebrand", "false")))
         val config = app.injector.instanceOf[RebrandConfig]
 
         config.useRebrand shouldBe false
