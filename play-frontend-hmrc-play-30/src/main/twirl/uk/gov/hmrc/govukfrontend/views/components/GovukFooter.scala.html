@@ -25,7 +25,13 @@
 <footer class="@toClasses("govuk-footer", classes)" @toAttributes(attributes)>
   <div class="@toClasses("govuk-width-container", containerClasses)">
       @if(rebrandConfig.useRebrand || rebrand.getOrElse(false)) {
-        @govukLogo(true, true, false, "govuk-footer__crown", None)
+        @govukLogo(
+            useRebrand = true,
+            useTudorCrown = true,
+            useLogotype = false,
+            svgClass = "govuk-footer__crown",
+            ariaLabelText = None
+        )
       }
       @if(navigation.nonEmpty){
         <div class="govuk-footer__navigation">

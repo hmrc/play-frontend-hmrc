@@ -52,7 +52,13 @@
       <div class="@toClasses(containerClassList)">
         <div class="govuk-header__logo">
           <a href="@nonEmptyStringOrDefault(Option(homepageUrl), "/")" class="govuk-header__link govuk-header__link--homepage">
-            @govukLogo(isRebrandEnabled, isTudorCrownEnabled, true, "govuk-header__logotype", Some("GOV.UK"))
+            @govukLogo(
+                useRebrand = isRebrandEnabled,
+                useTudorCrown = isTudorCrownEnabled,
+                useLogotype = true,
+                svgClass = "govuk-header__logotype",
+                ariaLabelText = Some("GOV.UK")
+            )
             @productName match {
               case Some(NonEmptyString(x)) => {
                 <span class="govuk-header__product-name">@x</span>

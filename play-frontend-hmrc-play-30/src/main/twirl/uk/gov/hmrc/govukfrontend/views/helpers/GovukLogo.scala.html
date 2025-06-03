@@ -16,7 +16,13 @@
 
 @this()
 
-@(useRebrand: Boolean, useTudorCrown: Boolean, useLogotype: Boolean, svgClass: String, ariaLabelText: Option[String])
+@(
+    useRebrand: Boolean,
+    useTudorCrown: Boolean,
+    useLogotype: Boolean,
+    svgClass: String,
+    ariaLabelText: Option[String]
+)
 
 @tudorCrownEnabled = @{useRebrand || useTudorCrown}
 
