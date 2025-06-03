@@ -22,6 +22,7 @@ of implementing frontend microservices straightforward and idiomatic for Scala d
   - [Using the components](#using-the-components)
   - [Handling user input securely](#handling-user-input-securely)
   - [Useful implicits](#useful-implicits)
+  - [GOV.UK rebrand](#govuk-rebrand)
 - [Creating HMRC-style pages](#creating-hmrc-style-pages)
   - [Using the HMRC standard page template](#using-the-hmrc-standard-page-template)
   - [Creating consistent page headings](#creating-consistent-page-headings)
@@ -450,6 +451,18 @@ The following implicit conversions exist for a `String`:
 * `toTag`
 * `toLabel`
 * `toLegend`
+
+## GOV.UK Rebrand
+
+GOV.UK rebrand has been introduced with v12.2.0 behind the feature flag.
+
+To enable it, just override the feature flag to `true`.
+
+```
+play-frontend-hmrc {
+  useRebrand = true
+}
+```
 
 ## Creating HMRC-style pages
 
