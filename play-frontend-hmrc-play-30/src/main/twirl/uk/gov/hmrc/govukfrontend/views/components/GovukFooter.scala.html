@@ -15,13 +15,24 @@
  *@
 
 @import uk.gov.hmrc.hmrcfrontend.views.Utils.nonEmptyStringOrDefault
+@import uk.gov.hmrc.hmrcfrontend.config.RebrandConfig
+@import uk.gov.hmrc.govukfrontend.views.html.helpers.GovukLogo
 
-@this()
+@this(rebrandConfig: RebrandConfig, govukLogo: GovukLogo)
 
 @(params: Footer = Footer())
 @import params._
 <footer class="@toClasses("govuk-footer", classes)" @toAttributes(attributes)>
   <div class="@toClasses("govuk-width-container", containerClasses)">
+      @if(rebrandConfig.useRebrand || rebrand.getOrElse(false)) {
+        @govukLogo(
+            useRebrand = true,
+            useTudorCrown = true,
+            useLogotype = false,
+            svgClass = "govuk-footer__crown",
+            ariaLabelText = None
+        )
+      }
       @if(navigation.nonEmpty){
         <div class="govuk-footer__navigation">
           @for(nav <- navigation) {

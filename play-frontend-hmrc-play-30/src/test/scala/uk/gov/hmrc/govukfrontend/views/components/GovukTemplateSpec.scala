@@ -17,6 +17,8 @@
 package uk.gov.hmrc.govukfrontend.views
 package components
 
+import play.api.Application
+import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.libs.typedmap.TypedMap
 import play.api.mvc.request.RequestAttrKey
 import play.api.test.FakeRequest
@@ -67,6 +69,73 @@ class GovukTemplateSpec extends TemplateUnitSpec[Template, GovukTemplateWrapper]
 
       val scripts = html.select("script")
       scripts.first.attr("nonce") shouldBe "a-nonce"
+    }
+  }
+
+  "govukTemplate" should {
+    def rebrandAppBuilder(useRebrand: Boolean): Application =
+      new GuiceApplicationBuilder()
+        .configure(Map("play-frontend-hmrc.useRebrand" -> useRebrand.toString))
+        .build()
+
+    "include additional rebrand class within html tag" when {
+      "rebrand is enabled" in {
+        val rebrandApp           = rebrandAppBuilder(true)
+        val govukTemplateRebrand = rebrandApp.injector.instanceOf[GovukTemplate]
+        val html                 = govukTemplateRebrand.apply()(HtmlFormat.empty)
+
+        val htmlTag = html.select("html")
+        htmlTag.first().className() should include("govuk-template--rebranded")
+      }
+    }
+
+    "does not include additional rebrand class within html tag" when {
+      "rebrand is disabled" in {
+        val rebrandApp           = rebrandAppBuilder(false)
+        val govukTemplateRebrand = rebrandApp.injector.instanceOf[GovukTemplate]
+        val html                 = govukTemplateRebrand.apply()(HtmlFormat.empty)
+
+        val htmlTag = html.select("html")
+        htmlTag.first().className() shouldNot include("govuk-template--rebranded")
+      }
+    }
+
+    "contains rebrand assets paths" when {
+      "rebrand is enabled" in {
+        val rebrandApp           = rebrandAppBuilder(true)
+        val govukTemplateRebrand = rebrandApp.injector.instanceOf[GovukTemplate]
+        val html                 = govukTemplateRebrand.apply()(HtmlFormat.empty)
+
+        val linkTags = html.select("link")
+        val metaTags = html.select("meta")
+
+        linkTags.get(0).attr("href") should include("govuk/rebrand/")
+        linkTags.get(1).attr("href") should include("govuk/rebrand/")
+        linkTags.get(2).attr("href") should include("govuk/rebrand/")
+        linkTags.get(3).attr("href") should include("govuk/rebrand/")
+        linkTags.get(4).attr("href") should include("govuk/rebrand/")
+
+        metaTags.get(3).attr("content") should include("govuk/rebrand/")
+      }
+    }
+
+    "does not contain rebrand assets paths" when {
+      "rebrand is not enabled" in {
+        val rebrandApp           = rebrandAppBuilder(false)
+        val govukTemplateRebrand = rebrandApp.injector.instanceOf[GovukTemplate]
+        val html                 = govukTemplateRebrand.apply()(HtmlFormat.empty)
+
+        val linkTags = html.select("link")
+        val metaTags = html.select("meta")
+
+        linkTags.get(0).attr("href") shouldNot include("govuk/rebrand/")
+        linkTags.get(1).attr("href") shouldNot include("govuk/rebrand/")
+        linkTags.get(2).attr("href") shouldNot include("govuk/rebrand/")
+        linkTags.get(3).attr("href") shouldNot include("govuk/rebrand/")
+        linkTags.get(4).attr("href") shouldNot include("govuk/rebrand/")
+
+        metaTags.get(3).attr("content") shouldNot include("govuk/rebrand/")
+      }
     }
   }
 

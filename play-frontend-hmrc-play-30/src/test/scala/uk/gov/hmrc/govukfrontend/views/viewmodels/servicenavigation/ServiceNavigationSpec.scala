@@ -19,4 +19,87 @@ package uk.gov.hmrc.govukfrontend.views.viewmodels.servicenavigation
 import uk.gov.hmrc.govukfrontend.views.viewmodels.JsonRoundtripSpec
 import uk.gov.hmrc.govukfrontend.views.viewmodels.servicenavigation.Generators._
 
-class ServiceNavigationSpec extends JsonRoundtripSpec[ServiceNavigation]
+class ServiceNavigationSpec extends JsonRoundtripSpec[ServiceNavigation] {
+
+  "ServiceNavigation.shouldDisplayNavigation" should {
+
+    "return true" when {
+      "navigation is nonEmpty" in {
+        val serviceNavigation = ServiceNavigation(
+          navigation = Seq(ServiceNavigationItem())
+        )
+
+        serviceNavigation.shouldDisplayNavigation shouldBe true
+      }
+
+      "navigationStart is nonEmpty" in {
+        val serviceNavigation = ServiceNavigation(
+          slots = Some(ServiceNavigationSlot(navigationStart = Some("navigationStart")))
+        )
+
+        serviceNavigation.shouldDisplayNavigation shouldBe true
+      }
+
+      "navigationEnd is nonEmpty" in {
+        val serviceNavigation = ServiceNavigation(
+          slots = Some(ServiceNavigationSlot(navigationEnd = Some("navigationEnd")))
+        )
+
+        serviceNavigation.shouldDisplayNavigation shouldBe true
+      }
+
+      "navigation and navigationStart are nonEmpty" in {
+        val serviceNavigation = ServiceNavigation(
+          navigation = Seq(ServiceNavigationItem()),
+          slots = Some(ServiceNavigationSlot(navigationStart = Some("navigationStart")))
+        )
+
+        serviceNavigation.shouldDisplayNavigation shouldBe true
+      }
+
+      "navigation and navigationEnd are nonEmpty" in {
+        val serviceNavigation = ServiceNavigation(
+          navigation = Seq(ServiceNavigationItem()),
+          slots = Some(ServiceNavigationSlot(navigationEnd = Some("navigationEnd")))
+        )
+
+        serviceNavigation.shouldDisplayNavigation shouldBe true
+      }
+
+      "navigationStart and navigationEnd are nonEmpty" in {
+        val serviceNavigation = ServiceNavigation(
+          slots = Some(
+            ServiceNavigationSlot(
+              navigationStart = Some("navigationStart"),
+              navigationEnd = Some("navigationEnd")
+            )
+          )
+        )
+
+        serviceNavigation.shouldDisplayNavigation shouldBe true
+      }
+
+      "navigation, navigationStart and navigationEnd are nonEmpty" in {
+        val serviceNavigation = ServiceNavigation(
+          navigation = Seq(ServiceNavigationItem()),
+          slots = Some(
+            ServiceNavigationSlot(
+              navigationStart = Some("navigationStart"),
+              navigationEnd = Some("navigationEnd")
+            )
+          )
+        )
+
+        serviceNavigation.shouldDisplayNavigation shouldBe true
+      }
+    }
+
+    "return false" when {
+      "navigation, navigationStart and navigationEnd are empty" in {
+        val serviceNavigation = ServiceNavigation()
+
+        serviceNavigation.shouldDisplayNavigation shouldBe false
+      }
+    }
+  }
+}

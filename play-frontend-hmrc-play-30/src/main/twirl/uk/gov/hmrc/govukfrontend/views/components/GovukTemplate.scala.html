@@ -17,14 +17,15 @@
 @import uk.gov.hmrc.govukfrontend.views.html.components._
 @import uk.gov.hmrc.govukfrontend.views.viewmodels.pagelayout.PageLayout
 @import views.html.helper.CSPNonce
+@import uk.gov.hmrc.hmrcfrontend.config.RebrandConfig
 
 @this(
     govukHeader: GovukHeader,
     govukFooter: GovukFooter,
     govukSkipLink: GovukSkipLink,
-    fixedWidthPageLayout: FixedWidthPageLayout
+    fixedWidthPageLayout: FixedWidthPageLayout,
+    rebrandConfig: RebrandConfig
 )
-
 
 @(
   htmlLang: Option[String] = None,
@@ -47,7 +48,7 @@
   bodyAttributes: Map[String, String] = Map.empty,
   pageLayout: Option[PageLayout => Html] = Some(fixedWidthPageLayout(_))
 )(contentBlock: Html)(implicit requestHeader: RequestHeader)<!DOCTYPE html>
-<html lang="@htmlLang.getOrElse {en}" class="govuk-template @htmlClasses">
+<html lang="@htmlLang.getOrElse {en}" class="govuk-template @if(rebrandConfig.useRebrand){govuk-template--rebranded} @htmlClasses">
   <head>
     <meta charset="utf-8">
     <title@pageTitleLang.filter(_.nonEmpty).map {pageTitleLang => lang="@pageTitleLang"}>@pageTitle.getOrElse{GOV.UK - The best place to find government services and information}</title>
@@ -55,17 +56,17 @@
     <meta name="theme-color" content="@themeColour.getOrElse {#0b0c0c}"> @* Hardcoded value of $govuk-black *@
 
     @headIcons.getOrElse {
-      <link rel="icon" sizes="48x48" href="@calculateAssetPath(assetPath, "images/favicon.ico")">
-      <link rel="icon" sizes="any" href="@calculateAssetPath(assetPath, "images/favicon.svg")" type="image/svg+xml">
-      <link rel="mask-icon" href="@calculateAssetPath(assetPath, "images/govuk-icon-mask.svg")" color="blue">
-      <link rel="apple-touch-icon" href="@calculateAssetPath(assetPath, "images/govuk-icon-180.png")">
-      <link rel="manifest" href="@calculateAssetPath(assetPath, "manifest.json")">
+      <link rel="icon" sizes="48x48" href="@calculateAssetPath(assetPath, "images/favicon.ico", rebrandConfig.useRebrand)">
+      <link rel="icon" sizes="any" href="@calculateAssetPath(assetPath, "images/favicon.svg", rebrandConfig.useRebrand)" type="image/svg+xml">
+      <link rel="mask-icon" href="@calculateAssetPath(assetPath, "images/govuk-icon-mask.svg", rebrandConfig.useRebrand)" color="blue">
+      <link rel="apple-touch-icon" href="@calculateAssetPath(assetPath, "images/govuk-icon-180.png", rebrandConfig.useRebrand)">
+      <link rel="manifest" href="@calculateAssetPath(assetPath, "manifest.json", rebrandConfig.useRebrand)">
     }
 
     @headBlock
     @* The default og:image is added below head so that scrapers see any custom metatags first, and this is just a fallback *@
     @* image url needs to be absolute e.g. http://wwww.domain.com/.../govuk-opengraph-image.png *@
-    <meta property="og:image" content="@calculateAssetPath(assetPath, "images/govuk-opengraph-image.png")">
+    <meta property="og:image" content="@calculateAssetPath(assetPath, "images/govuk-opengraph-image.png", rebrandConfig.useRebrand)">
   </head>
   <body class="govuk-template__body @bodyClasses"@toAttributes(bodyAttributes)>
     <script @CSPNonce.attr>document.body.className += ' js-enabled' + ('noModule' in HTMLScriptElement.prototype ? ' govuk-frontend-supported' : '');</script>

@@ -44,13 +44,29 @@ class UtilsSpec extends AnyWordSpec with Matchers with ScalaCheckPropertyChecks 
 
   "calculateAssetPath" should {
     "use the path if provided" in {
-      calculateAssetPath(Some("/foo"), "images/bar.png") shouldBe "/foo/images/bar.png"
+      calculateAssetPath(Some("/foo"), "images/bar.png", false) shouldBe "/foo/images/bar.png"
     }
 
-    "use the reverse router if path is not provided" in {
-      hmrcfrontend.RoutesPrefix.setPrefix("/some-service/govuk-frontend")
+    "use the reverse router if path is not provided" when {
+      "rebrand is not enabled" in {
+        hmrcfrontend.RoutesPrefix.setPrefix("/some-service/govuk-frontend")
 
-      calculateAssetPath(None, "images/baz.png") shouldBe "/some-service/govuk-frontend/assets/govuk/images/baz.png"
+        calculateAssetPath(
+          None,
+          "images/baz.png",
+          false
+        ) shouldBe "/some-service/govuk-frontend/assets/govuk/images/baz.png"
+      }
+
+      "rebrand is enabled" in {
+        hmrcfrontend.RoutesPrefix.setPrefix("/some-service/govuk-frontend")
+
+        calculateAssetPath(
+          None,
+          "images/baz.png",
+          true
+        ) shouldBe "/some-service/govuk-frontend/assets/govuk/rebrand/images/baz.png"
+      }
     }
   }
 }

@@ -17,7 +17,9 @@
 package uk.gov.hmrc.hmrcfrontend.views
 package components
 
+import play.api.Application
 import play.api.i18n.{Lang, Messages}
+import play.api.inject.guice.GuiceApplicationBuilder
 import play.twirl.api.HtmlFormat
 import uk.gov.hmrc.helpers.MessagesSupport
 import uk.gov.hmrc.hmrcfrontend.views.html.components._
@@ -32,5 +34,24 @@ class HmrcFooterSpec extends TemplateUnitBaseSpec[Footer]("hmrcFooter") with Mes
     implicit val messages: Messages = messagesApi.preferred(Seq(Lang(templateParams.language.code)))
 
     Try(component(templateParams))
+  }
+
+  def buildAnotherApp(properties: Map[String, String] = Map.empty): Application =
+    new GuiceApplicationBuilder()
+      .configure(properties)
+      .build()
+
+  "output of rebrand enabled" should {
+    "match output of rebrand disabled" when {
+      "rebrand is enabled by argument" in {
+        val appWithRebrand    = buildAnotherApp(Map("play-frontend-hmrc.useRebrand" -> "true"))
+        val appWithoutRebrand = buildAnotherApp(Map("play-frontend-hmrc.useRebrand" -> "false"))
+
+        val viewWithRebrand    = appWithRebrand.injector.instanceOf[HmrcFooter]
+        val viewWithoutRebrand = appWithoutRebrand.injector.instanceOf[HmrcFooter]
+
+        viewWithRebrand.apply() shouldBe viewWithoutRebrand.apply(Footer(rebrand = Some(true)))
+      }
+    }
   }
 }

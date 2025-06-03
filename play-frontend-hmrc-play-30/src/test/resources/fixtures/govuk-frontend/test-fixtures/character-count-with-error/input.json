@@ -1,0 +1,11 @@
+{
+  "name" : "with-error",
+  "id" : "with-error",
+  "maxlength" : 10,
+  "label" : {
+    "text" : "Can you provide more detail?"
+  },
+  "errorMessage" : {
+    "text" : "Please provide more detail"
+  }
+}

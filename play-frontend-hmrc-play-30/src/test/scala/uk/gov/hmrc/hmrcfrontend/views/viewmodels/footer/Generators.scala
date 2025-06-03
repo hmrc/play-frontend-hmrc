@@ -17,6 +17,7 @@
 package uk.gov.hmrc.hmrcfrontend.views.viewmodels.footer
 
 import org.scalacheck.{Arbitrary, Gen}
+import org.scalacheck.Arbitrary._
 import uk.gov.hmrc.hmrcfrontend.views.viewmodels.Generators._
 import uk.gov.hmrc.hmrcfrontend.views.viewmodels.content.Generators._
 
@@ -56,12 +57,14 @@ object Generators {
       containerClasses <- genClasses()
       classes          <- genClasses()
       attributes       <- genAttributes()
+      rebrand          <- Gen.option(arbBool.arbitrary)
     } yield Footer(
       meta = meta,
       navigation = navigation,
       containerClasses = containerClasses,
       classes = classes,
-      attributes = attributes
+      attributes = attributes,
+      rebrand = rebrand
     )
   }
 }

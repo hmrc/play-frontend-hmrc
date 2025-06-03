@@ -46,7 +46,7 @@ class GovukHeaderSpec extends TemplateUnitSpec[Header, GovukHeader]("govukHeader
       val componentTry = Try(govukHeader(Header()))
 
       componentTry          should be a Symbol("success")
-      componentTry.get.body should include("M22.6 10.4c-1")
+      componentTry.get.body should include("M33.1,9.8c.2")
     }
 
     """display St Edwards crown logo set by config""" in {
@@ -60,7 +60,7 @@ class GovukHeaderSpec extends TemplateUnitSpec[Header, GovukHeader]("govukHeader
       val componentTry = Try(govukHeader(Header()))
 
       componentTry          should be a Symbol("success")
-      componentTry.get.body should include("M6.7 12.2c1")
+      componentTry.get.body should include("M13.4,22.3c2")
     }
 
     """display Tudor crown when no config is found""" in {
@@ -70,7 +70,7 @@ class GovukHeaderSpec extends TemplateUnitSpec[Header, GovukHeader]("govukHeader
       val componentTry = Try(govukHeader(Header()))
 
       componentTry          should be a Symbol("success")
-      componentTry.get.body should include("M22.6 10.4c-1")
+      componentTry.get.body should include("M33.1,9.8c.2")
     }
   }
 
@@ -124,5 +124,19 @@ class GovukHeaderSpec extends TemplateUnitSpec[Header, GovukHeader]("govukHeader
     val output = component(params).select(".govuk-header__navigation-item .govuk-header__link")
 
     output.html should include("<strong>Some text</strong>")
+  }
+
+  "output of rebrand enabled" should {
+    "match output of rebrand disabled" when {
+      "rebrand is enabled by argument" in {
+        val appWithRebrand    = buildAnotherApp(Map("play-frontend-hmrc.useRebrand" -> "true"))
+        val appWithoutRebrand = buildAnotherApp(Map("play-frontend-hmrc.useRebrand" -> "false"))
+
+        val viewWithRebrand    = appWithRebrand.injector.instanceOf[GovukHeader]
+        val viewWithoutRebrand = appWithoutRebrand.injector.instanceOf[GovukHeader]
+
+        viewWithRebrand.apply() shouldBe viewWithoutRebrand.apply(Header(rebrand = Some(true)))
+      }
+    }
   }
 }

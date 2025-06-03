@@ -17,6 +17,28 @@
 package uk.gov.hmrc.govukfrontend.views
 package components
 
+import play.api.Application
+import play.api.inject.guice.GuiceApplicationBuilder
 import uk.gov.hmrc.govukfrontend.views.html.components._
 
-class GovukFooterSpec extends TemplateUnitSpec[Footer, GovukFooter]("govukFooter")
+class GovukFooterSpec extends TemplateUnitSpec[Footer, GovukFooter]("govukFooter") {
+
+  def buildAnotherApp(properties: Map[String, String] = Map.empty): Application =
+    new GuiceApplicationBuilder()
+      .configure(properties)
+      .build()
+
+  "output of rebrand enabled" should {
+    "match output of rebrand disabled" when {
+      "rebrand is enabled by argument" in {
+        val appWithRebrand    = buildAnotherApp(Map("play-frontend-hmrc.useRebrand" -> "true"))
+        val appWithoutRebrand = buildAnotherApp(Map("play-frontend-hmrc.useRebrand" -> "false"))
+
+        val viewWithRebrand    = appWithRebrand.injector.instanceOf[GovukFooter]
+        val viewWithoutRebrand = appWithoutRebrand.injector.instanceOf[GovukFooter]
+
+        viewWithRebrand.apply() shouldBe viewWithoutRebrand.apply(Footer(rebrand = Some(true)))
+      }
+    }
+  }
+}
