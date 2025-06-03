@@ -28,10 +28,14 @@ trait Utils extends UtilsSupport {
     case _                       => false
   }
 
-  private[views] def calculateAssetPath(path: Option[String], file: String): String =
+  private def assetsUrl(file: String, useRebrand: Boolean): String =
+    if (useRebrand) uk.gov.hmrc.hmrcfrontend.controllers.routes.Assets.at(s"govuk/rebrand/$file").url
+    else uk.gov.hmrc.hmrcfrontend.controllers.routes.Assets.at(s"govuk/$file").url
+
+  private[views] def calculateAssetPath(path: Option[String], file: String, useRebrand: Boolean): String =
     path
       .map(p => s"$p/$file")
-      .getOrElse(uk.gov.hmrc.hmrcfrontend.controllers.routes.Assets.at(s"govuk/$file").url)
+      .getOrElse(assetsUrl(file, useRebrand))
 
 }
 

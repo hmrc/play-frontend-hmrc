@@ -36,7 +36,7 @@
         }
       </span>
     }
-    @if(navigation.exists(_.content.nonEmpty == true) || slots.exists(slot => slot.navigationStart.map(_.nonEmpty).getOrElse(false) || slot.navigationEnd.map(_.nonEmpty).getOrElse(false))) {
+    @if(shouldDisplayNavigation) {
       <nav aria-label="@if(navigationLabel.nonEmpty){@navigationLabel}else{@menuButtonText.getOrElse(messages("govuk.serviceNavigation.menuButtonText"))}" class="@{toClasses("govuk-service-navigation__wrapper", navigationClasses)}">
         <button type="button" class="govuk-service-navigation__toggle govuk-js-service-navigation-toggle" aria-controls="@navigationId"@if(menuButtonLabel.nonEmpty && menuButtonLabel.get != menuButtonText.getOrElse(messages("govuk.serviceNavigation.menuButtonText"))){ aria-label="@menuButtonLabel"} hidden>
           @menuButtonText.getOrElse(messages("govuk.serviceNavigation.menuButtonText"))

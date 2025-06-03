@@ -35,7 +35,12 @@ case class ServiceNavigation(
   menuButtonText: Option[String] = None,
   menuButtonLabel: Option[String] = None,
   slots: Option[ServiceNavigationSlot] = None
-)
+) {
+  def shouldDisplayNavigation: Boolean =
+    navigation.nonEmpty || slots.exists(slot =>
+      slot.navigationStart.exists(_.nonEmpty) || slot.navigationEnd.exists(_.nonEmpty)
+    )
+}
 
 object ServiceNavigation {
   def defaultObject: ServiceNavigation             = ServiceNavigation()
