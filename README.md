@@ -454,7 +454,7 @@ The following implicit conversions exist for a `String`:
 
 ## Prepare to use the refreshed GOV.UK brand
 
-It's possible to enable the GOV.UK rebrand as of v12.2.0 of play-frontend-hmrc.
+It's possible to enable the GOV.UK rebrand as of v12.3.0 of play-frontend-hmrc.
 
 > [!CAUTION]
 > It should not be used in production or the externaltest environment ahead of the brand's go-live date of 25 June 2025, and before going live you should refer to the #event-govuk-rebrand channel in the HMRC digital slack for any possible changes to this guidance.
