@@ -8,12 +8,31 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 For compatibility information see `govukFrontendVersion` and `hmrcFrontendVersion` in
 [LibDependencies](project/LibDependencies.scala)
 
+## [12.4.0] - 2025-06-05
+
+### Changed
+
+- Updated Scala and Play versions to match those used by latest `bootstrap-play`
+- Updated `play-language` version to latest
+- Updated `hmrc-frontend` to v6.70.0
+
+### Compatible with
+
+- [hmrc/hmrc-frontend v6.70.0](https://github.com/hmrc/hmrc-frontend/releases/tag/v6.70.0)
+- [alphagov/govuk-frontend v5.10.0](https://github.com/alphagov/govuk-frontend/releases/tag/v5.10.2)
+
+
 ## [12.3.0] - 2025-06-03
 
 ### Changed
 
 - Updated `hmrc-frontend` to v6.69.0
-- This includes some fixes for GOV.UK reband
+- This includes some fixes for GOV.UK rebrand
+
+### Compatible with
+
+- [hmrc/hmrc-frontend v6.69.0](https://github.com/hmrc/hmrc-frontend/releases/tag/v6.69.0)
+- [alphagov/govuk-frontend v5.10.0](https://github.com/alphagov/govuk-frontend/releases/tag/v5.10.2)
 
 ## [12.2.0] - 2025-06-03
 
@@ -22,6 +41,11 @@ For compatibility information see `govukFrontendVersion` and `hmrcFrontendVersio
 - Updated `hmrc-frontend` to v6.68.0
 - Updated `govuk-frontend` to v5.10.2
 - This introduces GOV.UK rebrand behind feature flag
+
+### Compatible with
+
+- [hmrc/hmrc-frontend v6.68.0](https://github.com/hmrc/hmrc-frontend/releases/tag/v6.68.0)
+- [alphagov/govuk-frontend v5.10.0](https://github.com/alphagov/govuk-frontend/releases/tag/v5.10.2)
 
 ## [12.1.0] - 2025-05-08
 
