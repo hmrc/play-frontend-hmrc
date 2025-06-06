@@ -16,7 +16,28 @@
 
 package uk.gov.hmrc.govukfrontend.views.viewmodels.servicenavigation
 
+import play.api.libs.json.Json
 import uk.gov.hmrc.govukfrontend.views.viewmodels.JsonRoundtripSpec
 import uk.gov.hmrc.govukfrontend.views.viewmodels.servicenavigation.Generators._
 
-class ServiceNavigationItemSpec extends JsonRoundtripSpec[ServiceNavigationItem]
+class ServiceNavigationItemSpec extends JsonRoundtripSpec[ServiceNavigationItem] {
+  "ServiceNavigationItem JSON reader" should {
+
+    "return an default ServiceNavigationItem" when {
+      "passed empty JSON object" in {
+        val emptyJsonObject = Json.parse("{}")
+        val validated       = emptyJsonObject.validate[ServiceNavigationItem]
+        validated.isSuccess shouldBe true
+        validated.get       shouldBe ServiceNavigationItem()
+      }
+    }
+
+    "return a validation error" when {
+      "passed a raw JSON value" in {
+        val rawJsonValue = Json.parse("false")
+        val validated    = rawJsonValue.validate[ServiceNavigationItem]
+        validated.isError shouldBe true
+      }
+    }
+  }
+}
