@@ -33,15 +33,19 @@ case class ServiceNavigationItem(
 object ServiceNavigationItem {
   def defaultObject: ServiceNavigationItem = ServiceNavigationItem()
 
-  implicit def jsonReads: Reads[ServiceNavigationItem] =
-    (
-      Content.reads and
-        (__ \ "href").readWithDefault[String](defaultObject.href) and
-        (__ \ "active").readWithDefault[Boolean](defaultObject.active) and
-        (__ \ "current").readWithDefault[Boolean](defaultObject.current) and
-        (__ \ "classes").readWithDefault[String](defaultObject.classes) and
-        (__ \ "attributes").readWithDefault[Map[String, String]](defaultObject.attributes)
-    )(ServiceNavigationItem.apply _)
+  implicit def jsonReads: Reads[ServiceNavigationItem] = (json: JsValue) =>
+    json.validate[JsObject] match {
+      case JsSuccess(jsObject: JsObject, _) =>
+        (
+          Content.reads and
+            (__ \ "href").readWithDefault[String](defaultObject.href) and
+            (__ \ "active").readWithDefault[Boolean](defaultObject.active) and
+            (__ \ "current").readWithDefault[Boolean](defaultObject.current) and
+            (__ \ "classes").readWithDefault[String](defaultObject.classes) and
+            (__ \ "attributes").readWithDefault[Map[String, String]](defaultObject.attributes)
+        )(ServiceNavigationItem.apply _).reads(jsObject)
+      case error: JsError                   => error
+    }
 
   implicit def jsonWrites: OWrites[ServiceNavigationItem] =
     (
