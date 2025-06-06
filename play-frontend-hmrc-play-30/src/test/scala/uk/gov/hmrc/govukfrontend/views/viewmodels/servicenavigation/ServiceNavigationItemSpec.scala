@@ -21,6 +21,7 @@ import uk.gov.hmrc.govukfrontend.views.viewmodels.JsonRoundtripSpec
 import uk.gov.hmrc.govukfrontend.views.viewmodels.servicenavigation.Generators._
 
 class ServiceNavigationItemSpec extends JsonRoundtripSpec[ServiceNavigationItem] {
+
   "ServiceNavigationItem JSON reader" should {
 
     "return an default ServiceNavigationItem" when {
