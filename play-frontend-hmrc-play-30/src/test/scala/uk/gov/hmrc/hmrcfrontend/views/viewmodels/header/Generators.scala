@@ -24,6 +24,8 @@ import uk.gov.hmrc.hmrcfrontend.views.viewmodels.language.Generators._
 import uk.gov.hmrc.hmrcfrontend.views.viewmodels.userresearchbanner.Generators._
 import uk.gov.hmrc.govukfrontend.views.viewmodels.phasebanner.PhaseBanner
 import uk.gov.hmrc.govukfrontend.views.viewmodels.tag.Tag
+import uk.gov.hmrc.hmrcfrontend.views.viewmodels.header.v2.{HeaderNames, HeaderNavigation, HeaderParams, HeaderTemplateOverrides, HeaderUrls, LogoOverrides, MenuButtonOverrides}
+import uk.gov.hmrc.hmrcfrontend.views.viewmodels.hmrcstandardpage.Banners
 
 object Generators {
 
@@ -58,53 +60,112 @@ object Generators {
     items <- Gen.listOfN[NavigationItem](sz, arbNavigationItem.arbitrary)
   } yield items
 
-  implicit val arbHeader: Arbitrary[Header] = Arbitrary {
+  val arbHeaderUrls: Arbitrary[HeaderUrls] = Arbitrary {
     for {
-      homepageUrl            <- genAlphaStr()
-      assetsPath             <- genAlphaStr()
-      productName            <- Gen.option(genAlphaStr())
-      serviceName            <- Gen.option(genAlphaStr())
-      serviceUrl             <- genAlphaStr()
-      navigation             <- Gen.option(genNavigationItems())
-      navigationClasses      <- genAlphaStr()
-      containerClasses       <- genAlphaStr()
-      classes                <- genAlphaStr()
-      attributes             <- genAttributes()
-      language               <- arbLanguage.arbitrary
+      homepageUrl <- genAlphaStr()
+      assetsPath  <- genAlphaStr()
+      serviceUrl  <- genAlphaStr()
+      signOutHref <- Gen.option(genAlphaStr())
+    } yield HeaderUrls(
+      homepageUrl = homepageUrl,
+      serviceUrl = serviceUrl,
+      assetsPath = assetsPath,
+      signOutHref = signOutHref
+    )
+  }
+
+  val arbHeaderNames: Arbitrary[HeaderNames] = Arbitrary {
+    for {
+      productName <- Gen.option(genAlphaStr())
+      serviceName <- Gen.option(genAlphaStr())
+
+    } yield HeaderNames(
+      productName = productName,
+      serviceName = serviceName
+    )
+  }
+
+  val arbHeaderTemplateOverrides: Arbitrary[HeaderTemplateOverrides] = Arbitrary {
+    for {
+      containerClasses <- genAlphaStr()
+      classes          <- genAlphaStr()
+      attributes       <- genAttributes()
+    } yield HeaderTemplateOverrides(
+      containerClasses = containerClasses,
+      classes = classes,
+      attributes = attributes
+    )
+  }
+
+  val arbHeaderNavigation: Arbitrary[HeaderNavigation] = Arbitrary {
+    for {
+      navigation        <- Gen.option(genNavigationItems())
+      navigationClasses <- genAlphaStr()
+      navigationLabel   <- Gen.option(genNonEmptyAlphaStr)
+    } yield HeaderNavigation(
+      navigation = navigation,
+      navigationClasses = navigationClasses,
+      navigationLabel = navigationLabel
+    )
+  }
+
+  val arbBanners: Arbitrary[Banners] = Arbitrary {
+    for {
       displayHmrcBanner      <- arbBool.arbitrary
-      useTudorCrown          <- Gen.option(arbBool.arbitrary)
-      signOutHref            <- Gen.option(genAlphaStr())
-      languageToggle         <- Gen.option(arbLanguageToggle.arbitrary)
       phaseBanner            <- Gen.option(arbPhaseBanner.arbitrary)
       userResearchBanner     <- Gen.option(arbUserResearchBanner.arbitrary)
       additionalBannersBlock <- Gen.option(arbHtml.arbitrary)
-      menuButtonLabel        <- Gen.option(genNonEmptyAlphaStr)
-      navigationLabel        <- Gen.option(genNonEmptyAlphaStr)
-      menuButtonText         <- Gen.option(genNonEmptyAlphaStr)
-      rebrand                <- Gen.option(arbBool.arbitrary)
-    } yield Header(
-      homepageUrl = homepageUrl,
-      assetsPath = assetsPath,
-      productName = productName,
-      serviceName = serviceName,
-      serviceUrl = serviceUrl,
-      navigation = navigation,
-      navigationClasses = navigationClasses,
-      containerClasses = containerClasses,
-      classes = classes,
-      attributes = attributes,
-      language = language,
+
+    } yield Banners(
       displayHmrcBanner = displayHmrcBanner,
-      useTudorCrown = useTudorCrown,
-      signOutHref = signOutHref,
-      inputLanguageToggle = languageToggle,
       phaseBanner = phaseBanner,
       userResearchBanner = userResearchBanner,
-      additionalBannersBlock = additionalBannersBlock,
-      navigationLabel = navigationLabel,
-      menuButtonText = menuButtonText,
+      additionalBannersBlock = additionalBannersBlock
+    )
+  }
+
+  val arbMenuButtonOverrides: Arbitrary[MenuButtonOverrides] = Arbitrary {
+    for {
+      menuButtonLabel <- Gen.option(genNonEmptyAlphaStr)
+      menuButtonText  <- Gen.option(genNonEmptyAlphaStr)
+    } yield MenuButtonOverrides(
       menuButtonLabel = menuButtonLabel,
+      menuButtonText = menuButtonText
+    )
+  }
+
+  val arbLogoOverrides: Arbitrary[LogoOverrides] = Arbitrary {
+    for {
+      useTudorCrown <- Gen.option(arbBool.arbitrary)
+      rebrand       <- Gen.option(arbBool.arbitrary)
+    } yield LogoOverrides(
+      useTudorCrown = useTudorCrown,
       rebrand = rebrand
     )
   }
+
+  implicit val arbHeaderParams: Arbitrary[HeaderParams] = Arbitrary {
+    for {
+      headerUrls              <- arbHeaderUrls.arbitrary
+      headerNames             <- arbHeaderNames.arbitrary
+      headerTemplateOverrides <- arbHeaderTemplateOverrides.arbitrary
+      headerNavigation        <- arbHeaderNavigation.arbitrary
+      banners                 <- arbBanners.arbitrary
+      menuButtonOverrides     <- arbMenuButtonOverrides.arbitrary
+      logoOverrides           <- arbLogoOverrides.arbitrary
+      language                <- arbLanguage.arbitrary
+      languageToggle          <- Gen.option(arbLanguageToggle.arbitrary)
+    } yield HeaderParams(
+      headerUrls = headerUrls,
+      headerNames = headerNames,
+      headerTemplateOverrides = headerTemplateOverrides,
+      headerNavigation = headerNavigation,
+      language = language,
+      banners = banners,
+      menuButtonOverrides = menuButtonOverrides,
+      logoOverrides = logoOverrides,
+      inputLanguageToggle = languageToggle
+    )
+  }
+
 }

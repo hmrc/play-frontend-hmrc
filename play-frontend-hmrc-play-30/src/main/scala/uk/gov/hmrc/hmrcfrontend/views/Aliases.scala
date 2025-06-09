@@ -36,6 +36,9 @@ trait Aliases {
   type Header = viewmodels.header.Header
   val Header = viewmodels.header.Header
 
+  type HeaderParams = viewmodels.header.v2.HeaderParams
+  val HeaderParams = viewmodels.header.v2.HeaderParams
+
   type Footer = viewmodels.footer.Footer
   val Footer = viewmodels.footer.Footer
 
