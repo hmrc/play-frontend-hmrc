@@ -50,6 +50,8 @@ case class HeaderParams(
 }
 
 object HeaderParams {
+  def defaultObject: HeaderParams = HeaderParams()
+
   import scala.language.implicitConversions
 
   implicit def headerToHeaderParams(header: Header): HeaderParams =
