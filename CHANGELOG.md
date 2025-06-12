@@ -8,6 +8,22 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 For compatibility information see `govukFrontendVersion` and `hmrcFrontendVersion` in
 [LibDependencies](project/LibDependencies.scala)
 
+## [12.5.0] - 2025-06-012
+
+### Changed
+
+- `HmrcHeader` refactored to take in new `HeaderParams` viewmodel
+- This change does NOT require teams to currently make a change to their templates, as we have added an implicit
+  `Header` => `HeaderParams` conversion
+- In the future, if additional params are required, teams wishing to use will need to modify their viewmodels but no
+  change needed from teams at this time
+
+### Compatible with
+
+- [hmrc/hmrc-frontend v6.70.0](https://github.com/hmrc/hmrc-frontend/releases/tag/v6.70.0)
+- [alphagov/govuk-frontend v5.10.0](https://github.com/alphagov/govuk-frontend/releases/tag/v5.10.2)
+
+
 ## [12.5.0] - 2025-06-06
 
 ### Changed
