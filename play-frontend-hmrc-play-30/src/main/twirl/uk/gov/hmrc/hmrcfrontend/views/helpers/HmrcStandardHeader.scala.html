@@ -15,8 +15,10 @@
  *@
 
 @import uk.gov.hmrc.hmrcfrontend.views.html.components.HmrcHeader
-@import uk.gov.hmrc.hmrcfrontend.views.Aliases.{Cy, En, Header, UserResearchBanner}
+@import uk.gov.hmrc.hmrcfrontend.views.Aliases.{Cy, En, HeaderParams, UserResearchBanner}
 @import uk.gov.hmrc.govukfrontend.views.Aliases.PhaseBanner
+@import uk.gov.hmrc.hmrcfrontend.views.viewmodels.header.v2._
+@import uk.gov.hmrc.hmrcfrontend.views.viewmodels.hmrcstandardpage.Banners
 
 @this(hmrcHeader: HmrcHeader)
 
@@ -28,22 +30,30 @@
   phaseBanner: Option[PhaseBanner] = None,
   displayHmrcBanner: Boolean = false,
   additionalBannersBlock: Option[Html] = None,
-  containerClasses: String = Header.defaultObject.containerClasses
+  containerClasses: String = HeaderParams.defaultObject.headerTemplateOverrides.containerClasses
 )(implicit messages: Messages, request: RequestHeader)
 @defining("service.name") { serviceNameKey =>
   @defining(if(messages.isDefinedAt(serviceNameKey)) Some(messages(serviceNameKey)) else None) { serviceNameFromMessages =>
-    @hmrcHeader(Header(
-      homepageUrl = messages("header.govuk.url"),
-      serviceName = serviceName.orElse(serviceNameFromMessages),
-      serviceUrl = serviceUrl.getOrElse(""),
-      signOutHref = signOutUrl,
-      language = if(messages.lang.code == "cy") Cy else En,
-      assetsPath = uk.gov.hmrc.hmrcfrontend.controllers.routes.Assets.at("govuk/images").url,
-      userResearchBanner = userResearchBanner,
-      phaseBanner = phaseBanner,
-      displayHmrcBanner = displayHmrcBanner,
-      additionalBannersBlock = additionalBannersBlock,
-      containerClasses = containerClasses
+    @hmrcHeader(HeaderParams(
+        headerUrls = HeaderUrls(
+            homepageUrl = messages("header.govuk.url"),
+            serviceUrl = serviceUrl.getOrElse(""),
+            signOutHref = signOutUrl,
+            assetsPath = uk.gov.hmrc.hmrcfrontend.controllers.routes.Assets.at("govuk/images").url,
+        ),
+        headerNames = HeaderNames(
+            serviceName = serviceName.orElse(serviceNameFromMessages)
+        ),
+        headerTemplateOverrides = HeaderTemplateOverrides(
+            containerClasses = containerClasses
+        ),
+        banners = Banners(
+            userResearchBanner = userResearchBanner,
+            phaseBanner = phaseBanner,
+            displayHmrcBanner = displayHmrcBanner,
+            additionalBannersBlock = additionalBannersBlock,
+        ),
+        language = if(messages.lang.code == "cy") Cy else En,
     ))
   }
 }
