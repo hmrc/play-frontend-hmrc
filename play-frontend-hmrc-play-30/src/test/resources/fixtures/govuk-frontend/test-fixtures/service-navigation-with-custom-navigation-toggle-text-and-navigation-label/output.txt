@@ -24,6 +24,14 @@ Navigation item 1
                   </a>
               </li>
 
+              
+              <li class="govuk-service-navigation__item">
+                  <a class="govuk-service-navigation__link" href="#/2">
+                                    
+Navigation item 2
+                  </a>
+              </li>
+
             </ul>
         </nav>
     </div>

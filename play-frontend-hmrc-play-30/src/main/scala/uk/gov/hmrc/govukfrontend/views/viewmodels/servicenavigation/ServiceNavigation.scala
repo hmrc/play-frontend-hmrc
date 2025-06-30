@@ -34,7 +34,8 @@ case class ServiceNavigation(
   ariaLabel: Option[String] = None,
   menuButtonText: Option[String] = None,
   menuButtonLabel: Option[String] = None,
-  slots: Option[ServiceNavigationSlot] = None
+  slots: Option[ServiceNavigationSlot] = None,
+  collapseNavigationOnMobile: Option[Boolean] = None
 ) {
   def shouldDisplayNavigation: Boolean =
     navigation.nonEmpty || slots.exists(slot =>
@@ -59,7 +60,8 @@ object ServiceNavigation {
         (__ \ "ariaLabel").readNullable[String] and
         (__ \ "menuButtonText").readNullable[String] and
         (__ \ "menuButtonLabel").readNullable[String] and
-        (__ \ "slots").readNullable[ServiceNavigationSlot]
+        (__ \ "slots").readNullable[ServiceNavigationSlot] and
+        (__ \ "collapseNavigationOnMobile").readNullable[Boolean]
     )(ServiceNavigation.apply _)
 
   implicit def jsonWrites: OWrites[ServiceNavigation] =
@@ -75,6 +77,7 @@ object ServiceNavigation {
         (__ \ "ariaLabel").writeNullable[String] and
         (__ \ "menuButtonText").writeNullable[String] and
         (__ \ "menuButtonLabel").writeNullable[String] and
-        (__ \ "slots").writeNullable[ServiceNavigationSlot]
+        (__ \ "slots").writeNullable[ServiceNavigationSlot] and
+        (__ \ "collapseNavigationOnMobile").writeNullable[Boolean]
     )(o => WritesUtils.unapplyCompat(unapply)(o))
 }

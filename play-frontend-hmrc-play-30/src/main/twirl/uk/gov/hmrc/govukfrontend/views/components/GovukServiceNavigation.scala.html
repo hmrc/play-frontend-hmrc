@@ -38,9 +38,11 @@
     }
     @if(shouldDisplayNavigation) {
       <nav aria-label="@if(navigationLabel.nonEmpty){@navigationLabel}else{@menuButtonText.getOrElse(messages("govuk.serviceNavigation.menuButtonText"))}" class="@{toClasses("govuk-service-navigation__wrapper", navigationClasses)}">
-        <button type="button" class="govuk-service-navigation__toggle govuk-js-service-navigation-toggle" aria-controls="@navigationId"@if(menuButtonLabel.nonEmpty && menuButtonLabel.get != menuButtonText.getOrElse(messages("govuk.serviceNavigation.menuButtonText"))){ aria-label="@menuButtonLabel"} hidden>
-          @menuButtonText.getOrElse(messages("govuk.serviceNavigation.menuButtonText"))
-        </button>
+        @if(collapseNavigationOnMobile.getOrElse(navigation.length > 1)) {
+          <button type="button" class="govuk-service-navigation__toggle govuk-js-service-navigation-toggle" aria-controls="@navigationId"@if(menuButtonLabel.nonEmpty && menuButtonLabel.get != menuButtonText.getOrElse(messages("govuk.serviceNavigation.menuButtonText"))){ aria-label="@menuButtonLabel"} hidden>
+            @menuButtonText.getOrElse(messages("govuk.serviceNavigation.menuButtonText"))
+          </button>
+        }
         <ul class="govuk-service-navigation__list" id="@navigationId">
           @Html(slots.flatMap(_.navigationStart))
           @for(item <- navigation) {

@@ -4,5 +4,8 @@
   "navigation" : [ {
     "href" : "#/1",
     "text" : "Navigation item 1"
+  }, {
+    "href" : "#/2",
+    "text" : "Navigation item 2"
   } ]
 }
