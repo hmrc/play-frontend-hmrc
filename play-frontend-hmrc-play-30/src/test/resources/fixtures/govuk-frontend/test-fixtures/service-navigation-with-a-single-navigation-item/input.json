@@ -1,0 +1,8 @@
+{
+  "serviceName" : "Apply for a juggling license",
+  "serviceUrl" : "#/",
+  "navigation" : [ {
+    "href" : "#/1",
+    "text" : "Log out"
+  } ]
+}

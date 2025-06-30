@@ -1,14 +1,19 @@
 
-  <div class="govuk-service-navigation"
+  <section aria-label="Service information" class="govuk-service-navigation"
 data-module="govuk-service-navigation"
 >
       <div class="govuk-width-container">
 
     <div class="govuk-service-navigation__container">
       
+        <span class="govuk-service-navigation__service-name">
+            <a href="#/" class="govuk-service-navigation__link">
+              Apply for a juggling license
+            </a>
+        </span>
 
       
-        <nav aria-label="Main navigation" class="govuk-service-navigation__wrapper">
+        <nav aria-label="Menu" class="govuk-service-navigation__wrapper">
           <button type="button" class="govuk-service-navigation__toggle govuk-js-service-navigation-toggle" aria-controls="navigation" hidden>
             Menu
           </button>
@@ -20,15 +25,7 @@ data-module="govuk-service-navigation"
               <li class="govuk-service-navigation__item">
                   <a class="govuk-service-navigation__link" href="#/1">
                                     
-Navigation item 1
-                  </a>
-              </li>
-
-              
-              <li class="govuk-service-navigation__item">
-                  <a class="govuk-service-navigation__link" href="#/2">
-                                    
-Navigation item 2
+Log out
                   </a>
               </li>
 
@@ -38,4 +35,4 @@ Navigation item 2
 
     </div>
 
-  </div>
+  </section>

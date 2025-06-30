@@ -9,9 +9,6 @@ data-module="govuk-service-navigation"
 
       
         <nav aria-label="Menu" class="govuk-service-navigation__wrapper">
-          <button type="button" class="govuk-service-navigation__toggle govuk-js-service-navigation-toggle" aria-controls="navigation" hidden>
-            Menu
-          </button>
 
           <ul class="govuk-service-navigation__list" id="navigation" >
 

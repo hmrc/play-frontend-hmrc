@@ -1,0 +1,19 @@
+{
+  "serviceName" : "Apply for a juggling license",
+  "serviceUrl" : "#/",
+  "navigation" : [ {
+    "href" : "#/1",
+    "text" : "Navigation item 1"
+  }, {
+    "href" : "#/2",
+    "text" : "Navigation item 2",
+    "active" : true
+  }, {
+    "href" : "#/3",
+    "text" : "Navigation item 3"
+  }, {
+    "href" : "#/4",
+    "text" : "Navigation item 4"
+  } ],
+  "collapseNavigationOnMobile" : false
+}
