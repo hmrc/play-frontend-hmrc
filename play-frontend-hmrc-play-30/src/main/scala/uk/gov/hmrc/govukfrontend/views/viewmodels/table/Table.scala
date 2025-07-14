@@ -22,7 +22,7 @@ import play.api.libs.json._
 import uk.gov.hmrc.govukfrontend.views.viewmodels.CommonJsonFormats._
 
 case class Table(
-  rows: Seq[Seq[TableRow]] = Nil,
+  rows: Seq[Seq[TableCell]] = Nil,
   head: Option[Seq[HeadCell]] = None,
   caption: Option[String] = None,
   captionClasses: String = "",
@@ -36,11 +36,11 @@ object Table {
   def defaultObject: Table = Table()
 
   implicit def jsonReads: Reads[Table] = {
-    def readsRows: Reads[Seq[Seq[TableRow]]] =
-      forgivingSeqReads(forgivingSeqReads[TableRow])
+    def readsRows: Reads[Seq[Seq[TableCell]]] =
+      forgivingSeqReads(forgivingSeqReads[TableCell])
 
     (
-      (__ \ "rows").readWithDefault[Seq[Seq[TableRow]]](defaultObject.rows)(readsRows) and
+      (__ \ "rows").readWithDefault[Seq[Seq[TableCell]]](defaultObject.rows)(readsRows) and
         (__ \ "head").readNullable[Seq[HeadCell]] and
         (__ \ "caption").readNullable[String] and
         (__ \ "captionClasses").readWithDefault[String](defaultObject.captionClasses) and
@@ -52,7 +52,7 @@ object Table {
 
   implicit def jsonWrites: OWrites[Table] =
     (
-      (__ \ "rows").write[Seq[Seq[TableRow]]] and
+      (__ \ "rows").write[Seq[Seq[TableCell]]] and
         (__ \ "head").writeNullable[Seq[HeadCell]] and
         (__ \ "caption").writeNullable[String] and
         (__ \ "captionClasses").write[String] and
