@@ -40,7 +40,7 @@ object Generators {
     )
   }
 
-  implicit val arbTableRow: Arbitrary[TableRow] = Arbitrary {
+  implicit val arbTableCell: Arbitrary[TableCell] = Arbitrary {
     for {
       content    <- arbContent.arbitrary
       format     <- Gen.option(genAlphaStr())
@@ -48,7 +48,7 @@ object Generators {
       colspan    <- Gen.option(Gen.chooseNum(0, 5))
       rowspan    <- Gen.option(Gen.chooseNum(0, 5))
       attributes <- genAttributes()
-    } yield TableRow(
+    } yield TableCell(
       content = content,
       format = format,
       classes = classes,
@@ -61,7 +61,7 @@ object Generators {
   implicit val arbTable: Arbitrary[Table] = Arbitrary {
     for {
       nTableRows        <- Gen.chooseNum(0, 5)
-      tableRowsGen       = Gen.listOfN(nTableRows, arbTableRow.arbitrary)
+      tableRowsGen       = Gen.listOfN(nTableRows, arbTableCell.arbitrary)
       nRows             <- Gen.chooseNum(0, 5)
       rows              <- Gen.listOfN(nRows, tableRowsGen)
       nHeadCells        <- Gen.chooseNum(0, 5)
