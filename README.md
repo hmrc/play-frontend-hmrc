@@ -22,7 +22,7 @@ of implementing frontend microservices straightforward and idiomatic for Scala d
   - [Using the components](#using-the-components)
   - [Handling user input securely](#handling-user-input-securely)
   - [Useful implicits](#useful-implicits)
-  - [Prepare to use the refreshed GOV.UK brand](#prepare-to-use-the-refreshed-GOVUK-brand)
+  - [Using the refreshed GOV.UK brand](#using-the-refreshed-GOVUK-brand)
 - [Creating HMRC-style pages](#creating-hmrc-style-pages)
   - [Using the HMRC standard page template](#using-the-hmrc-standard-page-template)
   - [Creating consistent page headings](#creating-consistent-page-headings)
@@ -452,14 +452,9 @@ The following implicit conversions exist for a `String`:
 * `toLabel`
 * `toLegend`
 
-## Prepare to use the refreshed GOV.UK brand
+## Using the refreshed GOV.UK brand
 
-It's possible to enable the GOV.UK rebrand as of v12.3.0 of play-frontend-hmrc.
-
-> [!CAUTION]
-> It should not be used in production or the externaltest environment ahead of the brand's go-live date of 25 June 2025, and before going live you should refer to the #event-govuk-rebrand channel in the HMRC digital slack for any possible changes to this guidance.
-
-Enable it by setting the following configuration:
+It's possible to enable the GOV.UK rebrand as of v12.3.0 of play-frontend-hmrc. Enable it by setting the following configuration:
 ```
 play-frontend-hmrc {
     useRebrand = true
@@ -467,9 +462,10 @@ play-frontend-hmrc {
 ```
 
 Before deploying to production:
-
 - ensure that your service works correctly when using the refreshed GOV.UK branding through exploratory testing 
 - plan your release to production in relation to other services which your users' journeys might span and whether any coordination with them is needed
+
+Specific rebrand questions can be directed to the HMRC Slack channel #event-govuk-rebrand
 
 ## Creating HMRC-style pages
 
