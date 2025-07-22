@@ -85,7 +85,7 @@ We summarise what's changed between versions, and importantly any actions that m
     ```
 
    If you have a dynamic service name you can skip this step and pass the
-   serviceName into `hmrcStandardPage` or `hmrcStandardHeader`.
+   serviceName into `HmrcStandardPage` or `HmrcStandardHeader`.
 
 4. Create a layout template for your pages using the [HMRC standard page](#using-the-hmrc-standard-page-template) template
 
@@ -202,7 +202,7 @@ When including any dynamic data in HTML pages, it should be escaped.
 
 In Twirl templates, including user data with dynamic statements (`@` notation) is automatically escaped by Play.
 
-When passing data values to components in play-frontend-hmrc, you should use one of the types derived from the [`Content`](/uk/gov/hmrc/govukfrontend/views/viewmodels/content/Content.scala) trait:
+When passing data values to components in play-frontend-hmrc, you should use one of the types derived from the [`Content`](/play-frontend-hmrc-play-30/src/main/scala/uk/gov/hmrc/govukfrontend/views/viewmodels/content/Content.scala) trait:
 * `Text` - for untrusted data that may need to be escaped (eg. dynamic data from a form input, a URL parameter or a backend API).
 **You should use this type by default**.
 * `HtmlContent` - for trusted data that contains embedded HTML (eg. static `Messages` content that includes HTML).
@@ -367,8 +367,7 @@ object DateFormBinder {
 ```  
 
 In the code above, `dayConstraint`, `monthConstraint`, `yearConstraint` and `dateConstraint` would be defined  
-as per the [Play documentation](https://www.playframework.com/documentation/3.0.x/ScalaCustomValidations) on custom  
-validations.
+as per the [Play documentation](https://www.playframework.com/documentation/3.0.x/ScalaCustomValidations) on custom validations.
 
 The controller submit method for this form might look like:
 
@@ -508,11 +507,11 @@ To use this component,
   )(contentBlock)
 ```
 
-The parameters that can be passed into the `hmrcStandardPage` are as follows:
+The parameters that can be passed into the `HmrcStandardPage` are as follows:
 
       | Parameter                                  | Description                                                       | Example                                                     |
       | ------------------------------------------ | ----------------------------------------------------------------- | ----------------------------------------------------------- |
-      | `service.serviceUrl`                       | This will be bound to hmrcStandardHeader                          | `Some(routes.IndexController.index().url)`                  |
+      | `service.serviceUrl`                       | This will be bound to HmrcStandardHeader                          | `Some(routes.IndexController.index().url)`                  |
       | `service.signOutUrl`                       | Passing a value will display the sign out link                    | `Some(routes.SignOutController.signOut().url)`              |
       | `service.accessibilityStatementUrl`        | Passing a value will override the accessibility statement URL in the [footer](#accessibility-statement-links)                  ||
       | `banners.displayHmrcBanner`                | Setting to true will display the [HMRC banner](https://design.tax.service.gov.uk/hmrc-design-patterns/hmrc-banner/)            ||
@@ -535,7 +534,7 @@ The parameters that can be passed into the `hmrcStandardPage` are as follows:
 ### Creating consistent page headings
 
 > [!WARNING]
-> The [hmrc guidance for creating headings with a section (caption)](https://design.tax.service.gov.uk/hmrc-design-patterns/page-heading/) has recently changed. The following helpers are still available but this is no longer the recommended approach. Consult the linked documentation for examples of the new recommendation.
+> The [HMRC guidance for creating headings with a section (caption)](https://design.tax.service.gov.uk/hmrc-design-patterns/page-heading/) has recently changed. The following helpers are still available but this is no longer the recommended approach. Consult the linked documentation for examples of the new recommendation.
 
 The `HmrcPageHeadingLabel` and `HmrcPageHeadingLegend` helpers let you use a label or legend as a page heading with a section (caption) displayed above it.
 
@@ -732,30 +731,30 @@ Research Services will tell you what URL to use for your service.
 
 ### Linking to your accessibility statement
 
-[hmrcStandardFooter](play-frontend-hmrc-play-30/src/main/twirl/uk/gov/hmrc/hmrcfrontend/views/helpers/HmrcStandardFooter.scala.html),
-included as part of `hmrcStandardPage`, generates the standard GOV.UK footer including the standardised list of footer
+[HmrcStandardFooter](play-frontend-hmrc-play-30/src/main/twirl/uk/gov/hmrc/hmrcfrontend/views/helpers/HmrcStandardFooter.scala.html),
+included as part of `HmrcStandardPage`, generates the standard GOV.UK footer including the standardised list of footer
 links for tax services.
 
 To configure this helper to link to the
 [accessibility statement service](https://www.github.com/hmrc/accessibility-statement-frontend), provide the key
 `accessibility-statement.service-path` in your `application.conf` file. This key is the path to your
-accessibility statement under https://www.tax.service.gov.uk/accessibility-statement.
+accessibility statement under the [accessibility-statement-frontend|https://github.com/hmrc/accessibility-statement-frontend] service.
 
-For example, if your accessibility statement is https://www.tax.service.gov.uk/accessibility-statement/discounted-icecreams,
-this property must be set to `/discounted-icecreams` as follows:
+For example, if your accessibility statement is https://www.tax.service.gov.uk/accessibility-statement/paye,
+this property must be set to `/paye` as follows:
 
 ```hocon
-accessibility-statement.service-path = "/discounted-icecreams"
+accessibility-statement.service-path = "/paye"
 ```
 
 In the exceptional case that you need to link to an accessibility statement not hosted
 within accessibility-statement-frontend, the default behaviour can be overridden by supplying an
-`accessibilityStatementUrl` parameter to `hmrcStandardFooter`.
+`accessibilityStatementUrl` parameter to `HmrcStandardFooter`.
 
 
 ### Helping users report technical issues
 
-The [hmrcReportTechnicalIssueHelper](play-frontend-hmrc-play-30/src/main/twirl/uk/gov/hmrc/hmrcfrontend/views/helpers/HmrcReportTechnicalIssueHelper.scala.html) component
+The [HmrcReportTechnicalIssueHelper](play-frontend-hmrc-play-30/src/main/twirl/uk/gov/hmrc/hmrcfrontend/views/helpers/HmrcReportTechnicalIssueHelper.scala.html) component
 generates a link that allows users to report technical issues with your service.
 
 To configure this helper, add the following configuration to your `application.conf`
@@ -770,7 +769,7 @@ identifier that is specific to your service and unlikely to be used by any other
 or whitespace.
 
 The component should be added to the bottom of each page in your service. This can be done by defining a reusable block
-in your layout template and passing into `hmrcStandardPage` or `govukLayout` in place of contentBlock:
+in your layout template and passing into `HmrcStandardPage` or `GovukLayout` in place of contentBlock:
 
 ```scala
 @content = {
@@ -785,7 +784,7 @@ in your layout template and passing into `hmrcStandardPage` or `govukLayout` in 
 
 If you intend to use Google Analytics or Optimizely to measure usage of your service, you will need to integrate with
 [tracking-consent-frontend](https://www.github.com/hmrc/tracking-consent-frontend). The
-[hmrcHead](play-frontend-hmrc-play-30/src/main/twirl/uk/gov/hmrc/hmrcfrontend/views/helpers/HmrcHead.scala.html)
+[HmrcHead](play-frontend-hmrc-play-30/src/main/twirl/uk/gov/hmrc/hmrcfrontend/views/helpers/HmrcHead.scala.html)
 helper generates the necessary HTML SCRIPT tags that must be injected into the HEAD element for every page on your
 service provided it is configured correctly as below.
 
@@ -834,7 +833,7 @@ helper, which will add the GTM snippet in the `<head>` block. It should be used 
 ## Using common HMRC patterns
 ### Adding a dynamic character count to a text input
 
-[hmrcCharacterCount](play-frontend-hmrc-play-30/src/main/twirl/uk/gov/hmrc/hmrcfrontend/views/components/HmrcCharacterCount.scala.html) is an
+[HmrcCharacterCount](play-frontend-hmrc-play-30/src/main/twirl/uk/gov/hmrc/hmrcfrontend/views/components/HmrcCharacterCount.scala.html) is an
 implementation of the GOV.UK CharacterCount that translates the dynamic words / characters remaining
 text into English or Welsh using the Play framework Message API. You do not need to pass through the
 language explicitly to this component, just pass through an implicit Messages.
@@ -992,7 +991,7 @@ of inactivity. This mechanism, implemented in [SessionTimeoutFilter](https://git
 clears all non-allow-listed session keys after the timeout duration has elapsed. Services can override this default by adjusting the
 `session.timeout` configuration key in `conf/application.conf`.
 
-The [hmrcTimeoutDialogHelper](play-frontend-hmrc-play-30/src/main/twirl/uk/gov/hmrc/hmrcfrontend/views/helpers/HmrcTimeoutDialogHelper.scala.html)
+The [HmrcTimeoutDialogHelper](play-frontend-hmrc-play-30/src/main/twirl/uk/gov/hmrc/hmrcfrontend/views/helpers/HmrcTimeoutDialogHelper.scala.html)
 component helps services meet this accessibility obligation by delivering an accessible timeout warning
 inside a modal dialog a configurable number of seconds before they are due to be timed out. The dialog warns the user with the message
 'For your security, we will sign you out in X minutes.' which is updated every minute until 60 seconds are remaining, at
@@ -1006,12 +1005,12 @@ returning them to the supplied `signOutUrl`.
 The instructions below assume you have set up play-frontend-hmrc as indicated above.
 
 1. Identify the `signOutUrl` that should be used when users click 'Sign Out' on the timeout dialog. Your service may already be
-   supplying a `signOutUrl` parameter to the `hmrcStandardHeader` component, which controls the sign out link in the GOV.UK
+   supplying a `signOutUrl` parameter to the `HmrcStandardHeader` component, which controls the sign out link in the GOV.UK
    header. Reusing this value may be a sensible choice. Refer to guidance above to understand how this argument is used by the
    timeout dialog.
 
-1. Update your layout template to pass in the `hmrcTimeoutDialogHelper` in the HEAD element, supplying the signOutUrl as
-   a parameter. For example if using `hmrcStandardPage`, pass `Some(hmrcTimeoutDialogHelper(signOutUrl = signOutUrl))` in the
+1. Update your layout template to pass in the `HmrcTimeoutDialogHelper` in the HEAD element, supplying the signOutUrl as
+   a parameter. For example if using `HmrcStandardPage`, pass `Some(HmrcTimeoutDialogHelper(signOutUrl = signOutUrl))` in the
    `templateOverrides.additionalHeadBlock` parameter.
 
 #### Synchronising session between tabs
@@ -1036,7 +1035,7 @@ If you need to perform special logic to keep the user’s session alive, the def
 be overridden using the `keepAliveUrl` parameter. This must be a side effect free endpoint that implements
 HTTP GET and can be called via an XHR request from the timeout dialog Javascript code. A good practice is to
 have a dedicated controller and route defined for this so its use for this purpose is explicit. This url
-will be supplied in the `keepAliveUrl` parameter to `hmrcTimeoutDialog`. Do not use `#` in case the current URL
+will be supplied in the `keepAliveUrl` parameter to `HmrcTimeoutDialog`. Do not use `#` in case the current URL
 does not implement HTTP GET.
 
 | Parameter         | Description                                                                                                                                                 | Example |
