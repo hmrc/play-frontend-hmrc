@@ -38,7 +38,6 @@ of implementing frontend microservices straightforward and idiomatic for Scala d
   - [Adding accessible autocomplete to a select input](#adding-accessible-autocomplete-to-a-select-input)
   - [Warning users before timing them out](#warning-users-before-timing-them-out)
   - [Opening links in a new tab](#opening-links-in-a-new-tab)
-  - [Adding an Exit This Page button](#adding-an-exit-this-page-button)
 - [Advanced configuration](#advanced-configuration)
   - [Adding your own SASS compilation pipeline](#adding-your-own-sass-compilation-pipeline)
   - [Configuring non-HMRC projects to resolve play-frontend-hmrc artefacts](#configuring-non-hmrc-projects-to-resolve-play-frontend-hmrc-artefacts)
@@ -1081,39 +1080,6 @@ import uk.gov.hmrc.hmrcfrontend.views.viewmodels.newtablinkhelper.NewTabLinkHelp
   href = Some(linkHref)
 ))
 ```
-
-### Adding an "Exit this page" button
-
-The `GovukExitThisPage` component will add to the page a red "sticky" button saying "Exit this page" or custom text,
-which when clicked will redirect the user to another website (default is set to `www.bbc.co.uk/weather`). This component has been
-designed to help users viewing sensitive information that could put them at risk. For example, when a potential victim
-is using a service to help them leave a domestic abuser. More information about when to use this component can be found
-in the [GOV.UK Design System](https://design-system.service.gov.uk/components/exit-this-page/).
-
-To ensure the button is correctly positioned on the page, use the `HmrcStandardPage` component and pass through an
-`ExitThisPage` case class. If you are using the default content as below, the button text will automatically be
-translated if the user is viewing the Welsh version of the page.
-
-```scala
-@import uk.gov.hmrc.hmrcfrontend.views.html.helpers.HmrcStandardPage
-@import uk.gov.hmrc.hmrcfrontend.views.viewmodels.layout._
-@import config.AppConfig
-
-@this(hmrcStandardPage: HmrcStandardPage)
-
-@(pageTitle: String, appConfig: AppConfig)(contentBlock: Html)(implicit request: RequestHeader, messages: Messages)
-
-@hmrcStandardPage(
-  HmrcStandardPageParams(
-    ....
-    exitThisPage = Some(ExitThisPage()) /* custom parameters can be passed in such as redirectUrl or button text */
-  )(contentBlock)
-```
-
-If you are not using the GOV.uk standard [two-thirds width layout](https://design-system.service.gov.uk/styles/layout/),
-please note that the sticky button may overlay your main content when scrolled. For example, it will overlay a sidebar or
-full-width layout. Services with wider main content may wish to carry out additional testing before deciding whether to
-implement this component.
 
 ## Advanced configuration
 ### Adding your own SASS compilation pipeline
