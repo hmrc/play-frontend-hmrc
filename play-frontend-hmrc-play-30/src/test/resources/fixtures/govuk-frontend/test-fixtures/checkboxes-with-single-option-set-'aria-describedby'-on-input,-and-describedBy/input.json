@@ -1,7 +1,7 @@
 {
   "describedBy" : "test-target-element",
   "name" : "t-and-c",
-  "errorMessage" : {
+  "hint" : {
     "text" : "Please accept the terms and conditions"
   },
   "items" : [ {

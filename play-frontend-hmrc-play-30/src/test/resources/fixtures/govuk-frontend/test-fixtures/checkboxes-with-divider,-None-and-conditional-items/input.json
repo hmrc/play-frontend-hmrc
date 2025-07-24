@@ -2,9 +2,7 @@
   "name" : "with-divider-and-none-and-conditional-items",
   "fieldset" : {
     "legend" : {
-      "text" : "Do you have any access needs?",
-      "classes" : "govuk-fieldset__legend--l",
-      "isPageHeading" : true
+      "text" : "Do you have any access needs?"
     }
   },
   "items" : [ {

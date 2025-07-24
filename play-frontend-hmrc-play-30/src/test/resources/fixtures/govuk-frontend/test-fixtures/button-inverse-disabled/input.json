@@ -1,6 +1,0 @@
-{
-  "name" : "Inverse",
-  "text" : "Inverse button disabled",
-  "classes" : "govuk-button--inverse",
-  "disabled" : true
-}

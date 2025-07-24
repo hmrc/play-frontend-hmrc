@@ -1,17 +1,29 @@
 {
-  "name" : "nationality",
-  "items" : [ {
-    "value" : "british",
-    "text" : "British"
-  }, {
-    "value" : "irish",
-    "text" : "Irish"
-  }, {
-    "value" : "other",
-    "text" : "Citizen of another country",
-    "conditional" : {
-      "html" : "<div class=\"govuk-form-group\">\n  <label class=\"govuk-label\" for=\"other-country\">\n    Country\n  </label>\n  <input class=\"govuk-input\" id=\"other-country\" name=\"other-country\" type=\"text\" value=\"Ravka\">\n</div>\n"
+  "name" : "how-contacted-checked",
+  "idPrefix" : "how-contacted-checked",
+  "fieldset" : {
+    "legend" : {
+      "text" : "How do you want to be contacted?"
     }
-  } ],
-  "values" : [ "british", "other" ]
+  },
+  "values" : [ "email", "text" ],
+  "items" : [ {
+    "value" : "email",
+    "text" : "Email",
+    "conditional" : {
+      "html" : "<label class=\"govuk-label\" for=\"context-email\">Email address</label>\n<input class=\"govuk-input govuk-!-width-one-third\" name=\"context-email\" type=\"text\" id=\"context-email\">\n"
+    }
+  }, {
+    "value" : "phone",
+    "text" : "Phone",
+    "conditional" : {
+      "html" : "<label class=\"govuk-label\" for=\"contact-phone\">Phone number</label>\n<input class=\"govuk-input govuk-!-width-one-third\" name=\"contact-phone\" type=\"text\" id=\"contact-phone\">\n"
+    }
+  }, {
+    "value" : "text",
+    "text" : "Text message",
+    "conditional" : {
+      "html" : "<label class=\"govuk-label\" for=\"contact-text-message\">Mobile phone number</label>\n<input class=\"govuk-input govuk-!-width-one-third\" name=\"contact-text-message\" type=\"text\" id=\"contact-text-message\">\n"
+    }
+  } ]
 }

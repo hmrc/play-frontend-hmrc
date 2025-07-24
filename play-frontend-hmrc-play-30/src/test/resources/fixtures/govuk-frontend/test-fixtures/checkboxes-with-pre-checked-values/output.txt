@@ -1,30 +1,39 @@
 <div class="govuk-form-group">
-  <div class="govuk-checkboxes" data-module="govuk-checkboxes">
-    <div class="govuk-checkboxes__item">
-      <input class="govuk-checkboxes__input" id="nationality" name="nationality" type="checkbox" value="british" checked>
-      <label class="govuk-label govuk-checkboxes__label" for="nationality">
-        British
-      </label>
+  <fieldset class="govuk-fieldset">
+    <legend class="govuk-fieldset__legend">
+      How do you want to be contacted?
+    </legend>
+    <div class="govuk-checkboxes" data-module="govuk-checkboxes">
+      <div class="govuk-checkboxes__item">
+        <input class="govuk-checkboxes__input" id="how-contacted-checked" name="how-contacted-checked" type="checkbox" value="email" checked data-aria-controls="conditional-how-contacted-checked">
+        <label class="govuk-label govuk-checkboxes__label" for="how-contacted-checked">
+          Email
+        </label>
+      </div>
+      <div class="govuk-checkboxes__conditional" id="conditional-how-contacted-checked">
+        <label class="govuk-label" for="context-email">Email address</label>
+  <input class="govuk-input govuk-!-width-one-third" name="context-email" type="text" id="context-email">
+      </div>
+      <div class="govuk-checkboxes__item">
+        <input class="govuk-checkboxes__input" id="how-contacted-checked-2" name="how-contacted-checked" type="checkbox" value="phone" data-aria-controls="conditional-how-contacted-checked-2">
+        <label class="govuk-label govuk-checkboxes__label" for="how-contacted-checked-2">
+          Phone
+        </label>
+      </div>
+      <div class="govuk-checkboxes__conditional govuk-checkboxes__conditional--hidden" id="conditional-how-contacted-checked-2">
+        <label class="govuk-label" for="contact-phone">Phone number</label>
+  <input class="govuk-input govuk-!-width-one-third" name="contact-phone" type="text" id="contact-phone">
+      </div>
+      <div class="govuk-checkboxes__item">
+        <input class="govuk-checkboxes__input" id="how-contacted-checked-3" name="how-contacted-checked" type="checkbox" value="text" checked data-aria-controls="conditional-how-contacted-checked-3">
+        <label class="govuk-label govuk-checkboxes__label" for="how-contacted-checked-3">
+          Text message
+        </label>
+      </div>
+      <div class="govuk-checkboxes__conditional" id="conditional-how-contacted-checked-3">
+        <label class="govuk-label" for="contact-text-message">Mobile phone number</label>
+  <input class="govuk-input govuk-!-width-one-third" name="contact-text-message" type="text" id="contact-text-message">
+      </div>
     </div>
-    <div class="govuk-checkboxes__item">
-      <input class="govuk-checkboxes__input" id="nationality-2" name="nationality" type="checkbox" value="irish">
-      <label class="govuk-label govuk-checkboxes__label" for="nationality-2">
-        Irish
-      </label>
-    </div>
-    <div class="govuk-checkboxes__item">
-      <input class="govuk-checkboxes__input" id="nationality-3" name="nationality" type="checkbox" value="other" checked data-aria-controls="conditional-nationality-3">
-      <label class="govuk-label govuk-checkboxes__label" for="nationality-3">
-        Citizen of another country
-      </label>
-    </div>
-    <div class="govuk-checkboxes__conditional" id="conditional-nationality-3">
-      <div class="govuk-form-group">
-  <label class="govuk-label" for="other-country">
-    Country
-  </label>
-  <input class="govuk-input" id="other-country" name="other-country" type="text" value="Ravka">
-</div>
-    </div>
-  </div>
+  </fieldset>
 </div>

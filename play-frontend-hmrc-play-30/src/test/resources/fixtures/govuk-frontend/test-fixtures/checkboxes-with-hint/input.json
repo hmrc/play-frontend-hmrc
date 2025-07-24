@@ -5,6 +5,9 @@
       "text" : "What is your nationality?"
     }
   },
+  "hint" : {
+    "text" : "Select all that apply"
+  },
   "items" : [ {
     "value" : "british",
     "text" : "British"

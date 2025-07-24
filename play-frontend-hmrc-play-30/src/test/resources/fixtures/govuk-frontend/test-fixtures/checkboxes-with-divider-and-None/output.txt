@@ -1,9 +1,7 @@
 <div class="govuk-form-group">
   <fieldset class="govuk-fieldset">
-    <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
-      <h1 class="govuk-fieldset__heading">
-        Which types of waste do you transport regularly?
-      </h1>
+    <legend class="govuk-fieldset__legend">
+      Which types of waste do you transport regularly?
     </legend>
     <div class="govuk-checkboxes" data-module="govuk-checkboxes">
       <div class="govuk-checkboxes__item">

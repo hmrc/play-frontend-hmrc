@@ -2,9 +2,7 @@
   "name" : "with-divider-and-none",
   "fieldset" : {
     "legend" : {
-      "text" : "Which types of waste do you transport regularly?",
-      "classes" : "govuk-fieldset__legend--l",
-      "isPageHeading" : true
+      "text" : "Which types of waste do you transport regularly?"
     }
   },
   "items" : [ {
