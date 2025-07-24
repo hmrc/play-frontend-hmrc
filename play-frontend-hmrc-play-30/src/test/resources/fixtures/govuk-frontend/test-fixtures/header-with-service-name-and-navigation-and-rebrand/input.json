@@ -1,6 +1,6 @@
 {
-  "containerClasses" : "govuk-header__container--full-width",
-  "navigationClasses" : "govuk-header__navigation--end",
+  "serviceName" : "Service Name",
+  "serviceUrl" : "/components/header",
   "navigation" : [ {
     "href" : "#1",
     "text" : "Navigation item 1",
@@ -11,5 +11,9 @@
   }, {
     "href" : "#3",
     "text" : "Navigation item 3"
-  } ]
+  }, {
+    "href" : "#4",
+    "text" : "Navigation item 4"
+  } ],
+  "rebrand" : true
 }

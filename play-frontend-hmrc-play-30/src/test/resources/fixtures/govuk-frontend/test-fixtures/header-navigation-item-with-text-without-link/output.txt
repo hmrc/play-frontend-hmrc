@@ -26,9 +26,6 @@
       </a>
     </div>
     <div class="govuk-header__content">
-      <a href="/components/header" class="govuk-header__link govuk-header__service-name">
-        Service Name
-      </a>
       <nav aria-label="Menu" class="govuk-header__navigation">
         <button type="button" class="govuk-header__menu-button govuk-js-header-toggle" aria-controls="navigation" hidden>
           Menu

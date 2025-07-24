@@ -1,9 +1,7 @@
 <div class="govuk-form-group">
   <fieldset class="govuk-fieldset">
-    <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
-      <h1 class="govuk-fieldset__heading">
-        How do you want to sign in?
-      </h1>
+    <legend class="govuk-fieldset__legend">
+      How do you want to sign in?
     </legend>
     <div class="govuk-checkboxes" data-module="govuk-checkboxes">
       <div class="govuk-checkboxes__item">

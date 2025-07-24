@@ -3,9 +3,6 @@
   "hint" : {
     "text" : "Nullam id dolor id nibh ultricies vehicula ut id elit."
   },
-  "errorMessage" : {
-    "text" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
-  },
   "fieldset" : {
     "legend" : {
       "text" : "Maecenas faucibus mollis interdum?"

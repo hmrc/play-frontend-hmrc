@@ -1,3 +1,11 @@
 {
-  "id" : "dob"
+  "id" : "dob",
+  "fieldset" : {
+    "legend" : {
+      "text" : "What is your date of birth?"
+    }
+  },
+  "hint" : {
+    "text" : "For example, 31 3 1980"
+  }
 }

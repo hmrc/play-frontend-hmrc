@@ -1,11 +1,8 @@
 {
   "name" : "with-hints-on-items",
-  "screenshot" : true,
   "fieldset" : {
     "legend" : {
-      "text" : "How do you want to sign in?",
-      "classes" : "govuk-fieldset__legend--l",
-      "isPageHeading" : true
+      "text" : "How do you want to sign in?"
     }
   },
   "items" : [ {

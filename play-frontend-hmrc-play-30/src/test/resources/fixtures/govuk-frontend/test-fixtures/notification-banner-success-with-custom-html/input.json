@@ -1,4 +1,0 @@
-{
-  "type" : "success",
-  "html" : "<h3 class=\"govuk-notification-banner__heading\">\n  4 files uploaded\n</h3>\n<ul class=\"govuk-!-margin-0 govuk-list\">\n  <li><a href=\"link-1\" class=\"govuk-notification-banner__link\">government-strategy.pdf</a></li>\n  <li><a href=\"link-2\" class=\"govuk-notification-banner__link\">government-strategy-v1.pdf</a></li>\n</ul>\n"
-}
