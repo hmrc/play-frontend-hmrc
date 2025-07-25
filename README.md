@@ -470,7 +470,7 @@ The parameters that can be passed into the `HmrcStandardPage` are as follows:
 
 ### Creating consistent page headings
 
-Please read the [HMRC guidance for creating headings with a section (caption)](https://design.tax.service.gov.uk/hmrc-design-patterns/page-heading/) has recently changed. Consult the linked documentation for examples.
+Please read the [HMRC guidance for creating headings with a section (caption)](https://design.tax.service.gov.uk/hmrc-design-patterns/page-heading/), which has recently changed. Consult the linked documentation for examples.
 
 ### Adding a sidebar to your Layout
 
