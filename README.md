@@ -71,8 +71,6 @@ We summarise what's changed between versions, and importantly any actions that m
 
     Where play-xx is your version of Play (e.g. play-30).
 
-    Note, this has changed since 7.x.x, previously the play version was included in the artefact version, it is now included in the artefact name.
-
 2. Add a route for the hmrc-frontend static assets in `conf/app.routes`:
     ```scala
     ->         /hmrc-frontend                      hmrcfrontend.Routes
@@ -104,8 +102,10 @@ pages, click on a component on the sidebar and see the `Twirl` examples matching
 ### Using the components
 
 To use our components and helpers, you will first need to import them from
-their corresponding packages in `uk.gov.hmrc.govukfrontend.views.html.components`,
-`uk.gov.hmrc.hmrcfrontend.views.html.components` or `uk.gov.hmrc.hmrcfrontend.views.html.helpers`.
+their corresponding packages in:
+* `uk.gov.hmrc.govukfrontend.views.html.components`,
+* `uk.gov.hmrc.hmrcfrontend.views.html.components`, or 
+* `uk.gov.hmrc.hmrcfrontend.views.html.helpers`
 
 For most components, their parameters are encapsulated within view models, case classes
 that live within a subpackage of `uk.gov.hmrc(govuk|hmrc)frontend.views.viewmodels` and are aliased for use
@@ -165,78 +165,16 @@ You can then use the components in your templates as follows:
 ).withFormField(myForm("whereDoYouLive")))  /* wires up things like checked status of inputs from a play form field */
 ```
 
-### Handling user input securely
-
-[Cross-site scripting (XSS)](https://owasp.org/www-community/attacks/xss/)
-is an attack where a malicious actor executes arbitrary JavaScript in the user's browser,
-typically to exfiltrate sensitive data such as cookies or session state,
-by including `<script>` tags, or attributes like `onload` that can execute JavaScript.
-There are a few ways that you can protect your service from these sorts of attack.
-
-#### Content-Security Policy (CSP)
-Disabling the use of inline JavaScript, by removing 'unsafe-inline' from your CSP,
-will reduce the risk of injected JavaScript from running.
-
-#### Sanitising or rejecting user input on submission
-The best way to protect your service against malicious input is to sanitise or reject it as soon as it's submitted.
-This might be via a form submission, or as path/query parameters in a URL.
-Such data should be validated against the most restrictive constraints possible.
-
-Within the Play framework, this can be achieved using custom
-[form mappings](https://www.playframework.com/documentation/3.0.x/ScalaForms)
-or
-[request binders](https://www.playframework.com/documentation/3.0.x/ScalaRequestBinders).
-eg. for Forms:
-```scala
-    val myForm = Form[MyData](
-      mapping(
-        "username" -> Forms.text.verifying(_.matches("""^[^<>"&]*$""")) // This will reject XSS chars
-      )(MyData.apply)(MyData.unapply)
-    )
-```
-
-#### Escaping dynamic data when rendering HTML
-Even if data comes from a trusted API, it may have got there via an insecure route, so it should always be treated as unsafe.
-When including any dynamic data in HTML pages, it should be escaped.
-
-In Twirl templates, including user data with dynamic statements (`@` notation) is automatically escaped by Play.
+### Using `Content`
 
 When passing data values to components in play-frontend-hmrc, you should use one of the types derived from the [`Content`](/play-frontend-hmrc-play-30/src/main/scala/uk/gov/hmrc/govukfrontend/views/viewmodels/content/Content.scala) trait:
 * `Text` - for untrusted data that may need to be escaped (eg. dynamic data from a form input, a URL parameter or a backend API).
-**You should use this type by default**.
+  **You should use this type by default**.
 * `HtmlContent` - for trusted data that contains embedded HTML (eg. static `Messages` content that includes HTML).
-**Only use this type if you know the value contains trusted data that includes HTML**.
+  **Only use this type if you know the value contains trusted data that includes HTML**.
 
-eg.
-```scala
-    SummaryListRow(
-      value = Value(Text(myDataValue))
-    )
-```
-
-#### Messages
-It is worth specifically mentioning the use of HTML in messages.
-Where possible, restrict the use of HTML tags to Twirl templates, and use messages for plain text.
-If messages contain HTML, use `@Messages` to render them inline, or wrap them with `HtmlContent` when passing to a Scala component.
-Be extra careful if messages include user-provided data as parameters.
-
-eg.
-
-`messages.conf`:
-```hocon
-    some.text.message=Welcome {0}
-    some.html.message=<b>Welcome {0}</b>
-```
-
-Twirl template:
-```scala
-    @* Safe - auto-escaped by Play *@
-    <b>@Messages("text.message", username)</b>
-
-    @* Unsafe - HtmlContent used since message contains HTML, but leads to dangerous use of username *@
-    @govUkNotificationBanner(NotificationBanner(content = HtmlContent(Messages("html.message", username))))
-```
-
+### Handling user input securely
+See separate file here: [Handling user input securely](docs/maintainers/handling-user-input-securely.md)
 
 ### Useful implicits
 
@@ -532,51 +470,7 @@ The parameters that can be passed into the `HmrcStandardPage` are as follows:
 
 ### Creating consistent page headings
 
-> [!WARNING]
-> The [HMRC guidance for creating headings with a section (caption)](https://design.tax.service.gov.uk/hmrc-design-patterns/page-heading/) has recently changed. The following helpers are still available but this is no longer the recommended approach. Consult the linked documentation for examples of the new recommendation.
-
-The `HmrcPageHeadingLabel` and `HmrcPageHeadingLegend` helpers let you use a label or legend as a page heading with a section (caption) displayed above it.
-
-For example, how you could use `HmrcPageHeadingLabel` with a `GovukInput`:
-```scala
-@import uk.gov.hmrc.govukfrontend.views.html.components.{GovukInput, Input, Hint, Text, Text}
-@import uk.gov.hmrc.govukfrontend.views.html.components.implicits._
-@import uk.gov.hmrc.hmrcfrontend.views.config.{HmrcPageHeadingLabel, HmrcSectionCaption}
-
-@this(govukInput: GovukInput)
-
-@(myForm: Form[_])(implicit messages: Messages)
-
-@govukInput(
-  Input(
-    label = HmrcPageHeadingLabel(content = Text("What is your name?"), caption = HmrcSectionCaption(Text("Personal details"))),
-    hint = Some(Hint(content = Text("This example shows a page heading inside a <label>")))
-  ).withFormField(myForm("whatIsYourName"))
-)
-```
-
-For example, how you could use `HmrcPageHeadingLegend` with `GovukRadios`:
-```scala
-@import uk.gov.hmrc.govukfrontend.views.html.components.{Radios, RadioItem, Fieldset, Hint, Text}
-@import uk.gov.hmrc.govukfrontend.views.html.components.implicits._
-@import uk.gov.hmrc.hmrcfrontend.views.config.HmrcPageHeadingLegend
-
-@this(govukRadios: GovukRadios)
-
-@(myForm: Form[_])(implicit messages: Messages)
-
-@govukRadios(Radios(
-  fieldset = Some(Fieldset(
-    legend = Some(HmrcPageHeadingLegend(content = Text("Where do you live?"), caption = HmrcSectionCaption(Text("Personal details")))
-  )),
-  hint = Some(Hint(content = Text("This example shows a page heading inside a <legend>"))),
-  items = List("England", "Scotland", "Wales", "Northern Ireland") map { place =>
-    RadioItem(
-      content = Text(place),
-      value = Some(place)
-    )
-  }).withFormField(myForm("whereDoYouLive")))
-```
+Please read the [HMRC guidance for creating headings with a section (caption)](https://design.tax.service.gov.uk/hmrc-design-patterns/page-heading/) has recently changed. Consult the linked documentation for examples.
 
 ### Adding a sidebar to your Layout
 
@@ -619,25 +513,6 @@ as follows:
 
 Alternatively, you can declare any template and pass it through as a function or partially applied function that has the
 signature `Html => Html`.
-
-For example, you can add a template `WithSidebarOnLeft.scala.html` as below:
-
-```scala
-@this()
-
-@(sidebarContent: Html)(mainContent: Html)
-
-<div class="govuk-grid-row">
-    <div class="govuk-grid-column-one-third">
-        @sidebarContent
-    </div>
-    <div class="govuk-grid-column-two-thirds">
-      @mainContent
-    </div>
-</div>
-```
-
-You can then inject this into your `Layout.scala.html` and partially apply the function as above.
 
 > [!WARNING]
 > `FullWidthPageLayout` should only be used by internal services.
@@ -830,27 +705,12 @@ helper, which will add the GTM snippet in the `<head>` block. It should be used 
 
 
 ## Using common HMRC patterns
-### Adding a dynamic character count to a text input
+### Adding dynamic character count with Welsh translations to a text input
 
 [HmrcCharacterCount](play-frontend-hmrc-play-30/src/main/twirl/uk/gov/hmrc/hmrcfrontend/views/components/HmrcCharacterCount.scala.html) is an
 implementation of the GOV.UK CharacterCount that translates the dynamic words / characters remaining
 text into English or Welsh using the Play framework Message API. You do not need to pass through the
 language explicitly to this component, just pass through an implicit Messages.
-
-```scala
-@import uk.gov.hmrc.hmrcfrontend.views.html.components._
-@import uk.gov.hmrc.hmrcfrontend.views.html.components.implicits._
-
-@this(hmrcCharacterCount: HmrcCharacterCount)
-
-@(label: String, maxWords: Int, field: Field)(implicit messages: Messages)
-
-@hmrcCharacterCount(CharacterCount(
-    label = Label(content = Text(label)),
-    maxWords = Some(maxWords)
-)).withFormField(field)
-```
-
 
 ### Adding accessible autocomplete to a select input
 
@@ -1100,13 +960,7 @@ resolvers += MavenRepository("HMRC-open-artefacts-maven2", "https://open.artefac
 As of February 2024, there is a requirement for Government departments to use the Tudor Crown logo for HRH King Charles
 III. This new logo has been added into both the [govuk-frontend](https://github.com/alphagov/govuk-frontend) and
 [hmrc-frontend](https://github.com/hmrc/hmrc-frontend) libraries. Additionally, the `hmrc-frontend` library has an updated
-HMRC Crest roundel incorporating the Tudor Crown.
-
-The Tudor Crown is available, and shown by default, in `v8.5.0` and higher of `play-frontend-hmrc`.
-
-## Getting help
-
-Please report any issues with this library in Slack at `#team-plat-ui`.
+HMRC Crest roundel incorporating the Tudor Crown.  The Tudor Crown is shown by default in `v8.5.0` and higher of `play-frontend-hmrc`.
 
 ### Troubleshooting
 
@@ -1128,6 +982,10 @@ styles to your service's own HTML elements.
 ## Owning team README
 
 Rationale for code and translation decisions, dependencies, as well as instructions for team members maintaining this repository can be found [here](/docs/maintainers/overview.md).
+
+## Getting help
+
+Please report any issues with this library in Slack at `#team-plat-ui`.
 
 ## License
 
