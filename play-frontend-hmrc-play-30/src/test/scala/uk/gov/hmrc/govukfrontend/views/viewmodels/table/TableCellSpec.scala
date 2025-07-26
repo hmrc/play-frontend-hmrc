@@ -19,4 +19,4 @@ package uk.gov.hmrc.govukfrontend.views.viewmodels.table
 import uk.gov.hmrc.govukfrontend.views.viewmodels.JsonRoundtripSpec
 import uk.gov.hmrc.govukfrontend.views.viewmodels.table.Generators._
 
-class TableRowSpec extends JsonRoundtripSpec[TableRow]
+class TableCellSpec extends JsonRoundtripSpec[TableCell]
