@@ -1,5 +1,14 @@
+[Back to README.md](../README.md)
+
 # Handling user input securely
 
+- [Cross-site scripting (XSS)](#cross-site-scripting-xss)
+- [Content-Security Policy (CSP)](#content-security-policy-csp)
+- [Sanitising or rejecting user input on submission](#sanitising-or-rejecting-user-input-on-submission)
+- [Escaping dynamic data when rendering HTML](#escaping-dynamic-data-when-rendering-html)
+- [Messages](#messages)
+
+## Cross-site scripting (XSS)
 [Cross-site scripting (XSS)](https://owasp.org/www-community/attacks/xss/)
 is an attack where a malicious actor executes arbitrary JavaScript in the user's browser,
 typically to exfiltrate sensitive data such as cookies or session state,
@@ -34,7 +43,7 @@ When including any dynamic data in HTML pages, it should be escaped.
 
 In Twirl templates, including user data with dynamic statements (`@` notation) is automatically escaped by Play.
 
-When passing data values to components in play-frontend-hmrc, you should use one of the types derived from the [`Content`](/play-frontend-hmrc-play-30/src/main/scala/uk/gov/hmrc/govukfrontend/views/viewmodels/content/Content.scala) trait.
+When passing data values to components in play-frontend-hmrc, you should use one of the types derived from the [`Content`](/uk/gov/hmrc/govukfrontend/views/viewmodels/content/Content.scala) trait.
 
 eg.
 ```scala
