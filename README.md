@@ -87,18 +87,48 @@ styles to your service's own HTML elements.
 ## Using components
 Information how to use some of the components like banners, implicit methods can be found in a separate Markdown file.
 
-[Using components](docs/using-components.md)
+- [Finding Twirl templates for GOV.UK and HMRC design system components](docs/using-components.md#finding-twirl-templates-for-govuk-and-hmrc-design-system-components)
+- [Using the components](docs/using-components.md#using-the-components)
+- [Using `Content`](docs/using-components.md#using-content)
+- [Useful implicits](docs/using-components.md#useful-implicits)
+    - [withFormField](docs/using-components.md#withformfield)
+    - [withHeading and withHeadingAndCaption](docs/using-components.md#withheading-and-withheadingandcaption)
+    - [RichDateInput](docs/using-components.md#richdateinput)
+    - [RichErrorSummary](docs/using-components.md#richerrorsummary)
+    - [RichStringSupport](docs/using-components.md#richstringsupport)
+- [Adding a beta feedback banner](docs/using-components.md#adding-a-beta-feedback-banner)
+- [Adding a User Research Banner](docs/using-components.md#adding-a-user-research-banner)
+- [Helping users report technical issues](docs/using-components.md#helping-users-report-technical-issues)
+- [Adding dynamic character count with Welsh translations to a text input](docs/using-components.md#adding-dynamic-character-count-with-welsh-translations-to-a-text-input)
+- [Adding accessible autocomplete to a select input](docs/using-components.md#adding-accessible-autocomplete-to-a-select-input)
+    - [Transforming a `<select>` element into an Accessible Autocomplete element](docs/using-components.md#transforming-a-select-element-into-an-accessible-autocomplete-element)
+- [Opening links in a new tab](docs/using-components.md#opening-links-in-a-new-tab)
 
 ## Creating pages
 Information how to enable GOV.UK brand refresh, link your accessibility statement, GTM/tracking consent configuration can be found in a separate Markdown file.
 
-[Creating pages](docs/creating-pages.md)
+- [Using the refreshed GOV.UK brand](docs/creating-pages.md#using-the-refreshed-govuk-brand)
+- [Creating HMRC-style pages](docs/creating-pages.md#creating-hmrc-style-pages)
+    - [Using the HMRC standard page template](docs/creating-pages.md#using-the-hmrc-standard-page-template)
+    - [Adding a sidebar to your Layout](docs/creating-pages.md#adding-a-sidebar-to-your-layout)
+        - [Finding working examples](docs/creating-pages.md#finding-working-examples)
+- [Integrating with shared HMRC services](docs/creating-pages.md#integrating-with-shared-hmrc-services)
+    - [Linking to your accessibility statement](docs/creating-pages.md#linking-to-your-accessibility-statement)
+    - [Allowing users to enable or disable tracking cookies](docs/creating-pages.md#allowing-users-to-enable-or-disable-tracking-cookies)
+        - [Integrating with tracking consent](docs/creating-pages.md#integrating-with-tracking-consent)
+        - [Adding GTM to internal services](docs/creating-pages.md#adding-gtm-to-internal-services)
+- [Warning users before timing them out](docs/creating-pages.md#warning-users-before-timing-them-out)
+    - [Integrating with the timeout dialog](docs/creating-pages.md#integrating-with-the-timeout-dialog)
+    - [Synchronising session between tabs](docs/creating-pages.md#synchronising-session-between-tabs)
+    - [Customising the timeout dialog](docs/creating-pages.md#customising-the-timeout-dialog)
 
 ## Advanced configuration
 
 Information how to add your own SASS compilation pipeline, configuring non-HMRC project to resolve play-frontend-hmrc artefacts or using Tudor Crown on GOV.UK and HMRC components can be found in a separate Markdown file.
 
-[Advanced configuration](docs/advanced-configuration.md)
+- [Adding your own SASS compilation pipeline](docs/advanced-configuration.md#adding-your-own-sass-compilation-pipeline)
+- [Configuring non-HMRC projects to resolve play-frontend-hmrc artefacts](docs/advanced-configuration.md#configuring-non-hmrc-projects-to-resolve-play-frontend-hmrc-artefacts)
+- [Using the Tudor Crown on GOV.UK and HMRC components](docs/advanced-configuration.md#using-the-tudor-crown-on-govuk-and-hmrc-components)
 
 ## Owning team README
 

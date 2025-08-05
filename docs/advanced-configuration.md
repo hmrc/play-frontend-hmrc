@@ -2,6 +2,10 @@
 
 # Advanced configuration
 
+Information how to add your own SASS compilation pipeline, configuring non-HMRC project to resolve play-frontend-hmrc artefacts or using Tudor Crown on GOV.UK and HMRC components can be found in a separate Markdown file.
+
+## Table of Contents
+
 - [Adding your own SASS compilation pipeline](#adding-your-own-sass-compilation-pipeline)
 - [Configuring non-HMRC projects to resolve play-frontend-hmrc artefacts](#configuring-non-hmrc-projects-to-resolve-play-frontend-hmrc-artefacts)
 - [Using the Tudor Crown on GOV.UK and HMRC components](#using-the-tudor-crown-on-govuk-and-hmrc-components)

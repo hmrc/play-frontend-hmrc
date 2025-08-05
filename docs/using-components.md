@@ -2,6 +2,8 @@
 
 # Using components
 
+Information how to use some of the components like banners, implicit methods can be found in a separate Markdown file.
+
 ## Table of Contents
 
 - [Finding Twirl templates for GOV.UK and HMRC design system components](#finding-twirl-templates-for-govuk-and-hmrc-design-system-components)

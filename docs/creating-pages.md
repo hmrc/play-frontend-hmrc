@@ -2,6 +2,10 @@
 
 # Creating pages
 
+Information how to enable GOV.UK brand refresh, link your accessibility statement, GTM/tracking consent configuration can be found in a separate Markdown file.
+
+## Table of Contents
+
 - [Using the refreshed GOV.UK brand](#using-the-refreshed-govuk-brand)
 - [Creating HMRC-style pages](#creating-hmrc-style-pages)
   - [Using the HMRC standard page template](#using-the-hmrc-standard-page-template)
