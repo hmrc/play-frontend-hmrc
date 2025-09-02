@@ -122,6 +122,11 @@
         } else {}
       </div>
     </div>
+    @if(params.banners.displayHmrcBanner && !params.banners.useDeprecatedPositionForHmrcBanner){
+        <div class="govuk-width-container">
+            @hmrcBanner(Banner(language, params.logoOverrides.useTudorCrown))
+        </div>
+    }
     @params.banners.phaseBanner.map { pb =>
       <div class="govuk-width-container">
         @govukPhaseBanner(pb)
@@ -130,7 +135,7 @@
     @params.banners.userResearchBanner.map { urb =>
         @hmrcUserResearchBanner(UserResearchBanner(language, urb.url))
     }
-    @if(params.banners.displayHmrcBanner){
+    @if(params.banners.displayHmrcBanner && params.banners.useDeprecatedPositionForHmrcBanner){
       <div class="govuk-width-container">
         @hmrcBanner(Banner(language, params.logoOverrides.useTudorCrown))
       </div>

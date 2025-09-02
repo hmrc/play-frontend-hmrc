@@ -1,0 +1,18 @@
+  <nav class="hmrc-service-navigation-language-select" aria-label="Language switcher">
+    <ul class="hmrc-service-navigation-language-select__list">
+      <li class="hmrc-service-navigation-language-select__list-item">
+        <span aria-current="true">ENG</span>
+      </li>
+      <li class="hmrc-service-navigation-language-select__list-item">
+        <a href="/components/service-navigation-language-select/welsh/preview"
+          hreflang="cy"
+          lang="cy"
+          rel="alternate"
+          class="govuk-link govuk-service-navigation__link"
+          data-journey-click="link - click:lang-select:Cymraeg">
+          CYM<span class="govuk-visually-hidden"> – Newid yr iaith ir Gymraeg</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+

@@ -1,0 +1,17 @@
+{
+  "serviceNavigation" : {
+    "serviceName" : "Service name",
+    "serviceUrl" : "#s1"
+  },
+  "userResearchBanner" : {
+    "url" : "/sign-up-for-user-research"
+  },
+  "phaseBanner" : {
+    "tag" : {
+      "text" : "alpha"
+    },
+    "html" : "This is a new service – your <a class=\"govuk-link\" href=\"#\">feedback</a> will help us to improve it."
+  },
+  "displayHmrcBanner" : true,
+  "additionalBannersBlock" : "<div class=\"custom-banner govuk-body\">for example an attorney banner</div>"
+}

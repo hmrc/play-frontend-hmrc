@@ -44,7 +44,8 @@
       </nav>
     </div>
   </div>
-</div>  <div class="govuk-width-container">
+</div>
+  <div class="govuk-width-container">
     <div class="hmrc-banner">
   <div class="hmrc-organisation-logo">
       <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" width="26px" height="26px" viewBox="0 0 45.35 45.35" focusable="false" aria-hidden="true">
