@@ -30,7 +30,8 @@
   phaseBanner: Option[PhaseBanner] = None,
   displayHmrcBanner: Boolean = false,
   additionalBannersBlock: Option[Html] = None,
-  containerClasses: String = HeaderParams.defaultObject.headerTemplateOverrides.containerClasses
+  containerClasses: String = HeaderParams.defaultObject.headerTemplateOverrides.containerClasses,
+  useDeprecatedPositionForHmrcBanner: Boolean = false
 )(implicit messages: Messages, request: RequestHeader)
 @defining("service.name") { serviceNameKey =>
   @defining(if(messages.isDefinedAt(serviceNameKey)) Some(messages(serviceNameKey)) else None) { serviceNameFromMessages =>
@@ -52,6 +53,7 @@
             phaseBanner = phaseBanner,
             displayHmrcBanner = displayHmrcBanner,
             additionalBannersBlock = additionalBannersBlock,
+            useDeprecatedPositionForHmrcBanner = useDeprecatedPositionForHmrcBanner
         ),
         language = if(messages.lang.code == "cy") Cy else En,
     ))
