@@ -24,5 +24,6 @@ case class Banners(
   displayHmrcBanner: Boolean = false,
   phaseBanner: Option[PhaseBanner] = None,
   userResearchBanner: Option[UserResearchBanner] = None,
-  additionalBannersBlock: Option[Html] = None
+  additionalBannersBlock: Option[Html] = None,
+  useDeprecatedPositionForHmrcBanner: Boolean = false
 )
