@@ -17,10 +17,12 @@
 package uk.gov.hmrc.hmrcfrontend.views.viewmodels.header.v2
 
 import play.api.libs.json._
+import uk.gov.hmrc.govukfrontend.views.viewmodels.CommonJsonFormats.htmlWrites
+import uk.gov.hmrc.govukfrontend.views.viewmodels.servicenavigation.ServiceNavigation
 import uk.gov.hmrc.hmrcfrontend.views.viewmodels.header._
 import uk.gov.hmrc.hmrcfrontend.views.viewmodels.hmrcstandardpage.Banners
+import uk.gov.hmrc.hmrcfrontend.views.viewmodels.language.Language.LanguageFormat
 import uk.gov.hmrc.hmrcfrontend.views.viewmodels.language.{Cy, En, Language, LanguageToggle}
-import uk.gov.hmrc.govukfrontend.views.viewmodels.CommonJsonFormats.{htmlReads, htmlWrites}
 
 import scala.collection.immutable.SortedMap
 
@@ -32,6 +34,7 @@ case class HeaderParams(
   banners: Banners = Banners(),
   menuButtonOverrides: MenuButtonOverrides = MenuButtonOverrides(),
   logoOverrides: LogoOverrides = LogoOverrides(),
+  serviceNavigation: Option[ServiceNavigation] = None,
   language: Language = En,
   private val inputLanguageToggle: Option[LanguageToggle] = None
 ) {
@@ -94,7 +97,33 @@ object HeaderParams {
       inputLanguageToggle = header.languageToggle
     )
 
-  implicit def reads: Reads[HeaderParams] = Header.jsonReads.map(headerToHeaderParams)
+  implicit def reads: Reads[HeaderParams] = new Reads[HeaderParams] {
+    override def reads(json: JsValue): JsResult[HeaderParams] =
+      for {
+        headerUrls              <- json.validateOpt[HeaderUrls].map(_.getOrElse(HeaderUrls.defaultObject))
+        headerNames             <- json.validateOpt[HeaderNames].map(_.getOrElse(HeaderNames.defaultObject))
+        headerTemplateOverrides <-
+          json.validateOpt[HeaderTemplateOverrides].map(_.getOrElse(HeaderTemplateOverrides.defaultObject))
+        headerNavigation        <- json.validateOpt[HeaderNavigation].map(_.getOrElse(HeaderNavigation.defaultObject))
+        banners                 <- json.validateOpt[Banners].map(_.getOrElse(Banners.defaultObject))
+        menuButtonOverrides     <- json.validateOpt[MenuButtonOverrides].map(_.getOrElse(MenuButtonOverrides.defaultObject))
+        logoOverrides           <- json.validateOpt[LogoOverrides].map(_.getOrElse(LogoOverrides.defaultObject))
+        language                <- (json \ "language").validateOpt[Language](LanguageFormat).map(_.getOrElse(En))
+        inputLanguageToggle     <- (json \ "languageToggle").validateOpt[LanguageToggle]
+        serviceNavigation       <- (json \ "serviceNavigation").validateOpt[ServiceNavigation]
+      } yield HeaderParams(
+        headerUrls = headerUrls,
+        headerNames = headerNames,
+        headerTemplateOverrides = headerTemplateOverrides,
+        headerNavigation = headerNavigation,
+        banners = banners,
+        menuButtonOverrides = menuButtonOverrides,
+        logoOverrides = logoOverrides,
+        serviceNavigation = serviceNavigation,
+        language = language,
+        inputLanguageToggle = inputLanguageToggle
+      )
+  }
 
   implicit def writes: OWrites[HeaderParams] = new OWrites[HeaderParams] {
     override def writes(headerParams: HeaderParams): JsObject = {
@@ -125,7 +154,9 @@ object HeaderParams {
         toTuple("menuButtonLabel", headerParams.menuButtonOverrides.menuButtonLabel),
         toTuple("menuButtonText", headerParams.menuButtonOverrides.menuButtonText),
         toTuple("navigationLabel", headerParams.headerNavigation.navigationLabel),
-        toTuple("rebrand", headerParams.logoOverrides.rebrand)
+        toTuple("rebrand", headerParams.logoOverrides.rebrand),
+        toTuple("useDeprecatedPositionForHmrcBanner", Some(headerParams.banners.useDeprecatedPositionForHmrcBanner)),
+        toTuple("serviceNavigation", headerParams.serviceNavigation)
       ).flatten
 
       jsValues.foldLeft(Json.obj())((json, tuple) => json + tuple)

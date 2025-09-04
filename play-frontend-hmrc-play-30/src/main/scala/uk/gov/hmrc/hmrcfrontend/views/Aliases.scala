@@ -26,6 +26,9 @@ trait Aliases {
   type Banner = viewmodels.banner.Banner
   val Banner = viewmodels.banner.Banner
 
+  type Banners = viewmodels.hmrcstandardpage.Banners
+  val Banners = viewmodels.hmrcstandardpage.Banners
+
   type CheckProgress = viewmodels.accountmenu.CheckProgress
   val CheckProgress = viewmodels.accountmenu.CheckProgress
 

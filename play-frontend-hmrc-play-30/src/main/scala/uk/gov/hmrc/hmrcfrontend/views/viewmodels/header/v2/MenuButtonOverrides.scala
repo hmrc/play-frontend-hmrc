@@ -16,7 +16,21 @@
 
 package uk.gov.hmrc.hmrcfrontend.views.viewmodels.header.v2
 
+import play.api.libs.functional.syntax._
+import play.api.libs.json.{Reads, __}
+
 case class MenuButtonOverrides(
   menuButtonLabel: Option[String] = None,
   menuButtonText: Option[String] = None
 )
+
+object MenuButtonOverrides {
+
+  def defaultObject: MenuButtonOverrides = MenuButtonOverrides()
+
+  implicit def jsonReads: Reads[MenuButtonOverrides] =
+    (
+      (__ \ "menuButtonLabel").readNullable[String] and
+        (__ \ "menuButtonText").readNullable[String]
+    )(MenuButtonOverrides.apply _)
+}

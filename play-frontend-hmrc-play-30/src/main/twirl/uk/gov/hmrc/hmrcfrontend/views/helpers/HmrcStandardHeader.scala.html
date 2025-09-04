@@ -15,10 +15,9 @@
  *@
 
 @import uk.gov.hmrc.hmrcfrontend.views.html.components.HmrcHeader
-@import uk.gov.hmrc.hmrcfrontend.views.Aliases.{Cy, En, HeaderParams, UserResearchBanner}
-@import uk.gov.hmrc.govukfrontend.views.Aliases.PhaseBanner
+@import uk.gov.hmrc.hmrcfrontend.views.Aliases.{Cy, En, HeaderParams, UserResearchBanner, Banners}
+@import uk.gov.hmrc.govukfrontend.views.Aliases.{PhaseBanner, ServiceNavigation}
 @import uk.gov.hmrc.hmrcfrontend.views.viewmodels.header.v2._
-@import uk.gov.hmrc.hmrcfrontend.views.viewmodels.hmrcstandardpage.Banners
 
 @this(hmrcHeader: HmrcHeader)
 
@@ -31,7 +30,8 @@
   displayHmrcBanner: Boolean = false,
   additionalBannersBlock: Option[Html] = None,
   containerClasses: String = HeaderParams.defaultObject.headerTemplateOverrides.containerClasses,
-  useDeprecatedPositionForHmrcBanner: Boolean = false
+  useDeprecatedPositionForHmrcBanner: Boolean = false,
+  serviceNavigation: Option[ServiceNavigation] = None
 )(implicit messages: Messages, request: RequestHeader)
 @defining("service.name") { serviceNameKey =>
   @defining(if(messages.isDefinedAt(serviceNameKey)) Some(messages(serviceNameKey)) else None) { serviceNameFromMessages =>
@@ -56,6 +56,7 @@
             useDeprecatedPositionForHmrcBanner = useDeprecatedPositionForHmrcBanner
         ),
         language = if(messages.lang.code == "cy") Cy else En,
+        serviceNavigation = serviceNavigation
     ))
   }
 }

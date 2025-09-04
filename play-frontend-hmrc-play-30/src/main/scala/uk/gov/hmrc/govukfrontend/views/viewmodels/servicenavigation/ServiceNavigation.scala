@@ -27,7 +27,7 @@ case class ServiceNavigation(
   serviceUrl: Option[String] = None,
   navigation: Seq[ServiceNavigationItem] = Seq(),
   navigationClasses: String = "",
-  navigationId: String = "navigation",
+  navigationId: String = "",
   navigationLabel: Option[String] = None,
   classes: String = "",
   attributes: Map[String, String] = Map.empty,
