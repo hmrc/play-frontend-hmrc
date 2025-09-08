@@ -53,8 +53,7 @@ class HmrcLayout @Inject() (
     additionalBannersBlock: Option[Html] = None,
     pageLayout: Option[PageLayout => Html] = Some(fixedWidthPageLayout(_)),
     headerContainerClasses: String = Header.defaultObject.containerClasses,
-    backLink: Option[BackLink] = None,
-    serviceNavigation: Option[ServiceNavigation] = None
+    backLink: Option[BackLink] = None
   )(contentBlock: Html)(implicit request: RequestHeader, messages: Messages): HtmlFormat.Appendable =
     deprecatedHmrcLayout(
       serviceName = serviceName,
@@ -74,7 +73,6 @@ class HmrcLayout @Inject() (
       additionalBannersBlock = additionalBannersBlock,
       pageLayout = pageLayout,
       headerContainerClasses = headerContainerClasses,
-      backLink = backLink,
-      serviceNavigation = serviceNavigation
+      backLink = backLink
     )(contentBlock)
 }

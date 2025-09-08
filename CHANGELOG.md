@@ -12,8 +12,8 @@ For compatibility information see `govukFrontendVersion` and `hmrcFrontendVersio
 
 ### Changed
 
-- Added optional `serviceNavigation` component to `HmrcHeader`, with ability to pass through from `HmrcStandardHeader`,
-  `HmrcStandardPage`, and `DeprecatedHmrcLayout`
+- Added optional `serviceNavigation` component to `HmrcHeader`, with ability to pass through from `HmrcStandardHeader` and
+  `HmrcStandardPage`
 
 ### Compatible with
 

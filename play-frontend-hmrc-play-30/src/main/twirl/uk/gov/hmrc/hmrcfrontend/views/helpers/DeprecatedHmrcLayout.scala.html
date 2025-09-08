@@ -46,8 +46,7 @@
         additionalBannersBlock: Option[Html],
         pageLayout: Option[PageLayout => Html],
         headerContainerClasses: String,
-        backLink: Option[BackLink],
-        serviceNavigation: Option[ServiceNavigation]
+        backLink: Option[BackLink]
 )(contentBlock: Html)(implicit request: RequestHeader, messages: Messages)
 
 @require(!(backLinkUrl.isDefined && backLink.isDefined), "Use backLink or backLinkUrl, but not both")
@@ -76,7 +75,6 @@
     serviceName = serviceName,
     pageTitle = pageTitle,
     isWelshTranslationAvailable = isWelshTranslationAvailable,
-    backLink = backLink orElse backLinkUrl.map(url => BackLink.withDefaultText(href = url)),
-    serviceNavigation = serviceNavigation
+    backLink = backLink orElse backLinkUrl.map(url => BackLink.withDefaultText(href = url))
   )
 )(contentBlock)
