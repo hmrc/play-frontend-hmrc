@@ -18,9 +18,7 @@
 @import uk.gov.hmrc.hmrcfrontend.views.html.helpers.HmrcStandardPage
 @import uk.gov.hmrc.hmrcfrontend.views.viewmodels.hmrcstandardpage.TemplateOverrides._
 @import uk.gov.hmrc.hmrcfrontend.views.viewmodels.userresearchbanner.UserResearchBanner
-@import uk.gov.hmrc.govukfrontend.views.viewmodels.backlink.BackLink
-@import uk.gov.hmrc.govukfrontend.views.viewmodels.phasebanner.PhaseBanner
-@import uk.gov.hmrc.govukfrontend.views.viewmodels.pagelayout.PageLayout
+@import uk.gov.hmrc.govukfrontend.views.Aliases.{ServiceNavigation, PhaseBanner, PageLayout, BackLink}
 @import uk.gov.hmrc.hmrcfrontend.views.viewmodels.hmrcstandardpage._
 @import uk.gov.hmrc.govukfrontend.views.html.components.FixedWidthPageLayout
 
@@ -48,7 +46,8 @@
         additionalBannersBlock: Option[Html],
         pageLayout: Option[PageLayout => Html],
         headerContainerClasses: String,
-        backLink: Option[BackLink]
+        backLink: Option[BackLink],
+        serviceNavigation: Option[ServiceNavigation]
 )(contentBlock: Html)(implicit request: RequestHeader, messages: Messages)
 
 @require(!(backLinkUrl.isDefined && backLink.isDefined), "Use backLink or backLinkUrl, but not both")
@@ -77,6 +76,7 @@
     serviceName = serviceName,
     pageTitle = pageTitle,
     isWelshTranslationAvailable = isWelshTranslationAvailable,
-    backLink = backLink orElse backLinkUrl.map(url => BackLink.withDefaultText(href = url))
+    backLink = backLink orElse backLinkUrl.map(url => BackLink.withDefaultText(href = url)),
+    serviceNavigation = serviceNavigation
   )
 )(contentBlock)

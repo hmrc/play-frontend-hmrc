@@ -21,6 +21,7 @@ import play.api.mvc.RequestHeader
 import play.twirl.api.{Html, HtmlFormat}
 import uk.gov.hmrc.govukfrontend.views.Aliases.{BackLink, PageLayout, PhaseBanner}
 import uk.gov.hmrc.govukfrontend.views.html.components.{FixedWidthPageLayout, TwoThirdsMainContent}
+import uk.gov.hmrc.govukfrontend.views.viewmodels.servicenavigation.ServiceNavigation
 import uk.gov.hmrc.hmrcfrontend.views.Aliases.Header
 
 import javax.inject.Inject
@@ -52,7 +53,8 @@ class HmrcLayout @Inject() (
     additionalBannersBlock: Option[Html] = None,
     pageLayout: Option[PageLayout => Html] = Some(fixedWidthPageLayout(_)),
     headerContainerClasses: String = Header.defaultObject.containerClasses,
-    backLink: Option[BackLink] = None
+    backLink: Option[BackLink] = None,
+    serviceNavigation: Option[ServiceNavigation] = None
   )(contentBlock: Html)(implicit request: RequestHeader, messages: Messages): HtmlFormat.Appendable =
     deprecatedHmrcLayout(
       serviceName = serviceName,
@@ -72,6 +74,7 @@ class HmrcLayout @Inject() (
       additionalBannersBlock = additionalBannersBlock,
       pageLayout = pageLayout,
       headerContainerClasses = headerContainerClasses,
-      backLink = backLink
+      backLink = backLink,
+      serviceNavigation = serviceNavigation
     )(contentBlock)
 }
