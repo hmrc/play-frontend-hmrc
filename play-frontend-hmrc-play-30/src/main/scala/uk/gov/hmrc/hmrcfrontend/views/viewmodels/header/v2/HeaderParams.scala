@@ -23,6 +23,7 @@ import uk.gov.hmrc.hmrcfrontend.views.viewmodels.header._
 import uk.gov.hmrc.hmrcfrontend.views.viewmodels.hmrcstandardpage.Banners
 import uk.gov.hmrc.hmrcfrontend.views.viewmodels.language.Language.LanguageFormat
 import uk.gov.hmrc.hmrcfrontend.views.viewmodels.language.{Cy, En, Language, LanguageToggle}
+import play.api.libs.functional.syntax._
 
 import scala.collection.immutable.SortedMap
 
@@ -97,33 +98,19 @@ object HeaderParams {
       inputLanguageToggle = header.languageToggle
     )
 
-  implicit def reads: Reads[HeaderParams] = new Reads[HeaderParams] {
-    override def reads(json: JsValue): JsResult[HeaderParams] =
-      for {
-        headerUrls              <- json.validateOpt[HeaderUrls].map(_.getOrElse(HeaderUrls.defaultObject))
-        headerNames             <- json.validateOpt[HeaderNames].map(_.getOrElse(HeaderNames.defaultObject))
-        headerTemplateOverrides <-
-          json.validateOpt[HeaderTemplateOverrides].map(_.getOrElse(HeaderTemplateOverrides.defaultObject))
-        headerNavigation        <- json.validateOpt[HeaderNavigation].map(_.getOrElse(HeaderNavigation.defaultObject))
-        banners                 <- json.validateOpt[Banners].map(_.getOrElse(Banners.defaultObject))
-        menuButtonOverrides     <- json.validateOpt[MenuButtonOverrides].map(_.getOrElse(MenuButtonOverrides.defaultObject))
-        logoOverrides           <- json.validateOpt[LogoOverrides].map(_.getOrElse(LogoOverrides.defaultObject))
-        language                <- (json \ "language").validateOpt[Language](LanguageFormat).map(_.getOrElse(En))
-        inputLanguageToggle     <- (json \ "languageToggle").validateOpt[LanguageToggle]
-        serviceNavigation       <- (json \ "serviceNavigation").validateOpt[ServiceNavigation]
-      } yield HeaderParams(
-        headerUrls = headerUrls,
-        headerNames = headerNames,
-        headerTemplateOverrides = headerTemplateOverrides,
-        headerNavigation = headerNavigation,
-        banners = banners,
-        menuButtonOverrides = menuButtonOverrides,
-        logoOverrides = logoOverrides,
-        serviceNavigation = serviceNavigation,
-        language = language,
-        inputLanguageToggle = inputLanguageToggle
-      )
-  }
+  implicit def reads: Reads[HeaderParams] =
+    (
+      __.readWithDefault[HeaderUrls](HeaderUrls.defaultObject) and
+        __.readWithDefault[HeaderNames](HeaderNames.defaultObject) and
+        __.readWithDefault[HeaderTemplateOverrides](HeaderTemplateOverrides.defaultObject) and
+        __.readWithDefault[HeaderNavigation](HeaderNavigation.defaultObject) and
+        __.readWithDefault[Banners](Banners.defaultObject) and
+        __.readWithDefault[MenuButtonOverrides](MenuButtonOverrides.defaultObject) and
+        __.readWithDefault[LogoOverrides](LogoOverrides.defaultObject) and
+        (__ \ "serviceNavigation").readNullable[ServiceNavigation] and
+        (__ \ "language").readWithDefault[Language](En) and
+        (__ \ "languageToggle").readNullable[LanguageToggle]
+    )(HeaderParams.apply _)
 
   implicit def writes: OWrites[HeaderParams] = new OWrites[HeaderParams] {
     override def writes(headerParams: HeaderParams): JsObject = {
