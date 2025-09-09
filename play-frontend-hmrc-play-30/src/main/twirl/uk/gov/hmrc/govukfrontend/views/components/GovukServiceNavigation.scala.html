@@ -22,6 +22,10 @@
 @(params: ServiceNavigation)(implicit messages: Messages)
 @import params._
 
+@navigationIdWithDefault = @{
+  if(navigationId.nonEmpty) navigationId else "navigation"
+}
+
 @govukServiceNavigationContainer = {
   <div class="govuk-service-navigation__container">
     @if(serviceName.nonEmpty) {
@@ -39,11 +43,11 @@
     @if(shouldDisplayNavigation) {
       <nav aria-label="@if(navigationLabel.nonEmpty){@navigationLabel}else{@menuButtonText.getOrElse(messages("govuk.serviceNavigation.menuButtonText"))}" class="@{toClasses("govuk-service-navigation__wrapper", navigationClasses)}">
         @if(collapseNavigationOnMobile.getOrElse(navigation.length > 1)) {
-          <button type="button" class="govuk-service-navigation__toggle govuk-js-service-navigation-toggle" aria-controls="@navigationId"@if(menuButtonLabel.nonEmpty && menuButtonLabel.get != menuButtonText.getOrElse(messages("govuk.serviceNavigation.menuButtonText"))){ aria-label="@menuButtonLabel"} hidden>
+          <button type="button" class="govuk-service-navigation__toggle govuk-js-service-navigation-toggle" aria-controls="@navigationIdWithDefault"@if(menuButtonLabel.nonEmpty && menuButtonLabel.get != menuButtonText.getOrElse(messages("govuk.serviceNavigation.menuButtonText"))){ aria-label="@menuButtonLabel"} hidden>
             @menuButtonText.getOrElse(messages("govuk.serviceNavigation.menuButtonText"))
           </button>
         }
-        <ul class="govuk-service-navigation__list" id="@navigationId">
+        <ul class="govuk-service-navigation__list" id="@navigationIdWithDefault">
           @Html(slots.flatMap(_.navigationStart))
           @for(item <- navigation) {
             <li class="govuk-service-navigation__item@if(item.active || item.current){ govuk-service-navigation__item--active}">

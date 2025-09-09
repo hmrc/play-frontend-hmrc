@@ -16,8 +16,23 @@
 
 package uk.gov.hmrc.hmrcfrontend.views.viewmodels.header.v2
 
+import play.api.libs.functional.syntax._
+import play.api.libs.json.{Reads, __}
+
 case class HeaderTemplateOverrides(
   containerClasses: String = "govuk-width-container",
   classes: String = "",
   attributes: Map[String, String] = Map.empty
 )
+
+object HeaderTemplateOverrides {
+
+  def defaultObject: HeaderTemplateOverrides = HeaderTemplateOverrides()
+
+  implicit def jsonReads: Reads[HeaderTemplateOverrides] =
+    (
+      (__ \ "containerClasses").readWithDefault[String](defaultObject.containerClasses) and
+        (__ \ "classes").readWithDefault[String](defaultObject.classes) and
+        (__ \ "attributes").readWithDefault[Map[String, String]](defaultObject.attributes)
+    )(HeaderTemplateOverrides.apply _)
+}

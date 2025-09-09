@@ -16,8 +16,11 @@
 
 package uk.gov.hmrc.hmrcfrontend.views.viewmodels.hmrcstandardpage
 
+import play.api.libs.functional.syntax._
+import play.api.libs.json.{Reads, __}
 import play.twirl.api.Html
 import uk.gov.hmrc.govukfrontend.views.Aliases.PhaseBanner
+import uk.gov.hmrc.govukfrontend.views.viewmodels.CommonJsonFormats.htmlReads
 import uk.gov.hmrc.hmrcfrontend.views.Aliases.UserResearchBanner
 
 case class Banners(
@@ -27,3 +30,18 @@ case class Banners(
   additionalBannersBlock: Option[Html] = None,
   useDeprecatedPositionForHmrcBanner: Boolean = false
 )
+
+object Banners {
+  def defaultObject: Banners = Banners()
+
+  implicit def jsonReads: Reads[Banners] =
+    (
+      (__ \ "displayHmrcBanner").readWithDefault[Boolean](defaultObject.displayHmrcBanner) and
+        (__ \ "phaseBanner").readNullable[PhaseBanner] and
+        (__ \ "userResearchBanner").readNullable[UserResearchBanner] and
+        (__ \ "additionalBannersBlock").readNullable[Html] and
+        (__ \ "useDeprecatedPositionForHmrcBanner").readWithDefault[Boolean](
+          defaultObject.useDeprecatedPositionForHmrcBanner
+        )
+    )(Banners.apply _)
+}

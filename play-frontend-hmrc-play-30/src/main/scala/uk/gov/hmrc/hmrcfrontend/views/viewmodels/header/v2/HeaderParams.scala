@@ -17,10 +17,13 @@
 package uk.gov.hmrc.hmrcfrontend.views.viewmodels.header.v2
 
 import play.api.libs.json._
+import uk.gov.hmrc.govukfrontend.views.viewmodels.CommonJsonFormats.htmlWrites
+import uk.gov.hmrc.govukfrontend.views.viewmodels.servicenavigation.ServiceNavigation
 import uk.gov.hmrc.hmrcfrontend.views.viewmodels.header._
 import uk.gov.hmrc.hmrcfrontend.views.viewmodels.hmrcstandardpage.Banners
+import uk.gov.hmrc.hmrcfrontend.views.viewmodels.language.Language.LanguageFormat
 import uk.gov.hmrc.hmrcfrontend.views.viewmodels.language.{Cy, En, Language, LanguageToggle}
-import uk.gov.hmrc.govukfrontend.views.viewmodels.CommonJsonFormats.{htmlReads, htmlWrites}
+import play.api.libs.functional.syntax._
 
 import scala.collection.immutable.SortedMap
 
@@ -32,6 +35,7 @@ case class HeaderParams(
   banners: Banners = Banners(),
   menuButtonOverrides: MenuButtonOverrides = MenuButtonOverrides(),
   logoOverrides: LogoOverrides = LogoOverrides(),
+  serviceNavigation: Option[ServiceNavigation] = None,
   language: Language = En,
   private val inputLanguageToggle: Option[LanguageToggle] = None
 ) {
@@ -94,7 +98,19 @@ object HeaderParams {
       inputLanguageToggle = header.languageToggle
     )
 
-  implicit def reads: Reads[HeaderParams] = Header.jsonReads.map(headerToHeaderParams)
+  implicit def reads: Reads[HeaderParams] =
+    (
+      __.readWithDefault[HeaderUrls](HeaderUrls.defaultObject) and
+        __.readWithDefault[HeaderNames](HeaderNames.defaultObject) and
+        __.readWithDefault[HeaderTemplateOverrides](HeaderTemplateOverrides.defaultObject) and
+        __.readWithDefault[HeaderNavigation](HeaderNavigation.defaultObject) and
+        __.readWithDefault[Banners](Banners.defaultObject) and
+        __.readWithDefault[MenuButtonOverrides](MenuButtonOverrides.defaultObject) and
+        __.readWithDefault[LogoOverrides](LogoOverrides.defaultObject) and
+        (__ \ "serviceNavigation").readNullable[ServiceNavigation] and
+        (__ \ "language").readWithDefault[Language](En) and
+        (__ \ "languageToggle").readNullable[LanguageToggle]
+    )(HeaderParams.apply _)
 
   implicit def writes: OWrites[HeaderParams] = new OWrites[HeaderParams] {
     override def writes(headerParams: HeaderParams): JsObject = {
@@ -125,7 +141,9 @@ object HeaderParams {
         toTuple("menuButtonLabel", headerParams.menuButtonOverrides.menuButtonLabel),
         toTuple("menuButtonText", headerParams.menuButtonOverrides.menuButtonText),
         toTuple("navigationLabel", headerParams.headerNavigation.navigationLabel),
-        toTuple("rebrand", headerParams.logoOverrides.rebrand)
+        toTuple("rebrand", headerParams.logoOverrides.rebrand),
+        toTuple("useDeprecatedPositionForHmrcBanner", Some(headerParams.banners.useDeprecatedPositionForHmrcBanner)),
+        toTuple("serviceNavigation", headerParams.serviceNavigation)
       ).flatten
 
       jsValues.foldLeft(Json.obj())((json, tuple) => json + tuple)

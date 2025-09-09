@@ -23,6 +23,7 @@ import uk.gov.hmrc.hmrcfrontend.views.viewmodels.content.Generators._
 import uk.gov.hmrc.hmrcfrontend.views.viewmodels.language.Generators._
 import uk.gov.hmrc.hmrcfrontend.views.viewmodels.userresearchbanner.Generators._
 import uk.gov.hmrc.govukfrontend.views.viewmodels.phasebanner.PhaseBanner
+import uk.gov.hmrc.govukfrontend.views.viewmodels.servicenavigation.{ServiceNavigation, ServiceNavigationItem, ServiceNavigationSlot}
 import uk.gov.hmrc.govukfrontend.views.viewmodels.tag.Tag
 import uk.gov.hmrc.hmrcfrontend.views.viewmodels.header.v2.{HeaderNames, HeaderNavigation, HeaderParams, HeaderTemplateOverrides, HeaderUrls, LogoOverrides, MenuButtonOverrides}
 import uk.gov.hmrc.hmrcfrontend.views.viewmodels.hmrcstandardpage.Banners
@@ -55,9 +56,32 @@ object Generators {
     } yield NavigationItem(href = href, active = active, attributes = attributes, content = content)
   }
 
+  implicit val arbServiceNavigationItem: Arbitrary[ServiceNavigationItem] = Arbitrary {
+    for {
+      href       <- genNonEmptyAlphaStr
+      active     <- arbBool.arbitrary
+      attributes <- genAttributes()
+      content    <- arbContent.arbitrary
+      classes    <- genAlphaStr()
+      current    <- arbBool.arbitrary
+    } yield ServiceNavigationItem(
+      href = href,
+      active = active,
+      attributes = attributes,
+      content = content,
+      current = current,
+      classes = classes
+    )
+  }
+
   def genNavigationItems(n: Int = 15): Gen[List[NavigationItem]] = for {
     sz    <- Gen.chooseNum(0, n)
     items <- Gen.listOfN[NavigationItem](sz, arbNavigationItem.arbitrary)
+  } yield items
+
+  def genServiceNavigationItems(n: Int = 8): Gen[List[ServiceNavigationItem]] = for {
+    sz    <- Gen.chooseNum(0, n)
+    items <- Gen.listOfN[ServiceNavigationItem](sz, arbServiceNavigationItem.arbitrary)
   } yield items
 
   val arbHeaderUrls: Arbitrary[HeaderUrls] = Arbitrary {
@@ -144,6 +168,52 @@ object Generators {
     )
   }
 
+  val arbSlots: Arbitrary[ServiceNavigationSlot] = Arbitrary {
+    for {
+      start           <- Gen.option(genNonEmptyAlphaStr)
+      end             <- Gen.option(genNonEmptyAlphaStr)
+      navigationStart <- Gen.option(genNonEmptyAlphaStr)
+      navigationEnd   <- Gen.option(genNonEmptyAlphaStr)
+    } yield ServiceNavigationSlot(
+      start = start,
+      end = end,
+      navigationStart = navigationStart,
+      navigationEnd = navigationEnd
+    )
+  }
+
+  val arbServiceNavigation: Arbitrary[ServiceNavigation] = Arbitrary {
+    for {
+      serviceName                <- Gen.option(genNonEmptyAlphaStr)
+      serviceUrl                 <- Gen.option(genNonEmptyAlphaStr)
+      navigation                 <- genServiceNavigationItems()
+      navigationClasses          <- genAlphaStr()
+      navigationId               <- genAlphaStr()
+      navigationLabel            <- Gen.option(genNonEmptyAlphaStr)
+      classes                    <- genAlphaStr()
+      attributes                 <- genAttributes()
+      ariaLabel                  <- Gen.option(genNonEmptyAlphaStr)
+      menuButtonText             <- Gen.option(genNonEmptyAlphaStr)
+      menuButtonLabel            <- Gen.option(genNonEmptyAlphaStr)
+      slots                      <- Gen.option(arbSlots.arbitrary)
+      collapseNavigationOnMobile <- Gen.option(arbBool.arbitrary)
+    } yield ServiceNavigation(
+      serviceName = serviceName,
+      serviceUrl = serviceUrl,
+      navigation = navigation,
+      navigationClasses = navigationClasses,
+      navigationId = navigationId,
+      navigationLabel = navigationLabel,
+      classes = classes,
+      attributes = attributes,
+      ariaLabel = ariaLabel,
+      menuButtonText = menuButtonText,
+      menuButtonLabel = menuButtonLabel,
+      slots = slots,
+      collapseNavigationOnMobile = collapseNavigationOnMobile
+    )
+  }
+
   implicit val arbHeaderParams: Arbitrary[HeaderParams] = Arbitrary {
     for {
       headerUrls              <- arbHeaderUrls.arbitrary
@@ -155,6 +225,7 @@ object Generators {
       logoOverrides           <- arbLogoOverrides.arbitrary
       language                <- arbLanguage.arbitrary
       languageToggle          <- Gen.option(arbLanguageToggle.arbitrary)
+      serviceNavigation       <- Gen.option(arbServiceNavigation.arbitrary)
     } yield HeaderParams(
       headerUrls = headerUrls,
       headerNames = headerNames,
@@ -164,7 +235,8 @@ object Generators {
       banners = banners,
       menuButtonOverrides = menuButtonOverrides,
       logoOverrides = logoOverrides,
-      inputLanguageToggle = languageToggle
+      inputLanguageToggle = languageToggle,
+      serviceNavigation = serviceNavigation
     )
   }
 

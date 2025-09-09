@@ -19,7 +19,9 @@ package components
 
 import play.api.Application
 import play.api.inject.guice.GuiceApplicationBuilder
-import play.twirl.api.Html
+import play.api.mvc.RequestHeader
+import play.api.test.FakeRequest
+import play.twirl.api.{Html, HtmlFormat}
 import uk.gov.hmrc.hmrcfrontend.views.config.StandardBetaBanner
 import uk.gov.hmrc.hmrcfrontend.views.html.components._
 import uk.gov.hmrc.hmrcfrontend.views.viewmodels.header.NavigationItem
@@ -30,7 +32,14 @@ import uk.gov.hmrc.helpers.MessagesSupport
 
 import scala.util.Try
 
-class HmrcHeaderSpec extends TemplateUnitSpec[HeaderParams, HmrcHeader]("hmrcHeader") with MessagesSupport {
+class HmrcHeaderSpec extends TemplateUnitBaseSpec[HeaderParams]("hmrcHeader") with MessagesSupport {
+
+  private val component = app.injector.instanceOf[HmrcHeader]
+
+  def render(templateParams: HeaderParams): Try[HtmlFormat.Appendable] = {
+    implicit val request: RequestHeader = FakeRequest("GET", "/foo")
+    Try(component(templateParams))
+  }
 
   def buildAnotherApp(properties: Map[String, String] = Map.empty): Application =
     new GuiceApplicationBuilder()
@@ -104,7 +113,7 @@ class HmrcHeaderSpec extends TemplateUnitSpec[HeaderParams, HmrcHeader]("hmrcHea
       "passed a Header" in {
         val standardBetaBanner = app.injector.instanceOf[StandardBetaBanner]
 
-        val header = Header(
+        val header: Header = Header(
           homepageUrl = "/some/govuk",
           assetsPath = "/different/assets/images",
           productName = Some("Test Product"),

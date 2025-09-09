@@ -16,6 +16,8 @@
 
 package uk.gov.hmrc.hmrcfrontend.views.viewmodels.header.v2
 
+import play.api.libs.functional.syntax._
+import play.api.libs.json.{Reads, __}
 import uk.gov.hmrc.hmrcfrontend.views.viewmodels.header.NavigationItem
 
 case class HeaderNavigation(
@@ -23,3 +25,15 @@ case class HeaderNavigation(
   navigationClasses: String = "",
   navigationLabel: Option[String] = None
 )
+
+object HeaderNavigation {
+
+  def defaultObject: HeaderNavigation = HeaderNavigation()
+
+  implicit def jsonReads: Reads[HeaderNavigation] =
+    (
+      (__ \ "navigation").readNullable[Seq[NavigationItem]] and
+        (__ \ "navigationClasses").readWithDefault[String](defaultObject.navigationClasses) and
+        (__ \ "navigationLabel").readNullable[String]
+    )(HeaderNavigation.apply _)
+}

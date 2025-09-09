@@ -17,7 +17,7 @@
 package uk.gov.hmrc.hmrcfrontend.views.components
 
 import uk.gov.hmrc.support.ScalaCheckUtils.ClassifyParams
-import uk.gov.hmrc.hmrcfrontend.support.TemplateIntegrationSpec
+import uk.gov.hmrc.hmrcfrontend.support.MessagesAwareTemplateIntegrationSpec
 import uk.gov.hmrc.hmrcfrontend.views.html.components._
 
 // We use the below instead of a true arbitrary as the `hmrc-frontend` Nunjucks
@@ -27,7 +27,7 @@ import uk.gov.hmrc.hmrcfrontend.views.viewmodels.header.Generators._
 import uk.gov.hmrc.hmrcfrontend.views.viewmodels.language.En
 
 object HmrcHeaderIntegrationSpec
-    extends TemplateIntegrationSpec[HeaderParams, HmrcHeader](hmrcComponentName = "hmrcHeader", seed = None) {
+    extends MessagesAwareTemplateIntegrationSpec[HeaderParams, HmrcHeader](hmrcComponentName = "hmrcHeader") {
 
   override def classifiers(header: HeaderParams): LazyList[ClassifyParams] =
     (header.headerUrls.homepageUrl.isEmpty, "empty homepageUrl", "non-empty homepageUrl") #::

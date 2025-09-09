@@ -16,7 +16,21 @@
 
 package uk.gov.hmrc.hmrcfrontend.views.viewmodels.header.v2
 
+import play.api.libs.functional.syntax._
+import play.api.libs.json.{Reads, __}
+
 case class HeaderNames(
   productName: Option[String] = None,
   serviceName: Option[String] = None
 )
+
+object HeaderNames {
+
+  def defaultObject: HeaderNames = HeaderNames()
+
+  implicit def jsonReads: Reads[HeaderNames] =
+    (
+      (__ \ "productName").readNullable[String] and
+        (__ \ "serviceName").readNullable[String]
+    )(HeaderNames.apply _)
+}

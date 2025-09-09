@@ -14,7 +14,7 @@
  * limitations under the License.
  *@
 
-@import uk.gov.hmrc.govukfrontend.views.html.components.GovukPhaseBanner
+@import uk.gov.hmrc.govukfrontend.views.html.components.{GovukPhaseBanner, GovukServiceNavigation}
 @import uk.gov.hmrc.govukfrontend.views.html.helpers.GovukLogo
 @import uk.gov.hmrc.hmrcfrontend.views.html.components.{HmrcBanner, HmrcUserResearchBanner}
 @import uk.gov.hmrc.hmrcfrontend.views.Aliases.{Banner, HeaderParams, UserResearchBanner}
@@ -29,10 +29,11 @@
     govukPhaseBanner: GovukPhaseBanner,
     tudorCrownConfig: TudorCrownConfig,
     rebrandConfig: RebrandConfig,
-    govukLogo: GovukLogo
+    govukLogo: GovukLogo,
+    govukServiceNavigation: GovukServiceNavigation
 )
 
-@(params: HeaderParams)
+@(params: HeaderParams)(implicit messages: Messages)
 @import params._
 
 @containerClassList = @{
@@ -47,7 +48,7 @@
 }
 
 <header>
-    <div class="govuk-header @toClasses("hmrc-header", params.headerTemplateOverrides.classes)@if(params.headerUrls.signOutHref.exists(_.nonEmpty) || languageToggle.exists(_.linkMap.nonEmpty)){ hmrc-header--with-additional-navigation}" data-module="govuk-header"
+    <div class="govuk-header @toClasses("hmrc-header", params.headerTemplateOverrides.classes)@if(params.headerUrls.signOutHref.exists(_.nonEmpty) || languageToggle.exists(_.linkMap.nonEmpty)){ hmrc-header--with-additional-navigation}@if(params.serviceNavigation.isDefined){ govuk-header--full-width-border}" data-module="govuk-header"
             @toAttributes(params.headerTemplateOverrides.attributes)>
       <div class="@toClasses(containerClassList)">
         <div class="govuk-header__logo">
@@ -126,6 +127,9 @@
         <div class="govuk-width-container">
             @hmrcBanner(Banner(language, params.logoOverrides.useTudorCrown))
         </div>
+    }
+    @params.serviceNavigation.map { nav =>
+        @govukServiceNavigation(nav)
     }
     @params.banners.phaseBanner.map { pb =>
       <div class="govuk-width-container">

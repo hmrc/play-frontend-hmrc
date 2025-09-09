@@ -21,6 +21,7 @@ import play.api.mvc.RequestHeader
 import play.twirl.api.{Html, HtmlFormat}
 import uk.gov.hmrc.govukfrontend.views.Aliases.{BackLink, PageLayout, PhaseBanner}
 import uk.gov.hmrc.govukfrontend.views.html.components.{FixedWidthPageLayout, TwoThirdsMainContent}
+import uk.gov.hmrc.govukfrontend.views.viewmodels.servicenavigation.ServiceNavigation
 import uk.gov.hmrc.hmrcfrontend.views.Aliases.Header
 
 import javax.inject.Inject
