@@ -17,6 +17,7 @@
 package uk.gov.hmrc.hmrcfrontend.views.viewmodels.language
 
 case object Cy extends Language {
-  val code: String = "cy"
-  val name: String = "Cymraeg"
+  val code: String                  = "cy"
+  val name: String                  = "Cymraeg"
+  val serviceNavigationName: String = "CYM"
 }

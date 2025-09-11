@@ -23,6 +23,8 @@ trait Language extends Ordered[Language] {
 
   def name: String
 
+  def serviceNavigationName: String
+
   def compare(that: Language): Int = Language.LanguageOrdering.compare(this, that)
 }
 
