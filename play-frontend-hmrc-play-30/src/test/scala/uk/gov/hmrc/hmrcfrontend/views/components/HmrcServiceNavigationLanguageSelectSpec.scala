@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.hmrcfrontend.views.viewmodels.language
+package uk.gov.hmrc.hmrcfrontend.views
+package components
 
-case object En extends Language {
-  val code: String                  = "en"
-  val name: String                  = "English"
-  val serviceNavigationName: String = "ENG"
-}
+import uk.gov.hmrc.hmrcfrontend.views.html.components.{HmrcServiceNavigationLanguageSelect, _}
+
+class HmrcServiceNavigationLanguageSelectSpec
+    extends TemplateUnitSpec[LanguageSelect, HmrcServiceNavigationLanguageSelect]("hmrcServiceNavigationLanguageSelect")

@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 HM Revenue & Customs
+ * Copyright 2019 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,10 +14,14 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.hmrcfrontend.views.viewmodels.language
+package uk.gov.hmrc.hmrcfrontend.views.components
 
-case object En extends Language {
-  val code: String                  = "en"
-  val name: String                  = "English"
-  val serviceNavigationName: String = "ENG"
-}
+import uk.gov.hmrc.hmrcfrontend.support.TemplateIntegrationSpec
+import uk.gov.hmrc.hmrcfrontend.views.html.components._
+import uk.gov.hmrc.hmrcfrontend.views.viewmodels.language.Generators._
+
+object HmrcServiceNavigationLanguageSelectIntegrationSpec
+    extends TemplateIntegrationSpec[LanguageSelect, HmrcServiceNavigationLanguageSelect](
+      hmrcComponentName = "hmrcServiceNavigationLanguageSelect",
+      seed = None
+    )

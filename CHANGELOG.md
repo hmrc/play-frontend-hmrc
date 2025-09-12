@@ -8,7 +8,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 For compatibility information see `govukFrontendVersion` and `hmrcFrontendVersion` in
 [LibDependencies](project/LibDependencies.scala)
 
-## [12.11.0] - 2025-09-08
+## [12.12.0] - 2025-09-12
+
+### Changed
+
+- Added `HmrcServiceNavigationLanguageSelect` and `HmrcServiceNavigationLanguageSelectHelper` components
+
+- ## [12.11.0] - 2025-09-08
 
 ### Changed
 
