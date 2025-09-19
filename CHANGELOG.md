@@ -8,6 +8,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 For compatibility information see `govukFrontendVersion` and `hmrcFrontendVersion` in
 [LibDependencies](project/LibDependencies.scala)
 
+## [12.13.0] - 2025-09-19
+
+### Changed
+
+- Removed unused `data-journey-click` attributes from `Header`, `LanguageSelect` and `ServiceNavigationLanguageSelect` components.
+
 ## [12.12.0] - 2025-09-12
 
 ### Changed

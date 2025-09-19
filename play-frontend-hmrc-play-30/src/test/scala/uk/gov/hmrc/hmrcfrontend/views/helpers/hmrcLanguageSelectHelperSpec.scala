@@ -52,7 +52,7 @@ class hmrcLanguageSelectHelperSpec
 
       content
         .select(".govuk-link")
-        .text mustBe "Newid yr iaith ir Gymraeg Cymraeg"
+        .text mustBe "Newid yr iaith i’r Gymraeg Cymraeg"
     }
 
     "Provide a link to English is language cookie is set to Welsh" in {

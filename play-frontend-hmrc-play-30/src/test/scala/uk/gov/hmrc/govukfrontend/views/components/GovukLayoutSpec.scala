@@ -190,7 +190,7 @@ class GovukLayoutSpec
       html.attr("lang") shouldBe "cy"
     }
 
-    "use the default layout of twoThirdsMainContent" in {
+    "use the default layout of twoThirdsMaitwoThirdsnContent" in {
       val html = component.apply()(contentBlock = Html("<p>Here is my content</p>"))
 
       val gridRow = html.select(".govuk-main-wrapper .govuk-grid-row")
