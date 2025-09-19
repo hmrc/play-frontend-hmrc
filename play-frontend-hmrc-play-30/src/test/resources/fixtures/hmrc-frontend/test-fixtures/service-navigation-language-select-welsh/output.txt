@@ -6,8 +6,7 @@
           hreflang="en"
           lang="en"
           rel="alternate"
-          class="govuk-link govuk-service-navigation__link"
-          data-journey-click="link - click:lang-select:English">
+          class="govuk-link govuk-service-navigation__link">
           ENG<span class="govuk-visually-hidden"> – Change the language to English</span>
         </a>
       </li>

@@ -6,7 +6,7 @@
     "serviceUrl" : "#s1",
     "classes" : "hmrc-service-navigation--with-language-select",
     "slots" : {
-      "end" : "<nav class=\"hmrc-service-navigation-language-select\" aria-label=\"Language switcher\">\n    <ul class=\"hmrc-service-navigation-language-select__list\">\n      <li class=\"hmrc-service-navigation-language-select__list-item\">\n        <span aria-current=\"true\">ENG</span>\n      </li>\n      <li class=\"hmrc-service-navigation-language-select__list-item\">\n        <a href=\"/components/service-navigation-language-select/welsh/preview\" hreflang=\"cy\" lang=\"cy\" rel=\"alternate\" class=\"govuk-link govuk-service-navigation__link\" data-journey-click=\"link - click:lang-select:Cymraeg\">\n          CYM<span class=\"govuk-visually-hidden\"> – Newid yr iaith ir Gymraeg</span>\n        </a>\n      </li>\n    </ul>\n  </nav>\n"
+      "end" : "<nav class=\"hmrc-service-navigation-language-select\" aria-label=\"Language switcher\">\n    <ul class=\"hmrc-service-navigation-language-select__list\">\n      <li class=\"hmrc-service-navigation-language-select__list-item\">\n        <span aria-current=\"true\">ENG</span>\n      </li>\n      <li class=\"hmrc-service-navigation-language-select__list-item\">\n        <a href=\"/components/service-navigation-language-select/welsh/preview\" hreflang=\"cy\" lang=\"cy\" rel=\"alternate\" class=\"govuk-link govuk-service-navigation__link\">\n          CYM<span class=\"govuk-visually-hidden\"> – Newid yr iaith i’r Gymraeg</span>\n        </a>\n      </li>\n    </ul>\n  </nav>\n"
     }
   },
   "languageToggle" : {

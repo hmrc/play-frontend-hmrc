@@ -8,9 +8,8 @@
           hreflang="cy"
           lang="cy"
           rel="alternate"
-          class="govuk-link govuk-service-navigation__link"
-          data-journey-click="link - click:lang-select:Cymraeg">
-          CYM<span class="govuk-visually-hidden"> – Newid yr iaith ir Gymraeg</span>
+          class="govuk-link govuk-service-navigation__link">
+          CYM<span class="govuk-visually-hidden"> – Newid yr iaith i’r Gymraeg</span>
         </a>
       </li>
     </ul>
