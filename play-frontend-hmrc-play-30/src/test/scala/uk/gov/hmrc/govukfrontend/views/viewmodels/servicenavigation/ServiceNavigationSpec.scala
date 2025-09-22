@@ -16,6 +16,7 @@
 
 package uk.gov.hmrc.govukfrontend.views.viewmodels.servicenavigation
 
+import uk.gov.hmrc.govukfrontend.views.Aliases.HtmlContent
 import uk.gov.hmrc.govukfrontend.views.viewmodels.JsonRoundtripSpec
 import uk.gov.hmrc.govukfrontend.views.viewmodels.servicenavigation.Generators._
 
@@ -34,7 +35,7 @@ class ServiceNavigationSpec extends JsonRoundtripSpec[ServiceNavigation] {
 
       "navigationStart is nonEmpty" in {
         val serviceNavigation = ServiceNavigation(
-          slots = Some(ServiceNavigationSlot(navigationStart = Some("navigationStart")))
+          slots = Some(ServiceNavigationSlot(navigationStart = HtmlContent("<div>navigationStart</div>")))
         )
 
         serviceNavigation.shouldDisplayNavigation shouldBe true
@@ -42,7 +43,7 @@ class ServiceNavigationSpec extends JsonRoundtripSpec[ServiceNavigation] {
 
       "navigationEnd is nonEmpty" in {
         val serviceNavigation = ServiceNavigation(
-          slots = Some(ServiceNavigationSlot(navigationEnd = Some("navigationEnd")))
+          slots = Some(ServiceNavigationSlot(navigationEnd = HtmlContent("<div>navigationEnd</div>")))
         )
 
         serviceNavigation.shouldDisplayNavigation shouldBe true
@@ -51,7 +52,7 @@ class ServiceNavigationSpec extends JsonRoundtripSpec[ServiceNavigation] {
       "navigation and navigationStart are nonEmpty" in {
         val serviceNavigation = ServiceNavigation(
           navigation = Seq(ServiceNavigationItem()),
-          slots = Some(ServiceNavigationSlot(navigationStart = Some("navigationStart")))
+          slots = Some(ServiceNavigationSlot(navigationStart = HtmlContent("<div>navigationStart</div>")))
         )
 
         serviceNavigation.shouldDisplayNavigation shouldBe true
@@ -60,7 +61,7 @@ class ServiceNavigationSpec extends JsonRoundtripSpec[ServiceNavigation] {
       "navigation and navigationEnd are nonEmpty" in {
         val serviceNavigation = ServiceNavigation(
           navigation = Seq(ServiceNavigationItem()),
-          slots = Some(ServiceNavigationSlot(navigationEnd = Some("navigationEnd")))
+          slots = Some(ServiceNavigationSlot(navigationEnd = HtmlContent("<div>navigationEnd</div>")))
         )
 
         serviceNavigation.shouldDisplayNavigation shouldBe true
@@ -70,8 +71,8 @@ class ServiceNavigationSpec extends JsonRoundtripSpec[ServiceNavigation] {
         val serviceNavigation = ServiceNavigation(
           slots = Some(
             ServiceNavigationSlot(
-              navigationStart = Some("navigationStart"),
-              navigationEnd = Some("navigationEnd")
+              navigationStart = HtmlContent("<div>navigationStart</div>"),
+              navigationEnd = HtmlContent("<div>navigationEnd</div>")
             )
           )
         )
@@ -84,8 +85,8 @@ class ServiceNavigationSpec extends JsonRoundtripSpec[ServiceNavigation] {
           navigation = Seq(ServiceNavigationItem()),
           slots = Some(
             ServiceNavigationSlot(
-              navigationStart = Some("navigationStart"),
-              navigationEnd = Some("navigationEnd")
+              navigationStart = HtmlContent("<div>navigationStart</div>"),
+              navigationEnd = HtmlContent("<div>navigationEnd</div>")
             )
           )
         )

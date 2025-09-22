@@ -19,6 +19,7 @@ package uk.gov.hmrc.govukfrontend.views.viewmodels.servicenavigation
 import org.scalacheck.Arbitrary.arbBool
 import org.scalacheck.{Arbitrary, Gen}
 import uk.gov.hmrc.govukfrontend.views.viewmodels.Generators._
+import uk.gov.hmrc.govukfrontend.views.viewmodels.content.Content
 import uk.gov.hmrc.govukfrontend.views.viewmodels.errormessage.Generators.arbErrorMessage
 import uk.gov.hmrc.govukfrontend.views.viewmodels.fieldset.Generators.arbFieldset
 import uk.gov.hmrc.govukfrontend.views.viewmodels.hint.Generators.arbHint
@@ -26,12 +27,16 @@ import uk.gov.hmrc.govukfrontend.views.viewmodels.label.Generators.arbLabel
 import uk.gov.hmrc.govukfrontend.views.viewmodels.content.Generators._
 
 object Generators {
+  private val slotArbContent: Arbitrary[Content] = Arbitrary {
+    Gen.oneOf(arbEmpty.arbitrary, arbHtmlContent.arbitrary)
+  }
+
   implicit val arbServiceNavigationSlot: Arbitrary[ServiceNavigationSlot] = Arbitrary {
     for {
-      start           <- Gen.option(genNonEmptyAlphaStr)
-      end             <- Gen.option(genNonEmptyAlphaStr)
-      navigationStart <- Gen.option(genNonEmptyAlphaStr)
-      navigationEnd   <- Gen.option(genNonEmptyAlphaStr)
+      start           <- slotArbContent.arbitrary
+      end             <- slotArbContent.arbitrary
+      navigationStart <- slotArbContent.arbitrary
+      navigationEnd   <- slotArbContent.arbitrary
     } yield ServiceNavigationSlot.apply(
       start = start,
       end = end,

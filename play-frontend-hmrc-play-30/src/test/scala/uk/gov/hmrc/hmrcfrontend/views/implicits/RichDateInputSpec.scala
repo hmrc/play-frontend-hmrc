@@ -18,12 +18,9 @@ package uk.gov.hmrc.hmrcfrontend.views.implicits
 
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpec
-import org.scalatestplus.play.guice.GuiceOneAppPerSuite
-import play.api.Application
 import play.api.data.Forms.{mapping, text}
 import play.api.data.{Field, Form, FormError}
 import play.api.i18n.{Lang, Messages}
-import play.api.inject.guice.GuiceApplicationBuilder
 import uk.gov.hmrc.govukfrontend.views.viewmodels.content.{HtmlContent, Text}
 import uk.gov.hmrc.govukfrontend.views.viewmodels.dateinput.{DateInput, InputItem}
 import uk.gov.hmrc.govukfrontend.views.viewmodels.errormessage.ErrorMessage
@@ -33,9 +30,7 @@ import uk.gov.hmrc.helpers.MessagesSupport
 import uk.gov.hmrc.hmrcfrontend.views.config.{HmrcPageHeadingLegend, HmrcSectionCaption}
 import uk.gov.hmrc.hmrcfrontend.views.html.components.implicits._
 
-class RichDateInputSpec extends AnyWordSpec with Matchers with MessagesSupport with GuiceOneAppPerSuite {
-  override def fakeApplication(): Application =
-    new GuiceApplicationBuilder().configure(Map("play.i18n.langs" -> List("en", "cy"))).build()
+class RichDateInputSpec extends AnyWordSpec with Matchers with MessagesSupport {
 
   case class DateData(day: String, month: String, year: String)
 
