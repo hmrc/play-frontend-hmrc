@@ -18,9 +18,9 @@ package uk.gov.hmrc.govukfrontend.views.viewmodels
 package servicenavigation
 
 import uk.gov.hmrc.govukfrontend.views.viewmodels.CommonJsonFormats._
-import uk.gov.hmrc.govukfrontend.views.viewmodels.JsonImplicits._
 import play.api.libs.functional.syntax._
 import play.api.libs.json._
+import uk.gov.hmrc.govukfrontend.views.viewmodels.content.Empty
 
 case class ServiceNavigation(
   serviceName: Option[String] = None,
@@ -38,9 +38,7 @@ case class ServiceNavigation(
   collapseNavigationOnMobile: Option[Boolean] = None
 ) {
   def shouldDisplayNavigation: Boolean =
-    navigation.nonEmpty || slots.exists(slot =>
-      slot.navigationStart.exists(_.nonEmpty) || slot.navigationEnd.exists(_.nonEmpty)
-    )
+    navigation.nonEmpty || slots.exists(slot => slot.navigationStart.nonEmpty || slot.navigationEnd.nonEmpty)
 }
 
 object ServiceNavigation {

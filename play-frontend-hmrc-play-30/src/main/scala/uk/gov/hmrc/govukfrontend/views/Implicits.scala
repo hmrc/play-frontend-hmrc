@@ -32,5 +32,6 @@ trait Implicits
     with RichSeqStringTupleSupport
     with RichLegendSupport
     with RichActionItemSupport
+    with RichServiceNavigationSupport
 
 object Implicits extends Implicits

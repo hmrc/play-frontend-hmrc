@@ -48,7 +48,7 @@
           </button>
         }
         <ul class="govuk-service-navigation__list" id="@navigationIdWithDefault">
-          @Html(slots.flatMap(_.navigationStart))
+          @slots.map(_.navigationStart.asHtml)
           @for(item <- navigation) {
             <li class="govuk-service-navigation__item@if(item.active || item.current){ govuk-service-navigation__item--active}">
               @if(item.href.nonEmpty) {
@@ -68,7 +68,7 @@
               }
             </li>
           }
-          @Html(slots.flatMap(_.navigationEnd))
+          @slots.map(_.navigationEnd.asHtml)
         </ul>
       </nav>
     }
@@ -77,15 +77,15 @@
 
 @govukWidthContainer = {
   <div class="govuk-width-container">
-    @Html(slots.flatMap(_.start))
+    @slots.map(_.start.asHtml)
 
     @govukServiceNavigationContainer
 
-    @Html(slots.flatMap(_.end))
+    @slots.map(_.end.asHtml)
   </div>
 }
 
-@if(params.serviceName.isDefined || params.slots.flatMap(_.start).isDefined || params.slots.flatMap(_.end).isDefined) {
+@if(params.serviceName.isDefined || params.slots.exists(slot => slot.start.nonEmpty || slot.end.nonEmpty)) {
   <section aria-label="@{ariaLabel.getOrElse(messages("govuk.serviceNavigation.ariaLabel"))}" class="@toClasses("govuk-service-navigation", classes)" data-module="govuk-service-navigation" @toAttributes(attributes)>
     @govukWidthContainer
   </section>

@@ -73,7 +73,7 @@ class GovukServiceNavigationSpec
         serviceName = Some("cupcakes-service"),
         slots = Some(
           ServiceNavigationSlot(
-            start = Some("<div class=\"my-custom-class\">Cupcakes are delicious!</div>")
+            start = HtmlContent("<div class=\"my-custom-class\">Cupcakes are delicious!</div>")
           )
         )
       )
@@ -88,7 +88,7 @@ class GovukServiceNavigationSpec
         serviceName = Some("cupcakes-service"),
         slots = Some(
           ServiceNavigationSlot(
-            navigationStart = Some("<div class=\"my-custom-class\">Cupcakes are still delicious!</div>")
+            navigationStart = HtmlContent("<div class=\"my-custom-class\">Cupcakes are still delicious!</div>")
           )
         )
       )
