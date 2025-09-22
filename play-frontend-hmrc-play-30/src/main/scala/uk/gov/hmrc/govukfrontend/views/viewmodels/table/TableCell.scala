@@ -14,16 +14,15 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.govukfrontend.views.viewmodels
-package table
+package uk.gov.hmrc.govukfrontend.views.viewmodels.table
 
 import play.api.libs.functional.syntax._
 import play.api.libs.json._
-import uk.gov.hmrc.supportfrontend.views.IntString
+import uk.gov.hmrc.govukfrontend.views.viewmodels.WritesUtils
 import uk.gov.hmrc.govukfrontend.views.viewmodels.content.{Content, Empty}
+import uk.gov.hmrc.supportfrontend.views.IntString
 
-@deprecated("Use TableCell model instead", "x.x.x")
-final case class TableRow(
+final case class TableCell(
   content: Content = Empty,
   format: Option[String] = None,
   classes: String = "",
@@ -32,11 +31,23 @@ final case class TableRow(
   attributes: Map[String, String] = Map.empty
 )
 
-object TableRow {
+object TableCell {
 
-  def defaultObject: TableRow = TableRow()
+  def defaultObject: TableCell = TableCell()
 
-  implicit def jsonReads: Reads[TableRow] =
+  import scala.language.implicitConversions
+
+  implicit def tableRowToTableCell(row: TableRow): TableCell =
+    TableCell(
+      content = row.content,
+      format = row.format,
+      classes = row.classes,
+      colspan = row.colspan,
+      rowspan = row.rowspan,
+      attributes = row.attributes
+    )
+
+  implicit def jsonReads: Reads[TableCell] =
     (
       Content.reads and
         (__ \ "format").readNullable[String] and
@@ -44,9 +55,9 @@ object TableRow {
         (__ \ "colspan").readNullable[IntString].int and
         (__ \ "rowspan").readNullable[IntString].int and
         (__ \ "attributes").readWithDefault[Map[String, String]](defaultObject.attributes)
-    )(TableRow.apply _)
+    )(TableCell.apply _)
 
-  implicit def jsonWrites: OWrites[TableRow] =
+  implicit def jsonWrites: OWrites[TableCell] =
     (
       Content.writes and
         (__ \ "format").writeNullable[String] and
