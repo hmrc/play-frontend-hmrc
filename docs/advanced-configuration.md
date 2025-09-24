@@ -13,7 +13,7 @@ Information how to add your own SASS compilation pipeline, configuring non-HMRC 
 ## Adding your own SASS compilation pipeline
 
 This library will manage SASS compilation for you. However, should you need for any reason to add your own SASS
-compilation pipeline, follow the [steps detailed here](docs/maintainers/sass-compilation.md).
+compilation pipeline, follow the [steps detailed here](/docs/maintainers/sass-compilation.md).
 
 ## Configuring non-HMRC projects to resolve play-frontend-hmrc artefacts
 
