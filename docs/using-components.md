@@ -115,7 +115,7 @@ When passing data values to components in play-frontend-hmrc, you should use one
 [back to top](#using-components)
 
 ## Handling user input securely
-See separate file here: [Handling user input securely](docs/maintainers/handling-user-input-securely.md)
+See separate file here: [Handling user input securely](/docs/handling-user-input-securely.md)
 
 [back to top](#using-components)
 
@@ -396,8 +396,8 @@ You can then use the banner as per below (note the injected implicit `ContactFro
 ## Adding a User Research Banner
 
 The User Research Banner is a component used to display a blue banner, containing link text inviting the service user to
-take part in user research. The Twirl template is [HmrcUserResearchBanner.scala.html](play-frontend-hmrc-play-30/src/main/twirl/uk/gov/hmrc/hmrcfrontend/views/components/HmrcUserResearchBanner.scala.html),
-and the viewmodel is [UserResearchBanner.scala](play-frontend-hmrc-play-30/src/main/scala/uk/gov/hmrc/hmrcfrontend/views/viewmodels/userresearchbanner/UserResearchBanner.scala).
+take part in user research. The Twirl template is [HmrcUserResearchBanner.scala.html](/play-frontend-hmrc-play-30/src/main/twirl/uk/gov/hmrc/hmrcfrontend/views/components/HmrcUserResearchBanner.scala.html),
+and the viewmodel is [UserResearchBanner.scala](/play-frontend-hmrc-play-30/src/main/scala/uk/gov/hmrc/hmrcfrontend/views/viewmodels/userresearchbanner/UserResearchBanner.scala).
 
 The banner contains hard coded content, available in English and Welsh, with translation handled automatically via the
 Play `language` from an implicit `request`. It is not possible to change this content, as it has been provided by
@@ -419,7 +419,7 @@ Research Services will tell you what URL to use for your service.
 
 ## Helping users report technical issues
 
-The [HmrcReportTechnicalIssueHelper](play-frontend-hmrc-play-30/src/main/twirl/uk/gov/hmrc/hmrcfrontend/views/helpers/HmrcReportTechnicalIssueHelper.scala.html) component
+The [HmrcReportTechnicalIssueHelper](/play-frontend-hmrc-play-30/src/main/twirl/uk/gov/hmrc/hmrcfrontend/views/helpers/HmrcReportTechnicalIssueHelper.scala.html) component
 generates a link that allows users to report technical issues with your service.
 
 To configure this helper, add the following configuration to your `application.conf`
@@ -447,7 +447,7 @@ in your layout template and passing into `HmrcStandardPage` or `GovukLayout` in 
 
 ## Adding dynamic character count with Welsh translations to a text input
 
-[HmrcCharacterCount](play-frontend-hmrc-play-30/src/main/twirl/uk/gov/hmrc/hmrcfrontend/views/components/HmrcCharacterCount.scala.html) is an
+[HmrcCharacterCount](/play-frontend-hmrc-play-30/src/main/twirl/uk/gov/hmrc/hmrcfrontend/views/components/HmrcCharacterCount.scala.html) is an
 implementation of the GOV.UK CharacterCount that translates the dynamic words / characters remaining
 text into English or Welsh using the Play framework Message API. You do not need to pass through the
 language explicitly to this component, just pass through an implicit Messages.
@@ -585,7 +585,7 @@ A preferred way would be to select a default value using the `selected` attribut
 
 ### Opening links in a new tab
 
-The [HmrcNewTabLinkHelper](play-frontend-hmrc-play-30/src/main/twirl/uk/gov/hmrc/hmrcfrontend/views/helpers/HmrcNewTabLinkHelper.scala.html) component
+The [HmrcNewTabLinkHelper](/play-frontend-hmrc-play-30/src/main/twirl/uk/gov/hmrc/hmrcfrontend/views/helpers/HmrcNewTabLinkHelper.scala.html) component
 allows you to link to content that opens in a new tab, with protection against reverse tabnapping. It takes in an implicit
 `Messages` parameter to translate the content `(opens in new tab)`.
 

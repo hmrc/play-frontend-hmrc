@@ -40,13 +40,13 @@ Specific rebrand questions can be directed to the HMRC Slack channel #event-govu
 
 ## Creating HMRC-style pages
 ### Using the HMRC standard page template
-The [`HmrcStandardPage`](play-frontend-hmrc-play-30/src/main/twirl/uk/gov/hmrc/hmrcfrontend/views/helpers/HmrcStandardPage.scala.html) helper
+The [`HmrcStandardPage`](/play-frontend-hmrc-play-30/src/main/twirl/uk/gov/hmrc/hmrcfrontend/views/helpers/HmrcStandardPage.scala.html) helper
 generates a standard HMRC page layout including the `HmrcStandardHeader`, `HmrcStandardFooter`, Welsh language toggle, and various banners.
-This helper takes [`HmrcStandardPageParams`](play-frontend-hmrc-play-30/src/main/scala/uk/gov/hmrc/hmrcfrontend/views/viewmodels/hmrcstandardpage/HmrcStandardPageParams.scala)
+This helper takes [`HmrcStandardPageParams`](/play-frontend-hmrc-play-30/src/main/scala/uk/gov/hmrc/hmrcfrontend/views/viewmodels/hmrcstandardpage/HmrcStandardPageParams.scala)
 which includes the following members:
-* [`ServiceURLs`](play-frontend-hmrc-play-30/src/main/scala/uk/gov/hmrc/hmrcfrontend/views/viewmodels/hmrcstandardpage/ServiceURLs.scala) - containing service-specific URLs that will typically need setting once
-* [`Banners`](play-frontend-hmrc-play-30/src/main/scala/uk/gov/hmrc/hmrcfrontend/views/viewmodels/hmrcstandardpage/Banners.scala) - containing details of which banners should be displayed
-* [`TemplateOverrides`](play-frontend-hmrc-play-30/src/main/scala/uk/gov/hmrc/hmrcfrontend/views/viewmodels/hmrcstandardpage/TemplateOverrides.scala) - containing custom layout wrapper overrides or HTML to inject (perhaps set for the whole service, or on a page-by-page basis)
+* [`ServiceURLs`](/play-frontend-hmrc-play-30/src/main/scala/uk/gov/hmrc/hmrcfrontend/views/viewmodels/hmrcstandardpage/ServiceURLs.scala) - containing service-specific URLs that will typically need setting once
+* [`Banners`](/play-frontend-hmrc-play-30/src/main/scala/uk/gov/hmrc/hmrcfrontend/views/viewmodels/hmrcstandardpage/Banners.scala) - containing details of which banners should be displayed
+* [`TemplateOverrides`](/play-frontend-hmrc-play-30/src/main/scala/uk/gov/hmrc/hmrcfrontend/views/viewmodels/hmrcstandardpage/TemplateOverrides.scala) - containing custom layout wrapper overrides or HTML to inject (perhaps set for the whole service, or on a page-by-page basis)
 
 To use this component,
 
@@ -162,7 +162,7 @@ You can find working examples of the use of play-frontend-hmrc in the following 
 ## Integrating with shared HMRC services
 ### Linking to your accessibility statement
 
-[HmrcStandardFooter](play-frontend-hmrc-play-30/src/main/twirl/uk/gov/hmrc/hmrcfrontend/views/helpers/HmrcStandardFooter.scala.html),
+[HmrcStandardFooter](/play-frontend-hmrc-play-30/src/main/twirl/uk/gov/hmrc/hmrcfrontend/views/helpers/HmrcStandardFooter.scala.html),
 included as part of `HmrcStandardPage`, generates the standard GOV.UK footer including the standardised list of footer
 links for tax services.
 
@@ -189,7 +189,7 @@ within accessibility-statement-frontend, the default behaviour can be overridden
 
 If you intend to use Google Analytics or Optimizely to measure usage of your service, you will need to integrate with
 [tracking-consent-frontend](https://www.github.com/hmrc/tracking-consent-frontend). The
-[HmrcHead](play-frontend-hmrc-play-30/src/main/twirl/uk/gov/hmrc/hmrcfrontend/views/helpers/HmrcHead.scala.html)
+[HmrcHead](/play-frontend-hmrc-play-30/src/main/twirl/uk/gov/hmrc/hmrcfrontend/views/helpers/HmrcHead.scala.html)
 helper generates the necessary HTML SCRIPT tags that must be injected into the HEAD element for every page on your
 service provided it is configured correctly as below.
 
@@ -212,7 +212,7 @@ to identify which GTM container you should be using in your service.
 
 #### Adding GTM to internal services
 
-If you would like to add GTM to an internal service, you can do so using the [HmrcInternalHead](play-frontend-hmrc-play-30/src/main/twirl/uk/gov/hmrc/hmrcfrontend/views/helpers/HmrcInternalHead.scala.html)
+If you would like to add GTM to an internal service, you can do so using the [HmrcInternalHead](/play-frontend-hmrc-play-30/src/main/twirl/uk/gov/hmrc/hmrcfrontend/views/helpers/HmrcInternalHead.scala.html)
 helper, which will add the GTM snippet in the `<head>` block. It should be used as demonstrated below in your own
 `Layout.scala`.
 
@@ -250,7 +250,7 @@ of inactivity. This mechanism, implemented in [SessionTimeoutFilter](https://git
 clears all non-allow-listed session keys after the timeout duration has elapsed. Services can override this default by adjusting the
 `session.timeout` configuration key in `conf/application.conf`.
 
-The [HmrcTimeoutDialogHelper](play-frontend-hmrc-play-30/src/main/twirl/uk/gov/hmrc/hmrcfrontend/views/helpers/HmrcTimeoutDialogHelper.scala.html)
+The [HmrcTimeoutDialogHelper](/play-frontend-hmrc-play-30/src/main/twirl/uk/gov/hmrc/hmrcfrontend/views/helpers/HmrcTimeoutDialogHelper.scala.html)
 component helps services meet this accessibility obligation by delivering an accessible timeout warning
 inside a modal dialog a configurable number of seconds before they are due to be timed out. The dialog warns the user with the message
 'For your security, we will sign you out in X minutes.' which is updated every minute until 60 seconds are remaining, at
