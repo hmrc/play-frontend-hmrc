@@ -1,10 +1,15 @@
 {
   "name" : "conditional",
+  "fieldset" : {
+    "legend" : {
+      "text" : "Test"
+    }
+  },
   "items" : [ {
     "value" : "other",
     "text" : "Other",
     "conditional" : {
-      "html" : "<label class=\"govuk-label\" for=\"conditional-textarea\">textarea</label>\n<textarea class=\"govuk-textarea govuk-!-width-one-third\" name=\"conditional-textarea\" id=\"conditional-textarea\">\ntest\n</textarea>\n"
+      "html" : "<label class=\"govuk-label\" for=\"conditional-textarea\">textarea</label>\n<textarea class=\"govuk-textarea\" name=\"conditional-textarea\" id=\"conditional-textarea\">\ntest\n</textarea>\n"
     }
   } ]
 }
