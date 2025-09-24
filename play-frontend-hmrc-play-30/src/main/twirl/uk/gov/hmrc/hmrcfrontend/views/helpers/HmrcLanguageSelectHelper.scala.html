@@ -20,12 +20,17 @@
 @import uk.gov.hmrc.hmrcfrontend.config.LanguageConfig
 @import uk.gov.hmrc.hmrcfrontend.views.Aliases.{Cy, En}
 
-@this(hmrcLanguageSelect: HmrcLanguageSelect, languageConfig: LanguageConfig)
+@this(hmrcLanguageSelect: HmrcLanguageSelect, languageConfig: LanguageConfig, forceServiceNavigation: Boolean = true) // imagine it's injected from config
 
 @()(implicit messages: Messages)
 @import languageConfig._
-@hmrcLanguageSelect(LanguageSelect(
+@Option.unless(forceServiceNavigation)(hmrcLanguageSelect(LanguageSelect(
   if (messages.lang.code == cy) Cy else En,
   (En, switchToLanguage(en).url),
   (Cy, switchToLanguage(cy).url)
-))
+)))
+
+// not sure how useful it is, vs just telling people to wrap their language select use in feature flag
+// since it's probably only used in one place in their codebase - so they make a small codechange then
+// they can enable service nav via config whenever they want vs us handling this awkwardness which might
+// not be how we want it to behave after next major version

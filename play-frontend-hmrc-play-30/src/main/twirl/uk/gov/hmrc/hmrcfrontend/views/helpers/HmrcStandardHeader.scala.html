@@ -19,7 +19,7 @@
 @import uk.gov.hmrc.govukfrontend.views.Aliases.{PhaseBanner, ServiceNavigation}
 @import uk.gov.hmrc.hmrcfrontend.views.viewmodels.header.v2._
 
-@this(hmrcHeader: HmrcHeader)
+@this(hmrcHeader: HmrcHeader, forceServiceNavigation: Boolean = true) // imagine it's injected from config
 
 @(
   serviceName: Option[String] = None,
@@ -43,7 +43,7 @@
             assetsPath = uk.gov.hmrc.hmrcfrontend.controllers.routes.Assets.at("govuk/images").url,
         ),
         headerNames = HeaderNames(
-            serviceName = serviceName.orElse(serviceNameFromMessages)
+            serviceName = serviceName.orElse(serviceNameFromMessages).filterNot(_ => forceServiceNavigation)
         ),
         headerTemplateOverrides = HeaderTemplateOverrides(
             containerClasses = containerClasses
@@ -56,7 +56,23 @@
             useDeprecatedPositionForHmrcBanner = useDeprecatedPositionForHmrcBanner
         ),
         language = if(messages.lang.code == "cy") Cy else En,
-        serviceNavigation = serviceNavigation
+        // if you need to display service nav on some pages and not others then
+        // you can't use the feature flag - it's just if you want to use it across
+        // the whole of your service :shrug: not sure if it's a faulty assumption
+        // that when services use it, most will want it everywhere in their service
+        // at the same time :shrug:
+        serviceNavigation = serviceNavigation.orElse(Option.when(forceServiceNavigation)(
+            ServiceNavigation(
+                serviceUrl = serviceUrl.getOrElse(""),
+                serviceName = serviceName.orElse(serviceNameFromMessages)
+            ).withLanguageToggle() // probably would need to do conditionally if welsh was supported
+        ))
+        // if you need to pass options to service nav like menu items then it doesn't
+        // help you much, but we can prob assume most people probably won't need to
+        // do that - it would just stop service name showing in black/blue header in
+        // that case, not sure what to do if someone passes servicename and a
+        // servicenavigation but the servicenavigation doesn't have a service name
+        // maybe in that case pass it in, but otherwise don't override it
     ))
   }
 }
