@@ -1,4 +1,8 @@
 <div class="govuk-form-group">
+  <fieldset class="govuk-fieldset">
+  <legend class="govuk-fieldset__legend">
+    Test
+  </legend>
   <div class="govuk-radios" data-module="govuk-radios">
     <div class="govuk-radios__item">
       <input class="govuk-radios__input" id="conditional" name="conditional" type="radio" value="other" data-aria-controls="conditional-conditional">
@@ -8,9 +12,10 @@
     </div>
     <div class="govuk-radios__conditional govuk-radios__conditional--hidden" id="conditional-conditional">
       <label class="govuk-label" for="conditional-textarea">textarea</label>
-<textarea class="govuk-textarea govuk-!-width-one-third" name="conditional-textarea" id="conditional-textarea">
+<textarea class="govuk-textarea" name="conditional-textarea" id="conditional-textarea">
 test
 </textarea>
     </div>
   </div>
+</fieldset>
 </div>

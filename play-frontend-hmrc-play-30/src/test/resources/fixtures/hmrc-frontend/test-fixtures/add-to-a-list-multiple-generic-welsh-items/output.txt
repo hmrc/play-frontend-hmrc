@@ -26,27 +26,27 @@
 <form method="post" novalidate action="#addItem">
   <div class="govuk-form-group">
   <fieldset class="govuk-fieldset" aria-describedby="add-another-hint">
-    <legend class="govuk-fieldset__legend govuk-fieldset__legend govuk-fieldset__legend--m">
-      Oes angen i chi ychwanegu eitem arall?
-    </legend>
-    <div id="add-another-hint" class="govuk-hint">
-      
+  <legend class="govuk-fieldset__legend govuk-fieldset__legend govuk-fieldset__legend--m">
+    Oes angen i chi ychwanegu eitem arall?
+  </legend>
+  <div id="add-another-hint" class="govuk-hint">
+    
+  </div>
+  <div class="govuk-radios govuk-radios--inline" data-module="govuk-radios">
+    <div class="govuk-radios__item">
+      <input class="govuk-radios__input" id="add-another" name="add-another" type="radio" value="Yes">
+      <label class="govuk-label govuk-radios__label" for="add-another">
+        Iawn
+      </label>
     </div>
-    <div class="govuk-radios govuk-radios--inline" data-module="govuk-radios">
-      <div class="govuk-radios__item">
-        <input class="govuk-radios__input" id="add-another" name="add-another" type="radio" value="Yes">
-        <label class="govuk-label govuk-radios__label" for="add-another">
-          Iawn
-        </label>
-      </div>
-      <div class="govuk-radios__item">
-        <input class="govuk-radios__input" id="add-another-2" name="add-another" type="radio" value="No">
-        <label class="govuk-label govuk-radios__label" for="add-another-2">
-          Na
-        </label>
-      </div>
+    <div class="govuk-radios__item">
+      <input class="govuk-radios__input" id="add-another-2" name="add-another" type="radio" value="No">
+      <label class="govuk-label govuk-radios__label" for="add-another-2">
+        Na
+      </label>
     </div>
-  </fieldset>
+  </div>
+</fieldset>
 </div>
 
   <button type="submit" class="govuk-button" data-module="govuk-button">
