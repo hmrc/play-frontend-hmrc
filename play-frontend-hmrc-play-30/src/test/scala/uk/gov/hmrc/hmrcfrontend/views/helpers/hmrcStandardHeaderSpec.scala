@@ -230,5 +230,51 @@ class HmrcStandardHeaderSpec extends AnyWordSpecLike with Matchers with JsoupHel
       banners            should have size 1
       banners.first.text should include("Helpwch i wella GOV.UK")
     }
+
+    "not render service navigation when feature flag is diabled" in {
+      val hmrcStandardHeader =
+        buildApp(Map("play-frontend-hmrc.forceServiceNavigation" -> "false")).injector.instanceOf[HmrcStandardHeader]
+      implicit val messages  = getMessages()
+      val content            = contentAsString(
+        hmrcStandardHeader()(messages, fakeRequest)
+      )
+
+      val document   = Jsoup.parse(content)
+      val serviceNav = document.select(".govuk-service-navigation__container")
+
+      serviceNav should have size 0
+    }
+
+    "render service navigation with language toggle when Welsh language is available and feature flag is enabled" in {
+      val hmrcStandardHeader =
+        buildApp(Map("play-frontend-hmrc.forceServiceNavigation" -> "true")).injector.instanceOf[HmrcStandardHeader]
+      implicit val messages  = getMessages()
+      val content            = contentAsString(
+        hmrcStandardHeader(isWelshTranslationAvailable = true)(messages, fakeRequest)
+      )
+
+      val document       = Jsoup.parse(content)
+      val serviceNav     = document.select(".govuk-service-navigation__container")
+      val languageToggle = document.select(".hmrc-service-navigation-language-select")
+
+      serviceNav     should have size 1
+      languageToggle should have size 1
+    }
+
+    "render service navigation without language toggle when Welsh language is not available and feature flag is enabled" in {
+      val hmrcStandardHeader =
+        buildApp(Map("play-frontend-hmrc.forceServiceNavigation" -> "true")).injector.instanceOf[HmrcStandardHeader]
+      implicit val messages  = getMessages()
+      val content            = contentAsString(
+        hmrcStandardHeader(isWelshTranslationAvailable = false)(messages, fakeRequest)
+      )
+
+      val document       = Jsoup.parse(content)
+      val serviceNav     = document.select(".govuk-service-navigation__container")
+      val languageToggle = document.select(".hmrc-service-navigation-language-select")
+
+      serviceNav     should have size 1
+      languageToggle should have size 0
+    }
   }
 }

@@ -20,14 +20,12 @@ import play.api.Configuration
 
 import javax.inject.Inject
 
-class RebrandConfig @Inject() (config: Configuration) {
+class ServiceNavigationConfig @Inject() (config: Configuration) {
 
   /*
-  Rebrand can be enabled by feature flag below or by passing argument to the specific components.
-  If feature flag is enabled, the passed arguments are ignored, so basically all pages will have rebrand enabled
-  without possibility to disable rebrand on specific pages.
-  If you need to enable or disable rebrand on specific pages, you will need to disable the feature flag
-  and pass arguments to enable it on pages you want to have rebranded.
+  Service Navigation is not hidden by the feature flag, but
+  we are adding this flag to allows enabling Service Navigation without any changes
+  Once this flag is set to true, we will add Service Navigation to the header, move service name and language toggle
    */
-  val useRebrand: Boolean = config.get[Boolean]("play-frontend-hmrc.useRebrand")
+  val forceServiceNavigation: Boolean = config.get[Boolean]("play-frontend-hmrc.forceServiceNavigation")
 }

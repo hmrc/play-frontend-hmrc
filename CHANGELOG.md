@@ -8,6 +8,17 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 For compatibility information see `govukFrontendVersion` and `hmrcFrontendVersion` in
 [LibDependencies](project/LibDependencies.scala)
 
+## [12.16.0] - 2025-09-29
+
+### Changed
+
+- Added config based feature flag to help with upcoming migration to using service navigation to display service name and language switcher
+
+### Compatible with
+
+- [hmrc/hmrc-frontend v6.94.0](https://github.com/hmrc/hmrc-frontend/releases/tag/v6.94.0)
+- [alphagov/govuk-frontend v5.12.0](https://github.com/alphagov/govuk-frontend/releases/tag/v5.12.0)
+
 ## [12.15.0] - 2025-09-24
 
 ### Changed
