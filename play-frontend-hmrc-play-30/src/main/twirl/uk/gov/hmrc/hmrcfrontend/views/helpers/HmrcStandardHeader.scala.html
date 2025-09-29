@@ -14,12 +14,15 @@
  * limitations under the License.
  *@
 
+@import play.api.Configuration
+@import uk.gov.hmrc.hmrcfrontend.config.ServiceNavigationConfig
 @import uk.gov.hmrc.hmrcfrontend.views.html.components.HmrcHeader
 @import uk.gov.hmrc.hmrcfrontend.views.Aliases.{Cy, En, HeaderParams, UserResearchBanner, Banners}
-@import uk.gov.hmrc.govukfrontend.views.Aliases.{PhaseBanner, ServiceNavigation}
 @import uk.gov.hmrc.hmrcfrontend.views.viewmodels.header.v2._
+@import uk.gov.hmrc.govukfrontend.views.Aliases.{PhaseBanner, ServiceNavigation}
+@import uk.gov.hmrc.govukfrontend.views.Implicits.RichServiceNavigation
 
-@this(hmrcHeader: HmrcHeader)
+@this(hmrcHeader: HmrcHeader, serviceNavigationConfig: ServiceNavigationConfig, configuration: Configuration)
 
 @(
   serviceName: Option[String] = None,
@@ -31,7 +34,8 @@
   additionalBannersBlock: Option[Html] = None,
   containerClasses: String = HeaderParams.defaultObject.headerTemplateOverrides.containerClasses,
   useDeprecatedPositionForHmrcBanner: Boolean = false,
-  serviceNavigation: Option[ServiceNavigation] = None
+  serviceNavigation: Option[ServiceNavigation] = None,
+  isWelshTranslationAvailable: Boolean = false
 )(implicit messages: Messages, request: RequestHeader)
 @defining("service.name") { serviceNameKey =>
   @defining(if(messages.isDefinedAt(serviceNameKey)) Some(messages(serviceNameKey)) else None) { serviceNameFromMessages =>
@@ -43,7 +47,7 @@
             assetsPath = uk.gov.hmrc.hmrcfrontend.controllers.routes.Assets.at("govuk/images").url,
         ),
         headerNames = HeaderNames(
-            serviceName = serviceName.orElse(serviceNameFromMessages)
+            serviceName = serviceName.orElse(serviceNameFromMessages).filterNot(_ => serviceNavigationConfig.forceServiceNavigation)
         ),
         headerTemplateOverrides = HeaderTemplateOverrides(
             containerClasses = containerClasses
@@ -56,7 +60,18 @@
             useDeprecatedPositionForHmrcBanner = useDeprecatedPositionForHmrcBanner
         ),
         language = if(messages.lang.code == "cy") Cy else En,
-        serviceNavigation = serviceNavigation
-    ))
+        serviceNavigation = serviceNavigation.orElse(Option.when(serviceNavigationConfig.forceServiceNavigation)(
+            if(isWelshTranslationAvailable){
+                ServiceNavigation(
+                    serviceUrl = serviceUrl,
+                    serviceName = serviceName.orElse(serviceNameFromMessages)
+                ).withLanguageToggle()(configuration)
+            } else {
+                ServiceNavigation(
+                    serviceUrl = serviceUrl,
+                    serviceName = serviceName.orElse(serviceNameFromMessages)
+                )
+            }
+    ))))
   }
 }

@@ -28,26 +28,23 @@ import uk.gov.hmrc.hmrcfrontend.views.html.helpers.HmrcLanguageSelectHelper
 
 import scala.collection.immutable.List
 
-class hmrcLanguageSelectHelperSpec
-    extends AnyWordSpec
-    with Matchers
-    with JsoupHelpers
-    with MessagesSupport
-    with GuiceOneAppPerSuite {
+class hmrcLanguageSelectHelperSpec extends AnyWordSpec with Matchers with JsoupHelpers with MessagesSupport {
 
-  override def fakeApplication(): Application =
-    new GuiceApplicationBuilder().configure(Map("play.i18n.langs" -> List("en", "cy"))).build()
+  def buildApp(properties: Map[String, String] = Map.empty): Application =
+    new GuiceApplicationBuilder()
+      .configure(Map("play.i18n.langs" -> List("en", "cy")) ++ properties)
+      .build()
 
   "HmrcLanguageSelectHelper" must {
     "Return a language select" in {
-      val languageSelect = app.injector.instanceOf[HmrcLanguageSelectHelper]
+      val languageSelect = buildApp().injector.instanceOf[HmrcLanguageSelectHelper]
       val content        = languageSelect()
 
       content.select(".hmrc-language-select") must have size 1
     }
 
     "Provide a link to Welsh by default" in {
-      val languageSelect = app.injector.instanceOf[HmrcLanguageSelectHelper]
+      val languageSelect = buildApp().injector.instanceOf[HmrcLanguageSelectHelper]
       val content        = languageSelect()
 
       content
@@ -57,12 +54,30 @@ class hmrcLanguageSelectHelperSpec
 
     "Provide a link to English is language cookie is set to Welsh" in {
       implicit val welshMessages: Messages = messagesApi.preferred(Seq(Lang("cy")))
-      val languageSelect                   = app.injector.instanceOf[HmrcLanguageSelectHelper]
+      val languageSelect                   = buildApp().injector.instanceOf[HmrcLanguageSelectHelper]
       val content                          = languageSelect()(welshMessages)
 
       content
         .select(".govuk-link")
         .text mustBe "Change the language to English English"
+    }
+
+    "display language toggle if feature flag is disabled" in {
+      val languageSelect =
+        buildApp(Map("play-frontend-hmrc.forceServiceNavigation" -> "false")).injector
+          .instanceOf[HmrcLanguageSelectHelper]
+      val content        = languageSelect()
+
+      content.select(".hmrc-language-select") must have size 1
+    }
+
+    "does not display language toggle if feature flag is enabled" in {
+      val languageSelect =
+        buildApp(Map("play-frontend-hmrc.forceServiceNavigation" -> "true")).injector
+          .instanceOf[HmrcLanguageSelectHelper]
+      val content        = languageSelect()
+
+      content.select(".hmrc-language-select") must have size 0
     }
   }
 }
