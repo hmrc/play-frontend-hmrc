@@ -31,7 +31,7 @@ class ServiceNavigationConfigSpec extends AnyWordSpec with Matchers {
   "forceServiceNavigation" should {
     "return true" when {
       "feature flag is true" in {
-        val app = buildApp(Map(("play-frontend-hmrc.forceServiceNavigation", "true")))
+        val app    = buildApp(Map(("play-frontend-hmrc.forceServiceNavigation", "true")))
         val config = app.injector.instanceOf[ServiceNavigationConfig]
 
         config.forceServiceNavigation shouldBe true
@@ -40,14 +40,14 @@ class ServiceNavigationConfigSpec extends AnyWordSpec with Matchers {
 
     "return false" when {
       "feature flag is not presented" in {
-        val app = buildApp(Map.empty)
+        val app    = buildApp(Map.empty)
         val config = app.injector.instanceOf[ServiceNavigationConfig]
 
         config.forceServiceNavigation shouldBe false
       }
 
       "feature flag is false" in {
-        val app = buildApp(Map(("play-frontend-hmrc.forceServiceNavigation", "false")))
+        val app    = buildApp(Map(("play-frontend-hmrc.forceServiceNavigation", "false")))
         val config = app.injector.instanceOf[ServiceNavigationConfig]
 
         config.forceServiceNavigation shouldBe false

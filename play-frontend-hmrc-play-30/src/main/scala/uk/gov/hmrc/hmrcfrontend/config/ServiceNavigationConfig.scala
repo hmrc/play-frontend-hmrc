@@ -27,5 +27,5 @@ class ServiceNavigationConfig @Inject() (config: Configuration) {
   we are adding this flag to allows enabling Service Navigation without any changes
   Once this flag is set to true, we will add Service Navigation to the header, move service name and language toggle
    */
-  val forceServiceNavigation: Boolean = config.getOptional[Boolean]("play-frontend-hmrc.forceServiceNavigation").getOrElse(false)
+  val forceServiceNavigation: Boolean = config.get[Boolean]("play-frontend-hmrc.forceServiceNavigation")
 }

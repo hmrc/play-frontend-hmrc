@@ -29,5 +29,5 @@ class RebrandConfig @Inject() (config: Configuration) {
   If you need to enable or disable rebrand on specific pages, you will need to disable the feature flag
   and pass arguments to enable it on pages you want to have rebranded.
    */
-  val useRebrand: Boolean = config.getOptional[Boolean]("play-frontend-hmrc.useRebrand").getOrElse(false)
+  val useRebrand: Boolean = config.get[Boolean]("play-frontend-hmrc.useRebrand")
 }
