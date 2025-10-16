@@ -15,7 +15,7 @@
         1
       </a>
     </li>
-    <li class="govuk-pagination__item govuk-pagination__item--ellipses">
+    <li class="govuk-pagination__item govuk-pagination__item--ellipsis">
       &ctdot;
     </li>
     <li class="govuk-pagination__item">
@@ -43,7 +43,7 @@
         12
       </a>
     </li>
-    <li class="govuk-pagination__item govuk-pagination__item--ellipses">
+    <li class="govuk-pagination__item govuk-pagination__item--ellipsis">
       &ctdot;
     </li>
     <li class="govuk-pagination__item">

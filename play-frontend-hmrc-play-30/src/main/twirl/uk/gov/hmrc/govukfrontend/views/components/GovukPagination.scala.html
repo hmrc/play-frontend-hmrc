@@ -51,7 +51,7 @@
     <ul class="govuk-pagination__list">
       @items.getOrElse(Seq.empty).map { item =>
         @if(item.ellipsis.getOrElse(false)) {
-          <li class="govuk-pagination__item govuk-pagination__item--ellipses">&ctdot;</li>
+          <li class="govuk-pagination__item govuk-pagination__item--ellipsis">&ctdot;</li>
         } else {
           @item.number.map { number =>
             <li class="@toClasses("govuk-pagination__item", {if(item.current.getOrElse(false)) "govuk-pagination__item--current" else ""})">
