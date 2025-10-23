@@ -20,8 +20,13 @@ import javax.inject.Inject
 import play.api.Configuration
 
 class LanguageConfig @Inject() (config: Configuration) {
-  val en: String = "en"
-  val cy: String = "cy"
+  val en: String = SupportedLanguages.en
+  val cy: String = SupportedLanguages.cy
 
   val fallbackURL: String = config.get[String]("language.fallback.url")
+}
+
+object SupportedLanguages {
+  val en: String = "en"
+  val cy: String = "cy"
 }

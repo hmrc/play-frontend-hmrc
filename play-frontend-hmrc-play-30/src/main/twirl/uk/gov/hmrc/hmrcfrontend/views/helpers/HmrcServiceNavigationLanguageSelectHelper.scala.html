@@ -17,13 +17,14 @@
 @import uk.gov.hmrc.hmrcfrontend.views.html.components.HmrcServiceNavigationLanguageSelect
 @import uk.gov.hmrc.hmrcfrontend.views.viewmodels.language.LanguageSelect
 @import uk.gov.hmrc.hmrcfrontend.controllers.routes.LanguageController.switchToLanguage
-@import uk.gov.hmrc.hmrcfrontend.config.LanguageConfig
 @import uk.gov.hmrc.hmrcfrontend.views.Aliases.{Cy, En}
+@import uk.gov.hmrc.hmrcfrontend.config.SupportedLanguages
 
-@this(hmrcServiceNavigationLanguageSelect: HmrcServiceNavigationLanguageSelect, languageConfig: LanguageConfig)
+@this(hmrcServiceNavigationLanguageSelect: HmrcServiceNavigationLanguageSelect)
 
 @()(implicit messages: Messages)
-@import languageConfig._
+@import SupportedLanguages._
+
 @hmrcServiceNavigationLanguageSelect(LanguageSelect(
   if (messages.lang.code == cy) Cy else En,
   (En, switchToLanguage(en).url),

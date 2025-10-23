@@ -29,10 +29,9 @@ trait RichServiceNavigationSupport {
 
   implicit class RichServiceNavigation(serviceNavigation: ServiceNavigation)(implicit val messages: Messages) {
 
-    def withLanguageToggle()(implicit conf: Configuration): ServiceNavigation = {
+    def withLanguageToggle(): ServiceNavigation = {
       val languageSelectHtml                   = new HmrcServiceNavigationLanguageSelectHelper(
-        new HmrcServiceNavigationLanguageSelect(),
-        new LanguageConfig(conf)
+        new HmrcServiceNavigationLanguageSelect()
       ).apply()
       val slots: Option[ServiceNavigationSlot] = serviceNavigation.slots
         .map(_.copy(end = HtmlContent(languageSelectHtml)))
