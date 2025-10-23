@@ -21,7 +21,6 @@ import play.api.i18n.Messages
 import uk.gov.hmrc.govukfrontend.views.Aliases.ServiceNavigation
 import uk.gov.hmrc.govukfrontend.views.viewmodels.content.HtmlContent
 import uk.gov.hmrc.govukfrontend.views.viewmodels.servicenavigation.ServiceNavigationSlot
-import uk.gov.hmrc.hmrcfrontend.config.LanguageConfig
 import uk.gov.hmrc.hmrcfrontend.views.html.components.HmrcServiceNavigationLanguageSelect
 import uk.gov.hmrc.hmrcfrontend.views.html.helpers.HmrcServiceNavigationLanguageSelectHelper
 
@@ -29,10 +28,9 @@ trait RichServiceNavigationSupport {
 
   implicit class RichServiceNavigation(serviceNavigation: ServiceNavigation)(implicit val messages: Messages) {
 
-    def withLanguageToggle()(implicit conf: Configuration): ServiceNavigation = {
+    def withLanguageToggle(): ServiceNavigation = {
       val languageSelectHtml                   = new HmrcServiceNavigationLanguageSelectHelper(
-        new HmrcServiceNavigationLanguageSelect(),
-        new LanguageConfig(conf)
+        new HmrcServiceNavigationLanguageSelect()
       ).apply()
       val slots: Option[ServiceNavigationSlot] = serviceNavigation.slots
         .map(_.copy(end = HtmlContent(languageSelectHtml)))
