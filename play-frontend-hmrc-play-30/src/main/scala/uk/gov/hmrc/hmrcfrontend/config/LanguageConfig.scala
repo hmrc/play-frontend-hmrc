@@ -19,9 +19,25 @@ package uk.gov.hmrc.hmrcfrontend.config
 import javax.inject.Inject
 import play.api.Configuration
 
+@deprecated(
+  "Use SupportedLanguagesConfig for languages, and retrieve fallback URL direct from configuration",
+  "Since play-frontend-hmrc v12.20.0"
+)
 class LanguageConfig @Inject() (config: Configuration) {
+  @deprecated("Use SupportedLanguagesConfig.en instead", "Since play-frontend-hmrc v12.20.0")
+  val en: String = SupportedLanguagesConfig.en
+
+  @deprecated("Use SupportedLanguagesConfig.cy instead", "Since play-frontend-hmrc v12.20.0")
+  val cy: String = SupportedLanguagesConfig.cy
+
+  @deprecated(
+    "Use language.fallback.url direct from Configuration, rather than via LanguageConfig",
+    "Since play-frontend-hmrc v12.20.0"
+  )
+  val fallbackURL: String = config.get[String]("language.fallback.url")
+}
+
+object SupportedLanguagesConfig {
   val en: String = "en"
   val cy: String = "cy"
-
-  val fallbackURL: String = config.get[String]("language.fallback.url")
 }

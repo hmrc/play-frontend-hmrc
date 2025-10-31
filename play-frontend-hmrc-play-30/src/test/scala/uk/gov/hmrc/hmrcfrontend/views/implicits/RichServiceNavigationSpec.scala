@@ -25,13 +25,11 @@ import uk.gov.hmrc.helpers.MessagesSupport
 
 class RichServiceNavigationSpec extends AnyWordSpec with Matchers with MessagesSupport {
 
-  val configuration = Configuration.apply("language.fallback.url" -> "url")
-
   "Given ServiceNavigation object, calling withLanguageToggle" should {
     "populate the language toggle without any classes" in {
       val serviceNavigation = ServiceNavigation()
 
-      val serviceNav = serviceNavigation.withLanguageToggle()(configuration)
+      val serviceNav = serviceNavigation.withLanguageToggle()
 
       serviceNav.classes                    shouldBe "hmrc-service-navigation--with-language-select"
       serviceNav.slots.map(_.end).isDefined shouldBe true
@@ -40,7 +38,7 @@ class RichServiceNavigationSpec extends AnyWordSpec with Matchers with MessagesS
     "populate the language toggle and amend language toggle classes" in {
       val serviceNavigation = ServiceNavigation(classes = "custom-class")
 
-      val serviceNav = serviceNavigation.withLanguageToggle()(configuration)
+      val serviceNav = serviceNavigation.withLanguageToggle()
 
       serviceNav.classes                    shouldBe "custom-class hmrc-service-navigation--with-language-select"
       serviceNav.slots.map(_.end).isDefined shouldBe true
