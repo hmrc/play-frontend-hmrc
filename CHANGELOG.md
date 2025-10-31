@@ -13,6 +13,7 @@ For compatibility information see `govukFrontendVersion` and `hmrcFrontendVersio
 ### Changed
 
 - Removed implicit configuration parameter from the service navigation helpers
+- Added `@deprecated` warning to existing `LanagugeConfig` class, with migration instructions
 
 ### Compatible with
 
