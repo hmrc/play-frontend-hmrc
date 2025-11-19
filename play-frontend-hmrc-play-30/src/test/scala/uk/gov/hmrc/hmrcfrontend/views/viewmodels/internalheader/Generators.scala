@@ -25,15 +25,17 @@ object Generators {
 
   implicit val arbInternalHeader: Arbitrary[InternalHeader] = Arbitrary {
     for {
-      homepageUrl   <- genAlphaStr()
-      serviceName   <- Gen.option(genAlphaStr())
-      serviceUrl    <- genAlphaStr()
-      useTudorCrown <- Gen.option(arbBool.arbitrary)
+      homepageUrl      <- genAlphaStr()
+      serviceName      <- Gen.option(genAlphaStr())
+      serviceUrl       <- genAlphaStr()
+      useTudorCrown    <- Gen.option(arbBool.arbitrary)
+      containerClasses <- Gen.option(genNonEmptyAlphaStr)
     } yield InternalHeader(
       homepageUrl = homepageUrl,
       serviceName = serviceName,
       serviceUrl = serviceUrl,
-      useTudorCrown = useTudorCrown
+      useTudorCrown = useTudorCrown,
+      containerClasses = containerClasses
     )
   }
 }
