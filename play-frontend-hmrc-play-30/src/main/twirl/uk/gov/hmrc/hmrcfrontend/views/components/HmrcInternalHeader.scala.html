@@ -25,7 +25,7 @@
 @import params._
 
 <header class="hmrc-internal-header">
-  <div class="govuk-width-container">
+  <div class="@containerClasses.getOrElse("govuk-width-container")">
     <div class="hmrc-internal-header__logo">
       <a href="@homepageUrl" class="hmrc-internal-header__logo-link">
         @if(useTudorCrown.getOrElse(tudorCrownConfig.useTudorCrown)) {

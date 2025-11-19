@@ -2,7 +2,7 @@ import sbt._
 
 object LibDependencies {
   val govukFrontendVersion: String = "5.13.0"
-  val hmrcFrontendVersion: String  = "6.97.0"
+  val hmrcFrontendVersion: String  = "6.102.0"
   val playLanguageVersion: String  = "9.3.0"
 
   val play29Version = "2.9.7"
