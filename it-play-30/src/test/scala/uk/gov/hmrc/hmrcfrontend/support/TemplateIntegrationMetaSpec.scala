@@ -18,5 +18,4 @@ package uk.gov.hmrc.hmrcfrontend.support
 
 import uk.gov.hmrc.support.TemplateIntegrationBaseMetaSpec
 
-
 class TemplateIntegrationMetaSpec extends TemplateIntegrationBaseMetaSpec("hmrc-frontend")

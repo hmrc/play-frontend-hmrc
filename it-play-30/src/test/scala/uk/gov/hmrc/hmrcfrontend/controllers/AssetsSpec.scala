@@ -40,12 +40,12 @@ class AssetsSpec extends AnyWordSpec with Matchers with Results with GuiceOneApp
   }
   "Asset controller " must {
     "serve assets with correct cache-control headers" in {
-    val cacheControlHeader = header("Cache-Control", route(app, FakeRequest("GET", "/assets/all.js")).get)
-    cacheControlHeader match {
-      case Some(headerValue) =>
-        headerValue must include("max-age=3600")
-      case None =>
-        fail("Cache-Control header not found")
+      val cacheControlHeader = header("Cache-Control", route(app, FakeRequest("GET", "/assets/all.js")).get)
+      cacheControlHeader match {
+        case Some(headerValue) =>
+          headerValue must include("max-age=3600")
+        case None              =>
+          fail("Cache-Control header not found")
       }
     }
   }

@@ -35,7 +35,6 @@ of implementing frontend microservices straightforward and idiomatic for Scala d
 
 This library is currently compatible with:
 * Play 3.0 - Scala 2.13 / 3
-* Play 2.9 - Scala 2.13
 
 ### Understanding library changes between versions
 
@@ -45,7 +44,7 @@ We summarise what's changed between versions, and importantly any actions that m
 
 1. Add the library to the project dependencies:
     ```scala
-    libraryDependencies += "uk.gov.hmrc" %% "play-frontend-hmrc-play-xx" % "x.y.z"
+    libraryDependencies += "uk.gov.hmrc" %% "play-frontend-hmrc-play-30" % "x.y.z"
     ```
 
     Where play-xx is your version of Play (e.g. play-30).

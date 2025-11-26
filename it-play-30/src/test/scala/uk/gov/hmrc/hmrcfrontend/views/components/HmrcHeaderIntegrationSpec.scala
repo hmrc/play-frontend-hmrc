@@ -47,7 +47,11 @@ object HmrcHeaderIntegrationSpec
       (header.headerTemplateOverrides.classes.isEmpty, "empty classes", "non-empty classes") #::
       (header.headerTemplateOverrides.classes.length > 10, "long classes", "short classes") #::
       (header.headerTemplateOverrides.attributes.isEmpty, "empty attributes", "non-empty attributes") #::
-      (header.headerTemplateOverrides.attributes.values.exists(_.isEmpty), "empty attributes values", "non-empty attributes values") #::
+      (
+        header.headerTemplateOverrides.attributes.values.exists(_.isEmpty),
+        "empty attributes values",
+        "non-empty attributes values"
+      ) #::
       (header.language == En, "language English", "language Cymraeg") #::
       (header.banners.displayHmrcBanner, "displayHmrcBanner true", "displayHmrcBanner false") #::
       (header.headerUrls.signOutHref.isEmpty, "empty signOutHref", "non-empty signOutHref") #::
