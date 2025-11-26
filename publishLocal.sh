@@ -5,8 +5,6 @@ set -o errexit   # abort on nonzero exitstatus
 set -o nounset   # abort on unbound variable
 set -o pipefail  # don't hide errors within pipes
 
-env PLAY_VERSION=2.8 sbt clean +publishLocal
-env PLAY_VERSION=2.9 sbt clean +publishLocal
 env PLAY_VERSION=3.0 sbt clean +publishLocal
 
 # NOTE:
