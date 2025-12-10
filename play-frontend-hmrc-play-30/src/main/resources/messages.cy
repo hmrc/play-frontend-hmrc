@@ -1,7 +1,7 @@
 header.govuk.url = https://www.gov.uk
-phase.banner.before = Gwasanaeth newydd yw hwn – bydd eich
-phase.banner.link = adborth
-phase.banner.after = yn ein helpu i’w wella.
+phase.banner.before = Gwasanaeth newydd yw hwn. Rhowch help i ni ei wella, a
+phase.banner.link = rhowch eich adborth drwy e-bost
+phase.banner.after = .
 footer.cookies.text = Cwcis
 footer.cookies.url = /help/cookies
 footer.privacy.text = Polisi preifatrwydd

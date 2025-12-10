@@ -37,7 +37,7 @@ class StandardPhaseBannerSpec extends AnyWordSpec with Matchers with MessagesSup
       phaseBanner mustBe PhaseBanner(
         tag = Some(Tag(content = Text("Beta"))),
         content = HtmlContent(
-          "This is a new service – your <a class=\"govuk-link\" href=\"/feedback\">feedback</a> will help us to improve it."
+          "This is a new service. Help us improve it and <a class=\"govuk-link\" href=\"/feedback\">give your feedback by email</a>."
         ),
         classes = "govuk-!-display-none-print"
       )
@@ -49,7 +49,7 @@ class StandardPhaseBannerSpec extends AnyWordSpec with Matchers with MessagesSup
       phaseBanner mustBe PhaseBanner(
         tag = Some(Tag(content = Text("Beta"))),
         content = HtmlContent(
-          "This is a new service – your <a class=\"govuk-link\" href=\"/other-feedback\">feedback</a> will help us to improve it."
+          "This is a new service. Help us improve it and <a class=\"govuk-link\" href=\"/other-feedback\">give your feedback by email</a>."
         ),
         classes = "govuk-!-display-none-print"
       )
@@ -61,7 +61,7 @@ class StandardPhaseBannerSpec extends AnyWordSpec with Matchers with MessagesSup
       phaseBanner mustBe PhaseBanner(
         tag = Some(Tag(content = Text("Beta"))),
         content = HtmlContent(
-          "This is a new service – your <a class=\"govuk-link\" href=\"&quot;&gt;&lt;script&gt;console.log(&#x27;evil&#x27;);&lt;/script&gt;&lt;a href=&quot;\">feedback</a> will help us to improve it."
+          "This is a new service. Help us improve it and <a class=\"govuk-link\" href=\"&quot;&gt;&lt;script&gt;console.log(&#x27;evil&#x27;);&lt;/script&gt;&lt;a href=&quot;\">give your feedback by email</a>."
         ),
         classes = "govuk-!-display-none-print"
       )
@@ -75,7 +75,7 @@ class StandardPhaseBannerSpec extends AnyWordSpec with Matchers with MessagesSup
       phaseBanner mustBe PhaseBanner(
         tag = Some(Tag(content = Text("Beta"))),
         content = HtmlContent(
-          "Gwasanaeth newydd yw hwn – bydd eich <a class=\"govuk-link\" href=\"/feedback\">adborth</a> yn ein helpu i’w wella."
+          "Gwasanaeth newydd yw hwn. Rhowch help i ni ei wella, a <a class=\"govuk-link\" href=\"/feedback\">rhowch eich adborth drwy e-bost</a>."
         ),
         classes = "govuk-!-display-none-print"
       )
@@ -92,9 +92,9 @@ class StandardPhaseBannerSpec extends AnyWordSpec with Matchers with MessagesSup
 
       val phaseBanner: PhaseBanner = standardBetaBanner()
       phaseBanner.content mustBe HtmlContent(
-        "This is a new service – your <a class=\"govuk-link\" href=" +
+        "This is a new service. Help us improve it and <a class=\"govuk-link\" href=" +
           "\"tax.service.gov.uk/contact/beta-feedback?service=my-service&amp;referrerUrl=%2Fhelp%2Fterms-and-conditions\"" +
-          ">feedback</a> will help us to improve it."
+          ">give your feedback by email</a>."
       )
     }
 
@@ -108,8 +108,8 @@ class StandardPhaseBannerSpec extends AnyWordSpec with Matchers with MessagesSup
 
       val phaseBanner: PhaseBanner = standardBetaBanner()
       phaseBanner.content mustBe HtmlContent(
-        "This is a new service – your <a class=\"govuk-link\" href=" +
-          "\"/contact/beta-feedback\">feedback</a> will help us to improve it."
+        "This is a new service. Help us improve it and <a class=\"govuk-link\" href=" +
+          "\"/contact/beta-feedback\">give your feedback by email</a>."
       )
     }
   }
@@ -123,7 +123,7 @@ class StandardPhaseBannerSpec extends AnyWordSpec with Matchers with MessagesSup
       phaseBanner mustBe PhaseBanner(
         tag = Some(Tag(content = Text("Alpha"))),
         content = HtmlContent(
-          "This is a new service – your <a class=\"govuk-link\" href=\"/feedback\">feedback</a> will help us to improve it."
+          "This is a new service. Help us improve it and <a class=\"govuk-link\" href=\"/feedback\">give your feedback by email</a>."
         ),
         classes = "govuk-!-display-none-print"
       )
