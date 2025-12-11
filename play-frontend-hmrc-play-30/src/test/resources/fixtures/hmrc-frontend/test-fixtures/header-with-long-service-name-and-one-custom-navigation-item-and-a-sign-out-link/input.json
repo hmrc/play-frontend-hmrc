@@ -1,0 +1,9 @@
+{
+  "serviceName" : "This is long service name that is going to reflow onto two lines",
+  "navigation" : [ {
+    "href" : "#1",
+    "text" : "Navigation item 1",
+    "active" : true
+  } ],
+  "signOutHref" : "/sign-out"
+}

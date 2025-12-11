@@ -1,0 +1,4 @@
+{
+  "serviceName" : "This is long service name that is going to reflow onto two lines",
+  "signOutHref" : "/sign-out"
+}
