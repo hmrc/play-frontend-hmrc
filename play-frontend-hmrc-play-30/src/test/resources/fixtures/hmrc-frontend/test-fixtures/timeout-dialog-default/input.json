@@ -3,5 +3,39 @@
   "countdown" : 74,
   "keepAliveUrl" : "?abc=def",
   "signOutUrl" : "?ghi=jkl",
-  "synchroniseTabs" : false
+  "synchroniseTabs" : false,
+  "alternateStates" : {
+    "signOutLinkHovered" : {
+      "beforeTakingScreenshot" : [ {
+        "hover" : ".govuk-link"
+      } ]
+    },
+    "signOutLinkFocused" : {
+      "beforeTakingScreenshot" : [ {
+        "focus" : ".govuk-link"
+      } ]
+    },
+    "staySignedInButtonHovered" : {
+      "beforeTakingScreenshot" : [ {
+        "hover" : ".govuk-button"
+      } ]
+    },
+    "staySignedInButtonFocused" : {
+      "beforeTakingScreenshot" : [ {
+        "focus" : ".govuk-button"
+      } ]
+    },
+    "zoomed" : {
+      "backstopScenarioOptions" : {
+        "viewports" : [ {
+          "label" : "phone",
+          "width" : 320,
+          "height" : 480
+        } ]
+      },
+      "beforeTakingScreenshot" : [ {
+        "zoom" : "200%"
+      } ]
+    }
+  }
 }
