@@ -21,7 +21,7 @@ import play.api.i18n.Messages
 import uk.gov.hmrc.govukfrontend.views.viewmodels.content.Content
 import uk.gov.hmrc.govukfrontend.views.viewmodels.select.{Select, SelectItem}
 import uk.gov.hmrc.hmrcfrontend.views.Aliases.En
-import uk.gov.hmrc.hmrcfrontend.views.viewmodels.accessibleautocomplete.AccessibleAutocomplete
+import uk.gov.hmrc.hmrcfrontend.views.viewmodels.accessibleautocomplete.{AccessibleAutocomplete, AccessibleAutocompleteDisplayMenuInline, AccessibleAutocompleteDisplayMenuOverlay}
 
 trait RichSelectSupport {
 
@@ -66,21 +66,27 @@ trait RichSelectSupport {
     def asAccessibleAutocomplete(
       accessibleAutocomplete: Option[AccessibleAutocomplete] = None
     )(implicit messages: Messages): Select = {
-      def toMapOfDataAttributes(accessibleAutocomplete: AccessibleAutocomplete): Map[String, String] =
+      def toMapOfDataAttributes(accessibleAutocomplete: AccessibleAutocomplete): Map[String, String] = {
+
         Map(
           "data-auto-select"     -> accessibleAutocomplete.autoSelect.toString,
           "data-show-all-values" -> accessibleAutocomplete.showAllValues.toString,
           "data-default-value"   -> accessibleAutocomplete.defaultValue.getOrElse(""),
           "data-min-length"      -> accessibleAutocomplete.minLength.map(_.toString).getOrElse(""),
-          "data-module"          -> accessibleAutocomplete.dataModule
+          "data-module"          -> accessibleAutocomplete.dataModule,
         )
+      }
 
       val dataAttributes =
         toMapOfDataAttributes(accessibleAutocomplete.getOrElse(AccessibleAutocomplete(None)))
 
       val maybeDataLanguage = Map("data-language" -> messages.lang.code).filterNot(_._2 == En.code)
+      val maybeDisplayMenu = accessibleAutocomplete.flatMap(_.displayMenu) match {
+        case Some(displayMenu) => Map("data-display-menu" -> displayMenu.toString)
+        case _ => Map.empty
+      }
 
-      select.copy(attributes = select.attributes ++ dataAttributes ++ maybeDataLanguage)
+      select.copy(attributes = select.attributes ++ dataAttributes ++ maybeDataLanguage ++ maybeDisplayMenu)
     }
 
     private[views] def withName(field: Field): Select =

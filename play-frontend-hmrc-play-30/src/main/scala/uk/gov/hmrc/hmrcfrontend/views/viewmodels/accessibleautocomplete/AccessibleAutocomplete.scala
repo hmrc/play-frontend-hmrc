@@ -21,7 +21,18 @@ case class AccessibleAutocomplete(
     None, // Please read on the usage of the defaultValue property at https://www.npmjs.com/package/accessible-autocomplete under the `Null options` heading
   showAllValues: Boolean = false,
   autoSelect: Boolean = false,
-  minLength: Option[Int] = None
+  minLength: Option[Int] = None,
+  displayMenu: Option[AccessibleAutocompleteDisplayMenu] = None
 ) {
   val dataModule: String = "hmrc-accessible-autocomplete"
+}
+
+sealed trait AccessibleAutocompleteDisplayMenu
+
+case object AccessibleAutocompleteDisplayMenuInline extends AccessibleAutocompleteDisplayMenu {
+  override def toString: String = "inline"
+}
+
+case object AccessibleAutocompleteDisplayMenuOverlay extends AccessibleAutocompleteDisplayMenu  {
+  override def toString: String = "overlay"
 }
