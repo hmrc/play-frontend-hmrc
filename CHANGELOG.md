@@ -8,12 +8,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 For compatibility information see `govukFrontendVersion` and `hmrcFrontendVersion` in
 [LibDependencies](project/LibDependencies.scala)
 
-## [12.27.0] - 2026-01-09
-
-### Changed
-
-- Documentation update for integrating with `tracking-consent-frontend`, amended to ask teams to contact CIP ASAD
-
 ## [12.26.0] - 2026-01-05
 
 ### Changed
