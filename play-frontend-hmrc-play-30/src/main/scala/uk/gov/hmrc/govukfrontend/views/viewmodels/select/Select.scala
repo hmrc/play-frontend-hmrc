@@ -22,7 +22,7 @@ import play.api.libs.json._
 import uk.gov.hmrc.govukfrontend.views.html.components._
 import uk.gov.hmrc.govukfrontend.views.viewmodels.CommonJsonFormats._
 import uk.gov.hmrc.govukfrontend.views.viewmodels.FormGroup
-import uk.gov.hmrc.supportfrontend.views.JsonImplicits._
+import uk.gov.hmrc.supportfrontend.views.JsonImplicits.RichJsPath
 
 /** Parameters to `GovukSelect` Twirl template
   *
