@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 HM Revenue & Customs
+ * Copyright 2026 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,17 +14,17 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.hmrcfrontend.views.viewmodels
+package uk.gov.hmrc.supportfrontend.views
 
 import play.api.libs.json.{JsPath, JsString, JsValue, Json, Reads}
 
 trait JsonImplicits {
 
   /**
-    * Parse fields with unknown type to [[String]]
-    *
-    * @param jsPath
-    */
+   * Parse fields with unknown type to [[String]]
+   *
+   * @param jsPath
+   */
   implicit class RichJsPath(jsPath: JsPath) {
     def readsJsValueToString: Reads[String] =
       jsPath

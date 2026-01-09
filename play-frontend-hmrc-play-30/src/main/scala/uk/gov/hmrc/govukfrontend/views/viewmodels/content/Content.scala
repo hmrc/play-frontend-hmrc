@@ -19,7 +19,7 @@ package content
 
 import play.api.libs.json._
 import play.twirl.api.{Html, HtmlFormat}
-import JsonImplicits._
+import uk.gov.hmrc.supportfrontend.views.JsonImplicits._
 
 sealed trait Content {
   def asHtml: Html

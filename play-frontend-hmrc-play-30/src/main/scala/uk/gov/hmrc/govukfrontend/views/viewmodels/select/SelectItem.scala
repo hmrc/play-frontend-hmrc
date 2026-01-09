@@ -19,7 +19,7 @@ package select
 
 import play.api.libs.functional.syntax._
 import play.api.libs.json._
-import uk.gov.hmrc.govukfrontend.views.viewmodels.JsonImplicits._
+import uk.gov.hmrc.supportfrontend.views.JsonImplicits._
 
 final case class SelectItem(
   value: Option[String] = None,
