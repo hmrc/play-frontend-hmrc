@@ -19,6 +19,7 @@ package uk.gov.hmrc.govukfrontend.views.viewmodels
 import play.api.libs.json.{JsPath, JsString, JsValue, Json, Reads}
 
 trait JsonImplicits {
+
   /**
     * Parse fields with unknown type to [[String]]
     *
