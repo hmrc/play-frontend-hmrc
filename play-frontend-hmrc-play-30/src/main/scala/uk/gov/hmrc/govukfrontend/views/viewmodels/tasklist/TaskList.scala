@@ -40,11 +40,6 @@ object TaskList {
         (__ \ "idPrefix").readWithDefault[String](defaultObject.idPrefix)
     )(TaskList.apply _)
 
-  implicit def jsonWrites: OWrites[TaskList] =
-    (
-      (__ \ "items").write[Seq[TaskListItem]] and
-        (__ \ "classes").write[String] and
-        (__ \ "attributes").write[Map[String, String]] and
-        (__ \ "idPrefix").write[String]
-    )(o => WritesUtils.unapplyCompat(unapply)(o))
+  implicit def jsonWrites: OWrites[TaskList] = Json.writes[TaskList]
+
 }

@@ -52,8 +52,7 @@ object ErrorMessage {
   // If it is not provided we default to "Error"
   val readsVisuallyHiddenText: Reads[Option[String]] =
     (__ \ "visuallyHiddenText")
-      .read[JsValue]
-      .orElse(Reads.pure(JsString("Error")))
+      .readWithDefault[JsValue](JsString("Error"))
       .map {
         case JsNull                => None
         case JsBoolean(false)      => None

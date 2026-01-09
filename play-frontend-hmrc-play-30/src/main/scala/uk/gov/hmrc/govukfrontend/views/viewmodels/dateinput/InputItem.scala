@@ -19,7 +19,7 @@ package dateinput
 
 import play.api.libs.functional.syntax._
 import play.api.libs.json._
-import uk.gov.hmrc.govukfrontend.views.viewmodels.JsonImplicits.RichJsPath
+import uk.gov.hmrc.govukfrontend.views.viewmodels.CommonJsonFormats._
 
 final case class InputItem(
   id: String = "",
@@ -42,7 +42,7 @@ object InputItem {
       (__ \ "id").readWithDefault[String](defaultObject.id) and
         (__ \ "name").readWithDefault[String](defaultObject.name) and
         (__ \ "label").readNullable[String] and
-        (__ \ "value").readsJsValueToString.map(Option[String]).orElse(Reads.pure(None)) and
+        (__ \ "value").readNullable[String](readsJsValueToString) and
         (__ \ "autocomplete").readNullable[String] and
         (__ \ "pattern").readNullable[String] and
         (__ \ "classes").readWithDefault[String](defaultObject.classes) and
@@ -50,17 +50,6 @@ object InputItem {
         (__ \ "inputmode").readNullable[String]
     )(InputItem.apply _)
 
-  implicit def jsonWrites: OWrites[InputItem] =
-    (
-      (__ \ "id").write[String] and
-        (__ \ "name").write[String] and
-        (__ \ "label").writeNullable[String] and
-        (__ \ "value").writeNullable[String] and
-        (__ \ "autocomplete").writeNullable[String] and
-        (__ \ "pattern").writeNullable[String] and
-        (__ \ "classes").write[String] and
-        (__ \ "attributes").write[Map[String, String]] and
-        (__ \ "inputmode").writeNullable[String]
-    )(o => WritesUtils.unapplyCompat(unapply)(o))
+  implicit def jsonWrites: OWrites[InputItem] = Json.writes[InputItem]
 
 }

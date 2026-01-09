@@ -22,7 +22,6 @@ import play.api.libs.json._
 import uk.gov.hmrc.govukfrontend.views.html.components._
 import uk.gov.hmrc.govukfrontend.views.viewmodels.CommonJsonFormats._
 import uk.gov.hmrc.govukfrontend.views.viewmodels.FormGroup
-import uk.gov.hmrc.govukfrontend.views.viewmodels.JsonImplicits.RichJsPath
 
 /** Parameters to `GovukSelect` Twirl template
   *
@@ -70,24 +69,10 @@ object Select {
         (__ \ "formGroup").readWithDefault[FormGroup](defaultObject.formGroup) and
         (__ \ "classes").readWithDefault[String](defaultObject.classes) and
         (__ \ "attributes").readWithDefault[Map[String, String]](defaultObject.attributes)(attributesReads) and
-        (__ \ "value").readsJsValueToString.map(Option[String]).orElse(Reads.pure(None)) and
+        (__ \ "value").readNullable[String](readsJsValueToString) and
         (__ \ "disabled").readNullable[Boolean]
     )(Select.apply _)
 
-  implicit def jsonWrites: OWrites[Select] =
-    (
-      (__ \ "id").write[String] and
-        (__ \ "name").write[String] and
-        (__ \ "items").write[Seq[SelectItem]] and
-        (__ \ "describedBy").writeNullable[String] and
-        (__ \ "label").write[Label] and
-        (__ \ "hint").writeNullable[Hint] and
-        (__ \ "errorMessage").writeNullable[ErrorMessage] and
-        (__ \ "formGroup").write[FormGroup] and
-        (__ \ "classes").write[String] and
-        (__ \ "attributes").write[Map[String, String]] and
-        (__ \ "value").writeNullable[String] and
-        (__ \ "disabled").writeNullable[Boolean]
-    )(o => WritesUtils.unapplyCompat(unapply)(o))
+  implicit def jsonWrites: OWrites[Select] = Json.writes[Select]
 
 }

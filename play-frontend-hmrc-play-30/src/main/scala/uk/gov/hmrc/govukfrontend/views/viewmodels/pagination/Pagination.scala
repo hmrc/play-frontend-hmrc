@@ -45,13 +45,5 @@ object Pagination {
         (__ \ "attributes").readWithDefault[Map[String, String]](defaultObject.attributes)(attributesReads)
     )(Pagination.apply _)
 
-  implicit def jsonWrites: OWrites[Pagination] =
-    (
-      (__ \ "items").writeNullable[Seq[PaginationItem]] and
-        (__ \ "previous").writeNullable[PaginationLink] and
-        (__ \ "next").writeNullable[PaginationLink] and
-        (__ \ "landmarkLabel").writeNullable[String] and
-        (__ \ "classes").write[String] and
-        (__ \ "attributes").write[Map[String, String]]
-    )(o => WritesUtils.unapplyCompat(unapply)(o))
+  implicit def jsonWrites: OWrites[Pagination] = Json.writes[Pagination]
 }

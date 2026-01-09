@@ -96,7 +96,7 @@ object CharacterCount {
         (__ \ "errorMessage").readNullable[ErrorMessage] and
         (__ \ "formGroup").readWithDefault[FormGroup](defaultObject.formGroup) and
         (__ \ "classes").readWithDefault[String](defaultObject.classes) and
-        (__ \ "attributes").readWithDefault[Map[String, String]](defaultObject.attributes) and
+        (__ \ "attributes").readWithDefault[Map[String, String]](defaultObject.attributes)(attributesReads) and
         readsCountMessageClasses and
         (__ \ "charactersUnderLimitText").readNullable[Map[String, String]] and
         (__ \ "charactersAtLimitText").readNullable[String] and
@@ -133,9 +133,4 @@ object CharacterCount {
         ((__ \ "textareaDescriptionText").writeNullable[String])
     )(o => WritesUtils.unapplyCompat(unapply)(o))
 
-  private implicit def readsStringOrNumber: Reads[String] = {
-    case JsString(s) => JsSuccess(s)
-    case JsNumber(n) => JsSuccess(n.toString)
-    case _           => JsError("Unable to parse as String or Number")
-  }
 }

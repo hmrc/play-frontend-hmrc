@@ -23,7 +23,7 @@ import scala.util.Try
 
 object CommonJsonFormats {
   val readsCountMessageClasses: Reads[String] =
-    (__ \ "countMessage" \ "classes").read[String].orElse(Reads.pure(""))
+    (__ \ "countMessage" \ "classes").readWithDefault[String]("")
 
   val writesCountMessageClasses: OWrites[String] = new OWrites[String] {
     override def writes(classes: String): JsObject =
@@ -93,4 +93,11 @@ object CommonJsonFormats {
         Try(jsValue.validate[T](readsT)).toOption
       maybeValidated.flatMap(_.asOpt)
     }
+
+  def readsJsValueToString: Reads[String] = new Reads[String] {
+    override def reads(json: JsValue): JsResult[String] = json match {
+      case JsString(s) => JsSuccess(s)
+      case x           => JsSuccess(Json.stringify(x))
+    }
+  }
 }

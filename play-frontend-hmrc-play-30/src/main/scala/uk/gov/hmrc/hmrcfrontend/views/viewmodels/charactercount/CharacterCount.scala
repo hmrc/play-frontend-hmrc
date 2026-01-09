@@ -82,7 +82,7 @@ object CharacterCount {
         (__ \ "errorMessage").readNullable[ErrorMessage] and
         (__ \ "formGroup").readWithDefault[FormGroup](defaultObject.formGroup) and
         (__ \ "classes").readWithDefault[String](defaultObject.classes) and
-        (__ \ "attributes").readWithDefault[Map[String, String]](defaultObject.attributes) and
+        (__ \ "attributes").readWithDefault[Map[String, String]](defaultObject.attributes)(attributesReads) and
         (__ \ "spellcheck").readNullable[Boolean] and
         readsCountMessageClasses and
         (__ \ "language").readWithDefault[Language](defaultObject.language)
@@ -108,9 +108,4 @@ object CharacterCount {
         (__ \ "language").write[Language]
     )(o => WritesUtils.unapplyCompat(unapply)(o))
 
-  private implicit def readsStringOrNumber: Reads[String] = {
-    case JsString(s) => JsSuccess(s)
-    case JsNumber(n) => JsSuccess(n.toString)
-    case _           => JsError("Unable to parse as String or Number")
-  }
 }

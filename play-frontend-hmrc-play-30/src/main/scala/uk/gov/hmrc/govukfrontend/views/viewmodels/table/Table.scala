@@ -50,15 +50,6 @@ object Table {
     )(Table.apply _)
   }
 
-  implicit def jsonWrites: OWrites[Table] =
-    (
-      (__ \ "rows").write[Seq[Seq[TableRow]]] and
-        (__ \ "head").writeNullable[Seq[HeadCell]] and
-        (__ \ "caption").writeNullable[String] and
-        (__ \ "captionClasses").write[String] and
-        (__ \ "firstCellIsHeader").write[Boolean] and
-        (__ \ "classes").write[String] and
-        (__ \ "attributes").write[Map[String, String]]
-    )(o => WritesUtils.unapplyCompat(unapply)(o))
+  implicit def jsonWrites: OWrites[Table] = Json.writes[Table]
 
 }
