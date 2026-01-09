@@ -205,8 +205,8 @@ tracking-consent-frontend {
 }
 ```
 
-`gtm.container` can be one of: `a`, `b`, `c`, `d`, `e`, `f` or `sdes`. Consult with the CIPSAGA team
-to identify which GTM container you should be using in your service.
+`gtm.container` can be one of: `a`, `b`, `c`, `d`, `e`, `f` or `sdes`. Consult with the CIP Advanced Search and 
+Dashboarding (CIP ASAD) team to identify which GTM container you should be using in your service.
 
 [back to top](#creating-pages)
 
