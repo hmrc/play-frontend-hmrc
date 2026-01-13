@@ -79,22 +79,6 @@ object Textarea {
         (__ \ "disabled").readNullable[Boolean]
     )(Textarea.apply _)
 
-  implicit def jsonWrites: OWrites[Textarea] =
-    (
-      (__ \ "id").write[String] and
-        (__ \ "name").write[String] and
-        (__ \ "rows").write[Int] and
-        (__ \ "value").writeNullable[String] and
-        (__ \ "describedBy").writeNullable[String] and
-        (__ \ "label").write[Label] and
-        (__ \ "hint").writeNullable[Hint] and
-        (__ \ "errorMessage").writeNullable[ErrorMessage] and
-        (__ \ "formGroup").write[FormGroup] and
-        (__ \ "classes").write[String] and
-        (__ \ "autocomplete").writeNullable[String] and
-        (__ \ "attributes").write[Map[String, String]] and
-        (__ \ "spellcheck").writeNullable[Boolean] and
-        (__ \ "disabled").writeNullable[Boolean]
-    )(o => WritesUtils.unapplyCompat(unapply)(o))
+  implicit def jsonWrites: OWrites[Textarea] = Json.writes[Textarea]
 
 }

@@ -106,5 +106,5 @@ case class GenerateFixtures(fixturesDir: File, frontend: String, version: String
   private def http(endpoint: String): HttpRequest =
     Http(endpoint)
       .option(HttpOptions.connTimeout(2000))
-      .option(HttpOptions.readTimeout(5000))
+      .option(HttpOptions.readTimeout(10000))
 }

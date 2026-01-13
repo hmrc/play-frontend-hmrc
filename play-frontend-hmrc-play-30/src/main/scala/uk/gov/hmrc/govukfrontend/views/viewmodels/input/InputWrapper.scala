@@ -35,10 +35,6 @@ object InputWrapper {
         (__ \ "attributes").readWithDefault[Map[String, String]](Map.empty)
     )(InputWrapper.apply _)
 
-  implicit def jsonWrites: OWrites[InputWrapper] =
-    (
-      (__ \ "classes").writeNullable[String] and
-        (__ \ "attributes").write[Map[String, String]]
-    )(o => WritesUtils.unapplyCompat(unapply)(o))
+  implicit def jsonWrites: OWrites[InputWrapper] = Json.writes[InputWrapper]
 
 }

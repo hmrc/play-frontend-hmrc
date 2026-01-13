@@ -18,7 +18,7 @@ package uk.gov.hmrc.govukfrontend.views.viewmodels
 package pagination
 
 import play.api.libs.functional.syntax.unlift
-import play.api.libs.json.{OWrites, Reads, __}
+import play.api.libs.json.{Json, OWrites, Reads, __}
 import uk.gov.hmrc.govukfrontend.views.viewmodels.CommonJsonFormats.{attributesReads, forgivingOptStringReads}
 import play.api.libs.functional.syntax._
 
@@ -45,13 +45,6 @@ object PaginationItem {
         (__ \ "attributes").readWithDefault[Map[String, String]](defaultObject.attributes)(attributesReads)
     )(PaginationItem.apply _)
 
-  implicit def jsonWrites: OWrites[PaginationItem] =
-    (
-      (__ \ "href").write[String] and
-        (__ \ "number").writeNullable[String] and
-        (__ \ "visuallyHiddenText").writeNullable[String] and
-        (__ \ "current").writeNullable[Boolean] and
-        (__ \ "ellipsis").writeNullable[Boolean] and
-        (__ \ "attributes").write[Map[String, String]]
-    )(o => WritesUtils.unapplyCompat(unapply)(o))
+  implicit def jsonWrites: OWrites[PaginationItem] = Json.writes[PaginationItem]
+
 }

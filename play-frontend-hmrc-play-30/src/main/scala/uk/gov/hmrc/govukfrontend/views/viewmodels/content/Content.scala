@@ -19,7 +19,7 @@ package content
 
 import play.api.libs.json._
 import play.twirl.api.{Html, HtmlFormat}
-import JsonImplicits._
+import uk.gov.hmrc.govukfrontend.views.viewmodels.CommonJsonFormats._
 
 sealed trait Content {
   def asHtml: Html
@@ -55,11 +55,11 @@ object Content {
       .orElse(readsText(textJsPath).widen[Content])
       .orElse(Reads.pure[Content](defaultContent))
 
-  def readsHtmlContent(jsPath: JsPath = __ \ "html"): Reads[HtmlContent] =
-    jsPath.readsJsValueToString.map(HtmlContent(_))
+  private def readsHtmlContent(jsPath: JsPath = __ \ "html"): Reads[HtmlContent] =
+    jsPath.read[String](readsJsValueToString).map(HtmlContent(_))
 
-  def readsText(jsPath: JsPath = __ \ "text"): Reads[Text] =
-    jsPath.readsJsValueToString.map(Text.apply)
+  private def readsText(jsPath: JsPath = __ \ "text"): Reads[Text] =
+    jsPath.read[String](readsJsValueToString).map(Text.apply)
 }
 
 case object Empty extends Content {

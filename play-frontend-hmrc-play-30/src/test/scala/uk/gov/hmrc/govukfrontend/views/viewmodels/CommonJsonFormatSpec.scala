@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 HM Revenue & Customs
+ * Copyright 2026 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,17 +14,18 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.hmrcfrontend.views.viewmodels
+package uk.gov.hmrc.govukfrontend.views.viewmodels
 
 import org.scalacheck.{Gen, ShrinkLowPriority}
 import org.scalatest.OptionValues
 import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks
 import play.api.libs.json._
-import JsonImplicits._
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpec
+import uk.gov.hmrc.govukfrontend.views.viewmodels.CommonJsonFormats._
+import uk.gov.hmrc.govukfrontend.views.viewmodels.Generators.genNonEmptyAlphaStr
 
-class JsonImplicitsSpec
+class CommonJsonFormatSpec
     extends AnyWordSpec
     with Matchers
     with OptionValues
@@ -35,15 +36,16 @@ class JsonImplicitsSpec
     "deserialize any value as a String" in {
       import Generators._
 
-      val reads = (__ \ "field").readsJsValueToString
+      val reads = (__ \ "field").read[String](readsJsValueToString)
 
       forAll(genJsValue) { jsValue =>
-        val json = Json.obj("field" -> jsValue)
+        val json             = Json.obj("field" -> jsValue)
+        val asString: String = json.validate[String](reads).get
 
-        json.validate[String](reads).asOpt.value shouldBe (jsValue match {
-          case JsString(s) => s
-          case x           => x.toString
-        })
+        jsValue match {
+          case JsString(s) => s == asString            shouldBe true
+          case x           => x.toString() == asString shouldBe true
+        }
       }
     }
   }
