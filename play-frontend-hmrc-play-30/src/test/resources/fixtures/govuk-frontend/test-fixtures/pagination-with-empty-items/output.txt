@@ -1,0 +1,14 @@
+<nav class="govuk-pagination" aria-label="Pagination">
+  <ul class="govuk-pagination__list">
+      <li class="govuk-pagination__item">
+      <a class="govuk-link govuk-pagination__link" href="/page/1" aria-label="Page 1">
+        1
+      </a>
+    </li>
+      <li class="govuk-pagination__item">
+      <a class="govuk-link govuk-pagination__link" href="/page/4" aria-label="Page 4">
+        4
+      </a>
+    </li>
+  </ul>
+</nav>
