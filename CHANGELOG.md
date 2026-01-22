@@ -8,6 +8,18 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 For compatibility information see `govukFrontendVersion` and `hmrcFrontendVersion` in
 [LibDependencies](project/LibDependencies.scala)
 
+## [12.30.0] - 2026-01-22
+
+### Changed
+
+- Updated standard beta phase banner to from `[..] give your feedback by email` to `[...] give your feedback (opens in new tab).`
+
+### Compatible with
+
+- [hmrc/hmrc-frontend v6.111.0](https://github.com/hmrc/hmrc-frontend/releases/tag/v6.111.0)
+- [alphagov/govuk-frontend v5.14.0](https://github.com/alphagov/govuk-frontend/releases/tag/v5.14.0)
+
+
 ## [12.29.0] - 2026-01-21
 
 ### Changed
