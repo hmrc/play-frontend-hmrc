@@ -1,6 +1,6 @@
 header.govuk.url = https://www.gov.uk
 phase.banner.before = This is a new service. Help us improve it and
-phase.banner.link = give your feedback by email
+phase.banner.link = give your feedback (opens in new tab)
 phase.banner.after = .
 footer.cookies.text = Cookies
 footer.cookies.url = /help/cookies
