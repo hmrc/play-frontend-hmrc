@@ -76,7 +76,7 @@ trait RichDateInputSupport {
         .withId(field)
         .withDayMonthYearInputItems(field)
         .withTextErrorMessage(field)
-   }
+    }
 
     /**
      * Method to allow a Play form Field to be used to populate parameters in a DateInput, with form errors bound as
