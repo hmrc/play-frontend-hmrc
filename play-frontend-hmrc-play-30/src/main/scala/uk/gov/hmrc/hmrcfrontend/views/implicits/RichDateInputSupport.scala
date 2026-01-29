@@ -39,7 +39,7 @@ trait RichDateInputSupport {
       * @param field
       */
     @deprecated(
-      "Use `withDayMonthYearFormField`, `withMonthYearFormField` instead",
+      "Use `withDayMonthYearFormField` instead",
       "10.1.0"
     )
     override def withFormField(field: Field): DateInput =
@@ -92,34 +92,6 @@ trait RichDateInputSupport {
         .withHtmlErrorMessage(field)
     }
 
-    /**
-     * Method to allow a Play form Field to be used to populate parameters in a DateInput, with form errors bound as
-     * HtmlContent objects.
-     *
-     * @param field
-     */
-    def withDayMonthWithErrorAsHtml(field: Field): DateInput = {
-      require(dateInput.items.isEmpty, "The DateInput `items` must be empty for withDayMonthWithErrorAsHtml")
-      dateInput
-        .withId(field)
-        .withDayMonthYearInputItems(field)
-        .withHtmlErrorMessage(field)
-    }
-
-    /**
-     * Method to allow a Play form Field to be used to populate parameters in a DateInput, with form errors bound as
-     * HtmlContent objects.
-     *
-     * @param field
-     */
-    def withMonthYearWithErrorAsHtml(field: Field): DateInput = {
-      require(dateInput.items.isEmpty, "The DateInput `items` must be empty for withMonthYearWithErrorAsHtml")
-      dateInput
-        .withId(field)
-        .withDayMonthYearInputItems(field)
-        .withHtmlErrorMessage(field)
-    }
-
     def withHeading(heading: Content): DateInput =
       withHeadingLegend(dateInput, heading, None)((di, ul) => di.copy(fieldset = Some(ul.toFieldset)))
 
@@ -160,16 +132,6 @@ trait RichDateInputSupport {
 
     private[views] def withDayMonthYearInputItems(field: Field): DateInput = {
       val items = defaultDateItems(field, Seq("day", "month", "year"))
-      dateInput.copy(items = items)
-    }
-
-    private[views] def withDayMonthInputItems(field: Field): DateInput = {
-      val items = defaultDateItems(field, Seq("day", "month"))
-      dateInput.copy(items = items)
-    }
-
-    private[views] def withMonthYearInputItems(field: Field): DateInput = {
-      val items = defaultDateItems(field, Seq("month", "year"))
       dateInput.copy(items = items)
     }
 
