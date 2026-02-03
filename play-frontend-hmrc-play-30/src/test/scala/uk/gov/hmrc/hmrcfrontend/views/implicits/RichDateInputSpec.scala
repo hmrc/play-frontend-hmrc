@@ -479,6 +479,22 @@ class RichDateInputSpec extends AnyWordSpec with Matchers with MessagesSupport {
       )
     }
 
+    "Given a DateInput object, calling the withMonthYearWithErrorAsHtml method" should {
+      "convert the first Field form error to a DateInput HTML error message if provided" in {
+        val dateInput = DateInput().withMonthYearWithErrorAsHtml(dateErrorField)
+        dateInput.errorMessage shouldBe Some(
+          errorMessageWithDefaultStringsTranslated(content = HtmlContent("Not valid date"))
+        )
+      }
+
+      "use the DateInput error message over the Field error if both provided" in {
+        val dateInput = DateInput(
+          errorMessage = Some(ErrorMessage(content = Text("DateInput Error")))
+        ).withMonthYearWithErrorAsHtml(dateErrorField)
+        dateInput.errorMessage shouldBe Some(ErrorMessage(content = Text("DateInput Error")))
+      }
+    }
+
     "use the DateInput error message over the Field error if both provided" in {
       val dateInput = DateInput(
         errorMessage = Some(ErrorMessage(content = Text("DateInput Error")))
