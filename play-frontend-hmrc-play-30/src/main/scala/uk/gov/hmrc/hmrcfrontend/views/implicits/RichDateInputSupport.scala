@@ -39,7 +39,7 @@ trait RichDateInputSupport {
       * @param field
       */
     @deprecated(
-      "Use `withDayMonthYearFormField` instead",
+      "Use `withDayMonthYearFormField`, `withMonthYearFormField` instead",
       "10.1.0"
     )
     override def withFormField(field: Field): DateInput =
@@ -55,7 +55,7 @@ trait RichDateInputSupport {
       * @param field
       */
     @deprecated(
-      "Use `withDayMonthYearWithErrorAsHtml` instead",
+      "Use `withDayMonthYearWithErrorAsHtml`, `withMonthYearWithErrorAsHtml` instead",
       "10.1.0"
     )
     override def withFormFieldWithErrorAsHtml(field: Field): DateInput =
@@ -63,6 +63,21 @@ trait RichDateInputSupport {
         .withId(field)
         .deprecatedWithInputItems(field)
         .withHtmlErrorMessage(field)
+
+    /**
+    * Method to allow a Play form Field to be used to populate parameters in a DateInput. This method will populate
+    * with two InputItems corresponding to the month and year only. Form errors will be bound as Text objects.
+    *
+    * @param field
+    */
+
+    def withMonthYearFormField(field: Field): DateInput = {
+      require(dateInput.items.isEmpty, "The DateInput `items` must be empty for withMonthYearFormField")
+      dateInput
+        .withId(field)
+        .withMonthYearInputItems(field)
+        .withTextErrorMessage(field)
+    }
 
     /**
      * Method to allow a Play form Field to be used to populate parameters in a DateInput. This method will populate
@@ -76,6 +91,20 @@ trait RichDateInputSupport {
         .withId(field)
         .withDayMonthYearInputItems(field)
         .withTextErrorMessage(field)
+    }
+
+    /**
+     * Method to allow a Play form Field to be used to populate parameters in a DateInput, with form errors bound as
+     * HtmlContent objects.
+     *
+     * @param field
+     */
+    def withMonthYearWithErrorAsHtml(field: Field): DateInput = {
+      require(dateInput.items.isEmpty, "The DateInput `items` must be empty for withMonthYearWithErrorAsHtml")
+      dateInput
+        .withId(field)
+        .withDayMonthYearInputItems(field)
+        .withHtmlErrorMessage(field)
     }
 
     /**
@@ -132,6 +161,11 @@ trait RichDateInputSupport {
 
     private[views] def withDayMonthYearInputItems(field: Field): DateInput = {
       val items = defaultDateItems(field, Seq("day", "month", "year"))
+      dateInput.copy(items = items)
+    }
+
+    private[views] def withMonthYearInputItems(field: Field): DateInput = {
+      val items = defaultDateItems(field, Seq("month", "year"))
       dateInput.copy(items = items)
     }
 
