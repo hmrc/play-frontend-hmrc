@@ -42,7 +42,9 @@ trait StandardPhaseBanner {
     PhaseBanner(
       tag = Some(Tag(content = Text(phase))),
       content = HtmlContent(
-        s"""${messages("phase.banner.before")} <a class=\"govuk-link\" href=\"${HtmlFormat.escape(url)}\">${messages(
+        s"""${messages("phase.banner.before")} <a class=\"govuk-link\" href=\"${HtmlFormat.escape(
+            url
+          )}\" target="_blank">${messages(
             "phase.banner.link"
           )}</a>${messages("phase.banner.after")}"""
       ),

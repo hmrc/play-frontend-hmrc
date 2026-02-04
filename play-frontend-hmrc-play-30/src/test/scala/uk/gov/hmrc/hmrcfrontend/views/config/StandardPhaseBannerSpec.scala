@@ -37,7 +37,7 @@ class StandardPhaseBannerSpec extends AnyWordSpec with Matchers with MessagesSup
       phaseBanner mustBe PhaseBanner(
         tag = Some(Tag(content = Text("Beta"))),
         content = HtmlContent(
-          "This is a new service. Help us improve it and <a class=\"govuk-link\" href=\"/feedback\">give your feedback (opens in new tab)</a>."
+          "This is a new service. Help us improve it and <a class=\"govuk-link\" href=\"/feedback\" target=\"_blank\">give your feedback (opens in new tab)</a>."
         ),
         classes = "govuk-!-display-none-print"
       )
@@ -49,7 +49,7 @@ class StandardPhaseBannerSpec extends AnyWordSpec with Matchers with MessagesSup
       phaseBanner mustBe PhaseBanner(
         tag = Some(Tag(content = Text("Beta"))),
         content = HtmlContent(
-          "This is a new service. Help us improve it and <a class=\"govuk-link\" href=\"/other-feedback\">give your feedback (opens in new tab)</a>."
+          "This is a new service. Help us improve it and <a class=\"govuk-link\" href=\"/other-feedback\" target=\"_blank\">give your feedback (opens in new tab)</a>."
         ),
         classes = "govuk-!-display-none-print"
       )
@@ -61,7 +61,7 @@ class StandardPhaseBannerSpec extends AnyWordSpec with Matchers with MessagesSup
       phaseBanner mustBe PhaseBanner(
         tag = Some(Tag(content = Text("Beta"))),
         content = HtmlContent(
-          "This is a new service. Help us improve it and <a class=\"govuk-link\" href=\"&quot;&gt;&lt;script&gt;console.log(&#x27;evil&#x27;);&lt;/script&gt;&lt;a href=&quot;\">give your feedback (opens in new tab)</a>."
+          "This is a new service. Help us improve it and <a class=\"govuk-link\" href=\"&quot;&gt;&lt;script&gt;console.log(&#x27;evil&#x27;);&lt;/script&gt;&lt;a href=&quot;\" target=\"_blank\">give your feedback (opens in new tab)</a>."
         ),
         classes = "govuk-!-display-none-print"
       )
@@ -75,7 +75,7 @@ class StandardPhaseBannerSpec extends AnyWordSpec with Matchers with MessagesSup
       phaseBanner mustBe PhaseBanner(
         tag = Some(Tag(content = Text("Beta"))),
         content = HtmlContent(
-          "Gwasanaeth newydd yw hwn. Helpwch ni i’w wella a <a class=\"govuk-link\" href=\"/feedback\">rhoi eich adborth (yn agor tab newydd)</a>."
+          "Gwasanaeth newydd yw hwn. Helpwch ni i’w wella a <a class=\"govuk-link\" href=\"/feedback\" target=\"_blank\">rhoi eich adborth (yn agor tab newydd)</a>."
         ),
         classes = "govuk-!-display-none-print"
       )
@@ -93,7 +93,7 @@ class StandardPhaseBannerSpec extends AnyWordSpec with Matchers with MessagesSup
       val phaseBanner: PhaseBanner = standardBetaBanner()
       phaseBanner.content mustBe HtmlContent(
         "This is a new service. Help us improve it and <a class=\"govuk-link\" href=" +
-          "\"tax.service.gov.uk/contact/beta-feedback?service=my-service&amp;referrerUrl=%2Fhelp%2Fterms-and-conditions\"" +
+          "\"tax.service.gov.uk/contact/beta-feedback?service=my-service&amp;referrerUrl=%2Fhelp%2Fterms-and-conditions\" target=\"_blank\"" +
           ">give your feedback (opens in new tab)</a>."
       )
     }
@@ -109,7 +109,7 @@ class StandardPhaseBannerSpec extends AnyWordSpec with Matchers with MessagesSup
       val phaseBanner: PhaseBanner = standardBetaBanner()
       phaseBanner.content mustBe HtmlContent(
         "This is a new service. Help us improve it and <a class=\"govuk-link\" href=" +
-          "\"/contact/beta-feedback\">give your feedback (opens in new tab)</a>."
+          "\"/contact/beta-feedback\" target=\"_blank\">give your feedback (opens in new tab)</a>."
       )
     }
   }
@@ -123,7 +123,7 @@ class StandardPhaseBannerSpec extends AnyWordSpec with Matchers with MessagesSup
       phaseBanner mustBe PhaseBanner(
         tag = Some(Tag(content = Text("Alpha"))),
         content = HtmlContent(
-          "This is a new service. Help us improve it and <a class=\"govuk-link\" href=\"/feedback\">give your feedback (opens in new tab)</a>."
+          "This is a new service. Help us improve it and <a class=\"govuk-link\" href=\"/feedback\" target=\"_blank\">give your feedback (opens in new tab)</a>."
         ),
         classes = "govuk-!-display-none-print"
       )
