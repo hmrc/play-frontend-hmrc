@@ -12,13 +12,11 @@ For compatibility information see `govukFrontendVersion` and `hmrcFrontendVersio
 
 ### Changed
 
-- Removes unused implicits
-  - This includes:
-    - RichActionItem
-    - withDayMonthFormField
-    - withMonthYearFormField
-    - withDayMonthWithErrorAsHtml
-    - withMonthYearWithErrorAsHtml
+- Removes some unused functionality that is complex for us to maintain - reducing clutter that's not actually used in practice by any of our consumers, we hope this will make refactoring easier for us to plan and implement in the future:
+  - Removed: 
+    - RichActionItemSupport
+    - RichDateInputSupport.withDayMonthFormField
+    - RichDateInputSupport.withDayMonthWithErrorAsHtml
 
 ### Compatible with
 
