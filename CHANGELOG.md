@@ -8,6 +8,21 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 For compatibility information see `govukFrontendVersion` and `hmrcFrontendVersion` in
 [LibDependencies](project/LibDependencies.scala)
 
+## [12.31.0] - 2026-01-23
+
+### Changed
+
+- Removes some unused functionality that is complex for us to maintain - reducing clutter that's not actually used in practice by any of our consumers, we hope this will make refactoring easier for us to plan and implement in the future:
+  - Removed: 
+    - RichActionItemSupport
+    - RichDateInputSupport.withDayMonthFormField
+    - RichDateInputSupport.withDayMonthWithErrorAsHtml
+
+### Compatible with
+
+- [hmrc/hmrc-frontend v6.111.0](https://github.com/hmrc/hmrc-frontend/releases/tag/v6.111.0)
+- [alphagov/govuk-frontend v5.14.0](https://github.com/alphagov/govuk-frontend/releases/tag/v5.14.0)
+
 ## [12.30.0] - 2026-01-22
 
 ### Changed

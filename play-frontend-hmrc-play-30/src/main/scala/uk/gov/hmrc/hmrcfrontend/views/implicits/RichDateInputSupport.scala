@@ -39,7 +39,7 @@ trait RichDateInputSupport {
       * @param field
       */
     @deprecated(
-      "Use `withDayMonthYearFormField`, `withDayMonthFormField`, or `withMonthYearFormField` instead",
+      "Use `withDayMonthYearFormField`, `withMonthYearFormField` instead",
       "10.1.0"
     )
     override def withFormField(field: Field): DateInput =
@@ -55,7 +55,7 @@ trait RichDateInputSupport {
       * @param field
       */
     @deprecated(
-      "Use `withDayMonthYearWithErrorAsHtml`, `withDayMonthWithErrorAsHtml`, or `withMonthYearWithErrorAsHtml` instead",
+      "Use `withDayMonthYearWithErrorAsHtml`, `withMonthYearWithErrorAsHtml` instead",
       "10.1.0"
     )
     override def withFormFieldWithErrorAsHtml(field: Field): DateInput =
@@ -63,6 +63,21 @@ trait RichDateInputSupport {
         .withId(field)
         .deprecatedWithInputItems(field)
         .withHtmlErrorMessage(field)
+
+    /**
+    * Method to allow a Play form Field to be used to populate parameters in a DateInput. This method will populate
+    * with two InputItems corresponding to the month and year only. Form errors will be bound as Text objects.
+    *
+    * @param field
+    */
+
+    def withMonthYearFormField(field: Field): DateInput = {
+      require(dateInput.items.isEmpty, "The DateInput `items` must be empty for withMonthYearFormField")
+      dateInput
+        .withId(field)
+        .withMonthYearInputItems(field)
+        .withTextErrorMessage(field)
+    }
 
     /**
      * Method to allow a Play form Field to be used to populate parameters in a DateInput. This method will populate
@@ -79,31 +94,17 @@ trait RichDateInputSupport {
     }
 
     /**
-     * Method to allow a Play form Field to be used to populate parameters in a DateInput. This method will populate
-     * with two InputItems corresponding to the day and month only. Form errors will be bound as Text objects.
+     * Method to allow a Play form Field to be used to populate parameters in a DateInput, with form errors bound as
+     * HtmlContent objects.
      *
      * @param field
      */
-    def withDayMonthFormField(field: Field): DateInput = {
-      require(dateInput.items.isEmpty, "The DateInput `items` must be empty for withDayMonthFormField")
+    def withMonthYearWithErrorAsHtml(field: Field): DateInput = {
+      require(dateInput.items.isEmpty, "The DateInput `items` must be empty for withMonthYearWithErrorAsHtml")
       dateInput
         .withId(field)
-        .withDayMonthInputItems(field)
-        .withTextErrorMessage(field)
-    }
-
-    /**
-     * Method to allow a Play form Field to be used to populate parameters in a DateInput. This method will populate
-     * with two InputItems corresponding to the month and year only. Form errors will be bound as Text objects.
-     *
-     * @param field
-     */
-    def withMonthYearFormField(field: Field): DateInput = {
-      require(dateInput.items.isEmpty, "The DateInput `items` must be empty for withMonthYearFormField")
-      dateInput
-        .withId(field)
-        .withMonthYearInputItems(field)
-        .withTextErrorMessage(field)
+        .withDayMonthYearInputItems(field)
+        .withHtmlErrorMessage(field)
     }
 
     /**
@@ -114,34 +115,6 @@ trait RichDateInputSupport {
      */
     def withDayMonthYearWithErrorAsHtml(field: Field): DateInput = {
       require(dateInput.items.isEmpty, "The DateInput `items` must be empty for withDayMonthYearWithErrorAsHtml")
-      dateInput
-        .withId(field)
-        .withDayMonthYearInputItems(field)
-        .withHtmlErrorMessage(field)
-    }
-
-    /**
-     * Method to allow a Play form Field to be used to populate parameters in a DateInput, with form errors bound as
-     * HtmlContent objects.
-     *
-     * @param field
-     */
-    def withDayMonthWithErrorAsHtml(field: Field): DateInput = {
-      require(dateInput.items.isEmpty, "The DateInput `items` must be empty for withDayMonthWithErrorAsHtml")
-      dateInput
-        .withId(field)
-        .withDayMonthYearInputItems(field)
-        .withHtmlErrorMessage(field)
-    }
-
-    /**
-     * Method to allow a Play form Field to be used to populate parameters in a DateInput, with form errors bound as
-     * HtmlContent objects.
-     *
-     * @param field
-     */
-    def withMonthYearWithErrorAsHtml(field: Field): DateInput = {
-      require(dateInput.items.isEmpty, "The DateInput `items` must be empty for withMonthYearWithErrorAsHtml")
       dateInput
         .withId(field)
         .withDayMonthYearInputItems(field)
@@ -188,11 +161,6 @@ trait RichDateInputSupport {
 
     private[views] def withDayMonthYearInputItems(field: Field): DateInput = {
       val items = defaultDateItems(field, Seq("day", "month", "year"))
-      dateInput.copy(items = items)
-    }
-
-    private[views] def withDayMonthInputItems(field: Field): DateInput = {
-      val items = defaultDateItems(field, Seq("day", "month"))
       dateInput.copy(items = items)
     }
 
