@@ -20,9 +20,12 @@ import javax.inject.Inject
 import play.api.i18n.Messages
 import play.api.mvc.RequestHeader
 import uk.gov.hmrc.hmrcfrontend.views.viewmodels.footer.FooterItem
-import uk.gov.hmrc.hmrcfrontend.config.AccessibilityStatementConfig
+import uk.gov.hmrc.hmrcfrontend.config.{AccessibilityStatementConfig, ServiceNavigationConfig}
 
-class HmrcFooterItems @Inject() (accessibilityStatementConfig: AccessibilityStatementConfig) {
+class HmrcFooterItems @Inject() (
+  accessibilityStatementConfig: AccessibilityStatementConfig,
+  serviceNavUsage: ServiceNavigationConfig
+) {
   def get(implicit messages: Messages, request: RequestHeader): Seq[FooterItem] =
     getWithAccessibilityStatementUrl(None)
 
@@ -30,10 +33,10 @@ class HmrcFooterItems @Inject() (accessibilityStatementConfig: AccessibilityStat
     accessibilityStatementUrl: Option[String]
   )(implicit messages: Messages, request: RequestHeader): Seq[FooterItem] =
     Seq(
-      footerItemForKey("cookies"),
-      accessibilityLink(accessibilityStatementUrl),
-      footerItemForKey("privacy"),
-      footerItemForKey("termsConditions"),
+      propagatingServiceNavUsageViaQueryParam(footerItemForKey("cookies")),
+      propagatingServiceNavUsageViaQueryParam(accessibilityLink(accessibilityStatementUrl)),
+      propagatingServiceNavUsageViaQueryParam(footerItemForKey("privacy")),
+      propagatingServiceNavUsageViaQueryParam(footerItemForKey("termsConditions")),
       footerItemForKey("govukHelp"),
       footerItemForKey("contact"),
       footerItemForKey("welshHelp", attributes = Map("lang" -> "cy", "hreflang" -> "cy"))
@@ -54,6 +57,15 @@ class HmrcFooterItems @Inject() (accessibilityStatementConfig: AccessibilityStat
         text = Some(messages(s"footer.$item.text")),
         href = Some(messages(s"footer.$item.url")),
         attributes = attributes
+      )
+    )
+
+  private def propagatingServiceNavUsageViaQueryParam(
+    footerItem: Option[FooterItem]
+  )(implicit request: RequestHeader): Option[FooterItem] =
+    footerItem.map(item =>
+      item.copy(
+        href = item.href.map(serviceNavUsage.propagateViaQueryParam)
       )
     )
 }
