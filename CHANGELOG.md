@@ -8,6 +8,19 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 For compatibility information see `govukFrontendVersion` and `hmrcFrontendVersion` in
 [LibDependencies](project/LibDependencies.scala)
 
+## [12.33.0] - 2026-02-26
+
+### Changed
+
+- Updated scala versions and play version to match `bootstrap-play`
+  - Scala 2.13  -> 2.13.18
+  - Scala 3     -> 3.3.6
+
+### Compatible with
+
+- [hmrc/hmrc-frontend v6.116.0](https://github.com/hmrc/hmrc-frontend/releases/tag/v6.111.0)
+- [alphagov/govuk-frontend v5.14.0](https://github.com/alphagov/govuk-frontend/releases/tag/v5.14.0)
+
 ## [12.32.0] - 2026-02-04
 
 ### Changed
