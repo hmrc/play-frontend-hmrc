@@ -2,9 +2,9 @@ import sbt._
 
 object LibDependencies {
   val govukFrontendVersion: String = "5.14.0"
-  val hmrcFrontendVersion: String  = "6.111.0"
+  val hmrcFrontendVersion: String  = "6.116.0"
 
-  val play30Version: String = "3.0.9"
+  val play30Version: String = "3.0.10"
 
   val play30: Seq[ModuleID] = Seq(
     "uk.gov.hmrc"                  %% "play-language-play-30" % "9.5.0",
