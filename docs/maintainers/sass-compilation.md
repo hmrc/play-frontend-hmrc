@@ -1,4 +1,4 @@
-# play-frontend-hmrc: SASS compilation
+# play-frontend-hmrc: Sass compilation
 
 > [!IMPORTANT]
 > **Have some images like the crown copyright logo stopped loading?**
@@ -6,8 +6,8 @@
 > In recent versions of govuk-frontend the path to assets has changed slightly, this means if you are setting
 > $govuk-assets-path yourself that you need to add in `/dist` to the path after `/govuk-frontend`.
 
-This library manages SASS compilation for you. However, should you wish to add your own for any reason using
-`sbt-sassify`, please read the steps below.
+This library manages Sass compilation for you. However, should you wish to add your own for any reason using
+`sbt-sass-compiler`, please read the steps below.
 
 1. Import the required styles in your `app/assets/stylesheets/application.scss` file:
    ```scss
@@ -31,7 +31,7 @@ This library manages SASS compilation for you. However, should you wish to add y
     > GOV.UK styles from trying to load the fonts automatically. If you don't, then every time someone loads your
     > stylesheet they will attempt to download the fonts from `/assets/` which will cause several 404s.
 
-1. Add [sbt-sassify](https://github.com/irundaia/sbt-sassify) to your `/project/plugins.sbt` file.
+1. Add [sbt-sass-compiler](https://github.com/hmrc/sbt-sass-compiler) to your `/project/plugins.sbt` file.
 
 1. Ensure you have the correct routing for all other static assets including the compiled Javascript and images provided
    by the hmrc-frontend webjar:
