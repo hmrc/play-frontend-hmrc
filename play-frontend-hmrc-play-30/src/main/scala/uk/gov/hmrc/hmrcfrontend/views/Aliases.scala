@@ -17,20 +17,11 @@
 package uk.gov.hmrc.hmrcfrontend.views
 
 trait Aliases {
-  type AccountHome = viewmodels.accountmenu.AccountHome
-  val AccountHome = viewmodels.accountmenu.AccountHome
-
-  type AccountMenu = viewmodels.accountmenu.AccountMenu
-  val AccountMenu = viewmodels.accountmenu.AccountMenu
-
   type Banner = viewmodels.banner.Banner
   val Banner = viewmodels.banner.Banner
 
   type Banners = viewmodels.hmrcstandardpage.Banners
   val Banners = viewmodels.hmrcstandardpage.Banners
-
-  type CheckProgress = viewmodels.accountmenu.CheckProgress
-  val CheckProgress = viewmodels.accountmenu.CheckProgress
 
   val Cy = viewmodels.language.Cy
 
@@ -66,9 +57,6 @@ trait Aliases {
   type LanguageToggle = viewmodels.language.LanguageToggle
   val LanguageToggle = viewmodels.language.LanguageToggle
 
-  type AccountMessages = viewmodels.accountmenu.AccountMessages
-  val AccountMessages = viewmodels.accountmenu.AccountMessages
-
   type NavigationItem = viewmodels.header.NavigationItem
   val NavigationItem = viewmodels.header.NavigationItem
 
@@ -81,31 +69,11 @@ trait Aliases {
   type PageHeading = viewmodels.pageheading.PageHeading
   val PageHeading = viewmodels.pageheading.PageHeading
 
-  type PaperlessSettings = viewmodels.accountmenu.PaperlessSettings
-  val PaperlessSettings = viewmodels.accountmenu.PaperlessSettings
-
-  type PersonalDetails = viewmodels.accountmenu.PersonalDetails
-  val PersonalDetails = viewmodels.accountmenu.PersonalDetails
-
-  type SignOut = viewmodels.accountmenu.SignOut
-  val SignOut = viewmodels.accountmenu.SignOut
-
   type TimeoutDialog = viewmodels.timeoutdialog.TimeoutDialog
   val TimeoutDialog = viewmodels.timeoutdialog.TimeoutDialog
 
   type ReportTechnicalIssue = viewmodels.reporttechnicalissue.ReportTechnicalIssue
   val ReportTechnicalIssue = viewmodels.reporttechnicalissue.ReportTechnicalIssue
-
-  type CurrencyInput = viewmodels.currencyinput.CurrencyInput
-
-  @deprecated(
-    "Use GovukInput template with `£` prefix instead. For examples, please see:\n" +
-      "- HMRC Design Patterns: https://design.tax.service.gov.uk/hmrc-design-patterns/currency-input/, and \n" +
-      "- GOV.UK Design System: https://design-system.service.gov.uk/components/text-input/#prefixes-and-suffixes. \n" +
-      "CurrencyInput component will be removed in a future library version.",
-    "9.9.0"
-  )
-  val CurrencyInput = viewmodels.currencyinput.CurrencyInput
 
   type UserResearchBanner = viewmodels.userresearchbanner.UserResearchBanner
   val UserResearchBanner = viewmodels.userresearchbanner.UserResearchBanner

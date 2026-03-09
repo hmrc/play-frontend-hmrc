@@ -19,6 +19,13 @@ package uk.gov.hmrc.hmrcfrontend.config
 import play.api.Configuration
 import javax.inject.Inject
 
+/*
+  As of v13.0.0 of play-frontend-hmrc, these values are no longer used directly within the library. However, these
+  configuration values have been left in place for services migrating to use these values as part of service navigation.
+
+  Once services have migrated to using service navigation, we can decide whether this config class is still required.
+ */
+
 class AccountMenuConfig @Inject() (configuration: Configuration) {
   val accountHomeHref: String        = configuration.get[String]("pta-account-menu.account-home.href")
   val messagesHref: String           = configuration.get[String]("pta-account-menu.messages.href")

@@ -20,7 +20,6 @@
 @import uk.gov.hmrc.hmrcfrontend.views.html.helpers.HmrcStandardHeader
 @import uk.gov.hmrc.hmrcfrontend.views.html.helpers.HmrcStandardFooter
 @import uk.gov.hmrc.hmrcfrontend.views.html.helpers.HmrcHead
-@import uk.gov.hmrc.hmrcfrontend.views.html.helpers.HmrcLanguageSelectHelper
 @import uk.gov.hmrc.hmrcfrontend.views.html.helpers.HmrcScripts
 @import uk.gov.hmrc.hmrcfrontend.views.viewmodels.hmrcstandardpage.HmrcStandardPageParams
 @import uk.gov.hmrc.govukfrontend.views.html.components.FixedWidthPageLayout
@@ -31,7 +30,6 @@
         hmrcStandardHeader: HmrcStandardHeader,
         hmrcStandardFooter: HmrcStandardFooter,
         hmrcHead: HmrcHead,
-        hmrcLanguageSelectHelper: HmrcLanguageSelectHelper,
         hmrcScripts: HmrcScripts,
         govukBackLink: GovukBackLink,
         govukExitThisPage: GovukExitThisPage,
@@ -52,16 +50,12 @@
         displayHmrcBanner = banners.displayHmrcBanner,
         additionalBannersBlock = banners.additionalBannersBlock,
         containerClasses = templateOverrides.headerContainerClasses,
-        useDeprecatedPositionForHmrcBanner = banners.useDeprecatedPositionForHmrcBanner,
         serviceNavigation = serviceNavigation,
         isWelshTranslationAvailable = isWelshTranslationAvailable
     )
 }
 
 @beforeContent = {
-    @if(isWelshTranslationAvailable) {
-        @hmrcLanguageSelectHelper()
-    }
     @backLink.map { link =>
       @govukBackLink(link)
     }

@@ -36,14 +36,6 @@ object HmrcHeaderIntegrationSpec
       (header.headerUrls.assetsPath.length > 10, "long assetsPath", "short assetsPath") #::
       (header.headerNames.productName.isEmpty, "empty productName", "non-empty productName") #::
       (header.headerNames.productName.exists(_.length > 10), "long productName", "short productName") #::
-      (header.headerNames.serviceName.isEmpty, "empty serviceName", "non-empty serviceName") #::
-      (header.headerNames.serviceName.exists(_.length > 10), "long serviceName", "short serviceName") #::
-      (header.headerUrls.serviceUrl.isEmpty, "empty serviceUrl", "non-empty serviceUrl") #::
-      (header.headerUrls.serviceUrl.length > 10, "long serviceUrl", "short serviceUrl") #::
-      (header.headerNavigation.navigation.isEmpty, "empty navigation list", "non-empty navigation list") #::
-      (header.headerNavigation.navigation.exists(_.length > 10), "long navigation list", "short navigation list") #::
-      (header.headerNavigation.navigationClasses.isEmpty, "empty navigationClasses", "non-empty navigationClasses") #::
-      (header.headerNavigation.navigationClasses.length > 10, "long navigationClasses", "short navigationClasses") #::
       (header.headerTemplateOverrides.classes.isEmpty, "empty classes", "non-empty classes") #::
       (header.headerTemplateOverrides.classes.length > 10, "long classes", "short classes") #::
       (header.headerTemplateOverrides.attributes.isEmpty, "empty attributes", "non-empty attributes") #::

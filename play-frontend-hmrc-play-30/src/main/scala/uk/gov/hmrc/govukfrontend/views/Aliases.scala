@@ -86,9 +86,6 @@ trait Aliases {
   type Header = viewmodels.header.Header
   val Header = viewmodels.header.Header
 
-  type HeaderNavigation = viewmodels.header.HeaderNavigation
-  val HeaderNavigation = viewmodels.header.HeaderNavigation
-
   type Tag = viewmodels.tag.Tag
   val Tag = viewmodels.tag.Tag
 

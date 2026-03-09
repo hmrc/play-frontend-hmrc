@@ -1,1 +1,0 @@
-<input value="Start now" type="submit" name="start-now" class="govuk-button" data-module="govuk-button">

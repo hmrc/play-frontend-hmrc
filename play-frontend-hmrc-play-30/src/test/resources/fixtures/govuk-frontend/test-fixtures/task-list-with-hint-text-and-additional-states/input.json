@@ -15,7 +15,7 @@
     "status" : {
       "tag" : {
         "text" : "Not started",
-        "classes" : "govuk-tag--light-blue"
+        "classes" : "govuk-tag--teal"
       }
     }
   }, {
@@ -29,7 +29,7 @@
     "status" : {
       "tag" : {
         "text" : "Review",
-        "classes" : "govuk-tag--pink"
+        "classes" : "govuk-tag--magenta"
       }
     }
   }, {

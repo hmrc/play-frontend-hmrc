@@ -1,0 +1,244 @@
+/*
+ * Copyright 2023 HM Revenue & Customs
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package uk.gov.hmrc.hmrcfrontend.views.helpers
+
+import org.jsoup.Jsoup
+import org.scalatest.matchers.should.Matchers
+import org.scalatest.wordspec.AnyWordSpecLike
+import play.api.Application
+import play.api.i18n.{DefaultLangs, Lang}
+import play.api.inject.guice.GuiceApplicationBuilder
+import play.api.mvc.{MessagesRequest, Request}
+import play.api.test.FakeRequest
+import play.api.test.Helpers.{contentAsString, _}
+import uk.gov.hmrc.helpers.views.JsoupHelpers
+import uk.gov.hmrc.hmrcfrontend.views.config.StandardBetaBanner
+import uk.gov.hmrc.hmrcfrontend.views.html.helpers.HmrcStandardHeader
+import uk.gov.hmrc.hmrcfrontend.views.viewmodels.userresearchbanner.UserResearchBanner
+
+import scala.collection.immutable.List
+
+class HmrcStandardHeaderSpec extends AnyWordSpecLike with Matchers with JsoupHelpers {
+
+  implicit val fakeRequest: Request[Any] = FakeRequest("GET", "/foo")
+
+  def buildApp(properties: Map[String, String] = Map.empty): Application =
+    new GuiceApplicationBuilder()
+      .configure(Map("play.i18n.langs" -> List("en", "cy")) ++ properties)
+      .build()
+
+  def getMessages(messages: Map[String, Map[String, String]] = Map.empty, lang: Lang = Lang("en")) = {
+    val messagesApi = stubMessagesApi(messages, new DefaultLangs(Seq(lang)))
+    new MessagesRequest(FakeRequest(), messagesApi).messages
+  }
+
+  "HmrcStandardHeader" should {
+    "render a header element" in {
+      val hmrcStandardHeader = buildApp().injector.instanceOf[HmrcStandardHeader]
+
+      val messages = getMessages()
+      val content  = contentAsString(hmrcStandardHeader()(messages, fakeRequest))
+      val document = Jsoup.parse(content)
+      val headers  = document.select("header")
+
+      headers should have size 1
+    }
+
+    "not render the sign out link by default" in {
+      val hmrcStandardHeader = buildApp().injector.instanceOf[HmrcStandardHeader]
+
+      val messages = getMessages()
+      val content  = contentAsString(hmrcStandardHeader()(messages, fakeRequest))
+      val document = Jsoup.parse(content)
+      val links    = document.select(".hmrc-sign-out-nav__link")
+
+      links should have size 0
+    }
+
+    "render the sign out link if a signOutUrl is supplied" in {
+      val hmrcStandardHeader = buildApp().injector.instanceOf[HmrcStandardHeader]
+
+      val messages = getMessages()
+      val content  = contentAsString(hmrcStandardHeader(signOutUrl = Some("/sign-out"))(messages, fakeRequest))
+      val document = Jsoup.parse(content)
+      val links    = document.select(".hmrc-sign-out-nav__link")
+
+      links                    should have size 1
+      links.first.attr("href") should be("/sign-out")
+      links.first.text         should be("Sign out")
+    }
+
+    "render the sign out link in Welsh" in {
+      val hmrcStandardHeader = buildApp().injector.instanceOf[HmrcStandardHeader]
+
+      val welshMessages = getMessages(lang = Lang("cy"))
+
+      val content  = contentAsString(hmrcStandardHeader(signOutUrl = Some("/sign-out"))(welshMessages, fakeRequest))
+      val document = Jsoup.parse(content)
+      val links    = document.select(".hmrc-sign-out-nav__link")
+
+      links            should have size 1
+      links.first.text should be("Allgofnodi")
+    }
+
+    "render the correct gov.uk homepage link" in {
+      val hmrcStandardHeader = buildApp().injector.instanceOf[HmrcStandardHeader]
+
+      val messages      = getMessages(Map("en" -> Map("header.govuk.url" -> "/foo")))
+      val content       = contentAsString(hmrcStandardHeader()(messages, fakeRequest))
+      val document      = Jsoup.parse(content)
+      val homepageLinks = document.select(".govuk-header__homepage-link")
+
+      homepageLinks                    should have size 1
+      homepageLinks.first.attr("href") should be("/foo")
+    }
+
+    "render the hmrc banner" in {
+      val hmrcStandardHeader = buildApp().injector.instanceOf[HmrcStandardHeader]
+
+      val messages = getMessages()
+      val content  = contentAsString(hmrcStandardHeader(displayHmrcBanner = true)(messages, fakeRequest))
+      val document = Jsoup.parse(content)
+      val banners  = document.select(".hmrc-banner")
+
+      banners should have size 1
+    }
+
+    "render the phase banner" in {
+      val hmrcStandardHeader = buildApp().injector.instanceOf[HmrcStandardHeader]
+      val standardBetaBanner = buildApp().injector.instanceOf[StandardBetaBanner]
+
+      implicit val messages = getMessages()
+      val content           = contentAsString(
+        hmrcStandardHeader(
+          phaseBanner = Some(standardBetaBanner(url = "/foo"))
+        )
+      )
+      val document          = Jsoup.parse(content)
+      val banners           = document.select(".govuk-phase-banner")
+
+      banners should have size 1
+    }
+
+    "render the user research banner" in {
+      val hmrcStandardHeader = buildApp().injector.instanceOf[HmrcStandardHeader]
+
+      implicit val messages = getMessages()
+      val content           = contentAsString(
+        hmrcStandardHeader(
+          userResearchBanner = Some(UserResearchBanner(url = "/foo"))
+        )
+      )
+      val document          = Jsoup.parse(content)
+      val banners           = document.select(".hmrc-user-research-banner")
+
+      banners            should have size 1
+      banners.first.text should include("Help make GOV.UK better")
+
+    }
+
+    "render the user research banner in Welsh" in {
+      val hmrcStandardHeader = buildApp().injector.instanceOf[HmrcStandardHeader]
+
+      implicit val messages = getMessages(lang = Lang("cy"))
+      val content           = contentAsString(
+        hmrcStandardHeader(
+          userResearchBanner = Some(UserResearchBanner(url = "/foo"))
+        )
+      )
+      val document          = Jsoup.parse(content)
+      val banners           = document.select(".hmrc-user-research-banner")
+
+      banners            should have size 1
+      banners.first.text should include("Helpwch i wella GOV.UK")
+    }
+
+    "render service navigation when service name passed in with language toggle when Welsh language is available" in {
+      val hmrcStandardHeader = buildApp().injector.instanceOf[HmrcStandardHeader]
+      implicit val messages  = getMessages()
+      val content            = contentAsString(
+        hmrcStandardHeader(
+          isWelshTranslationAvailable = true,
+          serviceName = Some("My Foo Service"),
+          serviceUrl = Some("/foo")
+        )(messages, fakeRequest)
+      )
+
+      val document       = Jsoup.parse(content)
+      val serviceNav     = document.select(".govuk-service-navigation__container")
+      val serviceLink    = serviceNav.select(".govuk-service-navigation__link")
+      val languageToggle = document.select(".hmrc-service-navigation-language-select")
+
+      serviceNav         should have size 1
+      serviceLink        should have size 1
+      serviceLink.text() should be("My Foo Service")
+      languageToggle     should have size 1
+    }
+
+    "render service navigation when service name with language toggle when configured" in {
+      val hmrcStandardHeader = buildApp().injector.instanceOf[HmrcStandardHeader]
+      val messages           = getMessages(Map("en" -> Map("service.name" -> "My Bar Service")))
+      val content            = contentAsString(
+        hmrcStandardHeader(
+          isWelshTranslationAvailable = true
+        )(messages, fakeRequest)
+      )
+
+      val document       = Jsoup.parse(content)
+      val serviceNav     = document.select(".govuk-service-navigation__container")
+      val serviceLink    = serviceNav.select(".govuk-service-navigation__text")
+      val languageToggle = document.select(".hmrc-service-navigation-language-select")
+
+      serviceNav         should have size 1
+      serviceLink        should have size 1
+      serviceLink.text() should be("My Bar Service")
+      languageToggle     should have size 1
+    }
+
+    "render service navigation with language toggle when Welsh language is available" in {
+      val hmrcStandardHeader = buildApp().injector.instanceOf[HmrcStandardHeader]
+      implicit val messages  = getMessages()
+      val content            = contentAsString(
+        hmrcStandardHeader(isWelshTranslationAvailable = true)(messages, fakeRequest)
+      )
+
+      val document       = Jsoup.parse(content)
+      val serviceNav     = document.select(".govuk-service-navigation__container")
+      val serviceText    = serviceNav.select(".govuk-service-navigation__text")
+      val languageToggle = document.select(".hmrc-service-navigation-language-select")
+
+      serviceNav     should have size 1
+      serviceText    should have size 0
+      languageToggle should have size 1
+    }
+
+    "not render service navigation when neither service name nor Welsh language available" in {
+      val hmrcStandardHeader = buildApp().injector.instanceOf[HmrcStandardHeader]
+      implicit val messages  = getMessages()
+      val content            = contentAsString(
+        hmrcStandardHeader(isWelshTranslationAvailable = false)(messages, fakeRequest)
+      )
+
+      val document       = Jsoup.parse(content)
+      val serviceNav     = document.select(".govuk-service-navigation__container")
+      val languageToggle = document.select(".hmrc-service-navigation-language-select")
+
+      serviceNav     should have size 0
+      languageToggle should have size 0
+    }
+  }
+}
