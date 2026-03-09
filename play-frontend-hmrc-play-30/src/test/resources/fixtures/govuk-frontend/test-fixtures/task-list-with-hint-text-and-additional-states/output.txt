@@ -17,7 +17,7 @@
       </a>
     </div>
     <div class="govuk-task-list__status" id="task-list-2-status">
-      <strong class="govuk-tag govuk-tag--light-blue">
+      <strong class="govuk-tag govuk-tag--teal">
         Not started
       </strong>
     </div>
@@ -32,7 +32,7 @@
       </div>
     </div>
     <div class="govuk-task-list__status" id="task-list-3-status">
-      <strong class="govuk-tag govuk-tag--pink">
+      <strong class="govuk-tag govuk-tag--magenta">
         Review
       </strong>
     </div>

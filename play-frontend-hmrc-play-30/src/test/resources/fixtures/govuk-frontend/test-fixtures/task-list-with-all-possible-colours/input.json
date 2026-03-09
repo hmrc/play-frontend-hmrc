@@ -45,24 +45,13 @@
     "href" : "#",
     "status" : {
       "tag" : {
-        "text" : "Light blue",
-        "classes" : "govuk-tag--light-blue"
+        "text" : "Teal",
+        "classes" : "govuk-tag--teal"
       }
     }
   }, {
     "title" : {
       "text" : "Task F"
-    },
-    "href" : "#",
-    "status" : {
-      "tag" : {
-        "text" : "Turquoise",
-        "classes" : "govuk-tag--turquoise"
-      }
-    }
-  }, {
-    "title" : {
-      "text" : "Task G"
     },
     "href" : "#",
     "status" : {
@@ -73,7 +62,7 @@
     }
   }, {
     "title" : {
-      "text" : "Task H"
+      "text" : "Task G"
     },
     "href" : "#",
     "status" : {
@@ -84,18 +73,18 @@
     }
   }, {
     "title" : {
-      "text" : "Task I"
+      "text" : "Task H"
     },
     "href" : "#",
     "status" : {
       "tag" : {
-        "text" : "Pink",
-        "classes" : "govuk-tag--pink"
+        "text" : "Magenta",
+        "classes" : "govuk-tag--magenta"
       }
     }
   }, {
     "title" : {
-      "text" : "Task J"
+      "text" : "Task I"
     },
     "href" : "#",
     "status" : {
@@ -106,7 +95,7 @@
     }
   }, {
     "title" : {
-      "text" : "Task K"
+      "text" : "Task J"
     },
     "href" : "#",
     "status" : {
@@ -117,7 +106,7 @@
     }
   }, {
     "title" : {
-      "text" : "Task L"
+      "text" : "Task K"
     },
     "href" : "#",
     "status" : {

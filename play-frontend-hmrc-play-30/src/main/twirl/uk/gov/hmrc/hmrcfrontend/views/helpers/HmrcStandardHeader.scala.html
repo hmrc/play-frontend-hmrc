@@ -15,14 +15,13 @@
  *@
 
 @import play.api.Configuration
-@import uk.gov.hmrc.hmrcfrontend.config.ServiceNavigationConfig
 @import uk.gov.hmrc.hmrcfrontend.views.html.components.HmrcHeader
 @import uk.gov.hmrc.hmrcfrontend.views.Aliases.{Cy, En, HeaderParams, UserResearchBanner, Banners}
 @import uk.gov.hmrc.hmrcfrontend.views.viewmodels.header.v2._
 @import uk.gov.hmrc.govukfrontend.views.Aliases.{PhaseBanner, ServiceNavigation}
 @import uk.gov.hmrc.govukfrontend.views.Implicits.RichServiceNavigation
 
-@this(hmrcHeader: HmrcHeader, serviceNavigationConfig: ServiceNavigationConfig, configuration: Configuration)
+@this(hmrcHeader: HmrcHeader, configuration: Configuration)
 
 @(
   serviceName: Option[String] = None,
@@ -33,7 +32,6 @@
   displayHmrcBanner: Boolean = false,
   additionalBannersBlock: Option[Html] = None,
   containerClasses: String = HeaderParams.defaultObject.headerTemplateOverrides.containerClasses,
-  useDeprecatedPositionForHmrcBanner: Boolean = false,
   serviceNavigation: Option[ServiceNavigation] = None,
   isWelshTranslationAvailable: Boolean = false
 )(implicit messages: Messages, request: RequestHeader)
@@ -42,13 +40,10 @@
     @hmrcHeader(HeaderParams(
         headerUrls = HeaderUrls(
             homepageUrl = messages("header.govuk.url"),
-            serviceUrl = serviceUrl.getOrElse(""),
             signOutHref = signOutUrl,
             assetsPath = uk.gov.hmrc.hmrcfrontend.controllers.routes.Assets.at("govuk/images").url,
         ),
-        headerNames = HeaderNames(
-            serviceName = serviceName.orElse(serviceNameFromMessages).filterNot(_ => serviceNavigationConfig.forceServiceNavigation)
-        ),
+        headerNames = HeaderNames(),
         headerTemplateOverrides = HeaderTemplateOverrides(
             containerClasses = containerClasses
         ),
@@ -56,11 +51,10 @@
             userResearchBanner = userResearchBanner,
             phaseBanner = phaseBanner,
             displayHmrcBanner = displayHmrcBanner,
-            additionalBannersBlock = additionalBannersBlock,
-            useDeprecatedPositionForHmrcBanner = useDeprecatedPositionForHmrcBanner
+            additionalBannersBlock = additionalBannersBlock
         ),
         language = if(messages.lang.code == "cy") Cy else En,
-        serviceNavigation = serviceNavigation.orElse(Option.when(serviceNavigationConfig.forceServiceNavigation)(
+        serviceNavigation = serviceNavigation.orElse(Some(
             if(isWelshTranslationAvailable){
                 ServiceNavigation(
                     serviceUrl = serviceUrl,

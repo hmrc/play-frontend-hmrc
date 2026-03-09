@@ -47,7 +47,7 @@ class GovukLayoutSpec
       val layoutHtml =
         component.apply()(HtmlFormat.empty)
 
-      val homepageLink = layoutHtml.select(".govuk-header__link--homepage")
+      val homepageLink = layoutHtml.select(".govuk-header__homepage-link")
       homepageLink.first.attr("href") shouldBe "https://www.gov.uk/"
     }
 
@@ -66,7 +66,7 @@ class GovukLayoutSpec
       val layoutHtml =
         component.apply()(HtmlFormat.empty)
 
-      val serviceLink = layoutHtml.select(".govuk-header__service-name")
+      val serviceLink = layoutHtml.select(".govuk-service-navigation__link")
       serviceLink.first.attr("href") shouldBe "/foo"
       serviceLink.first.text         shouldBe "Foo service"
     }

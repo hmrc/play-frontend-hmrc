@@ -1,7 +1,0 @@
-{
-  "serviceName" : "Example service",
-  "serviceUrl" : "/components/header",
-  "userResearchBanner" : {
-    "url" : "/sign-up-for-user-research"
-  }
-}

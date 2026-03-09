@@ -16,10 +16,7 @@
 
 package uk.gov.hmrc.govukfrontend.views
 
-import play.twirl.api.{Html, HtmlFormat}
 import uk.gov.hmrc.supportfrontend.views.UtilsSupport
-
-import scala.collection.immutable
 
 trait Utils extends UtilsSupport {
 
@@ -28,14 +25,10 @@ trait Utils extends UtilsSupport {
     case _                       => false
   }
 
-  private def defaultAssetsUrl(file: String, useRebrand: Boolean): String =
-    if (useRebrand) uk.gov.hmrc.hmrcfrontend.controllers.routes.Assets.at(s"govuk/rebrand/$file").url
-    else uk.gov.hmrc.hmrcfrontend.controllers.routes.Assets.at(s"govuk/$file").url
-
-  private[views] def calculateAssetPath(path: Option[String], file: String, useRebrand: Boolean): String =
+  private[views] def calculateAssetPath(path: Option[String], file: String): String =
     path
       .map(p => s"$p/$file")
-      .getOrElse(defaultAssetsUrl(file, useRebrand))
+      .getOrElse(uk.gov.hmrc.hmrcfrontend.controllers.routes.Assets.at(s"govuk/$file").url)
 
 }
 

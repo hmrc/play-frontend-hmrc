@@ -1,4 +1,3 @@
 {
-  "serviceName" : "Example Service",
   "signOutHref" : "/sign-out"
 }

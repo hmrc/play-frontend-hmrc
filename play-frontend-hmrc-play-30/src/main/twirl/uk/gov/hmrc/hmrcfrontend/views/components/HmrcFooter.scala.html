@@ -29,6 +29,7 @@
     <a class="govuk-footer__link" href="https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/" rel="license">@messages("footer.content.licence.link.text")</a>@messages("footer.content.licence.after.link")
 }
 
+<footer class="@toClasses("govuk-template__footer", params.footerClasses)"@toAttributes(params.footerAttributes)>
 @govukFooter(GfFooter(
   meta = params.meta.map(hfMeta => GfMeta(
     visuallyHiddenTitle = hfMeta.visuallyHiddenTitle.orElse(Some(messages("footer.support.links"))),
@@ -41,9 +42,9 @@
   copyright = Some(Copyright(Text(messages("footer.crown.copyright")))),
   containerClasses = params.containerClasses,
   classes = params.classes,
-  attributes = params.attributes,
-  rebrand = params.rebrand
+  attributes = params.attributes
 ))
+</footer>
 
 @toGovukFooterItems(hfFooterItems: Seq[HfFooterItem]) = @{
     hfFooterItems.map(hfFooterItem => GfFooterItem(text = hfFooterItem.text, href = hfFooterItem.href, attributes = hfFooterItem.attributes))

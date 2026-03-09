@@ -51,8 +51,8 @@
       </a>
     </div>
     <div class="govuk-task-list__status" id="task-list-5-status">
-      <strong class="govuk-tag govuk-tag--light-blue">
-        Light blue
+      <strong class="govuk-tag govuk-tag--teal">
+        Teal
       </strong>
     </div>
   </li>
@@ -63,8 +63,8 @@
       </a>
     </div>
     <div class="govuk-task-list__status" id="task-list-6-status">
-      <strong class="govuk-tag govuk-tag--turquoise">
-        Turquoise
+      <strong class="govuk-tag govuk-tag--green">
+        Green
       </strong>
     </div>
   </li>
@@ -75,8 +75,8 @@
       </a>
     </div>
     <div class="govuk-task-list__status" id="task-list-7-status">
-      <strong class="govuk-tag govuk-tag--green">
-        Green
+      <strong class="govuk-tag govuk-tag--purple">
+        Purple
       </strong>
     </div>
   </li>
@@ -87,8 +87,8 @@
       </a>
     </div>
     <div class="govuk-task-list__status" id="task-list-8-status">
-      <strong class="govuk-tag govuk-tag--purple">
-        Purple
+      <strong class="govuk-tag govuk-tag--magenta">
+        Magenta
       </strong>
     </div>
   </li>
@@ -99,8 +99,8 @@
       </a>
     </div>
     <div class="govuk-task-list__status" id="task-list-9-status">
-      <strong class="govuk-tag govuk-tag--pink">
-        Pink
+      <strong class="govuk-tag govuk-tag--red">
+        Red
       </strong>
     </div>
   </li>
@@ -111,8 +111,8 @@
       </a>
     </div>
     <div class="govuk-task-list__status" id="task-list-10-status">
-      <strong class="govuk-tag govuk-tag--red">
-        Red
+      <strong class="govuk-tag govuk-tag--orange">
+        Orange
       </strong>
     </div>
   </li>
@@ -123,18 +123,6 @@
       </a>
     </div>
     <div class="govuk-task-list__status" id="task-list-11-status">
-      <strong class="govuk-tag govuk-tag--orange">
-        Orange
-      </strong>
-    </div>
-  </li>
-  <li class="govuk-task-list__item govuk-task-list__item--with-link">
-    <div class="govuk-task-list__name-and-hint">
-      <a class="govuk-link govuk-task-list__link" href="#" aria-describedby="task-list-12-status">
-        Task L
-      </a>
-    </div>
-    <div class="govuk-task-list__status" id="task-list-12-status">
       <strong class="govuk-tag govuk-tag--yellow">
         Yellow
       </strong>

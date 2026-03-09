@@ -1,0 +1,6 @@
+{
+  "footerAttributes" : {
+    "data-test-footer-attribute" : "value",
+    "data-test-footer-attribute-2" : "value-2"
+  }
+}

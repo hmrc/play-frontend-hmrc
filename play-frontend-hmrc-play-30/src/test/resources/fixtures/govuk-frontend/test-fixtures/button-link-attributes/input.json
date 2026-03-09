@@ -1,5 +1,5 @@
 {
-  "element" : "a",
+  "href" : "/",
   "text" : "Submit",
   "attributes" : {
     "aria-controls" : "test-target-element",

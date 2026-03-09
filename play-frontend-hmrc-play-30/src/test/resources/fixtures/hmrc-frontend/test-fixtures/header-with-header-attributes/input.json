@@ -1,0 +1,6 @@
+{
+  "headerAttributes" : {
+    "data-test-header-attribute" : "value",
+    "data-test-header-attribute-2" : "value-2"
+  }
+}
