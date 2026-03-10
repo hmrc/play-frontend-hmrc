@@ -22,7 +22,7 @@
 
 @this(hmrcLanguageSelect: HmrcLanguageSelect, serviceNavigationConfig: ServiceNavigationConfig)
 
-@()(implicit messages: Messages)
+@()(implicit messages: Messages, request: RequestHeader)
 @import SupportedLanguagesConfig._
 
 @if(!serviceNavigationConfig.forceServiceNavigation) {
