@@ -77,7 +77,7 @@ The parameters that can be passed into the `HmrcStandardPage` are as follows:
 
       | Parameter                                  | Description                                                       | Example                                                     |
       | ------------------------------------------ | ----------------------------------------------------------------- | ----------------------------------------------------------- |
-      | `service.serviceUrl`                       | This will be bound to service name in `GovukServiceNavigation`    | `Some(routes.IndexController.index().url)`                  |
+      | `service.serviceUrl`                       | This will be bound to service name in `GovukServiceNavigation` via `HmrcStandardHeader`. Will be overridden if a `serviceNavigation` parameter is passed in.| `Some(routes.IndexController.index().url)`|
       | `service.signOutUrl`                       | Passing a value will display the sign out link                    | `Some(routes.SignOutController.signOut().url)`              |
       | `service.accessibilityStatementUrl`        | Passing a value will override the accessibility statement URL in the [footer](#accessibility-statement-links)                  ||
       | `banners.displayHmrcBanner`                | Setting to true will display the [HMRC banner](https://design.tax.service.gov.uk/hmrc-design-patterns/hmrc-banner/)            ||
@@ -97,6 +97,7 @@ The parameters that can be passed into the `HmrcStandardPage` are as follows:
       | `isWelshTranslationAvailable`              | Setting to true will display the language toggle                  | `true`                                                      |
       | `backLink`                                 | Passing a value will display a back link                          | `Some(BackLink(href = ..., attributes = ...))`              |
       | `exitThisPage`                             | Passing a value will display an "Exit This Page" button           | `Some(ExitThisPage())`                                      |
+      | `serviceNavigation`                        | Passing a value will override the default `GovukServiceNavigation`. If you do not pass this, but your service has a service name or language toggle, a default one will be added.||
 
 [back to top](#creating-pages)
 
