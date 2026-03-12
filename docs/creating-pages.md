@@ -25,7 +25,7 @@ Information how to enable GOV.UK brand refresh, link your accessibility statemen
 
 As of v13.0.0, the updated GOV.UK branding is the only supported branding. You can remove any feature flags of the type `play-frontend-hmrc.useRebrand` after upgrading.
 
-If you are uplifting to v13.0.0 without having previously used the feature flag, then before deploying to production you should:
+If you are uplifting to v13.0.0 without having rebranded yet, then before deploying to production you should:
 - ensure that your service works correctly when using the refreshed GOV.UK branding through exploratory testing
 - plan your release to production in relation to other services which your users' journeys might span and whether any coordination with them is needed
 
