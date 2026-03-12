@@ -167,6 +167,48 @@ class HmrcStandardHeaderSpec extends AnyWordSpecLike with Matchers with JsoupHel
       banners.first.text should include("Helpwch i wella GOV.UK")
     }
 
+    "render service navigation when service name passed in with language toggle when Welsh language is available" in {
+      val hmrcStandardHeader = buildApp().injector.instanceOf[HmrcStandardHeader]
+      implicit val messages  = getMessages()
+      val content            = contentAsString(
+        hmrcStandardHeader(
+          isWelshTranslationAvailable = true,
+          serviceName = Some("My Foo Service"),
+          serviceUrl = Some("/foo")
+        )(messages, fakeRequest)
+      )
+
+      val document       = Jsoup.parse(content)
+      val serviceNav     = document.select(".govuk-service-navigation__container")
+      val serviceLink    = serviceNav.select(".govuk-service-navigation__link")
+      val languageToggle = document.select(".hmrc-service-navigation-language-select")
+
+      serviceNav         should have size 1
+      serviceLink        should have size 1
+      serviceLink.text() should be("My Foo Service")
+      languageToggle     should have size 1
+    }
+
+    "render service navigation when service name with language toggle when configured" in {
+      val hmrcStandardHeader = buildApp().injector.instanceOf[HmrcStandardHeader]
+      val messages           = getMessages(Map("en" -> Map("service.name" -> "My Bar Service")))
+      val content            = contentAsString(
+        hmrcStandardHeader(
+          isWelshTranslationAvailable = true
+        )(messages, fakeRequest)
+      )
+
+      val document       = Jsoup.parse(content)
+      val serviceNav     = document.select(".govuk-service-navigation__container")
+      val serviceLink    = serviceNav.select(".govuk-service-navigation__text")
+      val languageToggle = document.select(".hmrc-service-navigation-language-select")
+
+      serviceNav         should have size 1
+      serviceLink        should have size 1
+      serviceLink.text() should be("My Bar Service")
+      languageToggle     should have size 1
+    }
+
     "render service navigation with language toggle when Welsh language is available" in {
       val hmrcStandardHeader = buildApp().injector.instanceOf[HmrcStandardHeader]
       implicit val messages  = getMessages()
@@ -176,25 +218,25 @@ class HmrcStandardHeaderSpec extends AnyWordSpecLike with Matchers with JsoupHel
 
       val document       = Jsoup.parse(content)
       val serviceNav     = document.select(".govuk-service-navigation__container")
+      val serviceText    = serviceNav.select(".govuk-service-navigation__text")
       val languageToggle = document.select(".hmrc-service-navigation-language-select")
 
       serviceNav     should have size 1
+      serviceText    should have size 0
       languageToggle should have size 1
     }
 
-    "render service navigation without language toggle when Welsh language is not available" in {
+    "not render service navigation when neither service name nor Welsh language available" in {
       val hmrcStandardHeader = buildApp().injector.instanceOf[HmrcStandardHeader]
       implicit val messages  = getMessages()
       val content            = contentAsString(
         hmrcStandardHeader(isWelshTranslationAvailable = false)(messages, fakeRequest)
       )
 
-      val document       = Jsoup.parse(content)
-      val serviceNav     = document.select(".govuk-service-navigation__container")
-      val languageToggle = document.select(".hmrc-service-navigation-language-select")
+      val document   = Jsoup.parse(content)
+      val serviceNav = document.select(".govuk-service-navigation__container")
 
-      serviceNav     should have size 1
-      languageToggle should have size 0
+      serviceNav should have size 0
     }
   }
 }

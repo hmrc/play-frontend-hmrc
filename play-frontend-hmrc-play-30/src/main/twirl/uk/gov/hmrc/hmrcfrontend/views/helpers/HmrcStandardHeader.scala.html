@@ -54,18 +54,15 @@
             additionalBannersBlock = additionalBannersBlock
         ),
         language = if(messages.lang.code == "cy") Cy else En,
-        serviceNavigation = serviceNavigation.orElse(Some(
-            if(isWelshTranslationAvailable){
+        serviceNavigation =
+            Option.when(isWelshTranslationAvailable)(
                 ServiceNavigation(
-                    serviceUrl = serviceUrl,
-                    serviceName = serviceName.orElse(serviceNameFromMessages)
+                    serviceName = serviceName.orElse(serviceNameFromMessages),
+                    serviceUrl = serviceUrl
                 ).withLanguageToggle()
-            } else {
-                ServiceNavigation(
-                    serviceUrl = serviceUrl,
-                    serviceName = serviceName.orElse(serviceNameFromMessages)
-                )
-            }
+            ).orElse(serviceName.orElse(serviceNameFromMessages).map(serviceName => ServiceNavigation(
+            serviceName = Some(serviceName),
+            serviceUrl = serviceUrl))
     ))))
   }
 }
