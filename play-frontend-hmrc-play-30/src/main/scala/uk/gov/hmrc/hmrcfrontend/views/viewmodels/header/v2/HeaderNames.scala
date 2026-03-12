@@ -16,12 +16,10 @@
 
 package uk.gov.hmrc.hmrcfrontend.views.viewmodels.header.v2
 
-import play.api.libs.functional.syntax._
 import play.api.libs.json.{Json, Reads, __}
 
 case class HeaderNames(
-  productName: Option[String] = None,
-  serviceName: Option[String] = None
+  productName: Option[String] = None
 )
 
 object HeaderNames {

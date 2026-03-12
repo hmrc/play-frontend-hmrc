@@ -17,53 +17,23 @@
 package uk.gov.hmrc.govukfrontend.views.viewmodels.header
 
 import org.scalacheck.{Arbitrary, Gen}
-import org.scalacheck.Arbitrary.arbBool
 import uk.gov.hmrc.govukfrontend.views.viewmodels.Generators._
-import uk.gov.hmrc.govukfrontend.views.viewmodels.content.Generators.arbContent
 
 object Generators {
 
-  implicit val arbHeaderNavigation: Arbitrary[HeaderNavigation] = Arbitrary {
-    for {
-      content    <- arbContent.arbitrary
-      href       <- Gen.option(genAlphaStr())
-      active     <- arbBool.arbitrary
-      attributes <- genAttributes()
-    } yield HeaderNavigation(content = content, href = href, active = active, attributes = attributes)
-  }
-
   implicit val arbHeader: Arbitrary[Header] = Arbitrary {
     for {
-      homepageUrl       <- Gen.option(genNonEmptyAlphaStr)
-      productName       <- Gen.option(genAlphaStr())
-      serviceName       <- Gen.option(genAlphaStr())
-      serviceUrl        <- Gen.option(genAlphaStr())
-      n                 <- Gen.chooseNum(0, 5)
-      navigation        <- Gen.option(Gen.listOfN(n, arbHeaderNavigation.arbitrary))
-      navigationClasses <- genClasses()
-      containerClasses  <- Gen.option(genNonEmptyAlphaStr)
-      classes           <- genClasses()
-      attributes        <- genAttributes()
-      menuButtonLabel   <- Gen.option(genNonEmptyAlphaStr)
-      navigationLabel   <- Gen.option(genNonEmptyAlphaStr)
-      menuButtonText    <- Gen.option(genNonEmptyAlphaStr)
-      useTudorCrown     <- Gen.option(arbBool.arbitrary)
-      rebrand           <- Gen.option(arbBool.arbitrary)
+      homepageUrl      <- Gen.option(genNonEmptyAlphaStr)
+      productName      <- Gen.option(genAlphaStr())
+      containerClasses <- Gen.option(genNonEmptyAlphaStr)
+      classes          <- genClasses()
+      attributes       <- genAttributes()
     } yield Header(
       homepageUrl = homepageUrl,
       productName = productName,
-      serviceName = serviceName,
-      serviceUrl = serviceUrl,
-      navigation = navigation,
-      navigationClasses = navigationClasses,
       containerClasses = containerClasses,
       classes = classes,
-      attributes = attributes,
-      menuButtonLabel = menuButtonLabel,
-      menuButtonText = menuButtonText,
-      navigationLabel = navigationLabel,
-      useTudorCrown = useTudorCrown,
-      rebrand = rebrand
+      attributes = attributes
     )
   }
 

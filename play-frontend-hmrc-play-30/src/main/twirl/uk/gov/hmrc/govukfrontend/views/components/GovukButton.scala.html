@@ -18,7 +18,6 @@
 
 @(params: Button)
 @import params._
-@require(if (element.exists(_.toLowerCase == "input")) content.isInstanceOf[Text] else true) @* if element is input content has to be text *@
 @defining(iconHtmlSnippet(classNames)) { case( classNames, iconHtml) =>
   @if(elem == "a") {
     <a href="@href.getNonEmptyOrElse{#}" role="button" draggable="false" @commonAttributes(classNames)>
@@ -37,7 +36,7 @@
   }
 }
 
-@elem = @{ element.foldNonEmpty(href.foldNonEmpty("button")(_ => "a"))(_.toLowerCase) }
+@elem = @{ href.foldNonEmpty("button")(_ =>"a") }
 
 @commonAttributes(classNames: String) = {class="@classNames" data-module="govuk-button"@toAttributes(attributes)@id.map { value => id="@value"}}
 

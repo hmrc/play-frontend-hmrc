@@ -38,7 +38,6 @@ object Generators {
     for {
       name                    <- genNonEmptyAlphaStr
       id                      <- genNonEmptyAlphaStr
-      value                   <- Gen.option(genAlphaStr())
       describedBy             <- Gen.option(genAlphaStr())
       label                   <- arbLabel.arbitrary
       hint                    <- Gen.option(arbHint.arbitrary)
@@ -58,7 +57,6 @@ object Generators {
     } yield FileUpload(
       name = name,
       id = id,
-      value = value,
       describedBy = describedBy,
       label = label,
       hint = hint,

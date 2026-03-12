@@ -20,15 +20,12 @@
 @import uk.gov.hmrc.hmrcfrontend.views.Aliases.{Banner, HeaderParams, UserResearchBanner}
 @import uk.gov.hmrc.hmrcfrontend.views.Utils._
 @import uk.gov.hmrc.hmrcfrontend.views.viewmodels.language.Cy
-@import uk.gov.hmrc.hmrcfrontend.config.{RebrandConfig, TudorCrownConfig}
 @import uk.gov.hmrc.hmrcfrontend.views.Utils.nonEmptyStringOrDefault
 
 @this(
     hmrcBanner: HmrcBanner,
     hmrcUserResearchBanner: HmrcUserResearchBanner,
     govukPhaseBanner: GovukPhaseBanner,
-    tudorCrownConfig: TudorCrownConfig,
-    rebrandConfig: RebrandConfig,
     govukLogo: GovukLogo,
     govukServiceNavigation: GovukServiceNavigation
 )
@@ -40,22 +37,13 @@
   Seq("govuk-header__container", nonEmptyStringOrDefault(Option(params.headerTemplateOverrides.containerClasses), "govuk-width-container")).mkString(" ")
 }
 
-@isRebrandEnabled = @{
-  rebrandConfig.useRebrand || params.logoOverrides.rebrand.getOrElse(false)
-}
-@isTudorCrownEnabled = @{
-    params.logoOverrides.useTudorCrown.getOrElse(tudorCrownConfig.useTudorCrown)
-}
-
-<header>
-    <div class="govuk-header @toClasses("hmrc-header", params.headerTemplateOverrides.classes)@if(params.headerUrls.signOutHref.exists(_.nonEmpty) || languageToggle.exists(_.linkMap.nonEmpty)){ hmrc-header--with-additional-navigation}@if(params.serviceNavigation.isDefined){ govuk-header--full-width-border}" data-module="govuk-header"
+<header class="@toClasses("govuk-template__header", params.headerTemplateOverrides.headerClasses)" @toAttributes(params.headerTemplateOverrides.headerAttributes)>
+    <div class="govuk-header @toClasses("hmrc-header", params.headerTemplateOverrides.classes)@if(params.headerUrls.signOutHref.exists(_.nonEmpty)){ hmrc-header--with-additional-navigation}" data-module="govuk-header"
             @toAttributes(params.headerTemplateOverrides.attributes)>
       <div class="@toClasses(containerClassList)">
         <div class="govuk-header__logo">
-          <a href="@nonEmptyStringOrDefault(Option(params.headerUrls.homepageUrl), "/")" class="govuk-header__link govuk-header__link--homepage">
+          <a href="@nonEmptyStringOrDefault(Option(params.headerUrls.homepageUrl), "//gov.uk")" class="govuk-header__homepage-link">
             @govukLogo(
-                useRebrand = isRebrandEnabled,
-                useTudorCrown = isTudorCrownEnabled,
                 useLogotype = true,
                 svgClass = "govuk-header__logotype",
                 ariaLabelText = Some("GOV.UK")
@@ -68,107 +56,35 @@
             }
           </a>
         </div>
-
-        @if(params.headerNames.serviceName.exists(_.nonEmpty) || params.headerUrls.signOutHref.exists(_.nonEmpty) || (params.headerNavigation.navigation.getOrElse(Seq.empty).nonEmpty) || languageToggle.exists(_.linkMap.nonEmpty)) {
-        <div class="govuk-header__content">
-          @serviceNameLinkOrSpan(params.headerNames.serviceName, params.headerUrls.serviceUrl)
-          @if(params.headerNavigation.navigation.getOrElse(Seq.empty).nonEmpty) {
-          <nav aria-label="@params.headerNavigation.navigationLabel.getOrElse(menuButtonText)" class="@toClasses("govuk-header__navigation", params.headerNavigation.navigationClasses)">
-            <button type="button" class="govuk-header__menu-button govuk-js-header-toggle" aria-controls="navigation" @menuButtonAriaLabel hidden> @menuButtonText </button>
-            <ul id="navigation" class="govuk-header__navigation-list">
-            @for(item <- params.headerNavigation.navigation.getOrElse(Seq.empty).filter(item => item.content.nonEmpty)) {
-              <li class="govuk-header__navigation-item@if(item.active){ govuk-header__navigation-item--active}">
-                @if(item.href.getOrElse("") != "") {
-                <a class="govuk-header__link" href="@item.href" @toAttributes(item.attributes)>
-                }
-                @item.content.asHtml
-                @if(item.href.getOrElse("") != "") {
-                </a>
-                }
-              </li>
+        @if(params.headerUrls.signOutHref.exists(_.nonEmpty)) {
+          @params.headerUrls.signOutHref match {
+              case Some(NonEmptyString(s)) => {
+                  <nav class="hmrc-sign-out-nav">
+                      <a class="govuk-link hmrc-sign-out-nav__link" href="@s">
+                      @language match {
+                          case Cy => {Allgofnodi}
+                          case _ => {Sign out}
+                      }
+                      </a>
+                  </nav>
               }
-            </ul>
-          </nav>
-          } else {}
-
-          @(params.headerUrls.signOutHref, params.languageToggle.map(_.linkMap)) match {
-          case (Some(NonEmptyString(s)), _) => {
-          <nav class="hmrc-sign-out-nav">
-            <a class="govuk-link hmrc-sign-out-nav__link" href="@s">
-              @language match {
-              case Cy => {Allgofnodi}
-              case _ => {Sign out}
-              }
-            </a>
-          </nav>
           }
-          case (_, Some(linkMap)) if linkMap.nonEmpty => {
-          <nav class="hmrc-language-select" aria-label="@{language match {
-            case Cy => "Dewiswch iaith"
-            case _ => "Choose a language"
-          }}">
-            <ul class="govuk-list hmrc-language-select__items">
-              @for((lang, link) <- linkMap) {
-              <li class="govuk-header__navigation-item">
-                <a @if(lang == language){aria-current="page"}else{class="govuk-header__link"}
-                lang="@lang.code" hreflang="@lang.code" href="@link">@lang.name</a>
-              </li>
-              }
-            </ul>
-          </nav>
-          }
-          case _ => {}
-          }
-        </div>
-        } else {}
+            }
       </div>
     </div>
-    @if(params.banners.displayHmrcBanner && !params.banners.useDeprecatedPositionForHmrcBanner){
+    @if(params.banners.displayHmrcBanner){
         <div class="govuk-width-container">
-            @hmrcBanner(Banner(language, params.logoOverrides.useTudorCrown))
+            @hmrcBanner(Banner(language))
         </div>
     }
     @params.serviceNavigation.map { nav =>
         @govukServiceNavigation(nav)
     }
     @params.banners.phaseBanner.map { pb =>
-      <div class="govuk-width-container">
         @govukPhaseBanner(pb)
-      </div>
     }
     @params.banners.userResearchBanner.map { urb =>
         @hmrcUserResearchBanner(UserResearchBanner(language, urb.url))
     }
-    @if(params.banners.displayHmrcBanner && params.banners.useDeprecatedPositionForHmrcBanner){
-      <div class="govuk-width-container">
-        @hmrcBanner(Banner(language, params.logoOverrides.useTudorCrown))
-      </div>
-    }
     @params.banners.additionalBannersBlock
 </header>
-
-@serviceNameLinkOrSpan(serviceName: Option[String], serviceUrl: String) = {
-  @serviceName match {
-    case Some(NonEmptyString(s)) => {
-      @serviceUrl match {
-        case NonEmptyString(_) => {
-          <a href="@serviceUrl" class="govuk-header__link govuk-header__service-name">
-            @s
-          </a>}
-        case _ => {
-          <span class="govuk-header__service-name">
-            @s
-          </span>}
-      }
-    }
-    case _ => {}
-  }
-}
-
-@menuButtonText = @{
-  params.menuButtonOverrides.menuButtonText.getOrElse(if(language == Cy)"Dewislen" else "Menu")
-}
-
-@menuButtonAriaLabel = {
-  @params.menuButtonOverrides.menuButtonLabel.filterNot(menuButtonText == _).map { label => aria-label="@label"}
-}

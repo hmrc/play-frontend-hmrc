@@ -1,1 +1,3 @@
-<input value="Submit" type="submit" class="govuk-button" data-module="govuk-button" id="submit">
+<button type="submit" class="govuk-button" data-module="govuk-button" id="submit">
+  Submit
+</button>

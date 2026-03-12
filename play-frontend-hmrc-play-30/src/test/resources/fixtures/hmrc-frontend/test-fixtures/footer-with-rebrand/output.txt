@@ -2,10 +2,9 @@
 
 
 
-<footer class="govuk-footer">
+<footer class="govuk-template__footer">
+  <div class="govuk-footer">
   <div class="govuk-width-container">
-
-  
   <svg
     focusable="false"
     role="presentation"
@@ -61,5 +60,6 @@
       </div>
     </div>
   </div>
-</footer>
+</div>
 
+</footer>

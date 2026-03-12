@@ -28,7 +28,6 @@ import uk.gov.hmrc.govukfrontend.views.viewmodels.label.Label
   *
   * @param name `name` attribute for the `input`
   * @param id `id` attribute for the `input`
-  * @param value optional `value` attribute for the `input`
   * @param describedBy optional `aria-describedby` attribute for the `input`
   * @param label optional `Label` for the control
   * @param hint optional `Hint` for the control
@@ -41,7 +40,6 @@ import uk.gov.hmrc.govukfrontend.views.viewmodels.label.Label
 case class FileUpload(
   name: String = "",
   id: String = "",
-  value: Option[String] = None,
   describedBy: Option[String] = None,
   label: Label = Label(),
   hint: Option[Hint] = None,
@@ -68,7 +66,6 @@ object FileUpload {
     (
       (__ \ "name").readWithDefault[String](defaultObject.name) and
         (__ \ "id").readWithDefault[String](defaultObject.id) and
-        (__ \ "value").readNullable[String] and
         (__ \ "describedBy").readNullable[String] and
         (__ \ "label").readWithDefault[Label](defaultObject.label) and
         (__ \ "hint").readNullable[Hint] and
@@ -91,7 +88,6 @@ object FileUpload {
     (
       (__ \ "name").write[String] and
         (__ \ "id").write[String] and
-        (__ \ "value").writeNullable[String] and
         (__ \ "describedBy").writeNullable[String] and
         (__ \ "label").write[Label] and
         (__ \ "hint").writeNullable[Hint] and
