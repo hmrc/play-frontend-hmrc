@@ -233,11 +233,11 @@ class HmrcStandardHeaderSpec extends AnyWordSpecLike with Matchers with JsoupHel
         hmrcStandardHeader(isWelshTranslationAvailable = false)(messages, fakeRequest)
       )
 
-      val document   = Jsoup.parse(content)
-      val serviceNav = document.select(".govuk-service-navigation__container")
+      val document       = Jsoup.parse(content)
+      val serviceNav     = document.select(".govuk-service-navigation__container")
       val languageToggle = document.select(".hmrc-service-navigation-language-select")
 
-      serviceNav should have size 0
+      serviceNav     should have size 0
       languageToggle should have size 0
     }
   }
