@@ -26,11 +26,6 @@ import scala.util.Try
 
 class HmrcInternalHeaderSpec extends TemplateUnitSpec[InternalHeader, HmrcInternalHeader]("hmrcInternalHeader") {
 
-  def buildAnotherApp(properties: Map[String, String] = Map.empty): Application =
-    new GuiceApplicationBuilder()
-      .configure(properties)
-      .build()
-
   override def render(templateParams: InternalHeader): Try[HtmlFormat.Appendable] = {
     // The following line is needed to ensure known state of the statically initialised reverse router
     // used to calculate asset paths.
@@ -40,38 +35,8 @@ class HmrcInternalHeaderSpec extends TemplateUnitSpec[InternalHeader, HmrcIntern
   }
 
   "internal header" should {
-
-    """display Tudor crown logo set by config""" in {
-      val anotherApp         = buildAnotherApp(
-        Map(
-          "play-frontend-hmrc.useTudorCrown" -> "true"
-        )
-      )
-      val hmrcInternalHeader = anotherApp.injector.instanceOf[HmrcInternalHeader]
-
-      val componentTry = Try(hmrcInternalHeader(InternalHeader()))
-
-      componentTry          should be a Symbol("success")
-      componentTry.get.body should include("m28.5,16.6c.82-.34")
-    }
-
-    """display St Edwards crown logo when set by config""" in {
-      val anotherApp         = buildAnotherApp(
-        Map(
-          "play-frontend-hmrc.useTudorCrown" -> "false"
-        )
-      )
-      val hmrcInternalHeader = anotherApp.injector.instanceOf[HmrcInternalHeader]
-
-      val componentTry = Try(hmrcInternalHeader(InternalHeader()))
-
-      componentTry          should be a Symbol("success")
-      componentTry.get.body should include("M104.32,73.72,101")
-    }
-
-    """display Tudor crown when no config is found""" in {
-      val anotherApp         = buildAnotherApp()
-      val hmrcInternalHeader = anotherApp.injector.instanceOf[HmrcInternalHeader]
+    """display Tudor crown""" in {
+      val hmrcInternalHeader = app.injector.instanceOf[HmrcInternalHeader]
 
       val componentTry = Try(hmrcInternalHeader(InternalHeader()))
 

@@ -17,7 +17,6 @@
 package uk.gov.hmrc.govukfrontend.views.viewmodels
 package footer
 
-import play.api.libs.functional.syntax._
 import play.api.libs.json._
 
 case class Footer(
@@ -27,8 +26,7 @@ case class Footer(
   classes: String = "",
   attributes: Map[String, String] = Map.empty,
   contentLicence: Option[ContentLicence] = None,
-  copyright: Option[Copyright] = None,
-  rebrand: Option[Boolean] = None
+  copyright: Option[Copyright] = None
 )
 
 object Footer {

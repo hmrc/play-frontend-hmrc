@@ -62,7 +62,7 @@
 
     @inputSnippet(describedBy: String) = {
     @defining {
-        id="@nonEmptyId" name="@name" type="file"@value.mapNonEmpty { value => value="@value" }@if(disabled.getOrElse(false)) { disabled} @if(multiple.getOrElse(false)) { multiple}@if(describedBy.nonEmpty) { aria-describedby="@describedBy"}@toAttributes(attributes)
+        id="@nonEmptyId" name="@name" type="file"@if(disabled.getOrElse(false)) { disabled} @if(multiple.getOrElse(false)) { multiple}@if(describedBy.nonEmpty) { aria-describedby="@describedBy"}@toAttributes(attributes)
     } { attrs =>
         @formGroup.beforeInput.map(_.asHtml)
         @if(javascript.getOrElse(false)) { <div class="govuk-drop-zone" @toAttributes(dataAttributes) > }

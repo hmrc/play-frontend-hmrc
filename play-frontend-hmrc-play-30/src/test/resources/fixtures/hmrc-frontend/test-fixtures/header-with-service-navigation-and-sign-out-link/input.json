@@ -1,0 +1,7 @@
+{
+  "signOutHref" : "/sign-out",
+  "serviceNavigation" : {
+    "serviceName" : "Service name",
+    "serviceUrl" : "#s1"
+  }
+}

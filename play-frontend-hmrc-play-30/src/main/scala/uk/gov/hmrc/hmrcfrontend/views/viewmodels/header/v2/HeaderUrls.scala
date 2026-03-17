@@ -20,8 +20,7 @@ import play.api.libs.functional.syntax._
 import play.api.libs.json._
 
 case class HeaderUrls(
-  homepageUrl: String = "/",
-  serviceUrl: String = "",
+  homepageUrl: String = "//gov.uk",
   assetsPath: String = "/assets/images",
   signOutHref: Option[String] = None
 )
@@ -33,7 +32,6 @@ object HeaderUrls {
   implicit def jsonReads: Reads[HeaderUrls] =
     (
       (__ \ "homepageUrl").readWithDefault[String](defaultObject.homepageUrl) and
-        (__ \ "serviceUrl").readWithDefault[String](defaultObject.serviceUrl) and
         (__ \ "assetsPath").readWithDefault[String](defaultObject.assetsPath) and
         (__ \ "signOutHref").readNullable[String]
     )(HeaderUrls.apply _)

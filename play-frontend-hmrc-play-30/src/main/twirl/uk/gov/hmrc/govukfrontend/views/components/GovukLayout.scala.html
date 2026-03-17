@@ -20,6 +20,7 @@
 @this(
   govukTemplate: GovukTemplate,
   govukHeader: GovukHeader,
+  govukServiceNavigation: GovukServiceNavigation ,
   govukFooter: GovukFooter,
   govukBackLink: GovukBackLink,
   defaultMainContentLayout: TwoThirdsMainContent,
@@ -42,17 +43,23 @@
 
 @headerDefault = {
   @headerBlock.getOrElse {
-    @govukHeader(Header(
-      homepageUrl = Some("https://www.gov.uk/"),
-      serviceName = Some(messages("service.name")),
-      serviceUrl = Some(messages("service.homePageUrl")),
-      containerClasses = None))
+    <header class="govuk-template__header">
+      @govukHeader(Header(
+        homepageUrl = Some("https://www.gov.uk/"),
+        containerClasses = None))
+      @govukServiceNavigation(ServiceNavigation(
+        serviceName = Some(messages("service.name")),
+        serviceUrl = Some(messages("service.homePageUrl"))
+      ))
+    </header>
   }
 }
 
 @footerDefault = {
   @footerBlock.getOrElse {
-    @govukFooter(new Footer(meta = Some(Meta(items = Some(footerItems)))))
+    <footer class="govuk-template__footer">
+      @govukFooter(new Footer(meta = Some(Meta(items = Some(footerItems)))))
+    </footer>
   }
 }
 
@@ -62,7 +69,7 @@
 }
 
 @mainContent = {
-    @mainContentLayout.map(_(contentBlock)).getOrElse(contentBlock)
+  @mainContentLayout.map(_(contentBlock)).getOrElse(contentBlock)
 }
 
 @govukTemplate(

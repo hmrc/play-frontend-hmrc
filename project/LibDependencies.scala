@@ -1,13 +1,13 @@
 import sbt._
 
 object LibDependencies {
-  val govukFrontendVersion: String = "5.14.0"
-  val hmrcFrontendVersion: String  = "6.116.0"
+  val govukFrontendVersion: String = "6.1.0"
+  val hmrcFrontendVersion: String  = "7.0.0"
 
   val play30Version: String = "3.0.10"
 
   val play30: Seq[ModuleID] = Seq(
-    "uk.gov.hmrc"                  %% "play-language-play-30" % "9.5.0",
+    "uk.gov.hmrc"                  %% "play-language-play-30" % "9.6.0",
     "org.playframework"            %% "play"                  % play30Version,
     "org.playframework"            %% "play-filters-helpers"  % play30Version,
     "uk.gov.hmrc.webjars"           % "hmrc-frontend"         % hmrcFrontendVersion,

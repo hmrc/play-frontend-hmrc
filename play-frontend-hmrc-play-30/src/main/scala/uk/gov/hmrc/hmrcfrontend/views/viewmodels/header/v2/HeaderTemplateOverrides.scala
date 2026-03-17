@@ -22,7 +22,9 @@ import play.api.libs.json.{Reads, __}
 case class HeaderTemplateOverrides(
   containerClasses: String = "govuk-width-container",
   classes: String = "",
-  attributes: Map[String, String] = Map.empty
+  attributes: Map[String, String] = Map.empty,
+  headerClasses: String = "",
+  headerAttributes: Map[String, String] = Map.empty
 )
 
 object HeaderTemplateOverrides {
@@ -33,6 +35,8 @@ object HeaderTemplateOverrides {
     (
       (__ \ "containerClasses").readWithDefault[String](defaultObject.containerClasses) and
         (__ \ "classes").readWithDefault[String](defaultObject.classes) and
-        (__ \ "attributes").readWithDefault[Map[String, String]](defaultObject.attributes)
+        (__ \ "attributes").readWithDefault[Map[String, String]](defaultObject.attributes) and
+        (__ \ "headerClasses").readWithDefault[String](defaultObject.headerClasses) and
+        (__ \ "headerAttributes").readWithDefault[Map[String, String]](defaultObject.headerAttributes)
     )(HeaderTemplateOverrides.apply _)
 }

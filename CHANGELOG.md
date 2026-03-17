@@ -8,6 +8,23 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 For compatibility information see `govukFrontendVersion` and `hmrcFrontendVersion` in
 [LibDependencies](project/LibDependencies.scala)
 
+## [13.0.0] - 2026-03-16
+
+### Changed
+
+- **Major breaking release** - please read the separate PlatUI release notes for this published in #team-plat-ui
+- Updated to latest major version of ([alphagov/govuk-frontend](https://github.com/alphagov/govuk-frontend/releases/tag/v6.0.0)) plus fixes from `v6.1.0`
+- Service name and URL removed from header components and into service navigation (previously behaviour was opt-in)
+- Old GOV.UK branding and old crown logo (St Edward's Crown) removed from libraries
+- Components removed from library: `HmrcAccountMenu`, `HmrcCurrencyInput`, `HmrcLanguageSelect`
+- Colours changed in `govuk-frontend`, please see release notes
+- Sass compilation no longer supports `sbt-sassify`, please use `sbt-sass-compiler` for Sass compilation
+ 
+### Compatible with
+
+- [hmrc/hmrc-frontend v7.1.0](https://github.com/hmrc/hmrc-frontend/releases/tag/v7.1.0)
+- [alphagov/govuk-frontend v6.1.0](https://github.com/alphagov/govuk-frontend/releases/tag/v6.1.0)
+
 ## [12.33.0] - 2026-02-26
 
 ### Changed

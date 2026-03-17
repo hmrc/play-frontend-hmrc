@@ -1,5 +1,4 @@
 {
-  "element" : "button",
   "text" : "Submit",
   "attributes" : {
     "aria-controls" : "test-target-element",

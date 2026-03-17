@@ -1,0 +1,4 @@
+{
+  "productName" : "This is an example of a long product name that is intended to reflow onto two lines so as to see impact on sign out",
+  "signOutHref" : "/sign-out"
+}

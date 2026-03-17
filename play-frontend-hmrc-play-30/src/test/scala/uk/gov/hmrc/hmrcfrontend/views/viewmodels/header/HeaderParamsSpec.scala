@@ -17,42 +17,7 @@
 package uk.gov.hmrc.hmrcfrontend.views.viewmodels.header
 
 import uk.gov.hmrc.hmrcfrontend.views.viewmodels.header.Generators._
-import org.scalacheck.ShrinkLowPriority
-import org.scalatest.OptionValues
-import org.scalatest.wordspec.AnyWordSpec
-import org.scalatest.matchers.should.Matchers
-import org.scalatestplus.scalacheck.ScalaCheckPropertyChecks
-import play.api.libs.json.Json
+import uk.gov.hmrc.hmrcfrontend.views.viewmodels.JsonRoundtripSpec
 import uk.gov.hmrc.hmrcfrontend.views.viewmodels.header.v2.HeaderParams
-import uk.gov.hmrc.hmrcfrontend.views.viewmodels.language.{Cy, En, LanguageToggle}
 
-import scala.reflect.ClassTag
-
-// We use this customised test class as the `hmrc-frontend` Nunjucks model
-// of Header expects links for `en` and `cy` when provided with a language
-// toggle, even if they are technically optional and not provided,
-// implicitly mapping them to href = "" if they don't exist. Hence, to
-// retain parity, we do the same upon creation of an instance of Header,
-// and hence must not compare the generated version after going on a
-// JsonRoundTrip with the direct input, but rather the input with the default
-// values added.
-
-class HeaderParamsSpec
-    extends AnyWordSpec
-    with Matchers
-    with OptionValues
-    with ScalaCheckPropertyChecks
-    with ShrinkLowPriority {
-
-  "Json reads/writes" should {
-    s"do a roundtrip json serialisation of ${implicitly[ClassTag[HeaderParams]]}" in {
-      forAll { (v: HeaderParams) =>
-        val linkMapWithDefaults: Option[LanguageToggle] = v.languageToggle.map { x =>
-          val links = Map(En -> "", Cy -> "") ++ x.linkMap
-          LanguageToggle(links.toArray: _*)
-        }
-        Json.toJson(v).asOpt[HeaderParams].value shouldBe v.copy(inputLanguageToggle = linkMapWithDefaults)
-      }
-    }
-  }
-}
+class HeaderParamsSpec extends JsonRoundtripSpec[HeaderParams]

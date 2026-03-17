@@ -22,36 +22,17 @@ import uk.gov.hmrc.govukfrontend.views.viewmodels.servicenavigation.ServiceNavig
 import uk.gov.hmrc.hmrcfrontend.views.viewmodels.header._
 import uk.gov.hmrc.hmrcfrontend.views.viewmodels.hmrcstandardpage.Banners
 import uk.gov.hmrc.hmrcfrontend.views.viewmodels.language.Language.LanguageFormat
-import uk.gov.hmrc.hmrcfrontend.views.viewmodels.language.{Cy, En, Language, LanguageToggle}
+import uk.gov.hmrc.hmrcfrontend.views.viewmodels.language.{En, Language}
 import play.api.libs.functional.syntax._
-
-import scala.collection.immutable.SortedMap
 
 case class HeaderParams(
   headerUrls: HeaderUrls = HeaderUrls(),
   headerNames: HeaderNames = HeaderNames(),
   headerTemplateOverrides: HeaderTemplateOverrides = HeaderTemplateOverrides(),
-  headerNavigation: HeaderNavigation = HeaderNavigation(),
   banners: Banners = Banners(),
-  menuButtonOverrides: MenuButtonOverrides = MenuButtonOverrides(),
-  logoOverrides: LogoOverrides = LogoOverrides(),
   serviceNavigation: Option[ServiceNavigation] = None,
-  language: Language = En,
-  private val inputLanguageToggle: Option[LanguageToggle] = None
-) {
-
-  // We use this method instead of using the input language toggle directly
-  // as the version in `hmrc-frontend` is less flexible, and sets a default
-  // href for `cy` and `en` as an empty string. This behaviour is mirrored
-  // here both to pass the unit tests and to maintain parity with
-  // `hmrc-frontend`.
-  val languageToggle: Option[LanguageToggle] = inputLanguageToggle match {
-    case Some(x) =>
-      val defaults: SortedMap[Language, String] = SortedMap(En -> "", Cy -> "")
-      Some(LanguageToggle(defaults ++ x.linkMap))
-    case None    => None
-  }
-}
+  language: Language = En
+)
 
 object HeaderParams {
   def defaultObject: HeaderParams = HeaderParams()
@@ -62,23 +43,16 @@ object HeaderParams {
     HeaderParams(
       headerUrls = HeaderUrls(
         homepageUrl = header.homepageUrl,
-        serviceUrl = header.serviceUrl,
         signOutHref = header.signOutHref,
         assetsPath = header.assetsPath
       ),
       headerNames = HeaderNames(
-        productName = header.productName,
-        serviceName = header.serviceName
+        productName = header.productName
       ),
       headerTemplateOverrides = HeaderTemplateOverrides(
         containerClasses = header.containerClasses,
         classes = header.classes,
         attributes = header.attributes
-      ),
-      headerNavigation = HeaderNavigation(
-        navigation = header.navigation,
-        navigationClasses = header.navigationClasses,
-        navigationLabel = header.navigationLabel
       ),
       banners = Banners(
         displayHmrcBanner = header.displayHmrcBanner,
@@ -86,16 +60,7 @@ object HeaderParams {
         userResearchBanner = header.userResearchBanner,
         additionalBannersBlock = header.additionalBannersBlock
       ),
-      menuButtonOverrides = MenuButtonOverrides(
-        menuButtonLabel = header.menuButtonLabel,
-        menuButtonText = header.menuButtonText
-      ),
-      logoOverrides = LogoOverrides(
-        useTudorCrown = header.useTudorCrown,
-        rebrand = header.rebrand
-      ),
-      language = header.language,
-      inputLanguageToggle = header.languageToggle
+      language = header.language
     )
 
   implicit def reads: Reads[HeaderParams] =
@@ -103,13 +68,9 @@ object HeaderParams {
       __.readWithDefault[HeaderUrls](HeaderUrls.defaultObject) and
         __.readWithDefault[HeaderNames](HeaderNames.defaultObject) and
         __.readWithDefault[HeaderTemplateOverrides](HeaderTemplateOverrides.defaultObject) and
-        __.readWithDefault[HeaderNavigation](HeaderNavigation.defaultObject) and
         __.readWithDefault[Banners](Banners.defaultObject) and
-        __.readWithDefault[MenuButtonOverrides](MenuButtonOverrides.defaultObject) and
-        __.readWithDefault[LogoOverrides](LogoOverrides.defaultObject) and
         (__ \ "serviceNavigation").readNullable[ServiceNavigation] and
-        (__ \ "language").readWithDefault[Language](En) and
-        (__ \ "languageToggle").readNullable[LanguageToggle]
+        (__ \ "language").readWithDefault[Language](En)
     )(HeaderParams.apply _)
 
   implicit def writes: OWrites[HeaderParams] = new OWrites[HeaderParams] {
@@ -121,29 +82,18 @@ object HeaderParams {
         toTuple("homepageUrl", Some(headerParams.headerUrls.homepageUrl)),
         toTuple("assetsPath", Some(headerParams.headerUrls.assetsPath)),
         toTuple("productName", headerParams.headerNames.productName),
-        toTuple("serviceName", headerParams.headerNames.serviceName),
-        toTuple("serviceName", headerParams.headerNames.serviceName),
-        toTuple("serviceUrl", Some(headerParams.headerUrls.serviceUrl)),
-        toTuple("navigation", headerParams.headerNavigation.navigation),
-        toTuple("productName", headerParams.headerNames.productName),
-        toTuple("navigationClasses", Some(headerParams.headerNavigation.navigationClasses)),
         toTuple("containerClasses", Some(headerParams.headerTemplateOverrides.containerClasses)),
         toTuple("classes", Some(headerParams.headerTemplateOverrides.classes)),
         toTuple("attributes", Some(headerParams.headerTemplateOverrides.attributes)),
         toTuple("language", Some(headerParams.language)),
         toTuple("displayHmrcBanner", Some(headerParams.banners.displayHmrcBanner)),
-        toTuple("useTudorCrown", headerParams.logoOverrides.useTudorCrown),
         toTuple("signOutHref", headerParams.headerUrls.signOutHref),
-        toTuple("languageToggle", headerParams.languageToggle),
         toTuple("userResearchBanner", headerParams.banners.userResearchBanner),
         toTuple("phaseBanner", headerParams.banners.phaseBanner),
         toTuple("additionalBannersBlock", headerParams.banners.additionalBannersBlock),
-        toTuple("menuButtonLabel", headerParams.menuButtonOverrides.menuButtonLabel),
-        toTuple("menuButtonText", headerParams.menuButtonOverrides.menuButtonText),
-        toTuple("navigationLabel", headerParams.headerNavigation.navigationLabel),
-        toTuple("rebrand", headerParams.logoOverrides.rebrand),
-        toTuple("useDeprecatedPositionForHmrcBanner", Some(headerParams.banners.useDeprecatedPositionForHmrcBanner)),
-        toTuple("serviceNavigation", headerParams.serviceNavigation)
+        toTuple("serviceNavigation", headerParams.serviceNavigation),
+        toTuple("headerClasses", Some(headerParams.headerTemplateOverrides.headerClasses)),
+        toTuple("headerAttributes", Some(headerParams.headerTemplateOverrides.headerAttributes))
       ).flatten
 
       jsValues.foldLeft(Json.obj())((json, tuple) => json + tuple)

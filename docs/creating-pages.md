@@ -23,14 +23,9 @@ Information how to enable GOV.UK brand refresh, link your accessibility statemen
 
 ## Using the refreshed GOV.UK brand
 
-It's possible to enable the GOV.UK rebrand as of v12.3.0 of play-frontend-hmrc. Enable it by setting the following configuration:
-```
-play-frontend-hmrc {
-    useRebrand = true
-}
-```
+As of v13.0.0, the updated GOV.UK branding is the only supported branding. You can remove any feature flags of the type `play-frontend-hmrc.useRebrand` after upgrading.
 
-Before deploying to production:
+If you are uplifting to v13.0.0 without having rebranded yet, then before deploying to production you should:
 - ensure that your service works correctly when using the refreshed GOV.UK branding through exploratory testing
 - plan your release to production in relation to other services which your users' journeys might span and whether any coordination with them is needed
 
@@ -41,7 +36,7 @@ Specific rebrand questions can be directed to the HMRC Slack channel #event-govu
 ## Creating HMRC-style pages
 ### Using the HMRC standard page template
 The [`HmrcStandardPage`](/play-frontend-hmrc-play-30/src/main/twirl/uk/gov/hmrc/hmrcfrontend/views/helpers/HmrcStandardPage.scala.html) helper
-generates a standard HMRC page layout including the `HmrcStandardHeader`, `HmrcStandardFooter`, Welsh language toggle, and various banners.
+generates a standard HMRC page layout including the `HmrcStandardHeader`, `HmrcStandardFooter`, `GovukServiceNavigation` with Welsh language toggle, and various banners.
 This helper takes [`HmrcStandardPageParams`](/play-frontend-hmrc-play-30/src/main/scala/uk/gov/hmrc/hmrcfrontend/views/viewmodels/hmrcstandardpage/HmrcStandardPageParams.scala)
 which includes the following members:
 * [`ServiceURLs`](/play-frontend-hmrc-play-30/src/main/scala/uk/gov/hmrc/hmrcfrontend/views/viewmodels/hmrcstandardpage/ServiceURLs.scala) - containing service-specific URLs that will typically need setting once
@@ -82,7 +77,7 @@ The parameters that can be passed into the `HmrcStandardPage` are as follows:
 
       | Parameter                                  | Description                                                       | Example                                                     |
       | ------------------------------------------ | ----------------------------------------------------------------- | ----------------------------------------------------------- |
-      | `service.serviceUrl`                       | This will be bound to HmrcStandardHeader                          | `Some(routes.IndexController.index().url)`                  |
+      | `service.serviceUrl`                       | This will be bound to service name in `GovukServiceNavigation` via `HmrcStandardHeader`. Will be overridden if a `serviceNavigation` parameter is passed in.| `Some(routes.IndexController.index().url)`|
       | `service.signOutUrl`                       | Passing a value will display the sign out link                    | `Some(routes.SignOutController.signOut().url)`              |
       | `service.accessibilityStatementUrl`        | Passing a value will override the accessibility statement URL in the [footer](#accessibility-statement-links)                  ||
       | `banners.displayHmrcBanner`                | Setting to true will display the [HMRC banner](https://design.tax.service.gov.uk/hmrc-design-patterns/hmrc-banner/)            ||
@@ -95,11 +90,14 @@ The parameters that can be passed into the `HmrcStandardPage` are as follows:
       | `templateOverrides.mainContentLayout`      | Passing value will override the default two thirds layout         |                                                             |
       | `templateOverrides.pageLayout`             | Allow internal services to use a full width layout.               | `Some(fixedWidthPageLayout(_))`                             |
       | `templateOverrides.headerContainerClasses` | Allow internal services to use a full width header.               | `"govuk-width-container"`                                   |
+      | `templateOverrides.headerClasses`          | Allow additional classes to be added to the `<header>` element.   |                                                             |
+      | `templateOverrides.headerAttributes`       | Allow additional attributes to be added to the `<header>` element |                                                             |
       | `serviceName`                              | Pass a value only if your service has a dynamic service name      |                                                             |
       | `pageTitle`                                | This will be bound to govukLayout                                 |                                                             |
       | `isWelshTranslationAvailable`              | Setting to true will display the language toggle                  | `true`                                                      |
       | `backLink`                                 | Passing a value will display a back link                          | `Some(BackLink(href = ..., attributes = ...))`              |
       | `exitThisPage`                             | Passing a value will display an "Exit This Page" button           | `Some(ExitThisPage())`                                      |
+      | `serviceNavigation`                        | Passing a value will override the default `GovukServiceNavigation`. If you do not pass this, but your service has a service name or language toggle, a default one will be added.||
 
 [back to top](#creating-pages)
 

@@ -23,7 +23,6 @@ import uk.gov.hmrc.govukfrontend.views.html.components._
 import uk.gov.hmrc.govukfrontend.views.viewmodels.CommonJsonFormats._
 
 case class Button(
-  element: Option[String] = None,
   name: Option[String] = None,
   inputType: Option[String] = None,
   value: Option[String] = None,
@@ -43,8 +42,7 @@ object Button {
 
   implicit def jsonReads: Reads[Button] =
     (
-      (__ \ "element").readNullable[String] and
-        (__ \ "name").readNullable[String] and
+      (__ \ "name").readNullable[String] and
         (__ \ "type").readNullable[String] and
         (__ \ "value").readNullable[String] and
         (__ \ "disabled").readWithDefault[Boolean](defaultObject.disabled) and
@@ -59,8 +57,7 @@ object Button {
 
   implicit def jsonWrites: OWrites[Button] =
     (
-      (__ \ "element").writeNullable[String] and
-        (__ \ "name").writeNullable[String] and
+      (__ \ "name").writeNullable[String] and
         (__ \ "type").writeNullable[String] and
         (__ \ "value").writeNullable[String] and
         (__ \ "disabled").write[Boolean] and
