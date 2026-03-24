@@ -34,6 +34,7 @@ import uk.gov.hmrc.govukfrontend.views.Aliases.Text
 import uk.gov.hmrc.govukfrontend.views.html.components.{FullWidthPageLayout, GovukBackLink}
 import uk.gov.hmrc.govukfrontend.views.viewmodels.backlink.BackLink
 import uk.gov.hmrc.govukfrontend.views.viewmodels.exitthispage.ExitThisPage
+import uk.gov.hmrc.govukfrontend.views.viewmodels.servicenavigation.ServiceNavigation
 import uk.gov.hmrc.helpers.MessagesSupport
 import uk.gov.hmrc.helpers.views.JsoupHelpers
 import uk.gov.hmrc.hmrcfrontend.config.AssetsConfig
@@ -93,7 +94,7 @@ class HmrcStandardPageSpec
       serviceNameLink should have size 0
     }
 
-    "bind a service name in the service navigation when passed in" in {
+    "bind a service name in the default service navigation when passed in" in {
       val content  = contentAsString(
         hmrcStandardPage(HmrcStandardPageParams(serviceName = Some("My Service Name")))(
           Html("")
@@ -119,7 +120,7 @@ class HmrcStandardPageSpec
       document.title() shouldBe "My Page Title"
     }
 
-    "include the language select in service navigation if Welsh translations flagged as available" in {
+    "include the language select in default service navigation if Welsh translations flagged as available" in {
       val page     = hmrcStandardPage(HmrcStandardPageParams(isWelshTranslationAvailable = true))(Html(""))
       val document = Jsoup.parse(contentAsString(page))
 
@@ -171,7 +172,7 @@ class HmrcStandardPageSpec
       signOutLink.attr("href") shouldBe "my-signOut-route"
     }
 
-    "not include a service url in service navigation by default" in {
+    "not include a service url in default service navigation by default" in {
       val document = Jsoup.parse(contentAsString(defaultHmrcStandardPage))
 
       val homepageLink = document.select(".govuk-service-navigation__link")
@@ -190,7 +191,7 @@ class HmrcStandardPageSpec
       homepageText.text() shouldBe "My Service"
     }
 
-    "include serviceUrl in the service navigation if passed with a service name" in {
+    "include serviceUrl in the default service navigation if passed with a service name" in {
       val page     = hmrcStandardPage(
         HmrcStandardPageParams(
           serviceURLs = ServiceURLs(
@@ -204,6 +205,25 @@ class HmrcStandardPageSpec
       val homepageLink = document.select(".govuk-service-navigation__link")
       homepageLink                should have size 1
       homepageLink.attr("href") shouldBe "my-homepage-route"
+    }
+
+    "include a custom service navigation when passed in" in {
+      val page     = hmrcStandardPage(
+        HmrcStandardPageParams(
+          serviceNavigation = Some(
+            ServiceNavigation(
+              serviceName = Some("My Custom Service"),
+              serviceUrl = Some("/custom-service")
+            )
+          )
+        )
+      )(Html(""))
+      val document = Jsoup.parse(contentAsString(page))
+
+      val homepageLink = document.select(".govuk-service-navigation__link")
+      homepageLink                should have size 1
+      homepageLink.text()       shouldBe "My Custom Service"
+      homepageLink.attr("href") shouldBe "/custom-service"
     }
 
     "not include a user research banner by default" in {
