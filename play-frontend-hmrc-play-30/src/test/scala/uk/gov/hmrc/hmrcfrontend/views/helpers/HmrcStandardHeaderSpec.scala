@@ -256,13 +256,12 @@ class HmrcStandardHeaderSpec extends AnyWordSpecLike with Matchers with JsoupHel
 
       val document    = Jsoup.parse(content)
       val serviceNav  = document.select(".govuk-service-navigation__container")
-      val serviceLink = serviceNav.select(".govuk-service-navigation__text")
+      val serviceLink = serviceNav.select(".govuk-service-navigation__link")
 
       serviceNav               should have size 1
       serviceLink              should have size 1
       serviceLink.text()       should be("My Custom Service")
       serviceLink.attr("href") should be("/custom-service")
-
     }
   }
 }
