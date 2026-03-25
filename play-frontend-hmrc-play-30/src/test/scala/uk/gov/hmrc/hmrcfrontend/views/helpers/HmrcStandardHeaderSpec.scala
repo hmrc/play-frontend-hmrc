@@ -25,12 +25,11 @@ import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.mvc.{MessagesRequest, Request}
 import play.api.test.FakeRequest
 import play.api.test.Helpers.{contentAsString, _}
+import uk.gov.hmrc.govukfrontend.views.viewmodels.servicenavigation.ServiceNavigation
 import uk.gov.hmrc.helpers.views.JsoupHelpers
 import uk.gov.hmrc.hmrcfrontend.views.config.StandardBetaBanner
 import uk.gov.hmrc.hmrcfrontend.views.html.helpers.HmrcStandardHeader
 import uk.gov.hmrc.hmrcfrontend.views.viewmodels.userresearchbanner.UserResearchBanner
-
-import scala.collection.immutable.List
 
 class HmrcStandardHeaderSpec extends AnyWordSpecLike with Matchers with JsoupHelpers {
 
@@ -167,7 +166,7 @@ class HmrcStandardHeaderSpec extends AnyWordSpecLike with Matchers with JsoupHel
       banners.first.text should include("Helpwch i wella GOV.UK")
     }
 
-    "render service navigation when service name passed in with language toggle when Welsh language is available" in {
+    "render default service navigation when service name passed in with language toggle when Welsh language is available" in {
       val hmrcStandardHeader = buildApp().injector.instanceOf[HmrcStandardHeader]
       implicit val messages  = getMessages()
       val content            = contentAsString(
@@ -189,7 +188,7 @@ class HmrcStandardHeaderSpec extends AnyWordSpecLike with Matchers with JsoupHel
       languageToggle     should have size 1
     }
 
-    "render service navigation when service name with language toggle when configured" in {
+    "render default service navigation when service name with language toggle when configured" in {
       val hmrcStandardHeader = buildApp().injector.instanceOf[HmrcStandardHeader]
       val messages           = getMessages(Map("en" -> Map("service.name" -> "My Bar Service")))
       val content            = contentAsString(
@@ -209,7 +208,7 @@ class HmrcStandardHeaderSpec extends AnyWordSpecLike with Matchers with JsoupHel
       languageToggle     should have size 1
     }
 
-    "render service navigation with language toggle when Welsh language is available" in {
+    "render default service navigation with language toggle when Welsh language is available" in {
       val hmrcStandardHeader = buildApp().injector.instanceOf[HmrcStandardHeader]
       implicit val messages  = getMessages()
       val content            = contentAsString(
@@ -226,7 +225,7 @@ class HmrcStandardHeaderSpec extends AnyWordSpecLike with Matchers with JsoupHel
       languageToggle should have size 1
     }
 
-    "not render service navigation when neither service name nor Welsh language available" in {
+    "not render default service navigation when neither service name nor Welsh language available" in {
       val hmrcStandardHeader = buildApp().injector.instanceOf[HmrcStandardHeader]
       implicit val messages  = getMessages()
       val content            = contentAsString(
@@ -239,6 +238,30 @@ class HmrcStandardHeaderSpec extends AnyWordSpecLike with Matchers with JsoupHel
 
       serviceNav     should have size 0
       languageToggle should have size 0
+    }
+
+    "render custom service navigation when passed in" in {
+      val hmrcStandardHeader = buildApp().injector.instanceOf[HmrcStandardHeader]
+      implicit val messages  = getMessages()
+      val content            = contentAsString(
+        hmrcStandardHeader(serviceNavigation =
+          Some(
+            ServiceNavigation(
+              serviceName = Some("My Custom Service"),
+              serviceUrl = Some("/custom-service")
+            )
+          )
+        )(messages, fakeRequest)
+      )
+
+      val document    = Jsoup.parse(content)
+      val serviceNav  = document.select(".govuk-service-navigation__container")
+      val serviceLink = serviceNav.select(".govuk-service-navigation__link")
+
+      serviceNav               should have size 1
+      serviceLink              should have size 1
+      serviceLink.text()       should be("My Custom Service")
+      serviceLink.attr("href") should be("/custom-service")
     }
   }
 }

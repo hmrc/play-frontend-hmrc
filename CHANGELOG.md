@@ -8,6 +8,17 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 For compatibility information see `govukFrontendVersion` and `hmrcFrontendVersion` in
 [LibDependencies](project/LibDependencies.scala)
 
+## [13.2.0] - 2026-03-25
+
+### Changed
+
+- Bug fix: `serviceNavigation` parameter is correctly rendered by `HmrcStandardHeader` and `HmrcStandardPage` when passed in
+
+### Compatible with
+
+- [hmrc/hmrc-frontend v7.3.0](https://github.com/hmrc/hmrc-frontend/releases/tag/v7.3.0)
+- [alphagov/govuk-frontend v6.1.0](https://github.com/alphagov/govuk-frontend/releases/tag/v6.1.0)
+
 ## [13.1.0] - 2026-03-23
 
 ### Changed

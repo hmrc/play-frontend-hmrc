@@ -55,7 +55,7 @@
         ),
         language = if(messages.lang.code == "cy") Cy else En,
         serviceNavigation =
-            Option.when(isWelshTranslationAvailable)(
+            serviceNavigation.orElse(Option.when(isWelshTranslationAvailable)(
                 ServiceNavigation(
                     serviceName = serviceName.orElse(serviceNameFromMessages),
                     serviceUrl = serviceUrl
@@ -63,6 +63,6 @@
             ).orElse(serviceName.orElse(serviceNameFromMessages).map(serviceName => ServiceNavigation(
             serviceName = Some(serviceName),
             serviceUrl = serviceUrl))
-    )))
+    ))))
   }
 }
