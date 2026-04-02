@@ -43,4 +43,5 @@ govuk.serviceNavigation.ariaLabel=Gwybodaeth am y gwasanaeth
 govuk.serviceNavigation.menuButtonText=Dewislen
 govuk.tabs.titleFallbackText=Cynnwys
 govuk.warningText.iconFallbackText=Rhybudd
+hmrc.caseworkerbanner.title=Arweiniad Gweithiwr Achos
 

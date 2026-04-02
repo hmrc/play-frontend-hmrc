@@ -1,0 +1,20 @@
+
+
+
+
+
+<div class="govuk-notification-banner hmrc-caseworker-banner" role="region" aria-labelledby="govuk-notification-banner-title" data-module="govuk-notification-banner" data-disable-auto-focus="true">
+  <div class="govuk-notification-banner__header">
+    <h2 class="govuk-notification-banner__title" id="govuk-notification-banner-title">
+      Caseworker guidance
+    </h2>
+  </div>
+  <div class="govuk-notification-banner__content">
+    <ul class="govuk-list govuk-list--bullet">
+    <li>some test content in a list</li>
+    <li><a class="govuk-link" rel="noopener noreferrer" href="https://www.gov.uk/government/organisations/hm-revenue-customs" target="_blank">My link (opens in new tab)</a></li>
+    </ul>
+  </div>
+</div>
+
+

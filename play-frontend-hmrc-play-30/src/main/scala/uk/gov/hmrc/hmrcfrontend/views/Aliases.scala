@@ -23,6 +23,9 @@ trait Aliases {
   type Banners = viewmodels.hmrcstandardpage.Banners
   val Banners = viewmodels.hmrcstandardpage.Banners
 
+  type CaseworkerBanner = viewmodels.caseworkerbanner.CaseworkerBanner
+  val CaseworkerBanner = viewmodels.caseworkerbanner.CaseworkerBanner
+
   val Cy = viewmodels.language.Cy
 
   val En = viewmodels.language.En

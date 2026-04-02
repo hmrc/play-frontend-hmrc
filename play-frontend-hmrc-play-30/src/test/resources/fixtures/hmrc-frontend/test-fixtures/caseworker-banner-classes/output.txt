@@ -1,0 +1,17 @@
+
+
+
+
+
+<div class="govuk-notification-banner hmrc-caseworker-banner my-class" role="region" aria-labelledby="govuk-notification-banner-title" data-module="govuk-notification-banner" data-disable-auto-focus="true">
+  <div class="govuk-notification-banner__header">
+    <h2 class="govuk-notification-banner__title" id="govuk-notification-banner-title">
+      Caseworker guidance
+    </h2>
+  </div>
+  <div class="govuk-notification-banner__content">
+    <p class="govuk-body"></p>
+  </div>
+</div>
+
+

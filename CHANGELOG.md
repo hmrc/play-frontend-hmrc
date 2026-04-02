@@ -8,6 +8,20 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 For compatibility information see `govukFrontendVersion` and `hmrcFrontendVersion` in
 [LibDependencies](project/LibDependencies.scala)
 
+## [13.3.0] - 2026-04-02
+
+### Changed
+
+- Added new `HmrcCaseworkerBanner` template with viewmodel `CaseworkerBanner`, see guidance at: https://design.tax.service.gov.uk/hmrc-design-patterns/caseworker-guidance-banner/
+- Updated `HmrcBanner` in line with `hmrc-frontend` changes
+- Bumped `hmrc-frontend` version to 7.7.0
+
+### Compatible with
+
+- [hmrc/hmrc-frontend v7.7.0](https://github.com/hmrc/hmrc-frontend/releases/tag/v7.7.0)
+- [alphagov/govuk-frontend v6.1.0](https://github.com/alphagov/govuk-frontend/releases/tag/v6.1.0)
+
+
 ## [13.2.0] - 2026-03-25
 
 ### Changed
