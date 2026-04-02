@@ -73,9 +73,7 @@
       </div>
     </div>
     @if(params.banners.displayHmrcBanner){
-        <div class="govuk-width-container">
-            @hmrcBanner(Banner(language))
-        </div>
+        @hmrcBanner(Banner(language))
     }
     @params.serviceNavigation.map { nav =>
         @govukServiceNavigation(nav)

@@ -1,0 +1,17 @@
+
+
+
+
+
+<div class="govuk-notification-banner hmrc-caseworker-banner" role="region" aria-labelledby="govuk-notification-banner-title" data-module="govuk-notification-banner" data-disable-auto-focus="true">
+  <div class="govuk-notification-banner__header">
+    <h2 class="govuk-notification-banner__title" id="govuk-notification-banner-title">
+      Arweiniad Gweithiwr Achos
+    </h2>
+  </div>
+  <div class="govuk-notification-banner__content">
+    <p class="govuk-body">Defnyddiwch gofnodion CThEF er mwyn cwblhau’r dudalen hon. Peidiwch â gwneud cais i’r defnyddiwr am y wybodaeth hon.</p>
+  </div>
+</div>
+
+

@@ -43,3 +43,4 @@ govuk.serviceNavigation.ariaLabel=Service information
 govuk.serviceNavigation.menuButtonText=Menu
 govuk.tabs.titleFallbackText=Contents
 govuk.warningText.iconFallbackText=Warning
+hmrc.caseworkerbanner.title=Caseworker guidance

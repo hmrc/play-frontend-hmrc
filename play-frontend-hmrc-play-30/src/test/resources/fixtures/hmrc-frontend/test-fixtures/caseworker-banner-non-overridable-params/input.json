@@ -1,0 +1,8 @@
+{
+  "disableAutoFocus" : false,
+  "role" : "section",
+  "titleHeadingLevel" : 3,
+  "titleHtml" : "<h1>A title that should never display</h1>",
+  "titleText" : "A text title that should never display",
+  "type" : "banner"
+}
