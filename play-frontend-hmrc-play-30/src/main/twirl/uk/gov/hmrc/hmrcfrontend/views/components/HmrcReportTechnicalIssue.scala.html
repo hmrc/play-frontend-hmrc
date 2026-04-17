@@ -15,11 +15,12 @@
  *@
 
 @import uk.gov.hmrc.hmrcfrontend.views.html.components._
+@import uk.gov.hmrc.hmrcfrontend.config.ServiceNavigationConfig
+@import uk.gov.hmrc.hmrcfrontend.config.ServiceNavCanBeControlledByQueryParam.useServiceNavQueryParam
 
-@this()
+@this(serviceNavigationConfig: ServiceNavigationConfig)
 
-
-@(params: ReportTechnicalIssue)
+@(params: ReportTechnicalIssue)(implicit request: RequestHeader)
 @import params._
 @defining(if(serviceId.nonEmpty) serviceId else serviceCode) { service =>
   <a lang="@params.language.code"
@@ -27,6 +28,6 @@
     class="@toClasses("govuk-link hmrc-report-technical-issue ", classes.getOrElse(""))"
     @if(params.referrerUrl.exists(_.nonEmpty)) { rel="noreferrer noopener" }
     target="_blank"
-    href="@params.baseUrl.getOrElse("")/contact/report-technical-problem?service=@urlEncode(service)@params.referrerUrl.filter(_.nonEmpty).map{ url =>&amp;referrerUrl=@urlEncode(url)}"
+    href="@params.baseUrl.getOrElse("")/contact/report-technical-problem?service=@urlEncode(service)@params.referrerUrl.filter(_.nonEmpty).map{ url =>&amp;referrerUrl=@urlEncode(url)}@if(serviceNavigationConfig.forceServiceNavigation){&@useServiceNavQueryParam=true}"
   >@if(params.language.code == "cy") {A yw’r dudalen hon yn gweithio’n iawn? (yn agor tab newydd)} else {Is this page not working properly? (opens in new tab)}</a>
 }
