@@ -213,9 +213,9 @@ class HmrcFooterItemsSpec extends AnyWordSpec with Matchers with MessagesSupport
     "Propagate use of service nav via query param when enabled" in {
       val app             = buildApp(
         Map(
-          "platform.frontend.host"               -> "https://www.tax.service.gov.uk",
-          "accessibility-statement.service-path" -> "/bar",
-          "play-frontend-hmrc.forceServiceNavigation"   -> "true"
+          "platform.frontend.host"                    -> "https://www.tax.service.gov.uk",
+          "accessibility-statement.service-path"      -> "/bar",
+          "play-frontend-hmrc.forceServiceNavigation" -> "true"
         )
       )
       val hmrcFooterItems = app.injector.instanceOf[HmrcFooterItems]
