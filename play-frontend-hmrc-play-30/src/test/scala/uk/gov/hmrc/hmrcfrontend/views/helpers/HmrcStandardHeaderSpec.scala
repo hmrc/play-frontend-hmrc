@@ -146,7 +146,7 @@ class HmrcStandardHeaderSpec extends AnyWordSpecLike with Matchers with JsoupHel
       val banners           = document.select(".hmrc-user-research-banner")
 
       banners            should have size 1
-      banners.first.text should include("Help make GOV.UK better")
+      banners.first.text should include("You may receive a voucher for feedback")
 
     }
 
@@ -163,7 +163,7 @@ class HmrcStandardHeaderSpec extends AnyWordSpecLike with Matchers with JsoupHel
       val banners           = document.select(".hmrc-user-research-banner")
 
       banners            should have size 1
-      banners.first.text should include("Helpwch i wella GOV.UK")
+      banners.first.text should include("Mae’n bosibl y byddwch yn cael taleb am roi adborth")
     }
 
     "render default service navigation when service name passed in with language toggle when Welsh language is available" in {

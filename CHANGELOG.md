@@ -8,6 +8,18 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 For compatibility information see `govukFrontendVersion` and `hmrcFrontendVersion` in
 [LibDependencies](project/LibDependencies.scala)
 
+## [13.4.0] - 2026-04-20
+
+### Changed
+
+- Updated the hardcoded content in the `HmrcUserResearchBanner` in line with `hmrc-frontend` changes (now tells user they may receive a voucher)
+- Bumped `hmrc-frontend` version to 7.10.0
+
+### Compatible with
+
+- [hmrc/hmrc-frontend v7.10.0](https://github.com/hmrc/hmrc-frontend/releases/tag/v7.10.0)
+- [alphagov/govuk-frontend v6.1.0](https://github.com/alphagov/govuk-frontend/releases/tag/v6.1.0)
+
 ## [13.3.0] - 2026-04-02
 
 ### Changed
@@ -20,7 +32,6 @@ For compatibility information see `govukFrontendVersion` and `hmrcFrontendVersio
 
 - [hmrc/hmrc-frontend v7.7.0](https://github.com/hmrc/hmrc-frontend/releases/tag/v7.7.0)
 - [alphagov/govuk-frontend v6.1.0](https://github.com/alphagov/govuk-frontend/releases/tag/v6.1.0)
-
 
 ## [13.2.0] - 2026-03-25
 
