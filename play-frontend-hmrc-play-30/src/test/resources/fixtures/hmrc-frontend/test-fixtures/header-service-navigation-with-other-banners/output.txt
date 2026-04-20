@@ -87,10 +87,10 @@ data-module="govuk-service-navigation"
   <div class="hmrc-user-research-banner__container govuk-width-container">
     <div class="hmrc-user-research-banner__text">
       <h2 class="govuk-heading-s hmrc-user-research-banner__title">
-          Help make GOV.UK better
+          You may receive a voucher for feedback
       </h2>
       <a class="govuk-link hmrc-user-research-banner__link" rel="noopener noreferrer" href="/sign-up-for-user-research" target="_blank">
-          Sign up to take part in research (opens in new tab)
+          Join our research panel (opens in new tab)
       </a>
     </div>
       <button class="govuk-button govuk-button--secondary hmrc-user-research-banner__close">
