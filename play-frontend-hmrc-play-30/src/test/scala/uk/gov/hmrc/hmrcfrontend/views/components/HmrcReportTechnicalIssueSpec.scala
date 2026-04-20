@@ -26,7 +26,6 @@ import scala.util.Try
 class HmrcReportTechnicalIssueSpec extends TemplateUnitBaseSpec[ReportTechnicalIssue]("hmrcReportTechnicalIssue") {
   private val component = app.injector.instanceOf[HmrcReportTechnicalIssue]
 
-  def render(templateParams: ReportTechnicalIssue): Try[HtmlFormat.Appendable] = {
+  def render(templateParams: ReportTechnicalIssue): Try[HtmlFormat.Appendable] =
     Try(component(templateParams)(FakeRequest()))
-  }
 }

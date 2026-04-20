@@ -29,7 +29,7 @@ import scala.util.Try
 import javax.inject.{Inject, Singleton}
 
 trait ServiceNavigationConfig {
-  def propagateViaQueryParam(href: String)(implicit request: RequestHeader): String = {
+  def propagateViaQueryParam(href: String)(implicit request: RequestHeader): String =
     if (forceServiceNavigation) {
       Try(new URI(href))
         .collect {
@@ -39,7 +39,7 @@ trait ServiceNavigationConfig {
               uri.getRawAuthority,
               uri.getRawPath,
               uri.getRawQuery match {
-                case null | "" => useServiceNavQueryParam
+                case null | ""   => useServiceNavQueryParam
                 case queryString => s"$queryString&$useServiceNavQueryParam"
               },
               uri.getRawFragment
@@ -47,7 +47,6 @@ trait ServiceNavigationConfig {
         }
         .getOrElse(href)
     } else href
-  }
 
   private def useServiceNavQueryParamAlreadySet(uri: URI): Boolean =
     Option(uri.getRawQuery).exists(

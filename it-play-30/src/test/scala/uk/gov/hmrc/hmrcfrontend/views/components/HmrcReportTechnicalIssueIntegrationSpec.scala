@@ -37,7 +37,6 @@ object HmrcReportTechnicalIssueIntegrationSpec
 
   private val component = app.injector.instanceOf[HmrcReportTechnicalIssue]
 
-  override def render(reportTechnicalIssue: ReportTechnicalIssue): Try[HtmlFormat.Appendable] = {
+  override def render(reportTechnicalIssue: ReportTechnicalIssue): Try[HtmlFormat.Appendable] =
     Try(component(reportTechnicalIssue)(FakeRequest()))
-  }
 }
