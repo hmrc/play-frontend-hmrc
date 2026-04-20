@@ -24,36 +24,28 @@ import ServiceNavCanBeControlledByRequestAttr.UseServiceNav
 import ServiceNavCanBeControlledByQueryParam.useServiceNavQueryParam
 import ServiceNavCanBeControlledByConfig.useServiceNavConfigKey
 
-import java.net.URI
-import scala.util.Try
 import javax.inject.{Inject, Singleton}
 
 trait ServiceNavigationConfig {
-  def propagateViaQueryParam(href: String)(implicit request: RequestHeader): String =
-    if (forceServiceNavigation) {
-      Try(new URI(href))
-        .collect {
-          case uri if !useServiceNavQueryParamAlreadySet(uri) =>
-            new URI(
-              uri.getScheme,
-              uri.getRawAuthority,
-              uri.getRawPath,
-              uri.getRawQuery match {
-                case null | ""   => useServiceNavQueryParam
-                case queryString => s"$queryString&$useServiceNavQueryParam"
-              },
-              uri.getRawFragment
-            ).toString
-        }
-        .getOrElse(href)
-    } else href
+  def forceServiceNavigation(implicit request: RequestHeader): Boolean
 
-  private def useServiceNavQueryParamAlreadySet(uri: URI): Boolean =
-    Option(uri.getRawQuery).exists(
-      _.split("&").contains(useServiceNavQueryParam)
-    )
+  def propagateViaQueryParam(url: String)(implicit request: RequestHeader): String =
+    if (!forceServiceNavigation) url
+    else {
+      val (urlWithQuery, urlFragment) = url.span(_ != '#')
+      val (withoutQuery, queryString) = urlWithQuery.span(_ != '?')
+      if (queryParamAlreadySetIn(queryString)) url
+      else {
+        val separator = if (queryString.isEmpty) "?" else "&"
+        s"$withoutQuery$queryString$separator$useServiceNavQueryParam$urlFragment"
+      }
+    }
 
-  def forceServiceNavigation(implicit request: RequestHeader): Boolean // if some service nav not provided
+  private def queryParamAlreadySetIn(queryString: String): Boolean =
+    queryString
+      .stripPrefix("?")
+      .split("&")
+      .exists(p => p == useServiceNavQueryParam || p.startsWith(s"$useServiceNavQueryParam="))
 }
 
 @Singleton

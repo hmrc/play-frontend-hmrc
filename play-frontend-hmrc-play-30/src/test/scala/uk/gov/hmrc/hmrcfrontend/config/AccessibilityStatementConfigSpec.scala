@@ -79,5 +79,19 @@ class AccessibilityStatementConfigSpec extends AnyWordSpec with Matchers with Me
       val config                            = application.injector.instanceOf[AccessibilityStatementConfig]
       config.url should equal(Some("http://localhost:12346/accessibility-statement/bar?referrerUrl=%2Ffoo%3Fbar%3Dbaz"))
     }
+
+    "propagate use of service nav via query param when enabled" in {
+      implicit val application: Application = buildApp(
+        Map(
+          "accessibility-statement.path"              -> "/accessibility-statement",
+          "accessibility-statement.service-path"      -> "/bar",
+          "play-frontend-hmrc.forceServiceNavigation" -> "true"
+        )
+      )
+      val config                            = application.injector.instanceOf[AccessibilityStatementConfig]
+      config.url should equal(
+        Some("http://localhost:12346/accessibility-statement/bar?referrerUrl=%2Ffoo%3Fbar%3Dbaz&useServiceNav")
+      )
+    }
   }
 }

@@ -17,6 +17,7 @@
 package uk.gov.hmrc.hmrcfrontend.views
 package components
 
+import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.test.FakeRequest
 import play.twirl.api.HtmlFormat
 import uk.gov.hmrc.hmrcfrontend.views.html.components._
@@ -28,4 +29,29 @@ class HmrcReportTechnicalIssueSpec extends TemplateUnitBaseSpec[ReportTechnicalI
 
   def render(templateParams: ReportTechnicalIssue): Try[HtmlFormat.Appendable] =
     Try(component(templateParams)(FakeRequest()))
+
+  "HmrcReportTechnicalIssue" should {
+    "not propagate use of service nav via query param when it's not enabled" in {
+      val html = component(ReportTechnicalIssue())(FakeRequest())
+
+      html.select("a.hmrc-report-technical-issue").attr("href") shouldNot endWith(
+        "&useServiceNav"
+      )
+    }
+
+    "propagate use of service nav via query param when it's enabled" in {
+      val componentWhenEnabled =
+        GuiceApplicationBuilder()
+          .configure("play-frontend-hmrc.forceServiceNavigation" -> "true")
+          .build()
+          .injector
+          .instanceOf[HmrcReportTechnicalIssue]
+
+      val html = componentWhenEnabled(ReportTechnicalIssue())(FakeRequest())
+
+      html.select("a.hmrc-report-technical-issue").attr("href") should endWith(
+        "&useServiceNav"
+      )
+    }
+  }
 }

@@ -115,6 +115,54 @@ class HmrcFooterItemsSpec extends AnyWordSpec with Matchers with MessagesSupport
       )
     }
 
+    "Propagate use of service nav via query param when enabled to manually defined accessibility statement link" in {
+      val app             = buildApp(
+        Map(
+          "play-frontend-hmrc.forceServiceNavigation" -> "true"
+        )
+      )
+      val hmrcFooterItems = app.injector.instanceOf[HmrcFooterItems]
+
+      hmrcFooterItems.getWithAccessibilityStatementUrl(accessibilityStatementUrl =
+        Some("https://www.example.com/accessibility-statement")
+      ) mustBe Seq(
+        FooterItem(
+          Some("Cookies"),
+          Some("/help/cookies?useServiceNav")
+        ),
+        FooterItem(
+          Some("Accessibility statement"),
+          Some(
+            "https://www.example.com/accessibility-statement?useServiceNav"
+          )
+        ),
+        FooterItem(
+          Some("Privacy policy"),
+          Some("/help/privacy?useServiceNav")
+        ),
+        FooterItem(
+          Some("Terms and conditions"),
+          Some("/help/terms-and-conditions?useServiceNav")
+        ),
+        FooterItem(
+          Some("Help using GOV.UK"),
+          Some("https://www.gov.uk/help")
+        ),
+        FooterItem(
+          Some("Contact"),
+          Some("https://www.gov.uk/government/organisations/hm-revenue-customs/contact")
+        ),
+        FooterItem(
+          Some("Rhestr o Wasanaethau Cymraeg"),
+          Some("https://www.gov.uk/cymraeg"),
+          attributes = Map(
+            "lang"     -> "cy",
+            "hreflang" -> "cy"
+          )
+        )
+      )
+    }
+
     "Return the accessibility link if defined" in {
       val app             = buildApp(
         Map(
@@ -142,6 +190,54 @@ class HmrcFooterItemsSpec extends AnyWordSpec with Matchers with MessagesSupport
         FooterItem(
           Some("Terms and conditions"),
           Some("/help/terms-and-conditions")
+        ),
+        FooterItem(
+          Some("Help using GOV.UK"),
+          Some("https://www.gov.uk/help")
+        ),
+        FooterItem(
+          Some("Contact"),
+          Some("https://www.gov.uk/government/organisations/hm-revenue-customs/contact")
+        ),
+        FooterItem(
+          Some("Rhestr o Wasanaethau Cymraeg"),
+          Some("https://www.gov.uk/cymraeg"),
+          attributes = Map(
+            "lang"     -> "cy",
+            "hreflang" -> "cy"
+          )
+        )
+      )
+    }
+
+    "Propagate use of service nav via query param when enabled" in {
+      val app             = buildApp(
+        Map(
+          "platform.frontend.host"               -> "https://www.tax.service.gov.uk",
+          "accessibility-statement.service-path" -> "/bar",
+          "play-frontend-hmrc.forceServiceNavigation"   -> "true"
+        )
+      )
+      val hmrcFooterItems = app.injector.instanceOf[HmrcFooterItems]
+
+      hmrcFooterItems.get mustBe Seq(
+        FooterItem(
+          Some("Cookies"),
+          Some("/help/cookies?useServiceNav")
+        ),
+        FooterItem(
+          Some("Accessibility statement"),
+          Some(
+            "https://www.tax.service.gov.uk/accessibility-statement/bar?referrerUrl=https%3A%2F%2Fwww.tax.service.gov.uk%2Ffoo&useServiceNav"
+          )
+        ),
+        FooterItem(
+          Some("Privacy policy"),
+          Some("/help/privacy?useServiceNav")
+        ),
+        FooterItem(
+          Some("Terms and conditions"),
+          Some("/help/terms-and-conditions?useServiceNav")
         ),
         FooterItem(
           Some("Help using GOV.UK"),
