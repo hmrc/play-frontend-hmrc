@@ -30,26 +30,29 @@ import javax.inject.{Inject, Singleton}
 
 trait ServiceNavigationConfig {
   def propagateViaQueryParam(href: String)(implicit request: RequestHeader): String = {
-    def queryParamAlreadySet(uri: URI): Boolean =
-      Option(uri.getRawQuery).exists(_.split("&").exists(_.startsWith(s"$useServiceNavQueryParam=")))
-
-    Try(new URI(href))
-      .collect {
-        case uri if !queryParamAlreadySet(uri) =>
-          val queryParam = s"$useServiceNavQueryParam=$forceServiceNavigation"
-          new URI(
-            uri.getScheme,
-            uri.getRawAuthority,
-            uri.getRawPath,
-            uri.getRawQuery match {
-              case null | ""   => queryParam
-              case queryString => s"$queryString&$queryParam"
-            },
-            uri.getRawFragment
-          ).toString
-      }
-      .getOrElse(href)
+    if (forceServiceNavigation) {
+      Try(new URI(href))
+        .collect {
+          case uri if !useServiceNavQueryParamAlreadySet(uri) =>
+            new URI(
+              uri.getScheme,
+              uri.getRawAuthority,
+              uri.getRawPath,
+              uri.getRawQuery match {
+                case null | "" => useServiceNavQueryParam
+                case queryString => s"$queryString&$useServiceNavQueryParam"
+              },
+              uri.getRawFragment
+            ).toString
+        }
+        .getOrElse(href)
+    } else href
   }
+
+  private def useServiceNavQueryParamAlreadySet(uri: URI): Boolean =
+    Option(uri.getRawQuery).exists(
+      _.split("&").contains(useServiceNavQueryParam)
+    )
 
   def forceServiceNavigation(implicit request: RequestHeader): Boolean // if some service nav not provided
 }
@@ -69,16 +72,11 @@ object ServiceNavCanBeControlledByRequestAttr {
 }
 
 @Singleton
-class ServiceNavCanBeControlledByQueryParam @Inject() (config: Configuration) extends ServiceNavigationConfig {
+class ServiceNavCanBeControlledByQueryParam @Inject() () extends ServiceNavigationConfig {
   // To allow incremental migration of services while maintaining accessibility
 
-  private val determinedByConfig: Boolean = config.get[Boolean](useServiceNavConfigKey)
-
   override def forceServiceNavigation(implicit request: RequestHeader): Boolean =
-    request.queryString
-      .get(useServiceNavQueryParam)
-      .map(!_.contains("false"))
-      .getOrElse(determinedByConfig)
+    request.queryString.contains(useServiceNavQueryParam)
 }
 
 object ServiceNavCanBeControlledByQueryParam {

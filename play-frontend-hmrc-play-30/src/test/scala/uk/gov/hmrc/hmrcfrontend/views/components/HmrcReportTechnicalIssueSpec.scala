@@ -17,7 +17,16 @@
 package uk.gov.hmrc.hmrcfrontend.views
 package components
 
+import play.api.test.FakeRequest
+import play.twirl.api.HtmlFormat
 import uk.gov.hmrc.hmrcfrontend.views.html.components._
 
-class HmrcReportTechnicalIssueSpec
-    extends TemplateUnitSpec[ReportTechnicalIssue, HmrcReportTechnicalIssue]("hmrcReportTechnicalIssue")
+import scala.util.Try
+
+class HmrcReportTechnicalIssueSpec extends TemplateUnitBaseSpec[ReportTechnicalIssue]("hmrcReportTechnicalIssue") {
+  private val component = app.injector.instanceOf[HmrcReportTechnicalIssue]
+
+  def render(templateParams: ReportTechnicalIssue): Try[HtmlFormat.Appendable] = {
+    Try(component(templateParams)(FakeRequest()))
+  }
+}

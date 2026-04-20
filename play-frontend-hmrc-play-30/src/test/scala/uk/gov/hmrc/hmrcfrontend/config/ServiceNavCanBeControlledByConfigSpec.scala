@@ -20,19 +20,23 @@ import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpec
 import play.api.Application
 import play.api.inject.guice.GuiceApplicationBuilder
+import play.api.mvc.RequestHeader
+import play.api.test.FakeRequest
 
-class ServiceNavigationConfigSpec extends AnyWordSpec with Matchers {
+class ServiceNavCanBeControlledByConfigSpec extends AnyWordSpec with Matchers {
 
-  def buildApp(properties: Map[String, String]): Application =
+  def buildApp(conf: Map[String, String]): Application =
     new GuiceApplicationBuilder()
-      .configure(properties)
+      .configure(conf)
       .build()
+
+  implicit val request: RequestHeader = FakeRequest()
 
   "forceServiceNavigation" should {
     "return true" when {
       "feature flag is true" in {
-        val app    = buildApp(Map(("play-frontend-hmrc.forceServiceNavigation", "true")))
-        val config = app.injector.instanceOf[ServiceNavigationConfig]
+        val app    = buildApp(Map("play-frontend-hmrc.forceServiceNavigation" -> "true"))
+        val config = app.injector.instanceOf[ServiceNavCanBeControlledByConfig]
 
         config.forceServiceNavigation shouldBe true
       }
@@ -41,14 +45,14 @@ class ServiceNavigationConfigSpec extends AnyWordSpec with Matchers {
     "return false" when {
       "feature flag is not presented" in {
         val app    = buildApp(Map.empty)
-        val config = app.injector.instanceOf[ServiceNavigationConfig]
+        val config = app.injector.instanceOf[ServiceNavCanBeControlledByConfig]
 
         config.forceServiceNavigation shouldBe false
       }
 
       "feature flag is false" in {
-        val app    = buildApp(Map(("play-frontend-hmrc.forceServiceNavigation", "false")))
-        val config = app.injector.instanceOf[ServiceNavigationConfig]
+        val app    = buildApp(Map("play-frontend-hmrc.forceServiceNavigation" -> "false"))
+        val config = app.injector.instanceOf[ServiceNavCanBeControlledByConfig]
 
         config.forceServiceNavigation shouldBe false
       }

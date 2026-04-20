@@ -16,11 +16,28 @@
 
 package uk.gov.hmrc.hmrcfrontend.views.components
 
-import uk.gov.hmrc.hmrcfrontend.support.TemplateIntegrationSpec
+import play.api.test.FakeRequest
+import play.twirl.api.HtmlFormat
+import uk.gov.hmrc.hmrcfrontend.views.HmrcFrontendDependency.hmrcFrontendVersion
 import uk.gov.hmrc.hmrcfrontend.views.html.components._
 import uk.gov.hmrc.hmrcfrontend.views.viewmodels.reporttechnicalissue.Generators._
+import uk.gov.hmrc.support.TemplateIntegrationBaseSpec
+
+import scala.util.Try
 
 object HmrcReportTechnicalIssueIntegrationSpec
-    extends TemplateIntegrationSpec[ReportTechnicalIssue, HmrcReportTechnicalIssue](
-      hmrcComponentName = "hmrcReportTechnicalIssue"
-    )
+    extends TemplateIntegrationBaseSpec[ReportTechnicalIssue](
+      componentName = "hmrcReportTechnicalIssue",
+      seed = None
+    ) {
+
+  protected val libraryName: String = "hmrc"
+
+  protected val libraryVersion: String = hmrcFrontendVersion
+
+  private val component = app.injector.instanceOf[HmrcReportTechnicalIssue]
+
+  override def render(reportTechnicalIssue: ReportTechnicalIssue): Try[HtmlFormat.Appendable] = {
+    Try(component(reportTechnicalIssue)(FakeRequest()))
+  }
+}
