@@ -20,7 +20,7 @@ import javax.inject.Inject
 import play.api.Configuration
 import play.api.mvc.RequestHeader
 
-class ContactFrontendConfig @Inject() (config: Configuration) {
+class ContactFrontendConfig @Inject() (config: Configuration, serviceNavigationConfig: ServiceNavigationConfig) {
   private val platformHost: Option[String] =
     config.getOptional[String]("platform.frontend.host")
 
@@ -32,4 +32,9 @@ class ContactFrontendConfig @Inject() (config: Configuration) {
   def referrerUrl(implicit request: RequestHeader): Option[String] =
     Some(s"${platformHost
         .getOrElse("")}${pathWithQuerystring(request)}")
+
+  def useServiceNavQueryParam(implicit request: RequestHeader): Option[String] =
+    Option.when(serviceNavigationConfig.forceServiceNavigation)(
+      ServiceNavCanBeControlledByQueryParam.useServiceNavQueryParam
+    )
 }

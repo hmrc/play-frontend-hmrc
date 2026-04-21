@@ -21,6 +21,7 @@ import org.scalatest.wordspec.AnyWordSpec
 import org.scalatestplus.play.guice.GuiceOneAppPerSuite
 import play.api.Configuration
 import play.api.i18n.{Lang, Messages}
+import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.mvc.RequestHeader
 import play.api.test.FakeRequest
 import uk.gov.hmrc.govukfrontend.views.Aliases.{HtmlContent, PhaseBanner, Tag, Text}
@@ -82,34 +83,37 @@ class StandardPhaseBannerSpec extends AnyWordSpec with Matchers with MessagesSup
     }
 
     "return formatted URL with config values for beta-feedback in contact-frontend when no URL provided" in {
-      implicit val request: RequestHeader          = FakeRequest()
-      implicit val cfConfig: ContactFrontendConfig = new ContactFrontendConfig(Configuration.empty) {
-        override def serviceId: Option[String]                    = Some("my-service")
-        override def baseUrl                                      = Some("tax.service.gov.uk")
-        override def referrerUrl(implicit request: RequestHeader) =
-          Some("/help/terms-and-conditions")
-      }
+      implicit val request: RequestHeader          = FakeRequest("GET", "/help/terms-and-conditions")
+      implicit val cfConfig: ContactFrontendConfig = new GuiceApplicationBuilder()
+        .configure(
+          "platform.frontend.host"     -> "tax.service.gov.uk",
+          "contact-frontend.serviceId" -> "my-service"
+        )
+        .build()
+        .injector
+        .instanceOf[ContactFrontendConfig]
 
       val phaseBanner: PhaseBanner = standardBetaBanner()
       phaseBanner.content mustBe HtmlContent(
         "This is a new service. Help us improve it and <a class=\"govuk-link\" href=" +
-          "\"tax.service.gov.uk/contact/beta-feedback?service=my-service&amp;referrerUrl=%2Fhelp%2Fterms-and-conditions\" target=\"_blank\"" +
+          "\"tax.service.gov.uk/contact/beta-feedback?service=my-service&amp;referrerUrl=tax.service.gov.uk%2Fhelp%2Fterms-and-conditions\" target=\"_blank\"" +
           ">give your feedback (opens in new tab)</a>."
       )
     }
 
     "return formatted URL with empty config values for beta-feedback in contact-frontend when no URL provided" in {
       implicit val request: RequestHeader          = FakeRequest()
-      implicit val cfConfig: ContactFrontendConfig = new ContactFrontendConfig(Configuration.empty) {
-        override def serviceId: Option[String]                    = None
-        override def baseUrl                                      = None
-        override def referrerUrl(implicit request: RequestHeader) = None
-      }
+      implicit val cfConfig: ContactFrontendConfig = new GuiceApplicationBuilder()
+        // the following falls back to always set contact-frontend.host if not passed
+        .configure("platform.frontend.host" -> "tax.service.gov.uk")
+        .build()
+        .injector
+        .instanceOf[ContactFrontendConfig]
 
       val phaseBanner: PhaseBanner = standardBetaBanner()
       phaseBanner.content mustBe HtmlContent(
         "This is a new service. Help us improve it and <a class=\"govuk-link\" href=" +
-          "\"/contact/beta-feedback\" target=\"_blank\">give your feedback (opens in new tab)</a>."
+          "\"tax.service.gov.uk/contact/beta-feedback?referrerUrl=tax.service.gov.uk%2F\" target=\"_blank\">give your feedback (opens in new tab)</a>."
       )
     }
   }
@@ -126,6 +130,28 @@ class StandardPhaseBannerSpec extends AnyWordSpec with Matchers with MessagesSup
           "This is a new service. Help us improve it and <a class=\"govuk-link\" href=\"/feedback\" target=\"_blank\">give your feedback (opens in new tab)</a>."
         ),
         classes = "govuk-!-display-none-print"
+      )
+    }
+  }
+
+  "PhaseBanner default links to contact frontend forms" must {
+    "propagate the use of service nav when enabled" in {
+      implicit val request: RequestHeader                   = FakeRequest("GET", "/help/terms-and-conditions")
+      implicit val configWhenEnabled: ContactFrontendConfig = new GuiceApplicationBuilder()
+        .configure(
+          "platform.frontend.host"                    -> "tax.service.gov.uk",
+          "contact-frontend.serviceId"                -> "my-service",
+          "play-frontend-hmrc.forceServiceNavigation" -> "true"
+        )
+        .build()
+        .injector
+        .instanceOf[ContactFrontendConfig]
+
+      val betaBanner = new StandardBetaBanner()
+
+      betaBanner().content mustBe HtmlContent(
+        "This is a new service. Help us improve it and <a class=\"govuk-link\" href=" +
+          "\"tax.service.gov.uk/contact/beta-feedback?service=my-service&amp;referrerUrl=tax.service.gov.uk%2Fhelp%2Fterms-and-conditions&amp;useServiceNav\" target=\"_blank\">give your feedback (opens in new tab)</a>."
       )
     }
   }
