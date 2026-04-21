@@ -33,8 +33,8 @@ class ContactFrontendConfig @Inject() (config: Configuration, serviceNavigationC
     Some(s"${platformHost
         .getOrElse("")}${pathWithQuerystring(request)}")
 
-  def useServiceNavQueryParam(implicit request: RequestHeader): Option[String] =
+  def useServiceNavigationQueryParam(implicit request: RequestHeader): Option[String] =
     Option.when(serviceNavigationConfig.forceServiceNavigation)(
-      ServiceNavCanBeControlledByQueryParam.useServiceNavQueryParam
+      ServiceNavigationCanBeControlledByQueryParam.useServiceNavigationQueryParam
     )
 }

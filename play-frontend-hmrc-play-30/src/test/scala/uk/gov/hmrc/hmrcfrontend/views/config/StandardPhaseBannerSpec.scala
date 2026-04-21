@@ -151,7 +151,7 @@ class StandardPhaseBannerSpec extends AnyWordSpec with Matchers with MessagesSup
 
       betaBanner().content mustBe HtmlContent(
         "This is a new service. Help us improve it and <a class=\"govuk-link\" href=" +
-          "\"tax.service.gov.uk/contact/beta-feedback?service=my-service&amp;referrerUrl=tax.service.gov.uk%2Fhelp%2Fterms-and-conditions&amp;useServiceNav\" target=\"_blank\">give your feedback (opens in new tab)</a>."
+          "\"tax.service.gov.uk/contact/beta-feedback?service=my-service&amp;referrerUrl=tax.service.gov.uk%2Fhelp%2Fterms-and-conditions&amp;useServiceNavigation\" target=\"_blank\">give your feedback (opens in new tab)</a>."
       )
     }
   }

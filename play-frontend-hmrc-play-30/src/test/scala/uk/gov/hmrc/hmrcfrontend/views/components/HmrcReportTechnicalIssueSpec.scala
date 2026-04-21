@@ -35,7 +35,7 @@ class HmrcReportTechnicalIssueSpec extends TemplateUnitBaseSpec[ReportTechnicalI
       val html = component(ReportTechnicalIssue())(FakeRequest())
 
       html.select("a.hmrc-report-technical-issue").attr("href") shouldNot endWith(
-        "&useServiceNav"
+        "&useServiceNavigation"
       )
     }
 
@@ -50,7 +50,7 @@ class HmrcReportTechnicalIssueSpec extends TemplateUnitBaseSpec[ReportTechnicalI
       val html = componentWhenEnabled(ReportTechnicalIssue())(FakeRequest())
 
       html.select("a.hmrc-report-technical-issue").attr("href") should endWith(
-        "&useServiceNav"
+        "&useServiceNavigation"
       )
     }
   }

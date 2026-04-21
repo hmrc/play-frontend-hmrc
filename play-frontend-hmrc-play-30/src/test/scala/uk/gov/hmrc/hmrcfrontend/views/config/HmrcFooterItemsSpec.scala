@@ -128,21 +128,21 @@ class HmrcFooterItemsSpec extends AnyWordSpec with Matchers with MessagesSupport
       ) mustBe Seq(
         FooterItem(
           Some("Cookies"),
-          Some("/help/cookies?useServiceNav")
+          Some("/help/cookies?useServiceNavigation")
         ),
         FooterItem(
           Some("Accessibility statement"),
           Some(
-            "https://www.example.com/accessibility-statement?useServiceNav"
+            "https://www.example.com/accessibility-statement?useServiceNavigation"
           )
         ),
         FooterItem(
           Some("Privacy policy"),
-          Some("/help/privacy?useServiceNav")
+          Some("/help/privacy?useServiceNavigation")
         ),
         FooterItem(
           Some("Terms and conditions"),
-          Some("/help/terms-and-conditions?useServiceNav")
+          Some("/help/terms-and-conditions?useServiceNavigation")
         ),
         FooterItem(
           Some("Help using GOV.UK"),
@@ -223,21 +223,21 @@ class HmrcFooterItemsSpec extends AnyWordSpec with Matchers with MessagesSupport
       hmrcFooterItems.get mustBe Seq(
         FooterItem(
           Some("Cookies"),
-          Some("/help/cookies?useServiceNav")
+          Some("/help/cookies?useServiceNavigation")
         ),
         FooterItem(
           Some("Accessibility statement"),
           Some(
-            "https://www.tax.service.gov.uk/accessibility-statement/bar?referrerUrl=https%3A%2F%2Fwww.tax.service.gov.uk%2Ffoo&useServiceNav"
+            "https://www.tax.service.gov.uk/accessibility-statement/bar?referrerUrl=https%3A%2F%2Fwww.tax.service.gov.uk%2Ffoo&useServiceNavigation"
           )
         ),
         FooterItem(
           Some("Privacy policy"),
-          Some("/help/privacy?useServiceNav")
+          Some("/help/privacy?useServiceNavigation")
         ),
         FooterItem(
           Some("Terms and conditions"),
-          Some("/help/terms-and-conditions?useServiceNav")
+          Some("/help/terms-and-conditions?useServiceNavigation")
         ),
         FooterItem(
           Some("Help using GOV.UK"),

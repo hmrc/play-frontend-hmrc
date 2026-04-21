@@ -21,32 +21,32 @@ import org.scalatest.wordspec.AnyWordSpec
 import org.scalatestplus.play.guice.GuiceOneAppPerSuite
 import play.api.test.FakeRequest
 
-class ServiceNavCanBeControlledByQueryParamSpec extends AnyWordSpec with Matchers with GuiceOneAppPerSuite {
+class ServiceNavigationCanBeControlledByQueryParamSpec extends AnyWordSpec with Matchers with GuiceOneAppPerSuite {
 
   "forceServiceNavigation" should {
-    val config = app.injector.instanceOf[ServiceNavCanBeControlledByQueryParam]
+    val config = app.injector.instanceOf[ServiceNavigationCanBeControlledByQueryParam]
 
     "return true" when {
-      "url contains useServiceNav" in {
-        config.forceServiceNavigation(FakeRequest("GET", "/test?useServiceNav")) shouldBe true
+      "url contains useServiceNavigation" in {
+        config.forceServiceNavigation(FakeRequest("GET", "/test?useServiceNavigation")) shouldBe true
       }
 
-      "url contains useServiceNav=true" in {
-        config.forceServiceNavigation(FakeRequest("GET", "/test?useServiceNav=true")) shouldBe true
+      "url contains useServiceNavigation=true" in {
+        config.forceServiceNavigation(FakeRequest("GET", "/test?useServiceNavigation=true")) shouldBe true
       }
 
-      "url contains useServiceNav=false - because it's not a boolean, it's based on presence" in {
-        config.forceServiceNavigation(FakeRequest("GET", "/test?useServiceNav=false")) shouldBe true
+      "url contains useServiceNavigation=false - because it's not a boolean, it's based on presence" in {
+        config.forceServiceNavigation(FakeRequest("GET", "/test?useServiceNavigation=false")) shouldBe true
       }
     }
 
     "return false" when {
-      "url does not contain useServiceNav" in {
+      "url does not contain useServiceNavigation" in {
         config.forceServiceNavigation(FakeRequest("GET", "/test")) shouldBe false
       }
 
-      "url contains urlServiceNavigation - because it should match exactly only" in {
-        config.forceServiceNavigation(FakeRequest("GET", "/test?useServiceNavigation")) shouldBe false
+      "url contains urlServiceNavigationPlease - because it should match exactly only" in {
+        config.forceServiceNavigation(FakeRequest("GET", "/test?urlServiceNavigationPlease")) shouldBe false
       }
     }
   }

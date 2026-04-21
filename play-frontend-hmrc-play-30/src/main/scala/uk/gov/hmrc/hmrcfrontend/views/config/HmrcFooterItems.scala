@@ -24,7 +24,7 @@ import uk.gov.hmrc.hmrcfrontend.config.{AccessibilityStatementConfig, ServiceNav
 
 class HmrcFooterItems @Inject() (
   accessibilityStatementConfig: AccessibilityStatementConfig,
-  serviceNavUsage: ServiceNavigationConfig
+  serviceNavigationUsage: ServiceNavigationConfig
 ) {
   def get(implicit messages: Messages, request: RequestHeader): Seq[FooterItem] =
     getWithAccessibilityStatementUrl(None)
@@ -33,10 +33,10 @@ class HmrcFooterItems @Inject() (
     accessibilityStatementUrl: Option[String]
   )(implicit messages: Messages, request: RequestHeader): Seq[FooterItem] =
     Seq(
-      propagatingServiceNavUsageViaQueryParam(footerItemForKey("cookies")),
-      propagatingServiceNavUsageViaQueryParam(accessibilityLink(accessibilityStatementUrl)),
-      propagatingServiceNavUsageViaQueryParam(footerItemForKey("privacy")),
-      propagatingServiceNavUsageViaQueryParam(footerItemForKey("termsConditions")),
+      propagatingServiceNavigationUsageViaQueryParam(footerItemForKey("cookies")),
+      propagatingServiceNavigationUsageViaQueryParam(accessibilityLink(accessibilityStatementUrl)),
+      propagatingServiceNavigationUsageViaQueryParam(footerItemForKey("privacy")),
+      propagatingServiceNavigationUsageViaQueryParam(footerItemForKey("termsConditions")),
       footerItemForKey("govukHelp"),
       footerItemForKey("contact"),
       footerItemForKey("welshHelp", attributes = Map("lang" -> "cy", "hreflang" -> "cy"))
@@ -60,12 +60,12 @@ class HmrcFooterItems @Inject() (
       )
     )
 
-  private def propagatingServiceNavUsageViaQueryParam(
+  private def propagatingServiceNavigationUsageViaQueryParam(
     footerItem: Option[FooterItem]
   )(implicit request: RequestHeader): Option[FooterItem] =
     footerItem.map(item =>
       item.copy(
-        href = item.href.map(serviceNavUsage.propagateViaQueryParam)
+        href = item.href.map(serviceNavigationUsage.propagateViaQueryParam)
       )
     )
 }

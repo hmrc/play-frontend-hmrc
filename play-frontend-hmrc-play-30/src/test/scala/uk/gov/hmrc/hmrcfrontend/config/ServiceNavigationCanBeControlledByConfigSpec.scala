@@ -23,7 +23,7 @@ import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.mvc.RequestHeader
 import play.api.test.FakeRequest
 
-class ServiceNavCanBeControlledByConfigSpec extends AnyWordSpec with Matchers {
+class ServiceNavigationCanBeControlledByConfigSpec extends AnyWordSpec with Matchers {
 
   def buildApp(conf: Map[String, String]): Application =
     new GuiceApplicationBuilder()
@@ -36,7 +36,7 @@ class ServiceNavCanBeControlledByConfigSpec extends AnyWordSpec with Matchers {
     "return true" when {
       "feature flag is true" in {
         val app    = buildApp(Map("play-frontend-hmrc.forceServiceNavigation" -> "true"))
-        val config = app.injector.instanceOf[ServiceNavCanBeControlledByConfig]
+        val config = app.injector.instanceOf[ServiceNavigationCanBeControlledByConfig]
 
         config.forceServiceNavigation shouldBe true
       }
@@ -45,14 +45,14 @@ class ServiceNavCanBeControlledByConfigSpec extends AnyWordSpec with Matchers {
     "return false" when {
       "feature flag is not presented" in {
         val app    = buildApp(Map.empty)
-        val config = app.injector.instanceOf[ServiceNavCanBeControlledByConfig]
+        val config = app.injector.instanceOf[ServiceNavigationCanBeControlledByConfig]
 
         config.forceServiceNavigation shouldBe false
       }
 
       "feature flag is false" in {
         val app    = buildApp(Map("play-frontend-hmrc.forceServiceNavigation" -> "false"))
-        val config = app.injector.instanceOf[ServiceNavCanBeControlledByConfig]
+        val config = app.injector.instanceOf[ServiceNavigationCanBeControlledByConfig]
 
         config.forceServiceNavigation shouldBe false
       }

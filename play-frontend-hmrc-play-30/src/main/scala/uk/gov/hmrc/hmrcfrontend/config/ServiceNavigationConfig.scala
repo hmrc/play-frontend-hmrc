@@ -20,9 +20,9 @@ import play.api.Configuration
 import play.api.mvc.RequestHeader
 import play.api.inject._
 import play.api.libs.typedmap.TypedKey
-import ServiceNavCanBeControlledByRequestAttr.UseServiceNav
-import ServiceNavCanBeControlledByQueryParam.useServiceNavQueryParam
-import ServiceNavCanBeControlledByConfig.useServiceNavConfigKey
+import ServiceNavigationCanBeControlledByRequestAttr.UseServiceNavigation
+import ServiceNavigationCanBeControlledByQueryParam.useServiceNavigationQueryParam
+import ServiceNavigationCanBeControlledByConfig.useServiceNavigationConfigKey
 
 import javax.inject.{Inject, Singleton}
 
@@ -37,7 +37,7 @@ trait ServiceNavigationConfig {
       if (queryParamAlreadySetIn(queryString)) url
       else {
         val separator = if (queryString.isEmpty) "?" else "&"
-        s"$withoutQuery$queryString$separator$useServiceNavQueryParam$urlFragment"
+        s"$withoutQuery$queryString$separator$useServiceNavigationQueryParam$urlFragment"
       }
     }
 
@@ -45,59 +45,59 @@ trait ServiceNavigationConfig {
     queryString
       .stripPrefix("?")
       .split("&")
-      .exists(p => p == useServiceNavQueryParam || p.startsWith(s"$useServiceNavQueryParam="))
+      .exists(p => p == useServiceNavigationQueryParam || p.startsWith(s"$useServiceNavigationQueryParam="))
 }
 
 @Singleton
-class ServiceNavCanBeControlledByRequestAttr @Inject() (config: Configuration) extends ServiceNavigationConfig {
+class ServiceNavigationCanBeControlledByRequestAttr @Inject() (config: Configuration) extends ServiceNavigationConfig {
   // To allow incremental migration of services while maintaining accessibility
 
-  private val determinedByConfig: Boolean = config.get[Boolean](useServiceNavConfigKey)
+  private val determinedByConfig: Boolean = config.get[Boolean](useServiceNavigationConfigKey)
 
   override def forceServiceNavigation(implicit request: RequestHeader): Boolean =
-    request.attrs.get(UseServiceNav).getOrElse(determinedByConfig)
+    request.attrs.get(UseServiceNavigation).getOrElse(determinedByConfig)
 }
 
-object ServiceNavCanBeControlledByRequestAttr {
-  val UseServiceNav: TypedKey[Boolean] = TypedKey[Boolean]("UseServiceNav")
+object ServiceNavigationCanBeControlledByRequestAttr {
+  val UseServiceNavigation: TypedKey[Boolean] = TypedKey[Boolean]("UseServiceNavigation")
 }
 
 @Singleton
-class ServiceNavCanBeControlledByQueryParam @Inject() () extends ServiceNavigationConfig {
+class ServiceNavigationCanBeControlledByQueryParam @Inject() () extends ServiceNavigationConfig {
   // To allow incremental migration of services while maintaining accessibility
 
   override def forceServiceNavigation(implicit request: RequestHeader): Boolean =
-    request.queryString.contains(useServiceNavQueryParam)
+    request.queryString.contains(useServiceNavigationQueryParam)
 }
 
-object ServiceNavCanBeControlledByQueryParam {
-  val useServiceNavQueryParam = "useServiceNav"
+object ServiceNavigationCanBeControlledByQueryParam {
+  val useServiceNavigationQueryParam = "useServiceNavigation"
 }
 
 @Singleton
-class ServiceNavCanBeControlledByConfig @Inject() (config: Configuration) extends ServiceNavigationConfig {
+class ServiceNavigationCanBeControlledByConfig @Inject() (config: Configuration) extends ServiceNavigationConfig {
   // To make it easier to coordinate releases during migration
 
-  private val determinedByConfig = config.get[Boolean](useServiceNavConfigKey)
+  private val determinedByConfig = config.get[Boolean](useServiceNavigationConfigKey)
 
   override def forceServiceNavigation(implicit request: RequestHeader): Boolean = determinedByConfig
 }
 
-object ServiceNavCanBeControlledByConfig {
-  val useServiceNavConfigKey = "play-frontend-hmrc.forceServiceNavigation"
+object ServiceNavigationCanBeControlledByConfig {
+  val useServiceNavigationConfigKey = "play-frontend-hmrc.forceServiceNavigation"
 }
 
-class ServiceNavCanBeControlledByRequestAttrModule
+class ServiceNavigationCanBeControlledByRequestAttrModule
     extends SimpleModule(
-      bind[ServiceNavigationConfig].to[ServiceNavCanBeControlledByRequestAttr]
+      bind[ServiceNavigationConfig].to[ServiceNavigationCanBeControlledByRequestAttr]
     )
 
-class ServiceNavCanBeControlledByQueryParamModule
+class ServiceNavigationCanBeControlledByQueryParamModule
     extends SimpleModule(
-      bind[ServiceNavigationConfig].to[ServiceNavCanBeControlledByQueryParam]
+      bind[ServiceNavigationConfig].to[ServiceNavigationCanBeControlledByQueryParam]
     )
 
-class DefaultServiceNavConfigModule
+class DefaultServiceNavigationConfigModule
     extends SimpleModule(
-      bind[ServiceNavigationConfig].to[ServiceNavCanBeControlledByConfig]
+      bind[ServiceNavigationConfig].to[ServiceNavigationCanBeControlledByConfig]
     )

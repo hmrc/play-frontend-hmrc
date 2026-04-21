@@ -22,7 +22,7 @@ import javax.inject.Inject
 import play.api.Configuration
 import play.api.mvc.RequestHeader
 
-class AccessibilityStatementConfig @Inject() (config: Configuration, serviceNavUsage: ServiceNavigationConfig) {
+class AccessibilityStatementConfig @Inject() (config: Configuration, serviceNavigationUsage: ServiceNavigationConfig) {
   val platformHost: Option[String]                      =
     config.getOptional[String]("platform.frontend.host")
   val accessibilityStatementHost: Option[String]        =
@@ -37,7 +37,7 @@ class AccessibilityStatementConfig @Inject() (config: Configuration, serviceNavU
       host        <- accessibilityStatementHost
       path        <- accessibilityStatementPath
       servicePath <- accessibilityStatementServicePath
-    } yield serviceNavUsage.propagateViaQueryParam(s"$host$path$servicePath$query")
+    } yield serviceNavigationUsage.propagateViaQueryParam(s"$host$path$servicePath$query")
 
   private def query(implicit request: RequestHeader): String = {
     val referrerUrl = URLEncoder.encode(s"${platformHost.getOrElse("")}${pathWithQuerystring(request)}", "UTF-8")

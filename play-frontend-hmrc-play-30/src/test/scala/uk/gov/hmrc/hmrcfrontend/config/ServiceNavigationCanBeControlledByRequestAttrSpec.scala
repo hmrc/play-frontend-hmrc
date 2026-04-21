@@ -22,51 +22,51 @@ import org.scalatestplus.play.guice.GuiceOneAppPerSuite
 import play.api.inject.guice.GuiceApplicationBuilder
 import play.api.libs.typedmap.TypedMap
 import play.api.test.FakeRequest
-import uk.gov.hmrc.hmrcfrontend.config.ServiceNavCanBeControlledByRequestAttr.UseServiceNav
+import uk.gov.hmrc.hmrcfrontend.config.ServiceNavigationCanBeControlledByRequestAttr.UseServiceNavigation
 
-class ServiceNavCanBeControlledByRequestAttrSpec extends AnyWordSpec with Matchers with GuiceOneAppPerSuite {
+class ServiceNavigationCanBeControlledByRequestAttrSpec extends AnyWordSpec with Matchers with GuiceOneAppPerSuite {
 
   "forceServiceNavigation" should {
-    val config = app.injector.instanceOf[ServiceNavCanBeControlledByRequestAttr]
+    val config = app.injector.instanceOf[ServiceNavigationCanBeControlledByRequestAttr]
 
     "return true" when {
-      "UseServiceNav request attr is true" in {
+      "UseServiceNavigation request attr is true" in {
         config.forceServiceNavigation(
           FakeRequest().withAttrs(
             TypedMap(
-              UseServiceNav -> true
+              UseServiceNavigation -> true
             )
           )
         ) shouldBe true
       }
 
-      "UseServiceNav request attr is not set, but the default has been overridden to true" in {
+      "UseServiceNavigation request attr is not set, but the default has been overridden to true" in {
         val configEnabledByDefault = new GuiceApplicationBuilder()
           .configure("play-frontend-hmrc.forceServiceNavigation" -> "true")
           .build()
           .injector
-          .instanceOf[ServiceNavCanBeControlledByRequestAttr]
+          .instanceOf[ServiceNavigationCanBeControlledByRequestAttr]
 
         configEnabledByDefault.forceServiceNavigation(FakeRequest()) shouldBe true
       }
     }
 
     "return false" when {
-      "UseServiceNav request attr is not set, and the default has not been overridden" in {
+      "UseServiceNavigation request attr is not set, and the default has not been overridden" in {
         config.forceServiceNavigation(FakeRequest()) shouldBe false
       }
 
-      "the default has been overridden to true, but UseServiceNav request attr is explicitly false" in {
+      "the default has been overridden to true, but UseServiceNavigation request attr is explicitly false" in {
         val configEnabledByDefault = new GuiceApplicationBuilder()
           .configure("play-frontend-hmrc.forceServiceNavigation" -> "true")
           .build()
           .injector
-          .instanceOf[ServiceNavCanBeControlledByRequestAttr]
+          .instanceOf[ServiceNavigationCanBeControlledByRequestAttr]
 
         configEnabledByDefault.forceServiceNavigation(
           FakeRequest().withAttrs(
             TypedMap(
-              UseServiceNav -> false
+              UseServiceNavigation -> false
             )
           )
         ) shouldBe false
