@@ -8,7 +8,29 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 For compatibility information see `govukFrontendVersion` and `hmrcFrontendVersion` in
 [LibDependencies](project/LibDependencies.scala)
 
-## [12.33.0] - 2026-02-26
+## [12.32.1] - 2026-04-21
+
+### Changed
+
+- propagate use of service nav via query params on links to common platform services
+- this is a patch to previous major version to introduce a fix for an accessibility issue
+- while it's a patch version it changes the api slightly of 3 things, which now require an 
+  implicit request header in scope:
+  - hmrc language select component
+  - hmrc report technical issue component
+  - service navigation config
+- service navigation config has been refactored to an interface and some alternative
+  strategies for determining if service navigation should be used have been provided
+  to assist "embedded" services that may need to conditionally serve pages with and
+  without service navigation during the migration period.
+
+### Compatible with
+
+- [hmrc/hmrc-frontend v6.116.0](https://github.com/hmrc/hmrc-frontend/releases/tag/v6.111.0)
+- [alphagov/govuk-frontend v5.14.0](https://github.com/alphagov/govuk-frontend/releases/tag/v5.14.0)
+
+
+## [12.32.0] - 2026-02-26
 
 ### Changed
 
@@ -21,7 +43,7 @@ For compatibility information see `govukFrontendVersion` and `hmrcFrontendVersio
 - [hmrc/hmrc-frontend v6.116.0](https://github.com/hmrc/hmrc-frontend/releases/tag/v6.111.0)
 - [alphagov/govuk-frontend v5.14.0](https://github.com/alphagov/govuk-frontend/releases/tag/v5.14.0)
 
-## [12.32.0] - 2026-02-04
+## [12.31.0] - 2026-02-04
 
 ### Changed
 
@@ -33,7 +55,7 @@ For compatibility information see `govukFrontendVersion` and `hmrcFrontendVersio
 - [alphagov/govuk-frontend v5.14.0](https://github.com/alphagov/govuk-frontend/releases/tag/v5.14.0)
 
 
-## [12.31.0] - 2026-02-04
+## [12.30.0] - 2026-02-04
 
 ### Changed
 
@@ -48,7 +70,7 @@ For compatibility information see `govukFrontendVersion` and `hmrcFrontendVersio
 - [hmrc/hmrc-frontend v6.111.0](https://github.com/hmrc/hmrc-frontend/releases/tag/v6.111.0)
 - [alphagov/govuk-frontend v5.14.0](https://github.com/alphagov/govuk-frontend/releases/tag/v5.14.0)
 
-## [12.30.0] - 2026-01-22
+## [12.29.0] - 2026-01-22
 
 ### Changed
 
@@ -59,28 +81,18 @@ For compatibility information see `govukFrontendVersion` and `hmrcFrontendVersio
 - [hmrc/hmrc-frontend v6.111.0](https://github.com/hmrc/hmrc-frontend/releases/tag/v6.111.0)
 - [alphagov/govuk-frontend v5.14.0](https://github.com/alphagov/govuk-frontend/releases/tag/v5.14.0)
 
-## [12.29.0] - 2026-01-21
+## [12.28.0] - 2026-01-21
 
 ### Changed
 
 - Updated `govuk-frontend` to v5.14.0
 - Updated `hmrc-frontend` to v6.111.0
+- Added ADR relating to how we model optional properties in Scala viewmodels (documentation change only
 
 ### Compatible with
 
 - [hmrc/hmrc-frontend v6.111.0](https://github.com/hmrc/hmrc-frontend/releases/tag/v6.111.0)
 - [alphagov/govuk-frontend v5.14.0](https://github.com/alphagov/govuk-frontend/releases/tag/v5.14.0)
-
-## [12.28.0] - 2026-01-16
-
-### Changed
-
-- Added ADR relating to how we model optional properties in Scala viewmodels (documentation change only)
-
-### Compatible with
-
-- [hmrc/hmrc-frontend v6.107.0](https://github.com/hmrc/hmrc-frontend/releases/tag/v6.107.0)
-- [alphagov/govuk-frontend v5.13.0](https://github.com/alphagov/govuk-frontend/releases/tag/v5.13.0)
 
 ## [12.27.0] - 2026-01-13
 
