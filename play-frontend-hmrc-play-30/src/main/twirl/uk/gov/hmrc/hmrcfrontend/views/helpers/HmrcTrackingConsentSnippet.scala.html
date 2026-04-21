@@ -14,10 +14,10 @@
  * limitations under the License.
  *@
 
-@import uk.gov.hmrc.hmrcfrontend.config.TrackingConsentConfig
+@import uk.gov.hmrc.hmrcfrontend.config.{TrackingConsentConfig, ServiceNavigationConfig}
 @import views.html.helper.CSPNonce
 
-@this(trackingConsentConfig: TrackingConsentConfig)
+@this(trackingConsentConfig: TrackingConsentConfig, serviceNavConfig: ServiceNavigationConfig)
 
 @()(implicit request: RequestHeader, messages: Messages)
 @nonceAttribute = { @CSPNonce.attr }
@@ -29,6 +29,7 @@
     id="tracking-consent-script-tag"
     data-gtm-container="@trackingConsentConfig.gtmContainer"
     data-language="@messages.lang.code"
+    @if(serviceNavConfig.forceServiceNavigation) {data-use-service-nav}
   ></script>
   @trackingConsentConfig.optimizelyUrl.map { optimizelyUrl =>
     <script @nonceAttribute src='@optimizelyUrl'></script>

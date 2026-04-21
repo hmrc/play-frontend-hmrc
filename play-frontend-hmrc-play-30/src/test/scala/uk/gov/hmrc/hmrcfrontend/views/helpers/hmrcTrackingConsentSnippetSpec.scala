@@ -119,5 +119,41 @@ class TrackingConsentSnippetSpec
       scripts.get(0).attr("nonce") should be("")
       scripts.get(1).attr("nonce") should be("")
     }
+
+    "not have any data-use-service-nav attribute if it's not enabled" in {
+      val component = app.injector.instanceOf[HmrcTrackingConsentSnippet]
+
+      component()
+        .select("script#tracking-consent-script-tag")
+        .first()
+        .hasAttr("data-use-service-nav") shouldBe false
+    }
+
+    "propagate use of service nav via data attribute if it's enabled" in {
+      val component =
+        new GuiceApplicationBuilder()
+          .configure(
+            Map(
+              "optimizely.url"                            -> "https://cdn.optimizely.com/",
+              "optimizely.projectId"                      -> "1234567",
+              "tracking-consent-frontend.gtm.container"   -> "d",
+              "play-frontend-hmrc.forceServiceNavigation" -> "true"
+            )
+          )
+          .build()
+          .injector
+          .instanceOf[HmrcTrackingConsentSnippet]
+
+      // we can also fall back to detecting. However, there's the edge
+      // case that the current page has no service nav and because it's
+      // not got a language switcher or service name - so we wouldn't
+      // be able to detect it - but pages that do in the journey should
+      // be using it.
+
+      component()
+        .select("script#tracking-consent-script-tag")
+        .first()
+        .hasAttr("data-use-service-nav") shouldBe true
+    }
   }
 }
