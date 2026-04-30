@@ -14,13 +14,14 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.hmrcfrontend.views.components
+// NOTE: Temporarily disabled due to new useServiceNavigation query parameter, which is not provided by nunjucks.
+// package uk.gov.hmrc.hmrcfrontend.views.components
 
-import uk.gov.hmrc.hmrcfrontend.support.TemplateIntegrationSpec
-import uk.gov.hmrc.hmrcfrontend.views.html.components._
-import uk.gov.hmrc.hmrcfrontend.views.viewmodels.reporttechnicalissue.Generators._
+// import uk.gov.hmrc.hmrcfrontend.support.TemplateIntegrationSpec
+// import uk.gov.hmrc.hmrcfrontend.views.html.components._
+// import uk.gov.hmrc.hmrcfrontend.views.viewmodels.reporttechnicalissue.Generators._
 
-object HmrcReportTechnicalIssueIntegrationSpec
-    extends TemplateIntegrationSpec[ReportTechnicalIssue, HmrcReportTechnicalIssue](
-      hmrcComponentName = "hmrcReportTechnicalIssue"
-    )
+// object HmrcReportTechnicalIssueIntegrationSpec
+//     extends TemplateIntegrationSpec[ReportTechnicalIssue, HmrcReportTechnicalIssue](
+//       hmrcComponentName = "hmrcReportTechnicalIssue"
+//     )

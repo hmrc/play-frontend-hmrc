@@ -60,6 +60,25 @@ class hmrcReportTechnicalIssueHelperSpec
       )   shouldBe "https://www.tax.service.gov.uk/contact/report-technical-problem?service=online-payments&referrerUrl=https%3A%2F%2Fwww.tax.service.gov.uk%2Ffoo"
     }
 
+    "preserve useServiceNavigation on report technical issue links" in {
+      implicit val fakeRequest: Request[Any] = FakeRequest("GET", "/foo?useServiceNavigation")
+      implicit val app: Application          = buildApp(
+        Map(
+          "contact-frontend.serviceId" -> "online-payments",
+          "platform.frontend.host"     -> "https://www.tax.service.gov.uk"
+        )
+      )
+
+      val hmrcReportTechnicalIssueHelper = app.injector.instanceOf[HmrcReportTechnicalIssueHelper]
+      val content                        = contentAsString(hmrcReportTechnicalIssueHelper()(messages, fakeRequest))
+      val links                          = Jsoup.parse(content).select("a")
+
+      links should have size 1
+      links.first.attr(
+        "href"
+      )   shouldBe "https://www.tax.service.gov.uk/contact/report-technical-problem?service=online-payments&referrerUrl=https%3A%2F%2Fwww.tax.service.gov.uk%2Ffoo%3FuseServiceNavigation&useServiceNavigation"
+    }
+
     "use the platform host when both platform and contact-frontend hosts are set" in {
       implicit val fakeRequest: Request[Any] = FakeRequest("GET", "/foo")
       implicit val app: Application          = buildApp(

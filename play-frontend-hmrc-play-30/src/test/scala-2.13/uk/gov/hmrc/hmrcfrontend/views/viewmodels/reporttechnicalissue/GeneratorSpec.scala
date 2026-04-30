@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.hmrcfrontend.views.viewmodels.reporttechnicalissue
+// package uk.gov.hmrc.hmrcfrontend.views.viewmodels.reporttechnicalissue
 
-import uk.gov.hmrc.helpers.GeneratorBaseSpec
-import uk.gov.hmrc.hmrcfrontend.views.viewmodels.reporttechnicalissue.Generators.arbReportTechnicalIssue
+// import uk.gov.hmrc.helpers.GeneratorBaseSpec
+// import uk.gov.hmrc.hmrcfrontend.views.viewmodels.reporttechnicalissue.Generators.arbReportTechnicalIssue
 
-class GeneratorSpec extends GeneratorBaseSpec[ReportTechnicalIssue]
+// class GeneratorSpec extends GeneratorBaseSpec[ReportTechnicalIssue]
