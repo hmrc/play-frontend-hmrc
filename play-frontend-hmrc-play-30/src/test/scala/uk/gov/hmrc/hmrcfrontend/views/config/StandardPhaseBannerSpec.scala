@@ -93,7 +93,7 @@ class StandardPhaseBannerSpec extends AnyWordSpec with Matchers with MessagesSup
       val phaseBanner: PhaseBanner = standardBetaBanner()
       phaseBanner.content mustBe HtmlContent(
         "This is a new service. Help us improve it and <a class=\"govuk-link\" href=" +
-          "\"tax.service.gov.uk/contact/beta-feedback?service=my-service&amp;referrerUrl=%2Fhelp%2Fterms-and-conditions\" target=\"_blank\"" +
+          "\"tax.service.gov.uk/contact/beta-feedback?service=my-service&amp;referrerUrl=%2Fhelp%2Fterms-and-conditions&amp;useServiceNavigation\" target=\"_blank\"" +
           ">give your feedback (opens in new tab)</a>."
       )
     }
@@ -109,7 +109,7 @@ class StandardPhaseBannerSpec extends AnyWordSpec with Matchers with MessagesSup
       val phaseBanner: PhaseBanner = standardBetaBanner()
       phaseBanner.content mustBe HtmlContent(
         "This is a new service. Help us improve it and <a class=\"govuk-link\" href=" +
-          "\"/contact/beta-feedback\" target=\"_blank\">give your feedback (opens in new tab)</a>."
+          "\"/contact/beta-feedback?useServiceNavigation\" target=\"_blank\">give your feedback (opens in new tab)</a>."
       )
     }
   }

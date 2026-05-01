@@ -42,15 +42,15 @@ class HmrcFooterItemsSpec extends AnyWordSpec with Matchers with MessagesSupport
       hmrcFooterItems.get mustBe Seq(
         FooterItem(
           Some("Cookies"),
-          Some("/help/cookies")
+          Some("/help/cookies?useServiceNavigation")
         ),
         FooterItem(
           Some("Privacy policy"),
-          Some("/help/privacy")
+          Some("/help/privacy?useServiceNavigation")
         ),
         FooterItem(
           Some("Terms and conditions"),
-          Some("/help/terms-and-conditions")
+          Some("/help/terms-and-conditions?useServiceNavigation")
         ),
         FooterItem(
           Some("Help using GOV.UK"),
@@ -80,7 +80,7 @@ class HmrcFooterItemsSpec extends AnyWordSpec with Matchers with MessagesSupport
       ) mustBe Seq(
         FooterItem(
           Some("Cookies"),
-          Some("/help/cookies")
+          Some("/help/cookies?useServiceNavigation")
         ),
         FooterItem(
           Some("Accessibility statement"),
@@ -90,11 +90,11 @@ class HmrcFooterItemsSpec extends AnyWordSpec with Matchers with MessagesSupport
         ),
         FooterItem(
           Some("Privacy policy"),
-          Some("/help/privacy")
+          Some("/help/privacy?useServiceNavigation")
         ),
         FooterItem(
           Some("Terms and conditions"),
-          Some("/help/terms-and-conditions")
+          Some("/help/terms-and-conditions?useServiceNavigation")
         ),
         FooterItem(
           Some("Help using GOV.UK"),
@@ -127,7 +127,7 @@ class HmrcFooterItemsSpec extends AnyWordSpec with Matchers with MessagesSupport
       hmrcFooterItems.get mustBe Seq(
         FooterItem(
           Some("Cookies"),
-          Some("/help/cookies")
+          Some("/help/cookies?useServiceNavigation")
         ),
         FooterItem(
           Some("Accessibility statement"),
@@ -137,11 +137,11 @@ class HmrcFooterItemsSpec extends AnyWordSpec with Matchers with MessagesSupport
         ),
         FooterItem(
           Some("Privacy policy"),
-          Some("/help/privacy")
+          Some("/help/privacy?useServiceNavigation")
         ),
         FooterItem(
           Some("Terms and conditions"),
-          Some("/help/terms-and-conditions")
+          Some("/help/terms-and-conditions?useServiceNavigation")
         ),
         FooterItem(
           Some("Help using GOV.UK"),
@@ -170,15 +170,15 @@ class HmrcFooterItemsSpec extends AnyWordSpec with Matchers with MessagesSupport
       hmrcFooterItems.get mustBe Seq(
         FooterItem(
           Some("Cwcis"),
-          Some("/help/cookies")
+          Some("/help/cookies?useServiceNavigation")
         ),
         FooterItem(
           Some("Polisi preifatrwydd"),
-          Some("/help/privacy")
+          Some("/help/privacy?useServiceNavigation")
         ),
         FooterItem(
           Some("Telerau ac Amodau"),
-          Some("/help/terms-and-conditions")
+          Some("/help/terms-and-conditions?useServiceNavigation")
         ),
         FooterItem(
           Some("Help wrth ddefnyddio GOV.UK"),
@@ -212,7 +212,7 @@ class HmrcFooterItemsSpec extends AnyWordSpec with Matchers with MessagesSupport
       hmrcFooterItems.get mustBe Seq(
         FooterItem(
           Some("Cwcis"),
-          Some("/help/cookies")
+          Some("/help/cookies?useServiceNavigation")
         ),
         FooterItem(
           Some("Datganiad hygyrchedd"),
@@ -222,11 +222,11 @@ class HmrcFooterItemsSpec extends AnyWordSpec with Matchers with MessagesSupport
         ),
         FooterItem(
           Some("Polisi preifatrwydd"),
-          Some("/help/privacy")
+          Some("/help/privacy?useServiceNavigation")
         ),
         FooterItem(
           Some("Telerau ac Amodau"),
-          Some("/help/terms-and-conditions")
+          Some("/help/terms-and-conditions?useServiceNavigation")
         ),
         FooterItem(
           Some("Help wrth ddefnyddio GOV.UK"),

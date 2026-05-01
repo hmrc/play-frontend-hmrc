@@ -31,7 +31,8 @@ trait StandardPhaseBanner {
   ) = {
     val queryStringParams: Seq[String] = Seq(
       contactFrontendConfig.serviceId.map(id => "service=" + id),
-      contactFrontendConfig.referrerUrl.map(url => "referrerUrl=" + urlEncode(url))
+      contactFrontendConfig.referrerUrl.map(url => "referrerUrl=" + urlEncode(url)),
+      Some("useServiceNavigation")
     ).flatten
 
     val queryString = if (queryStringParams.isEmpty) "" else "?" + queryStringParams.mkString("&")
