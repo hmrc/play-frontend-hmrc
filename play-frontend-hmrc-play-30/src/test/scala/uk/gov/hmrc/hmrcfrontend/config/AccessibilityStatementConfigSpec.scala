@@ -41,7 +41,9 @@ class AccessibilityStatementConfigSpec extends AnyWordSpec with Matchers with Me
         )
       )
       val config                            = application.injector.instanceOf[AccessibilityStatementConfig]
-      config.url should equal(Some("http://localhost:12346/accessibility-statement/bar?referrerUrl=%2Ffoo%3Fbar%3Dbaz"))
+      config.url should equal(
+        Some("http://localhost:12346/accessibility-statement/bar?referrerUrl=%2Ffoo%3Fbar%3Dbaz&useServiceNavigation")
+      )
     }
 
     "return None if an accessibility-statement.service-path key does not exist in application.conf" in {
@@ -63,7 +65,7 @@ class AccessibilityStatementConfigSpec extends AnyWordSpec with Matchers with Me
       val config                            = application.injector.instanceOf[AccessibilityStatementConfig]
       config.url should equal(
         Some(
-          "https://www.tax.service.gov.uk/accessibility-statement/bar?referrerUrl=https%3A%2F%2Fwww.tax.service.gov.uk%2Ffoo%3Fbar%3Dbaz"
+          "https://www.tax.service.gov.uk/accessibility-statement/bar?referrerUrl=https%3A%2F%2Fwww.tax.service.gov.uk%2Ffoo%3Fbar%3Dbaz&useServiceNavigation"
         )
       )
     }
@@ -77,7 +79,9 @@ class AccessibilityStatementConfigSpec extends AnyWordSpec with Matchers with Me
           )
         )
       val config                            = application.injector.instanceOf[AccessibilityStatementConfig]
-      config.url should equal(Some("http://localhost:12346/accessibility-statement/bar?referrerUrl=%2Ffoo%3Fbar%3Dbaz"))
+      config.url should equal(
+        Some("http://localhost:12346/accessibility-statement/bar?referrerUrl=%2Ffoo%3Fbar%3Dbaz&useServiceNavigation")
+      )
     }
   }
 }

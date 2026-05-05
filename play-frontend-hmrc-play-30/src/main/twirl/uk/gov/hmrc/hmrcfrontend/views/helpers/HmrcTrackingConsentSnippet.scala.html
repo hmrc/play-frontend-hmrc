@@ -29,6 +29,7 @@
     id="tracking-consent-script-tag"
     data-gtm-container="@trackingConsentConfig.gtmContainer"
     data-language="@messages.lang.code"
+    data-use-service-nav
   ></script>
   @trackingConsentConfig.optimizelyUrl.map { optimizelyUrl =>
     <script @nonceAttribute src='@optimizelyUrl'></script>

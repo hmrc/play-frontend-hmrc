@@ -57,7 +57,26 @@ class hmrcReportTechnicalIssueHelperSpec
       links should have size 1
       links.first.attr(
         "href"
-      )   shouldBe "https://www.tax.service.gov.uk/contact/report-technical-problem?service=online-payments&referrerUrl=https%3A%2F%2Fwww.tax.service.gov.uk%2Ffoo"
+      )   shouldBe "https://www.tax.service.gov.uk/contact/report-technical-problem?service=online-payments&referrerUrl=https%3A%2F%2Fwww.tax.service.gov.uk%2Ffoo&useServiceNavigation"
+    }
+
+    "preserve useServiceNavigation on report technical issue links" in {
+      implicit val fakeRequest: Request[Any] = FakeRequest("GET", "/foo?useServiceNavigation")
+      implicit val app: Application          = buildApp(
+        Map(
+          "contact-frontend.serviceId" -> "online-payments",
+          "platform.frontend.host"     -> "https://www.tax.service.gov.uk"
+        )
+      )
+
+      val hmrcReportTechnicalIssueHelper = app.injector.instanceOf[HmrcReportTechnicalIssueHelper]
+      val content                        = contentAsString(hmrcReportTechnicalIssueHelper()(messages, fakeRequest))
+      val links                          = Jsoup.parse(content).select("a")
+
+      links should have size 1
+      links.first.attr(
+        "href"
+      )   shouldBe "https://www.tax.service.gov.uk/contact/report-technical-problem?service=online-payments&referrerUrl=https%3A%2F%2Fwww.tax.service.gov.uk%2Ffoo%3FuseServiceNavigation&useServiceNavigation"
     }
 
     "use the platform host when both platform and contact-frontend hosts are set" in {
@@ -77,7 +96,7 @@ class hmrcReportTechnicalIssueHelperSpec
       links should have size 1
       links.first.attr(
         "href"
-      )   shouldBe "https://www.tax.service.gov.uk/contact/report-technical-problem?service=online-payments&referrerUrl=https%3A%2F%2Fwww.tax.service.gov.uk%2Ffoo"
+      )   shouldBe "https://www.tax.service.gov.uk/contact/report-technical-problem?service=online-payments&referrerUrl=https%3A%2F%2Fwww.tax.service.gov.uk%2Ffoo&useServiceNavigation"
     }
 
     "use contact-frontend host if platform host is not set" in {
@@ -96,7 +115,7 @@ class hmrcReportTechnicalIssueHelperSpec
       links should have size 1
       links.first.attr(
         "href"
-      )   shouldBe "http://localhost:9999/contact/report-technical-problem?service=online-payments&referrerUrl=%2Ffoo"
+      )   shouldBe "http://localhost:9999/contact/report-technical-problem?service=online-payments&referrerUrl=%2Ffoo&useServiceNavigation"
     }
 
     "display link in English by default" in {
