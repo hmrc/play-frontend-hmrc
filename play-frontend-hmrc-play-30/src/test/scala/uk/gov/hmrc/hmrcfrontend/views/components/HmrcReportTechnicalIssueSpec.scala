@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-// NOTE: Temporarily disabled due to new useServiceNavigation query parameter, which is not provided by nunjucks.
+// TODO: Temporarily disabled due to new useServiceNavigation query parameter, which is not provided by nunjucks.
 // package uk.gov.hmrc.hmrcfrontend.views
 // package components
 
