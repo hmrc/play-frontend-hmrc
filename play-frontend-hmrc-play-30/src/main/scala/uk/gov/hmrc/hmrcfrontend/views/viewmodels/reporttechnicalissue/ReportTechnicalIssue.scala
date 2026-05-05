@@ -25,8 +25,7 @@ case class ReportTechnicalIssue(
   language: Language = En,
   classes: Option[String] = None,
   referrerUrl: Option[String] = None,
-  baseUrl: Option[String] = None,
-  useServiceNavigation: Boolean = false
+  baseUrl: Option[String] = None
 )
 
 object ReportTechnicalIssue {
