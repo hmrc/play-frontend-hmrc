@@ -41,6 +41,6 @@ class AccessibilityStatementConfig @Inject() (config: Configuration) {
 
   private def query(implicit request: RequestHeader): String = {
     val referrerUrl = URLEncoder.encode(s"${platformHost.getOrElse("")}${pathWithQuerystring(request)}", "UTF-8")
-    s"?referrerUrl=$referrerUrl"
+    s"?referrerUrl=$referrerUrl&useServiceNavigation"
   }
 }

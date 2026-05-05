@@ -26,7 +26,6 @@
         serviceId = serviceId,
         language = if(messages.lang.code == "cy") Cy else En,
         referrerUrl = contactFrontendConfig.referrerUrl,
-        baseUrl = contactFrontendConfig.baseUrl,
-        useServiceNavigation = request.getQueryString("useServiceNavigation").isDefined
+        baseUrl = contactFrontendConfig.baseUrl
     ))
 }

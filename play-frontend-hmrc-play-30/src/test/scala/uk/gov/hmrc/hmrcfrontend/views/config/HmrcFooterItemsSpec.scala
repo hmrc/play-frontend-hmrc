@@ -132,7 +132,7 @@ class HmrcFooterItemsSpec extends AnyWordSpec with Matchers with MessagesSupport
         FooterItem(
           Some("Accessibility statement"),
           Some(
-            "https://www.tax.service.gov.uk/accessibility-statement/bar?referrerUrl=https%3A%2F%2Fwww.tax.service.gov.uk%2Ffoo"
+            "https://www.tax.service.gov.uk/accessibility-statement/bar?referrerUrl=https%3A%2F%2Fwww.tax.service.gov.uk%2Ffoo&useServiceNavigation"
           )
         ),
         FooterItem(
@@ -217,7 +217,7 @@ class HmrcFooterItemsSpec extends AnyWordSpec with Matchers with MessagesSupport
         FooterItem(
           Some("Datganiad hygyrchedd"),
           Some(
-            "https://www.tax.service.gov.uk/accessibility-statement/bar?referrerUrl=https%3A%2F%2Fwww.tax.service.gov.uk%2Ffoo"
+            "https://www.tax.service.gov.uk/accessibility-statement/bar?referrerUrl=https%3A%2F%2Fwww.tax.service.gov.uk%2Ffoo&useServiceNavigation"
           )
         ),
         FooterItem(

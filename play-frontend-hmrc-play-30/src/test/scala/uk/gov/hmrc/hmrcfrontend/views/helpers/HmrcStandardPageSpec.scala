@@ -283,7 +283,9 @@ class HmrcStandardPageSpec
 
       val footerLinks: Elements = document.select(".govuk-footer__link")
       footerLinks
-        .select("a[href=\"http://localhost:12346/accessibility-statement/test-service-path?referrerUrl=%2Ffoo\"]")
+        .select(
+          "a[href=\"http://localhost:12346/accessibility-statement/test-service-path?referrerUrl=%2Ffoo&useServiceNavigation\"]"
+        )
         .text() should be("Accessibility statement")
     }
 

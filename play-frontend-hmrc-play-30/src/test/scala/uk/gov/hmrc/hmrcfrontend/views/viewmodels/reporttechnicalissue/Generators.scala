@@ -14,31 +14,31 @@
  * limitations under the License.
  */
 
-// package uk.gov.hmrc.hmrcfrontend.views.viewmodels.reporttechnicalissue
+package uk.gov.hmrc.hmrcfrontend.views.viewmodels.reporttechnicalissue
 
-// import org.scalacheck.{Arbitrary, Gen}
-// import uk.gov.hmrc.hmrcfrontend.views.viewmodels.Generators._
-// import uk.gov.hmrc.hmrcfrontend.views.viewmodels.language.Generators.arbLanguage
+import org.scalacheck.{Arbitrary, Gen}
+import uk.gov.hmrc.hmrcfrontend.views.viewmodels.Generators._
+import uk.gov.hmrc.hmrcfrontend.views.viewmodels.language.Generators.arbLanguage
 
-// object Generators {
+object Generators {
 
-//   implicit val arbReportTechnicalIssue: Arbitrary[ReportTechnicalIssue] = Arbitrary {
-//     for {
-//       serviceId            <- genAlphaStr()
-//       serviceCode          <- genNonEmptyAlphaStr
-//       language             <- arbLanguage.arbitrary
-//       classes              <- Gen.option(genClasses())
-//       baseUrl              <- Gen.option(genAlphaStr())
-//       referrerUrl          <- Gen.option(genAlphaStr())
-//       useServiceNavigation <- Gen.oneOf(true, false)
-//     } yield ReportTechnicalIssue(
-//       serviceId = serviceId,
-//       serviceCode = serviceCode,
-//       language = language,
-//       classes = classes,
-//       baseUrl = baseUrl,
-//       referrerUrl = referrerUrl,
-//       useServiceNavigation = useServiceNavigation
-//     )
-//   }
-// }
+  implicit val arbReportTechnicalIssue: Arbitrary[ReportTechnicalIssue] = Arbitrary {
+    for {
+      serviceId            <- genAlphaStr()
+      serviceCode          <- genNonEmptyAlphaStr
+      language             <- arbLanguage.arbitrary
+      classes              <- Gen.option(genClasses())
+      baseUrl              <- Gen.option(genAlphaStr())
+      referrerUrl          <- Gen.option(genAlphaStr())
+      useServiceNavigation <- Gen.oneOf(true, false)
+    } yield ReportTechnicalIssue(
+      serviceId = serviceId,
+      serviceCode = serviceCode,
+      language = language,
+      classes = classes,
+      baseUrl = baseUrl,
+      referrerUrl = referrerUrl,
+      useServiceNavigation = useServiceNavigation
+    )
+  }
+}
