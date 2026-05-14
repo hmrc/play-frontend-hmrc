@@ -8,6 +8,17 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 For compatibility information see `govukFrontendVersion` and `hmrcFrontendVersion` in
 [LibDependencies](project/LibDependencies.scala)
 
+## [13.6.0] - 2026-05-14
+
+### Changed
+
+- Uplifted `hmrc-frontend` to v7.14.0 to include small fix to `accessible-autocomplete` when clicking without closing drop-down
+
+### Compatible with
+
+- [hmrc/hmrc-frontend v7.14.0](https://github.com/hmrc/hmrc-frontend/releases/tag/v7.14.0)
+- [alphagov/govuk-frontend v6.1.0](https://github.com/alphagov/govuk-frontend/releases/tag/v6.1.0)
+
 ## [13.5.0] - 2026-05-05
 
 ### Changed
