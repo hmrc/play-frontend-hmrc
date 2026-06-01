@@ -13,10 +13,11 @@ For compatibility information see `govukFrontendVersion` and `hmrcFrontendVersio
 ### Changed
 
 - Updated the HmrcHeader viewmodel to allow UserResearchBanner to pass through the hideCloseButton parameter
+- Uplifted `hmrc-frontend` to v7.18.0
 
 ### Compatible with
 
-- [hmrc/hmrc-frontend v7.15.0](https://github.com/hmrc/hmrc-frontend/releases/tag/v7.15.0)
+- [hmrc/hmrc-frontend v7.18.0](https://github.com/hmrc/hmrc-frontend/releases/tag/v7.18.0)
 - [alphagov/govuk-frontend v6.1.0](https://github.com/alphagov/govuk-frontend/releases/tag/v6.1.0)
 
 ## [13.7.0] - 2026-05-18
