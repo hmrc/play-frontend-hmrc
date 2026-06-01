@@ -8,7 +8,18 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 For compatibility information see `govukFrontendVersion` and `hmrcFrontendVersion` in
 [LibDependencies](project/LibDependencies.scala)
 
-## [13.6.0] - 2026-05-18
+## [13.8.0] - 2026-06-01
+
+### Changed
+
+- Updated the HmrcHeader viewmodel to allow UserResearchBanner to pass through the hideCloseButton parameter
+
+### Compatible with
+
+- [hmrc/hmrc-frontend v7.15.0](https://github.com/hmrc/hmrc-frontend/releases/tag/v7.15.0)
+- [alphagov/govuk-frontend v6.1.0](https://github.com/alphagov/govuk-frontend/releases/tag/v6.1.0)
+
+## [13.7.0] - 2026-05-18
 
 ### Changed
 
