@@ -82,7 +82,7 @@
         @govukPhaseBanner(pb)
     }
     @params.banners.userResearchBanner.map { urb =>
-        @hmrcUserResearchBanner(UserResearchBanner(language, urb.url))
+        @hmrcUserResearchBanner(urb.copy(language = language))
     }
     @params.banners.additionalBannersBlock
 </header>

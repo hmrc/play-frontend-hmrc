@@ -47,13 +47,26 @@ class HmrcHeaderSpec extends TemplateUnitBaseSpec[HeaderParams]("hmrcHeader") wi
       .build()
 
   "header" should {
-    """display Tudor crown""" in {
+    "display Tudor crown" in {
       val hmrcHeader = app.injector.instanceOf[HmrcHeader]
 
       val componentTry = Try(hmrcHeader(Header()))
 
       componentTry.isSuccess shouldBe true
       componentTry.get.body    should include("M33.1,9.8c.2")
+    }
+
+    "not render the User Research Banner close button when hideCloseButton is true" in {
+      val html = render(
+        HeaderParams(
+          banners = Banners(
+            userResearchBanner = Some(UserResearchBanner(url = "/some-research-url", hideCloseButton = true))
+          )
+        )
+      ).get.body
+
+      html should include("hmrc-user-research-banner__link")
+      html shouldNot include("hmrc-user-research-banner__close")
     }
   }
 
