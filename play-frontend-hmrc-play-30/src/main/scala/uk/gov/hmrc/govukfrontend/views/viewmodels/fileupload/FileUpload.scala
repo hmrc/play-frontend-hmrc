@@ -55,7 +55,9 @@ case class FileUpload(
   multipleFilesChosenText: Option[FileUploadMultipleFilesMessages] = None,
   noFileChosenText: Option[String] = None,
   enteredDropZoneText: Option[String] = None,
-  leftDropZoneText: Option[String] = None
+  leftDropZoneText: Option[String] = None,
+  wrapperClasses: String = "",
+  wrapperAttributes: Map[String, String] = Map.empty
 )
 
 object FileUpload {
@@ -81,7 +83,9 @@ object FileUpload {
         (__ \ "multipleFilesChosenText").readNullable[FileUploadMultipleFilesMessages] and
         (__ \ "noFileChosenText").readNullable[String] and
         (__ \ "enteredDropZoneText").readNullable[String] and
-        (__ \ "leftDropZoneText").readNullable[String]
+        (__ \ "leftDropZoneText").readNullable[String] and
+        (__ \ "wrapperClasses").readWithDefault[String](defaultObject.classes) and
+        (__ \ "wrapperAttributes").readWithDefault[Map[String, String]](defaultObject.attributes)
     )(FileUpload.apply _)
 
   implicit def jsonWrites: OWrites[FileUpload] =
@@ -103,7 +107,9 @@ object FileUpload {
         (__ \ "multipleFilesChosenText").writeNullable[FileUploadMultipleFilesMessages] and
         (__ \ "noFileChosenText").writeNullable[String] and
         (__ \ "enteredDropZoneText").writeNullable[String] and
-        (__ \ "leftDropZoneText").writeNullable[String]
+        (__ \ "leftDropZoneText").writeNullable[String] and
+        (__ \ "wrapperClasses").write[String] and
+        (__ \ "wrapperAttributes").write[Map[String, String]]
     )(o => WritesUtils.unapplyCompat(unapply)(o))
 
 }
