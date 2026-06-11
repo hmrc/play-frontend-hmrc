@@ -8,6 +8,19 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 For compatibility information see `govukFrontendVersion` and `hmrcFrontendVersion` in
 [LibDependencies](project/LibDependencies.scala)
 
+## [13.9.0] - 2026-06-12
+
+### Changed
+
+- Uplifted `govuk-frontend` to v6.2.0
+- Uplifted `hmrc-frontend` to v7.20.0
+- `GovukFileUpload` updated to allow for wrapper classes to be passed to template (to match `govuk-frontend` changes) 
+
+### Compatible with
+
+- [hmrc/hmrc-frontend v7.20.0](https://github.com/hmrc/hmrc-frontend/releases/tag/v7.20.0)
+- [alphagov/govuk-frontend v6.2.0](https://github.com/alphagov/govuk-frontend/releases/tag/v6.2.0)
+
 ## [13.8.0] - 2026-06-02
 
 ### Changed

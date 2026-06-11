@@ -54,6 +54,8 @@ object Generators {
       noFileChosenText        <- Gen.option(genAlphaStr())
       enteredDropZoneText     <- Gen.option(genAlphaStr())
       leftDropZoneText        <- Gen.option(genAlphaStr())
+      wrapperClasses          <- genClasses()
+      wrapperAttributes       <- genAttributes()
     } yield FileUpload(
       name = name,
       id = id,
@@ -72,7 +74,9 @@ object Generators {
       multipleFilesChosenText = multipleFilesChosenText,
       noFileChosenText = noFileChosenText,
       enteredDropZoneText = enteredDropZoneText,
-      leftDropZoneText = leftDropZoneText
+      leftDropZoneText = leftDropZoneText,
+      wrapperClasses = wrapperClasses,
+      wrapperAttributes = wrapperAttributes
     )
   }
 

@@ -65,7 +65,7 @@
         id="@nonEmptyId" name="@name" type="file"@if(disabled.getOrElse(false)) { disabled} @if(multiple.getOrElse(false)) { multiple}@if(describedBy.nonEmpty) { aria-describedby="@describedBy"}@toAttributes(attributes)
     } { attrs =>
         @formGroup.beforeInput.map(_.asHtml)
-        @if(javascript.getOrElse(false)) { <div class="govuk-drop-zone" @toAttributes(dataAttributes) > }
+        @if(javascript.getOrElse(false)) { <div class="@toClasses("govuk-file-upload-wrapper", wrapperClasses)" @toAttributes(dataAttributes ++ wrapperAttributes) > }
         <input class="@toClasses("govuk-file-upload", classes, errorMessage.fold("")(_ => "govuk-file-upload--error"))" @attrs>
         @if(javascript.getOrElse(false)) { </div> }
         @formGroup.afterInput.map(_.asHtml)
