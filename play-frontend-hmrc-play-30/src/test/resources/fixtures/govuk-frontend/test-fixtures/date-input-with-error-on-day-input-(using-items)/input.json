@@ -1,5 +1,5 @@
 {
-  "id" : "dob-errors",
+  "id" : "dob-day-error",
   "fieldset" : {
     "legend" : {
       "text" : "What is your date of birth?"
@@ -13,12 +13,13 @@
   },
   "items" : [ {
     "name" : "day",
-    "classes" : "govuk-input--width-2 govuk-input--error"
+    "classes" : "govuk-input--width-2",
+    "error" : true
   }, {
     "name" : "month",
-    "classes" : "govuk-input--width-2 govuk-input--error"
+    "classes" : "govuk-input--width-2"
   }, {
     "name" : "year",
-    "classes" : "govuk-input--width-4 govuk-input--error"
+    "classes" : "govuk-input--width-4"
   } ]
 }

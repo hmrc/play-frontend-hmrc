@@ -1,0 +1,19 @@
+{
+  "id" : "bday",
+  "namePrefix" : "bday",
+  "fieldset" : {
+    "legend" : {
+      "text" : "What is your birthday?"
+    }
+  },
+  "hint" : {
+    "text" : "For example, 5 12"
+  },
+  "items" : [ {
+    "name" : "day",
+    "classes" : "govuk-input--width-2"
+  }, {
+    "name" : "month",
+    "classes" : "govuk-input--width-2"
+  } ]
+}

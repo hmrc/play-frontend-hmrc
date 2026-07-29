@@ -1,6 +1,5 @@
 {
   "id" : "dob-month-error",
-  "namePrefix" : "dob-month-error",
   "fieldset" : {
     "legend" : {
       "text" : "What is your date of birth?"
@@ -12,14 +11,7 @@
   "errorMessage" : {
     "text" : "Error message goes here"
   },
-  "items" : [ {
-    "name" : "day",
-    "classes" : "govuk-input--width-2"
-  }, {
-    "name" : "month",
-    "classes" : "govuk-input--width-2 govuk-input--error"
-  }, {
-    "name" : "year",
-    "classes" : "govuk-input--width-4"
-  } ]
+  "month" : {
+    "error" : true
+  }
 }

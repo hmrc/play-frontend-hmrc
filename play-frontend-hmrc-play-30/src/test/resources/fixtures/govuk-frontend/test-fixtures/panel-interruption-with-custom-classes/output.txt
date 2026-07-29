@@ -1,0 +1,8 @@
+<div class="govuk-panel govuk-panel--interruption extra-class one-more-class">
+  <h1 class="govuk-panel__title">
+    Are you sure you want to change this?
+  </h1>
+  <div class="govuk-panel__body">
+    <p class="govuk-body">You've changed the person's address from Wales to England. This means that the referral needs to be cancelled.</p>
+  </div>
+</div>

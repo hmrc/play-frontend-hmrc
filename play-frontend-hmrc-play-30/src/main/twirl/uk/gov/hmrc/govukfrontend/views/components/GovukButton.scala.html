@@ -21,7 +21,14 @@
 @defining(iconHtmlSnippet(classNames)) { case( classNames, iconHtml) =>
   @if(elem == "a") {
     <a href="@href.getNonEmptyOrElse{#}" role="button" draggable="false" @commonAttributes(classNames)>
-      @content.asHtml
+      @{
+          content match {
+            case _: HtmlContent if isStartButton =>
+              Html("<span>" + content.asHtml + "</span>")
+            case _ =>
+              content.asHtml
+          }
+      }
       @iconHtml.trim.indent(2, indentFirstLine = true) </a>
   } else {
     @if(elem == "button") {

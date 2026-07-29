@@ -13,13 +13,13 @@
     <div class="govuk-radios__item">
       <input class="govuk-radios__input" id="sort-2" name="example" type="radio" value="title">
       <label class="govuk-label govuk-radios__label" for="sort-2">
-        title
+        A to Z
       </label>
     </div>
     <div class="govuk-radios__item">
       <input class="govuk-radios__input" id="sort-3" name="example" type="radio" value="created">
       <label class="govuk-label govuk-radios__label" for="sort-3">
-        created
+        creation date
       </label>
     </div>
   </div>

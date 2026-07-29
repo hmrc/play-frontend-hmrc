@@ -12,9 +12,9 @@
     "text" : "relevance"
   }, {
     "value" : "title",
-    "text" : "title"
+    "text" : "A to Z"
   }, {
     "value" : "created",
-    "text" : "created"
+    "text" : "creation date"
   } ]
 }

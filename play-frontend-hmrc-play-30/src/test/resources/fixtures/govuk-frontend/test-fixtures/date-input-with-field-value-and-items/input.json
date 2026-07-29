@@ -1,0 +1,16 @@
+{
+  "id" : "with-field-value-items",
+  "items" : [ {
+    "id" : "day",
+    "name" : "day"
+  }, {
+    "id" : "month",
+    "name" : "month"
+  }, {
+    "id" : "year",
+    "name" : "year"
+  } ],
+  "year" : {
+    "value" : 2023
+  }
+}

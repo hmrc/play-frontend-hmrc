@@ -9,11 +9,5 @@
   "hint" : {
     "text" : "For example, 5 12"
   },
-  "items" : [ {
-    "name" : "day",
-    "classes" : "govuk-input--width-2"
-  }, {
-    "name" : "month",
-    "classes" : "govuk-input--width-2"
-  } ]
+  "year" : false
 }

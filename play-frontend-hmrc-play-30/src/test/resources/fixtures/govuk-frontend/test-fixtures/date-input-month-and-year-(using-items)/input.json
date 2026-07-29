@@ -1,0 +1,19 @@
+{
+  "id" : "dob",
+  "namePrefix" : "dob",
+  "fieldset" : {
+    "legend" : {
+      "text" : "When did you move to this property?"
+    }
+  },
+  "hint" : {
+    "text" : "For example, 3 1980"
+  },
+  "items" : [ {
+    "name" : "month",
+    "classes" : "govuk-input--width-2"
+  }, {
+    "name" : "year",
+    "classes" : "govuk-input--width-4"
+  } ]
+}

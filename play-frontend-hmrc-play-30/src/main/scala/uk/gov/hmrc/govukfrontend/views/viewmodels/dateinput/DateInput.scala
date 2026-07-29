@@ -31,6 +31,9 @@ import uk.gov.hmrc.govukfrontend.views.viewmodels.FormGroup.{jsonReadsForMultipl
   * @param hint optional `Hint` for the control
   * @param errorMessage optional `ErrorMessage` to display
   * @param formGroup additional CSS classes/attributes/etc. to apply to the form group
+  * @param day `InputItem` for day element
+  * @param month `InputItem` for month element
+  * @param year `InputItem` for year element
   * @param fieldset optional `Fieldset` used to wrap the date input control
   * @param classes optional additional CSS classes to apply to the wrapper `div`
   * @param attributes optional additional HTML attributes to apply to the wrapper `div`
@@ -43,6 +46,10 @@ case class DateInput(
   errorMessage: Option[ErrorMessage] = None,
   formGroup: FormGroup = FormGroup.empty,
   fieldset: Option[Fieldset] = None,
+  day: Option[InputItem] = None,
+  month: Option[InputItem] = None,
+  year: Option[InputItem] = None,
+  values: Map[String, String] = Map.empty,
   classes: String = "",
   attributes: Map[String, String] = Map.empty
 )
@@ -60,6 +67,10 @@ object DateInput {
         (__ \ "errorMessage").readNullable[ErrorMessage] and
         (__ \ "formGroup").readWithDefault[FormGroup](defaultObject.formGroup)(jsonReadsForMultipleInputs) and
         (__ \ "fieldset").readNullable[Fieldset] and
+        (__ \ "day").readNullable[InputItem] and
+        (__ \ "month").readNullable[InputItem] and
+        (__ \ "year").readNullable[InputItem] and
+        (__ \ "values").readWithDefault[Map[String, String]](defaultObject.values) and
         (__ \ "classes").readWithDefault[String](defaultObject.classes) and
         (__ \ "attributes").readWithDefault[Map[String, String]](defaultObject.attributes)
     )(DateInput.apply _)
@@ -73,6 +84,10 @@ object DateInput {
         (__ \ "errorMessage").writeNullable[ErrorMessage] and
         (__ \ "formGroup").write[FormGroup](jsonWritesForMultipleInputs) and
         (__ \ "fieldset").writeNullable[Fieldset] and
+        (__ \ "day").writeNullable[InputItem] and
+        (__ \ "month").writeNullable[InputItem] and
+        (__ \ "year").writeNullable[InputItem] and
+        (__ \ "values").write[Map[String, String]] and
         (__ \ "classes").write[String] and
         (__ \ "attributes").write[Map[String, String]]
     )(o => WritesUtils.unapplyCompat(unapply)(o))
