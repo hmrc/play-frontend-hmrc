@@ -9,12 +9,15 @@
     "text" : "Er enghraifft, 27 3 2007"
   },
   "day" : {
+    "name": "day",
     "label" : "Dydd"
   },
   "month" : {
+    "name": "month",
     "label" : "Mis"
   },
   "year" : {
+    "name": "year",
     "label" : "Blwyddyn"
   }
 }

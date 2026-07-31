@@ -6,12 +6,15 @@
     }
   },
   "day" : {
+    "name": "dob-day",
     "error" : true
   },
   "month" : {
+    "name": "dob-month",
     "error" : true
   },
   "year" : {
+    "name": "dob-year",
     "error" : true
   }
 }

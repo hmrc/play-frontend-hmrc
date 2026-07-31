@@ -1,6 +1,7 @@
 {
   "id" : "with-field-value",
   "year" : {
+    "name": "year",
     "value" : 2023
   }
 }

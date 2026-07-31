@@ -50,12 +50,16 @@
 @dateInputItems = @{
   if(items.nonEmpty){
     items
+  } else {
+      val dayMonthYearInputItems = Seq(day, month, year).flatten
+      if(dayMonthYearInputItems.nonEmpty) { dayMonthYearInputItems } else {
+          Seq(
+              InputItem(name = "day", classes = "govuk-input--width-2"),
+              InputItem(name = "month", classes = "govuk-input--width-2"),
+              InputItem(name = "year", classes = "govuk-input--width-4")
+          )
+      }
   }
-  else{Seq(
-        InputItem(name = "day", classes = "govuk-input--width-2"),
-        InputItem(name = "month", classes = "govuk-input--width-2"),
-        InputItem(name = "year", classes = "govuk-input--width-4")
-  )}
 }
 
 @divSnippet(unusedDescribedBy: String) = {

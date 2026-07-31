@@ -1,6 +1,7 @@
 {
   "id" : "with-field-value-values",
   "year" : {
+    "name": "dob-year",
     "value" : 2023
   },
   "values" : {

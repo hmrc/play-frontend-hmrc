@@ -1,5 +1,5 @@
 {
-  "id" : "dob-month-error",
+  "id" : "dob-year-error",
   "fieldset" : {
     "legend" : {
       "text" : "What is your date of birth?"
@@ -11,7 +11,8 @@
   "errorMessage" : {
     "text" : "Error message goes here"
   },
-  "month" : {
+  "year" : {
+    "name" : "dob-year",
     "error" : true
   }
 }

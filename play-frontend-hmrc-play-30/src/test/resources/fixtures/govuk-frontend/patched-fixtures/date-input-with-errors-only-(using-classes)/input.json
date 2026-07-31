@@ -1,0 +1,20 @@
+{
+  "id" : "dob-errors",
+  "fieldset" : {
+    "legend" : {
+      "text" : "What is your date of birth?"
+    }
+  },
+  "day" : {
+    "name": "dob-day",
+    "classes" : "govuk-input--error"
+  },
+  "month" : {
+    "name": "dob-month",
+    "classes" : "govuk-input--error"
+  },
+  "year" : {
+    "name": "dob-year",
+    "classes" : "govuk-input--error"
+  }
+}
