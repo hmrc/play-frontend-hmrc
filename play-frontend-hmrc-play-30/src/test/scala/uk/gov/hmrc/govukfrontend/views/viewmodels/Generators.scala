@@ -63,12 +63,23 @@ object Generators {
     value <- genNonEmptyAlphaStr
   } yield (attr, value)
 
+  val genStringIntTuple: Gen[(String, Int)] = for {
+    attr  <- genNonEmptyAlphaStr
+    value <- Gen.long.map(_.toInt)
+  } yield (attr, value)
+
   def genAttributes(nAttributes: Int = 5): Gen[Map[String, String]] = genMapValues(nAttributes)
 
   def genMapValues(nLength: Int = 5): Gen[Map[String, String]] =
     for {
       sz  <- Gen.chooseNum(0, nLength)
       map <- Gen.mapOfN[String, String](sz, genAttrVal)
+    } yield map
+
+  def genIntMapValues(nLength: Int = 5): Gen[Map[String, Int]] =
+    for {
+      sz  <- Gen.chooseNum(0, nLength)
+      map <- Gen.mapOfN[String, Int](sz, genStringIntTuple)
     } yield map
 
   val genHtmlString: Gen[String] =

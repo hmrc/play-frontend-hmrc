@@ -44,7 +44,7 @@ object InputItem {
         (__ \ "name").readWithDefault[String](defaultObject.name) and
         (__ \ "label").readNullable[String] and
         (__ \ "value").readNullable[String](readsJsValueToString) and
-        (__ \ "error").read[Boolean] and
+        (__ \ "error").readWithDefault[Boolean](defaultObject.error) and
         (__ \ "autocomplete").readNullable[String] and
         (__ \ "pattern").readNullable[String] and
         (__ \ "classes").readWithDefault[String](defaultObject.classes) and

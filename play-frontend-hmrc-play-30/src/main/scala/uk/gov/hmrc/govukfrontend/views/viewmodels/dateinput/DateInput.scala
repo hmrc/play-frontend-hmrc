@@ -49,7 +49,7 @@ case class DateInput(
   day: Option[InputItem] = None,
   month: Option[InputItem] = None,
   year: Option[InputItem] = None,
-  values: Map[String, String] = Map.empty,
+  values: Map[String, Int] = Map.empty,
   classes: String = "",
   attributes: Map[String, String] = Map.empty
 )
@@ -70,7 +70,7 @@ object DateInput {
         (__ \ "day").readNullable[InputItem] and
         (__ \ "month").readNullable[InputItem] and
         (__ \ "year").readNullable[InputItem] and
-        (__ \ "values").readWithDefault[Map[String, String]](defaultObject.values) and
+        (__ \ "values").readWithDefault[Map[String, Int]](defaultObject.values) and
         (__ \ "classes").readWithDefault[String](defaultObject.classes) and
         (__ \ "attributes").readWithDefault[Map[String, String]](defaultObject.attributes)
     )(DateInput.apply _)
@@ -87,7 +87,7 @@ object DateInput {
         (__ \ "day").writeNullable[InputItem] and
         (__ \ "month").writeNullable[InputItem] and
         (__ \ "year").writeNullable[InputItem] and
-        (__ \ "values").write[Map[String, String]] and
+        (__ \ "values").write[Map[String, Int]] and
         (__ \ "classes").write[String] and
         (__ \ "attributes").write[Map[String, String]]
     )(o => WritesUtils.unapplyCompat(unapply)(o))
