@@ -58,6 +58,8 @@ object Generators {
       fieldset     <- Gen.option(arbFieldset.arbitrary)
       classes      <- genClasses()
       attributes   <- genAttributes()
+      inputItem    <- Gen.option(arbInputItem.arbitrary)
+      values       <- genMapValues()
     } yield DateInput(
       id = id,
       namePrefix = namePrefix,
@@ -66,8 +68,12 @@ object Generators {
       errorMessage = errorMessage,
       formGroup = formGroup,
       fieldset = fieldset,
+      day = inputItem,
+      month = inputItem,
+      year = inputItem,
       classes = classes,
-      attributes = attributes
+      attributes = attributes,
+      values = values
     )
   }
 }
