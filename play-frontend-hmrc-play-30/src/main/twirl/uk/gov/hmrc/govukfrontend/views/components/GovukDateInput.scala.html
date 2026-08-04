@@ -76,18 +76,17 @@
 
 @dateInputItem(item: InputItem) = @{
   val (itemName: String, itemValue: Option[String], itemWidth: Int) = {
-    if(item== dateInputDay || item.name == "day" || item.name == dateInputDay.name) {(item.name, item.value.orElse(dateInputDay.value), 2)}
+    if(item == dateInputDay || item.name == "day" || item.name == dateInputDay.name) {(if(item.name.nonEmpty) item.name else "day", item.value.orElse(dateInputDay.value), 2)}
     else {
-      if(item== dateInputMonth || item.name == "month" || item.name == dateInputMonth.name) {(item.name, item.value.orElse(dateInputMonth.value), 2)}
+      if(item == dateInputMonth || item.name == "month" || item.name == dateInputMonth.name) {(if(item.name.nonEmpty) item.name else "month", item.value.orElse(dateInputMonth.value), 2)}
       else {
-        if(item== dateInputYear || item.name == "year" || item.name == dateInputYear.name) {(item.name, item.value.orElse(dateInputYear.value), 4)}
+        if(item == dateInputYear || item.name == "year" || item.name == dateInputYear.name) {(if(item.name.nonEmpty) item.name else "year", item.value.orElse(dateInputYear.value), 4)}
       }
     }
   }
 
   val additionalErrorClasses = if(!item.classes.contains("govuk-input--error")) {
-      if (item.error && errorMessage.isDefined && !anyItemHasError) " govuk-input--error"
-      else ""
+    if(item.error || (errorMessage.isDefined && !anyItemHasError)) " govuk-input--error" else ""
   } else ""
 
   val additionalWidthClasses = if(!item.classes.contains("govuk-input--width")) {
