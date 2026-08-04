@@ -49,19 +49,19 @@
 
 @dateInputDay = @{
     day.map(d => if (d.name.isEmpty) d.copy(name = "day") else d).getOrElse {
-        InputItem(name = "day", classes = "govuk-input--width-2", value = values.find(_._1.contains("day")).map(_._2.toString))
+        InputItem(name = "day", classes = "govuk-input--width-2", value = values.get("day").map(_.toString))
     }
 }
 
 @dateInputMonth = @{
     month.map(m => if (m.name.isEmpty) m.copy(name = "month") else m).getOrElse {
-        InputItem(name = "month", classes = "govuk-input--width-2", value = values.find(_._1.contains("month")).map(_._2.toString))
+        InputItem(name = "month", classes = "govuk-input--width-2", value = values.get("month").map(_.toString))
     }
 }
 
 @dateInputYear = @{
     year.map(y => if (y.name.isEmpty) y.copy(name = "year") else y).getOrElse {
-        InputItem(name = "year", classes = "govuk-input--width-4", value = values.find(_._1.contains("year")).map(_._2.toString))
+        InputItem(name = "year", classes = "govuk-input--width-4", value = values.get("year").map(_.toString))
     }
 }
 
