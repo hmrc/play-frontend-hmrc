@@ -69,7 +69,6 @@
   if(items.nonEmpty){items} else{Seq(dateInputDay, dateInputMonth, dateInputYear)}
 }
 
-
 @dateInputItem(item: InputItem) = @{
   val (itemName: String, itemValue: Option[String], itemWidth: Int) = {
       if(item == dateInputDay || Seq("day", dateInputDay.name).contains(item.name)) {(if(item.name.nonEmpty) item.name else "day", item.value.orElse(dateInputDay.value).orElse(values.find(_._1.contains("day")).map(_._2).map(_.toString)), 2)}
