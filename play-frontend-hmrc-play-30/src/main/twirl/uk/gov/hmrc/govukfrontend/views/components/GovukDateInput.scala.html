@@ -48,29 +48,25 @@
 }
 
 @dateInputDay = @{
-    day.getOrElse {
+    day.map(d => if (d.name.isEmpty) d.copy(name = "day") else d).getOrElse {
         InputItem(name = "day", classes = "govuk-input--width-2", value = values.find(_._1.contains("day")).map(_._2.toString))
     }
 }
 
 @dateInputMonth = @{
-    month.getOrElse {
+    month.map(m => if (m.name.isEmpty) m.copy(name = "month") else m).getOrElse {
         InputItem(name = "month", classes = "govuk-input--width-2", value = values.find(_._1.contains("month")).map(_._2.toString))
     }
 }
 
 @dateInputYear = @{
-    year.getOrElse {
+    year.map(y => if (y.name.isEmpty) y.copy(name = "year") else y).getOrElse {
         InputItem(name = "year", classes = "govuk-input--width-4", value = values.find(_._1.contains("year")).map(_._2.toString))
     }
 }
 
 @dateInputItems = @{
-  if(items.nonEmpty){
-    items
-  } else{
-    Seq(dateInputDay, dateInputMonth, dateInputYear)
-  }
+  if(items.nonEmpty){items} else{Seq(dateInputDay, dateInputMonth, dateInputYear)}
 }
 
 
@@ -85,11 +81,11 @@
     }
   }
 
-  val additionalErrorClasses = if(!item.classes.contains("govuk-input--error")) {
-    if(item.error || (errorMessage.isDefined && !anyItemHasError)) " govuk-input--error" else ""
+  val errorClasses = if(!item.classes.contains("govuk-input--error")) {
+    if(item.error.exists(err => err) || (item.error.forall(err => err) && errorMessage.isDefined && !anyItemHasError)) " govuk-input--error" else ""
   } else ""
 
-  val additionalWidthClasses = if(!item.classes.contains("govuk-input--width")) {
+  val widthClasses = if(!item.classes.contains("govuk-input--width")) {
     s" govuk-input--width-$itemWidth"
   } else ""
 
@@ -99,7 +95,7 @@
         classes = "govuk-date-input__label"
       ),
       id = if(item.id.nonEmpty) item.id else s"${params.id}-$itemName",
-      classes = s"govuk-date-input__input $additionalErrorClasses $additionalWidthClasses ${item.classes} ".trim,
+      classes = s"govuk-date-input__input $errorClasses $widthClasses ${item.classes}".trim,
       name = s"${params.namePrefix.map(prefix => s"$prefix-").getOrElse("")}$itemName",
       value = itemValue,
       inputmode = item.inputmode.orElse(Some("numeric")),
@@ -110,7 +106,7 @@
 }
 
 @anyItemHasError = @{
-  dateInputItems.exists(_.error) || dateInputItems.exists(_.classes.contains("govuk-input--error"))
+  dateInputItems.exists(_.error.exists(err => err)) || dateInputItems.exists(_.classes.contains("govuk-input--error"))
 }
 
 @divSnippet(unusedDescribedBy: String) = {

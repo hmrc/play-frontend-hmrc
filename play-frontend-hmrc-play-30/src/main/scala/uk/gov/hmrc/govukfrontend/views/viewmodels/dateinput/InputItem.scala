@@ -26,7 +26,7 @@ final case class InputItem(
   name: String = "",
   label: Option[String] = None,
   value: Option[String] = None,
-  error: Boolean = false,
+  error: Option[Boolean] = None,
   autocomplete: Option[String] = None,
   pattern: Option[String] = None,
   classes: String = "",
@@ -44,7 +44,7 @@ object InputItem {
         (__ \ "name").readWithDefault[String](defaultObject.name) and
         (__ \ "label").readNullable[String] and
         (__ \ "value").readNullable[String](readsJsValueToString) and
-        (__ \ "error").readWithDefault[Boolean](defaultObject.error) and
+        (__ \ "error").readNullable[Boolean] and
         (__ \ "autocomplete").readNullable[String] and
         (__ \ "pattern").readNullable[String] and
         (__ \ "classes").readWithDefault[String](defaultObject.classes) and
