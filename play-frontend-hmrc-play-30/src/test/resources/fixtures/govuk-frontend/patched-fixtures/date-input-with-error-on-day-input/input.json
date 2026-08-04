@@ -12,7 +12,6 @@
     "text" : "Error message goes here"
   },
   "day" : {
-    "name" : "dob-day",
     "error" : true
   }
 }

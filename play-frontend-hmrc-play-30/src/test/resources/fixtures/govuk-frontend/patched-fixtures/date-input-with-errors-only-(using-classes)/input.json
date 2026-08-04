@@ -6,15 +6,12 @@
     }
   },
   "day" : {
-    "name": "dob-day",
     "classes" : "govuk-input--error"
   },
   "month" : {
-    "name": "dob-month",
     "classes" : "govuk-input--error"
   },
   "year" : {
-    "name": "dob-year",
     "classes" : "govuk-input--error"
   }
 }

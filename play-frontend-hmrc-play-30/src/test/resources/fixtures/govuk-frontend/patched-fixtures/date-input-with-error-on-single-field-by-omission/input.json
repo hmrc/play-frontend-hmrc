@@ -12,11 +12,9 @@
     "text" : "Error message goes here"
   },
   "month" : {
-    "name": "dob-month",
     "error" : false
   },
   "year" : {
-    "name": "dob-year",
     "error" : false
   }
 }

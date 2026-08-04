@@ -12,7 +12,6 @@
     "text" : "Error message goes here"
   },
   "year" : {
-    "name" : "dob-year",
     "error" : true
   }
 }

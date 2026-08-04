@@ -49,19 +49,19 @@
 
 @dateInputDay = @{
     day.getOrElse {
-        InputItem(name = "day", classes = "govuk-input--width-2", value = values.find(_._1.contains("day")).map(_.toString))
+        InputItem(name = "day", classes = "govuk-input--width-2", value = values.find(_._1.contains("day")).map(_._2.toString))
     }
 }
 
 @dateInputMonth = @{
     month.getOrElse {
-        InputItem(name = "month", classes = "govuk-input--width-2", value = values.find(_._1.contains("month")).map(_.toString))
+        InputItem(name = "month", classes = "govuk-input--width-2", value = values.find(_._1.contains("month")).map(_._2.toString))
     }
 }
 
 @dateInputYear = @{
     year.getOrElse {
-        InputItem(name = "year", classes = "govuk-input--width-4", value = values.find(_._1.contains("year")).map(_.toString))
+        InputItem(name = "year", classes = "govuk-input--width-4", value = values.find(_._1.contains("year")).map(_._2.toString))
     }
 }
 
