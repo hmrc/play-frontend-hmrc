@@ -72,11 +72,12 @@
 
 @dateInputItem(item: InputItem) = @{
   val (itemName: String, itemValue: Option[String], itemWidth: Int) = {
-    if(item == dateInputDay || item.name == "day" || item.name == dateInputDay.name) {(if(item.name.nonEmpty) item.name else "day", item.value.orElse(dateInputDay.value).orElse(values.find(_._1.contains("day")).map(_._2).map(_.toString)), 2)}
+      if(item == dateInputDay || Seq("day", dateInputDay.name).contains(item.name)) {(if(item.name.nonEmpty) item.name else "day", item.value.orElse(dateInputDay.value).orElse(values.find(_._1.contains("day")).map(_._2).map(_.toString)), 2)}
     else {
-      if(item == dateInputMonth || item.name == "month" || item.name == dateInputMonth.name) {(if(item.name.nonEmpty) item.name else "month", item.value.orElse(dateInputMonth.value).orElse(values.find(_._1.contains("month")).map(_._2).map(_.toString)), 2)}
+      if(item == dateInputMonth || Seq("month", dateInputMonth.name).contains(item.name)) {(if(item.name.nonEmpty) item.name else "month", item.value.orElse(dateInputMonth.value).orElse(values.find(_._1.contains("month")).map(_._2).map(_.toString)), 2)}
       else {
-        if(item == dateInputYear || item.name == "year" || item.name == dateInputYear.name) {(if(item.name.nonEmpty) item.name else "year", item.value.orElse(dateInputYear.value).orElse(values.find(_._1.contains("year")).map(_._2).map(_.toString)), 4)}
+        if(item == dateInputYear || Seq("year", dateInputYear.name).contains(item.name)) {(if(item.name.nonEmpty) item.name else "year", item.value.orElse(dateInputYear.value).orElse(values.find(_._1.contains("year")).map(_._2).map(_.toString)), 4)}
+        else (item.name, item.value, 2)
       }
     }
   }
