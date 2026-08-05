@@ -93,7 +93,7 @@
 
   govukInput(Input(
       label = Label(
-        content = Text(item.label.getOrElse(itemName.capitalize)),
+        content = Text(item.label.filter(_.nonEmpty).getOrElse(itemName.toLowerCase.capitalize)),
         classes = "govuk-date-input__label"
       ),
       id = if(item.id.nonEmpty) item.id else s"${params.id}-$itemName",
