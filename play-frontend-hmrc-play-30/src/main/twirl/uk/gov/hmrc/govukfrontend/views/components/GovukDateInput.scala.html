@@ -24,23 +24,6 @@
 @require(id.nonEmpty, "id should not be empty")
 @require(if (items.nonEmpty) items.forall(_.name.nonEmpty) else true, "all item.names should be defined")
 
-@defining(fieldset.fold("")(fieldset => fieldset.describedBy.getOrElse(""))) { describedBy =>
-  @defining(govukHintAndErrorMessage(id, describedBy.toOption, hint, errorMessage)(divSnippet)) { innerHtml =>
-    @govukFormGroup(formGroup, errorMessage) {
-      @fieldset.fold(innerHtml) { fieldset =>
-        @govukFieldset(Fieldset(
-          describedBy = fieldSetDescribedBy(describedBy),
-          legend = fieldset.legend,
-          classes = fieldset.classes,
-          role = Some("group"),
-          attributes = fieldset.attributes,
-          html = innerHtml
-        ))
-      }
-    }
-  }
-}
-
 @fieldSetDescribedBy(describedBy: String) = @{
     val describedByWithHintId  = hint.fold(describedBy)(_ => s"$describedBy $id-hint".ltrim)
     val describedByWithErrorId = errorMessage.fold(describedByWithHintId)(_ => s"$describedByWithHintId $id-error".ltrim)
@@ -119,4 +102,21 @@
     }
     @{formGroup.afterInput.map(_.asHtml)}
   </div>
+}
+
+@defining(fieldset.fold("")(fieldset => fieldset.describedBy.getOrElse(""))) { describedBy =>
+    @defining(govukHintAndErrorMessage(id, describedBy.toOption, hint, errorMessage)(divSnippet)) { innerHtml =>
+        @govukFormGroup(formGroup, errorMessage) {
+            @fieldset.fold(innerHtml) { fieldset =>
+                @govukFieldset(Fieldset(
+                    describedBy = fieldSetDescribedBy(describedBy),
+                    legend = fieldset.legend,
+                    classes = fieldset.classes,
+                    role = Some("group"),
+                    attributes = fieldset.attributes,
+                    html = innerHtml
+                ))
+            }
+        }
+    }
 }
