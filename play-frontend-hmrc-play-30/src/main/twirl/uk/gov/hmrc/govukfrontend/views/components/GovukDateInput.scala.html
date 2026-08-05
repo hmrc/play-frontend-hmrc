@@ -71,11 +71,11 @@
 
 @dateInputItem(item: InputItem) = @{
   val (itemName: String, itemValue: Option[String], itemWidth: Int) = {
-      if(item == dateInputDay || Seq("day", dateInputDay.name).contains(item.name)) {(item.name, item.value.orElse(dateInputDay.value).orElse(values.find(_._1.contains("day")).map(_._2).map(_.toString)), 2)}
+      if(item == dateInputDay || Seq("day", dateInputDay.name).contains(item.name)) {(item.name, item.value.orElse(dateInputDay.value), 2)}
     else {
-      if(item == dateInputMonth || Seq("month", dateInputMonth.name).contains(item.name)) {(item.name, item.value.orElse(dateInputMonth.value).orElse(values.find(_._1.contains("month")).map(_._2).map(_.toString)), 2)}
+      if(item == dateInputMonth || Seq("month", dateInputMonth.name).contains(item.name)) {(item.name, item.value.orElse(dateInputMonth.value), 2)}
       else {
-        if(item == dateInputYear || Seq("year", dateInputYear.name).contains(item.name)) {(item.name, item.value.orElse(dateInputYear.value).orElse(values.find(_._1.contains("year")).map(_._2).map(_.toString)), 4)}
+        if(item == dateInputYear || Seq("year", dateInputYear.name).contains(item.name)) {(item.name, item.value.orElse(dateInputYear.value), 4)}
         else (item.name, item.value, 2)
       }
     }
@@ -89,6 +89,8 @@
     s" govuk-input--width-$itemWidth"
   } else ""
 
+  val nameWithPrefix = s"${params.namePrefix.map(prefix => s"$prefix-").getOrElse("")}$itemName"
+
   govukInput(Input(
       label = Label(
         content = Text(item.label.getOrElse(itemName.capitalize)),
@@ -96,8 +98,8 @@
       ),
       id = if(item.id.nonEmpty) item.id else s"${params.id}-$itemName",
       classes = s"govuk-date-input__input $errorClasses $widthClasses ${item.classes}".trim,
-      name = s"${params.namePrefix.map(prefix => s"$prefix-").getOrElse("")}$itemName",
-      value = itemValue,
+      name = nameWithPrefix,
+      value = itemValue.orElse(values.find(_._1.contains(nameWithPrefix)).map(_._2).map(_.toString)),
       inputmode = item.inputmode.orElse(Some("numeric")),
       autocomplete = item.autocomplete,
       pattern = item.pattern,
