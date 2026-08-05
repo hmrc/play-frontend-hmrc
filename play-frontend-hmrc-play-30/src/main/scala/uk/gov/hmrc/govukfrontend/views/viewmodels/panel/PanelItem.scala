@@ -18,12 +18,11 @@ package uk.gov.hmrc.govukfrontend.views.viewmodels.panel
 
 import play.api.libs.functional.syntax._
 import play.api.libs.json._
-import uk.gov.hmrc.govukfrontend.views.Aliases.Content
 import uk.gov.hmrc.govukfrontend.views.viewmodels.CommonJsonFormats.attributesReads
 import uk.gov.hmrc.govukfrontend.views.viewmodels.WritesUtils
 
 case class PanelItem(
-  text: Content,
+  text: String,
   panelItemType: Option[String] = None,
   href: Option[String] = None,
   classes: Option[String] = None,
@@ -34,8 +33,8 @@ object PanelItem {
 
   implicit def jsonReads: Reads[PanelItem] =
     (
-      Content.readsHtmlOrText(__ \ "titleHtml", __ \ "titleText") and
-        (__ \ "panelItemType").readNullable[String] and
+      (__ \ "text").read[String] and
+        (__ \ "type").readNullable[String] and
         (__ \ "href").readNullable[String] and
         (__ \ "classes").readNullable[String] and
         (__ \ "attributes").readWithDefault[Map[String, String]](Map.empty)(attributesReads)
@@ -43,8 +42,8 @@ object PanelItem {
 
   implicit def jsonWrites: OWrites[PanelItem] =
     (
-      Content.writesContent("titleHtml", "titleText") and
-        (__ \ "panelItemType").writeNullable[String] and
+      (__ \ "text").write[String] and
+        (__ \ "type").writeNullable[String] and
         (__ \ "href").writeNullable[String] and
         (__ \ "classes").writeNullable[String] and
         (__ \ "attributes").write[Map[String, String]]

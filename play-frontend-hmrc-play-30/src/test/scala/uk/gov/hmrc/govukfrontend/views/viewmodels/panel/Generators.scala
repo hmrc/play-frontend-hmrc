@@ -24,7 +24,7 @@ object Generators {
 
   implicit val arbPanelItem: Arbitrary[PanelItem] = Arbitrary {
     for {
-      text          <- arbContent.arbitrary
+      text          <- genNonEmptyAlphaStr
       panelItemType <- Gen.option(genNonEmptyAlphaStr)
       href          <- Gen.option(genNonEmptyAlphaStr)
       classes       <- Gen.option(genClasses())
