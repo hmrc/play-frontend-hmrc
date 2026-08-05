@@ -44,7 +44,7 @@
      @actions.map { panelActions =>
        <div class="@toClasses("govuk-panel__actions", panelActions.classes.getOrElse(""))" @toAttributes(panelActions.attributes)>@if(panelActions.items.nonEmpty){
            <div class="govuk-button-group">@panelActions.items.map { item =>
-               @if(item.panelItemType.getOrElse("") == "button" || item.panelItemType.getOrElse("") == "submit") {
+               @if(item.href.isEmpty || item.panelItemType.getOrElse("") == "button") {
                  @govukButton(
                    Button(
                      content = Text(item.text),
