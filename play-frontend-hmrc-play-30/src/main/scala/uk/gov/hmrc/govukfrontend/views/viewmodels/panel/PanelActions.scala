@@ -18,6 +18,7 @@ package uk.gov.hmrc.govukfrontend.views.viewmodels.panel
 
 import play.api.libs.functional.syntax._
 import play.api.libs.json._
+import uk.gov.hmrc.govukfrontend.views.viewmodels.CommonJsonFormats.attributesReads
 import uk.gov.hmrc.govukfrontend.views.viewmodels.WritesUtils
 
 case class PanelActions(
@@ -32,7 +33,7 @@ object PanelActions {
     (
       (__ \ "items").readWithDefault[Seq[PanelItem]](Seq.empty) and
         (__ \ "classes").readNullable[String] and
-        (__ \ "attributes").readWithDefault[Map[String, String]](Map.empty)
+        (__ \ "attributes").readWithDefault[Map[String, String]](Map.empty)(attributesReads)
     )(PanelActions.apply _)
 
   implicit def jsonWrites: OWrites[PanelActions] =
