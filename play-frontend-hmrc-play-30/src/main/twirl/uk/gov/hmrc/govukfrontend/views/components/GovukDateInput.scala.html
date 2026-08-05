@@ -85,9 +85,7 @@
     if(item.error.exists(err => err) || (item.error.forall(err => err) && errorMessage.isDefined && !anyItemHasError)) " govuk-input--error" else ""
   } else ""
 
-  val widthClasses = if(!item.classes.contains("govuk-input--width")) {
-    s" govuk-input--width-$itemWidth"
-  } else ""
+  val widthClasses = if(!item.classes.contains("govuk-input--width")) s" govuk-input--width-$itemWidth" else ""
 
   val nameWithPrefix = s"${params.namePrefix.map(prefix => s"$prefix-").getOrElse("")}$itemName"
 
