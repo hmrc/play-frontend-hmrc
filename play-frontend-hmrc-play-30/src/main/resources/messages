@@ -44,3 +44,7 @@ govuk.serviceNavigation.menuButtonText=Menu
 govuk.tabs.titleFallbackText=Contents
 govuk.warningText.iconFallbackText=Warning
 hmrc.caseworkerbanner.title=Caseworker guidance
+language.to=to
+language.month=month
+language.day.singular=day
+language.day.plural=days

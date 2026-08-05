@@ -8,7 +8,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 For compatibility information see `govukFrontendVersion` and `hmrcFrontendVersion` in
 [LibDependencies](project/LibDependencies.scala)
 
-## [13.10.0] - 2026-08-06
+## [13.11.0] - 2026-08-07
+
+### Changed
+
+- Added the code from `play-language` into `play-frontend-hmrc` as part of the main library, rather than being pulled in as a dependency
+- Removed the dependency `play-language` and added the dependency `icu4j`
+
+> ## [13.10.0] - 2026-08-06
 
 ### Changed
 
