@@ -41,5 +41,5 @@ object PanelActions {
       (__ \ "items").write[Seq[PanelItem]] and
         (__ \ "classes").writeNullable[String] and
         (__ \ "attributes").write[Map[String, String]]
-      )(o => WritesUtils.unapplyCompat(unapply)(o))
+    )(o => WritesUtils.unapplyCompat(unapply)(o))
 }
