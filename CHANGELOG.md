@@ -16,7 +16,7 @@ For compatibility information see `govukFrontendVersion` and `hmrcFrontendVersio
 - Uplifted `hmrc-frontend` to v7.26.0
 - `GovukButton` component wraps Html content into <span> for start buttons
 - `GovukPanel` has new functionality to act as Interruption panel to pause user's journey and give important information
-- `GovukDateInput` has additional fields to customise individual items
+- `GovukDateInput` has additional fields to customise individual items - and now automatically adds govuk-input--error class to date input items if date input has an errorMessage and items have no error class already
 
 ### Compatible with
 
