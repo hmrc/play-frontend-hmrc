@@ -20,7 +20,6 @@ package dateinput
 import play.api.libs.functional.syntax._
 import play.api.libs.json._
 import uk.gov.hmrc.govukfrontend.views.html.components._
-import uk.gov.hmrc.govukfrontend.views.viewmodels.CommonJsonFormats.asOptString
 import uk.gov.hmrc.govukfrontend.views.viewmodels.FormGroup
 import uk.gov.hmrc.govukfrontend.views.viewmodels.FormGroup.{jsonReadsForMultipleInputs, jsonWritesForMultipleInputs}
 
