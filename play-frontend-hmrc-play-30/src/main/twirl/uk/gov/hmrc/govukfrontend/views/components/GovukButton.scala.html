@@ -14,6 +14,8 @@
  * limitations under the License.
  *@
 
+@import uk.gov.hmrc.govukfrontend.views.viewmodels.content.NonEmptyHtml
+
 @this()
 
 @(params: Button)
@@ -21,10 +23,8 @@
 
 @buttonContent = @{
     content match {
-        case htmlContent: HtmlContent if isStartButton && htmlContent.value.nonEmpty =>
-            Html("<span>" + content.asHtml + "</span>")
-        case _ =>
-            content.asHtml
+        case NonEmptyHtml(_) if isStartButton => Html("<span>" + content.asHtml + "</span>")
+        case _ => content.asHtml
     }
 }
 
