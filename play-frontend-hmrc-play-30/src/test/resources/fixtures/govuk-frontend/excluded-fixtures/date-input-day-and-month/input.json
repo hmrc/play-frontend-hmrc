@@ -1,0 +1,13 @@
+{
+  "id" : "bday",
+  "namePrefix" : "bday",
+  "fieldset" : {
+    "legend" : {
+      "text" : "What is your birthday?"
+    }
+  },
+  "hint" : {
+    "text" : "For example, 5 12"
+  },
+  "year" : false
+}

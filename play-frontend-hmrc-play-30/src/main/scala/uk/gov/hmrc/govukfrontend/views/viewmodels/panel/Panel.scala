@@ -28,7 +28,8 @@ case class Panel(
   classes: String = "",
   attributes: Map[String, String] = Map.empty,
   title: Content = Empty,
-  content: Content = Empty
+  content: Content = Empty,
+  actions: Option[PanelActions] = None
 )
 
 object Panel {
@@ -41,7 +42,8 @@ object Panel {
         (__ \ "classes").readWithDefault[String](defaultObject.classes) and
         (__ \ "attributes").readWithDefault[Map[String, String]](defaultObject.attributes)(attributesReads) and
         Content.readsHtmlOrText(__ \ "titleHtml", __ \ "titleText") and
-        Content.reads
+        Content.reads and
+        (__ \ "actions").readNullable[PanelActions]
     )(Panel.apply _)
 
   implicit def jsonWrites: OWrites[Panel] =
@@ -50,7 +52,8 @@ object Panel {
         (__ \ "classes").write[String] and
         (__ \ "attributes").write[Map[String, String]] and
         Content.writesContent("titleHtml", "titleText") and
-        Content.writes
+        Content.writes and
+        (__ \ "actions").writeNullable[PanelActions]
     )(o => WritesUtils.unapplyCompat(unapply)(o))
 
 }

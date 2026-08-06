@@ -1,0 +1,17 @@
+{
+  "classes" : "govuk-panel--interruption",
+  "titleText" : "Are you sure you want to change this?",
+  "html" : "<p class=\"govuk-body\">You've changed the person's address from Wales to England. This means that the referral needs to be cancelled.</p>\n<p class=\"govuk-body\">Previous home address: 1 Willow Lane, Newchurch, Kington, HR5 3QF</p>\n<p class=\"govuk-body\">New home address: 9 Elm Street, Whitney-on-Wye, Hereford, HR3 6EH</p>\n<p class=\"govuk-body\">You can go back to undo this change.</p>\n",
+  "actions" : {
+    "items" : [ {
+      "text" : "Are you sure you want to change this?",
+      "type" : "submit",
+      "attributes" : {
+        "form" : "the-form-id"
+      }
+    }, {
+      "text" : "Go back to application",
+      "href" : "#"
+    } ]
+  }
+}

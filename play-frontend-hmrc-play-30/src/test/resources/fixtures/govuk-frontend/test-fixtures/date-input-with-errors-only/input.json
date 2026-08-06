@@ -5,17 +5,13 @@
       "text" : "What is your date of birth?"
     }
   },
-  "errorMessage" : {
-    "text" : "Error message goes here"
+  "day" : {
+    "error" : true
   },
-  "items" : [ {
-    "name" : "day",
-    "classes" : "govuk-input--width-2 govuk-input--error"
-  }, {
-    "name" : "month",
-    "classes" : "govuk-input--width-2 govuk-input--error"
-  }, {
-    "name" : "year",
-    "classes" : "govuk-input--width-4 govuk-input--error"
-  } ]
+  "month" : {
+    "error" : true
+  },
+  "year" : {
+    "error" : true
+  }
 }

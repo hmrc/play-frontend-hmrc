@@ -26,6 +26,7 @@
 * [ADR-0022](0022-can-we-replace-language-params-in-components-with-play-messages-api.md) - Can we replace the string `language` params in `hmrc-frontend` components with Play Messages API?
 * [ADR-0023](0023-optional-properties-in-viewmodels.md) - Optional properties in viewmodels
 * [ADR-0024](0024-defer-nullable-content-licence-in-footer.md) - Defer Inclusion of nullable `contentLicence` in Footer from govuk-frontend v5.14.0
+* [ADR-0025](0025-do-not-include-generic-header-compoennt.md) - Do not include generic header component from govuk-frontend v6.3.0
 
 <!-- adrlogstop -->
 

@@ -1,0 +1,9 @@
+{
+  "id" : "with-field-value-values",
+  "year" : {
+    "value" : 2023
+  },
+  "values" : {
+    "year" : 2026
+  }
+}

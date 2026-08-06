@@ -1,0 +1,11 @@
+
+
+<div class="govuk-generic-header" data-test-attribute="value" data-test-attribute-2="value-2">
+  <div class="govuk-generic-header__container govuk-width-container">
+    <div class="govuk-generic-header__logo">
+      <a href="/" class="govuk-generic-header__homepage-link">
+        Some logo text
+      </a>
+    </div>
+  </div>
+</div>

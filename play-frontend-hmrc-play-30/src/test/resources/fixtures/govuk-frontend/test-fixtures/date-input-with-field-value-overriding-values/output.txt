@@ -1,0 +1,28 @@
+<div class="govuk-form-group">
+  <div class="govuk-date-input" id="with-field-value-values">
+    <div class="govuk-date-input__item">
+      <div class="govuk-form-group">
+        <label class="govuk-label govuk-date-input__label" for="with-field-value-values-day">
+          Day
+        </label>
+        <input class="govuk-input govuk-date-input__input govuk-input--width-2" id="with-field-value-values-day" name="day" type="text" inputmode="numeric">
+      </div>
+    </div>
+    <div class="govuk-date-input__item">
+      <div class="govuk-form-group">
+        <label class="govuk-label govuk-date-input__label" for="with-field-value-values-month">
+          Month
+        </label>
+        <input class="govuk-input govuk-date-input__input govuk-input--width-2" id="with-field-value-values-month" name="month" type="text" inputmode="numeric">
+      </div>
+    </div>
+    <div class="govuk-date-input__item">
+      <div class="govuk-form-group">
+        <label class="govuk-label govuk-date-input__label" for="with-field-value-values-year">
+          Year
+        </label>
+        <input class="govuk-input govuk-date-input__input govuk-input--width-4" id="with-field-value-values-year" name="year" type="text" value="2023" inputmode="numeric">
+      </div>
+    </div>
+  </div>
+</div>

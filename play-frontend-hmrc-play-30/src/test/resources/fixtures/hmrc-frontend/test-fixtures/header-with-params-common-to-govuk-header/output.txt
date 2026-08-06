@@ -4,7 +4,7 @@
   <div class="govuk-header__container cc1">
     <div class="govuk-header__logo">
       <a href="#h1" class="govuk-header__homepage-link">
-        <svg
+          <svg
             focusable="false"
             role="img"
             xmlns="http://www.w3.org/2000/svg"

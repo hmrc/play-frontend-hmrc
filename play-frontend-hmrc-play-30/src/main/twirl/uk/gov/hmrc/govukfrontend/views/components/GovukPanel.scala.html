@@ -14,11 +14,27 @@
  * limitations under the License.
  *@
 
-@this()
+@import uk.gov.hmrc.govukfrontend.views.Aliases.Button
+@import uk.gov.hmrc.govukfrontend.views.html.components.GovukButton
+
+@this(
+    govukButton: GovukButton
+)
 
 @(params: Panel)
 @import params._
-<div class="@toClasses("govuk-panel govuk-panel--confirmation", classes)"@toAttributes(attributes)>
+
+@isInterruption = @{classes.contains("govuk-panel--interruption")}
+
+@panelClasses = @{
+  if(isInterruption) {
+   toClasses("govuk-panel", classes)
+  } else {
+   toClasses("govuk-panel govuk-panel--confirmation", classes)
+  }
+}
+
+<div class="@panelClasses"@toAttributes(attributes)>
  <h@headingLevel class="govuk-panel__title">
    @title.asHtml
  </h@headingLevel>
@@ -26,5 +42,26 @@
    <div class="govuk-panel__body">
      @content.asHtml
    </div>
+   @if(actions.nonEmpty && isInterruption) {
+     @actions.map { panelActions =>
+       <div class="@toClasses("govuk-panel__actions", panelActions.classes.getOrElse(""))" @toAttributes(panelActions.attributes)>@if(panelActions.items.nonEmpty){
+           <div class="govuk-button-group">@panelActions.items.map { item =>
+               @if(item.href.isEmpty || item.panelItemType.getOrElse("") == "button") {
+                 @govukButton(
+                   Button(
+                     content = Text(item.text),
+                     inputType = Some(item.panelItemType.getOrElse("button")),
+                     classes = toClasses("govuk-button--inverse", item.classes.getOrElse("")),
+                     href = item.href,
+                     attributes = item.attributes
+                   )
+                 )
+               } else {
+                 <a class="@toClasses("govuk-link govuk-link--inverse", item.classes.getOrElse(""))" href="@item.href.getOrElse("")">@item.text</a>
+               }
+           }</div>
+       }</div>
+     }
+   }
  }
 </div>

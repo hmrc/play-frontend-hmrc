@@ -22,6 +22,35 @@ import uk.gov.hmrc.govukfrontend.views.viewmodels.content.Generators._
 
 object Generators {
 
+  implicit val arbPanelItem: Arbitrary[PanelItem] = Arbitrary {
+    for {
+      text          <- genNonEmptyAlphaStr
+      panelItemType <- Gen.option(genNonEmptyAlphaStr)
+      href          <- Gen.option(genNonEmptyAlphaStr)
+      classes       <- Gen.option(genClasses())
+      attributes    <- genAttributes()
+    } yield PanelItem(
+      text = text,
+      panelItemType = panelItemType,
+      href = href,
+      classes = classes,
+      attributes = attributes
+    )
+  }
+
+  implicit val arbPanelActions: Arbitrary[PanelActions] = Arbitrary {
+    for {
+      n          <- Gen.chooseNum(0, 5)
+      items      <- Gen.listOfN(n, arbPanelItem.arbitrary)
+      classes    <- Gen.option(genClasses())
+      attributes <- genAttributes()
+    } yield PanelActions(
+      items = items,
+      classes = classes,
+      attributes = attributes
+    )
+  }
+
   implicit val arbPanel: Arbitrary[Panel] = Arbitrary {
     for {
       headingLevel <- Gen.chooseNum(1, 6)
@@ -29,12 +58,14 @@ object Generators {
       attributes   <- genAttributes()
       title        <- arbContent.arbitrary
       content      <- arbContent.arbitrary
+      actions      <- Gen.option(arbPanelActions.arbitrary)
     } yield Panel(
       headingLevel = headingLevel,
       classes = classes,
       attributes = attributes,
       title = title,
-      content = content
+      content = content,
+      actions = actions
     )
   }
 }

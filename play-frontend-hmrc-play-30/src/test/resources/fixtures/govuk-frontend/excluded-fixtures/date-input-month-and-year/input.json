@@ -1,0 +1,13 @@
+{
+  "id" : "dob",
+  "namePrefix" : "dob",
+  "fieldset" : {
+    "legend" : {
+      "text" : "When did you move to this property?"
+    }
+  },
+  "hint" : {
+    "text" : "For example, 3 1980"
+  },
+  "day" : false
+}

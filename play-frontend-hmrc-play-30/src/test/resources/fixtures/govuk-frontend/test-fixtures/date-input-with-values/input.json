@@ -1,14 +1,16 @@
 {
   "id" : "with-values",
-  "items" : [ {
-    "id" : "day",
-    "name" : "day"
-  }, {
-    "id" : "month",
-    "name" : "month"
-  }, {
-    "id" : "year",
-    "name" : "year",
-    "value" : 2018
-  } ]
+  "fieldset" : {
+    "legend" : {
+      "text" : "What is your date of birth?"
+    }
+  },
+  "hint" : {
+    "text" : "For example, 31 3 1980"
+  },
+  "values" : {
+    "day" : 31,
+    "month" : 3,
+    "year" : 1980
+  }
 }

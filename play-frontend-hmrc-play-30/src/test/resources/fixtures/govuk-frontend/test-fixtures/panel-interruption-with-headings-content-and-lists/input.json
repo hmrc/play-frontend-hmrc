@@ -1,0 +1,12 @@
+{
+  "classes" : "govuk-panel--interruption",
+  "titleText" : "Your new answer affects other sections of this application",
+  "html" : "<h2 class=\"govuk-heading-m\">Question: Where is Andy Cooke located?</h2>\n<p class=\"govuk-body\">\n  Previous answer: Custody<br>\n  New answer: Released\n</p>\n<p class=\"govuk-body govuk-!-margin-bottom-2\">You need to:</p>\n<ul class=\"govuk-list govuk-list--bullet\">\n  <li>enter their custody information</li>\n  <li>update the licence conditions section</li>\n</ul>\n",
+  "actions" : [ {
+    "text" : "Continue to other sections",
+    "type" : "submit"
+  }, {
+    "text" : "Go back to application",
+    "href" : "#"
+  } ]
+}

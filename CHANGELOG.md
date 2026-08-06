@@ -8,6 +8,21 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 For compatibility information see `govukFrontendVersion` and `hmrcFrontendVersion` in
 [LibDependencies](project/LibDependencies.scala)
 
+## [13.10.0] - 2026-08-06
+
+### Changed
+
+- Uplifted `govuk-frontend` to v6.4.0
+- Uplifted `hmrc-frontend` to v7.26.0
+- `GovukButton` component wraps Html content into <span> for start buttons
+- `GovukPanel` has new functionality to act as Interruption panel to pause user's journey and give important information
+- `GovukDateInput` has additional fields to customise individual items - and now automatically adds govuk-input--error class to date input items if date input has an errorMessage and items have no error class already
+
+### Compatible with
+
+- [hmrc/hmrc-frontend v7.26.0](https://github.com/hmrc/hmrc-frontend/releases/tag/v7.26.0)
+- [alphagov/govuk-frontend v6.4.0](https://github.com/alphagov/govuk-frontend/releases/tag/v6.4.0)
+
 ## [13.9.0] - 2026-06-12
 
 ### Changed

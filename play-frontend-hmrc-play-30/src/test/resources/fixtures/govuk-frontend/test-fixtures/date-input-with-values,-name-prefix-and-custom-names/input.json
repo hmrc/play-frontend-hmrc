@@ -1,0 +1,29 @@
+{
+  "id" : "with-values-name-prefix-custom",
+  "namePrefix" : "dob",
+  "fieldset" : {
+    "legend" : {
+      "text" : "What is your date of birth?"
+    }
+  },
+  "hint" : {
+    "text" : "For example, 31 3 1980"
+  },
+  "day" : {
+    "label" : "Day",
+    "name" : "user1-day"
+  },
+  "month" : {
+    "label" : "Month",
+    "name" : "user1-month"
+  },
+  "year" : {
+    "label" : "Year",
+    "name" : "user1-year"
+  },
+  "values" : {
+    "dob-user1-day" : 31,
+    "dob-user1-month" : 3,
+    "dob-user1-year" : 1980
+  }
+}

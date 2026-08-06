@@ -1,0 +1,5 @@
+{
+  "classes" : "govuk-panel--interruption extra-class one-more-class",
+  "titleText" : "Are you sure you want to change this?",
+  "html" : "<p class=\"govuk-body\">You've changed the person's address from Wales to England. This means that the referral needs to be cancelled.</p>"
+}

@@ -14,19 +14,29 @@
  * limitations under the License.
  *@
 
+@import uk.gov.hmrc.govukfrontend.views.viewmodels.content.NonEmptyHtml
+
 @this()
 
 @(params: Button)
 @import params._
+
+@buttonContent = @{
+    content match {
+        case NonEmptyHtml(_) if isStartButton => Html("<span>" + content.asHtml + "</span>")
+        case _ => content.asHtml
+    }
+}
+
 @defining(iconHtmlSnippet(classNames)) { case( classNames, iconHtml) =>
   @if(elem == "a") {
     <a href="@href.getNonEmptyOrElse{#}" role="button" draggable="false" @commonAttributes(classNames)>
-      @content.asHtml
+      @buttonContent
       @iconHtml.trim.indent(2, indentFirstLine = true) </a>
   } else {
     @if(elem == "button") {
       <button @value.mapNonEmpty {value => value="@value"} type="@inputTypeAttr.trim"@buttonAttributes @commonAttributes(classNames)>
-        @content.asHtml
+        @buttonContent
         @iconHtml.trim.indent(2, indentFirstLine = true) </button>
     } else {
       @if(elem == "input") {

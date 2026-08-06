@@ -1,0 +1,20 @@
+{
+  "id" : "with-translations",
+  "fieldset" : {
+    "legend" : {
+      "text" : "Pryd gafodd eich pasbort ei gyhoeddi?"
+    }
+  },
+  "hint" : {
+    "text" : "Er enghraifft, 27 3 2007"
+  },
+  "day" : {
+    "label" : "Dydd"
+  },
+  "month" : {
+    "label" : "Mis"
+  },
+  "year" : {
+    "label" : "Blwyddyn"
+  }
+}

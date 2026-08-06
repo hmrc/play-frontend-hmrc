@@ -3,6 +3,6 @@
     Application complete
   </h1>
   <div class="govuk-panel__body">
-    Your reference number: HDJ2123F
+    Your reference number<br><strong>HDJ2123F</strong>
   </div>
 </div>

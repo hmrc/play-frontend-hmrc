@@ -1,0 +1,12 @@
+{
+  "titleText" : "Is your age correct?",
+  "actions" : {
+    "items" : [ {
+      "type" : "button",
+      "text" : "Yes, this is correct"
+    }, {
+      "href" : "#",
+      "text" : "No, change my age"
+    } ]
+  }
+}
