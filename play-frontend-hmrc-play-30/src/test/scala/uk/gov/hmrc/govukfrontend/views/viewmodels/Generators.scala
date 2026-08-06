@@ -76,12 +76,6 @@ object Generators {
       map <- Gen.mapOfN[String, String](sz, genAttrVal)
     } yield map
 
-  def genIntMapValues(nLength: Int = 5): Gen[Map[String, Int]] =
-    for {
-      sz  <- Gen.chooseNum(0, nLength)
-      map <- Gen.mapOfN[String, Int](sz, genStringIntTuple)
-    } yield map
-
   val genHtmlString: Gen[String] =
     Gen.oneOf(Gen.const("""<p>some paragraph</p>"""), Gen.const("""<b>Back</b>"""))
 

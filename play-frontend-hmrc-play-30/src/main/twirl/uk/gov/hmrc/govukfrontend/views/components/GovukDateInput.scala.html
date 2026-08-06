@@ -97,7 +97,7 @@
     @{formGroup.beforeInput.map(_.asHtml)}
     @for(item <- dateInputItems) {
       <div class="govuk-date-input__item">
-      @{dateInputItem(item)}
+      @dateInputItem(item)
       </div>
     }
     @{formGroup.afterInput.map(_.asHtml)}

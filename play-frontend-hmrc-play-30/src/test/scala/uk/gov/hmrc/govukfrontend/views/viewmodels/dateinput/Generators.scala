@@ -59,7 +59,7 @@ object Generators {
       classes      <- genClasses()
       attributes   <- genAttributes()
       inputItem    <- Gen.option(arbInputItem.arbitrary)
-      values       <- genIntMapValues()
+      values       <- genMapValues()
     } yield DateInput(
       id = id,
       namePrefix = namePrefix,
