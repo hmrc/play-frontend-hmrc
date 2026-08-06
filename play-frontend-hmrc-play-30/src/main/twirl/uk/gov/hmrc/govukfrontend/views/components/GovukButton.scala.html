@@ -19,9 +19,9 @@
 @(params: Button)
 @import params._
 
-@linkContent = @{
+@buttonContent = @{
     content match {
-        case _: HtmlContent if isStartButton =>
+        case htmlContent: HtmlContent if isStartButton && htmlContent.value.nonEmpty =>
             Html("<span>" + content.asHtml + "</span>")
         case _ =>
             content.asHtml
@@ -31,12 +31,12 @@
 @defining(iconHtmlSnippet(classNames)) { case( classNames, iconHtml) =>
   @if(elem == "a") {
     <a href="@href.getNonEmptyOrElse{#}" role="button" draggable="false" @commonAttributes(classNames)>
-      @linkContent
+      @buttonContent
       @iconHtml.trim.indent(2, indentFirstLine = true) </a>
   } else {
     @if(elem == "button") {
       <button @value.mapNonEmpty {value => value="@value"} type="@inputTypeAttr.trim"@buttonAttributes @commonAttributes(classNames)>
-        @content.asHtml
+        @buttonContent
         @iconHtml.trim.indent(2, indentFirstLine = true) </button>
     } else {
       @if(elem == "input") {
