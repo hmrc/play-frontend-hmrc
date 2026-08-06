@@ -24,8 +24,10 @@
 @(params: Panel)
 @import params._
 
+@isInterruption = @{classes.contains("govuk-panel--interruption")}
+
 @panelClasses = @{
-  if(classes.contains("govuk-panel--interruption")) {
+  if(isInterruption) {
    toClasses("govuk-panel", classes)
   } else {
    toClasses("govuk-panel govuk-panel--confirmation", classes)
@@ -40,7 +42,7 @@
    <div class="govuk-panel__body">
      @content.asHtml
    </div>
-   @if(actions.nonEmpty) {
+   @if(actions.nonEmpty && isInterruption) {
      @actions.map { panelActions =>
        <div class="@toClasses("govuk-panel__actions", panelActions.classes.getOrElse(""))" @toAttributes(panelActions.attributes)>@if(panelActions.items.nonEmpty){
            <div class="govuk-button-group">@panelActions.items.map { item =>
