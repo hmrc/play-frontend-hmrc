@@ -44,4 +44,7 @@ govuk.serviceNavigation.menuButtonText=Dewislen
 govuk.tabs.titleFallbackText=Cynnwys
 govuk.warningText.iconFallbackText=Rhybudd
 hmrc.caseworkerbanner.title=Arweiniad Gweithiwr Achos
-
+language.to=i
+language.month=mis
+language.day.singular=diwrnod
+language.day.plural=diwrnod

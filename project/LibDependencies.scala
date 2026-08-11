@@ -7,10 +7,11 @@ object LibDependencies {
   val play30Version: String = "3.0.10"
 
   val play30: Seq[ModuleID] = Seq(
-    "uk.gov.hmrc"                  %% "play-language-play-30" % "9.6.0",
+    "uk.gov.hmrc"                  %% "play-language-play-30" % "10.0.0",
     "org.playframework"            %% "play"                  % play30Version,
     "org.playframework"            %% "play-filters-helpers"  % play30Version,
     "uk.gov.hmrc.webjars"           % "hmrc-frontend"         % hmrcFrontendVersion,
+    "com.ibm.icu"                   % "icu4j"                 % "69.1",
     "org.jsoup"                     % "jsoup"                 % "1.13.1"      % Test,
     "org.scalatestplus"            %% "mockito-3-4"           % "3.2.10.0"    % Test,
     "org.scalatestplus"            %% "scalacheck-1-16"       % "3.2.14.0"    % Test,
