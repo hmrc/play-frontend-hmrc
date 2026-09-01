@@ -8,6 +8,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 For compatibility information see `govukFrontendVersion` and `hmrcFrontendVersion` in
 [LibDependencies](project/LibDependencies.scala)
 
+## [13.13.0] - 2026-09-01
+
+### Changed
+
+- Fixed minor bug in `GovukDateInput` with classes outputting extra whitespace between items
+
 ## [13.12.0] - 2026-08-28
 
 ### Changed
