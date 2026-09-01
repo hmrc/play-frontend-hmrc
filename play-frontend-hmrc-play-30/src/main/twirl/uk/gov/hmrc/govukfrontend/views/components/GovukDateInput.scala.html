@@ -78,7 +78,7 @@
         classes = "govuk-date-input__label"
       ),
       id = if(item.id.nonEmpty) item.id else s"${params.id}-$itemName",
-      classes = s"govuk-date-input__input $errorClasses $widthClasses ${item.classes}".trim,
+      classes = toClasses(s"govuk-date-input__input", errorClasses, widthClasses, item.classes).trim,
       name = nameWithPrefix,
       value = itemValue.orElse(values.find(_._1.contains(nameWithPrefix)).map(_._2).map(_.toString)),
       inputmode = item.inputmode.orElse(Some("numeric")),
