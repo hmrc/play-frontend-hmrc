@@ -1,0 +1,15 @@
+{
+  "attributes" : {
+    "id" : "my-language-navigation",
+    "data-foo" : "bar"
+  },
+  "items" : [ {
+    "text" : "English",
+    "lang" : "en",
+    "current" : true
+  }, {
+    "text" : "Cymraeg",
+    "lang" : "cy",
+    "href" : "#/cy"
+  } ]
+}

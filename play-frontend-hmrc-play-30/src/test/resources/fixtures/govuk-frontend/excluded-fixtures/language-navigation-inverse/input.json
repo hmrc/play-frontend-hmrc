@@ -1,0 +1,12 @@
+{
+  "classes" : "govuk-language-navigation--inverse",
+  "items" : [ {
+    "text" : "English",
+    "lang" : "en",
+    "current" : true
+  }, {
+    "text" : "Cymraeg",
+    "lang" : "cy",
+    "href" : "#/cy"
+  } ]
+}

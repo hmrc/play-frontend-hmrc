@@ -1,0 +1,12 @@
+{
+  "items" : [ {
+    "text" : "English",
+    "lang" : "en",
+    "current" : true,
+    "classes" : "app-language-navigation__link--modifier"
+  }, {
+    "text" : "Cymraeg",
+    "lang" : "cy",
+    "href" : "#/cy"
+  } ]
+}

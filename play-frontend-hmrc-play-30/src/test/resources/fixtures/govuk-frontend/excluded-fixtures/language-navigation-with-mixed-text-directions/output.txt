@@ -1,0 +1,12 @@
+
+<nav class="govuk-language-navigation" aria-label="Language">
+  <ul class="govuk-language-navigation__list">
+    <li class="govuk-language-navigation__list-item">
+      <span class="govuk-language-navigation__text"
+        aria-current="true" lang="en" dir="ltr">English</span>
+    </li>
+    <li class="govuk-language-navigation__list-item">
+      <a class="govuk-language-navigation__link" href="#/ar" rel="alternate" lang="ar" hreflang="ar" dir="rtl">العربية      </a>
+    </li>
+  </ul>
+</nav>

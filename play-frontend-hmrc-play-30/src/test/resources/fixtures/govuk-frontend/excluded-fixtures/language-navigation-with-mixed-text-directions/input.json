@@ -1,0 +1,13 @@
+{
+  "items" : [ {
+    "text" : "English",
+    "lang" : "en",
+    "dir" : "ltr",
+    "current" : true
+  }, {
+    "text" : "العربية",
+    "lang" : "ar",
+    "dir" : "rtl",
+    "href" : "#/ar"
+  } ]
+}
