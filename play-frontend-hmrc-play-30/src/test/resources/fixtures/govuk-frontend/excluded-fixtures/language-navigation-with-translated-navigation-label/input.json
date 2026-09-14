@@ -1,0 +1,15 @@
+{
+  "ariaLabel" : "Dewis iaith",
+  "attributes" : {
+    "lang" : "cy"
+  },
+  "items" : [ {
+    "text" : "English",
+    "lang" : "en",
+    "href" : "#/en"
+  }, {
+    "text" : "Cymraeg",
+    "lang" : "cy",
+    "current" : true
+  } ]
+}

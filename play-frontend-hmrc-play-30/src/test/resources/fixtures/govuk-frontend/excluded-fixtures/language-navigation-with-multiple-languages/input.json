@@ -1,0 +1,27 @@
+{
+  "items" : [ {
+    "text" : "English",
+    "lang" : "en",
+    "current" : true
+  }, {
+    "text" : "Français",
+    "lang" : "fr",
+    "href" : "#/fr"
+  }, {
+    "text" : "हिंदी",
+    "lang" : "hi",
+    "href" : "#/hi"
+  }, {
+    "text" : "日本語",
+    "lang" : "ja",
+    "href" : "#/ja"
+  }, {
+    "text" : "اردو",
+    "lang" : "ur",
+    "href" : "#/ur"
+  }, {
+    "text" : "中文",
+    "lang" : "zh",
+    "href" : "#/zh"
+  } ]
+}

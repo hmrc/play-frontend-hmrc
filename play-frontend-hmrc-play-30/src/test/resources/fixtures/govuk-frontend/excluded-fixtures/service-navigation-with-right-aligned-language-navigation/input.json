@@ -1,0 +1,20 @@
+{
+  "serviceName" : "Service name",
+  "navigation" : [ {
+    "href" : "#/1",
+    "text" : "Navigation item 1",
+    "active" : true
+  }, {
+    "href" : "#/2",
+    "text" : "Navigation item 2"
+  }, {
+    "href" : "#/3",
+    "text" : "Navigation item 3"
+  } ],
+  "slots" : {
+    "end" : "<nav class=\"govuk-language-navigation\" aria-label=\"Language navigation\">\n  <ul class=\"govuk-language-navigation__list\">\n    <li class=\"govuk-language-navigation__list-item\">\n      <span class=\"govuk-language-navigation__text\" lang=\"en\" aria-current=\"true\">English</span>\n    </li>\n    <li class=\"govuk-language-navigation__list-item\">\n      <a class=\"govuk-language-navigation__link\" href=\"#/cy\" lang=\"cy\" hreflang=\"cy\" rel=\"alternate\">Cymraeg</a>\n    </li>\n  </ul>\n</nav>"
+  },
+  "slotsPreferredPositions" : {
+    "end" : "same-line"
+  }
+}

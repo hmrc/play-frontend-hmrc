@@ -1,0 +1,11 @@
+{
+  "items" : [ {
+    "text" : "English",
+    "lang" : "en",
+    "current" : true
+  }, {
+    "html" : "<span>Cymraeg</span>",
+    "lang" : "cy",
+    "href" : "#/cy"
+  } ]
+}

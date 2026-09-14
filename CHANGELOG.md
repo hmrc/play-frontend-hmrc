@@ -8,11 +8,29 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 For compatibility information see `govukFrontendVersion` and `hmrcFrontendVersion` in
 [LibDependencies](project/LibDependencies.scala)
 
+## [13.14.0] - 2026-09-15
+
+### Changed
+
+- Uplifted `govuk-frontend` to v6.5.0
+- Uplifted `hmrc-frontend` to v7.35.0
+- Added ADRs explaining why `language-navigation` and `feedback` from `govuk-frontend` have not been added as library components at this time
+
+### Compatible with
+
+- [hmrc/hmrc-frontend v7.35.0](https://github.com/hmrc/hmrc-frontend/releases/tag/v7.35.0)
+- [alphagov/govuk-frontend v6.5.0](https://github.com/alphagov/govuk-frontend/releases/tag/v6.4.0)
+
 ## [13.13.0] - 2026-09-01
 
 ### Changed
 
 - Fixed minor bug in `GovukDateInput` with classes outputting extra whitespace between items
+
+### Compatible with
+
+- [hmrc/hmrc-frontend v7.31.0](https://github.com/hmrc/hmrc-frontend/releases/tag/v7.31.0)
+- [alphagov/govuk-frontend v6.4.0](https://github.com/alphagov/govuk-frontend/releases/tag/v6.4.0)
 
 ## [13.12.0] - 2026-08-28
 
@@ -21,12 +39,23 @@ For compatibility information see `govukFrontendVersion` and `hmrcFrontendVersio
 - Uplifted `hmrc-frontend` to v7.31.0
   - accessibility fix for sign out links when viewed in high contrast mode 
 
+### Compatible with
+
+- [hmrc/hmrc-frontend v7.31.0](https://github.com/hmrc/hmrc-frontend/releases/tag/v7.31.0)
+- [alphagov/govuk-frontend v6.4.0](https://github.com/alphagov/govuk-frontend/releases/tag/v6.4.0)
+
+
 ## [13.11.0] - 2026-08-11
 
 ### Changed
 
 - Added the code from `play-language` into `play-frontend-hmrc` as part of the main library, rather than being pulled in as a dependency
 - Removed the dependency `play-language` and added the dependency `icu4j`
+
+### Compatible with
+
+- [hmrc/hmrc-frontend v7.26.0](https://github.com/hmrc/hmrc-frontend/releases/tag/v7.26.0)
+- [alphagov/govuk-frontend v6.4.0](https://github.com/alphagov/govuk-frontend/releases/tag/v6.4.0)
 
 ## [13.10.0] - 2026-08-06
 

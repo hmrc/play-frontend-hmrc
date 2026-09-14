@@ -1,0 +1,99 @@
+
+<nav class="govuk-language-navigation" aria-label="Language">
+  <ul class="govuk-language-navigation__list">
+    <li class="govuk-language-navigation__list-item">
+      <span class="govuk-language-navigation__text"
+        aria-current="true" lang="en">English</span>
+    </li>
+    <li class="govuk-language-navigation__list-item">
+      <a class="govuk-language-navigation__link" href="#/ar" rel="alternate" lang="ar" hreflang="ar">العربيَّة      </a>
+    </li>
+    <li class="govuk-language-navigation__list-item">
+      <a class="govuk-language-navigation__link" href="#/bg" rel="alternate" lang="bg" hreflang="bg">български      </a>
+    </li>
+    <li class="govuk-language-navigation__list-item">
+      <a class="govuk-language-navigation__link" href="#/bn" rel="alternate" lang="bn" hreflang="bn">বাংলা      </a>
+    </li>
+    <li class="govuk-language-navigation__list-item">
+      <a class="govuk-language-navigation__link" href="#/de" rel="alternate" lang="de" hreflang="de">Deutsch      </a>
+    </li>
+    <li class="govuk-language-navigation__list-item">
+      <a class="govuk-language-navigation__link" href="#/el" rel="alternate" lang="el" hreflang="el">Ελληνικά      </a>
+    </li>
+    <li class="govuk-language-navigation__list-item">
+      <a class="govuk-language-navigation__link" href="#/es" rel="alternate" lang="es" hreflang="es">Español      </a>
+    </li>
+    <li class="govuk-language-navigation__list-item">
+      <a class="govuk-language-navigation__link" href="#/fa" rel="alternate" lang="fa" hreflang="fa">فارسی      </a>
+    </li>
+    <li class="govuk-language-navigation__list-item">
+      <a class="govuk-language-navigation__link" href="#/fr" rel="alternate" lang="fr" hreflang="fr">Français      </a>
+    </li>
+    <li class="govuk-language-navigation__list-item">
+      <a class="govuk-language-navigation__link" href="#/gu" rel="alternate" lang="gu" hreflang="gu">જોર્જિયન      </a>
+    </li>
+    <li class="govuk-language-navigation__list-item">
+      <a class="govuk-language-navigation__link" href="#/hi" rel="alternate" lang="hi" hreflang="hi">हिंदी      </a>
+    </li>
+    <li class="govuk-language-navigation__list-item">
+      <a class="govuk-language-navigation__link" href="#/hu" rel="alternate" lang="hu" hreflang="hu">Magyar      </a>
+    </li>
+    <li class="govuk-language-navigation__list-item">
+      <a class="govuk-language-navigation__link" href="#/it" rel="alternate" lang="it" hreflang="it">Italiano      </a>
+    </li>
+    <li class="govuk-language-navigation__list-item">
+      <a class="govuk-language-navigation__link" href="#/lt" rel="alternate" lang="lt" hreflang="lt">Lietuvių      </a>
+    </li>
+    <li class="govuk-language-navigation__list-item">
+      <a class="govuk-language-navigation__link" href="#/lv" rel="alternate" lang="lv" hreflang="lv">Latviešu      </a>
+    </li>
+    <li class="govuk-language-navigation__list-item">
+      <a class="govuk-language-navigation__link" href="#/ne" rel="alternate" lang="ne" hreflang="ne">नेपाली      </a>
+    </li>
+    <li class="govuk-language-navigation__list-item">
+      <a class="govuk-language-navigation__link" href="#/pa" rel="alternate" lang="pa" hreflang="pa">ਪੰਜਾਬੀ ਗੁਰਮੁਖੀ      </a>
+    </li>
+    <li class="govuk-language-navigation__list-item">
+      <a class="govuk-language-navigation__link" href="#/pl" rel="alternate" lang="pl" hreflang="pl">Polski      </a>
+    </li>
+    <li class="govuk-language-navigation__list-item">
+      <a class="govuk-language-navigation__link" href="#/ps" rel="alternate" lang="ps" hreflang="ps">پښتو      </a>
+    </li>
+    <li class="govuk-language-navigation__list-item">
+      <a class="govuk-language-navigation__link" href="#/pt" rel="alternate" lang="pt" hreflang="pt">Português      </a>
+    </li>
+    <li class="govuk-language-navigation__list-item">
+      <a class="govuk-language-navigation__link" href="#/ro" rel="alternate" lang="ro" hreflang="ro">Română      </a>
+    </li>
+    <li class="govuk-language-navigation__list-item">
+      <a class="govuk-language-navigation__link" href="#/ru" rel="alternate" lang="ru" hreflang="ru">Русский язык      </a>
+    </li>
+    <li class="govuk-language-navigation__list-item">
+      <a class="govuk-language-navigation__link" href="#/sk" rel="alternate" lang="sk" hreflang="sk">Slovensky      </a>
+    </li>
+    <li class="govuk-language-navigation__list-item">
+      <a class="govuk-language-navigation__link" href="#/so" rel="alternate" lang="so" hreflang="so">Soomaali      </a>
+    </li>
+    <li class="govuk-language-navigation__list-item">
+      <a class="govuk-language-navigation__link" href="#/sq" rel="alternate" lang="sq" hreflang="sq">Shqip      </a>
+    </li>
+    <li class="govuk-language-navigation__list-item">
+      <a class="govuk-language-navigation__link" href="#/ta" rel="alternate" lang="ta" hreflang="ta">தமிழ்      </a>
+    </li>
+    <li class="govuk-language-navigation__list-item">
+      <a class="govuk-language-navigation__link" href="#/tr" rel="alternate" lang="tr" hreflang="tr">Türkçe      </a>
+    </li>
+    <li class="govuk-language-navigation__list-item">
+      <a class="govuk-language-navigation__link" href="#/uk" rel="alternate" lang="uk" hreflang="uk">Українська      </a>
+    </li>
+    <li class="govuk-language-navigation__list-item">
+      <a class="govuk-language-navigation__link" href="#/ur" rel="alternate" lang="ur" hreflang="ur">اردو      </a>
+    </li>
+    <li class="govuk-language-navigation__list-item">
+      <a class="govuk-language-navigation__link" href="#/zh" rel="alternate" lang="zh" hreflang="zh">简体中文      </a>
+    </li>
+    <li class="govuk-language-navigation__list-item">
+      <a class="govuk-language-navigation__link" href="#/zh" rel="alternate" lang="zh" hreflang="zh">w&quot;&gt;繁體中文（臺灣）      </a>
+    </li>
+  </ul>
+</nav>

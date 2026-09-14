@@ -1,0 +1,13 @@
+{
+  "serviceName" : "Service name",
+  "navigation" : [ {
+    "href" : "#/1",
+    "text" : "Navigation item 1"
+  } ],
+  "slots" : {
+    "end" : {
+      "html" : "<div>[end]</div>",
+      "align" : "inline"
+    }
+  }
+}
