@@ -20,7 +20,7 @@ import play.api.Configuration
 import play.api.i18n.Messages
 import uk.gov.hmrc.govukfrontend.views.Aliases.ServiceNavigation
 import uk.gov.hmrc.govukfrontend.views.viewmodels.content.HtmlContent
-import uk.gov.hmrc.govukfrontend.views.viewmodels.servicenavigation.ServiceNavigationSlot
+import uk.gov.hmrc.govukfrontend.views.viewmodels.servicenavigation.{ServiceNavigationEndSlot, ServiceNavigationSlot}
 import uk.gov.hmrc.hmrcfrontend.views.html.components.HmrcServiceNavigationLanguageSelect
 import uk.gov.hmrc.hmrcfrontend.views.html.helpers.HmrcServiceNavigationLanguageSelectHelper
 
@@ -33,8 +33,10 @@ trait RichServiceNavigationSupport {
         new HmrcServiceNavigationLanguageSelect()
       ).apply()
       val slots: Option[ServiceNavigationSlot] = serviceNavigation.slots
-        .map(_.copy(end = HtmlContent(languageSelectHtml)))
-        .orElse(Some(ServiceNavigationSlot(end = HtmlContent(languageSelectHtml))))
+        .map(_.copy(end = Some(ServiceNavigationEndSlot(end = HtmlContent(languageSelectHtml)))))
+        .orElse(
+          Some(ServiceNavigationSlot(end = Some(ServiceNavigationEndSlot(end = HtmlContent(languageSelectHtml)))))
+        )
       serviceNavigation.copy(
         slots = slots,
         classes = s"${serviceNavigation.classes} hmrc-service-navigation--with-language-select".trim

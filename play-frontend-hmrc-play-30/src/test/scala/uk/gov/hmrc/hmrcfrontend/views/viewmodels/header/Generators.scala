@@ -133,7 +133,7 @@ object Generators {
       navigationEnd   <- slotArbContent.arbitrary
     } yield ServiceNavigationSlot(
       start = start,
-      end = end,
+      end = None,
       navigationStart = navigationStart,
       navigationEnd = navigationEnd
     )

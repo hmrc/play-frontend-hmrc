@@ -23,7 +23,7 @@ import uk.gov.hmrc.govukfrontend.views.viewmodels.content.{Content, Empty, HtmlC
 
 case class ServiceNavigationSlot(
   start: Content = Empty,
-  end: Content = Empty,
+  end: Option[ServiceNavigationEndSlot] = None,
   navigationStart: Content = Empty,
   navigationEnd: Content = Empty
 )
@@ -45,23 +45,23 @@ object ServiceNavigationSlot {
 
   private def applyReads(
     start: Option[String],
-    end: Option[String],
+    end: Option[ServiceNavigationEndSlot],
     navigationStart: Option[String],
     navigationEnd: Option[String]
   ): ServiceNavigationSlot =
     ServiceNavigationSlot(
       start = contentFromOptionalString(start),
-      end = contentFromOptionalString(end),
+      end = end,
       navigationStart = contentFromOptionalString(navigationStart),
       navigationEnd = contentFromOptionalString(navigationEnd)
     )
 
   private def unapplyWrites(
     slot: ServiceNavigationSlot
-  ): (Option[String], Option[String], Option[String], Option[String]) =
+  ): (Option[String], Option[ServiceNavigationEndSlot], Option[String], Option[String]) =
     (
       contentToOptionalString(slot.start),
-      contentToOptionalString(slot.end),
+      slot.end,
       contentToOptionalString(slot.navigationStart),
       contentToOptionalString(slot.navigationEnd)
     )
@@ -69,7 +69,7 @@ object ServiceNavigationSlot {
   implicit def jsonReads: Reads[ServiceNavigationSlot] =
     (
       (__ \ "start").readNullable[String] and
-        (__ \ "end").readNullable[String] and
+        (__ \ "end").readNullable[ServiceNavigationEndSlot] and
         (__ \ "navigationStart").readNullable[String] and
         (__ \ "navigationEnd").readNullable[String]
     )(applyReads _)
@@ -77,7 +77,7 @@ object ServiceNavigationSlot {
   implicit def jsonWrites: Writes[ServiceNavigationSlot] =
     (
       (__ \ "start").writeNullable[String] and
-        (__ \ "end").writeNullable[String] and
+        (__ \ "end").writeNullable[ServiceNavigationEndSlot] and
         (__ \ "navigationStart").writeNullable[String] and
         (__ \ "navigationEnd").writeNullable[String]
     )(unapplyWrites(_))

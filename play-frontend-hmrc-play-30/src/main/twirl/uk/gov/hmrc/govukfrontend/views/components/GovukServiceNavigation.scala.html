@@ -26,6 +26,10 @@
   if(navigationId.nonEmpty) navigationId else "navigation"
 }
 
+@endSlotInline = @{
+    params.slots.flatMap(_.end.map(_.align)).flatten.contains("inline")
+}
+
 @govukServiceNavigationContainer = {
   <div class="govuk-service-navigation__container">
     @if(serviceName.nonEmpty) {
@@ -76,12 +80,12 @@
 }
 
 @govukWidthContainer = {
-  <div class="govuk-width-container">
+  <div class="@toClasses("govuk-width-container", if(endSlotInline) "govuk-service-navigation__inlining-container" else "")">
     @slots.map(_.start.asHtml)
 
     @govukServiceNavigationContainer
 
-    @slots.map(_.end.asHtml)
+    @slots.flatMap(_.end.map(_.end.asHtml))
   </div>
 }
 

@@ -31,10 +31,17 @@ object Generators {
     Gen.oneOf(arbEmpty.arbitrary, arbHtmlContent.arbitrary)
   }
 
+  private val arbServiceNavigationEndSlot: Arbitrary[ServiceNavigationEndSlot] = Arbitrary {
+    for {
+      end   <- slotArbContent.arbitrary
+      align <- Gen.option(genNonEmptyAlphaStr)
+    } yield ServiceNavigationEndSlot(end, align)
+  }
+
   implicit val arbServiceNavigationSlot: Arbitrary[ServiceNavigationSlot] = Arbitrary {
     for {
       start           <- slotArbContent.arbitrary
-      end             <- slotArbContent.arbitrary
+      end             <- Gen.option(arbServiceNavigationEndSlot.arbitrary)
       navigationStart <- slotArbContent.arbitrary
       navigationEnd   <- slotArbContent.arbitrary
     } yield ServiceNavigationSlot.apply(
