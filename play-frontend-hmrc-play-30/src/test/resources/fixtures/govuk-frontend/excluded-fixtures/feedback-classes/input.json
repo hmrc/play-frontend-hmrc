@@ -1,0 +1,5 @@
+{
+  "titleText" : "Help us improve this service",
+  "html" : "<p class=\"govuk-body\">Tell us about your experience using this service. <a href=\"#\" class=\"govuk-link\">Give us your feedback</a></p>\n",
+  "classes" : "my-first-class my-second-class"
+}

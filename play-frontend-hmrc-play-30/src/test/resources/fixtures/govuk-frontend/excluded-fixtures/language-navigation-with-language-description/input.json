@@ -1,0 +1,15 @@
+{
+  "attributes" : {
+    "lang" : "cy"
+  },
+  "items" : [ {
+    "text" : "English",
+    "lang" : "en",
+    "current" : true
+  }, {
+    "text" : "Cymraeg",
+    "lang" : "cy",
+    "href" : "#/cy",
+    "languageDescriptionText" : "Newid yr iaith i'r Cymraeg"
+  } ]
+}

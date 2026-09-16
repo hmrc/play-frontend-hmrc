@@ -16,7 +16,6 @@
 
 package uk.gov.hmrc.govukfrontend.views.implicits
 
-import play.api.Configuration
 import play.api.i18n.Messages
 import uk.gov.hmrc.govukfrontend.views.Aliases.ServiceNavigation
 import uk.gov.hmrc.govukfrontend.views.viewmodels.content.HtmlContent
