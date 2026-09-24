@@ -13,7 +13,7 @@ For compatibility information see `govukFrontendVersion` and `hmrcFrontendVersio
 ### Changed
 
 - Uplifted `hmrc-frontend` to v7.38.0
-- Pulled in Javascript fix to `HmrcServiceNavigationLanguageSelect` to fix alignment on small screens
+- Pulled in accessibility impacting css fix to `HmrcServiceNavigationLanguageSelect` to fix alignment on small screens
 
 ### Compatible with
 
