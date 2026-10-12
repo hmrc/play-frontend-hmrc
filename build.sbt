@@ -1,3 +1,4 @@
+import scoverage.ScoverageKeys
 import uk.gov.hmrc.DefaultBuildSettings
 
 val scala2_13 = "2.13.18"
@@ -49,7 +50,12 @@ lazy val playFrontendHmrcPlay30 = Project("play-frontend-hmrc-play-30", file("pl
       "govukFrontendVersion" -> LibDependencies.govukFrontendVersion,
       "hmrcFrontendVersion"  -> LibDependencies.hmrcFrontendVersion
     ),
-    buildInfoPackage := "hmrcfrontendbuildinfo"
+    buildInfoPackage := "hmrcfrontendbuildinfo",
+    ScoverageKeys.coverageExcludedFiles := "<empty>;Reverse.*;.*handlers.*;.*components.*;" +
+      ".*Routes.*;.*viewmodels.govuk.*;",
+    ScoverageKeys.coverageMinimumStmtTotal := 92,
+    ScoverageKeys.coverageFailOnMinimum := true,
+    ScoverageKeys.coverageHighlighting := true
   )
 
 lazy val templateImports: Seq[String] = Seq(
