@@ -8,6 +8,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 For compatibility information see `govukFrontendVersion` and `hmrcFrontendVersion` in
 [LibDependencies](project/LibDependencies.scala)
 
+## [13.17.0] - 2026-10-13
+
+### Changed
+
+- Added `sbt-scoverage` plugin
+
 ## [13.16.0] - 2026-10-05
 
 ### Changed
