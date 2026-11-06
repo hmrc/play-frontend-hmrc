@@ -1,0 +1,9 @@
+{
+  "id" : "maxwords-welsh",
+  "name" : "maxwords-welsh",
+  "maxwords" : 10,
+  "label" : {
+    "text" : "Full address"
+  },
+  "language" : "cy"
+}

@@ -14,5 +14,10 @@
       <li>update the licence conditions section</li>
     </ul>
   </div>
-  <div class="govuk-panel__actions"></div>
+  <div class="govuk-panel__actions"><div class="govuk-button-group">
+      <button type="submit" class="govuk-button govuk-button--inverse" data-module="govuk-button">
+        Continue to other sections
+      </button>
+      <a class="govuk-link govuk-link--inverse" href="#">Go back to application</a>
+    </div></div>
 </div>

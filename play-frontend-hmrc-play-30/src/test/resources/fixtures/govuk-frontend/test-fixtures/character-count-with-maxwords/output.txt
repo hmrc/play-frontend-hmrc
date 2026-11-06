@@ -1,0 +1,9 @@
+<div class="govuk-form-group govuk-character-count" data-module="govuk-character-count" data-maxwords="10" data-count-type="words">
+  <label class="govuk-label" for="maxwords">
+    Full address
+  </label>
+  <textarea class="govuk-textarea govuk-js-character-count" id="maxwords" name="maxwords" rows="5" aria-describedby="maxwords-info"></textarea>
+  <div id="maxwords-info" class="govuk-hint govuk-character-count__message">
+    You can enter up to 10 words
+  </div>
+</div>

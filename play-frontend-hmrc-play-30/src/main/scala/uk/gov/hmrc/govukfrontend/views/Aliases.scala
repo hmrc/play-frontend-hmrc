@@ -50,6 +50,9 @@ trait Aliases {
   type CharacterCount = viewmodels.charactercount.CharacterCount
   val CharacterCount = viewmodels.charactercount.CharacterCount
 
+  type CountType = viewmodels.charactercount.CountType
+  val CountType = viewmodels.charactercount.CountType
+
   type DateInput = viewmodels.dateinput.DateInput
   val DateInput = viewmodels.dateinput.DateInput
 

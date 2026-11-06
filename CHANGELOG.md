@@ -8,11 +8,29 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 For compatibility information see `govukFrontendVersion` and `hmrcFrontendVersion` in
 [LibDependencies](project/LibDependencies.scala)
 
+## [13.18.0] - 2026-11-11
+
+### Changed
+
+- Updated `govuk-frontend` to `v6.6.0`
+- Updated `hmrc-fronted` to `v7.46.0`
+- Introduced new `countType` parameter on `CharacterCount`, in line with `govuk-frontend` changes
+
+### Compatible with
+
+- [hmrc/hmrc-frontend v7.46.0](https://github.com/hmrc/hmrc-frontend/releases/tag/v7.46.0)
+- [alphagov/govuk-frontend v6.6.0](https://github.com/alphagov/govuk-frontend/releases/tag/v6.6.0)
+
 ## [13.17.0] - 2026-10-13
 
 ### Changed
 
 - Added `sbt-scoverage` plugin
+
+### Compatible with
+
+- [hmrc/hmrc-frontend v7.40.0](https://github.com/hmrc/hmrc-frontend/releases/tag/v7.40.0)
+- [alphagov/govuk-frontend v6.5.0](https://github.com/alphagov/govuk-frontend/releases/tag/v6.5.0)
 
 ## [13.16.0] - 2026-10-05
 

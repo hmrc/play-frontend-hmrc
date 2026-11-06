@@ -1,0 +1,9 @@
+<div class="govuk-form-group govuk-character-count" data-module="govuk-character-count" data-maxlength="50" data-count-type="words">
+  <label class="govuk-label" for="with-count-type-words">
+    Enter a job description
+  </label>
+  <textarea class="govuk-textarea govuk-js-character-count" id="with-count-type-words" name="example" rows="5" aria-describedby="with-count-type-words-info"></textarea>
+  <div id="with-count-type-words-info" class="govuk-hint govuk-character-count__message">
+    You can enter up to 50 words
+  </div>
+</div>

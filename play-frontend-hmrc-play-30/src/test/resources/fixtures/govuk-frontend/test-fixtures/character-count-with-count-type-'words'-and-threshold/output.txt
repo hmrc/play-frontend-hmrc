@@ -1,0 +1,9 @@
+<div class="govuk-form-group govuk-character-count" data-module="govuk-character-count" data-maxlength="51" data-threshold="30" data-count-type="words">
+  <label class="govuk-label" for="with-count-type-words-threshold">
+    Enter a job description
+  </label>
+  <textarea class="govuk-textarea govuk-js-character-count" id="with-count-type-words-threshold" name="example" rows="5" aria-describedby="with-count-type-words-threshold-info">Type another word into this field after this message to see the threshold feature</textarea>
+  <div id="with-count-type-words-threshold-info" class="govuk-hint govuk-character-count__message">
+    You can enter up to 51 words
+  </div>
+</div>

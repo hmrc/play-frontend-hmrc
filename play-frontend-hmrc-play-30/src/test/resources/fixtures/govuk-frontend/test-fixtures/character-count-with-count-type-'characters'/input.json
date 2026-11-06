@@ -1,0 +1,9 @@
+{
+  "id" : "with-count-type-characters",
+  "name" : "example",
+  "countType" : "characters",
+  "maxlength" : 200,
+  "label" : {
+    "text" : "Enter a job description"
+  }
+}

@@ -53,6 +53,7 @@ case class CharacterCount(
   maxLength: Option[Int] = None,
   maxWords: Option[Int] = None,
   threshold: Option[Int] = None,
+  countType: Option[CountType] = None,
   label: Label = Label(),
   hint: Option[Hint] = None,
   errorMessage: Option[ErrorMessage] = None,
@@ -77,6 +78,7 @@ object CharacterCount {
         (__ \ "maxlength").readNullable[IntString].int and
         (__ \ "maxwords").readNullable[IntString].int and
         (__ \ "threshold").readNullable[IntString].int and
+        (__ \ "countType").readNullable[CountType] and
         (__ \ "label").readWithDefault[Label](defaultObject.label) and
         (__ \ "hint").readNullable[Hint] and
         (__ \ "errorMessage").readNullable[ErrorMessage] and
@@ -97,6 +99,7 @@ object CharacterCount {
         (__ \ "maxlength").writeNullable[Int] and
         (__ \ "maxwords").writeNullable[Int] and
         (__ \ "threshold").writeNullable[Int] and
+        (__ \ "countType").writeNullable[CountType] and
         (__ \ "label").write[Label] and
         (__ \ "hint").writeNullable[Hint] and
         (__ \ "errorMessage").writeNullable[ErrorMessage] and
@@ -107,5 +110,4 @@ object CharacterCount {
         writesCountMessageClasses and
         (__ \ "language").write[Language]
     )(o => WritesUtils.unapplyCompat(unapply)(o))
-
 }

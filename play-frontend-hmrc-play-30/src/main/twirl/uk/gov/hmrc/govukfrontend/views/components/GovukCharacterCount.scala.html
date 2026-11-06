@@ -15,10 +15,10 @@
  *@
 
 @import uk.gov.hmrc.govukfrontend.views.html.components._
+@import uk.gov.hmrc.govukfrontend.views.viewmodels.charactercount._
 
 @this(govukTextarea: GovukTextarea,
       govukHint: GovukHint)
-
 
 @(params: CharacterCount)
 @import params._
@@ -28,12 +28,19 @@
     if (id.isEmpty) name else id
 }
 
+@maybeCountType = @{
+    countType.orElse {
+        if (maxWords.isDefined) Some(WordsCountType) else None
+    }
+}
+
 @dataAttributes = @{
     val maybeDataAttributes = Map(
         "data-module" -> "govuk-character-count",
         "data-maxlength" -> maxLength.filter(_ > 0).map(_.toString).getOrElse(""),
         "data-threshold" -> threshold.filter(_ > 0).map(_.toString).getOrElse(""),
         "data-maxwords" -> maxWords.filter(_ > 0).map(_.toString).getOrElse(""),
+        "data-count-type" -> maybeCountType.map(_.asString).getOrElse(""),
     ) ++ toGovukPluralisedI18nAttributes("characters-under-limit", charactersUnderLimitText) ++ Map(
         "data-i18n.characters-at-limit" -> charactersAtLimitText.getOrElse("")
     ) ++ toGovukPluralisedI18nAttributes("characters-over-limit", charactersOverLimitText) ++ toGovukPluralisedI18nAttributes("words-under-limit", wordsUnderLimitText) ++ Map(
@@ -51,7 +58,7 @@
     } else {
         textareaDescriptionText match {
             case Some(textAreaText) => { Text(textAreaText.replace("%{count}", "" + max)) }
-            case None => { Text("You can enter up to " + max + " " + maxWords.filter(_ > 0).fold("characters")(_ => "words")) }
+            case None => { Text("You can enter up to " + max + " " + (if (maybeCountType.contains(WordsCountType)) "words" else "characters")) }
         }
     }
 }
