@@ -61,7 +61,7 @@ case class CharacterCount(
   maxLength: Option[Int] = None,
   maxWords: Option[Int] = None,
   threshold: Option[Int] = None,
-  countType: Option[CountType] = None,
+  countType: Option[CountType] = Some(LengthCountType),
   label: Label = Label(),
   hint: Option[Hint] = None,
   errorMessage: Option[ErrorMessage] = None,
