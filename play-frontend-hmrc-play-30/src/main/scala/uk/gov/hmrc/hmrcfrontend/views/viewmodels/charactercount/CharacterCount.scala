@@ -53,7 +53,6 @@ case class CharacterCount(
   maxLength: Option[Int] = None,
   maxWords: Option[Int] = None,
   threshold: Option[Int] = None,
-  countType: Option[CountType] = None,
   label: Label = Label(),
   hint: Option[Hint] = None,
   errorMessage: Option[ErrorMessage] = None,
@@ -62,7 +61,8 @@ case class CharacterCount(
   attributes: Map[String, String] = Map.empty,
   spellcheck: Option[Boolean] = None,
   countMessageClasses: String = "",
-  language: Language = En
+  language: Language = En,
+  countType: Option[CountType] = None
 )
 
 object CharacterCount {
@@ -78,7 +78,6 @@ object CharacterCount {
         (__ \ "maxlength").readNullable[IntString].int and
         (__ \ "maxwords").readNullable[IntString].int and
         (__ \ "threshold").readNullable[IntString].int and
-        (__ \ "countType").readNullable[CountType] and
         (__ \ "label").readWithDefault[Label](defaultObject.label) and
         (__ \ "hint").readNullable[Hint] and
         (__ \ "errorMessage").readNullable[ErrorMessage] and
@@ -87,7 +86,8 @@ object CharacterCount {
         (__ \ "attributes").readWithDefault[Map[String, String]](defaultObject.attributes)(attributesReads) and
         (__ \ "spellcheck").readNullable[Boolean] and
         readsCountMessageClasses and
-        (__ \ "language").readWithDefault[Language](defaultObject.language)
+        (__ \ "language").readWithDefault[Language](defaultObject.language) and
+        (__ \ "countType").readNullable[CountType]
     )(CharacterCount.apply _)
 
   implicit def jsonWrites: OWrites[CharacterCount] =
@@ -99,7 +99,6 @@ object CharacterCount {
         (__ \ "maxlength").writeNullable[Int] and
         (__ \ "maxwords").writeNullable[Int] and
         (__ \ "threshold").writeNullable[Int] and
-        (__ \ "countType").writeNullable[CountType] and
         (__ \ "label").write[Label] and
         (__ \ "hint").writeNullable[Hint] and
         (__ \ "errorMessage").writeNullable[ErrorMessage] and
@@ -108,6 +107,7 @@ object CharacterCount {
         (__ \ "attributes").write[Map[String, String]] and
         (__ \ "spellcheck").writeNullable[Boolean] and
         writesCountMessageClasses and
-        (__ \ "language").write[Language]
+        (__ \ "language").write[Language] and
+        (__ \ "countType").writeNullable[CountType]
     )(o => WritesUtils.unapplyCompat(unapply)(o))
 }

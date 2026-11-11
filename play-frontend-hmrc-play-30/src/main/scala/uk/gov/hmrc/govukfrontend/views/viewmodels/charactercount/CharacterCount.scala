@@ -34,7 +34,6 @@ import uk.gov.hmrc.supportfrontend.views.IntString
   * @param maxLength optional maximum length, in characters, of the text in the `textarea`
   * @param maxWords optional maximum number of words in the `textarea`. Deprecated, should use `maxLength` and `countType`
   * @param threshold optional threshold, in characters, for the `textarea`
-  * @param countType optional count type used to count the text – `characters`, `length` or `words`
   * @param label optional `Label` for the control
   * @param hint optional `Hint` for the control
   * @param errorMessage optional `ErrorMessage` to display
@@ -51,6 +50,7 @@ import uk.gov.hmrc.supportfrontend.views.IntString
   * @param wordsAtLimitText optional text to display when the word count is at the limit
   * @param wordsOverLimitText optional text to display when the word count is over the limit
   * @param textareaDescriptionText optional text to display under the textarea
+  * @param countType optional count type used to count the text – `characters`, `length` or `words`
   */
 case class CharacterCount(
   id: String = "",
@@ -61,7 +61,6 @@ case class CharacterCount(
   maxLength: Option[Int] = None,
   maxWords: Option[Int] = None,
   threshold: Option[Int] = None,
-  countType: Option[CountType] = None,
   label: Label = Label(),
   hint: Option[Hint] = None,
   errorMessage: Option[ErrorMessage] = None,
@@ -75,7 +74,8 @@ case class CharacterCount(
   wordsUnderLimitText: Option[Map[String, String]] = None,
   wordsAtLimitText: Option[String] = None,
   wordsOverLimitText: Option[Map[String, String]] = None,
-  textareaDescriptionText: Option[String] = None
+  textareaDescriptionText: Option[String] = None,
+  countType: Option[CountType] = None
 )
 
 object CharacterCount {
@@ -93,7 +93,6 @@ object CharacterCount {
         maxLength                <- (json \ "maxlength").validateOpt[IntString]
         maxWords                 <- (json \ "maxwords").validateOpt[IntString]
         threshold                <- (json \ "threshold").validateOpt[IntString]
-        countType                <- (json \ "countType").validateOpt[CountType]
         label                    <- (json \ "label").validateOpt[Label]
         hint                     <- (json \ "hint").validateOpt[Hint]
         errorMessage             <- (json \ "errorMessage").validateOpt[ErrorMessage]
@@ -108,6 +107,7 @@ object CharacterCount {
         wordsAtLimitText         <- (json \ "wordsAtLimitText").validateOpt[String]
         wordsOverLimitText       <- (json \ "wordsOverLimitText").validateOpt[Map[String, String]]
         textareaDescriptionText  <- (json \ "textareaDescriptionText").validateOpt[String]
+        countType                <- (json \ "countType").validateOpt[CountType]
       } yield CharacterCount(
         id = id.getOrElse(defaultObject.id),
         name = name.getOrElse(defaultObject.name),
@@ -117,7 +117,6 @@ object CharacterCount {
         maxLength = maxLength.map(_.int),
         maxWords = maxWords.map(_.int),
         threshold = threshold.map(_.int),
-        countType = countType,
         label = label.getOrElse(defaultObject.label),
         hint = hint,
         errorMessage = errorMessage,
@@ -131,7 +130,8 @@ object CharacterCount {
         wordsUnderLimitText = wordsUnderLimitText,
         wordsAtLimitText = wordsAtLimitText,
         wordsOverLimitText = wordsOverLimitText,
-        textareaDescriptionText = textareaDescriptionText
+        textareaDescriptionText = textareaDescriptionText,
+        countType = countType
       )
   }
 
@@ -146,7 +146,6 @@ object CharacterCount {
         cc.maxLength.map(ml => Json.obj("maxlength" -> ml)),
         cc.maxWords.map(mw => Json.obj("maxwords" -> mw)),
         cc.threshold.map(t => Json.obj("threshold" -> t)),
-        cc.countType.map(ct => Json.obj("countType" -> Json.toJson(ct))),
         Some(Json.obj("label" -> Json.toJson(cc.label))),
         cc.hint.map(h => Json.obj("hint" -> Json.toJson(h))),
         cc.errorMessage.map(em => Json.obj("errorMessage" -> Json.toJson(em))),
@@ -160,7 +159,8 @@ object CharacterCount {
         cc.wordsUnderLimitText.map(w => Json.obj("wordsUnderLimitText" -> Json.toJson(w))),
         cc.wordsAtLimitText.map(w => Json.obj("wordsAtLimitText" -> Json.toJson(w))),
         cc.wordsOverLimitText.map(w => Json.obj("wordsOverLimitText" -> Json.toJson(w))),
-        cc.textareaDescriptionText.map(t => Json.obj("textareaDescriptionText" -> t))
+        cc.textareaDescriptionText.map(t => Json.obj("textareaDescriptionText" -> t)),
+        cc.countType.map(ct => Json.obj("countType" -> Json.toJson(ct)))
       ).flatten
         .foldLeft(Json.obj())(_ ++ _)
   }

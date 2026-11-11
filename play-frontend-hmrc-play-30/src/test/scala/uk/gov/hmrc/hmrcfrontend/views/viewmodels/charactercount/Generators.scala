@@ -38,7 +38,6 @@ object Generators {
                                .option(Gen.chooseNum(1, 10))
                                .retryUntil(optMaxWords => maxLength.nonEmpty || optMaxWords.nonEmpty)
       threshold           <- Gen.option(Gen.chooseNum(1, 5))
-      countType           <- Gen.option(Gen.oneOf(Seq(CharactersCountType, LengthCountType, WordsCountType)))
       label               <- arbLabel.arbitrary
       hint                <- Gen.option(arbHint.arbitrary)
       errorMessage        <- Gen.option(arbErrorMessage.arbitrary)
@@ -48,6 +47,7 @@ object Generators {
       language            <- arbLanguage.arbitrary
       spellcheck          <- Gen.option(arbBool.arbitrary)
       countMessageClasses <- genAlphaStr()
+      countType           <- Gen.option(Gen.oneOf(Seq(CharactersCountType, LengthCountType, WordsCountType)))
     } yield CharacterCount(
       id = id,
       name = name,
@@ -56,7 +56,6 @@ object Generators {
       maxLength = maxLength,
       maxWords = maxWords,
       threshold = threshold,
-      countType = countType,
       label = label,
       hint = hint,
       errorMessage = errorMessage,
@@ -65,8 +64,9 @@ object Generators {
       attributes = attributes,
       language = language,
       spellcheck = spellcheck,
-      countMessageClasses = countMessageClasses
+      countMessageClasses = countMessageClasses,
+      countType = countType
     )
-  }
 
+  }
 }
