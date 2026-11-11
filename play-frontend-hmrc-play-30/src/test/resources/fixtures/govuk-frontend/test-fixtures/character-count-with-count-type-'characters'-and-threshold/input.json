@@ -1,0 +1,11 @@
+{
+  "id" : "with-count-type-characters-threshold",
+  "name" : "example",
+  "countType" : "characters",
+  "maxlength" : 112,
+  "threshold" : 75,
+  "label" : {
+    "text" : "Enter a job description"
+  },
+  "value" : "Type another letter into this field after this message to see the threshold feature"
+}

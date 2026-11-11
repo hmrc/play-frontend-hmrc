@@ -51,6 +51,7 @@ object Generators {
       wordsAtLimitText         <- Gen.option(genAlphaStr())
       wordsOverLimitText       <- Gen.option(genMapValues(5))
       textareaDescriptionText  <- Gen.option(genNonEmptyAlphaStr)
+      countType                <- Gen.option(Gen.oneOf(Seq(CharactersCountType, LengthCountType, WordsCountType)))
     } yield CharacterCount(
       id = id,
       name = name,
@@ -73,7 +74,8 @@ object Generators {
       wordsUnderLimitText = wordsUnderLimitText,
       wordsAtLimitText = wordsAtLimitText,
       wordsOverLimitText = wordsOverLimitText,
-      textareaDescriptionText = textareaDescriptionText
+      textareaDescriptionText = textareaDescriptionText,
+      countType = countType
     )
 
   }

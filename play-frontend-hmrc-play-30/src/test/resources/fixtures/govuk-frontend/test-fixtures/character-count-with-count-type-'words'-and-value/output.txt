@@ -1,0 +1,9 @@
+<div class="govuk-form-group govuk-character-count" data-module="govuk-character-count" data-maxlength="51" data-count-type="words">
+  <label class="govuk-label" for="with-count-type-words-value">
+    Enter a job description
+  </label>
+  <textarea class="govuk-textarea govuk-js-character-count" id="with-count-type-words-value" name="example" rows="5" aria-describedby="with-count-type-words-value-info">👩🏻‍🚀 A content designer works on the end-to-end journey of a service to help users complete their goal and government deliver a policy intent. Their work may involve the creation of, or change to, a transaction, product or single piece of content that stretches across digital and offline channels.</textarea>
+  <div id="with-count-type-words-value-info" class="govuk-hint govuk-character-count__message">
+    You can enter up to 51 words
+  </div>
+</div>

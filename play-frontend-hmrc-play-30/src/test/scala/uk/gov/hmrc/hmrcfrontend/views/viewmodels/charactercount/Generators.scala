@@ -47,6 +47,7 @@ object Generators {
       language            <- arbLanguage.arbitrary
       spellcheck          <- Gen.option(arbBool.arbitrary)
       countMessageClasses <- genAlphaStr()
+      countType           <- Gen.option(Gen.oneOf(Seq(CharactersCountType, LengthCountType, WordsCountType)))
     } yield CharacterCount(
       id = id,
       name = name,
@@ -63,7 +64,8 @@ object Generators {
       attributes = attributes,
       language = language,
       spellcheck = spellcheck,
-      countMessageClasses = countMessageClasses
+      countMessageClasses = countMessageClasses,
+      countType = countType
     )
 
   }

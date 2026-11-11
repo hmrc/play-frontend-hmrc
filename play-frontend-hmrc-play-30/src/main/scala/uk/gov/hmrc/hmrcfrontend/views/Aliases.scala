@@ -84,6 +84,9 @@ trait Aliases {
   type CharacterCount = viewmodels.charactercount.CharacterCount
   val CharacterCount = viewmodels.charactercount.CharacterCount
 
+  type CountType = viewmodels.charactercount.CountType
+  val CountType = viewmodels.charactercount.CountType
+
   type AddToAList = viewmodels.addtoalist.AddToAList
   val AddToAList = viewmodels.addtoalist.AddToAList
 

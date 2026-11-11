@@ -61,7 +61,8 @@ case class CharacterCount(
   attributes: Map[String, String] = Map.empty,
   spellcheck: Option[Boolean] = None,
   countMessageClasses: String = "",
-  language: Language = En
+  language: Language = En,
+  countType: Option[CountType] = None
 )
 
 object CharacterCount {
@@ -85,7 +86,8 @@ object CharacterCount {
         (__ \ "attributes").readWithDefault[Map[String, String]](defaultObject.attributes)(attributesReads) and
         (__ \ "spellcheck").readNullable[Boolean] and
         readsCountMessageClasses and
-        (__ \ "language").readWithDefault[Language](defaultObject.language)
+        (__ \ "language").readWithDefault[Language](defaultObject.language) and
+        (__ \ "countType").readNullable[CountType]
     )(CharacterCount.apply _)
 
   implicit def jsonWrites: OWrites[CharacterCount] =
@@ -105,7 +107,7 @@ object CharacterCount {
         (__ \ "attributes").write[Map[String, String]] and
         (__ \ "spellcheck").writeNullable[Boolean] and
         writesCountMessageClasses and
-        (__ \ "language").write[Language]
+        (__ \ "language").write[Language] and
+        (__ \ "countType").writeNullable[CountType]
     )(o => WritesUtils.unapplyCompat(unapply)(o))
-
 }

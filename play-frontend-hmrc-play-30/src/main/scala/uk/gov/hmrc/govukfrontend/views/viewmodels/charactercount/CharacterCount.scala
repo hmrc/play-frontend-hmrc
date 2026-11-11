@@ -17,7 +17,6 @@
 package uk.gov.hmrc.govukfrontend.views.viewmodels
 package charactercount
 
-import play.api.libs.functional.syntax._
 import play.api.libs.json._
 import uk.gov.hmrc.govukfrontend.views.viewmodels.FormGroup
 import uk.gov.hmrc.govukfrontend.views.viewmodels.CommonJsonFormats._
@@ -33,7 +32,7 @@ import uk.gov.hmrc.supportfrontend.views.IntString
   * @param rows height of the `textarea` in rows
   * @param value optional initial value of the `textarea`
   * @param maxLength optional maximum length, in characters, of the text in the `textarea`
-  * @param maxWords optional maximum number of words in the `textarea`
+  * @param maxWords optional maximum number of words in the `textarea`. Deprecated, should use `maxLength` and `countType`
   * @param threshold optional threshold, in characters, for the `textarea`
   * @param label optional `Label` for the control
   * @param hint optional `Hint` for the control
@@ -51,6 +50,7 @@ import uk.gov.hmrc.supportfrontend.views.IntString
   * @param wordsAtLimitText optional text to display when the word count is at the limit
   * @param wordsOverLimitText optional text to display when the word count is over the limit
   * @param textareaDescriptionText optional text to display under the textarea
+  * @param countType optional count type used to count the text – `characters`, `length` or `words`
   */
 case class CharacterCount(
   id: String = "",
@@ -74,63 +74,94 @@ case class CharacterCount(
   wordsUnderLimitText: Option[Map[String, String]] = None,
   wordsAtLimitText: Option[String] = None,
   wordsOverLimitText: Option[Map[String, String]] = None,
-  textareaDescriptionText: Option[String] = None
+  textareaDescriptionText: Option[String] = None,
+  countType: Option[CountType] = None
 )
 
 object CharacterCount {
 
   def defaultObject: CharacterCount = CharacterCount()
 
-  implicit def jsonReads: Reads[CharacterCount] =
-    (
-      (__ \ "id").readWithDefault[String](defaultObject.id) and
-        (__ \ "name").readWithDefault[String](defaultObject.name) and
-        (__ \ "rows").readWithDefault[IntString](IntString(defaultObject.rows)).int and
-        (__ \ "spellcheck").readNullable[Boolean] and
-        (__ \ "value").readNullable[String] and
-        (__ \ "maxlength").readNullable[IntString].int and
-        (__ \ "maxwords").readNullable[IntString].int and
-        (__ \ "threshold").readNullable[IntString].int and
-        (__ \ "label").readWithDefault[Label](defaultObject.label) and
-        (__ \ "hint").readNullable[Hint] and
-        (__ \ "errorMessage").readNullable[ErrorMessage] and
-        (__ \ "formGroup").readWithDefault[FormGroup](defaultObject.formGroup) and
-        (__ \ "classes").readWithDefault[String](defaultObject.classes) and
-        (__ \ "attributes").readWithDefault[Map[String, String]](defaultObject.attributes)(attributesReads) and
-        readsCountMessageClasses and
-        (__ \ "charactersUnderLimitText").readNullable[Map[String, String]] and
-        (__ \ "charactersAtLimitText").readNullable[String] and
-        (__ \ "charactersOverLimitText").readNullable[Map[String, String]] and
-        (__ \ "wordsUnderLimitText").readNullable[Map[String, String]] and
-        (__ \ "wordsAtLimitText").readNullable[String] and
-        (__ \ "wordsOverLimitText").readNullable[Map[String, String]] and
-        (__ \ "textareaDescriptionText").readNullable[String]
-    )(CharacterCount.apply _)
+  implicit def jsonReads: Reads[CharacterCount] = new Reads[CharacterCount] {
+    override def reads(json: JsValue): JsResult[CharacterCount] =
+      for {
+        id                       <- (json \ "id").validateOpt[String]
+        name                     <- (json \ "name").validateOpt[String]
+        rows                     <- (json \ "rows").validateOpt[Int]
+        spellcheck               <- (json \ "spellcheck").validateOpt[Boolean]
+        value                    <- (json \ "value").validateOpt[String]
+        maxLength                <- (json \ "maxlength").validateOpt[IntString]
+        maxWords                 <- (json \ "maxwords").validateOpt[IntString]
+        threshold                <- (json \ "threshold").validateOpt[IntString]
+        label                    <- (json \ "label").validateOpt[Label]
+        hint                     <- (json \ "hint").validateOpt[Hint]
+        errorMessage             <- (json \ "errorMessage").validateOpt[ErrorMessage]
+        formGroup                <- (json \ "formGroup").validateOpt[FormGroup]
+        attributes               <- (json \ "attributes").validateOpt[Map[String, String]](attributesReads)
+        classes                  <- (json \ "classes").validateOpt[String]
+        countMessageClasses      <- (json \ "countMessage" \ "classes").validateOpt[String]
+        charactersUnderLimitText <- (json \ "charactersUnderLimitText").validateOpt[Map[String, String]]
+        charactersAtLimitText    <- (json \ "charactersAtLimitText").validateOpt[String]
+        charactersOverLimitText  <- (json \ "charactersOverLimitText").validateOpt[Map[String, String]]
+        wordsUnderLimitText      <- (json \ "wordsUnderLimitText").validateOpt[Map[String, String]]
+        wordsAtLimitText         <- (json \ "wordsAtLimitText").validateOpt[String]
+        wordsOverLimitText       <- (json \ "wordsOverLimitText").validateOpt[Map[String, String]]
+        textareaDescriptionText  <- (json \ "textareaDescriptionText").validateOpt[String]
+        countType                <- (json \ "countType").validateOpt[CountType]
+      } yield CharacterCount(
+        id = id.getOrElse(defaultObject.id),
+        name = name.getOrElse(defaultObject.name),
+        rows = rows.getOrElse(defaultObject.rows),
+        spellcheck = spellcheck,
+        value = value,
+        maxLength = maxLength.map(_.int),
+        maxWords = maxWords.map(_.int),
+        threshold = threshold.map(_.int),
+        label = label.getOrElse(defaultObject.label),
+        hint = hint,
+        errorMessage = errorMessage,
+        formGroup = formGroup.getOrElse(defaultObject.formGroup),
+        classes = classes.getOrElse(defaultObject.classes),
+        attributes = attributes.getOrElse(defaultObject.attributes),
+        countMessageClasses = countMessageClasses.getOrElse(defaultObject.countMessageClasses),
+        charactersUnderLimitText = charactersUnderLimitText,
+        charactersAtLimitText = charactersAtLimitText,
+        charactersOverLimitText = charactersOverLimitText,
+        wordsUnderLimitText = wordsUnderLimitText,
+        wordsAtLimitText = wordsAtLimitText,
+        wordsOverLimitText = wordsOverLimitText,
+        textareaDescriptionText = textareaDescriptionText,
+        countType = countType
+      )
+  }
 
-  implicit def jsonWrites: OWrites[CharacterCount] =
-    (
-      (__ \ "id").write[String] and
-        (__ \ "name").write[String] and
-        (__ \ "rows").write[Int] and
-        (__ \ "spellcheck").writeNullable[Boolean] and
-        (__ \ "value").writeNullable[String] and
-        (__ \ "maxlength").writeNullable[Int] and
-        (__ \ "maxwords").writeNullable[Int] and
-        (__ \ "threshold").writeNullable[Int] and
-        (__ \ "label").write[Label] and
-        (__ \ "hint").writeNullable[Hint] and
-        (__ \ "errorMessage").writeNullable[ErrorMessage] and
-        (__ \ "formGroup").write[FormGroup] and
-        (__ \ "classes").write[String] and
-        (__ \ "attributes").write[Map[String, String]] and
-        writesCountMessageClasses and
-        (__ \ "charactersUnderLimitText").writeNullable[Map[String, String]] and
-        (__ \ "charactersAtLimitText").writeNullable[String] and
-        (__ \ "charactersOverLimitText").writeNullable[Map[String, String]] and
-        (__ \ "wordsUnderLimitText").writeNullable[Map[String, String]] and
-        (__ \ "wordsAtLimitText").writeNullable[String] and
-        (__ \ "wordsOverLimitText").writeNullable[Map[String, String]] and
-        ((__ \ "textareaDescriptionText").writeNullable[String])
-    )(o => WritesUtils.unapplyCompat(unapply)(o))
-
+  implicit def jsonWrites: OWrites[CharacterCount] = new OWrites[CharacterCount] {
+    override def writes(cc: CharacterCount): JsObject =
+      Seq(
+        Some(Json.obj("id" -> cc.id)),
+        Some(Json.obj("name" -> cc.name)),
+        Some(Json.obj("rows" -> cc.rows)),
+        cc.spellcheck.map(s => Json.obj("spellcheck" -> s)),
+        cc.value.map(v => Json.obj("value" -> v)),
+        cc.maxLength.map(ml => Json.obj("maxlength" -> ml)),
+        cc.maxWords.map(mw => Json.obj("maxwords" -> mw)),
+        cc.threshold.map(t => Json.obj("threshold" -> t)),
+        Some(Json.obj("label" -> Json.toJson(cc.label))),
+        cc.hint.map(h => Json.obj("hint" -> Json.toJson(h))),
+        cc.errorMessage.map(em => Json.obj("errorMessage" -> Json.toJson(em))),
+        Some(Json.obj("formGroup" -> Json.toJson(cc.formGroup))),
+        Some(Json.obj("classes" -> cc.classes)),
+        Some(Json.obj("attributes" -> Json.toJson(cc.attributes))),
+        Some(Json.obj("countMessage" -> Json.obj("classes" -> cc.countMessageClasses))),
+        cc.charactersUnderLimitText.map(c => Json.obj("charactersUnderLimitText" -> Json.toJson(c))),
+        cc.charactersAtLimitText.map(c => Json.obj("charactersAtLimitText" -> Json.toJson(c))),
+        cc.charactersOverLimitText.map(c => Json.obj("charactersOverLimitText" -> Json.toJson(c))),
+        cc.wordsUnderLimitText.map(w => Json.obj("wordsUnderLimitText" -> Json.toJson(w))),
+        cc.wordsAtLimitText.map(w => Json.obj("wordsAtLimitText" -> Json.toJson(w))),
+        cc.wordsOverLimitText.map(w => Json.obj("wordsOverLimitText" -> Json.toJson(w))),
+        cc.textareaDescriptionText.map(t => Json.obj("textareaDescriptionText" -> t)),
+        cc.countType.map(ct => Json.obj("countType" -> Json.toJson(ct)))
+      ).flatten
+        .foldLeft(Json.obj())(_ ++ _)
+  }
 }
