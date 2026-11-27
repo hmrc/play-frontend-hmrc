@@ -27,14 +27,17 @@ import uk.gov.hmrc.helpers.views.JsoupHelpers
 import uk.gov.hmrc.govukfrontend.views.html.components._
 import uk.gov.hmrc.helpers.MessagesHelpers
 
+import play.api.mvc.RequestHeader
+import play.api.test.CSRFTokenHelper._
+import play.api.test.FakeRequest
+
 class FormWithCSRFSpec
     extends AnyWordSpec
     with Matchers
     with JsoupHelpers
     with MessagesHelpers
-    with CSRFSpec
     with GuiceOneAppPerSuite {
-
+  implicit val request: RequestHeader = FakeRequest().withCSRFToken
   val formWithCSRF: FormWithCSRF = app.injector.instanceOf[FormWithCSRF]
 
   "formWithCSRF" should {

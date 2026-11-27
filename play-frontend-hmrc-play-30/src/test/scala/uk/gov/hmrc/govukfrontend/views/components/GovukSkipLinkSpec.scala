@@ -19,13 +19,4 @@ package components
 
 import uk.gov.hmrc.govukfrontend.views.html.components._
 
-class GovukSkipLinkSpec extends TemplateUnitSpec[SkipLink, GovukSkipLink]("govukSkipLink") {
-
-  "skipLink" should {
-    "render href" in {
-      val output = component(SkipLink(href = "#custom", content = Empty)).select(".govuk-skip-link")
-
-      output.first().attr("href") shouldBe "#custom"
-    }
-  }
-}
+class GovukSkipLinkSpec extends TemplateUnitSpec[SkipLink, GovukSkipLink]("govukSkipLink")

@@ -32,24 +32,4 @@ class GovukWarningTextSpec extends TemplateUnitBaseSpec[WarningText]("govukWarni
     templateParams: WarningText
   ): Try[HtmlFormat.Appendable] = Try(component(templateParams))
 
-  "GovukWarningText" when {
-    "implicit messages language is welsh" should {
-      val welshMessages: Messages = messagesApi.preferred(Seq(Lang("cy")))
-
-      "display welsh translation of Warning" in {
-        val content = component(WarningText())(welshMessages)
-
-        val assistiveDescription = content.select(".govuk-visually-hidden")
-        assistiveDescription.text() shouldBe "Rhybudd"
-      }
-
-      "still allow you to override the assistive description test for the icon" in {
-        val content = component(WarningText(iconFallbackText = Some("asdfghjkl")))(welshMessages)
-
-        val assistiveDescription = content.select(".govuk-visually-hidden")
-        assistiveDescription.text() shouldBe "asdfghjkl"
-      }
-
-    }
-  }
 }

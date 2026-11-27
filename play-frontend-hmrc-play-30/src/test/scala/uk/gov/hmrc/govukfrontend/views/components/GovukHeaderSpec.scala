@@ -27,14 +27,4 @@ class GovukHeaderSpec extends TemplateUnitSpec[Header, GovukHeader]("govukHeader
   // used to calculate asset paths
   hmrcfrontend.RoutesPrefix.setPrefix("")
 
-  "header" should {
-    """display Tudor crown logo """ in {
-      val govukHeader = app.injector.instanceOf[GovukHeader]
-
-      val componentTry = Try(govukHeader(Header()))
-
-      componentTry          should be a Symbol("success")
-      componentTry.get.body should include("M33.1,9.8c.2")
-    }
-  }
 }

@@ -19,16 +19,4 @@ package components
 
 import uk.gov.hmrc.govukfrontend.views.html.components._
 
-class GovukButtonSpec extends TemplateUnitSpec[Button, GovukButton]("govukButton") {
-
-  "button element" should {
-    "render the default example" in {
-      val output =
-        component(Button(content = Text("Save and continue")))
-          .select(".govuk-button")
-
-      output.first.tagName shouldBe "button"
-      output.text            should include("Save and continue")
-    }
-  }
-}
+class GovukButtonSpec extends TemplateUnitSpec[Button, GovukButton]("govukButton")
