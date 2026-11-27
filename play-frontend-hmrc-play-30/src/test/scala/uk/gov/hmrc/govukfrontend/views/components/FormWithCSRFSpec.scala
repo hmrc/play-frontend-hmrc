@@ -38,7 +38,7 @@ class FormWithCSRFSpec
     with MessagesHelpers
     with GuiceOneAppPerSuite {
   implicit val request: RequestHeader = FakeRequest().withCSRFToken
-  val formWithCSRF: FormWithCSRF = app.injector.instanceOf[FormWithCSRF]
+  val formWithCSRF: FormWithCSRF      = app.injector.instanceOf[FormWithCSRF]
 
   "formWithCSRF" should {
     val postAction = Call(method = "POST", url = "/the-post-url")
