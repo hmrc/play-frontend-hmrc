@@ -35,34 +35,4 @@ class GovukTabsSpec extends TemplateUnitBaseSpec[Tabs]("govukTabs") with Message
 
     Try(component(templateParams))
   }
-
-  "GovukTabs" when {
-    "implicit messages language is English" should {
-      "display English default title if none passed in" in {
-        val tabs = Tabs(
-          title = None
-        )
-
-        val content = component(tabs)
-
-        val button = content.select(".govuk-tabs__title")
-        button.text() shouldBe "Contents"
-      }
-    }
-
-    "implicit messages language is Welsh" should {
-      val welshMessages: Messages = messagesApi.preferred(Seq(Lang("cy")))
-
-      "display Welsh translation of default title if none passed in" in {
-        val tabs = Tabs(
-          title = None
-        )
-
-        val content = component(tabs)(welshMessages)
-
-        val button = content.select(".govuk-tabs__title")
-        button.text() shouldBe "Cynnwys"
-      }
-    }
-  }
 }

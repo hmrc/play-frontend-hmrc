@@ -34,8 +34,8 @@ class GovukCharacterCountSpec extends TemplateUnitSpec[CharacterCount, GovukChar
 
       val charactersOverLimitText: Option[Map[String, String]] = Some(
         Map(
-          "one"   -> "%{count} character to many",
-          "other" -> "%{count} characters to many",
+          "one"   -> "%{count} character too many",
+          "other" -> "%{count} characters too many",
           "many"  -> "Way over limit"
         )
       )
@@ -71,8 +71,8 @@ class GovukCharacterCountSpec extends TemplateUnitSpec[CharacterCount, GovukChar
       output.attr("data-i18n.characters-under-limit.one")   shouldBe "%{count} character to go"
       output.attr("data-i18n.characters-under-limit.other") shouldBe "%{count} characters to go"
       output.attr("data-i18n.characters-at-limit")          shouldBe "Character limit reached"
-      output.attr("data-i18n.characters-over-limit.one")    shouldBe "%{count} character to many"
-      output.attr("data-i18n.characters-over-limit.other")  shouldBe "%{count} characters to many"
+      output.attr("data-i18n.characters-over-limit.one")    shouldBe "%{count} character too many"
+      output.attr("data-i18n.characters-over-limit.other")  shouldBe "%{count} characters too many"
       output.attr("data-i18n.characters-over-limit.many")   shouldBe "Way over limit"
       output.attr("data-i18n.words-at-limit")               shouldBe "Word limit reached"
       output.attr("data-i18n.words-under-limit.one")        shouldBe "%{count} word to go"

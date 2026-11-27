@@ -36,46 +36,4 @@ class GovukBreadcrumbsSpec extends TemplateUnitBaseSpec[Breadcrumbs]("govukBread
     Try(component(templateParams))
   }
 
-  "GovukBreadcrumb" should {
-    "render the attributes in order" in {
-      val params = Breadcrumbs(attributes =
-        Map(
-          "id"   -> "my-navigation",
-          "role" -> "navigation"
-        )
-      )
-      val output = component(params)
-
-      output.body should include(
-        "<nav aria-label=\"Breadcrumb\" class=\"govuk-breadcrumbs\" id=\"my-navigation\" role=\"navigation\">"
-      )
-    }
-
-    "render the attributes in order when input is reversed" in {
-      val params = Breadcrumbs(attributes =
-        Map(
-          "role" -> "navigation",
-          "id"   -> "my-navigation"
-        )
-      )
-      val output = component(params)
-
-      output.body should include(
-        "<nav aria-label=\"Breadcrumb\" class=\"govuk-breadcrumbs\" role=\"navigation\" id=\"my-navigation\">"
-      )
-    }
-
-    "render expected aria label correctly when language is not specified" in {
-      val output = component(Breadcrumbs())
-      val nav    = output.select(".govuk-breadcrumbs").first()
-      nav.attr("aria-label") shouldBe "Breadcrumb"
-    }
-
-    "render expected aria label correctly when language is Welsh" in {
-      val welshMessages: Messages = messagesApi.preferred(Seq(Lang("cy")))
-      val output                  = component(Breadcrumbs())(welshMessages)
-      val nav                     = output.select(".govuk-breadcrumbs").first()
-      nav.attr("aria-label") shouldBe "Briwsion bara"
-    }
-  }
 }

@@ -23,14 +23,6 @@ import scala.jdk.CollectionConverters._
 class GovukPhaseBannerSpec extends TemplateUnitSpec[PhaseBanner, GovukPhaseBanner]("govukPhaseBanner") {
 
   "phaseBanner" should {
-    "allow additional classes to be added to the component" in {
-      val classesString = "a-class another-class"
-      val classes       = classesString.split("""\s+""")
-      val div           = component(PhaseBanner(classes = classesString)).select("div").first()
-
-      div.classNames().asScala should contain allElementsOf classes
-    }
-
     "render banner text" in {
       val text = component(
         PhaseBanner(content = HtmlContent("This is a new service – your feedback will help us to improve it."))

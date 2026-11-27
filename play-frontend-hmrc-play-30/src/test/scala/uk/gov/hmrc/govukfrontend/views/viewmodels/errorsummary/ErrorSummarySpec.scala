@@ -19,4 +19,4 @@ package uk.gov.hmrc.govukfrontend.views.viewmodels.errorsummary
 import uk.gov.hmrc.govukfrontend.views.viewmodels.JsonRoundtripSpec
 import uk.gov.hmrc.govukfrontend.views.viewmodels.errorsummary.Generators._
 
-class ErrorSummarySpec extends JsonRoundtripSpec[ErrorLink]
+class ErrorSummarySpec extends JsonRoundtripSpec[ErrorSummary]
